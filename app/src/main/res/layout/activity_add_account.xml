@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <!-- TOOLBAR -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@color/black">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/exo2_bold"
+            android:text="@string/add_account"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_20" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <!-- PROGRESS -->
+    <LinearLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_30"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep1"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_step_active"
+            android:gravity="center"
+            android:text="@string/number_1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_18"
+            app:fontFamily="@font/exo2_bold" />
+
+        <View
+            android:id="@+id/viewLine1"
+            android:layout_width="50dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/grey_88" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep2"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_step_inactive"
+            android:gravity="center"
+            android:text="@string/number_2"
+            android:textColor="@color/medium_grey"
+            android:textSize="@dimen/text_18"
+            app:fontFamily="@font/exo2_bold" />
+
+        <View
+            android:id="@+id/viewLine2"
+            android:layout_width="50dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/grey_88" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStep3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_step_inactive"
+            android:gravity="center"
+            android:text="@string/number_3"
+            android:textColor="@color/medium_grey"
+            android:textSize="@dimen/text_18"
+            app:fontFamily="@font/exo2_bold" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutProgress">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- STEP 1 -->
+            <LinearLayout
+                android:id="@+id/layoutStep1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20"
+                android:visibility="visible">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/account_book" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:gravity="center"
+                    android:text="@string/account_heading"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_22"
+                    app:fontFamily="@font/exo2_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:gravity="center"
+                    android:text="@string/choose_name"
+                    android:textColor="@color/funky_grey"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_medium" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilWalletName"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:hint="@string/account_name"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_8"
+                    app:boxStrokeColor="@color/vibrant_orange"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:hintTextColor="@color/vibrant_orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etWalletName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_account"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:drawableTint="@color/vibrant_orange"
+                        android:fontFamily="@font/exo2_medium"
+                        android:inputType="textCapWords"
+                        android:padding="@dimen/padding_16"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextStep1"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:layout_marginEnd="@dimen/margin_12"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18"
+                    app:backgroundTint="@color/vibrant_orange"
+                    app:cornerRadius="@dimen/corner_radius_50"
+                    app:elevation="@dimen/corner_elevation_8"
+                    app:icon="@drawable/ic_arrow_right"
+                    app:iconGravity="end"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/white" />
+            </LinearLayout>
+
+            <!-- STEP 2 -->
+            <LinearLayout
+                android:id="@+id/layoutStep2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/currency" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:gravity="center"
+                    android:text="@string/choose_currency"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_22"
+                    app:fontFamily="@font/exo2_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:gravity="center"
+                    android:text="@string/select_currency_subtext"
+                    android:textColor="@color/funky_grey"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_medium" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCurrency"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:hint="@string/currency"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_8"
+                    app:boxStrokeColor="@color/vibrant_orange"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:hintTextColor="@color/vibrant_orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCurrency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:cursorVisible="false"
+                        android:inputType="none"
+                        android:drawableStart="@drawable/ic_cash"
+                        android:drawableEnd="@drawable/ic_dropdown"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:fontFamily="@font/exo2_medium"
+                        android:longClickable="false"
+                        android:padding="@dimen/padding_16"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNextStep2"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:layout_marginEnd="@dimen/margin_12"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18"
+                    app:backgroundTint="@color/vibrant_orange"
+                    app:cornerRadius="@dimen/corner_radius_50"
+                    app:elevation="@dimen/corner_elevation_8"
+                    app:icon="@drawable/ic_arrow_right"
+                    app:iconGravity="end"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/white" />
+            </LinearLayout>
+
+            <!-- STEP 3 -->
+            <LinearLayout
+                android:id="@+id/layoutStep3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/padding_20"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/wallet" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:gravity="center"
+                    android:text="@string/initial_balance"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_22"
+                    app:fontFamily="@font/exo2_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    android:gravity="center"
+                    android:text="@string/opening_balance_subtext"
+                    android:textColor="@color/funky_grey"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_medium" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilInitialAmount"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:layout_marginTop="@dimen/margin_30"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:hint="@string/initial_amount"
+                    app:boxBackgroundMode="outline"
+                    app:boxCornerRadiusBottomEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusBottomStart="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopEnd="@dimen/corner_radius_8"
+                    app:boxCornerRadiusTopStart="@dimen/corner_radius_8"
+                    app:boxStrokeColor="@color/vibrant_orange"
+                    app:boxStrokeWidth="2dp"
+                    app:boxStrokeWidthFocused="2dp"
+                    app:prefixTextAppearance="@style/CurrencyPrefixStyle"
+                    app:prefixTextColor="@color/vibrant_orange"
+                    app:hintTextColor="@color/vibrant_orange"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etInitialAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:inputType="numberDecimal"
+                        android:padding="@dimen/padding_16"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCreateAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_24"
+                    android:layout_marginEnd="@dimen/margin_12"
+                    android:layout_marginBottom="@dimen/margin_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="@string/create_account"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18"
+                    app:backgroundTint="@color/vibrant_orange"
+                    app:cornerRadius="@dimen/corner_radius_50"
+                    app:elevation="@dimen/corner_elevation_8"
+                    app:icon="@drawable/ic_done"
+                    app:iconGravity="end"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvSkip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="@string/skip"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_medium" />
+            </LinearLayout>
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

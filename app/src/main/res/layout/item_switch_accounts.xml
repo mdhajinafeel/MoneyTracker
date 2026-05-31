@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlAccountView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/padding_18"
+    android:paddingTop="@dimen/padding_16"
+    android:paddingEnd="@dimen/padding_10"
+    android:paddingBottom="@dimen/padding_12">
+
+    <!-- CODE + NAME -->
+    <LinearLayout
+        android:id="@+id/layoutText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAccountName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            app:fontFamily="@font/exo2_semibold" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAccountBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/medium_grey"
+            android:textSize="@dimen/text_14"
+            app:fontFamily="@font/exo2_medium" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/layoutText"
+        android:src="@drawable/ic_done"
+        android:visibility="gone"
+        app:tint="@color/vibrant_orange" />
+</RelativeLayout>

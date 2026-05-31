@@ -1,0 +1,19 @@
+// Top-level build file
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        maven { url 'repo1.maven.org/maven2' }
+    }
+    dependencies {
+        // Hilt plugin (optional if using plugins block in module)
+        classpath libs.hilt.android.gradle.plugin
+    }
+}
+
+plugins {
+    alias(libs.plugins.android.application) apply false
+    id("com.google.dagger.hilt.android") version "2.59.2" apply false
+    id 'com.google.gms.google-services' version '4.4.4' apply false
+}

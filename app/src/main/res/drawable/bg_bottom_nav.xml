@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Top Border -->
+    <item android:height="2dp" android:gravity="top">
+        <shape>
+            <solid android:color="#DADADA"/>
+        </shape>
+    </item>
+
+    <!-- Background -->
+    <item android:top="1dp">
+        <shape>
+            <solid android:color="#FFFFFFFF"/>
+        </shape>
+    </item>
+
+</layer-list>

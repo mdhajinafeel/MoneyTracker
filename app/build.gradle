@@ -1,0 +1,154 @@
+plugins {
+    alias(libs.plugins.android.application)
+    id 'com.google.dagger.hilt.android'
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+}
+
+android {
+    namespace 'com.nprotech.moneytracker'
+    compileSdk 37
+
+    defaultConfig {
+        applicationId "com.nprotech.moneytracker"
+        minSdk 23
+        targetSdk 37
+
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental": "true"
+                ]
+            }
+        }
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            initWith release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.release
+            debuggable true
+
+            buildConfigField "String", "APPLICATION_NAME", "\"CGR Terra ERP\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_TERRAERP-Prod\""
+            buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
+            buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
+            buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
+            buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+        }
+
+        debug {
+            initWith debug
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+
+            buildConfigField "String", "APPLICATION_NAME", "\"CGR Terra ERP\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_TERRAERP-Dev\""
+            buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
+            buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
+            buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
+            buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig true
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+
+    // ---------------------------
+    // AndroidX
+    // ---------------------------
+    implementation libs.appcompat
+    implementation libs.material
+
+    // ---------------------------
+    // Room & SQLite
+    // ---------------------------
+    implementation libs.room.runtime
+    annotationProcessor libs.room.compiler
+    implementation libs.sqlite
+
+    // ---------------------------
+    // Hilt (DI)
+    // ---------------------------
+    implementation libs.hilt.android
+    annotationProcessor libs.hilt.compiler
+
+    // ---------------------------
+    // Lifecycle
+    // ---------------------------
+    implementation libs.lifecycle.viewmodel
+    implementation libs.lifecycle.livedata
+
+    // ---------------------------
+    // Network
+    // ---------------------------
+    implementation libs.okhttp
+    implementation libs.logging.interceptor
+    implementation libs.retrofit
+    implementation libs.converter.gson
+
+    // ---------------------------
+    // Firebase
+    // ---------------------------
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.analytics
+    implementation libs.firebase.messaging
+    implementation libs.firebase.crashlytics
+
+    // ---------------------------
+    // WorkManager
+    // ---------------------------
+    implementation libs.work.runtime
+
+    // ---------------------------
+    // Utilities
+    // ---------------------------
+    implementation libs.lottie
+    implementation libs.androidsvg
+    implementation libs.securedpreferencestore
+    implementation libs.stetho
+    implementation libs.stetho.okhttp3
+    implementation libs.evalex
+    implementation libs.commons.lang3
+    implementation libs.toggle
+
+    // ---------------------------
+    // Glide
+    // ---------------------------
+    implementation libs.glide
+    annotationProcessor libs.compiler
+
+    // ---------------------------
+    // Gson
+    // ---------------------------
+    implementation libs.gson
+
+    // ---------------------------
+    // Testing
+    // ---------------------------
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+}

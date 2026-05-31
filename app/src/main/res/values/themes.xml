@@ -1,0 +1,54 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.MoneyTracker" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/azure_blue</item>
+        <item name="colorPrimaryVariant">@color/emerald_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/teal</item>
+        <item name="colorSecondaryVariant">@color/dark_teal</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <!-- ✅ Status bar background -->
+        <item name="android:statusBarColor">@color/vibrant_orange</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- false = white icons -->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:navigationBarColor">@color/vibrant_orange</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="CurrencyPrefixStyle">
+        <item name="android:textSize">@dimen/text_24</item>
+        <item name="android:fontFamily">@font/exo2_semibold</item>
+        <item name="android:textColor">@color/vibrant_orange</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/exo2_regular</item>
+        <item name="android:textSize">@dimen/text_12</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyleActive" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/exo2_medium</item>
+        <item name="android:textSize">@dimen/text_14</item>
+    </style>
+
+    <style name="FabCircleShape">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Toolbar.TitleText" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="CustomDateTimePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/vibrant_orange</item>
+        <item name="colorPrimaryDark">@color/vibrant_orange</item>
+        <item name="colorAccent">@color/vibrant_orange</item>
+    </style>
+</resources>

@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/vibrant_orange"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/toolbar_back" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbarBack">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.3333" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.6667" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/incomeWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/incomeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/income"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/expenseWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/transferWrapper"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/expenseLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/expense"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/transferWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transferLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/transfer"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/topWrapper"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_16"
+                    android:background="@color/white"
+                    android:paddingBottom="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/dateLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dateLabel">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvDay"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginBottom="@dimen/margin_8"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvHour"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_24"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/tvDay"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/recurringWrapper"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout1"
+                            app:layout_constraintEnd_toEndOf="@+id/constraintLayout1">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/recurringImage"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_recurrence"
+                                app:tint="@color/dark_grey" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/recurringLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/recurring"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintEnd_toEndOf="@+id/recurringImage"
+                                app:layout_constraintStart_toStartOf="@+id/recurringImage"
+                                app:layout_constraintTop_toBottomOf="@+id/recurringImage" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clDateTime">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/amountLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/amount"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/amountLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clAmount">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/descLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/description"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:hint="@string/short_description"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/descLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clDescription">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/categoryLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCategory"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_category"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/categoryLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clFromWallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clCategory">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/fromWalletLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/from_wallet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFromWallet"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_wallet"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/fromWalletLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clWallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clFromWallet">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/walletLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/wallet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWallet"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/walletLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clFee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clWallet">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/feeLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/fee"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFee"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/margin_24"
+                            android:layout_marginEnd="@dimen/margin_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/feeLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clMemo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clFee">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/memoLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginTop="@dimen/padding_16"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/memo"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout2"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginStart="@dimen/padding_24"
+                            android:layout_marginEnd="@dimen/padding_24"
+                            android:background="@drawable/bg_edit_text_underline"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/memoLabel">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/etMemo"
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/edit_text_height_40"
+                                android:background="@drawable/bg_edit_text_underline"
+                                android:ems="10"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center_vertical"
+                                android:hint="@string/add_note"
+                                android:inputType="textCapWords"
+                                android:paddingStart="@dimen/padding_0"
+                                android:paddingEnd="@dimen/padding_16"
+                                android:textSize="@dimen/text_16"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+                            app:layout_constraintEnd_toEndOf="@+id/constraintLayout2">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/noteImage"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_camera"
+                                app:tint="@color/dark_grey" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

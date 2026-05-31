@@ -1,0 +1,38 @@
+package com.nprotech.moneytracker.di;
+
+import com.nprotech.moneytracker.db.dao.CurrencyDao;
+import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.WalletDao;
+import com.nprotech.moneytracker.repositories.MasterRepository;
+import com.nprotech.moneytracker.repositories.AccountRepository;
+import com.nprotech.moneytracker.repositories.WalletRepository;
+
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
+
+@Module(includes = {ApiModule.class, DBModule.class})
+@InstallIn(SingletonComponent.class)
+public class RepoModule {
+
+    @Provides
+    @Singleton
+    MasterRepository provideMasterRepository(CurrencyDao currencyDao) {
+        return new MasterRepository(currencyDao);
+    }
+
+    @Provides
+    @Singleton
+    AccountRepository provideAccountRepository(AccountDao accountDao) {
+        return new AccountRepository(accountDao);
+    }
+
+    @Provides
+    @Singleton
+    WalletRepository provideWalletRepository(WalletDao walletDao) {
+        return new WalletRepository(walletDao);
+    }
+}
