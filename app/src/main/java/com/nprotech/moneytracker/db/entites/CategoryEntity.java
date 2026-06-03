@@ -10,10 +10,21 @@ public class CategoryEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
+    public String name;
     public String color;
     public int type;
-    public boolean isActive;
+    public boolean active;
     public int ordering;
     public int icon;
-    public int categoryNameId;
+    public int defaultCategory;
+
+    public CategoryEntity(String name, String color, int icon, int type, boolean active, int ordering, int defaultCategory) {
+        this.name = name;
+        this.color = color;
+        this.type = type;
+        this.active = active;
+        this.icon = icon;
+        this.ordering = ordering;
+        this.defaultCategory = defaultCategory;
+    }
 }

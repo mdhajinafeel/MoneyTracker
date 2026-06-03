@@ -31,4 +31,5 @@
     <string name="collect">Debt collection</string>
     <string name="category_allowance">Allowance</string>
     <string name="category_award">Award</string>
+    <string name="manage_category">Manage Category</string>
 </resources>

@@ -9,6 +9,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CurrencyInitializer;
 
 import java.security.KeyStore;
@@ -34,6 +35,9 @@ public class MoneyTrackerApp extends Application {
 
         // Currency load
         CurrencyInitializer.loadCurrencies(this);
+
+        // Category load
+        CategoryInitializer.loadCategories(this);
 
         // Firebase crashlytics
         firebaseCrashlytics();

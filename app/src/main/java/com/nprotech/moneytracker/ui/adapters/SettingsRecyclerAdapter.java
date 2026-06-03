@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,8 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
 
     public interface OnSettingActionListener {
         void onSwitchToggle(SettingItemModel item, boolean isChecked, LabeledSwitch switchButton);
+
+        void onSettingClick(SettingItemModel item);
     }
 
     private final List<SettingItemModel> items;
@@ -49,6 +52,7 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
         if (item.switchVisible) {
             holder.switchButton.setVisibility(View.VISIBLE);
             holder.switchButton.setOnToggledListener(null);
+            holder.ivNavigation.setVisibility(View.GONE);
 
             if (item.settingId == 1)
                 holder.switchButton.setOn(PreferenceManager.INSTANCE.getDarkMode());
@@ -59,7 +63,26 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
 
         } else {
             holder.switchButton.setVisibility(View.GONE);
+            holder.ivNavigation.setVisibility(View.VISIBLE);
+
+            if(item.isEnabled) {
+                holder.itemView.setOnClickListener(view -> {
+                    if (listener != null) {
+                        listener.onSettingClick(item);
+                    }
+                });
+            }
         }
+
+        if(item.enabledSubTitle) {
+            holder.subTitle.setVisibility(View.VISIBLE);
+            holder.subTitle.setText(item.subTitle);
+        } else {
+            holder.subTitle.setVisibility(View.GONE);
+            holder.subTitle.setText(null);
+        }
+
+        holder.divider.setVisibility(position == items.size() - 1 ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -69,14 +92,19 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
 
     // ✅ Make ViewHolder public static
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        AppCompatTextView title;
+        AppCompatTextView title, subTitle;
         LabeledSwitch switchButton;
+        AppCompatImageView ivNavigation;
+        View divider;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
+            subTitle = itemView.findViewById(R.id.subtitle);
             switchButton = itemView.findViewById(R.id.toggleSwitch);
+            ivNavigation = itemView.findViewById(R.id.ivNavigation);
+            divider = itemView.findViewById(R.id.divider);
         }
     }
 }

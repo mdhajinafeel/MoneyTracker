@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.di;
 import android.content.Context;
 
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
+import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
@@ -23,6 +24,12 @@ public class DBModule {
     @Singleton
     public MoneyTrackerDatabase provideDatabase(@ApplicationContext Context context) {
         return MoneyTrackerDatabase.getInstance(context);
+    }
+
+    @Provides
+    @Singleton
+    public CategoryDao provideCategoryDao(MoneyTrackerDatabase db) {
+        return db.categoryDao();
     }
 
     @Provides

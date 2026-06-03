@@ -13,7 +13,6 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.helper.PreferenceManager;
 
 public class BaseActivity extends AppCompatActivity {
 
