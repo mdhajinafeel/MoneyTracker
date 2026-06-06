@@ -37,10 +37,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     // 🔹 TEXT
-    public ViewHolder setViewText(int viewId, CharSequence text) {
+    public void setViewText(int viewId, CharSequence text) {
         AppCompatTextView view = (AppCompatTextView) getView(viewId);
         if (view != null) view.setText(text);
-        return this;
     }
 
     public ViewHolder setViewText(int viewId, int resId) {
@@ -49,10 +48,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public ViewHolder setViewTextColor(int viewId, int color) {
+    public void setViewTextColor(int viewId, int color) {
         AppCompatTextView view = (AppCompatTextView) getView(viewId);
         if (view != null) view.setTextColor(color);
-        return this;
     }
 
     public ViewHolder setViewTextSize(int viewId, float size) {
@@ -68,10 +66,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     // 🔹 IMAGE
-    public ViewHolder setViewImageResource(int viewId, int resId) {
+    public void setViewImageResource(int viewId, int resId) {
         AppCompatImageView view = (AppCompatImageView) getView(viewId);
         if (view != null) view.setImageResource(resId);
-        return this;
     }
 
     public ViewHolder setViewImageBitmap(int viewId, Bitmap bitmap) {

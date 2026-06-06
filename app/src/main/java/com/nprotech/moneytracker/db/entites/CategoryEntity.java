@@ -1,7 +1,11 @@
 package com.nprotech.moneytracker.db.entites;
 
+import android.content.Context;
+
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.nprotech.moneytracker.helper.DataHelper;
 
 import java.io.Serializable;
 
@@ -26,5 +30,14 @@ public class CategoryEntity implements Serializable {
         this.icon = icon;
         this.ordering = ordering;
         this.defaultCategory = defaultCategory;
+    }
+
+    public String getName(Context context) {
+        String str = name;
+        if (str == null || str.isEmpty()) {
+            int i = defaultCategory;
+            return i != 0 ? DataHelper.getDefaultCategory(context, i) : "";
+        }
+        return name;
     }
 }

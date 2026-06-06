@@ -1,13 +1,15 @@
 package com.nprotech.moneytracker.models;
 
+import com.nprotech.moneytracker.enums.SettingType;
+
 public class SettingItemModel {
 
-    public int settingId;
+    public SettingType settingType;
     public String title, subTitle;
     public boolean switchVisible, isEnabled, enabledSubTitle;
 
-    public SettingItemModel(int settingId, String title, boolean switchVisible, boolean isEnabled, boolean enabledSubTitle, String subTitle) {
-        this.settingId = settingId;
+    public SettingItemModel(SettingType settingType, String title, boolean switchVisible, boolean isEnabled, boolean enabledSubTitle, String subTitle) {
+        this.settingType = settingType;
         this.title = title;
         this.switchVisible = switchVisible;
         this.isEnabled = isEnabled;

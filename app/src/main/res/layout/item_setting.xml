@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="@dimen/padding_10"
-        android:paddingTop="@dimen/padding_6"
+        android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_14"
-        android:paddingBottom="@dimen/padding_6">
+        android:paddingBottom="@dimen/padding_12">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -25,7 +25,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1"
                 android:fontFamily="@font/exo2_medium"
                 android:gravity="center_vertical"
                 android:textColor="@color/black"
@@ -35,6 +34,7 @@
                 android:id="@+id/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/manage_category"
                 android:layout_gravity="center_vertical"
                 android:fontFamily="@font/exo2_regular"
                 android:gravity="center_vertical"
@@ -63,12 +63,9 @@
             android:id="@+id/ivNavigation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
-            android:layout_toStartOf="@+id/layoutText"
             android:src="@drawable/ic_right_arrow"
-            android:visibility="gone"
+            android:visibility="visible"
             app:tint="@color/dark_grey" />
 
     </LinearLayout>

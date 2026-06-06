@@ -69,4 +69,10 @@
     <!-- HEIGHT -->
     <dimen name="edit_text_height_40">40dp</dimen>
     <dimen name="keyboard_number_height">50dp</dimen>
+
+    <!-- COMMON SIZE -->
+    <dimen name="image_big_size">36dp</dimen>
+    <dimen name="image_size">30dp</dimen>
+    <dimen name="wrapper_big_size">48dp</dimen>
+    <dimen name="wrapper_size">40dp</dimen>
 </resources>

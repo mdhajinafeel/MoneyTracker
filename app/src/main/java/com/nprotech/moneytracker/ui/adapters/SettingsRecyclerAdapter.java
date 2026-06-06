@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.angads25.toggle.widget.LabeledSwitch;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.SettingItemModel;
 
 import java.util.List;
@@ -53,19 +52,11 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
             holder.switchButton.setVisibility(View.VISIBLE);
             holder.switchButton.setOnToggledListener(null);
             holder.ivNavigation.setVisibility(View.GONE);
-
-            if (item.settingId == 1)
-                holder.switchButton.setOn(PreferenceManager.INSTANCE.getDarkMode());
-
-            holder.switchButton.setOnToggledListener((buttonView, isChecked) -> {
-                if (listener != null) listener.onSwitchToggle(item, isChecked, holder.switchButton);
-            });
-
         } else {
             holder.switchButton.setVisibility(View.GONE);
             holder.ivNavigation.setVisibility(View.VISIBLE);
 
-            if(item.isEnabled) {
+            if (item.isEnabled) {
                 holder.itemView.setOnClickListener(view -> {
                     if (listener != null) {
                         listener.onSettingClick(item);
@@ -74,7 +65,7 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
             }
         }
 
-        if(item.enabledSubTitle) {
+        if (item.enabledSubTitle) {
             holder.subTitle.setVisibility(View.VISIBLE);
             holder.subTitle.setText(item.subTitle);
         } else {

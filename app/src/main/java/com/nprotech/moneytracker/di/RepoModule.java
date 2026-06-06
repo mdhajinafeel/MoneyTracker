@@ -1,8 +1,10 @@
 package com.nprotech.moneytracker.di;
 
+import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
+import com.nprotech.moneytracker.repositories.CategoryRepository;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 import com.nprotech.moneytracker.repositories.AccountRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
@@ -34,5 +36,11 @@ public class RepoModule {
     @Singleton
     WalletRepository provideWalletRepository(WalletDao walletDao) {
         return new WalletRepository(walletDao);
+    }
+
+    @Provides
+    @Singleton
+    CategoryRepository provideCategoryRepository(CategoryDao categoryDao) {
+        return new CategoryRepository(categoryDao);
     }
 }

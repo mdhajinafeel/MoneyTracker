@@ -21,9 +21,7 @@ public class AccountViewModel extends ViewModel {
 
     private final AccountRepository accountRepository;
     private final WalletRepository walletRepository;
-
     private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
-
     private final LiveData<AccountEntity> selectedAccount;
 
     @Inject

@@ -65,4 +65,6 @@
     <string name="done">Done</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="wallet_info">%1$s • %2$s</string>
+    <string name="delete">Delete</string>
+    <string name="reorder">Reorder</string>
 </resources>

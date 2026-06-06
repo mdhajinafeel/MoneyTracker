@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.db.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -17,4 +18,7 @@ public interface CategoryDao {
 
     @Query("SELECT COUNT(*) FROM categories")
     int getCategoriesCount();
+
+    @Query("SELECT * FROM categories WHERE type = :type ORDER BY ordering")
+    LiveData<List<CategoryEntity>> fetchCategoriesByType(int type);
 }

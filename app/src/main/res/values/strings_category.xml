@@ -32,4 +32,11 @@
     <string name="category_allowance">Allowance</string>
     <string name="category_award">Award</string>
     <string name="manage_category">Manage Category</string>
+
+    <string name="empty_category">No Categories</string>
+    <string name="empty_category_hint">Tap the + button to add categories.</string>
+    <string name="empty_category_picker_hint">Tap the manage category to add categories.</string>
+    <string name="empty_hint">Tap the + button to add one.</string>
+    <string name="empty_sub_category">No subcategories</string>
+    <string name="empty_sub_category_hint">Tap the + button to add subcategories.</string>
 </resources>

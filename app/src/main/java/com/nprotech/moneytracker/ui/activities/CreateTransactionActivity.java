@@ -46,7 +46,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateTransactionActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private AppCompatImageView icBack;
-    private AppCompatTextView tvTitle, tvAmount, tvSave, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFromWallet, tvWallet;
+    private AppCompatTextView tvTitle, tvAmount, tvSave, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFromWallet, tvWallet, walletLabel;
     private AppCompatEditText etDescription, etMemo;
     private ActivityResultLauncher<Intent> calculatorLauncher;
     private ConstraintLayout incomeWrapper, expenseWrapper, transferWrapper, clFromWallet, clFee;
@@ -79,6 +79,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             incomeLabel = findViewById(R.id.incomeLabel);
             expenseLabel = findViewById(R.id.expenseLabel);
             transferLabel = findViewById(R.id.transferLabel);
+            walletLabel = findViewById(R.id.walletLabel);
 
             tvDay = findViewById(R.id.tvDay);
             tvHour = findViewById(R.id.tvHour);
@@ -184,6 +185,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             transferWrapper.setOnClickListener(view -> {
                 switchTransMode(3);
                 transactionType = 3;
+            });
+
+            tvCategory.setOnClickListener(view -> {
+
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);

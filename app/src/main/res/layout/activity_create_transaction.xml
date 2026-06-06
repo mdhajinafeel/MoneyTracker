@@ -271,6 +271,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textSize="@dimen/text_16"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/amountLabel" />
@@ -312,6 +313,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textSize="@dimen/text_16"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/descLabel" />
@@ -356,6 +358,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textSize="@dimen/text_16"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/categoryLabel" />
@@ -400,6 +403,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textSize="@dimen/text_16"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/fromWalletLabel" />
@@ -443,6 +447,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textSize="@dimen/text_16"
+                            android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/walletLabel" />
@@ -538,6 +543,7 @@
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
                                 android:textSize="@dimen/text_16"
+                                android:textColor="@color/black"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />

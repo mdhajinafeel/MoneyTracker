@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.angads25.toggle.widget.LabeledSwitch;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.ui.adapters.SettingsRecyclerAdapter;
@@ -25,13 +26,14 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SettingsActivity extends BaseActivity implements SettingsRecyclerAdapter.OnSettingActionListener {
 
-    private RecyclerView rvConfigurations, rvManagement, rvOthers;
+    private RecyclerView rvConfigurations, rvManagement, rvBackup, rvOthers;
     private ActivityResultLauncher<Intent> categoryLauncher;
 
     @Override
@@ -51,6 +53,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
 
             rvConfigurations = findViewById(R.id.rvConfigurations);
             rvManagement = findViewById(R.id.rvManagement);
+            rvBackup = findViewById(R.id.rvBackup);
             rvOthers = findViewById(R.id.rvOthers);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
@@ -76,28 +79,20 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
 
             rvConfigurations.post(this::fetchConfigurationSettings);
             rvManagement.post(this::fetchManagementSettings);
+            rvBackup.post(this::fetchBackupSettings);
             rvOthers.post(this::fetchOtherSettings);
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void fetchConfigurationSettings() {
-        try {
-            List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
-
-            rvConfigurations.setLayoutManager(new LinearLayoutManager(this));
-            rvConfigurations.setAdapter(adapter);
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "fetchConfigurationSettings", e);
-        }
-    }
-
     private void fetchManagementSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(1, getString(R.string.manage_category), false, true, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.ACCOUNT, getString(R.string.account), false, true, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet), false, true, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), false, true, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), false, true, false, null));
 
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
 
@@ -108,10 +103,41 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
         }
     }
 
+    private void fetchConfigurationSettings() {
+        try {
+            List<SettingItemModel> settingItemModelList = new ArrayList<>();
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+            settingItemModelList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), false, true, true, "Sunday"));
+            settingItemModelList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), false, true, true, "Transaction"));
+            settingItemModelList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), false, true, true, "English"));
+            settingItemModelList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password), false, true, true, "Not set"));
+            settingItemModelList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder), false, true, true, "Trigger reminder at 19:00"));
+
+            rvConfigurations.setLayoutManager(new LinearLayoutManager(this));
+            rvConfigurations.setAdapter(adapter);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "fetchConfigurationSettings", e);
+        }
+    }
+
+    private void fetchBackupSettings() {
+        try {
+            List<SettingItemModel> settingItemModelList = new ArrayList<>();
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, getString(R.string.manage_backup), false, false, false, null));
+
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+
+            rvBackup.setLayoutManager(new LinearLayoutManager(this));
+            rvBackup.setAdapter(adapter);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "fetchOtherSettings", e);
+        }
+    }
+
     private void fetchOtherSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(1, getString(R.string.version), false, false, true, getAppVersion()));
+            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, getString(R.string.version), false, false, true, getAppVersion()));
 
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
 
@@ -129,7 +155,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
 
     @Override
     public void onSettingClick(SettingItemModel item) {
-        if (item.settingId == 1) {
+        if (Objects.requireNonNull(item.settingType) == SettingType.MANAGE_CATEGORY) {
             Intent intent = new Intent(this, ManageCategoryActivity.class);
             intent.putExtra("amount", 0);
             categoryLauncher.launch(intent);

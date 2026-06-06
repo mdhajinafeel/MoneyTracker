@@ -6,5 +6,13 @@
     <string name="others">Others</string>
     <string name="version">Version</string>
     <string name="app_version">%1$s.%2$d</string>
+    <string name="account">Account</string>
+    <string name="week_starts_on">Week Starts On</string>
+    <string name="startup_screen">Startup screen</string>
+    <string name="language">Language</string>
+    <string name="password">Password</string>
+    <string name="smart_reminder">Smart Reminder</string>
+    <string name="backup">Backup</string>
+    <string name="manage_backup">Manage Backup</string>
 
 </resources>
