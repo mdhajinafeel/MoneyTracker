@@ -18,14 +18,17 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DateHelper;
@@ -46,16 +49,19 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateTransactionActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private AppCompatImageView icBack;
-    private AppCompatTextView tvTitle, tvAmount, tvSave, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFromWallet, tvWallet, walletLabel;
+    private AppCompatTextView tvTitle, tvAmount, tvSave, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletLabel;
     private AppCompatEditText etDescription, etMemo;
-    private ActivityResultLauncher<Intent> calculatorLauncher;
-    private ConstraintLayout incomeWrapper, expenseWrapper, transferWrapper, clFromWallet, clFee;
+    private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
+    private ConstraintLayout incomeWrapper, expenseWrapper, transferWrapper, clFromWallet, clFee, clCategory;
+    private NestedScrollView scrollView;
     private Date date;
     private AccountEntity account;
-    private WalletEntity selectedWallet;
+    private WalletEntity selectedWallet, selectedFromWallet;
     private AccountViewModel accountViewModel;
     private List<WalletEntity> walletLists;
+    private CategoryEntity incomeCategory, expenseCategory;
     private int transactionType;
+    private double transactionAmount = 0, transactionFee = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,6 +75,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
+            scrollView = findViewById(R.id.scrollView);
             tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -88,14 +95,21 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             tvCategory = findViewById(R.id.tvCategory);
             tvFromWallet = findViewById(R.id.tvFromWallet);
             tvWallet = findViewById(R.id.tvWallet);
+            tvFee = findViewById(R.id.tvFee);
             etMemo = findViewById(R.id.etMemo);
+            clCategory = findViewById(R.id.clCategory);
             clFromWallet = findViewById(R.id.clFromWallet);
             clFee = findViewById(R.id.clFee);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-                v.setPadding(v.getPaddingLeft(), top,
-                        v.getPaddingRight(), v.getPaddingBottom());
+                v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+
+            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
+                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
+                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeInsets.bottom);
                 return insets;
             });
 
@@ -110,8 +124,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             backPressed();
             makeReadOnly();
-            clickListeners();
-            setupCalculatorLauncher();
+            setupListeners();
+            setupLauncher();
             bindData();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
@@ -131,6 +145,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             tvDay.setText(DateHelper.getFormattedDate(date));
             tvHour.setText(DateHelper.getFormattedTime(getApplicationContext(), date));
             tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+            tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
 
             if (!walletLists.isEmpty()) {
                 selectedWallet = walletLists.get(0);
@@ -151,9 +166,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         tvFromWallet.setLongClickable(false);
         tvWallet.setFocusable(false);
         tvWallet.setLongClickable(false);
+        tvFee.setFocusable(false);
+        tvFee.setLongClickable(false);
     }
 
-    private void clickListeners() {
+    private void setupListeners() {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
@@ -165,12 +182,15 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             tvAmount.setOnClickListener(view -> {
                 Intent intent = new Intent(this, CalculatorActivity.class);
-                intent.putExtra("amount", 0);
+                intent.putExtra("amount", transactionAmount);
+                intent.putExtra("type", "amount");
                 calculatorLauncher.launch(intent);
                 overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
             });
 
-            tvWallet.setOnClickListener(view -> selectWallets());
+            tvWallet.setOnClickListener(view -> selectWallets("to"));
+
+            tvFromWallet.setOnClickListener(view -> selectWallets("from"));
 
             incomeWrapper.setOnClickListener(view -> {
                 switchTransMode(1);
@@ -188,7 +208,24 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             });
 
             tvCategory.setOnClickListener(view -> {
+                Intent intent = new Intent(this, CategoryPickerActivity.class);
+                intent.putExtra("transactionType", transactionType);
+                categoryLauncher.launch(intent);
+                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+            });
 
+            tvFee.setOnClickListener(view -> {
+                Intent intent = new Intent(this, CalculatorActivity.class);
+                intent.putExtra("amount", transactionFee);
+                intent.putExtra("type", "fee");
+                calculatorLauncher.launch(intent);
+                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+            });
+
+            etMemo.setOnFocusChangeListener((v, hasFocus) -> {
+                if (hasFocus) {
+                    scrollView.post(() -> scrollView.smoothScrollTo(0, v.getBottom()));
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);
@@ -233,6 +270,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 clFee.setVisibility(View.GONE);
                 clFromWallet.setVisibility(View.GONE);
+                clCategory.setVisibility(View.VISIBLE);
+
+                walletLabel.setText(getString(R.string.wallet));
+                if(incomeCategory != null) {
+                    tvCategory.setText(incomeCategory.getName(getApplicationContext()));
+                } else {
+                    tvCategory.setText("");
+                }
             } else if (mode == 2) {
 
                 tvTitle.setText(getString(R.string.expense));
@@ -247,6 +292,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 clFee.setVisibility(View.GONE);
                 clFromWallet.setVisibility(View.GONE);
+                clCategory.setVisibility(View.VISIBLE);
+
+                walletLabel.setText(getString(R.string.wallet));
+                if(expenseCategory != null) {
+                    tvCategory.setText(expenseCategory.getName(getApplicationContext()));
+                } else {
+                    tvCategory.setText("");
+                }
             } else if (mode == 3) {
 
                 tvTitle.setText(getString(R.string.transfer));
@@ -261,26 +314,56 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 clFee.setVisibility(View.VISIBLE);
                 clFromWallet.setVisibility(View.VISIBLE);
+                clCategory.setVisibility(View.GONE);
+
+                walletLabel.setText(getString(R.string.to_wallet));
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchTransMode", e);
         }
     }
 
-    private void setupCalculatorLauncher() {
+    private void setupLauncher() {
         calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
                             double amount = data.getDoubleExtra("amount", 0);
-                            tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                            String type = data.getStringExtra("type");
+
+                            if(type!= null && type.equalsIgnoreCase("amount")) {
+                                transactionAmount = amount;
+                                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                            } else if(type!= null && type.equalsIgnoreCase("fee")) {
+                                transactionFee = amount;
+                                tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                            }
+                        }
+                    }
+                });
+
+        categoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            CategoryEntity categoryEntity = (CategoryEntity) data.getSerializableExtra("category");
+                            if (categoryEntity != null) {
+                                if (transactionType == 1) {
+                                    incomeCategory = categoryEntity;
+                                } else {
+                                    expenseCategory = categoryEntity;
+                                }
+
+                                tvCategory.setText(categoryEntity.getName(getApplicationContext()));
+                            }
                         }
                     }
                 });
     }
 
-    private void selectWallets() {
+    private void selectWallets(String type) {
         try {
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
@@ -295,12 +378,21 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
                             CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.initialAmount)));
 
-                    holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
+                    if(type.equalsIgnoreCase("to")) {
+                        holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
 
-                    holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
-                        selectedWallet = walletEntity;
-                        dialog.dismiss();
-                    });
+                        holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
+                            selectedWallet = walletEntity;
+                            dialog.dismiss();
+                        });
+                    } else if(type.equalsIgnoreCase("from")) {
+                        holder.getView(R.id.ivSelected).setVisibility(selectedFromWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
+
+                        holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
+                            selectedFromWallet = walletEntity;
+                            dialog.dismiss();
+                        });
+                    }
                 }
             };
 
@@ -315,7 +407,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private void validateFields() {
         try {
-
 
 
         } catch (Exception e) {

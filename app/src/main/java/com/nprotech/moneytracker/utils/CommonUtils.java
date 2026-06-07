@@ -9,6 +9,9 @@ import java.util.Locale;
 
 public class CommonUtils {
 
+    public static String getPlainAmount(BigDecimal digit) {
+        return digit.remainder(new BigDecimal(1)).compareTo(new BigDecimal(0)) == 0 ? String.valueOf(digit.longValue()) : String.format(Locale.ENGLISH, "%.2f", digit);
+    }
 
     public static String getBeautifyAmount(String symbol, double amount) {
         boolean z = 0 > amount;

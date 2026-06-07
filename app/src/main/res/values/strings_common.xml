@@ -67,4 +67,5 @@
     <string name="wallet_info">%1$s • %2$s</string>
     <string name="delete">Delete</string>
     <string name="reorder">Reorder</string>
+    <string name="to_wallet">To Wallet</string>
 </resources>

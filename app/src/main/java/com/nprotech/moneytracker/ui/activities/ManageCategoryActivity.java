@@ -38,11 +38,13 @@ public class ManageCategoryActivity extends BaseActivity {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
+            AppCompatImageView ivAdd = toolbarWrapper.findViewById(R.id.ivAdd);
             TabLayout tabLayout = findViewById(R.id.tabLayout);
             ViewPager2 viewPager = findViewById(R.id.viewPager);
 
             icBack.setOnClickListener(view -> finish());
             tvTitle.setText(R.string.manage_category);
+            ivAdd.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;

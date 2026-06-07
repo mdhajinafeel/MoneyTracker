@@ -18,6 +18,9 @@ import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalculatorHelper;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -27,7 +30,8 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
     private AppCompatButton one, two, three, four, five, six, seven, eight, nine, zero, dZero, clear, divide, multiply, minus, plus, equal, dot;
     private AppCompatImageButton escape, done;
     private AppCompatTextView total;
-    private String equation;
+    private String equation, type;
+    private double amount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,7 +87,8 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
             dot = findViewById(R.id.dot);
             done = findViewById(R.id.done);
 
-            equation = getIntent().getStringExtra("amount");
+            equation = CalculatorHelper.getPlainAmount(BigDecimal.valueOf(getIntent().getDoubleExtra("amount", 0.0)).divide(BigDecimal.valueOf(100), 2, RoundingMode.DOWN));
+            type = getIntent().getStringExtra("type");
 
             if (equation == null) {
                 equation = "0";
@@ -207,6 +212,7 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
         }
 
         intent.putExtra("amount", amount);
+        intent.putExtra("type", type);
         setResult(-1, intent);
         finish();
     }
