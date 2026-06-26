@@ -47,6 +47,8 @@
     <dimen name="text_26">26sp</dimen>
     <dimen name="text_28">28sp</dimen>
     <dimen name="text_30">30sp</dimen>
+    <dimen name="text_32">32sp</dimen>
+    <dimen name="text_34">34sp</dimen>
 
     <!-- ELEVATION -->
     <dimen name="corner_elevation_0">0dp</dimen>

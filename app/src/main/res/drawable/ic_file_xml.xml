@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="421"
+    android:viewportHeight="511.61">
+
+    <path
+        android:fillColor="#6DBF39"
+        android:fillType="evenOdd"
+        android:pathData="M95.71,0.01h199.09L421,136.55v317.55c0,31.54 -25.96,57.5 -57.5,57.5H95.71c-31.55,0 -57.5,-25.87 -57.5,-57.5V57.51C38.2,25.89 64.08,0.01 95.71,0.01z" />
+
+    <path
+        android:fillColor="#589B2E"
+        android:fillType="evenOdd"
+        android:pathData="M341.03,133.41h-0.02L421,188.77v-52.07h-54.36c-9.46,-0.15 -18,-1.27 -25.61,-3.3z" />
+
+    <path
+        android:fillColor="#DFFACD"
+        android:fillType="evenOdd"
+        android:pathData="M294.8,0L421,136.53v0.17h-54.36c-45.07,-0.72 -69.33,-23.4 -71.84,-61.38V0z" />
+
+    <path
+        android:fillColor="#4F8C29"
+        android:fillType="nonZero"
+        android:pathData="M0,431.9V253.4l0.03,-1.26c0.67,-16.45 14.33,-29.71 30.94,-29.71h7.24v50.59h342.98c12.86,0 23.37,10.51 23.37,23.37v135.5c0,12.83 -10.54,23.37 -23.37,23.37H23.37C10.54,455.27 0,444.75 0,431.9z" />
+
+    <path
+        android:fillColor="#4F8C29"
+        android:fillType="nonZero"
+        android:pathData="M143.45,240.36a8.5,8.5 0,0 1,-8.5 -8.5,8.5 8.5,0 0,1 8.5,-8.5h163.18a8.5,8.5 0,0 1,8.5 8.5,8.5 8.5,0 0,1 -8.5,8.5L143.45,240.36zM143.45,181.19a8.5,8.5 0,0 1,0 -16.99h172.3a8.5,8.5 0,1 1,0 16.99L143.45,181.19z" />
+
+    <path
+        android:fillColor="#fff"
+        android:fillType="nonZero"
+        android:pathData="M11.33,276.17v154.73c0,7.79 6.38,14.18 14.18,14.18H380.17c7.8,0 14.18,-6.38 14.18,-14.18V297.4c0,-7.8 -6.39,-14.18 -14.18,-14.18H37.89c-12.62,-0.1 -19.59,-1.64 -26.56,-7.06z" />
+
+    <path
+        android:fillColor="#1A1A1A"
+        android:fillType="nonZero"
+        android:pathData="M109.22,319.68l9.04,21.88h1.31l9.04,-21.88h28.43l-18.21,39.57 18.21,42.32h-29.09l-9.83,-23.58h-1.18l-9.69,23.58L79.48,401.57l17.82,-41.53 -17.82,-40.36h29.74zM189.67,401.57h-27.39l4.98,-81.89h34.2l10.22,41.67h0.92l10.22,-41.67h34.2l4.98,81.89h-27.39l-1.57,-39.7h-0.92l-9.96,39.7h-20.05l-10.09,-39.7h-0.79l-1.57,39.7zM326.21,401.57h-52.41v-81.89h26.2v60.93h26.21v20.97z" />
+
+</vector>

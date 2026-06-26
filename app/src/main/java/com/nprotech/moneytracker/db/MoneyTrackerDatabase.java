@@ -9,13 +9,17 @@ import com.nprotech.moneytracker.BuildConfig;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
+import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 
-@Database(entities = {CurrencyEntity.class, CategoryEntity.class, AccountEntity.class, WalletEntity.class},
+@Database(entities = {CurrencyEntity.class, CategoryEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class, TransactionAttachmentEntity.class},
         version = 1)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
@@ -28,6 +32,10 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
     public abstract AccountDao accountDao();
 
     public abstract WalletDao walletDao();
+
+    public abstract TransactionDao transactionDao();
+
+    public abstract TransactionAttachmentDao transactionAttachmentDao();
 
     public static MoneyTrackerDatabase getInstance(Context context) {
         if (INSTANCE == null) {

@@ -16,5 +16,6 @@ public class AccountEntity implements Serializable {
     public String currencySymbol;
     public double balance;
     public int ordering;
-    public boolean isDeleted;
+    public boolean isDeleted = false;
+    public boolean isSynced = false;
 }

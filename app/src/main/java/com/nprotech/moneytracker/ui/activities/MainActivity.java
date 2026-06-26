@@ -63,7 +63,6 @@ public class MainActivity extends BaseActivity {
         try {
 
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            View fragmentContainer = findViewById(R.id.fragmentContainer);
 
             ivSettings = findViewById(R.id.ivSettings);
             tvAccountName = findViewById(R.id.tvAccountName);
@@ -76,14 +75,6 @@ public class MainActivity extends BaseActivity {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
                 v.setPadding(v.getPaddingLeft(), top,
                         v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
-            });
-
-            ViewCompat.setOnApplyWindowInsetsListener(fragmentContainer, (v, insets) -> {
-                Insets systemBars =
-                        insets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-                v.setPadding(0, systemBars.top, 0, 0);
                 return insets;
             });
 

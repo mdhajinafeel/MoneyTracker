@@ -251,6 +251,7 @@ public class AddAccountActivity extends BaseActivity {
         account.currencySymbol = currency.symbol;
         account.balance = initialAmount;
         account.isDeleted = false;
+        account.isSynced = false;
         account.ordering = accountViewModel.getLastAccountOrder() + 1;
         long accountId = accountViewModel.saveAccount(account);
 
@@ -273,6 +274,8 @@ public class AddAccountActivity extends BaseActivity {
             wallet.isHidden = false;
             wallet.isExclude = false;
             wallet.isActive = false;
+            wallet.isSynced = false;
+            wallet.isDeleted = false;
             long walletId = walletViewModel.saveWallet(wallet);
 
             PreferenceManager.INSTANCE.setWalletId(walletId);

@@ -17,6 +17,31 @@
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
 
+    <!-- For Android 13+ -->
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_IMAGES"
+        android:required="false"
+        tools:ignore="PhotoAndVideoPolicy" />
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VIDEO"
+        android:required="false"
+        tools:ignore="PhotoAndVideoPolicy" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
+    <!-- For Android 14+ (Selected Photos Access) -->
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED"
+        android:required="false"
+        tools:ignore="SelectedPhotoAccess" />
+
+    <!-- Camera access -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Camera hardware optional -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <!-- Needed for Downloads folder on Android 10+ -->
     <uses-permission
         android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
@@ -113,5 +138,17 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
+
+        <!-- File Providers -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 </manifest>

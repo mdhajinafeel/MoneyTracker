@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="permission_granted">Permission Granted</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="camera_permission_denied">Camera permission denied</string>
+    <string name="camera_permission_required">Camera Permission Required</string>
+    <string name="camera_access_is_required_to_take_photos_for_expense_attachments">Camera access is required to take photos for expense attachments.</string>
+    <string name="allow">Allow</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="camera_permission_is_disabled_please_enable_it_from_app_settings">Camera permission is disabled. Please enable it from App Settings.</string>
+    <string name="open_settings">Open Settings</string>
+
+</resources>

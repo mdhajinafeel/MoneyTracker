@@ -24,4 +24,10 @@ public interface WalletDao {
 
     @Query("SELECT * FROM wallets WHERE accountId = :accountId ORDER BY ordering")
     List<WalletEntity> getWalletsByAccountId(int accountId);
+
+    @Query("SELECT * FROM wallets WHERE id = :walletId")
+    WalletEntity getWalletByWalletId(int walletId);
+
+    @Query("UPDATE wallets SET initialAmount = :amount WHERE id = :walletId")
+    void updateWalletById(int walletId, double amount);
 }

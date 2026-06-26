@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="select_source">Select Source</string>
+    <string name="file">File</string>
+    <string name="attach_file_error">Please attach the file before saving the data.</string>
+
+</resources>

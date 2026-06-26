@@ -5,11 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
-import com.nprotech.moneytracker.repositories.AccountRepository;
 import com.nprotech.moneytracker.repositories.CategoryRepository;
-import com.nprotech.moneytracker.repositories.WalletRepository;
 
 import java.util.List;
 

@@ -19,7 +19,6 @@ import com.nprotech.moneytracker.helper.CalculatorHelper;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -87,7 +86,7 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
             dot = findViewById(R.id.dot);
             done = findViewById(R.id.done);
 
-            equation = CalculatorHelper.getPlainAmount(BigDecimal.valueOf(getIntent().getDoubleExtra("amount", 0.0)).divide(BigDecimal.valueOf(100), 2, RoundingMode.DOWN));
+            equation = CalculatorHelper.getPlainAmount(BigDecimal.valueOf(getIntent().getDoubleExtra("amount", 0.0)));
             type = getIntent().getStringExtra("type");
 
             if (equation == null) {

@@ -206,6 +206,7 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/recurringWrapper"
                             android:layout_width="wrap_content"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/margin_8"
                             android:layout_marginBottom="@dimen/margin_4"
@@ -570,6 +571,24 @@
                                 app:tint="@color/dark_grey" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvNoteImage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_24"
+                        android:layout_marginTop="@dimen/padding_12"
+                        android:layout_marginEnd="@dimen/padding_24"
+                        android:padding="@dimen/padding_4"
+                        android:clipToPadding="false"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="3"
+                        app:layout_constraintTop_toBottomOf="@id/clMemo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

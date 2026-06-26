@@ -30,4 +30,8 @@ public class WalletRepository {
     public List<WalletEntity> getWalletsByAccountId(int accountId) {
         return walletDao.getWalletsByAccountId(accountId);
     }
+
+    public WalletEntity getWalletByWalletId(int walletId) {
+        return walletDao.getWalletByWalletId(walletId);
+    }
 }

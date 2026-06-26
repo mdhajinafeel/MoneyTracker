@@ -22,6 +22,7 @@ public class CommonUtils {
         if (z) {
             amount = -amount;
         }
+
         sb.append(getFormattedAmount(amount));
         return sb.toString();
     }

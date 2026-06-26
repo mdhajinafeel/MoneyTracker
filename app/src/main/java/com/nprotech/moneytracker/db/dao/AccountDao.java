@@ -27,4 +27,7 @@ public interface AccountDao {
 
     @Query("SELECT COALESCE(MAX(ordering), 0) FROM accounts")
     int getLastAccountOrder();
+
+    @Query("UPDATE accounts SET balance = :amount WHERE id = :accountId")
+    void updateAccountById(int accountId, double amount);
 }

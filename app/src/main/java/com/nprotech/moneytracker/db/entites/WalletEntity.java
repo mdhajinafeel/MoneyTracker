@@ -24,4 +24,6 @@ public class WalletEntity implements Serializable {
     public boolean isHidden;
     public boolean isExclude;
     public boolean isActive;
+    public boolean isSynced = false;
+    public boolean isDeleted = false;
 }

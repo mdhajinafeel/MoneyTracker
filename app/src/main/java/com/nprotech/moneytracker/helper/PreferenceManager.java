@@ -10,6 +10,7 @@ public enum PreferenceManager {
     private static final String KEY_ACCOUNT_ID = "accountId";
     private static final String KEY_WALLET_ID = "walletId";
     private static final String KEY_DARK_MODE = "darkMode";
+    private static final String KEY_PERMISSION_CAMERA_ASKED = "cameraPermissionAsked";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -38,5 +39,14 @@ public enum PreferenceManager {
 
     public boolean getDarkMode() {
         return prefStore.getBoolean(KEY_DARK_MODE, false);
+    }
+
+    // ===== CAMERA PERMISSION =====
+    public void setPermissionCameraAsked(boolean permissionPrefs) {
+        prefStore.edit().putBoolean(KEY_PERMISSION_CAMERA_ASKED, permissionPrefs).apply();
+    }
+
+    public boolean getPermissionCameraAsked() {
+        return prefStore.getBoolean(KEY_PERMISSION_CAMERA_ASKED, false);
     }
 }

@@ -6,6 +6,8 @@ import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
+import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 
 import javax.inject.Singleton;
@@ -48,5 +50,17 @@ public class DBModule {
     @Singleton
     public WalletDao provideWalletDao(MoneyTrackerDatabase db) {
         return db.walletDao();
+    }
+
+    @Provides
+    @Singleton
+    public TransactionDao provideTransactionDao(MoneyTrackerDatabase db) {
+        return db.transactionDao();
+    }
+
+    @Provides
+    @Singleton
+    public TransactionAttachmentDao provideTransactionAttachmentDao(MoneyTrackerDatabase db) {
+        return db.transactionAttachmentDao();
     }
 }

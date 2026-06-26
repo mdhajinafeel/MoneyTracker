@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a19a4310ce1a6816e0e4e39b9cbd834f",
+    "identityHash": "d1a462eb22a9c67a3477ba99535c024e",
     "entities": [
       {
         "tableName": "currencies",
@@ -104,7 +104,7 @@
       },
       {
         "tableName": "accounts",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `currencyCode` TEXT, `currencyName` TEXT, `currencySymbol` TEXT, `balance` REAL NOT NULL, `ordering` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `currencyCode` TEXT, `currencyName` TEXT, `currencySymbol` TEXT, `balance` REAL NOT NULL, `ordering` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -149,6 +149,12 @@
             "columnName": "isDeleted",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "isSynced",
+            "columnName": "isSynced",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -160,7 +166,7 @@
       },
       {
         "tableName": "wallets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `name` TEXT, `walletColor` TEXT, `currencyName` TEXT, `currencyCode` TEXT, `currencySymbol` TEXT, `categoryIcon` INTEGER NOT NULL, `initialAmount` REAL NOT NULL, `dueDate` INTEGER NOT NULL, `statementDate` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isExclude` INTEGER NOT NULL, `isActive` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `name` TEXT, `walletColor` TEXT, `currencyName` TEXT, `currencyCode` TEXT, `currencySymbol` TEXT, `categoryIcon` INTEGER NOT NULL, `initialAmount` REAL NOT NULL, `dueDate` INTEGER NOT NULL, `statementDate` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isExclude` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -246,6 +252,18 @@
             "columnName": "isActive",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "isSynced",
+            "columnName": "isSynced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDeleted",
+            "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -254,11 +272,254 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "transactions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tempTransactionServerId",
+            "columnName": "tempTransactionServerId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fee",
+            "columnName": "fee",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "walletId",
+            "columnName": "walletId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fromWalletId",
+            "columnName": "fromWalletId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "categoryId",
+            "columnName": "categoryId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "memo",
+            "columnName": "memo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "transactionDate",
+            "columnName": "transactionDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSynced",
+            "columnName": "isSynced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDeleted",
+            "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_transactions_accountId",
+            "unique": false,
+            "columnNames": [
+              "accountId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_accountId` ON `${TABLE_NAME}` (`accountId`)"
+          },
+          {
+            "name": "index_transactions_walletId",
+            "unique": false,
+            "columnNames": [
+              "walletId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_walletId` ON `${TABLE_NAME}` (`walletId`)"
+          },
+          {
+            "name": "index_transactions_categoryId",
+            "unique": false,
+            "columnNames": [
+              "categoryId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_categoryId` ON `${TABLE_NAME}` (`categoryId`)"
+          },
+          {
+            "name": "index_transactions_serverId",
+            "unique": false,
+            "columnNames": [
+              "serverId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_serverId` ON `${TABLE_NAME}` (`serverId`)"
+          },
+          {
+            "name": "index_transactions_tempTransactionServerId",
+            "unique": false,
+            "columnNames": [
+              "tempTransactionServerId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_tempTransactionServerId` ON `${TABLE_NAME}` (`tempTransactionServerId`)"
+          },
+          {
+            "name": "index_transactions_isSynced",
+            "unique": false,
+            "columnNames": [
+              "isSynced"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_isSynced` ON `${TABLE_NAME}` (`isSynced`)"
+          },
+          {
+            "name": "index_transactions_isDeleted",
+            "unique": false,
+            "columnNames": [
+              "isDeleted"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_isDeleted` ON `${TABLE_NAME}` (`isDeleted`)"
+          }
+        ]
+      },
+      {
+        "tableName": "transactions_attachment",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `attachmentPath` TEXT, `syncStatus` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tempTransactionServerId",
+            "columnName": "tempTransactionServerId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "serverId",
+            "columnName": "serverId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attachmentPath",
+            "columnName": "attachmentPath",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "syncStatus",
+            "columnName": "syncStatus",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_transactions_attachment_serverId",
+            "unique": false,
+            "columnNames": [
+              "serverId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_attachment_serverId` ON `${TABLE_NAME}` (`serverId`)"
+          },
+          {
+            "name": "index_transactions_attachment_tempTransactionServerId",
+            "unique": false,
+            "columnNames": [
+              "tempTransactionServerId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_attachment_tempTransactionServerId` ON `${TABLE_NAME}` (`tempTransactionServerId`)"
+          },
+          {
+            "name": "index_transactions_attachment_attachmentPath",
+            "unique": false,
+            "columnNames": [
+              "attachmentPath"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_attachment_attachmentPath` ON `${TABLE_NAME}` (`attachmentPath`)"
+          }
+        ]
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a19a4310ce1a6816e0e4e39b9cbd834f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd1a462eb22a9c67a3477ba99535c024e')"
     ]
   }
 }

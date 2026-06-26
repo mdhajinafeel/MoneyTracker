@@ -27,13 +27,16 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     // ✅ FIXED: No unchecked cast warning
-    public View getView(int id) {
-        View view = mViews.get(id);
+    public <T extends View> T getView(int viewId) {
+        View view = mViews.get(viewId);
+
         if (view == null) {
-            view = itemView.findViewById(id);
-            mViews.put(id, view);
+            view = itemView.findViewById(viewId);
+            mViews.put(viewId, view);
         }
-        return view;
+
+        //noinspection unchecked
+        return (T) view;
     }
 
     // 🔹 TEXT
