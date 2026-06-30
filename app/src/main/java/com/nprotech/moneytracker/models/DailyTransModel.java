@@ -1,14 +1,17 @@
 package com.nprotech.moneytracker.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DailyTransModel implements Serializable {
 
     private double amount;
     private int day, month, year;
     private String currencySymbol;
+    private List<TransactionWithCurrency> transactions = new ArrayList<>();
 
     public double getAmount() {
         return amount;
@@ -48,6 +51,14 @@ public class DailyTransModel implements Serializable {
 
     public void setCurrencySymbol(String currencySymbol) {
         this.currencySymbol = currencySymbol;
+    }
+
+    public List<TransactionWithCurrency> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionWithCurrency> transactions) {
+        this.transactions = transactions;
     }
 
     public Date getDateTime() {

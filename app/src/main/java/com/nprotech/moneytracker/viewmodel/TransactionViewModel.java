@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -9,11 +10,16 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.DailyTransModel;
+import com.nprotech.moneytracker.models.TransactionWithCurrency;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
 import com.nprotech.moneytracker.wrapper.SingleLiveEvent;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -33,8 +39,37 @@ public class TransactionViewModel extends ViewModel {
         this.walletRepository = walletRepository;
     }
 
-    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId) {
-        return transactionRepository.getDailyTransactionData(accountId);
+
+    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId, int type) {
+
+        return Transformations.map(
+                transactionRepository.getTransactions(accountId, type),
+                this::groupTransactions
+        );
+    }
+
+    private List<DailyTransModel> groupTransactions(List<TransactionWithCurrency> list) {
+        Map<String, DailyTransModel> map = new LinkedHashMap<>();
+        for (TransactionWithCurrency item : list) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(item.transaction.transactionDate);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            String key = year + "-" + month + "-" + day;
+            DailyTransModel model = map.get(key);
+            if (model == null) {
+                model = new DailyTransModel();
+                model.setDay(day);
+                model.setMonth(month);
+                model.setYear(year);
+                model.setCurrencySymbol(item.currencySymbol);
+                map.put(key, model);
+            }
+            model.setAmount(model.getAmount() + item.transaction.amount);
+            model.getTransactions().add(item);
+        }
+        return new ArrayList<>(map.values());
     }
 
     public void saveTransactionAttachment(List<TransactionAttachmentEntity> transactionAttachments) {

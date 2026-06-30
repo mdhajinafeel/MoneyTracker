@@ -960,6 +960,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
         transaction.type = TransactionEntity.TYPE_INCOME;
         transaction.categoryId = incomeCategory.id;
+        transaction.defaultCategoryId = incomeCategory.defaultCategory;
 
         WalletEntity wallet = transactionViewModel.getWalletByWalletId(selectedWallet.id);
         if (wallet != null) {
@@ -979,6 +980,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
         transaction.type = TransactionEntity.TYPE_EXPENSE;
         transaction.categoryId = expenseCategory.id;
+        transaction.defaultCategoryId = expenseCategory.defaultCategory;
 
         WalletEntity wallet = transactionViewModel.getWalletByWalletId(selectedWallet.id);
         if (wallet != null) {
@@ -999,6 +1001,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.type = TransactionEntity.TYPE_TRANSFER;
         transaction.fromWalletId = selectedFromWallet.id;
         transaction.categoryId = null;
+        transaction.defaultCategoryId = null;
 
         transactionViewModel.saveTransaction(transaction, null, null);
     }

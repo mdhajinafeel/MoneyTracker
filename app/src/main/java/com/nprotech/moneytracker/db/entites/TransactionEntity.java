@@ -1,8 +1,14 @@
 package com.nprotech.moneytracker.db.entites;
 
+import android.content.Context;
+
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.helper.DataHelper;
 
 import java.io.Serializable;
 
@@ -36,6 +42,7 @@ public class TransactionEntity implements Serializable {
     public int walletId;
     public Integer fromWalletId;
     public Integer categoryId;
+    public Integer defaultCategoryId;
     public String description;
     public String memo;
     public long transactionDate;
@@ -57,5 +64,16 @@ public class TransactionEntity implements Serializable {
 
     public boolean isTransfer() {
         return type == TYPE_TRANSFER;
+    }
+
+    public String getCategoryName(Context context) {
+        return this.type == 3 ? context.getString(R.string.transfer) : getCategory(context);
+    }
+
+    public String getCategory(Context context) {
+        if (this.defaultCategoryId != 0) {
+            return DataHelper.getDefaultCategory(context, this.defaultCategoryId);
+        }
+        return "";
     }
 }

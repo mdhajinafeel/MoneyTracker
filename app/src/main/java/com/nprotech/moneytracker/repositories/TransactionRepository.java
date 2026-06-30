@@ -11,6 +11,7 @@ import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.models.DailyTransModel;
+import com.nprotech.moneytracker.models.TransactionWithCurrency;
 
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class TransactionRepository {
         this.transactionAttachmentDao = transactionAttachmentDao;
     }
 
-    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId) {
-        return transactionDao.getDailyTransactionData(accountId);
+    public LiveData<List<TransactionWithCurrency>> getTransactions(int accountId, int type){
+        return transactionDao.getTransactions(accountId,type);
     }
 
     public long saveTransaction(TransactionEntity transaction) {
@@ -51,6 +52,4 @@ public class TransactionRepository {
     public void updateAccount(AccountEntity account) {
         accountDao.updateAccountById(account.id, account.balance);
     }
-
-
 }

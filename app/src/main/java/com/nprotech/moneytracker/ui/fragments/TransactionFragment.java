@@ -75,7 +75,7 @@ public class TransactionFragment extends Fragment {
                 requireActivity().overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
             });
 
-            transactionViewModel.getDailyTransactionData((int) PreferenceManager.INSTANCE.getAccountId()).observe(getViewLifecycleOwner(),
+            transactionViewModel.getDailyTransactionData((int) PreferenceManager.INSTANCE.getAccountId(), 2).observe(getViewLifecycleOwner(),
                     dailyTransModels -> {
                         if (dailyTransModels != null && !dailyTransModels.isEmpty()) {
                             emptyWrapper.setVisibility(View.GONE);

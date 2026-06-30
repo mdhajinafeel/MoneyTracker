@@ -2,8 +2,11 @@ package com.nprotech.moneytracker.ui.adapters;
 
 import android.content.Context;
 import android.text.format.DateFormat;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.models.DailyTransModel;
@@ -27,6 +30,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         AppCompatTextView monthLabel = holder.itemView.findViewById(R.id.monthLabel);
         AppCompatTextView weekLabel = holder.itemView.findViewById(R.id.weekLabel);
         AppCompatTextView amountLabel = holder.itemView.findViewById(R.id.amountLabel);
+        RecyclerView rvTransactions = holder.getView(R.id.rvDetailedTransactions);
 
         Date dailyTransDateTime = item.getDateTime();
 
@@ -34,5 +38,17 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         monthLabel.setText(new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMM yyyy"), Locale.getDefault()).format(dailyTransDateTime));
         weekLabel.setText(new SimpleDateFormat("EEEE", Locale.getDefault()).format(dailyTransDateTime));
         amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), item.getAmount() * -1));
+
+        if (item.getTransactions() == null ||
+                item.getTransactions().isEmpty()) {
+
+            rvTransactions.setVisibility(View.GONE);
+            return;
+        }
+
+        rvTransactions.setVisibility(View.VISIBLE);
+        rvTransactions.setLayoutManager(new LinearLayoutManager(rvTransactions.getContext()));
+        rvTransactions.setNestedScrollingEnabled(false);
+        rvTransactions.setAdapter(new TransactionAdapter(rvTransactions.getContext(), item.getTransactions(), item.getCurrencySymbol()));
     }
 }
