@@ -10,8 +10,7 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
-import com.nprotech.moneytracker.models.DailyTransModel;
-import com.nprotech.moneytracker.models.TransactionWithCurrency;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 
 import java.util.List;
 
@@ -29,12 +28,16 @@ public class TransactionRepository {
         this.transactionAttachmentDao = transactionAttachmentDao;
     }
 
-    public LiveData<List<TransactionWithCurrency>> getTransactions(int accountId, int type){
-        return transactionDao.getTransactions(accountId,type);
+    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId){
+        return transactionDao.getTransactions(accountId);
     }
 
     public long saveTransaction(TransactionEntity transaction) {
         return transactionDao.insert(transaction);
+    }
+
+    public int updateTransaction(TransactionEntity transaction) {
+        return transactionDao.update(transaction);
     }
 
     public TransactionEntity getTransactionById(String tempTransactionServerId){

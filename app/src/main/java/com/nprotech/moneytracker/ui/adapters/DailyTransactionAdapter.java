@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
@@ -34,14 +35,19 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
 
         Date dailyTransDateTime = item.getDateTime();
 
+        double amount;
+        if(item.getType() == TransactionEntity.TYPE_INCOME) {
+            amount = item.getAmount();
+        } else {
+            amount = item.getAmount() * -1;
+        }
+
         dayLabel.setText(new SimpleDateFormat("dd", Locale.getDefault()).format(dailyTransDateTime));
         monthLabel.setText(new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMM yyyy"), Locale.getDefault()).format(dailyTransDateTime));
         weekLabel.setText(new SimpleDateFormat("EEEE", Locale.getDefault()).format(dailyTransDateTime));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), item.getAmount() * -1));
+        amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
 
-        if (item.getTransactions() == null ||
-                item.getTransactions().isEmpty()) {
-
+        if (item.getTransactions() == null || item.getTransactions().isEmpty()) {
             rvTransactions.setVisibility(View.GONE);
             return;
         }

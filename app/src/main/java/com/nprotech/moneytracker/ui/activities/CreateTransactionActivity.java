@@ -26,6 +26,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -51,6 +52,7 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -78,7 +80,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private AppCompatTextView tvSave, tvTitle, tvAmount, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletLabel;
     private AppCompatEditText etDescription, etMemo;
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
-    private ConstraintLayout incomeWrapper, expenseWrapper, transferWrapper, clFromWallet, clFee, clCategory;
+    private ConstraintLayout incomeWrapper;
+    private ConstraintLayout expenseWrapper;
+    private ConstraintLayout transferWrapper;
+    private ConstraintLayout clFromWallet;
+    private ConstraintLayout clFee;
+    private ConstraintLayout clCategory;
     private NestedScrollView scrollView;
     private RecyclerView rvNoteImage;
     private RecyclerViewAdapter<Uri> uriRecyclerViewAdapter;
@@ -94,6 +101,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private Uri cameraTempUri;
     private final List<Uri> selectedFileUri = new ArrayList<>();
     private String tempTransactionServerId;
+    private TransactionWithDetails transactionWithDetails;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -112,6 +120,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
 
+            ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
             incomeWrapper = findViewById(R.id.incomeWrapper);
             expenseWrapper = findViewById(R.id.expenseWrapper);
             transferWrapper = findViewById(R.id.transferWrapper);
@@ -150,44 +159,106 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             Bundle bundle = getIntent().getExtras();
 
             if (bundle != null) {
+                tvSave.setVisibility(View.VISIBLE);
+
+                String action = bundle.getString("action");
                 transactionType = bundle.getInt("type");
-                switchTransMode(transactionType);
+
+                if (Objects.equals(action, "add")) {
+                    switchTransMode(transactionType);
+                } else if (Objects.equals(action, "edit")) {
+                    constraintLayout.setVisibility(View.GONE);
+
+                    if (transactionType == 1) {
+                        tvTitle.setText(getString(R.string.income));
+                    } else if (transactionType == 2) {
+                        tvTitle.setText(getString(R.string.expense));
+                    } else {
+                        tvTitle.setText(getString(R.string.transfer));
+                    }
+
+                    transactionWithDetails = (TransactionWithDetails) bundle.getSerializable("transactionDetail");
+                }
+
+                accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+                transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+
+                backPressed();
+                makeReadOnly();
+                setupListeners();
+                setupLauncher();
+                bindData(action != null && action.equals("edit"));
+                initializeAdapter();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
             }
-
-            accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
-            transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
-
-            backPressed();
-            makeReadOnly();
-            setupListeners();
-            setupLauncher();
-            bindData();
-            initializeAdapter();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void bindData() {
+    private void bindData(boolean isEdit) {
         try {
-            account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
-            walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
+            if (isEdit) {
 
-            date = DateHelper.getCurrentDateTime();
-            tvSave.setVisibility(View.VISIBLE);
-            tvSave.setEnabled(false);
-            enabledSaveOption();
+                account = accountViewModel.getAccountDetailById((int) transactionWithDetails.transaction.accountId);
+                walletLists = accountViewModel.getWalletsByAccountId((int) transactionWithDetails.transaction.accountId);
+
+                tvSave.setText(getString(R.string.update));
+                tvSave.setEnabled(true);
+                enabledSaveOption();
+
+                if (transactionWithDetails != null) {
+                    date = new Date(transactionWithDetails.transaction.transactionDate);
+
+                    tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetails.currencySymbol, transactionWithDetails.transaction.amount));
+                    tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, transactionWithDetails.transaction.fee));
+                } else {
+                    tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+                    tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+                }
+
+                if (!walletLists.isEmpty()) {
+                    selectedWallet = null;
+                    for (WalletEntity wallet : walletLists) {
+                        if (wallet.id == transactionWithDetails.transaction.walletId) {
+                            selectedWallet = wallet;
+                            break;
+                        }
+                    }
+
+                    if (selectedWallet != null) {
+                        tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.initialAmount)));
+                    }
+                }
+
+                etDescription.setText(transactionWithDetails.transaction.description);
+                etMemo.setText(transactionWithDetails.transaction.memo);
+                tvCategory.setText(transactionWithDetails.transaction.getCategoryName(getApplicationContext()));
+            } else {
+
+                account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+                walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
+
+                tvSave.setEnabled(false);
+                enabledSaveOption();
+
+                date = DateHelper.getCurrentDateTime();
+
+                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+                tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+
+                if (!walletLists.isEmpty()) {
+                    selectedWallet = walletLists.get(0);
+                    tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                            CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.initialAmount)));
+                }
+            }
 
             tvDay.setText(DateHelper.getFormattedDate(date));
             tvHour.setText(DateHelper.getFormattedTime(getApplicationContext(), date));
-            tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
-            tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
 
-            if (!walletLists.isEmpty()) {
-                selectedWallet = walletLists.get(0);
-                tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                        CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.initialAmount)));
-            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -337,7 +408,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 finish();
             });
         } catch (Exception e) {
-            AppLogger.e(getClass(), "clickListeners", e);
+            AppLogger.e(getClass(), "setupListeners", e);
         }
     }
 
@@ -983,15 +1054,46 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.defaultCategoryId = expenseCategory.defaultCategory;
 
         WalletEntity wallet = transactionViewModel.getWalletByWalletId(selectedWallet.id);
-        if (wallet != null) {
-            wallet.initialAmount = wallet.initialAmount - transactionAmount;
-        }
 
-        if (account != null) {
-            account.balance = account.balance - transactionAmount;
-        }
+        if (transactionWithDetails != null) {
+            // -----------------------------
+            // EDIT EXISTING TRANSACTION
+            // -----------------------------
 
-        transactionViewModel.saveTransaction(transaction, wallet, account);
+            double oldAmount = transactionWithDetails.transaction.amount;
+
+            if (wallet != null) {
+                // Undo old expense
+                wallet.initialAmount += oldAmount;
+
+                // Apply new expense
+                wallet.initialAmount -= transactionAmount;
+            }
+
+            if (account != null) {
+                // Undo old expense
+                account.balance += oldAmount;
+
+                // Apply new expense
+                account.balance -= transactionAmount;
+            }
+
+            transactionViewModel.updateTransaction(transaction, wallet, account);
+        } else {
+            // -----------------------------
+            // NEW TRANSACTION
+            // -----------------------------
+
+            if (wallet != null) {
+                wallet.initialAmount -= transactionAmount;
+            }
+
+            if (account != null) {
+                account.balance -= transactionAmount;
+            }
+
+            transactionViewModel.saveTransaction(transaction, wallet, account);
+        }
     }
 
     private void saveTransferTransaction() {
@@ -1006,29 +1108,36 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transactionViewModel.saveTransaction(transaction, null, null);
     }
 
+    @NonNull
     private TransactionEntity buildTransaction() {
 
-        TransactionEntity transaction = new TransactionEntity();
+        TransactionEntity transaction;
+
+        if (transactionWithDetails != null) {
+            // Editing existing transaction
+            transaction = transactionWithDetails.transaction;
+            transaction.updatedAt = System.currentTimeMillis();
+        } else {
+            // Creating new transaction
+            transaction = new TransactionEntity();
+
+            transaction.serverId = 0;
+            transaction.createdAt = System.currentTimeMillis();
+            transaction.updatedAt = System.currentTimeMillis();
+            transaction.isSynced = false;
+            transaction.isDeleted = false;
+
+            tempTransactionServerId = "T_" + System.currentTimeMillis();
+            transaction.tempTransactionServerId = tempTransactionServerId;
+        }
 
         transaction.accountId = account.id;
+        transaction.walletId = selectedWallet.id;
         transaction.amount = transactionAmount;
         transaction.fee = transactionFee;
-        transaction.walletId = selectedWallet.id;
-        transaction.serverId = 0;
-
+        transaction.transactionDate = date.getTime();
         transaction.description = Objects.requireNonNull(etDescription.getText()).toString().trim();
         transaction.memo = Objects.requireNonNull(etMemo.getText()).toString().trim();
-
-        transaction.transactionDate = date.getTime();
-
-        transaction.createdAt = System.currentTimeMillis();
-        transaction.updatedAt = System.currentTimeMillis();
-
-        transaction.isSynced = false;
-        transaction.isDeleted = false;
-
-        tempTransactionServerId = "T_" + System.currentTimeMillis();
-        transaction.tempTransactionServerId = tempTransactionServerId;
 
         return transaction;
     }

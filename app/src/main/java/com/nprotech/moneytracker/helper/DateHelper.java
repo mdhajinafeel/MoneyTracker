@@ -68,10 +68,16 @@ public class DateHelper {
         return new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "yyyy MMM dd") + StringUtils.SPACE + bestDateTimePattern, Locale.getDefault()).format(date.getTime());
     }
 
-    public static String getFormattedDateTime(Context context, Date date) {
-        String formattedDate = getFormattedDate(date);
+    public static String getFormattedDateTime(Context context, long timestamp) {
+        String formattedDate = getFormattedDate(timestamp);
         String bestDateTimePattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), DateFormat.is24HourFormat(context) ? "kk:mm" : "hh:mm aa");
-        return formattedDate + StringUtils.SPACE + new SimpleDateFormat(bestDateTimePattern, Locale.getDefault()).format(date.getTime());
+
+        return formattedDate + StringUtils.SPACE + new SimpleDateFormat(bestDateTimePattern, Locale.getDefault()).format(timestamp);
+    }
+
+    public static String getFormattedDate(long timestamp) {
+        return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                .format(timestamp);
     }
 
     public static String getFormattedDate(Date date) {

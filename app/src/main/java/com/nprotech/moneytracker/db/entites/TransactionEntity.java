@@ -3,7 +3,6 @@ package com.nprotech.moneytracker.db.entites;
 import android.content.Context;
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 

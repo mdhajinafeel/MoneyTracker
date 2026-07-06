@@ -16,10 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
-import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
+import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class TransactionFragment extends Fragment {
     private ConstraintLayout emptyWrapper;
     private RecyclerView rvTransactions;
     private TransactionViewModel transactionViewModel;
+    private AccountViewModel accountViewModel;
     private DailyTransactionAdapter dailyTransactionAdapter;
 
     @Nullable
@@ -45,6 +47,7 @@ public class TransactionFragment extends Fragment {
             rvTransactions = view.findViewById(R.id.rvTransactions);
 
             transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+            accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
             setupListeners();
             initializeAdapters();
@@ -71,23 +74,29 @@ public class TransactionFragment extends Fragment {
                                         .start())
                         .start();
 
-                startActivity(new Intent(requireContext(), CreateTransactionActivity.class).putExtra("type", 2));
+                startActivity(new Intent(requireContext(), CreateTransactionActivity.class)
+                        .putExtra("action", "add")
+                        .putExtra("type", TransactionEntity.TYPE_EXPENSE));
                 requireActivity().overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
             });
 
-            transactionViewModel.getDailyTransactionData((int) PreferenceManager.INSTANCE.getAccountId(), 2).observe(getViewLifecycleOwner(),
-                    dailyTransModels -> {
-                        if (dailyTransModels != null && !dailyTransModels.isEmpty()) {
-                            emptyWrapper.setVisibility(View.GONE);
-                            rvTransactions.setVisibility(View.VISIBLE);
+            accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
 
-                            dailyTransactionAdapter.setItems(dailyTransModels);
-                        } else {
+                if (account == null) {
+                    return;
+                }
 
-                            rvTransactions.setVisibility(View.GONE);
-                            emptyWrapper.setVisibility(View.VISIBLE);
-                        }
-                    });
+                transactionViewModel.getDailyTransactionData(account.id).observe(getViewLifecycleOwner(), dailyTransModels -> {
+                    if (dailyTransModels != null && !dailyTransModels.isEmpty()) {
+                        emptyWrapper.setVisibility(View.GONE);
+                        rvTransactions.setVisibility(View.VISIBLE);
+                        dailyTransactionAdapter.setItems(dailyTransModels);
+                    } else {
+                        rvTransactions.setVisibility(View.GONE);
+                        emptyWrapper.setVisibility(View.VISIBLE);
+                    }
+                });
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }

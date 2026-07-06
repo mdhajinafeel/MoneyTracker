@@ -9,9 +9,9 @@ import java.util.List;
 public class DailyTransModel implements Serializable {
 
     private double amount;
-    private int day, month, year;
+    private int day, month, year, type;
     private String currencySymbol;
-    private List<TransactionWithCurrency> transactions = new ArrayList<>();
+    private List<TransactionWithDetails> transactions = new ArrayList<>();
 
     public double getAmount() {
         return amount;
@@ -53,12 +53,20 @@ public class DailyTransModel implements Serializable {
         this.currencySymbol = currencySymbol;
     }
 
-    public List<TransactionWithCurrency> getTransactions() {
+    public List<TransactionWithDetails> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(List<TransactionWithCurrency> transactions) {
+    public void setTransactions(List<TransactionWithDetails> transactions) {
         this.transactions = transactions;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public Date getDateTime() {

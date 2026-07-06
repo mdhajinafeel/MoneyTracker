@@ -10,7 +10,7 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.DailyTransModel;
-import com.nprotech.moneytracker.models.TransactionWithCurrency;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
 import com.nprotech.moneytracker.wrapper.SingleLiveEvent;
@@ -40,17 +40,16 @@ public class TransactionViewModel extends ViewModel {
     }
 
 
-    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId, int type) {
-
+    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId) {
         return Transformations.map(
-                transactionRepository.getTransactions(accountId, type),
+                transactionRepository.getTransactions(accountId),
                 this::groupTransactions
         );
     }
 
-    private List<DailyTransModel> groupTransactions(List<TransactionWithCurrency> list) {
+    private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
         Map<String, DailyTransModel> map = new LinkedHashMap<>();
-        for (TransactionWithCurrency item : list) {
+        for (TransactionWithDetails item : list) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(item.transaction.transactionDate);
             int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -64,6 +63,7 @@ public class TransactionViewModel extends ViewModel {
                 model.setMonth(month);
                 model.setYear(year);
                 model.setCurrencySymbol(item.currencySymbol);
+                model.setType(item.transaction.type);
                 map.put(key, model);
             }
             model.setAmount(model.getAmount() + item.transaction.amount);
@@ -94,6 +94,28 @@ public class TransactionViewModel extends ViewModel {
             dataSavedStatus.postValue(true);
         } else {
             dataSavedStatus.postValue(false);
+        }
+    }
+
+    public void updateTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
+
+        int rows = transactionRepository.updateTransaction(transaction);
+        AppLogger.d(getClass(), "Updated rows = " + rows);
+
+        if (rows > 0) {
+            // UPDATE WALLET
+            if (wallet != null) {
+                transactionRepository.updateWallet(wallet);
+            }
+
+            // UPDATE ACCOUNT
+            if (account != null) {
+                transactionRepository.updateAccount(account);
+            }
+
+            dataUpdatedStatus.postValue(true);
+        } else {
+            dataUpdatedStatus.postValue(false);
         }
     }
 

@@ -106,6 +106,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Transaction Detail Screen -->
+        <activity
+            android:name=".ui.activities.TransactionDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Calculator Screen -->
         <activity
             android:name=".ui.activities.CalculatorActivity"

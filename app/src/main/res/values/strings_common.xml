@@ -71,4 +71,9 @@
     <string name="cancel">Cancel</string>
     <string name="no_record">No Record</string>
     <string name="add_record">Tap the + button to add your first record.</string>
+    <string name="type">Type</string>
+    <string name="detail">Detail</string>
+    <string name="parsing_error">There is an error when parsing the data</string>
+    <string name="transfer_to"> —&gt; </string>
+    <string name="update">Update</string>
 </resources>
