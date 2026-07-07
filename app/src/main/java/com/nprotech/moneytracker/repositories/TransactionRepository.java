@@ -55,4 +55,12 @@ public class TransactionRepository {
     public void updateAccount(AccountEntity account) {
         accountDao.updateAccountById(account.id, account.balance);
     }
+
+    public List<TransactionAttachmentEntity> getTransactionAttachments(String tempTransactionServerId) {
+        return transactionAttachmentDao.getAttachments(tempTransactionServerId);
+    }
+
+    public void deleteAttachment(String attachmentPath, String tempTransactionServerId) {
+        transactionAttachmentDao.deleteAttachment(attachmentPath, tempTransactionServerId);
+    }
 }

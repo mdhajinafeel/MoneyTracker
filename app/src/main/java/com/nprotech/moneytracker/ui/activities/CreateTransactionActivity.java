@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -187,8 +188,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 makeReadOnly();
                 setupListeners();
                 setupLauncher();
-                bindData(action != null && action.equals("edit"));
                 initializeAdapter();
+                bindData(action != null && action.equals("edit"));
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
             }
@@ -236,6 +237,18 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 etDescription.setText(transactionWithDetails.transaction.description);
                 etMemo.setText(transactionWithDetails.transaction.memo);
                 tvCategory.setText(transactionWithDetails.transaction.getCategoryName(getApplicationContext()));
+
+                List<TransactionAttachmentEntity> attachments = transactionViewModel.getTransactionAttachments(transactionWithDetails.transaction.tempTransactionServerId);
+
+                if (attachments != null && !attachments.isEmpty()) {
+                    for (TransactionAttachmentEntity attachment : attachments) {
+                        File file = new File(attachment.attachmentPath);
+                        if (file.exists()) {
+                            selectedFileUri.add(Uri.fromFile(file));
+                        }
+                    }
+                    showPreviewFromUri(selectedFileUri);
+                }
             } else {
 
                 account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
@@ -633,6 +646,16 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 String mime = getContentResolver().getType(uri);
 
+                if (mime == null) {
+                    String path = uri.getPath();
+                    String extension = MimeTypeMap.getFileExtensionFromUrl(path);
+
+                    if (!TextUtils.isEmpty(extension)) {
+                        mime = MimeTypeMap.getSingleton()
+                                .getMimeTypeFromExtension(extension.toLowerCase());
+                    }
+                }
+
                 if (mime != null && mime.startsWith("image")) {
                     Glide.with(ivImage.getContext())
                             .load(uri)
@@ -643,14 +666,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 holder.getView(R.id.cardDelete).setOnClickListener(v -> {
                     selectedFileUri.remove(uri);
-                    deleteCameraTempFile(uri);
+                    deleteAttachment(uri, transactionWithDetails != null);
                     notifyDataSetChanged();
-
-                    if (selectedFileUri.size() == 5) {
-                        noteImage.setVisibility(View.GONE);
-                    } else {
-                        noteImage.setVisibility(View.VISIBLE);
-                    }
+                    noteImage.setVisibility(selectedFileUri.size() == 5 ? View.GONE : View.VISIBLE);
                 });
             }
         };
@@ -753,52 +771,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         return R.drawable.ic_file_generic;
     }
 
-    private String getFileExtensionFromUrl(String url) {
-        try {
-            String cleanUrl = url.split("\\?")[0]; // remove query params
-            return cleanUrl.substring(cleanUrl.lastIndexOf(".")).toLowerCase();
-        } catch (Exception e) {
-            return "";
-        }
-    }
-
-    private void showPreviewFromUrl(String fileUrl) {
-
-        //ivFilePreview.setVisibility(View.VISIBLE);
-        //ivRemoveFile.setVisibility(View.VISIBLE);
-
-        String ext = getFileExtensionFromUrl(fileUrl);
-
-        // 🖼 Image files
-        if (ext.equals(".jpg") || ext.equals(".jpeg")
-                || ext.equals(".png") || ext.equals(".webp")) {
-
-//            Glide.with(this)
-//                    .load(fileUrl)
-//                    .placeholder(R.drawable.ic_placeholder)
-//                    .error(R.drawable.ic_file_generic)
-//                    .into(ivFilePreview);
-
-        } else {
-            // 📄 Document files
-            //ivFilePreview.setImageResource(getFileIconFromExtension(ext));
-        }
-    }
-
-    private int getFileIconFromExtension(String ext) {
-
-        return switch (ext) {
-            case ".pdf" -> R.drawable.ic_file_pdf;
-            case ".doc", ".docx" -> R.drawable.ic_file_doc;
-            case ".ppt", ".pptx" -> R.drawable.ic_file_ppt;
-            case ".xls", ".xlsx", ".csv" -> R.drawable.ic_file_excel;
-            case ".zip" -> R.drawable.ic_file_zip;
-            case ".rar" -> R.drawable.ic_file_rar;
-            case ".xml" -> R.drawable.ic_file_xml;
-            default -> R.drawable.ic_file_generic;
-        };
-    }
-
     private String getFileNameFromUri(Uri uri) {
         String result = null;
 
@@ -846,6 +818,20 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteCameraTempFile", e);
+        }
+    }
+
+    private void deleteAttachment(Uri uri, boolean isEdit) {
+
+        if (isEdit) {
+            // 1. Delete from database
+            transactionViewModel.deleteAttachment(uri.getPath(), transactionWithDetails.transaction.tempTransactionServerId);
+
+            // 2. Delete local file
+            deleteLocalFile(uri.getPath());
+        } else {
+            // Temporary camera/gallery file
+            deleteCameraTempFile(uri);
         }
     }
 

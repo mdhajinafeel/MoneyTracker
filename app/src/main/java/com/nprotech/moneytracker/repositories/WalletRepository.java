@@ -15,8 +15,8 @@ public class WalletRepository {
         this.walletDao = walletDao;
     }
 
-    public LiveData<List<WalletEntity>> getAllWallets() {
-        return walletDao.getAllWallets();
+    public LiveData<List<WalletEntity>> getAllWallets(int accountId) {
+        return walletDao.getAllWallets(accountId);
     }
 
     public long saveWallet(WalletEntity wallet) {

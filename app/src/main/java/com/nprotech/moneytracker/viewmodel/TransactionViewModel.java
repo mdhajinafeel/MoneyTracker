@@ -119,6 +119,14 @@ public class TransactionViewModel extends ViewModel {
         }
     }
 
+    public List<TransactionAttachmentEntity> getTransactionAttachments(String tempTransactionServerId) {
+        return transactionRepository.getTransactionAttachments(tempTransactionServerId);
+    }
+
+    public void deleteAttachment(String attachmentPath, String tempTransactionServerId) {
+        transactionRepository.deleteAttachment(attachmentPath, tempTransactionServerId);
+    }
+
     public LiveData<Boolean> getDataSavedStatus() {
         return dataSavedStatus;
     }

@@ -16,8 +16,8 @@ public interface WalletDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(WalletEntity walletAccount);
 
-    @Query("SELECT * FROM wallets ORDER BY ordering")
-    LiveData<List<WalletEntity>> getAllWallets();
+    @Query("SELECT * FROM wallets WHERE accountId = :accountId ORDER BY ordering")
+    LiveData<List<WalletEntity>> getAllWallets(int accountId);
 
     @Query("SELECT COALESCE(MAX(ordering), 0) FROM wallets")
     int getLastWalletOrder();

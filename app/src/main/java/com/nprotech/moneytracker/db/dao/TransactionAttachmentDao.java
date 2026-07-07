@@ -16,6 +16,9 @@ public interface TransactionAttachmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<TransactionAttachmentEntity> transactionAttachmentEntities);
 
-    @Query("SELECT * FROM transactions_attachment")
-    LiveData<List<TransactionAttachmentEntity>> getAllTransactionAttachment();
+    @Query("SELECT * FROM transactions_attachment WHERE tempTransactionServerId = :tempTransactionServerId")
+    List<TransactionAttachmentEntity> getAttachments(String tempTransactionServerId);
+
+    @Query("DELETE FROM transactions_attachment WHERE attachmentPath = :attachmentPath AND tempTransactionServerId = :tempTransactionServerId")
+    void deleteAttachment(String attachmentPath, String tempTransactionServerId);
 }

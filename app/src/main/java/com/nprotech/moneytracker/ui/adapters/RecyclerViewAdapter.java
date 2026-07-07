@@ -16,6 +16,8 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     private static final int VIEW_TYPE_HEADER = 0;
     private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_FOOTER = 2;
+    private int mFooterLayoutId = -1;
     private final Context mContext;
     private final List<T> mDataList;
     private final List<T> mFullList;
@@ -39,11 +41,20 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
         mOnItemLongClickListener = onItemLongClickListener;
     }
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layoutToUse = (viewType == VIEW_TYPE_HEADER) ? mHeaderLayoutId : mLayoutId;
+
+        int layoutToUse;
+
+        if (viewType == VIEW_TYPE_HEADER) {
+            layoutToUse = mHeaderLayoutId;
+        } else if (viewType == VIEW_TYPE_FOOTER) {
+            layoutToUse = mFooterLayoutId;
+        } else {
+            layoutToUse = mLayoutId;
+        }
+
         View view = LayoutInflater.from(mContext).inflate(layoutToUse, parent, false);
         return new ViewHolder(view);
     }
@@ -51,6 +62,11 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
+            return;
+        }
+
+        if (getItemViewType(position) == VIEW_TYPE_FOOTER) {
+            onFooterBind(holder);
             return;
         }
 
@@ -69,7 +85,9 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     @Override
     public int getItemCount() {
-        return mDataList.size() + (hasHeader() ? 1 : 0);
+        return mDataList.size()
+                + (hasHeader() ? 1 : 0)
+                + (hasFooter() ? 1 : 0);
     }
 
     public abstract void onPostBindViewHolder(ViewHolder holder, T t);
@@ -128,9 +146,15 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     @Override
     public int getItemViewType(int position) {
+
         if (hasHeader() && position == 0) {
             return VIEW_TYPE_HEADER;
         }
+
+        if (hasFooter() && position == getItemCount() - 1) {
+            return VIEW_TYPE_FOOTER;
+        }
+
         return VIEW_TYPE_ITEM;
     }
 
@@ -151,5 +175,16 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     public List<T> getItems() {
         return mFullList;
+    }
+
+    public void setFooterLayout(int footerLayoutId) {
+        mFooterLayoutId = footerLayoutId;
+    }
+
+    public boolean hasFooter() {
+        return mFooterLayoutId != -1;
+    }
+
+    public void onFooterBind(ViewHolder holder) {
     }
 }
