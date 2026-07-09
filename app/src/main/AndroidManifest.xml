@@ -127,6 +127,27 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Create Wallet Screen -->
+        <activity
+            android:name=".ui.activities.CreateWalletActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Wallet Icon Picker Screen -->
+        <activity
+            android:name=".ui.activities.WalletPickerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Add Currency Screen -->
+        <activity
+            android:name=".ui.activities.AddCurrencyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Settings Screen -->
         <activity
             android:name=".ui.activities.SettingsActivity"

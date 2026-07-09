@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginStart="@dimen/margin_12"
             android:text="@string/wallets"
             android:textAllCaps="true"
             android:textColor="@color/black"
@@ -30,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvWallets"
             android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2" />
     </RelativeLayout>

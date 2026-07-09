@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.helper;
 
 import android.content.Context;
+import android.util.TypedValue;
 
 import com.nprotech.moneytracker.R;
 
@@ -254,7 +255,56 @@ public class DataHelper {
         return arrayList;
     }
 
+    //----------------------
+    //--- WALLET ICONS ---
+    //----------------------
+    public static List<Integer> getWalletIcons() {
+        List<Integer> arrayList = new ArrayList<>();
+        arrayList.add(R.drawable.wallet_0);
+        arrayList.add(R.drawable.wallet_1);
+        arrayList.add(R.drawable.wallet_2);
+        arrayList.add(R.drawable.wallet_3);
+        arrayList.add(R.drawable.wallet_4);
+        arrayList.add(R.drawable.wallet_5);
+        arrayList.add(R.drawable.wallet_6);
+        arrayList.add(R.drawable.wallet_7);
+        arrayList.add(R.drawable.wallet_8);
+        arrayList.add(R.drawable.wallet_9);
+        arrayList.add(R.drawable.wallet_10);
+        arrayList.add(R.drawable.wallet_11);
+        arrayList.add(R.drawable.wallet_12);
+        arrayList.add(R.drawable.wallet_13);
+        arrayList.add(R.drawable.wallet_14);
+        arrayList.add(R.drawable.wallet_15);
+        arrayList.add(R.drawable.wallet_16);
+        arrayList.add(R.drawable.wallet_17);
+        arrayList.add(R.drawable.wallet_18);
+        arrayList.add(R.drawable.wallet_19);
+        arrayList.add(R.drawable.wallet_20);
+        arrayList.add(R.drawable.wallet_21);
+        arrayList.add(R.drawable.wallet_22);
+        arrayList.add(R.drawable.wallet_23);
+        arrayList.add(R.drawable.wallet_24);
+        arrayList.add(R.drawable.wallet_25);
+        arrayList.add(R.drawable.wallet_26);
+        arrayList.add(R.drawable.wallet_27);
+        arrayList.add(R.drawable.wallet_28);
+        arrayList.add(R.drawable.wallet_29);
+        return arrayList;
+    }
+
     private static String getResourceString(Context context, int id) {
         return context.getResources().getString(id);
+    }
+
+    public static int getAttributeColor(Context context, int resource) {
+        try {
+            TypedValue typedValue = new TypedValue();
+            context.getTheme().resolveAttribute(resource, typedValue, true);
+            return typedValue.data;
+        } catch (Exception e) {
+            AppLogger.e(context.getClass(), "getAttributeColor", e);
+            return R.color.white;
+        }
     }
 }

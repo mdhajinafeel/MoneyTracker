@@ -81,12 +81,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private AppCompatTextView tvSave, tvTitle, tvAmount, incomeLabel, expenseLabel, transferLabel, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletLabel;
     private AppCompatEditText etDescription, etMemo;
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
-    private ConstraintLayout incomeWrapper;
-    private ConstraintLayout expenseWrapper;
-    private ConstraintLayout transferWrapper;
-    private ConstraintLayout clFromWallet;
-    private ConstraintLayout clFee;
-    private ConstraintLayout clCategory;
+    private ConstraintLayout incomeWrapper, expenseWrapper, transferWrapper, clFromWallet, clFee, clCategory;
     private NestedScrollView scrollView;
     private RecyclerView rvNoteImage;
     private RecyclerViewAdapter<Uri> uriRecyclerViewAdapter;
@@ -207,7 +202,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 tvSave.setText(getString(R.string.update));
                 tvSave.setEnabled(true);
-                enabledSaveOption();
+                enabledSaveOption(true);
 
                 if (transactionWithDetails != null) {
                     date = new Date(transactionWithDetails.transaction.transactionDate);
@@ -255,7 +250,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
 
                 tvSave.setEnabled(false);
-                enabledSaveOption();
+                enabledSaveOption(false);
 
                 date = DateHelper.getCurrentDateTime();
 
@@ -621,16 +616,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         }
 
         tvSave.setEnabled(enabled);
-        enabledSaveOption();
+        enabledSaveOption(enabled);
     }
 
-    private void enabledSaveOption() {
+    private void enabledSaveOption(boolean isEnabled) {
         try {
-            if (tvSave.isEnabled()) {
-                tvSave.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
-            } else {
-                tvSave.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.funky_grey));
-            }
+            tvSave.setAlpha(isEnabled ? 1.0f : 0.5f); // Optional: make disabled state visible
         } catch (Exception e) {
             AppLogger.e(getClass(), "enabledSaveOption", e);
         }

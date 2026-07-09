@@ -7,12 +7,14 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.nprotech.moneytracker.BuildConfig;
+import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
+import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -20,7 +22,8 @@ import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 
-@Database(entities = {CurrencyEntity.class, CategoryEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class, TransactionAttachmentEntity.class},
+@Database(entities = {CurrencyEntity.class, CategoryEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
+        TransactionAttachmentEntity.class},
         version = 1)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
@@ -29,6 +32,8 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
     public abstract CurrencyDao currencyDao();
 
     public abstract CategoryDao categoryDao();
+
+    public abstract AccountCurrencyMappingDao accountCurrencyMappingDao();
 
     public abstract AccountDao accountDao();
 

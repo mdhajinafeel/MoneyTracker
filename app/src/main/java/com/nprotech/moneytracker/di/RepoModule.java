@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.di;
 
+import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
@@ -31,8 +32,8 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    AccountRepository provideAccountRepository(AccountDao accountDao) {
-        return new AccountRepository(accountDao);
+    AccountRepository provideAccountRepository(AccountDao accountDao, AccountCurrencyMappingDao accountCurrencyMappingDao) {
+        return new AccountRepository(accountDao, accountCurrencyMappingDao);
     }
 
     @Provides

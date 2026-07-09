@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.repositories.AccountRepository;
@@ -41,6 +42,14 @@ public class AccountViewModel extends ViewModel {
 
     public long saveAccount(AccountEntity account) {
         return accountRepository.saveAccount(account);
+    }
+
+    public void saveAccountCurrencyMapping(AccountCurrencyMappingEntity accountCurrencyMapping) {
+        accountRepository.saveAccountCurrencyMapping(accountCurrencyMapping);
+    }
+
+    public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyByAccountId(int accountId) {
+        return accountRepository.getAccountCurrencyByAccountId(accountId);
     }
 
     public int getLastAccountOrder() {

@@ -28,4 +28,12 @@ public class MasterViewModel extends ViewModel {
     public CurrencyEntity getDefaultCurrency() {
         return masterRepository.getDefaultCurrency();
     }
+
+    public CurrencyEntity getFirstCurrencyForWallet(int accountId) {
+        return masterRepository.getFirstCurrencyForWallet(accountId);
+    }
+
+    public List<CurrencyEntity> getCurrenciesForWallet(int accountId) {
+        return masterRepository.getCurrenciesForWallet(accountId);
+    }
 }

@@ -20,6 +20,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -258,6 +259,15 @@ public class AddAccountActivity extends BaseActivity {
         if (accountId > 0) {
 
             PreferenceManager.INSTANCE.setAccountId(accountId);
+
+            AccountCurrencyMappingEntity accountCurrencyMappingEntity = new AccountCurrencyMappingEntity();
+            accountCurrencyMappingEntity.accountId = accountId;
+            accountCurrencyMappingEntity.currencyId = currency.id;
+            accountCurrencyMappingEntity.currencyCode = currency.code;
+            accountCurrencyMappingEntity.currencyName = currency.name;
+            accountCurrencyMappingEntity.currencySymbol = currency.symbol;
+            accountCurrencyMappingEntity.isActive = true;
+            accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
             WalletEntity wallet = new WalletEntity();
             wallet.accountId = (int) accountId;

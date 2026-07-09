@@ -1,10 +1,10 @@
 package com.nprotech.moneytracker.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
 import com.nprotech.moneytracker.ui.adapters.WalletsAdapter;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
@@ -57,8 +58,12 @@ public class WalletFragment extends Fragment {
                 }
             });
 
-            walletViewModel.getWallets().observe(getViewLifecycleOwner(), wallets -> {
-                walletsAdapter.setItems(wallets);
+            walletViewModel.getWallets().observe(getViewLifecycleOwner(), wallets -> walletsAdapter.setItems(wallets));
+
+            walletsAdapter.setOnAddWalletClickListener(() -> {
+                startActivity(new Intent(requireContext(), CreateWalletActivity.class)
+                        .putExtra("isEdit", false));
+                requireActivity().overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -69,9 +74,6 @@ public class WalletFragment extends Fragment {
         try {
             walletsAdapter = new WalletsAdapter(requireContext(), new ArrayList<>());
             rvWallets.setAdapter(walletsAdapter);
-            walletsAdapter.setOnAddWalletClickListener(() -> {
-                Toast.makeText(requireContext(), "Test", Toast.LENGTH_SHORT).show();
-            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }

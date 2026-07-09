@@ -78,4 +78,22 @@
     <string name="transfer_to"> —&gt; </string>
     <string name="update">Update</string>
     <string name="add_wallet">Add Wallet</string>
+    <string name="name">Name</string>
+    <string name="wallet_name">Wallet Name</string>
+    <string name="general">General</string>
+    <string name="bank">Bank</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="edit_wallet">Edit Wallet</string>
+    <string name="color">Color</string>
+    <string name="icon">Icon</string>
+    <string name="exclude">Exclude</string>
+    <string name="wallet_exclude_hint">Ignore the balance of this wallet on the total balance</string>
+    <string name="statement_day">Statement day of month</string>
+    <string name="due_day">Payment due day of month</string>
+    <string name="select_icon">Select Icon</string>
+    <string name="add_currency">Add Currency</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Rate</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
 </resources>

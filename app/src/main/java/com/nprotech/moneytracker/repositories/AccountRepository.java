@@ -2,7 +2,9 @@ package com.nprotech.moneytracker.repositories;
 
 import androidx.lifecycle.LiveData;
 
+import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 
 import java.util.List;
@@ -10,9 +12,11 @@ import java.util.List;
 public class AccountRepository {
 
     private final AccountDao accountDao;
+    private final AccountCurrencyMappingDao accountCurrencyMappingDao;
 
-    public AccountRepository(AccountDao accountDao) {
+    public AccountRepository(AccountDao accountDao, AccountCurrencyMappingDao accountCurrencyMappingDao) {
         this.accountDao = accountDao;
+        this.accountCurrencyMappingDao = accountCurrencyMappingDao;
     }
 
     public LiveData<List<AccountEntity>> getAllAccounts() {
@@ -29,6 +33,14 @@ public class AccountRepository {
 
     public long saveAccount(AccountEntity account) {
         return accountDao.insert(account);
+    }
+
+    public void saveAccountCurrencyMapping(AccountCurrencyMappingEntity accountCurrencyMapping) {
+        accountCurrencyMappingDao.insert(accountCurrencyMapping);
+    }
+
+    public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyByAccountId(int accountId) {
+        return accountCurrencyMappingDao.getAccountCurrencyByAccountId(accountId);
     }
 
     public int getLastAccountOrder() {
