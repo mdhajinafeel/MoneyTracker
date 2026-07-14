@@ -24,9 +24,12 @@ public interface CurrencyDao {
     @Query("SELECT * FROM currencies WHERE isDefault = 1")
     CurrencyEntity getDefaultCurrency();
 
+    @Query("SELECT * FROM currencies WHERE code = :currencyCode")
+    CurrencyEntity getCurrencyByCode(String currencyCode);
+
     @Query("SELECT * FROM currencies WHERE id NOT IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId) LIMIT 1")
     CurrencyEntity getFirstCurrencyForWallet(int accountId);
 
-    @Query("SELECT * FROM currencies WHERE id NOT IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId) ")
+    @Query("SELECT * FROM currencies WHERE id NOT IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId)")
     List<CurrencyEntity> getCurrenciesForWallet(int accountId);
 }

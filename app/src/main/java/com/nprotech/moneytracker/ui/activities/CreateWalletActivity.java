@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.ListPopupWindow;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,8 +28,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.ColorSpinnerAdapter;
 import com.nprotech.moneytracker.ui.adapters.CurrencySpinnerAdapter;
@@ -36,6 +39,7 @@ import com.nprotech.moneytracker.ui.adapters.FontSpinnerAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -50,17 +54,20 @@ public class CreateWalletActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivWalletIcon;
     private AppCompatEditText etWalletName;
-    private AppCompatTextView tvSave, tvTitle, tvAmount;
-    private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner;
-    private FrameLayout frameColor, frameCurrencySpinner;
+    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount;
+    private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner, statementDateSpinner, paymentDateSpinner;
+    private FrameLayout frameColor;
     private ConstraintLayout excludeWrapper, statementDateWrapper, paymentDateWrapper;
-    private ActivityResultLauncher<Intent> calculatorLauncher, walletIconLauncher;
+    private ActivityResultLauncher<Intent> calculatorLauncher, walletIconLauncher, currencyLauncher;
     private boolean isEdit = false;
     private double walletAmount = 0;
     private AccountEntity account;
     private AccountViewModel accountViewModel;
+    private WalletViewModel walletViewModel;
     private ArrayList<String> walletColorLists;
     private int walletIcon = 0;
+    private WalletEntity walletEntity;
+    private SwitchCompat switchExcludeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +91,17 @@ public class CreateWalletActivity extends BaseActivity {
             etWalletName = findViewById(R.id.etWalletName);
             typeSpinner = findViewById(R.id.typeSpinner);
             frameColor = findViewById(R.id.frameColor);
-            frameCurrencySpinner = findViewById(R.id.frameCurrencySpinner);
             colorSpinner = findViewById(R.id.colorSpinner);
             currencySpinner = findViewById(R.id.currencySpinner);
+            statementDateSpinner = findViewById(R.id.statementDateSpinner);
+            paymentDateSpinner = findViewById(R.id.paymentDateSpinner);
             ivWalletIcon = findViewById(R.id.ivWalletIcon);
+            amountLabel = findViewById(R.id.amountLabel);
             tvAmount = findViewById(R.id.tvAmount);
             excludeWrapper = findViewById(R.id.excludeWrapper);
             statementDateWrapper = findViewById(R.id.statementDateWrapper);
             paymentDateWrapper = findViewById(R.id.paymentDateWrapper);
+            switchExcludeView = findViewById(R.id.switchExcludeView);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -106,6 +116,7 @@ public class CreateWalletActivity extends BaseActivity {
             });
 
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+            walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
@@ -137,6 +148,13 @@ public class CreateWalletActivity extends BaseActivity {
             ColorSpinnerAdapter colorSpinnerAdapter = new ColorSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletColorLists);
             colorSpinner.setAdapter(colorSpinnerAdapter);
 
+            List<String> dateList = DateHelper.getMonthDates();
+            FontSpinnerAdapter statementAdapter = new FontSpinnerAdapter(this, dateList);
+            FontSpinnerAdapter paymentAdapter = new FontSpinnerAdapter(this, dateList);
+
+            statementDateSpinner.setAdapter(statementAdapter);
+            paymentDateSpinner.setAdapter(paymentAdapter);
+
             // Set max dropdown height
             try {
                 Field popupField = AppCompatSpinner.class.getDeclaredField("mPopup");
@@ -152,6 +170,65 @@ public class CreateWalletActivity extends BaseActivity {
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
+        }
+    }
+
+    private void bindData(boolean isEdit) {
+        try {
+            if (isEdit) {
+                tvTitle.setText(getString(R.string.edit_wallet));
+
+                walletEntity = (WalletEntity) getIntent().getSerializableExtra("wallet");
+
+                if (walletEntity != null) {
+                    etWalletName.setText(walletEntity.name);
+                    walletAmount = walletEntity.amount;
+                    walletIcon = walletEntity.categoryIcon;
+                    ivWalletIcon.setImageResource(DataHelper.getWalletIcons().get(walletIcon));
+                    tvAmount.setText(CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletAmount));
+
+                    //Color
+                    int colorPosition = walletColorLists.indexOf(walletEntity.walletColor);
+                    if (colorPosition >= 0) colorSpinner.setSelection(colorPosition);
+
+                    //Currency
+                    CurrencySpinnerAdapter adapter = (CurrencySpinnerAdapter) currencySpinner.getAdapter();
+
+                    if (adapter != null) {
+                        for (int i = 0; i < adapter.getCount(); i++) {
+                            AccountCurrencyMappingEntity item = adapter.getItem(i);
+                            if (item != null && walletEntity.currencyCode.equals(item.currencyCode)) {
+                                currencySpinner.setSelection(i);
+                                break;
+                            }
+                        }
+                    }
+
+                    // Wallet Type
+                    typeSpinner.setSelection(walletEntity.walletType);
+
+                    // Exclude
+                    switchExcludeView.setChecked(walletEntity.isExclude);
+
+                    // Credit Card Dates
+                    if (walletEntity.statementDate > 0) {
+                        statementDateSpinner.setSelection((int) walletEntity.statementDate - 1);
+                    }
+
+                    if (walletEntity.dueDate > 0) {
+                        paymentDateSpinner.setSelection((int) walletEntity.dueDate - 1);
+                    }
+                }
+            } else {
+                account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+                tvTitle.setText(getString(R.string.add_wallet));
+                walletIcon = 0;
+                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, walletAmount));
+            }
+
+            updateSaveButtonState();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "bindData", e);
         }
     }
 
@@ -183,10 +260,14 @@ public class CreateWalletActivity extends BaseActivity {
                         statementDateWrapper.setVisibility(View.VISIBLE);
                         paymentDateWrapper.setVisibility(View.VISIBLE);
                         excludeWrapper.setVisibility(View.GONE);
+
+                        amountLabel.setText(getString(R.string.credit_limit));
                     } else {
                         excludeWrapper.setVisibility(View.VISIBLE);
                         statementDateWrapper.setVisibility(View.GONE);
                         paymentDateWrapper.setVisibility(View.GONE);
+
+                        amountLabel.setText(getString(R.string.amount));
                     }
                 }
 
@@ -243,8 +324,10 @@ public class CreateWalletActivity extends BaseActivity {
                                 }
 
                                 if (position == parent.getCount() - 1) {
+                                    hideKeyboard(CreateWalletActivity.this);
                                     Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class);
-                                    startActivity(intent);
+                                    currencyLauncher.launch(intent);
+                                    overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
                                 }
                             }
 
@@ -255,9 +338,7 @@ public class CreateWalletActivity extends BaseActivity {
                         });
                     });
 
-            tvSave.setOnClickListener(view -> {
-
-            });
+            tvSave.setOnClickListener(view -> saveWallet());
 
             icBack.setOnClickListener(view -> {
                 finish();
@@ -277,23 +358,6 @@ public class CreateWalletActivity extends BaseActivity {
         }
     }
 
-    private void bindData(boolean isEdit) {
-        try {
-            if (isEdit) {
-                tvTitle.setText(getString(R.string.edit_wallet));
-            } else {
-                account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
-                tvTitle.setText(getString(R.string.add_wallet));
-                walletIcon = 0;
-                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencyCode, walletAmount));
-            }
-
-            updateSaveButtonState();
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "bindData", e);
-        }
-    }
-
     private void makeReadOnly() {
         tvAmount.setFocusable(false);
         tvAmount.setLongClickable(false);
@@ -310,7 +374,7 @@ public class CreateWalletActivity extends BaseActivity {
 
                             if (type != null && type.equalsIgnoreCase("amount")) {
                                 walletAmount = amount;
-                                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencyCode, amount));
+                                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
                                 updateSaveButtonState();
                             }
                         }
@@ -328,6 +392,23 @@ public class CreateWalletActivity extends BaseActivity {
                         }
                     }
                 });
+
+        currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            AccountCurrencyMappingEntity accountCurrencyMapping = (AccountCurrencyMappingEntity) data.getSerializableExtra("currencyMapping");
+
+                            if (accountCurrencyMapping != null) {
+                                CurrencySpinnerAdapter adapter = (CurrencySpinnerAdapter) currencySpinner.getAdapter();
+                                adapter.insert(accountCurrencyMapping, adapter.getCount() - 1);
+                                adapter.notifyDataSetChanged();
+                                currencySpinner.setSelection(adapter.getPosition(accountCurrencyMapping));
+                            }
+                        }
+                    }
+                });
     }
 
     private void updateSaveButtonState() {
@@ -340,5 +421,97 @@ public class CreateWalletActivity extends BaseActivity {
 
         tvSave.setEnabled(enabled);
         tvSave.setAlpha(enabled ? 1.0f : 0.5f); // Optional: make disabled state visible
+    }
+
+    private void saveWallet() {
+        try {
+
+            AccountCurrencyMappingEntity currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
+
+            if (isEdit) {
+
+                walletEntity.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
+                walletEntity.walletColor = walletColorLists.get(colorSpinner.getSelectedItemPosition());
+                walletEntity.walletType = typeSpinner.getSelectedItemPosition();
+                walletEntity.currencyName = currency.currencyName;
+                walletEntity.currencyCode = currency.currencyCode;
+                walletEntity.currencySymbol = currency.currencySymbol;
+
+                walletEntity.categoryIcon = walletIcon;
+                walletEntity.initialAmount = walletAmount;
+
+                // Wallet Type
+                walletEntity.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+
+                // Exclude
+                walletEntity.isExclude = switchExcludeView.isChecked();
+
+                // Credit Card Details
+                if (typeSpinner.getSelectedItemPosition() == 3) {
+                    walletEntity.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
+                    walletEntity.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
+                } else {
+                    walletEntity.statementDate = 0;
+                    walletEntity.dueDate = 0;
+                }
+
+                walletEntity.isSynced = false;
+
+                walletViewModel.updateWallet(walletEntity);
+
+                Toast.makeText(getApplicationContext(), getString(R.string.wallet_updated_successfully), Toast.LENGTH_SHORT).show();
+
+            } else {
+
+                WalletEntity wallet = new WalletEntity();
+
+                wallet.accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+                wallet.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
+                wallet.walletColor = walletColorLists.get(colorSpinner.getSelectedItemPosition());
+                wallet.walletType = typeSpinner.getSelectedItemPosition();
+                wallet.currencyName = currency.currencyName;
+                wallet.currencyCode = currency.currencyCode;
+                wallet.currencySymbol = currency.currencySymbol;
+
+                wallet.categoryIcon = walletIcon;
+                wallet.initialAmount = walletAmount;
+                wallet.amount = walletAmount;
+
+                // Wallet Type
+                wallet.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+
+                // Exclude
+                wallet.isExclude = switchExcludeView.isChecked();
+
+                // Credit Card Details
+                if (typeSpinner.getSelectedItemPosition() == 3) {
+                    wallet.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
+                    wallet.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
+
+                    amountLabel.setText(getString(R.string.credit_limit));
+                } else {
+                    wallet.statementDate = 0;
+                    wallet.dueDate = 0;
+
+                    amountLabel.setText(getString(R.string.amount));
+                }
+
+                wallet.isHidden = false;
+                wallet.isActive = true;
+                wallet.isDeleted = false;
+                wallet.isSynced = false;
+
+                walletViewModel.saveWallet(wallet);
+
+                Toast.makeText(getApplicationContext(), getString(R.string.wallet_created_successfully), Toast.LENGTH_SHORT).show();
+            }
+
+            setResult(RESULT_OK);
+            finish();
+            overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "saveWallet", e);
+        }
     }
 }

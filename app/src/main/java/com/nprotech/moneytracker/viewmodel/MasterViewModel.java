@@ -36,4 +36,8 @@ public class MasterViewModel extends ViewModel {
     public List<CurrencyEntity> getCurrenciesForWallet(int accountId) {
         return masterRepository.getCurrenciesForWallet(accountId);
     }
+
+    public CurrencyEntity getCurrencyByCode(String code) {
+        return masterRepository.getCurrencyByCode(code);
+    }
 }

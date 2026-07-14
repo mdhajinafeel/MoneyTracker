@@ -28,4 +28,8 @@ public class MasterRepository {
     public List<CurrencyEntity> getCurrenciesForWallet(int accountId) {
         return currencyDao.getCurrenciesForWallet(accountId);
     }
+
+    public CurrencyEntity getCurrencyByCode(String code) {
+        return currencyDao.getCurrencyByCode(code);
+    }
 }

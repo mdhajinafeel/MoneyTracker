@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
+import com.nprotech.moneytracker.ui.activities.WalletTransactionDetailedActivity;
 import com.nprotech.moneytracker.ui.adapters.WalletsAdapter;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
@@ -64,6 +65,13 @@ public class WalletFragment extends Fragment {
                 startActivity(new Intent(requireContext(), CreateWalletActivity.class)
                         .putExtra("isEdit", false));
                 requireActivity().overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            walletsAdapter.setOnWalletClickListener(wallet -> {
+                Intent intent = new Intent(requireContext(), WalletTransactionDetailedActivity.class);
+                intent.putExtra("walletId", wallet.id);
+                startActivity(intent);
+                requireActivity().overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);

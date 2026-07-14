@@ -139,6 +139,7 @@ public class AddAccountActivity extends BaseActivity {
         etCurrency.setOnClickListener(v -> {
             Intent intent = new Intent(this, CurrencyListActivity.class);
             intent.putExtra("currency", currency);
+            intent.putExtra("type", "account");
             currencyLauncher.launch(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
@@ -266,24 +267,30 @@ public class AddAccountActivity extends BaseActivity {
             accountCurrencyMappingEntity.currencyCode = currency.code;
             accountCurrencyMappingEntity.currencyName = currency.name;
             accountCurrencyMappingEntity.currencySymbol = currency.symbol;
+            accountCurrencyMappingEntity.mainCurrencyId = currency.id;
+            accountCurrencyMappingEntity.mainCurrencyCode = currency.code;
+            accountCurrencyMappingEntity.mainCurrencySymbol = currency.symbol;
+            accountCurrencyMappingEntity.mainCurrencyName = currency.name;
             accountCurrencyMappingEntity.isActive = true;
             accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
             WalletEntity wallet = new WalletEntity();
             wallet.accountId = (int) accountId;
             wallet.name = getString(R.string.cash);
+            wallet.walletType = 1;
             wallet.walletColor = "#0097E6";
             wallet.currencyName = currency.name;
             wallet.currencyCode = currency.code;
             wallet.currencySymbol = currency.symbol;
             wallet.categoryIcon = 0;
             wallet.initialAmount = initialAmount;
+            wallet.amount = initialAmount;
             wallet.dueDate = 0;
             wallet.statementDate = 0;
-            wallet.ordering = walletViewModel.getLastWalletOrder() + 1;
+            wallet.ordering = walletViewModel.getMaxWalletOrdering((int) accountId) + 1;
             wallet.isHidden = false;
             wallet.isExclude = false;
-            wallet.isActive = false;
+            wallet.isActive = true;
             wallet.isSynced = false;
             wallet.isDeleted = false;
             long walletId = walletViewModel.saveWallet(wallet);

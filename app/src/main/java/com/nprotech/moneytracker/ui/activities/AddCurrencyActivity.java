@@ -20,6 +20,7 @@ import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
@@ -39,7 +40,7 @@ public class AddCurrencyActivity extends BaseActivity {
     private AppCompatTextView tvCurrencyName, tvSave, tvRate;
     private AppCompatEditText etRate;
     private ActivityResultLauncher<Intent> currencyLauncher;
-    private CurrencyEntity currency;
+    private CurrencyEntity mainCurrency, currency;
     private MasterViewModel masterViewModel;
     private AccountViewModel accountViewModel;
     private String currencyCode = "";
@@ -98,6 +99,8 @@ public class AddCurrencyActivity extends BaseActivity {
             AccountEntity account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
             if (account != null) {
                 currencyCode = account.currencyCode;
+
+                mainCurrency = masterViewModel.getCurrencyByCode(currencyCode);
             }
 
             currency = masterViewModel.getFirstCurrencyForWallet((int) PreferenceManager.INSTANCE.getAccountId());
@@ -134,6 +137,7 @@ public class AddCurrencyActivity extends BaseActivity {
             tvCurrencyName.setOnClickListener(view -> {
                 Intent intent = new Intent(this, CurrencyListActivity.class);
                 intent.putExtra("currency", currency);
+                intent.putExtra("type", "wallet");
                 currencyLauncher.launch(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             });
@@ -170,7 +174,30 @@ public class AddCurrencyActivity extends BaseActivity {
             });
 
             tvSave.setOnClickListener(view -> {
+                AccountCurrencyMappingEntity accountCurrencyMappingEntity = new AccountCurrencyMappingEntity();
+                accountCurrencyMappingEntity.accountId = PreferenceManager.INSTANCE.getAccountId();
+                accountCurrencyMappingEntity.currencyId = currency.id;
+                accountCurrencyMappingEntity.currencyCode = currency.code;
+                accountCurrencyMappingEntity.currencyName = currency.name;
+                accountCurrencyMappingEntity.currencySymbol = currency.symbol;
+                accountCurrencyMappingEntity.isActive = true;
 
+                if(mainCurrency != null) {
+                    accountCurrencyMappingEntity.mainCurrencyId = mainCurrency.id;
+                    accountCurrencyMappingEntity.mainCurrencyCode = mainCurrency.code;
+                    accountCurrencyMappingEntity.mainCurrencyName = mainCurrency.name;
+                    accountCurrencyMappingEntity.mainCurrencySymbol = mainCurrency.symbol;
+                }
+
+                accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
+
+                runOnUiThread(() -> {
+                    Intent intent = new Intent();
+                    intent.putExtra("currencyMapping", accountCurrencyMappingEntity);
+                    setResult(-1, intent);
+                    finish();
+                    overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                });
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -225,6 +252,6 @@ public class AddCurrencyActivity extends BaseActivity {
         boolean enabled = exchangeRate > 0;
 
         tvSave.setEnabled(enabled);
-        tvSave.setAlpha(enabled ? 1.0f : 0.5f); // Optional: make disabled state visible
+        tvSave.setAlpha(enabled ? 1.0f : 0.5f);
     }
 }

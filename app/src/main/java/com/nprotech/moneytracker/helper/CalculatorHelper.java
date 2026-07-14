@@ -77,11 +77,30 @@ public class CalculatorHelper {
         return amount + "+";
     }
 
-    public static String validateMinus(String amount) {
-        if (isSymbol(amount.substring(amount.length() - 1))) {
-            amount = amount.substring(0, amount.length() - 1);
+    public static String validateMinus(String equation) {
+
+        if (equation == null || equation.isEmpty()) {
+            return "-";
         }
-        return amount + "-";
+
+        char last = equation.charAt(equation.length() - 1);
+
+        // Allow minus as the first character
+        if (equation.equals("0")) {
+            return "-";
+        }
+
+        // Allow negative number after an operator
+        if (last == '+' || last == '*' || last == '/') {
+            return equation + "-";
+        }
+
+        // Prevent duplicate minus signs
+        if (last == '-') {
+            return equation;
+        }
+
+        return equation + "-";
     }
 
     public static String validateEscape(String amount) {
@@ -125,6 +144,11 @@ public class CalculatorHelper {
         if (amount.equals("0")) {
             return digit;
         }
+
+        if (amount.equals("-")) {
+            return "-" + digit;
+        }
+
         int length = amount.length();
         int i = 0;
         int i2 = 0;

@@ -23,15 +23,19 @@ public class WalletRepository {
         return walletDao.insert(wallet);
     }
 
-    public int getLastWalletOrder() {
-        return walletDao.getLastWalletOrder();
-    }
-
     public List<WalletEntity> getWalletsByAccountId(int accountId) {
         return walletDao.getWalletsByAccountId(accountId);
     }
 
     public WalletEntity getWalletByWalletId(int walletId) {
         return walletDao.getWalletByWalletId(walletId);
+    }
+
+    public void updateWallet(WalletEntity wallet) {
+        walletDao.updateWallet(wallet);
+    }
+
+    public int getMaxWalletOrdering(int accountId) {
+        return walletDao.getMaxWalletOrdering(accountId);
     }
 }

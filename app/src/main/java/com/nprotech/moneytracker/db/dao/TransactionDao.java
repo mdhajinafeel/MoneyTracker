@@ -8,6 +8,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
+import com.nprotech.moneytracker.models.TransactionCategoryModel;
+import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 
 import java.util.List;
@@ -35,4 +37,13 @@ public interface TransactionDao {
             "WHERE t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2) " +
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactions(int accountId);
+
+    @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE walletId = :walletId AND isDeleted = 0 GROUP BY type")
+    List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId);
+
+    @Query("SELECT t.defaultCategoryId, COUNT(t.tempTransactionServerId) AS transactionCount, SUM(amount) as amount, c.color, c.icon " +
+            "FROM transactions t " +
+            "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "WHERE walletId = :walletId AND isDeleted = 0 GROUP BY t.defaultCategoryId")
+    LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId);
 }

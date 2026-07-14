@@ -20,9 +20,8 @@ import java.util.List;
 
 public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
 
-    private static final int TYPE_WALLET = 0;
-    private static final int TYPE_ADD = 1;
     private OnAddWalletClickListener mOnAddWalletClickListener;
+    private OnWalletClickListener mOnWalletClickListener;
 
     public WalletsAdapter(Context context, List<WalletEntity> list) {
         super(context, list, R.layout.item_wallet_list);
@@ -47,7 +46,13 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
 
         walletImage.setImageResource(walletIcon);
         walletAccountLabel.setText(item.name);
-        walletAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, item.initialAmount));
+        walletAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, item.amount));
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnWalletClickListener != null) {
+                mOnWalletClickListener.onWalletClick(item);
+            }
+        });
     }
 
     @Override
@@ -66,5 +71,13 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
 
     public void setOnAddWalletClickListener(OnAddWalletClickListener listener) {
         mOnAddWalletClickListener = listener;
+    }
+
+    public interface OnWalletClickListener {
+        void onWalletClick(WalletEntity wallet);
+    }
+
+    public void setOnWalletClickListener(OnWalletClickListener listener) {
+        this.mOnWalletClickListener = listener;
     }
 }

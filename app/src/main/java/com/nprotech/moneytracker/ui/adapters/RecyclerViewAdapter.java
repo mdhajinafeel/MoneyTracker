@@ -28,7 +28,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
 
     public RecyclerViewAdapter(Context context, List<T> dataList, int layoutId) {
         mContext = context;
-        mDataList = dataList;
+        mDataList = new ArrayList<>(dataList);
         mFullList = new ArrayList<>(dataList); // copy
         mLayoutId = layoutId;
     }
@@ -170,6 +170,13 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
         mFullList.clear();          // 🔥 important for filter
         mFullList.addAll(items);
 
+        notifyDataSetChanged();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void replaceItems(List<T> items) {
+        mDataList.clear();
+        mDataList.addAll(items);
         notifyDataSetChanged();
     }
 

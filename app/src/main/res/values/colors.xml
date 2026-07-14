@@ -21,4 +21,7 @@
 
     <color name="background">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
+
+    <color name="income">#3f96e2</color>
+    <color name="expense">#f73242</color>
 </resources>

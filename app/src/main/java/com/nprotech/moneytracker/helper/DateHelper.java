@@ -6,8 +6,10 @@ import android.text.format.DateFormat;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class DateHelper {
@@ -166,5 +168,29 @@ public class DateHelper {
         long timeInMillis = calendar.getTimeInMillis();
         calendar.setTime(date);
         return timeInMillis > calendar.getTimeInMillis();
+    }
+
+    public static List<String> getMonthDates() {
+        List<String> dates = new ArrayList<>();
+
+        for (int i = 1; i <= 31; i++) {
+            dates.add(getOrdinal(i));
+        }
+
+        return dates;
+    }
+
+    public static String getOrdinal(int number) {
+
+        if (number >= 11 && number <= 13) {
+            return number + "th";
+        }
+
+        return switch (number % 10) {
+            case 1 -> number + "st";
+            case 2 -> number + "nd";
+            case 3 -> number + "rd";
+            default -> number + "th";
+        };
     }
 }

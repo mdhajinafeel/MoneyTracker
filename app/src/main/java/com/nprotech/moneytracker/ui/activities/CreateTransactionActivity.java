@@ -60,6 +60,7 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
+import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -90,10 +91,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private WalletEntity selectedWallet, selectedFromWallet;
     private AccountViewModel accountViewModel;
     private TransactionViewModel transactionViewModel;
+    private WalletViewModel walletViewModel;
     private List<WalletEntity> walletLists;
     private CategoryEntity incomeCategory, expenseCategory;
     private int transactionType;
     private double transactionAmount = 0, transactionFee = 0;
+
     private Uri cameraTempUri;
     private final List<Uri> selectedFileUri = new ArrayList<>();
     private String tempTransactionServerId;
@@ -178,6 +181,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+                walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
                 backPressed();
                 makeReadOnly();
@@ -225,7 +229,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                     if (selectedWallet != null) {
                         tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.initialAmount)));
+                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
                     }
                 }
 
@@ -260,7 +264,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 if (!walletLists.isEmpty()) {
                     selectedWallet = walletLists.get(0);
                     tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                            CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.initialAmount)));
+                            CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
                 }
             }
 
@@ -566,7 +570,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     holder.setViewText(R.id.tvAccountName, walletEntity.name);
 
                     holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
-                            CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.initialAmount)));
+                            CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.amount)));
 
                     if (type.equalsIgnoreCase("to")) {
                         holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
@@ -1010,9 +1014,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.categoryId = incomeCategory.id;
         transaction.defaultCategoryId = incomeCategory.defaultCategory;
 
-        WalletEntity wallet = transactionViewModel.getWalletByWalletId(selectedWallet.id);
+        WalletEntity wallet = walletViewModel.getWalletByWalletId(selectedWallet.id);
         if (wallet != null) {
-            wallet.initialAmount = wallet.initialAmount + transactionAmount;
+            wallet.amount = wallet.amount + transactionAmount;
         }
 
         if (account != null) {
@@ -1030,7 +1034,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.categoryId = expenseCategory.id;
         transaction.defaultCategoryId = expenseCategory.defaultCategory;
 
-        WalletEntity wallet = transactionViewModel.getWalletByWalletId(selectedWallet.id);
+        WalletEntity wallet = walletViewModel.getWalletByWalletId(selectedWallet.id);
 
         if (transactionWithDetails != null) {
             // -----------------------------
@@ -1041,10 +1045,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             if (wallet != null) {
                 // Undo old expense
-                wallet.initialAmount += oldAmount;
+                wallet.amount += oldAmount;
 
                 // Apply new expense
-                wallet.initialAmount -= transactionAmount;
+                wallet.amount -= transactionAmount;
             }
 
             if (account != null) {
@@ -1062,7 +1066,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // -----------------------------
 
             if (wallet != null) {
-                wallet.initialAmount -= transactionAmount;
+                wallet.amount -= transactionAmount;
             }
 
             if (account != null) {

@@ -10,9 +10,10 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.DailyTransModel;
+import com.nprotech.moneytracker.models.TransactionCategoryModel;
+import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
-import com.nprotech.moneytracker.repositories.WalletRepository;
 import com.nprotech.moneytracker.wrapper.SingleLiveEvent;
 
 import java.util.ArrayList;
@@ -29,14 +30,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class TransactionViewModel extends ViewModel {
 
     private final TransactionRepository transactionRepository;
-    private final WalletRepository walletRepository;
     private final SingleLiveEvent<Boolean> dataSavedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
 
     @Inject
-    public TransactionViewModel(TransactionRepository transactionRepository, WalletRepository walletRepository) {
+    public TransactionViewModel(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-        this.walletRepository = walletRepository;
     }
 
 
@@ -139,7 +138,11 @@ public class TransactionViewModel extends ViewModel {
         return transactionRepository.getTransactionById(tempTransactionServerId);
     }
 
-    public WalletEntity getWalletByWalletId(int walletId) {
-        return walletRepository.getWalletByWalletId(walletId);
+    public List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId) {
+        return transactionRepository.getTransactionAmountByType(walletId);
+    }
+
+    public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
+        return transactionRepository.getTransactionAmountByCategory(walletId);
     }
 }

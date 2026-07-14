@@ -398,12 +398,12 @@
                         android:textColor="@color/funky_grey"
                         android:textSize="@dimen/text_12"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/switchView"
+                        app:layout_constraintEnd_toStartOf="@+id/switchExcludeView"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/excludeLabel" />
 
                     <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchView"
+                        android:id="@+id/switchExcludeView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_16"

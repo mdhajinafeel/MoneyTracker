@@ -13,11 +13,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -54,7 +56,7 @@ public class CurrencyListActivity extends BaseActivity {
             if (bundle != null) {
                 currency = (CurrencyEntity) bundle.getSerializable("currency");
 
-                fetchCurrencies();
+                fetchCurrencies(bundle.getString("type"));
                 setupSearch();
             }
         } catch (Exception e) {
@@ -62,9 +64,13 @@ public class CurrencyListActivity extends BaseActivity {
         }
     }
 
-    private void fetchCurrencies() {
+    private void fetchCurrencies(String type) {
         try {
-            currencyLists = masterViewModel.getAllCurrencies();
+            if (type.equalsIgnoreCase("account")) {
+                currencyLists = masterViewModel.getAllCurrencies();
+            } else if (type.equalsIgnoreCase("wallet")) {
+                currencyLists = masterViewModel.getCurrenciesForWallet((int) PreferenceManager.INSTANCE.getAccountId());
+            }
 
             if (!currencyLists.isEmpty()) {
                 currenciesRecyclerViewAdapter = new RecyclerViewAdapter<>(getApplicationContext(), currencyLists,
@@ -74,9 +80,11 @@ public class CurrencyListActivity extends BaseActivity {
                         holder.setViewText(R.id.tvCurrencyCode, currencyEntity.code);
                         holder.setViewText(R.id.tvCurrencyName, currencyEntity.name);
 
-                        AppCompatImageView ivSelected = (AppCompatImageView) holder.getView(R.id.ivSelected);
-                        if (currency.code.equals(currencyEntity.code)) {
+                        AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
+                        if (currency != null && currency.id == currencyEntity.id) {
                             ivSelected.setVisibility(View.VISIBLE);
+                        } else {
+                            ivSelected.setVisibility(View.GONE);
                         }
 
                         holder.itemView.setOnClickListener(view -> {
@@ -109,7 +117,13 @@ public class CurrencyListActivity extends BaseActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 String keyword = s.toString().trim().toLowerCase();
-                List<CurrencyEntity> filteredList = new java.util.ArrayList<>();
+
+                if (keyword.isEmpty()) {
+                    currenciesRecyclerViewAdapter.replaceItems(new ArrayList<>(currencyLists));
+                    return;
+                }
+
+                List<CurrencyEntity> filteredList = new ArrayList<>();
                 for (CurrencyEntity item : currencyLists) {
                     if (item.code.toLowerCase().contains(keyword)
                             || item.name.toLowerCase().contains(keyword)

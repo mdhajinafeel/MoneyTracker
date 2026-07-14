@@ -13,11 +13,13 @@ public class WalletEntity implements Serializable {
     public int accountId;
     public String name;
     public String walletColor;
+    public int walletType;
     public String currencyName;
     public String currencyCode;
     public String currencySymbol;
     public int categoryIcon;
     public double initialAmount;
+    public double amount;
     public long dueDate;
     public long statementDate;
     public int ordering;

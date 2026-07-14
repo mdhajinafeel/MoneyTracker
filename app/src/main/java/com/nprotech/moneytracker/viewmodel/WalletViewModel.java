@@ -39,7 +39,15 @@ public class WalletViewModel extends ViewModel {
         return walletRepository.saveWallet(wallet);
     }
 
-    public int getLastWalletOrder() {
-        return walletRepository.getLastWalletOrder();
+    public void updateWallet(WalletEntity wallet) {
+        walletRepository.updateWallet(wallet);
+    }
+
+    public int getMaxWalletOrdering(int accountId) {
+        return walletRepository.getMaxWalletOrdering(accountId);
+    }
+
+    public WalletEntity getWalletByWalletId(int walletId) {
+        return walletRepository.getWalletByWalletId(walletId);
     }
 }

@@ -10,6 +10,8 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.models.TransactionCategoryModel;
+import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 
 import java.util.List;
@@ -49,7 +51,7 @@ public class TransactionRepository {
     }
 
     public void updateWallet(WalletEntity wallet) {
-        walletDao.updateWalletById(wallet.id, wallet.initialAmount);
+        walletDao.updateWalletById(wallet.id, wallet.amount);
     }
 
     public void updateAccount(AccountEntity account) {
@@ -62,5 +64,13 @@ public class TransactionRepository {
 
     public void deleteAttachment(String attachmentPath, String tempTransactionServerId) {
         transactionAttachmentDao.deleteAttachment(attachmentPath, tempTransactionServerId);
+    }
+
+    public List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId) {
+        return transactionDao.getTransactionAmountByType(walletId);
+    }
+
+    public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
+        return transactionDao.getTransactionAmountByCategory(walletId);
     }
 }
