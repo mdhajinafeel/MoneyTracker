@@ -5,6 +5,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,17 +15,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 
 public class TransactionDetailActivity extends BaseActivity {
 
@@ -76,7 +81,7 @@ public class TransactionDetailActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
-                transactionWithDetails = (TransactionWithDetails) bundle.getSerializable("transactionDetail");
+                transactionWithDetails = IntentUtils.getSerializableExtra(getIntent(), "transactionDetail", TransactionWithDetails.class);
 
                 bindData(transactionWithDetails);
                 setupListeners();
@@ -96,10 +101,13 @@ public class TransactionDetailActivity extends BaseActivity {
             if (Build.VERSION.SDK_INT >= 29) {
                 colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(transactionWithDetail.color), BlendMode.SRC_OVER));
             } else {
-                colorView.getBackground().setColorFilter(Color.parseColor(transactionWithDetail.color), PorterDuff.Mode.SRC_OVER);
+                Drawable drawable = colorView.getBackground().mutate();
+                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                DrawableCompat.setTint(drawable, Color.parseColor(transactionWithDetail.color));
+                colorView.setBackground(drawable);
             }
 
-            if(transaction.type == 3) {
+            if (transaction.type == 3) {
                 imageView.setImageResource(R.drawable.ic_transfer);
             } else {
                 if (transactionWithDetail.icon == null || transactionWithDetail.icon == 0) {
@@ -152,7 +160,7 @@ public class TransactionDetailActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
             });
 
             ivEdit.setOnClickListener(view -> {
@@ -160,7 +168,7 @@ public class TransactionDetailActivity extends BaseActivity {
                         .putExtra("transactionDetail", transactionWithDetails)
                         .putExtra("type", transactionWithDetails.transaction.type)
                         .putExtra("action", "edit"));
-                overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
             ivDelete.setOnClickListener(view -> {

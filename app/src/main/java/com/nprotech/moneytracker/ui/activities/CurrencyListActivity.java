@@ -17,6 +17,8 @@ import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class CurrencyListActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
-                currency = (CurrencyEntity) bundle.getSerializable("currency");
+                currency = IntentUtils.getSerializableExtra(getIntent(), "currency", CurrencyEntity.class);
 
                 fetchCurrencies(bundle.getString("type"));
                 setupSearch();
@@ -92,7 +94,7 @@ public class CurrencyListActivity extends BaseActivity {
                             intent.putExtra("currency", currencyEntity);
                             setResult(-1, intent);
                             finish();
-                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                            ActivityUtils.overrideCloseTransition(CurrencyListActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
                         });
                     }
                 };
@@ -144,6 +146,6 @@ public class CurrencyListActivity extends BaseActivity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        ActivityUtils.overrideCloseTransition(this, R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

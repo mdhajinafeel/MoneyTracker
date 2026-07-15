@@ -19,6 +19,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,7 +38,9 @@ import com.nprotech.moneytracker.ui.adapters.ColorSpinnerAdapter;
 import com.nprotech.moneytracker.ui.adapters.CurrencySpinnerAdapter;
 import com.nprotech.moneytracker.ui.adapters.FontSpinnerAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
@@ -178,7 +181,7 @@ public class CreateWalletActivity extends BaseActivity {
             if (isEdit) {
                 tvTitle.setText(getString(R.string.edit_wallet));
 
-                walletEntity = (WalletEntity) getIntent().getSerializableExtra("wallet");
+                walletEntity = IntentUtils.getSerializableExtra(getIntent(), "wallet", WalletEntity.class);
 
                 if (walletEntity != null) {
                     etWalletName.setText(walletEntity.name);
@@ -282,8 +285,8 @@ public class CreateWalletActivity extends BaseActivity {
                 Intent intent = new Intent(this, CalculatorActivity.class);
                 intent.putExtra("amount", walletAmount);
                 intent.putExtra("type", "amount");
-                calculatorLauncher.launch(intent);
-                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
+                calculatorLauncher.launch(intent, options);
             });
 
             frameColor.setOnClickListener(view -> {
@@ -297,8 +300,8 @@ public class CreateWalletActivity extends BaseActivity {
                 Intent intent = new Intent(this, WalletPickerActivity.class);
                 intent.putExtra("selectedColor", walletColorLists.get(colorSpinner.getSelectedItemPosition()));
                 intent.putExtra("selectedWalletIcon", walletIcon);
-                walletIconLauncher.launch(intent);
-                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
+                walletIconLauncher.launch(intent, options);
             });
 
             accountViewModel.getAccountCurrencyByAccountId((int) PreferenceManager.INSTANCE.getAccountId()).observe(this,
@@ -326,8 +329,8 @@ public class CreateWalletActivity extends BaseActivity {
                                 if (position == parent.getCount() - 1) {
                                     hideKeyboard(CreateWalletActivity.this);
                                     Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class);
-                                    currencyLauncher.launch(intent);
-                                    overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                                    ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+                                    currencyLauncher.launch(intent, options);
                                 }
                             }
 
@@ -342,7 +345,7 @@ public class CreateWalletActivity extends BaseActivity {
 
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
             });
 
             getOnBackPressedDispatcher().addCallback(this,
@@ -350,7 +353,7 @@ public class CreateWalletActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(CreateWalletActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
                         }
                     });
         } catch (Exception e) {
@@ -398,7 +401,8 @@ public class CreateWalletActivity extends BaseActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            AccountCurrencyMappingEntity accountCurrencyMapping = (AccountCurrencyMappingEntity) data.getSerializableExtra("currencyMapping");
+                            AccountCurrencyMappingEntity accountCurrencyMapping = IntentUtils.getSerializableExtra(data, "currencyMapping",
+                                    AccountCurrencyMappingEntity.class);
 
                             if (accountCurrencyMapping != null) {
                                 CurrencySpinnerAdapter adapter = (CurrencySpinnerAdapter) currencySpinner.getAdapter();
@@ -508,7 +512,7 @@ public class CreateWalletActivity extends BaseActivity {
 
             setResult(RESULT_OK);
             finish();
-            overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+            ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "saveWallet", e);

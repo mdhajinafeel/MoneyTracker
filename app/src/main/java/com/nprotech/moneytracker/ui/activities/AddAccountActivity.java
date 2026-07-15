@@ -12,6 +12,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -27,6 +28,8 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
@@ -104,7 +107,7 @@ public class AddAccountActivity extends BaseActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            currency = (CurrencyEntity) data.getSerializableExtra("currency");
+                            currency =  IntentUtils.getSerializableExtra(getIntent(), "currency", CurrencyEntity.class);
                             if (currency != null) {
                                 etCurrency.setText(currency.name);
                                 tilInitialAmount.setPrefixText(currency.symbol);
@@ -140,8 +143,8 @@ public class AddAccountActivity extends BaseActivity {
             Intent intent = new Intent(this, CurrencyListActivity.class);
             intent.putExtra("currency", currency);
             intent.putExtra("type", "account");
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_right, R.anim.slide_out_left);
             currencyLauncher.launch(intent);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -299,7 +302,7 @@ public class AddAccountActivity extends BaseActivity {
         }
 
         startActivity(new Intent(AddAccountActivity.this, MainActivity.class).addFlags(INTENT_FLAGS));
-        overridePendingTransition(R.anim.fade_fast_in, R.anim.fade_fast_out);
+        ActivityUtils.overrideOpenTransition(this, R.anim.fade_fast_in, R.anim.fade_fast_out);
     }
 
     private void handleBackNavigation() {
@@ -309,7 +312,7 @@ public class AddAccountActivity extends BaseActivity {
             backToStep1();
         } else {
             finish();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            ActivityUtils.overrideCloseTransition(this, R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 }

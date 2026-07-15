@@ -26,11 +26,9 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
     }
 
     private final List<SettingItemModel> items;
-    private final Context context;
     private final OnSettingActionListener listener;
 
-    public SettingsRecyclerAdapter(Context context, List<SettingItemModel> items, OnSettingActionListener listener) {
-        this.context = context;
+    public SettingsRecyclerAdapter(List<SettingItemModel> items, OnSettingActionListener listener) {
         this.items = items;
         this.listener = listener;
     }
@@ -38,7 +36,7 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_setting, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_setting, parent, false);
         return new ViewHolder(view);
     }
 

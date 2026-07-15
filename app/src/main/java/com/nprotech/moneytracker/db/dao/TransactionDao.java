@@ -41,9 +41,14 @@ public interface TransactionDao {
     @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE walletId = :walletId AND isDeleted = 0 GROUP BY type")
     List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId);
 
-    @Query("SELECT t.defaultCategoryId, COUNT(t.tempTransactionServerId) AS transactionCount, SUM(amount) as amount, c.color, c.icon " +
+    @Query("SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, t.type, " +
+            "t.categoryId, c1.name AS categoryName " +
             "FROM transactions t " +
             "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
-            "WHERE walletId = :walletId AND isDeleted = 0 GROUP BY t.defaultCategoryId")
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.walletId = :walletId AND t.isDeleted = 0 " +
+            "GROUP BY t.defaultCategoryId, t.categoryId, t.type, c.color, c.icon, w.currencySymbol, c1.name " +
+            "ORDER BY t.defaultCategoryId, c1.name")
     LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId);
 }

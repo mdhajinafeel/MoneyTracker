@@ -33,6 +33,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
@@ -57,7 +58,9 @@ import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
@@ -96,7 +99,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private CategoryEntity incomeCategory, expenseCategory;
     private int transactionType;
     private double transactionAmount = 0, transactionFee = 0;
-
     private Uri cameraTempUri;
     private final List<Uri> selectedFileUri = new ArrayList<>();
     private String tempTransactionServerId;
@@ -176,7 +178,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                         tvTitle.setText(getString(R.string.transfer));
                     }
 
-                    transactionWithDetails = (TransactionWithDetails) bundle.getSerializable("transactionDetail");
+                    transactionWithDetails = IntentUtils.getSerializableExtra(getIntent(), "transactionDetail", TransactionWithDetails.class);
                 }
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
@@ -293,7 +295,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this,R.anim.scale_in, R.anim.bottom_to_top);
             });
 
             tvDay.setOnClickListener(view -> {
@@ -313,8 +315,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 Intent intent = new Intent(this, CalculatorActivity.class);
                 intent.putExtra("amount", transactionAmount);
                 intent.putExtra("type", "amount");
-                calculatorLauncher.launch(intent);
-                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+                calculatorLauncher.launch(intent, options);
             });
 
             tvWallet.setOnClickListener(view -> {
@@ -348,8 +350,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 Intent intent = new Intent(this, CategoryPickerActivity.class);
                 intent.putExtra("transactionType", transactionType);
-                categoryLauncher.launch(intent);
-                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+                categoryLauncher.launch(intent, options);
             });
 
             tvFee.setOnClickListener(view -> {
@@ -359,8 +361,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 Intent intent = new Intent(this, CalculatorActivity.class);
                 intent.putExtra("amount", transactionFee);
                 intent.putExtra("type", "fee");
-                calculatorLauncher.launch(intent);
-                overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+                calculatorLauncher.launch(intent, options);
             });
 
             etMemo.setOnFocusChangeListener((v, hasFocus) -> {
@@ -541,7 +543,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            CategoryEntity categoryEntity = (CategoryEntity) data.getSerializableExtra("category");
+
+                            CategoryEntity categoryEntity = IntentUtils.getSerializableExtra(data, "category", CategoryEntity.class);
                             if (categoryEntity != null) {
                                 if (transactionType == 1) {
                                     incomeCategory = categoryEntity;
@@ -563,7 +566,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
             RecyclerView rvWallets = bottomView.findViewById(R.id.rvWallets);
-            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletLists, R.layout.item_switch_accounts) {
+            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(walletLists, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, WalletEntity walletEntity) {
 
@@ -1129,7 +1132,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     @Override
                     public void handleOnBackPressed() {
                         finish();
-                        overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                        ActivityUtils.overrideCloseTransition(CreateTransactionActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
                     }
                 });
     }

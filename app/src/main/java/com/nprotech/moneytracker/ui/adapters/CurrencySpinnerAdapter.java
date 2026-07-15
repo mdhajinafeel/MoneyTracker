@@ -44,7 +44,7 @@ public class CurrencySpinnerAdapter extends ArrayAdapter<AccountCurrencyMappingE
         viewHolder viewholder;
         if (convertView == null) {
             viewholder = new viewHolder();
-            LayoutInflater from = LayoutInflater.from(getContext());
+            LayoutInflater from = LayoutInflater.from(parent.getContext());
             this.inflater = from;
             view = from.inflate(R.layout.item_list_drop_down, parent, false);
             viewholder.label = view.findViewById(R.id.label);

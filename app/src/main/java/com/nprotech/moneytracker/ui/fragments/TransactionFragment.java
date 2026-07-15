@@ -20,6 +20,7 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 
@@ -77,7 +78,7 @@ public class TransactionFragment extends Fragment {
                 startActivity(new Intent(requireContext(), CreateTransactionActivity.class)
                         .putExtra("action", "add")
                         .putExtra("type", TransactionEntity.TYPE_EXPENSE));
-                requireActivity().overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
 
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {

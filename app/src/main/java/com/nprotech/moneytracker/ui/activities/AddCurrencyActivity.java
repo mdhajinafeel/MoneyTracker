@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -26,6 +27,8 @@ import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 
@@ -122,7 +125,7 @@ public class AddCurrencyActivity extends BaseActivity {
                     @Override
                     public void handleOnBackPressed() {
                         finish();
-                        overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                        ActivityUtils.overrideCloseTransition(AddCurrencyActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
                     }
                 });
     }
@@ -131,15 +134,15 @@ public class AddCurrencyActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
             });
 
             tvCurrencyName.setOnClickListener(view -> {
                 Intent intent = new Intent(this, CurrencyListActivity.class);
                 intent.putExtra("currency", currency);
                 intent.putExtra("type", "wallet");
-                currencyLauncher.launch(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_right, R.anim.slide_out_left);
+                currencyLauncher.launch(intent, options);
             });
 
             etRate.addTextChangedListener(new TextWatcher() {
@@ -182,7 +185,7 @@ public class AddCurrencyActivity extends BaseActivity {
                 accountCurrencyMappingEntity.currencySymbol = currency.symbol;
                 accountCurrencyMappingEntity.isActive = true;
 
-                if(mainCurrency != null) {
+                if (mainCurrency != null) {
                     accountCurrencyMappingEntity.mainCurrencyId = mainCurrency.id;
                     accountCurrencyMappingEntity.mainCurrencyCode = mainCurrency.code;
                     accountCurrencyMappingEntity.mainCurrencyName = mainCurrency.name;
@@ -196,7 +199,7 @@ public class AddCurrencyActivity extends BaseActivity {
                     intent.putExtra("currencyMapping", accountCurrencyMappingEntity);
                     setResult(-1, intent);
                     finish();
-                    overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                 });
             });
         } catch (Exception e) {
@@ -210,7 +213,7 @@ public class AddCurrencyActivity extends BaseActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            currency = (CurrencyEntity) data.getSerializableExtra("currency");
+                            currency = IntentUtils.getSerializableExtra(data, "currency", CurrencyEntity.class);
                             if (currency != null) {
                                 tvCurrencyName.setText(getString(R.string.currency_display, currency.code, currency.name));
                                 updateExchangeRate();

@@ -29,6 +29,7 @@ import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.ui.fragments.TransactionFragment;
 import com.nprotech.moneytracker.ui.fragments.WalletFragment;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity {
 
             ivSettings.setOnClickListener(view -> {
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);
@@ -207,9 +208,8 @@ public class MainActivity extends BaseActivity {
             rvAccounts.setHasFixedSize(true);
 
             layoutAddAccount.setOnClickListener(v -> {
-
                 startActivity(new Intent(MainActivity.this, AddAccountActivity.class));
-                overridePendingTransition(R.anim.top_to_bottom, R.anim.scale_out);
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
             dialog.setContentView(bottomView);

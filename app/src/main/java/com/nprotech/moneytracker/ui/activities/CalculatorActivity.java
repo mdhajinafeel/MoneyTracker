@@ -17,6 +17,7 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalculatorHelper;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 
 import java.math.BigDecimal;
 
@@ -30,7 +31,6 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
     private AppCompatImageButton escape, done;
     private AppCompatTextView total;
     private String equation, type;
-    private double amount;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             one.setOnClickListener(this);
@@ -130,7 +130,7 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
             equal.setOnClickListener(this);
             escape.setOnClickListener(this);
 
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            ActivityUtils.overrideCloseTransition(this, R.anim.slide_in_left, R.anim.slide_out_right);
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);
         }
@@ -241,7 +241,7 @@ public class CalculatorActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void handleOnBackPressed() {
                         finish();
-                        overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                        ActivityUtils.overrideCloseTransition(CalculatorActivity.this, R.anim.scale_in, R.anim.right_to_left);
                     }
                 });
     }

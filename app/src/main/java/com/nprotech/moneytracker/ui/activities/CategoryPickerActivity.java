@@ -5,6 +5,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,6 +28,7 @@ import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 
 import java.util.List;
@@ -103,7 +106,7 @@ public class CategoryPickerActivity extends BaseActivity {
 
     private void bindCategories(List<CategoryEntity> expenseCategories) {
         try {
-            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(getApplicationContext(), expenseCategories, R.layout.item_category_picker) {
+            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(expenseCategories, R.layout.item_category_picker) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
                     holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
@@ -112,7 +115,10 @@ public class CategoryPickerActivity extends BaseActivity {
                     if (Build.VERSION.SDK_INT >= 29) {
                         holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
                     } else {
-                        holder.getView(R.id.colorView).getBackground().setColorFilter(Color.parseColor(categoryEntity.color), PorterDuff.Mode.SRC_OVER);
+                        Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
+                        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                        DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
+                        holder.getView(R.id.colorView).setBackground(drawable);
                     }
 
                     holder.itemView.setOnClickListener(view -> {
@@ -120,14 +126,14 @@ public class CategoryPickerActivity extends BaseActivity {
                         intent.putExtra("category", categoryEntity);
                         setResult(-1, intent);
                         finish();
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
                     });
                 }
             };
 
             rvCategories.setAdapter(expenseCategoryAdapter);
             rvCategories.setHasFixedSize(true);
-        }catch (Exception e){
+        } catch (Exception e) {
             AppLogger.e(getClass(), "bindCategories", e);
         }
     }

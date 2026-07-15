@@ -5,6 +5,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
 
@@ -44,7 +46,7 @@ public class ColorSpinnerAdapter extends ArrayAdapter<String> {
         if (convertView == null) {
             viewholder = new viewHolder();
 
-            view = LayoutInflater.from(getContext()).inflate(R.layout.list_drop_down_color, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_drop_down_color, parent, false);
 
             viewholder.label = view.findViewById(R.id.label);
             viewholder.colorView = view.findViewById(R.id.colorView);
@@ -59,7 +61,10 @@ public class ColorSpinnerAdapter extends ArrayAdapter<String> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             viewholder.colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(list.get(position)), BlendMode.SRC_OVER));
         } else {
-            viewholder.colorView.getBackground().setColorFilter(Color.parseColor(list.get(position)), PorterDuff.Mode.SRC_OVER);
+            Drawable drawable = viewholder.colorView.getBackground().mutate();
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+            DrawableCompat.setTint(drawable, Color.parseColor(list.get(position)));
+            viewholder.colorView.setBackground(drawable);
         }
         return view;
     }

@@ -4,6 +4,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -16,10 +17,12 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
@@ -28,11 +31,14 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
+import com.nprotech.moneytracker.ui.adapters.WalletTransactionAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -49,6 +55,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private WalletViewModel walletViewModel;
     private TransactionViewModel transactionViewModel;
     private double incomeAmount = 0, expenseAmount = 0, transferAmount = 0;
+    private WalletTransactionAdapter walletTransactionAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +99,22 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 return insets;
             });
 
+            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
+                Insets navInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
+
+                int bottom = Math.max(navInsets.bottom, imeInsets.bottom);
+
+                view.setPadding(
+                        view.getPaddingLeft(),
+                        view.getPaddingTop(),
+                        view.getPaddingRight(),
+                        bottom + getResources().getDimensionPixelSize(R.dimen.bottom_navigation_height)
+                );
+
+                return insets;
+            });
+
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 
@@ -100,7 +123,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
                 int walletId = bundle.getInt("walletId");
 
-                if(walletId > 0) {
+                if (walletId > 0) {
                     initializeAdapters();
                     bindData(walletId);
                     setupLauncher();
@@ -118,7 +141,10 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private void initializeAdapters() {
         try {
-
+            rvTransactions.setLayoutManager(new LinearLayoutManager(this));
+            walletTransactionAdapter = new WalletTransactionAdapter(this, new ArrayList<>());
+            rvTransactions.setAdapter(walletTransactionAdapter);
+            rvTransactions.setNestedScrollingEnabled(false);
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }
@@ -130,11 +156,11 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             WalletEntity wallet = walletViewModel.getWalletByWalletId(walletId);
             List<TransactionTypeAmountModel> transactionTypeAmountModelList = transactionViewModel.getTransactionAmountByType(walletId);
 
-            if(transactionTypeAmountModelList != null && !transactionTypeAmountModelList.isEmpty()) {
+            if (transactionTypeAmountModelList != null && !transactionTypeAmountModelList.isEmpty()) {
                 for (TransactionTypeAmountModel typeAmountModel : transactionTypeAmountModelList) {
-                    if(typeAmountModel.getType() == 1) {
+                    if (typeAmountModel.getType() == 1) {
                         incomeAmount = typeAmountModel.getAmount();
-                    } else if(typeAmountModel.getType() == 2) {
+                    } else if (typeAmountModel.getType() == 2) {
                         expenseAmount = typeAmountModel.getAmount();
                     } else {
                         transferAmount = typeAmountModel.getAmount();
@@ -142,12 +168,21 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 }
             }
 
+            transactionViewModel.getTransactionAmountByCategory(walletId).observe(this, transactionCategoryModels -> {
+                if (!transactionCategoryModels.isEmpty()) {
+                    walletTransactionAdapter.setItems(transactionCategoryModels);
+                }
+            });
+
             int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
 
             if (Build.VERSION.SDK_INT >= 29) {
                 imageWrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(wallet.walletColor), BlendMode.SRC_OVER));
             } else {
-                imageWrapper.getBackground().setColorFilter(Color.parseColor(wallet.walletColor), PorterDuff.Mode.SRC_OVER);
+                Drawable drawable = imageWrapper.getBackground().mutate();
+                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                DrawableCompat.setTint(drawable, Color.parseColor(wallet.walletColor));
+                imageWrapper.setBackground(drawable);
             }
 
             imageView.setImageResource(walletIcon);
@@ -166,7 +201,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             nameWrapper.setOnClickListener(view -> {
@@ -178,7 +213,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            overridePendingTransition(R.anim.scale_in, R.anim.right_to_left);
+                            ActivityUtils.overrideCloseTransition(WalletTransactionDetailedActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
         } catch (Exception e) {

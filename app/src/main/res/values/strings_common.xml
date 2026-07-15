@@ -97,4 +97,9 @@
     <string name="rate">Rate</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
     <string name="view_all">View all</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d transaction</item>
+        <item quantity="other">%d transactions</item>
+    </plurals>
 </resources>

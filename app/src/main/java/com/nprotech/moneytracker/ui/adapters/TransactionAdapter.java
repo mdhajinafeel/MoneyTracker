@@ -6,12 +6,14 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
@@ -49,7 +51,10 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         if (Build.VERSION.SDK_INT >= 29) {
             colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
         } else {
-            colorView.getBackground().setColorFilter(Color.parseColor(item.color), PorterDuff.Mode.SRC_OVER);
+            Drawable drawable = colorView.getBackground().mutate();
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+            DrawableCompat.setTint(drawable, Color.parseColor(item.color));
+            colorView.setBackground(drawable);
         }
 
         if (transaction.type == 3) {

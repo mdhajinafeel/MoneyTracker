@@ -18,7 +18,6 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
     private static final int VIEW_TYPE_ITEM = 1;
     private static final int VIEW_TYPE_FOOTER = 2;
     private int mFooterLayoutId = -1;
-    private final Context mContext;
     private final List<T> mDataList;
     private final List<T> mFullList;
     private final int mLayoutId;
@@ -26,8 +25,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
     private OnItemLongClickListener mOnItemLongClickListener;
     private int mHeaderLayoutId = -1; // Optional
 
-    public RecyclerViewAdapter(Context context, List<T> dataList, int layoutId) {
-        mContext = context;
+    public RecyclerViewAdapter(List<T> dataList, int layoutId) {
         mDataList = new ArrayList<>(dataList);
         mFullList = new ArrayList<>(dataList); // copy
         mLayoutId = layoutId;
@@ -55,7 +53,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
             layoutToUse = mLayoutId;
         }
 
-        View view = LayoutInflater.from(mContext).inflate(layoutToUse, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layoutToUse, parent, false);
         return new ViewHolder(view);
     }
 

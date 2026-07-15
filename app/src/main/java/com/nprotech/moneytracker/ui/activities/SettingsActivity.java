@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -94,7 +95,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
             settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), false, true, false, null));
             settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), false, true, false, null));
 
-            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 
             rvManagement.setLayoutManager(new LinearLayoutManager(this));
             rvManagement.setAdapter(adapter);
@@ -106,7 +107,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
     private void fetchConfigurationSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
             settingItemModelList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), false, true, true, "Sunday"));
             settingItemModelList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), false, true, true, "Transaction"));
             settingItemModelList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), false, true, true, "English"));
@@ -125,7 +126,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
             settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, getString(R.string.manage_backup), false, false, false, null));
 
-            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 
             rvBackup.setLayoutManager(new LinearLayoutManager(this));
             rvBackup.setAdapter(adapter);
@@ -139,7 +140,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
             settingItemModelList.add(new SettingItemModel(SettingType.VERSION, getString(R.string.version), false, false, true, getAppVersion()));
 
-            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this, settingItemModelList, this);
+            SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 
             rvOthers.setLayoutManager(new LinearLayoutManager(this));
             rvOthers.setAdapter(adapter);
@@ -158,8 +159,8 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
         if (Objects.requireNonNull(item.settingType) == SettingType.MANAGE_CATEGORY) {
             Intent intent = new Intent(this, ManageCategoryActivity.class);
             intent.putExtra("amount", 0);
-            categoryLauncher.launch(intent);
-            overridePendingTransition(R.anim.left_to_right, R.anim.scale_out);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+            categoryLauncher.launch(intent, options);
         }
     }
 

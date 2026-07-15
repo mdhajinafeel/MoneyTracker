@@ -9,6 +9,7 @@ import android.os.Looper;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -47,13 +48,13 @@ public class SplashActivity extends BaseActivity {
         startActivity(new Intent(this, MainActivity.class)
                 .putExtra("isFromLogin", false)
                 .addFlags(INTENT_FLAGS));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        ActivityUtils.overrideOpenTransition(this, android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void redirectToCreateAccount() {
         startActivity(new Intent(this, AddAccountActivity.class)
                 .addFlags(INTENT_FLAGS));
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        ActivityUtils.overrideOpenTransition(this, android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override

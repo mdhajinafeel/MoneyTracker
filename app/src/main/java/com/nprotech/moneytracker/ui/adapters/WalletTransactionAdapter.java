@@ -6,79 +6,67 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
-import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.ui.activities.TransactionDetailActivity;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
-public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionWithDetails> {
+public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCategoryModel> {
 
-    private final String currencySymbol;
     private final Context context;
 
-    public WalletTransactionAdapter(Context context, List<TransactionWithDetails> list, String currencySymbol) {
+    public WalletTransactionAdapter(Context context, List<TransactionCategoryModel> list) {
         super(context, list, R.layout.item_wallet_transaction);
-        this.currencySymbol = currencySymbol;
         this.context = context;
     }
 
     @Override
-    public void onPostBindViewHolder(ViewHolder holder, TransactionWithDetails item) {
+    public void onPostBindViewHolder(ViewHolder holder, TransactionCategoryModel item) {
 
-        TransactionEntity transaction = item.transaction;
         ConstraintLayout itemView = holder.getView(R.id.itemView);
         ConstraintLayout colorView = holder.getView(R.id.colorView);
         AppCompatImageView imageView = holder.getView(R.id.imageView);
         AppCompatTextView amountLabel = holder.getView(R.id.amountLabel);
 
         if (Build.VERSION.SDK_INT >= 29) {
-            colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
+            colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.getColor()), BlendMode.SRC_OVER));
         } else {
-            colorView.getBackground().setColorFilter(Color.parseColor(item.color), PorterDuff.Mode.SRC_OVER);
+            Drawable drawable = colorView.getBackground().mutate();
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+            DrawableCompat.setTint(drawable, Color.parseColor(item.getColor()));
+            colorView.setBackground(drawable);
         }
 
-        if (transaction.type == 3) {
-            imageView.setImageResource(R.drawable.ic_transfer);
+
+        if (item.getIcon() == 0) {
+            imageView.setImageResource(R.drawable.category_0);
         } else {
-            if (item.icon == null || item.icon == 0) {
-                imageView.setImageResource(R.drawable.category_0);
-            } else {
-                imageView.setImageResource(DataHelper.getCategoryIcons().get(item.icon));
-            }
+            imageView.setImageResource(DataHelper.getCategoryIcons().get(item.getIcon()));
         }
 
-        String categoryName = transaction.getCategoryName(context);
+        String categoryName = item.getCategory(context);
         if (Objects.equals(categoryName, "")) {
-            categoryName = item.categoryName;
+            categoryName = item.getCategoryName();
         }
 
-        double amount;
-        if (transaction.type == 1) {
-            amount = transaction.amount;
-        } else {
-            amount = transaction.amount * -1;
-        }
+        double amount = item.getAmount();
 
         holder.setViewText(R.id.nameLabel, categoryName);
-        holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
-        holder.setViewText(R.id.timeLabel, new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date(transaction.transactionDate)));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, amount));
-        amountLabel.setTextColor(ContextCompat.getColor(context, R.color.bright_red));
+        int count = item.getTransactionCount();
+        holder.setViewText(R.id.transLabel, context.getResources().getQuantityString(R.plurals.transaction_count, count, count));
+        amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
 
         itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
                 .putExtra("transactionDetail", item)));

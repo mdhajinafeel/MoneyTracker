@@ -2,9 +2,9 @@ package com.nprotech.moneytracker.ui.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,17 +34,28 @@ public class BaseActivity extends AppCompatActivity {
 
         Window window = getWindow();
 
-        // Keep normal layout behavior (no overlap)
+        // Keep classic layout (content below status bar)
         WindowCompat.setDecorFitsSystemWindows(window, true);
 
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(this, R.color.vibrant_orange));
-
+        // Set status bar icon color
         WindowInsetsControllerCompat controller =
                 new WindowInsetsControllerCompat(window, window.getDecorView());
-        // false = white icons, true = dark icons
-        controller.setAppearanceLightStatusBars(false);
+
+        // false = light icons (white)
+        // true = dark icons (black)
+        controller.setAppearanceLightStatusBars(true);
+
+        // Android 14 and below
+        setStatusBarColorCompat(window);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setStatusBarColorCompat(Window window) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            window.setStatusBarColor(
+                    ContextCompat.getColor(this, R.color.vibrant_orange)
+            );
+        }
     }
 
     public void hideKeyboard(Context ctx) {
