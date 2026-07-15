@@ -21,6 +21,8 @@ import java.util.Calendar;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -32,6 +34,8 @@ public class TransactionViewModel extends ViewModel {
     private final TransactionRepository transactionRepository;
     private final SingleLiveEvent<Boolean> dataSavedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Boolean> dataDeletedStatus = new SingleLiveEvent<>();
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository) {
@@ -144,5 +148,20 @@ public class TransactionViewModel extends ViewModel {
 
     public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
         return transactionRepository.getTransactionAmountByCategory(walletId);
+    }
+
+    public TransactionWithDetails getTransactions(String tempTransactionServerId){
+        return transactionRepository.getTransactions(tempTransactionServerId);
+    }
+
+    public LiveData<Boolean> getDeleteStatus() {
+        return dataDeletedStatus;
+    }
+
+    public void deleteTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
+        executor.execute(() -> {
+            boolean success = transactionRepository.deleteTransaction(transaction, wallet, account);
+            dataDeletedStatus.postValue(success);
+        });
     }
 }

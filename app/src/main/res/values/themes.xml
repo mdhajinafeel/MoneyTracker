@@ -18,6 +18,16 @@
 
         <item name="android:navigationBarColor">@color/vibrant_orange</item>
         <item name="android:windowFullscreen">false</item>
+
+        <item name="emptyArchive">@drawable/empty_archive</item>
+        <item name="emptyBudget">@drawable/empty_budget</item>
+        <item name="emptyCategory">@drawable/empty_category</item>
+        <item name="emptyCurrency">@drawable/empty_currency</item>
+        <item name="emptyDebt">@drawable/empty_debt</item>
+        <item name="emptyGoal">@drawable/empty_goal</item>
+        <item name="emptyRecord">@drawable/empty_record</item>
+        <item name="emptyRecurring">@drawable/empty_recurring</item>
+        <item name="emptySearch">@drawable/empty_search</item>
     </style>
 
     <style name="CurrencyPrefixStyle">

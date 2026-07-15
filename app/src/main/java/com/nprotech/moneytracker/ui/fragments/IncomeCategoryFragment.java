@@ -4,7 +4,6 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,7 +66,7 @@ public class IncomeCategoryFragment extends Fragment {
 
     private void bindIncomeCategories(List<CategoryEntity> incomeCategories) {
         try {
-            RecyclerViewAdapter<CategoryEntity> incomeCategoryAdapter = new RecyclerViewAdapter<>(incomeCategories, R.layout.item_manage_category) {
+            RecyclerViewAdapter<CategoryEntity> incomeCategoryAdapter = new RecyclerViewAdapter<>(requireActivity(), incomeCategories, R.layout.item_manage_category) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
                     holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
@@ -77,10 +75,7 @@ public class IncomeCategoryFragment extends Fragment {
                     if (Build.VERSION.SDK_INT >= 29) {
                         holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
                     } else {
-                        Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
-                        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-                        DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
-                        holder.getView(R.id.colorView).setBackground(drawable);
+                        holder.getView(R.id.colorView).getBackground().setColorFilter(Color.parseColor(categoryEntity.color), PorterDuff.Mode.SRC_OVER);
                     }
                 }
             };

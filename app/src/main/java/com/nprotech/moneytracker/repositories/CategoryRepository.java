@@ -18,4 +18,11 @@ public class CategoryRepository {
     public LiveData<List<CategoryEntity>> fetchCategoriesByType(int type) {
         return categoryDao.fetchCategoriesByType(type);
     }
+
+    public CategoryEntity getCategoryById(int categoryId, boolean isDefault) {
+        if(isDefault) {
+            return categoryDao.getDefaultCategoryById(categoryId);
+        }
+        return categoryDao.getCategoryById(categoryId);
+    }
 }

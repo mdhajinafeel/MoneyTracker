@@ -34,9 +34,18 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId " +
-            "WHERE t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2) " +
+            "WHERE t.isDeleted = 0 AND t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2) " +
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactions(int accountId);
+
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id=t.walletId JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId " +
+            "WHERE t.tempTransactionServerId = :tempTransactionServerId AND t.type IN (1, 2) " +
+            "ORDER BY t.transactionDate DESC")
+    TransactionWithDetails getTransactions(String tempTransactionServerId);
 
     @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE walletId = :walletId AND isDeleted = 0 GROUP BY type")
     List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId);
@@ -51,4 +60,7 @@ public interface TransactionDao {
             "GROUP BY t.defaultCategoryId, t.categoryId, t.type, c.color, c.icon, w.currencySymbol, c1.name " +
             "ORDER BY t.defaultCategoryId, c1.name")
     LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId);
+
+    @Query("UPDATE transactions SET isDeleted = 1, updatedAt = :updatedAt, isSynced = 0 WHERE tempTransactionServerId = :tempTransactionServerId")
+    int deleteTransaction(String tempTransactionServerId, long updatedAt);
 }

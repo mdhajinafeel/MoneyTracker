@@ -5,8 +5,10 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 import java.util.List;
 
@@ -30,4 +32,7 @@ public interface AccountDao {
 
     @Query("UPDATE accounts SET balance = :amount WHERE id = :accountId")
     void updateAccountById(int accountId, double amount);
+
+    @Update
+    void updateAccount(AccountEntity account);
 }

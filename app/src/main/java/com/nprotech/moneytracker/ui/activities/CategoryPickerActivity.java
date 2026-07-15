@@ -5,7 +5,6 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +14,6 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -106,7 +104,7 @@ public class CategoryPickerActivity extends BaseActivity {
 
     private void bindCategories(List<CategoryEntity> expenseCategories) {
         try {
-            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(expenseCategories, R.layout.item_category_picker) {
+            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(getApplicationContext(), expenseCategories, R.layout.item_category_picker) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
                     holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
@@ -115,10 +113,8 @@ public class CategoryPickerActivity extends BaseActivity {
                     if (Build.VERSION.SDK_INT >= 29) {
                         holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
                     } else {
-                        Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
-                        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-                        DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
-                        holder.getView(R.id.colorView).setBackground(drawable);
+
+                        holder.getView(R.id.colorView).getBackground().setColorFilter(Color.parseColor(categoryEntity.color), PorterDuff.Mode.SRC_OVER);
                     }
 
                     holder.itemView.setOnClickListener(view -> {

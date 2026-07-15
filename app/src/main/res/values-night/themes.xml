@@ -20,5 +20,15 @@
         <item name="android:navigationBarColor">@color/vibrant_orange</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:forceDarkAllowed">false</item>
+
+        <item name="emptyArchive">@drawable/empty_archive_night</item>
+        <item name="emptyBudget">@drawable/empty_budget_night</item>
+        <item name="emptyCategory">@drawable/empty_category_night</item>
+        <item name="emptyCurrency">@drawable/empty_currency_night</item>
+        <item name="emptyDebt">@drawable/empty_debt_night</item>
+        <item name="emptyGoal">@drawable/empty_goal_night</item>
+        <item name="emptyRecord">@drawable/empty_record_night</item>
+        <item name="emptyRecurring">@drawable/empty_recurring_night</item>
+        <item name="emptySearch">@drawable/empty_search_night</item>
     </style>
 </resources>

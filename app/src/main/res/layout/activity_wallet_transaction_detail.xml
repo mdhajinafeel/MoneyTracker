@@ -78,7 +78,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/exo2_semibold"
-                    android:text="@string/cash"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16" />
 
@@ -289,12 +288,43 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:clipToPadding="false"
                 android:paddingBottom="@dimen/padding_12"
+                android:visibility="gone"
                 android:nestedScrollingEnabled="false"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/llTransactionHeader" />
+
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/llTransactionHeader"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivEmpty"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:src="?attr/emptyRecord" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="@string/no_record"
+                    android:textColor="@color/black"
+                    app:fontFamily="@font/exo2_semibold"
+                    android:textSize="@dimen/text_18"/>
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

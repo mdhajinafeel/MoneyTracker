@@ -184,7 +184,7 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity = IntentUtils.getSerializableExtra(getIntent(), "wallet", WalletEntity.class);
 
                 if (walletEntity != null) {
-                    etWalletName.setText(walletEntity.name);
+                    etWalletName.setText(walletEntity.name.trim());
                     walletAmount = walletEntity.amount;
                     walletIcon = walletEntity.categoryIcon;
                     ivWalletIcon.setImageResource(DataHelper.getWalletIcons().get(walletIcon));
@@ -417,12 +417,7 @@ public class CreateWalletActivity extends BaseActivity {
 
     private void updateSaveButtonState() {
 
-        boolean enabled = walletAmount > 0;
-
-        if (Objects.requireNonNull(etWalletName.getText()).toString().isEmpty()) {
-            enabled = false;
-        }
-
+        boolean enabled = !Objects.requireNonNull(etWalletName.getText()).toString().isEmpty();
         tvSave.setEnabled(enabled);
         tvSave.setAlpha(enabled ? 1.0f : 0.5f); // Optional: make disabled state visible
     }

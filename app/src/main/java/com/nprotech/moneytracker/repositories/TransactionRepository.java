@@ -34,6 +34,10 @@ public class TransactionRepository {
         return transactionDao.getTransactions(accountId);
     }
 
+    public TransactionWithDetails getTransactions(String tempTransactionServerId){
+        return transactionDao.getTransactions(tempTransactionServerId);
+    }
+
     public long saveTransaction(TransactionEntity transaction) {
         return transactionDao.insert(transaction);
     }
@@ -72,5 +76,12 @@ public class TransactionRepository {
 
     public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
         return transactionDao.getTransactionAmountByCategory(walletId);
+    }
+
+    public boolean deleteTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
+            walletDao.updateWallet(wallet);
+            accountDao.updateAccount(account);
+            int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
+            return rows > 0;
     }
 }

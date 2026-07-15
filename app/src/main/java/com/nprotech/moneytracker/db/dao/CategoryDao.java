@@ -21,4 +21,10 @@ public interface CategoryDao {
 
     @Query("SELECT * FROM categories WHERE type = :type ORDER BY ordering")
     LiveData<List<CategoryEntity>> fetchCategoriesByType(int type);
+
+    @Query("SELECT * FROM categories WHERE id = :categoryId LIMIT 1")
+    CategoryEntity getCategoryById(int categoryId);
+
+    @Query("SELECT * FROM categories WHERE defaultCategory = :categoryId LIMIT 1")
+    CategoryEntity getDefaultCategoryById(int categoryId);
 }

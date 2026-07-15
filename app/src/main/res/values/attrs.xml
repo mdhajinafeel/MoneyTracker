@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="emptyArchive" format="reference" />
+    <attr name="emptyBudget" format="reference" />
+    <attr name="emptyCategory" format="reference" />
+    <attr name="emptyCurrency" format="reference" />
+    <attr name="emptyDebt" format="reference" />
+    <attr name="emptyGoal" format="reference" />
+    <attr name="emptyRecord" format="reference" />
+    <attr name="emptyRecurring" format="reference" />
+    <attr name="emptySearch" format="reference" />
+</resources>

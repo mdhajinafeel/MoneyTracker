@@ -11,17 +11,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.CurrencyEntity;
+import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
+import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
@@ -30,7 +36,13 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
+import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
+import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class TransactionDetailActivity extends BaseActivity {
 
     private ConstraintLayout colorView;
@@ -38,6 +50,10 @@ public class TransactionDetailActivity extends BaseActivity {
     private AppCompatTextView nameLabel, categoryLabel, amountLabel, dateLabel, walletLabel, typeLabel, feeTitleLabel, feeLabel, memoTitleLabel, memoLabel;
     private AppCompatImageView icBack, ivDelete, ivEdit;
     private TransactionWithDetails transactionWithDetails;
+    private ActivityResultLauncher<Intent> transactionEditLauncher;
+    private TransactionViewModel transactionViewModel;
+    private WalletViewModel walletViewModel;
+    private AccountViewModel accountViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,10 +97,16 @@ public class TransactionDetailActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
+
+                transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+                walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
+                accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+
                 transactionWithDetails = IntentUtils.getSerializableExtra(getIntent(), "transactionDetail", TransactionWithDetails.class);
 
                 bindData(transactionWithDetails);
                 setupListeners();
+                setupLauncher();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
                 finish();
@@ -164,18 +186,111 @@ public class TransactionDetailActivity extends BaseActivity {
             });
 
             ivEdit.setOnClickListener(view -> {
-                startActivity(new Intent(this, CreateTransactionActivity.class)
-                        .putExtra("transactionDetail", transactionWithDetails)
-                        .putExtra("type", transactionWithDetails.transaction.type)
-                        .putExtra("action", "edit"));
-                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+                Intent intent = new Intent(this, CreateTransactionActivity.class);
+                intent.putExtra("transactionDetail", transactionWithDetails);
+                intent.putExtra("type", transactionWithDetails.transaction.type);
+                intent.putExtra("action", "edit");
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.top_to_bottom, R.anim.scale_out);
+                transactionEditLauncher.launch(intent, options);
             });
 
-            ivDelete.setOnClickListener(view -> {
-                Toast.makeText(getApplicationContext(), transactionWithDetails.transaction.tempTransactionServerId, Toast.LENGTH_SHORT).show();
+            ivDelete.setOnClickListener(view -> showDeleteDialog());
+
+            transactionViewModel.getDeleteStatus().observe(this, success -> {
+                if (Boolean.TRUE.equals(success)) {
+                    Intent intent = new Intent();
+                    intent.putExtra("isDeleted", true);
+                    intent.putExtra("tempTransactionServerId", transactionWithDetails.transaction.tempTransactionServerId);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                } else {
+                    Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
+        }
+    }
+
+    private void setupLauncher() {
+        transactionEditLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            if (data.getBooleanExtra("isUpdated", false)) {
+                                String tempTransactionServerId = data.getStringExtra("tempTransactionServerId");
+                                if (tempTransactionServerId != null) {
+                                    transactionWithDetails = transactionViewModel.getTransactions(tempTransactionServerId);
+                                    bindData(transactionWithDetails);
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
+    private void showDeleteDialog() {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            deleteTransaction();
+        });
+
+        dialog.show();
+    }
+
+    private void deleteTransaction() {
+        try {
+
+            TransactionEntity transaction = transactionWithDetails.transaction;
+
+            WalletEntity wallet = walletViewModel.getWalletByWalletId(transaction.walletId);
+            AccountEntity account = accountViewModel.getAccountDetailById((int) transaction.accountId);
+
+            switch (transaction.type) {
+                case TransactionEntity.TYPE_INCOME:
+                    if (wallet != null) {
+                        wallet.amount -= transaction.amount;
+                    }
+                    if (account != null) {
+                        account.balance -= transaction.amount;
+                    }
+                    break;
+
+                case TransactionEntity.TYPE_EXPENSE:
+                    if (wallet != null) {
+                        wallet.amount += transaction.amount;
+                    }
+                    if (account != null) {
+                        account.balance += transaction.amount;
+                    }
+                    break;
+
+                case TransactionEntity.TYPE_TRANSFER:
+                    WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
+                    if (fromWallet != null) {
+                        fromWallet.amount += transaction.amount + transaction.fee;
+                    }
+
+                    if (wallet != null) {
+                        wallet.amount -= transaction.amount;
+                    }
+                    break;
+            }
+
+            transactionViewModel.deleteTransaction(transaction, wallet, account);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteTransaction", e);
         }
     }
 }

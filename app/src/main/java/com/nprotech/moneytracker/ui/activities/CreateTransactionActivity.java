@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -62,6 +63,7 @@ import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
@@ -93,6 +95,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private AccountEntity account;
     private WalletEntity selectedWallet, selectedFromWallet;
     private AccountViewModel accountViewModel;
+    private CategoryViewModel categoryViewModel;
     private TransactionViewModel transactionViewModel;
     private WalletViewModel walletViewModel;
     private List<WalletEntity> walletLists;
@@ -182,6 +185,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 }
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+                categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
@@ -212,6 +216,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 if (transactionWithDetails != null) {
                     date = new Date(transactionWithDetails.transaction.transactionDate);
+                    transactionAmount = transactionWithDetails.transaction.amount;
+                    transactionFee = transactionWithDetails.transaction.fee;
 
                     tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetails.currencySymbol, transactionWithDetails.transaction.amount));
                     tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, transactionWithDetails.transaction.fee));
@@ -232,6 +238,23 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     if (selectedWallet != null) {
                         tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
                                 CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+                    }
+
+                    // Initialize selected category
+                    if (transactionType == TransactionEntity.TYPE_INCOME) {
+
+                        if (transactionWithDetails.transaction.defaultCategoryId > 0) {
+                            incomeCategory = categoryViewModel.getCategoryById(transactionWithDetails.transaction.defaultCategoryId, true);
+                        } else {
+                            incomeCategory = categoryViewModel.getCategoryById(transactionWithDetails.transaction.categoryId, false);
+                        }
+
+                    } else if (transactionType == TransactionEntity.TYPE_EXPENSE) {
+                        if (transactionWithDetails.transaction.defaultCategoryId > 0) {
+                            expenseCategory = categoryViewModel.getCategoryById(transactionWithDetails.transaction.defaultCategoryId, true);
+                        } else {
+                            expenseCategory = categoryViewModel.getCategoryById(transactionWithDetails.transaction.categoryId, false);
+                        }
                     }
                 }
 
@@ -295,7 +318,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this,R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
             });
 
             tvDay.setOnClickListener(view -> {
@@ -415,9 +438,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             transactionViewModel.getDataUpdatedStatus().observe(this, aBoolean -> {
 
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("newTransaction", transactionViewModel.getTransactionById(tempTransactionServerId));
                 resultIntent.putExtra("isSaved", false);
                 resultIntent.putExtra("isUpdated", true);
+                resultIntent.putExtra("tempTransactionServerId", transactionWithDetails.transaction.tempTransactionServerId);
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             });
@@ -529,11 +552,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                             if (type != null && type.equalsIgnoreCase("amount")) {
                                 transactionAmount = amount;
                                 tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
-                                updateSaveButtonState();
                             } else if (type != null && type.equalsIgnoreCase("fee")) {
                                 transactionFee = amount;
                                 tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
                             }
+                            updateSaveButtonState();
                         }
                     }
                 });
@@ -566,7 +589,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
             RecyclerView rvWallets = bottomView.findViewById(R.id.rvWallets);
-            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(walletLists, R.layout.item_switch_accounts) {
+            View viewLine = bottomView.findViewById(R.id.viewLine);
+            LinearLayout layoutAddWallet = bottomView.findViewById(R.id.layoutAddWallet);
+            viewLine.setVisibility(View.GONE);
+            layoutAddWallet.setVisibility(View.GONE);
+
+            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletLists, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, WalletEntity walletEntity) {
 
@@ -612,14 +640,20 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         boolean enabled = transactionAmount > 0
                 && selectedWallet != null;
 
-        if (transactionType == 1) {
-            enabled = enabled && incomeCategory != null;
-        } else if (transactionType == 2) {
-            enabled = enabled && expenseCategory != null;
-        } else if (transactionType == 3) {
-            enabled = enabled
-                    && selectedFromWallet != null
-                    && selectedWallet.id != selectedFromWallet.id;
+        switch (transactionType) {
+
+            case TransactionEntity.TYPE_INCOME:
+                enabled &= incomeCategory != null;
+                break;
+
+            case TransactionEntity.TYPE_EXPENSE:
+                enabled &= expenseCategory != null;
+                break;
+
+            case TransactionEntity.TYPE_TRANSFER:
+                enabled &= selectedFromWallet != null
+                        && Objects.requireNonNull(selectedWallet).id != selectedFromWallet.id;
+                break;
         }
 
         tvSave.setEnabled(enabled);

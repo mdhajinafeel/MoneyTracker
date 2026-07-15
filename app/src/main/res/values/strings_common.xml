@@ -97,6 +97,9 @@
     <string name="rate">Rate</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
     <string name="view_all">View all</string>
+    <string name="delete_transaction">Delete Transaction</string>
+    <string name="delete_message">Are you sure you want to delete?</string>
+    <string name="trans_delete_failed">Transaction deleted failed</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

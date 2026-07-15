@@ -17,7 +17,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class CategoryViewModel extends ViewModel {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
     private final LiveData<List<CategoryEntity>> incomeCategories;
     private final LiveData<List<CategoryEntity>> expenseCategories;
     private final MutableLiveData<Integer> incomeCategoryId = new MutableLiveData<>();
@@ -45,5 +45,9 @@ public class CategoryViewModel extends ViewModel {
 
     public void expenseCategory(int categoryId) {
         expenseCategoryId.setValue(categoryId);
+    }
+
+    public CategoryEntity getCategoryById(int categoryId, boolean isDefault) {
+        return categoryRepository.getCategoryById(categoryId, isDefault);
     }
 }
