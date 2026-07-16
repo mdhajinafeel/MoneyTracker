@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/exo2_bold"
+            android:fontFamily="@font/exo2_medium"
             android:text="@string/delete_message"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_16" />
@@ -61,7 +61,7 @@
                 android:id="@+id/tvDelete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_10"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/exo2_bold"

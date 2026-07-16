@@ -242,8 +242,8 @@ public class TransactionDetailActivity extends BaseActivity {
         }
         view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
-            dialog.dismiss();
             deleteTransaction();
+            dialog.dismiss();
         });
 
         dialog.show();

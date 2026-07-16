@@ -73,17 +73,19 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         }
 
         double amount;
+        int color = ContextCompat.getColor(context, R.color.income);
         if (transaction.type == 1) {
             amount = transaction.amount;
         } else {
             amount = transaction.amount * -1;
+            color = ContextCompat.getColor(context, R.color.expense);
         }
 
         holder.setViewText(R.id.nameLabel, categoryName);
         holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
         holder.setViewText(R.id.timeLabel, new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date(transaction.transactionDate)));
         amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, amount));
-        amountLabel.setTextColor(ContextCompat.getColor(context, R.color.bright_red));
+        amountLabel.setTextColor(color);
 
         itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
                 .putExtra("transactionDetail", item)));

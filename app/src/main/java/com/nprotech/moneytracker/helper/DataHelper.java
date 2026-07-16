@@ -252,6 +252,13 @@ public class DataHelper {
         arrayList.add(R.drawable.category_162);
         arrayList.add(R.drawable.category_163);
         arrayList.add(R.drawable.category_164);
+        arrayList.add(R.drawable.ic_adjust);
+        arrayList.add(R.drawable.ic_borrow);
+        arrayList.add(R.drawable.ic_repay);
+        arrayList.add(R.drawable.ic_lend);
+        arrayList.add(R.drawable.ic_receive);
+        arrayList.add(R.drawable.ic_increase_borrow);
+        arrayList.add(R.drawable.ic_increase_lend);
         return arrayList;
     }
 

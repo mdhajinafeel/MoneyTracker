@@ -5,6 +5,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -114,7 +116,10 @@ public class CategoryPickerActivity extends BaseActivity {
                         holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
                     } else {
 
-                        holder.getView(R.id.colorView).getBackground().setColorFilter(Color.parseColor(categoryEntity.color), PorterDuff.Mode.SRC_OVER);
+                        Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
+                        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                        DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
+                        holder.getView(R.id.colorView).setBackground(drawable);
                     }
 
                     holder.itemView.setOnClickListener(view -> {

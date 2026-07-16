@@ -1131,21 +1131,23 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
         TransactionEntity transaction;
 
+        long currentTime = System.currentTimeMillis();
+
         if (transactionWithDetails != null) {
             // Editing existing transaction
             transaction = transactionWithDetails.transaction;
-            transaction.updatedAt = System.currentTimeMillis();
+            transaction.updatedAt = currentTime;
         } else {
             // Creating new transaction
             transaction = new TransactionEntity();
 
             transaction.serverId = 0;
-            transaction.createdAt = System.currentTimeMillis();
-            transaction.updatedAt = System.currentTimeMillis();
+            transaction.createdAt = currentTime;
+            transaction.updatedAt = currentTime;
             transaction.isSynced = false;
             transaction.isDeleted = false;
 
-            tempTransactionServerId = "T_" + System.currentTimeMillis();
+            tempTransactionServerId = "T_" + currentTime;
             transaction.tempTransactionServerId = tempTransactionServerId;
         }
 

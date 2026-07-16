@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="general">General</string>
+    <string name="bank">Bank</string>
+    <string name="credit_card">Credit Card</string>
+    <string name="debit_card">Debit Card</string>
+    <string name="wallet_name">Wallet Name</string>
+    <string name="add_wallet">Add Wallet</string>
+    <string name="edit_wallet">Edit Wallet</string>
     <string name="exchange_rate_default_value">1.00</string>
     <string name="wallet_created_successfully">Wallet created successfully</string>
     <string name="wallet_updated_successfully">Wallet updated successfully</string>
@@ -7,4 +14,19 @@
     <string name="adjust_balance">Adjust Balance</string>
     <string name="transaction_list">Transaction List</string>
     <string name="wallet_details">Wallet Details</string>
+    <string name="adjust_by_transaction_hint">Adjusting your balance will create an adjustment transaction.</string>
+    <string name="change_initial_amount_hint">This option will update your initial balance to match your current balance. As a result, your end-of-month balances may change.</string>
+    <string name="adjust_by_transaction">Adjust by transaction</string>
+    <string name="change_initial_amount">Change initial amount</string>
+    <string name="select_wallet">Select Wallet</string>
+    <string name="from_wallet">From Wallet</string>
+    <string name="to_wallet">To Wallet</string>
+    <string name="wallet_info">%1$s • %2$s</string>
+    <string name="exclude">Exclude</string>
+    <string name="wallet_exclude_hint">Ignore the balance of this wallet on the total balance</string>
+    <string name="statement_day">Statement day of month</string>
+    <string name="due_day">Payment due day of month</string>
+    <string name="enter_the_name">Enter the name</string>
+    <string name="wallets">Wallets</string>
+    <string name="name">Name</string>
 </resources>

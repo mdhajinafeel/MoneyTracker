@@ -5,6 +5,7 @@ import android.content.Context;
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
+import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
@@ -39,6 +40,12 @@ public class DBModule {
     @Singleton
     public CurrencyDao provideCurrencyDao(MoneyTrackerDatabase db) {
         return db.currencyDao();
+    }
+
+    @Provides
+    @Singleton
+    public CommonDataDao provideCommonDataDao(MoneyTrackerDatabase db) {
+        return db.commonDataDao();
     }
 
     @Provides

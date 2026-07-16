@@ -50,4 +50,8 @@ public class CategoryViewModel extends ViewModel {
     public CategoryEntity getCategoryById(int categoryId, boolean isDefault) {
         return categoryRepository.getCategoryById(categoryId, isDefault);
     }
+
+    public CategoryEntity getDefaultCategoryByType(int categoryId, int type) {
+        return categoryRepository.getDefaultCategoryByType(categoryId, type);
+    }
 }

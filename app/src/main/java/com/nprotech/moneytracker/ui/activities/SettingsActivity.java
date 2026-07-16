@@ -90,10 +90,10 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
     private void fetchManagementSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.ACCOUNT, getString(R.string.account), false, true, false, null));
-            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet), false, true, false, null));
-            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), false, true, false, null));
-            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), false, true, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.ACCOUNT, getString(R.string.account), false, true, false, null, true));
+            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet), false, true, false, null, true));
+            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), false, true, false, null, true));
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), false, true, false, null, true));
 
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 
@@ -108,11 +108,11 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
-            settingItemModelList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), false, true, true, "Sunday"));
-            settingItemModelList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), false, true, true, "Transaction"));
-            settingItemModelList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), false, true, true, "English"));
-            settingItemModelList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password), false, true, true, "Not set"));
-            settingItemModelList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder), false, true, true, "Trigger reminder at 19:00"));
+            settingItemModelList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), false, true, true, getString(R.string.sunday), true));
+            settingItemModelList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), false, true, true, getString(R.string.transaction), true));
+            settingItemModelList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), false, true, true, getString(R.string.system_default), true));
+            settingItemModelList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password), false, true, true, getString(R.string.not_set), true));
+            settingItemModelList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder), false, true, true, getString(R.string.trigger_reminder_at_19_00), true));
 
             rvConfigurations.setLayoutManager(new LinearLayoutManager(this));
             rvConfigurations.setAdapter(adapter);
@@ -124,7 +124,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
     private void fetchBackupSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, getString(R.string.manage_backup), false, false, false, null));
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, getString(R.string.manage_backup), false, false, false, null, true));
 
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 
@@ -138,7 +138,7 @@ public class SettingsActivity extends BaseActivity implements SettingsRecyclerAd
     private void fetchOtherSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, getString(R.string.version), false, false, true, getAppVersion()));
+            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, getString(R.string.version), false, false, true, getAppVersion(), false));
 
             SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(settingItemModelList, this);
 

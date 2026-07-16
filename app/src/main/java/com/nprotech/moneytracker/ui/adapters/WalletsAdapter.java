@@ -5,11 +5,13 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -41,7 +43,11 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
         if (Build.VERSION.SDK_INT >= 29) {
             walletWrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.walletColor), BlendMode.SRC_OVER));
         } else {
-            walletWrapper.getBackground().setColorFilter(Color.parseColor(item.walletColor), PorterDuff.Mode.SRC_OVER);
+
+            Drawable drawable = walletWrapper.getBackground().mutate();
+            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+            DrawableCompat.setTint(drawable, Color.parseColor(item.walletColor));
+            walletWrapper.setBackground(drawable);
         }
 
         walletImage.setImageResource(walletIcon);

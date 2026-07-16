@@ -46,6 +46,11 @@ public class CategoryInitializer {
         for (int i = 0; i < 9; i++) {
             categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 15));
         }
+
+        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 24));
+        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 27));
+        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 28));
+
         return categories;
     }
 
@@ -60,6 +65,11 @@ public class CategoryInitializer {
             categories.add(new CategoryEntity("", strArr[i], iArr[i], 2, true, i, i2));
             i = i2;
         }
+
+        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 24));
+        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 25));
+        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 26));
+
         return categories;
     }
 }

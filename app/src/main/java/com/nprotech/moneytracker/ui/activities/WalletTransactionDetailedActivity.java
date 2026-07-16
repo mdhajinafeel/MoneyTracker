@@ -10,13 +10,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
@@ -33,6 +36,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.IConstants;
+import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.CategoryEntity;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
@@ -45,6 +52,8 @@ import com.nprotech.moneytracker.ui.adapters.WalletTransactionAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
@@ -62,8 +71,10 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private AppCompatTextView nameLabel, amountLabel, initialLabel, incomeLabel, expenseLabel, transferLabel, transactionAllLabel;
     private MaterialButton btnAdjustBalance;
     private RecyclerView rvTransactions;
+    private CategoryViewModel categoryViewModel;
     private WalletViewModel walletViewModel;
     private TransactionViewModel transactionViewModel;
+    private AccountViewModel accountViewModel;
     private WalletTransactionAdapter walletTransactionAdapter;
     private int walletId = 0;
     private LiveData<List<TransactionCategoryModel>> transactionCategoryLiveData;
@@ -132,6 +143,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 
+                categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+                accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
@@ -321,15 +334,129 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                             if (data != null) {
                                 double amount = data.getDoubleExtra("amount", 0);
                                 String type = data.getStringExtra("type");
-
                                 if (type != null && type.equalsIgnoreCase("amount")) {
-                                    Toast.makeText(getApplicationContext(), "Have to adjust balance", Toast.LENGTH_SHORT).show();
+                                    if (amount != wallet.amount) {
+                                        showAdjustBalanceDialog(amount);
+                                    }
                                 }
                             }
                         }
                     });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupLauncher", e);
+        }
+    }
+
+    private void showAdjustBalanceDialog(double actualBalance) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_adjust_balance, null, false);
+
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView amountLabel = view.findViewById(R.id.amountLabel);
+        ConstraintLayout topWrapper = view.findViewById(R.id.topWrapper);
+        RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
+        AppCompatRadioButton rbAdjustTransaction = view.findViewById(R.id.rbAdjustTransaction);
+        AppCompatRadioButton rbChangeInitial = view.findViewById(R.id.rbChangeInitial);
+
+        dialog.setView(view);
+
+        double difference = actualBalance - wallet.amount;
+        amountLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, difference));
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.rbAdjustTransaction) {
+                tvMessage.setText(getString(R.string.adjust_by_transaction_hint));
+                topWrapper.setVisibility(View.VISIBLE);
+            } else {
+                tvMessage.setText(getString(R.string.change_initial_amount_hint));
+                topWrapper.setVisibility(View.GONE);
+            }
+        });
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvOk).setOnClickListener(v -> {
+
+            if (rbAdjustTransaction.isChecked()) {
+                adjustWalletBalance(wallet, actualBalance);
+            } else if (rbChangeInitial.isChecked()) {
+                changeInitialAmount(wallet, actualBalance);
+            }
+            dialog.dismiss();
+            bindData(walletId);
+        });
+
+        dialog.show();
+    }
+
+    private void adjustWalletBalance(WalletEntity wallet, double actualBalance) {
+
+        double difference = actualBalance - wallet.amount;
+
+        if (difference == 0) {
+            return;
+        }
+
+        long currentTime = System.currentTimeMillis();
+
+        TransactionEntity transaction = new TransactionEntity();
+        transaction.walletId = wallet.id;
+        transaction.amount = Math.abs(difference);
+        transaction.transactionDate = System.currentTimeMillis();
+        transaction.description = getString(R.string.adjustment);
+        transaction.tempTransactionServerId = "T_"+ currentTime;
+        transaction.accountId = PreferenceManager.INSTANCE.getAccountId();
+        transaction.createdAt = currentTime;
+        transaction.updatedAt = currentTime;
+        transaction.isSynced = false;
+        transaction.isDeleted = false;
+
+        if (difference > 0) {
+            transaction.type = TransactionEntity.TYPE_INCOME;
+
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ID, 1);
+            transaction.categoryId = category.id;
+            transaction.defaultCategoryId = category.defaultCategory;
+        } else {
+            transaction.type = TransactionEntity.TYPE_EXPENSE;
+
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ID, 2);
+            transaction.categoryId = category.id;
+            transaction.defaultCategoryId = category.defaultCategory;
+        }
+
+        // Update wallet balance
+        wallet.amount = actualBalance;
+
+        // Update account balance
+        AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
+        if (account != null) {
+            account.balance += difference;
+        }
+
+        transactionViewModel.saveTransaction(transaction, wallet, account);
+    }
+
+    private void changeInitialAmount(WalletEntity wallet, double actualBalance) {
+
+        double difference = actualBalance - wallet.amount;
+
+        if (difference == 0) {
+            return;
+        }
+
+        wallet.initialAmount += difference;
+        wallet.amount = actualBalance;
+
+        AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
+        if (account != null) {
+            account.balance += difference;
+            walletViewModel.updateWalletAndAccount(wallet, account);
+        } else {
+            walletViewModel.updateWallet(wallet);
         }
     }
 }

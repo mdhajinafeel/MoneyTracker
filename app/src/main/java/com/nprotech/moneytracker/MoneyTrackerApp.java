@@ -10,6 +10,7 @@ import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.initializer.CategoryInitializer;
+import com.nprotech.moneytracker.initializer.CommonInitializer;
 import com.nprotech.moneytracker.initializer.CurrencyInitializer;
 
 import java.security.KeyStore;
@@ -38,6 +39,9 @@ public class MoneyTrackerApp extends Application {
 
         // Category load
         CategoryInitializer.loadCategories(this);
+
+        // Common Data load
+        CommonInitializer.loadCommonData(this);
 
         // Firebase crashlytics
         firebaseCrashlytics();

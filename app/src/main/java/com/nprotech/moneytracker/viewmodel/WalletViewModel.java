@@ -5,7 +5,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
 
 import java.util.List;
@@ -18,12 +20,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class WalletViewModel extends ViewModel {
 
     private final WalletRepository walletRepository;
+    private final TransactionRepository transactionRepository;
     private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
     private final LiveData<List<WalletEntity>> wallets;
 
     @Inject
-    public WalletViewModel(WalletRepository walletRepository) {
+    public WalletViewModel(WalletRepository walletRepository, TransactionRepository transactionRepository) {
         this.walletRepository = walletRepository;
+        this.transactionRepository = transactionRepository;
         wallets = Transformations.switchMap(accountId, walletRepository::getAllWallets);
     }
 
@@ -41,6 +45,11 @@ public class WalletViewModel extends ViewModel {
 
     public void updateWallet(WalletEntity wallet) {
         walletRepository.updateWallet(wallet);
+    }
+
+    public void updateWalletAndAccount(WalletEntity wallet, AccountEntity account) {
+        walletRepository.updateWallet(wallet);
+        transactionRepository.updateAccount(account);
     }
 
     public int getMaxWalletOrdering(int accountId) {

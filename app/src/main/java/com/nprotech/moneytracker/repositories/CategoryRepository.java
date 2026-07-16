@@ -25,4 +25,8 @@ public class CategoryRepository {
         }
         return categoryDao.getCategoryById(categoryId);
     }
+
+    public CategoryEntity getDefaultCategoryByType(int categoryId, int type) {
+        return categoryDao.getDefaultCategoryByType(categoryId, type);
+    }
 }

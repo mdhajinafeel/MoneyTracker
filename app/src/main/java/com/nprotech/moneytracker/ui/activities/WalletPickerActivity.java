@@ -6,6 +6,7 @@ import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -154,8 +156,12 @@ public class WalletPickerActivity extends BaseActivity {
                                 imageView.setColorFilter(
                                         new BlendModeColorFilter(Color.parseColor("#F8F8F8"), BlendMode.SRC_IN));
                             } else {
-                                wrapper.getBackground().setColorFilter(
-                                        Color.parseColor(color), PorterDuff.Mode.SRC_OVER);
+
+                                Drawable drawable = wrapper.getBackground().mutate();
+                                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                                DrawableCompat.setTint(drawable, Color.parseColor(color));
+                                wrapper.setBackground(drawable);
+
                                 imageView.setColorFilter(
                                         Color.parseColor("#F8F8F8"), PorterDuff.Mode.SRC_IN);
                             }
@@ -168,8 +174,11 @@ public class WalletPickerActivity extends BaseActivity {
                                 imageView.setColorFilter(
                                         new BlendModeColorFilter(Color.parseColor("#262525"), BlendMode.SRC_IN));
                             } else {
-                                wrapper.getBackground().setColorFilter(
-                                        Color.parseColor("#E0E0E0"), PorterDuff.Mode.SRC_OVER);
+                                Drawable drawable = wrapper.getBackground().mutate();
+                                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                                DrawableCompat.setTint(drawable, Color.parseColor(color));
+                                wrapper.setBackground(drawable);
+
                                 imageView.setColorFilter(
                                         Color.parseColor("#262525"), PorterDuff.Mode.SRC_IN);
                             }

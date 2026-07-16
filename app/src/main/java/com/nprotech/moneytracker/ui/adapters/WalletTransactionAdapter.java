@@ -12,9 +12,11 @@ import android.os.Build;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.ui.activities.TransactionDetailActivity;
@@ -62,11 +64,17 @@ public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCat
         }
 
         double amount = item.getAmount();
+        int color = ContextCompat.getColor(context, R.color.income);
+        if (item.getType() == TransactionEntity.TYPE_EXPENSE) {
+            amount = amount * -1;
+            color = ContextCompat.getColor(context, R.color.expense);
+        }
 
         holder.setViewText(R.id.nameLabel, categoryName);
         int count = item.getTransactionCount();
         holder.setViewText(R.id.transLabel, context.getResources().getQuantityString(R.plurals.transaction_count, count, count));
         amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
+        amountLabel.setTextColor(color);
 
         itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
                 .putExtra("transactionDetail", item)));

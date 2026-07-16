@@ -49,10 +49,9 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
         if (item.switchVisible) {
             holder.switchButton.setVisibility(View.VISIBLE);
             holder.switchButton.setOnToggledListener(null);
-            holder.ivNavigation.setVisibility(View.GONE);
+
         } else {
             holder.switchButton.setVisibility(View.GONE);
-            holder.ivNavigation.setVisibility(View.VISIBLE);
 
             if (item.isEnabled) {
                 holder.itemView.setOnClickListener(view -> {
@@ -61,6 +60,12 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
                     }
                 });
             }
+        }
+
+        if(item.navigationVisible) {
+            holder.ivNavigation.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivNavigation.setVisibility(View.GONE);
         }
 
         if (item.enabledSubTitle) {
