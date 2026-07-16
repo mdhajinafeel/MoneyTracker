@@ -17,4 +17,12 @@ public interface CommonDataDao {
 
     @Query("SELECT COUNT(*) FROM common_data")
     int getCommonDataCount();
+
+    @Query("SELECT * FROM common_data WHERE type = :type AND active = 1")
+    List<CommonDataEntity> getDataByType(int type);
+
+    @Query("UPDATE common_data SET selected = 0 WHERE type = :type")
+    void updateDeSelectedData(int type);
+    @Query("UPDATE common_data SET selected = 1 WHERE id = :id")
+    void updateSelectedData(int id);
 }

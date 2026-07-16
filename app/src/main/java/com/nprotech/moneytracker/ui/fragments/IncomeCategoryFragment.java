@@ -82,6 +82,12 @@ public class IncomeCategoryFragment extends Fragment {
                         DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
                         holder.getView(R.id.colorView).setBackground(drawable);
                     }
+
+                    if (categoryEntity.defaultCategory > 0) {
+                        holder.setViewVisibility(R.id.ivDelete, View.GONE);
+                    } else {
+                        holder.setViewVisibility(R.id.ivDelete, View.VISIBLE);
+                    }
                 }
             };
 

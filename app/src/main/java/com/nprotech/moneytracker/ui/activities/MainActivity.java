@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.IConstants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
@@ -91,8 +92,6 @@ public class MainActivity extends BaseActivity {
 
             observeData();
 
-            loadRootFragment(transactionFragment);
-
             bottomNav.setOnItemSelectedListener(item -> {
 
                 View itemView = bottomNav.findViewById(item.getItemId());
@@ -112,6 +111,8 @@ public class MainActivity extends BaseActivity {
 
                 return false;
             });
+
+            loadStartUpScreen();
 
             getSupportFragmentManager().addOnBackStackChangedListener(() -> {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
@@ -260,6 +261,25 @@ public class MainActivity extends BaseActivity {
             ivSettings.setVisibility(View.VISIBLE);
         } else {
             ivSettings.setVisibility(View.GONE);
+        }
+    }
+
+    private void loadStartUpScreen() {
+
+        int startUpScreen = PreferenceManager.INSTANCE.getStartUpScreen();
+
+        switch (startUpScreen) {
+
+            case IConstants.STARTUP_WALLET:
+                bottomNav.setSelectedItemId(R.id.nav_wallet);
+                loadRootFragment(walletFragment);
+                break;
+
+            case IConstants.STARTUP_TRANSACTION:
+            default:
+                bottomNav.setSelectedItemId(R.id.nav_transaction);
+                loadRootFragment(transactionFragment);
+                break;
         }
     }
 }

@@ -61,6 +61,32 @@
     <string name="chinese_simplified">中文（简体）</string>
     <string name="chinese_traditional">中文（繁體）</string>
 
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
     <!-- CALCULATOR -->
     <string name="number_0">0</string>
     <string name="number_1">1</string>

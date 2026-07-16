@@ -43,6 +43,23 @@ public class MoneyTrackerApp extends Application {
         // Common Data load
         CommonInitializer.loadCommonData(this);
 
+        // Preference
+        if (PreferenceManager.INSTANCE.getWeekStartOn() == 0) {
+            PreferenceManager.INSTANCE.setWeekStartOn(1);
+        }
+
+        if (PreferenceManager.INSTANCE.getLanguage() == 0) {
+            PreferenceManager.INSTANCE.setLanguage(1);
+        }
+
+        if (PreferenceManager.INSTANCE.getStartUpScreen() == 0) {
+            PreferenceManager.INSTANCE.setStartUpScreen(1);
+        }
+
+        if (PreferenceManager.INSTANCE.getSmartReminder() == 0) {
+            PreferenceManager.INSTANCE.setSmartReminder(1);
+        }
+
         // Firebase crashlytics
         firebaseCrashlytics();
     }

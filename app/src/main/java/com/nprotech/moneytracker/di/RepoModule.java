@@ -2,12 +2,14 @@ package com.nprotech.moneytracker.di;
 
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
+import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 import com.nprotech.moneytracker.repositories.CategoryRepository;
+import com.nprotech.moneytracker.repositories.CommonDataRepository;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 import com.nprotech.moneytracker.repositories.AccountRepository;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
@@ -28,6 +30,12 @@ public class RepoModule {
     @Singleton
     MasterRepository provideMasterRepository(CurrencyDao currencyDao) {
         return new MasterRepository(currencyDao);
+    }
+
+    @Provides
+    @Singleton
+    CommonDataRepository provideCommonDataRepository(CommonDataDao commonDataDao) {
+        return new CommonDataRepository(commonDataDao);
     }
 
     @Provides

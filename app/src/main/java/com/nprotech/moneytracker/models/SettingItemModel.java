@@ -6,15 +6,16 @@ public class SettingItemModel {
 
     public SettingType settingType;
     public String title, subTitle;
-    public boolean switchVisible, isEnabled, enabledSubTitle, navigationVisible;
+    public boolean isEnabled, enabledSubTitle, navigationVisible, isPremium;
 
-    public SettingItemModel(SettingType settingType, String title, boolean switchVisible, boolean isEnabled, boolean enabledSubTitle, String subTitle, boolean navigationVisible) {
+    public SettingItemModel(SettingType settingType, String title, boolean isEnabled,
+                            boolean enabledSubTitle, String subTitle, boolean navigationVisible, boolean isPremium) {
         this.settingType = settingType;
         this.title = title;
-        this.switchVisible = switchVisible;
         this.isEnabled = isEnabled;
         this.enabledSubTitle = enabledSubTitle;
         this.subTitle = subTitle;
         this.navigationVisible = navigationVisible;
+        this.isPremium = isPremium;
     }
 }

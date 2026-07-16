@@ -969,7 +969,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // 🟡 Denied once → explain + ask again
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.camera_permission_required))
-                    .setMessage(getString(R.string.camera_access_is_required_to_take_photos_for_expense_attachments))
+                    .setMessage(getString(R.string.camera_access_required))
                     .setPositiveButton(getString(R.string.allow), (d, w) ->
                             cameraPermissionLauncher.launch(Manifest.permission.CAMERA))
                     .setNegativeButton(getString(R.string.cancel), null)
@@ -978,7 +978,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // 🔴 Permanently denied → settings
             new AlertDialog.Builder(this)
                     .setTitle(getString(R.string.permission_required))
-                    .setMessage(getString(R.string.camera_permission_is_disabled_please_enable_it_from_app_settings))
+                    .setMessage(getString(R.string.camera_permission_disabled))
                     .setPositiveButton(getString(R.string.open_settings), (d, w) -> openAppSettings())
                     .setNegativeButton(getString(R.string.cancel), null)
                     .show();

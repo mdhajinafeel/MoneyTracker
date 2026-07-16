@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b586392fbf9084ead471f0b172d785dc",
+    "identityHash": "c95305fd50a6e1649ebc22a28abdeeeb",
     "entities": [
       {
         "tableName": "currencies",
@@ -104,7 +104,7 @@
       },
       {
         "tableName": "common_data",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` INTEGER NOT NULL, `value` INTEGER NOT NULL, `languageCode` TEXT, `nameResId` INTEGER NOT NULL, `active` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` INTEGER NOT NULL, `value` INTEGER NOT NULL, `languageCode` TEXT, `nameResId` INTEGER NOT NULL, `active` INTEGER NOT NULL, `selected` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -138,6 +138,12 @@
           {
             "fieldPath": "active",
             "columnName": "active",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selected",
+            "columnName": "selected",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -655,7 +661,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b586392fbf9084ead471f0b172d785dc')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c95305fd50a6e1649ebc22a28abdeeeb')"
     ]
   }
 }
