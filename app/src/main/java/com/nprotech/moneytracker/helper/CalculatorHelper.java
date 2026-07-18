@@ -13,7 +13,7 @@ import java.util.Locale;
 public class CalculatorHelper {
 
     public static String getDisplayAmount(String s) {
-        String replaceAll = s.replaceAll(",", ".");
+        String replaceAll = s.replace(",", ".");
         BigDecimal bigDecimal = new BigDecimal(replaceAll);
         if (replaceAll.contains(".")) {
             if (replaceAll.indexOf(".") != replaceAll.length() - 1) {

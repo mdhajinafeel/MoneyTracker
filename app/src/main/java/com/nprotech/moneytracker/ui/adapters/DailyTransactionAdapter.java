@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.utils.CommonUtils;
 

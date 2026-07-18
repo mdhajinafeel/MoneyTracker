@@ -6,26 +6,27 @@ espressoCore = "3.7.0"
 appcompat = "1.7.1"
 material = "1.14.0"
 roomRuntime = "2.8.4"
-hiltAndroid = "2.59.2"
-lifecycleViewmodel = "2.10.0"
-sqlite = "2.6.2"
+hiltAndroid = "2.60.1"
+lifecycleViewmodel = "2.11.0"
+sqlite = "2.7.0"
 androidsvg = "1.4"
 lottie = "6.7.1"
 securedpreferencestore = "0.7.4"
-okhttp = "5.3.2"
+okhttp = "5.4.0"
 retrofit = "3.0.0"
 stetho = "1.6.0"
-firebaseBom = "34.14.0"
+firebaseBom = "34.16.0"
 firebaseAnalytics = "23.2.0"
-firebaseMessaging = "25.0.2"
-glide = "5.0.7"
+firebaseMessaging = "25.1.1"
+glide = "5.0.9"
 workRunTime = "2.11.2"
 evalex = "2.7"
 gson = "2.14.0"
 firebaseCrashlyticsPlugin = "3.0.7"
-googleServices = "4.4.4"
+googleServices = "4.5.0"
 commons-lang3 = "3.20.0"
 toggle = "1.1.0"
+autofittext = "0.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -61,6 +62,7 @@ gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 firebase-crashlytics = { module = "com.google.firebase:firebase-crashlytics" }
 commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3" }
 toggle = { module = "com.github.angads25:toggle", version.ref = "toggle" }
+autofittextview = { module = "me.grantland:autofittextview", version.ref = "autofittext" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

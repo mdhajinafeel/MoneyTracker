@@ -2,7 +2,9 @@ package com.nprotech.moneytracker.models;
 
 import com.nprotech.moneytracker.enums.SettingType;
 
-public class SettingItemModel {
+import java.io.Serializable;
+
+public class SettingItemModel implements Serializable {
 
     public SettingType settingType;
     public String title, subTitle;

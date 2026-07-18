@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.telephony.TelephonyManager;
 
+import androidx.core.os.ConfigurationCompat;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
@@ -15,6 +17,7 @@ import com.nprotech.moneytracker.models.CurrencyJsonModel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
@@ -62,14 +65,13 @@ public class CurrencyInitializer {
         executorService.shutdown();
     }
 
-    @SuppressWarnings("CharsetObjectCanBeUsed")
     private static List<CurrencyJsonModel> getCurrencyJsonModels(int bytesRead, int size, byte[] buffer) throws IOException {
         if (bytesRead != size) {
             throw new IOException(
                     "Failed to read entire file."
             );
         }
-        String json = new String(buffer, "UTF-8");
+        String json = new String(buffer, StandardCharsets.UTF_8);
         Gson gson = new Gson();
         Type type = new TypeToken<List<CurrencyJsonModel>>() {
         }.getType();
@@ -85,7 +87,7 @@ public class CurrencyInitializer {
                 String simCountry = telephonyManager.getSimCountryIso();
 
                 if (simCountry != null && !simCountry.isEmpty()) {
-                    Locale locale = new Locale("", simCountry.toUpperCase());
+                    Locale locale = new Locale.Builder().setRegion(simCountry.toUpperCase(Locale.ROOT)).build();
                     Currency currency = Currency.getInstance(locale);
                     return currency.getCurrencyCode();
                 }
@@ -96,13 +98,10 @@ public class CurrencyInitializer {
 
         // 2. Locale Fallback
         try {
-            Locale locale;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                locale = Resources.getSystem().getConfiguration().getLocales().get(0);
-            } else {
-                locale = Resources.getSystem().getConfiguration().locale;
+            Locale locale = ConfigurationCompat.getLocales(Resources.getSystem().getConfiguration()).get(0);
+            if (locale == null) {
+                locale = Locale.getDefault();
             }
-
             Currency currency = Currency.getInstance(locale);
             return currency.getCurrencyCode();
         } catch (Exception e) {

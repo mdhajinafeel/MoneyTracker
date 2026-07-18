@@ -26,4 +26,10 @@ public class AppLogger {
         FirebaseCrashlytics.getInstance().log(logMessage);
         FirebaseCrashlytics.getInstance().recordException(throwable);
     }
+
+    public static void w(Class<?> cls, String message) {
+        String logMessage = cls.getSimpleName() + " : " + message;
+        Log.e(TAG, logMessage);
+        FirebaseCrashlytics.getInstance().log(logMessage);
+    }
 }

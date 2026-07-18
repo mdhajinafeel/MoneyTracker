@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -44,6 +45,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity {
 
+    private ConstraintLayout balanceWrapper;
     private AppCompatTextView tvAccountName, tvAccountBalance;
     private AccountViewModel accountViewModel;
     private BottomNavigationView bottomNav;
@@ -71,6 +73,7 @@ public class MainActivity extends BaseActivity {
 
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
 
+            balanceWrapper = findViewById(R.id.balanceWrapper);
             ivSettings = findViewById(R.id.ivSettings);
             tvAccountName = findViewById(R.id.tvAccountName);
             tvAccountBalance = findViewById(R.id.tvAccountBalance);
@@ -255,9 +258,15 @@ public class MainActivity extends BaseActivity {
 
     private void updateToolbar(Fragment fragment) {
 
-        if (fragment instanceof WalletFragment) {
+        if (fragment instanceof TransactionFragment) {
+            balanceWrapper.setVisibility(View.VISIBLE);
+            ivSettings.setVisibility(View.GONE);
+        } else if (fragment instanceof WalletFragment) {
+            balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.VISIBLE);
-        } else {
+        } else if (fragment instanceof CalendarFragment
+                || fragment instanceof StatisticsFragment) {
+            balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.GONE);
         }
     }

@@ -105,11 +105,21 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public void setViewBackgroundResource(int viewId, int backgroundResId) {
+        View view = getView(viewId);
+        if (view != null) view.setBackgroundResource(backgroundResId);
+    }
+
+    public void setViewBackgroundColor(int viewId, int color) {
+        View view = getView(viewId);
+        if (view != null) view.setBackgroundColor(color);
+
+    }
+
     // 🔹 VISIBILITY
-    public ViewHolder setViewVisibility(int viewId, int visibility) {
+    public void setViewVisibility(int viewId, int visibility) {
         View view = getView(viewId);
         if (view != null) view.setVisibility(visibility);
-        return this;
     }
 
     // 🔹 CHECKED

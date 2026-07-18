@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +18,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
-import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -27,7 +25,6 @@ import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 

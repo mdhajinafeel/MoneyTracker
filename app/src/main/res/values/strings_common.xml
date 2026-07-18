@@ -16,6 +16,16 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
 
+    <string-array name="week_days_short">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
+
     <!-- MONTHS -->
     <string name="january">January</string>
     <string name="february">February</string>
@@ -128,4 +138,6 @@
     <string name="select_icon">Select Icon</string>
     <string name="delete_message">Are you sure you want to delete?</string>
     <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Previous</string>
+    <string name="dash">-</string>
 </resources>

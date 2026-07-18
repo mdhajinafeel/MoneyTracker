@@ -62,6 +62,7 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         if (getItemViewType(position) == VIEW_TYPE_HEADER) {
+            onHeaderBind(holder);
             return;
         }
 
@@ -193,5 +194,8 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
     }
 
     public void onFooterBind(ViewHolder holder) {
+    }
+
+    public void onHeaderBind(ViewHolder holder) {
     }
 }

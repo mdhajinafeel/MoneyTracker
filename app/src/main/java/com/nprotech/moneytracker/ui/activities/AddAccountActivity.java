@@ -144,7 +144,7 @@ public class AddAccountActivity extends BaseActivity {
             intent.putExtra("currency", currency);
             intent.putExtra("type", "account");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_right, R.anim.slide_out_left);
-            currencyLauncher.launch(intent);
+            currencyLauncher.launch(intent, options);
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {

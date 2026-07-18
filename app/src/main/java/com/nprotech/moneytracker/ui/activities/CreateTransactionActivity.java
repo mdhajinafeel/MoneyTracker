@@ -919,7 +919,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         File dir = new File(getFilesDir(), "uploads" + File.separator + transactionId);
 
         if (!dir.exists() && !dir.mkdirs()) {
-            AppLogger.e(getClass(), "Failed to create transaction folder", null);
+            AppLogger.w(getClass(), "Failed to create transaction folder");
         }
 
         String name = getFileNameFromUri(uri);

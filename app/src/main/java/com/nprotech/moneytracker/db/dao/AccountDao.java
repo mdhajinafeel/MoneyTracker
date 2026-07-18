@@ -8,7 +8,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.AccountEntity;
-import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 import java.util.List;
 

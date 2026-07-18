@@ -20,6 +20,8 @@
     <string name="type">Type</string>
     <string name="view_all">View all</string>
     <string name="delete_transaction">Delete Transaction</string>
+    <string name="total">Total</string>
+    <string name="all_transaction">All transactions</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

@@ -12,6 +12,7 @@ public class CrashlyticsExceptionHandler implements Thread.UncaughtExceptionHand
         this.defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void uncaughtException(Thread thread, @NonNull Throwable throwable) {
 

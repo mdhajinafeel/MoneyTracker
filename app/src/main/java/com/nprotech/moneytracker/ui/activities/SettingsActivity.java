@@ -168,22 +168,22 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             if (type == IConstants.DAY) {
                 List<CommonDataEntity> daysList = commonDataViewModel.getDataByType(type);
-                showsSettingDialog(daysList, type);
+                showSettingDialog(daysList, type);
             }
 
             if (type == IConstants.STARTUP_SCREEN) {
                 List<CommonDataEntity> screenList = commonDataViewModel.getDataByType(type);
-                showsSettingDialog(screenList, type);
+                showSettingDialog(screenList, type);
             }
 
             if (type == IConstants.LANGUAGE) {
                 List<CommonDataEntity> languagesList = commonDataViewModel.getDataByType(type);
-                showsSettingDialog(languagesList, type);
+                showSettingDialog(languagesList, type);
             }
 
             if (type == IConstants.SMART_REMINDER) {
                 List<CommonDataEntity> smartReminderList = commonDataViewModel.getDataByType(type);
-                showsSettingDialog(smartReminderList, type);
+                showSettingDialog(smartReminderList, type);
             }
 
         } catch (Exception e) {
@@ -208,7 +208,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         }
     }
 
-    private void showsSettingDialog(List<CommonDataEntity> data, int type) {
+    private void showSettingDialog(List<CommonDataEntity> data, int type) {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_setting_options, null, false);
