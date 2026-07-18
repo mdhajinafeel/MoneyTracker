@@ -429,6 +429,9 @@ public class CreateWalletActivity extends BaseActivity {
 
             if (isEdit) {
 
+                // Difference between new and old initial amount
+                double difference = walletAmount - walletEntity.initialAmount;
+
                 walletEntity.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
                 walletEntity.walletColor = walletColorLists.get(colorSpinner.getSelectedItemPosition());
                 walletEntity.walletType = typeSpinner.getSelectedItemPosition();
@@ -437,15 +440,17 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity.currencySymbol = currency.currencySymbol;
 
                 walletEntity.categoryIcon = walletIcon;
+
+                // Update initial amount
                 walletEntity.initialAmount = walletAmount;
 
-                // Wallet Type
+                // Update current balance
+                walletEntity.amount += difference;
+
                 walletEntity.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
 
-                // Exclude
                 walletEntity.isExclude = switchExcludeView.isChecked();
 
-                // Credit Card Details
                 if (typeSpinner.getSelectedItemPosition() == 3) {
                     walletEntity.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
                     walletEntity.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
@@ -456,7 +461,13 @@ public class CreateWalletActivity extends BaseActivity {
 
                 walletEntity.isSynced = false;
 
+                // Update wallet
                 walletViewModel.updateWallet(walletEntity);
+
+                // Update account balance
+                account.balance += difference;
+                account.isSynced = false;
+                accountViewModel.updateAccount(account);
 
                 Toast.makeText(getApplicationContext(), getString(R.string.wallet_updated_successfully), Toast.LENGTH_SHORT).show();
 
@@ -476,23 +487,17 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.initialAmount = walletAmount;
                 wallet.amount = walletAmount;
 
-                // Wallet Type
-                wallet.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+                wallet.ordering = walletViewModel.getMaxWalletOrdering(
+                        (int) PreferenceManager.INSTANCE.getAccountId()) + 1;
 
-                // Exclude
                 wallet.isExclude = switchExcludeView.isChecked();
 
-                // Credit Card Details
                 if (typeSpinner.getSelectedItemPosition() == 3) {
                     wallet.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
                     wallet.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
-
-                    amountLabel.setText(getString(R.string.credit_limit));
                 } else {
                     wallet.statementDate = 0;
                     wallet.dueDate = 0;
-
-                    amountLabel.setText(getString(R.string.amount));
                 }
 
                 wallet.isHidden = false;
@@ -500,7 +505,13 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.isDeleted = false;
                 wallet.isSynced = false;
 
+                // Save wallet
                 walletViewModel.saveWallet(wallet);
+
+                // Update account balance
+                account.balance += wallet.amount;
+                account.isSynced = false;
+                accountViewModel.updateAccount(account);
 
                 Toast.makeText(getApplicationContext(), getString(R.string.wallet_created_successfully), Toast.LENGTH_SHORT).show();
             }

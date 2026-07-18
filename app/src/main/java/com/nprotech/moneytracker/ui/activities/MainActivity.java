@@ -28,6 +28,8 @@ import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.ui.fragments.CalendarFragment;
+import com.nprotech.moneytracker.ui.fragments.StatisticsFragment;
 import com.nprotech.moneytracker.ui.fragments.TransactionFragment;
 import com.nprotech.moneytracker.ui.fragments.WalletFragment;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -48,7 +50,10 @@ public class MainActivity extends BaseActivity {
     private AppCompatImageView ivSettings;
     private final List<AccountEntity> accountList = new ArrayList<>();
     private final TransactionFragment transactionFragment = new TransactionFragment();
+    private final CalendarFragment calendarFragment = new CalendarFragment();
+    private final StatisticsFragment statisticsFragment = new StatisticsFragment();
     private final WalletFragment walletFragment = new WalletFragment();
+    private Fragment activeFragment;
     private long lastBackPressedTime = 0;
     private static final long EXIT_INTERVAL = 2000;
 
@@ -104,6 +109,12 @@ public class MainActivity extends BaseActivity {
                 if (item.getItemId() == R.id.nav_transaction) {
                     loadFragment(transactionFragment);
                     return true;
+                } else if (item.getItemId() == R.id.nav_calendar) {
+                    loadFragment(calendarFragment);
+                    return true;
+                } else if (item.getItemId() == R.id.nav_statistic) {
+                    loadFragment(statisticsFragment);
+                    return true;
                 } else if (item.getItemId() == R.id.nav_wallet) {
                     loadFragment(walletFragment);
                     return true;
@@ -118,6 +129,10 @@ public class MainActivity extends BaseActivity {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
                 if (fragment instanceof TransactionFragment) {
                     bottomNav.setSelectedItemId(R.id.nav_transaction);
+                } else if (fragment instanceof CalendarFragment) {
+                    bottomNav.setSelectedItemId(R.id.nav_calendar);
+                } else if (fragment instanceof StatisticsFragment) {
+                    bottomNav.setSelectedItemId(R.id.nav_statistic);
                 } else if (fragment instanceof WalletFragment) {
                     bottomNav.setSelectedItemId(R.id.nav_wallet);
                 }
@@ -221,37 +236,20 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void loadRootFragment(Fragment fragment) {
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
-
-        updateToolbar(fragment);
-    }
-
     private void loadFragment(Fragment fragment) {
 
-        Fragment current = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
-
-        if (current != null && current.getClass().equals(fragment.getClass())) {
+        if (fragment == activeFragment)
             return;
-        }
 
-        if (isFinishing() || isDestroyed()) {
+        if (isFinishing() || isDestroyed())
             return;
-        }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                        R.anim.fade_fast_in,
-                        R.anim.fade_fast_out
-                )
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
+        getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_fast_in, R.anim.fade_fast_out)
+                .hide(activeFragment)
+                .show(fragment).commit();
 
+        activeFragment = fragment;
         updateToolbar(fragment);
     }
 
@@ -268,18 +266,62 @@ public class MainActivity extends BaseActivity {
 
         int startUpScreen = PreferenceManager.INSTANCE.getStartUpScreen();
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.fragmentContainer, transactionFragment, "transaction")
+                .hide(transactionFragment)
+                .add(R.id.fragmentContainer, calendarFragment, "calendar")
+                .hide(calendarFragment)
+                .add(R.id.fragmentContainer, statisticsFragment, "statistics")
+                .hide(statisticsFragment)
+                .add(R.id.fragmentContainer, walletFragment, "wallet")
+                .hide(walletFragment)
+                .commitNow();
+
         switch (startUpScreen) {
 
+            case IConstants.STARTUP_CALENDAR:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .show(calendarFragment)
+                        .commit();
+
+                activeFragment = calendarFragment;
+                bottomNav.setSelectedItemId(R.id.nav_calendar);
+                break;
+
+            case IConstants.STARTUP_STATISTICS:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .show(statisticsFragment)
+                        .commit();
+
+                activeFragment = statisticsFragment;
+                bottomNav.setSelectedItemId(R.id.nav_statistic);
+                break;
+
             case IConstants.STARTUP_WALLET:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .show(walletFragment)
+                        .commit();
+
+                activeFragment = walletFragment;
                 bottomNav.setSelectedItemId(R.id.nav_wallet);
-                loadRootFragment(walletFragment);
                 break;
 
             case IConstants.STARTUP_TRANSACTION:
             default:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .show(transactionFragment)
+                        .commit();
+
+                activeFragment = transactionFragment;
                 bottomNav.setSelectedItemId(R.id.nav_transaction);
-                loadRootFragment(transactionFragment);
                 break;
         }
+
+        updateToolbar(activeFragment);
     }
 }

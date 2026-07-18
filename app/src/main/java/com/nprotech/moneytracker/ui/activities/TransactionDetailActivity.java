@@ -47,7 +47,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
     private ConstraintLayout colorView;
     private AppCompatImageView imageView;
-    private AppCompatTextView nameLabel, categoryLabel, amountLabel, dateLabel, walletLabel, typeLabel, feeTitleLabel, feeLabel, memoTitleLabel, memoLabel;
+    private AppCompatTextView nameLabel, categoryLabel, amountLabel, dateLabel, fromWalletLabel, walletLabel, typeLabel, feeTitleLabel, feeLabel, memoTitleLabel,
+            memoLabel, categoryTitleLabel, fromWalletTitleLabel, walletTitleLabel;
     private AppCompatImageView icBack, ivDelete, ivEdit;
     private TransactionWithDetails transactionWithDetails;
     private ActivityResultLauncher<Intent> transactionEditLauncher;
@@ -79,9 +80,13 @@ public class TransactionDetailActivity extends BaseActivity {
             colorView = findViewById(R.id.colorView);
             imageView = findViewById(R.id.imageView);
             nameLabel = findViewById(R.id.nameLabel);
+            categoryTitleLabel = findViewById(R.id.categoryTitleLabel);
             categoryLabel = findViewById(R.id.categoryLabel);
             amountLabel = findViewById(R.id.amountLabel);
             dateLabel = findViewById(R.id.dateLabel);
+            fromWalletTitleLabel = findViewById(R.id.fromWalletTitleLabel);
+            walletTitleLabel = findViewById(R.id.walletTitleLabel);
+            fromWalletLabel = findViewById(R.id.fromWalletLabel);
             walletLabel = findViewById(R.id.walletLabel);
             typeLabel = findViewById(R.id.typeLabel);
             feeTitleLabel = findViewById(R.id.feeTitleLabel);
@@ -156,9 +161,21 @@ public class TransactionDetailActivity extends BaseActivity {
             typeLabel.setText(type);
 
             if (transaction.type == 3) {
+
+                categoryTitleLabel.setVisibility(View.GONE);
+                categoryLabel.setVisibility(View.GONE);
+
+                fromWalletTitleLabel.setVisibility(View.VISIBLE);
+                fromWalletLabel.setVisibility(View.VISIBLE);
+
+                walletTitleLabel.setText(getString(R.string.to_wallet));
+
                 feeTitleLabel.setVisibility(View.VISIBLE);
                 feeLabel.setVisibility(View.VISIBLE);
                 feeLabel.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.fee));
+
+                String fromWalletName = transactionWithDetail.fromWalletName;
+                fromWalletLabel.setText(fromWalletName);
 
                 if (transaction.memo != null && !transaction.memo.isEmpty()) {
                     memoTitleLabel.setVisibility(View.VISIBLE);
@@ -167,6 +184,15 @@ public class TransactionDetailActivity extends BaseActivity {
                     memoLabel.setText(transaction.memo);
                 }
             } else {
+
+                categoryTitleLabel.setVisibility(View.VISIBLE);
+                categoryLabel.setVisibility(View.VISIBLE);
+
+                fromWalletTitleLabel.setVisibility(View.GONE);
+                fromWalletLabel.setVisibility(View.GONE);
+
+                walletTitleLabel.setText(getString(R.string.wallet));
+
                 feeTitleLabel.setVisibility(View.GONE);
                 feeLabel.setVisibility(View.GONE);
                 memoTitleLabel.setVisibility(View.GONE);
@@ -278,12 +304,40 @@ public class TransactionDetailActivity extends BaseActivity {
 
                 case TransactionEntity.TYPE_TRANSFER:
                     WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
+
+                    // Reverse transfer
                     if (fromWallet != null) {
-                        fromWallet.amount += transaction.amount + transaction.fee;
+                        fromWallet.amount += transaction.amount;
                     }
 
                     if (wallet != null) {
                         wallet.amount -= transaction.amount;
+                    }
+
+                    // Reverse account effect for excluded wallets
+                    if (account != null && fromWallet != null && wallet != null) {
+                        if (!fromWallet.isExclude && wallet.isExclude) {
+                            account.balance += transaction.amount;
+                        } else if (fromWallet.isExclude && !wallet.isExclude) {
+                            account.balance -= transaction.amount;
+                        }
+                    }
+
+                    // Reverse fee transaction
+                    TransactionEntity feeTransaction = transactionViewModel.getFeeTransaction(transaction.tempTransactionServerId);
+
+                    if (feeTransaction != null) {
+
+                        if (fromWallet != null) {
+                            fromWallet.amount += feeTransaction.amount;
+                        }
+
+                        if (account != null && fromWallet != null && !fromWallet.isExclude) {
+                            account.balance += feeTransaction.amount;
+                        }
+
+                        // Delete only fee transaction
+                        transactionViewModel.deleteFeeTransaction(feeTransaction);
                     }
                     break;
             }

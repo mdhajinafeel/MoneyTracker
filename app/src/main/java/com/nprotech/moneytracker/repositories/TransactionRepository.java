@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.repositories;
 
 import androidx.lifecycle.LiveData;
 
+import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
@@ -22,19 +23,22 @@ public class TransactionRepository {
     private final WalletDao walletDao;
     private final TransactionDao transactionDao;
     private final TransactionAttachmentDao transactionAttachmentDao;
+    private final MoneyTrackerDatabase database;
 
-    public TransactionRepository(AccountDao accountDao, WalletDao walletDao, TransactionDao transactionDao, TransactionAttachmentDao transactionAttachmentDao) {
+    public TransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao, TransactionDao transactionDao,
+                                 TransactionAttachmentDao transactionAttachmentDao) {
+        this.database = database;
         this.accountDao = accountDao;
         this.walletDao = walletDao;
         this.transactionDao = transactionDao;
         this.transactionAttachmentDao = transactionAttachmentDao;
     }
 
-    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId){
+    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId) {
         return transactionDao.getTransactions(accountId);
     }
 
-    public TransactionWithDetails getTransactions(String tempTransactionServerId){
+    public TransactionWithDetails getTransactions(String tempTransactionServerId) {
         return transactionDao.getTransactions(tempTransactionServerId);
     }
 
@@ -46,7 +50,7 @@ public class TransactionRepository {
         return transactionDao.update(transaction);
     }
 
-    public TransactionEntity getTransactionById(String tempTransactionServerId){
+    public TransactionEntity getTransactionById(String tempTransactionServerId) {
         return transactionDao.getTransactionById(tempTransactionServerId);
     }
 
@@ -79,9 +83,81 @@ public class TransactionRepository {
     }
 
     public boolean deleteTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
-            walletDao.updateWallet(wallet);
+        walletDao.updateWallet(wallet);
+        accountDao.updateAccount(account);
+        int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
+        return rows > 0;
+    }
+
+    public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity, WalletEntity fromWallet, WalletEntity toWallet, AccountEntity account) {
+
+        database.runInTransaction(() -> {
+            long transactionInserted = transactionDao.insert(transaction);
+            if (transactionInserted > 0) {
+
+                if (feeTransactionActivity != null) {
+                    transactionDao.insert(feeTransactionActivity);
+                }
+
+                walletDao.updateWallet(fromWallet);
+                walletDao.updateWallet(toWallet);
+                accountDao.updateAccount(account);
+            }
+        });
+    }
+
+    public void updateTransferTransaction(TransactionEntity transferTransaction, TransactionEntity feeTransaction, TransactionEntity oldFeeTransaction,
+                                          WalletEntity oldFromWallet, WalletEntity oldToWallet, WalletEntity newFromWallet, WalletEntity newToWallet,
+                                          AccountEntity account) {
+
+        database.runInTransaction(() -> {
+
+            // Update transfer
+            transactionDao.update(transferTransaction);
+
+            // Fee transaction
+            if (oldFeeTransaction == null && feeTransaction != null) {
+
+                // New fee added
+                transactionDao.insert(feeTransaction);
+
+            } else if (oldFeeTransaction != null && feeTransaction == null) {
+
+                // Fee removed
+                transactionDao.delete(oldFeeTransaction);
+
+            } else if (oldFeeTransaction != null) {
+
+                // Fee updated
+                transactionDao.update(feeTransaction);
+            }
+
+            // Restore old wallets
+            walletDao.updateWallet(oldFromWallet);
+            walletDao.updateWallet(oldToWallet);
+
+            // Apply new wallets
+            if (oldFromWallet.id != newFromWallet.id) {
+                walletDao.updateWallet(newFromWallet);
+            }
+
+            if (oldToWallet.id != newToWallet.id) {
+                walletDao.updateWallet(newToWallet);
+            }
+
             accountDao.updateAccount(account);
-            int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
-            return rows > 0;
+        });
+    }
+
+    public TransactionEntity getFeeTransaction(String parentTransactionId) {
+        return transactionDao.getFeeTransaction(parentTransactionId);
+    }
+
+    public void deleteFeeTransaction(TransactionEntity transaction) {
+        database.runInTransaction(() -> {
+            transaction.isDeleted = true;
+            transaction.updatedAt = System.currentTimeMillis();
+            transactionDao.update(transaction);
+        });
     }
 }

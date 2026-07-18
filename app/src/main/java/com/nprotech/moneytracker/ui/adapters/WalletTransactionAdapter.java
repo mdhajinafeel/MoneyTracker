@@ -42,41 +42,42 @@ public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCat
         AppCompatImageView imageView = holder.getView(R.id.imageView);
         AppCompatTextView amountLabel = holder.getView(R.id.amountLabel);
 
-        if (Build.VERSION.SDK_INT >= 29) {
-            colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.getColor()), BlendMode.SRC_OVER));
-        } else {
-            Drawable drawable = colorView.getBackground().mutate();
-            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-            DrawableCompat.setTint(drawable, Color.parseColor(item.getColor()));
-            colorView.setBackground(drawable);
+        if (item != null) {
+            if (Build.VERSION.SDK_INT >= 29) {
+                colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.getColor()), BlendMode.SRC_OVER));
+            } else {
+                Drawable drawable = colorView.getBackground().mutate();
+                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                DrawableCompat.setTint(drawable, Color.parseColor(item.getColor()));
+                colorView.setBackground(drawable);
+            }
+
+            if (item.getIcon() == 0) {
+                imageView.setImageResource(R.drawable.category_0);
+            } else {
+                imageView.setImageResource(DataHelper.getCategoryIcons().get(item.getIcon()));
+            }
+
+            String categoryName = item.getCategory(context);
+            if (Objects.equals(categoryName, "")) {
+                categoryName = item.getCategoryName();
+            }
+
+            double amount = item.getAmount();
+            int color = ContextCompat.getColor(context, R.color.income);
+            if (item.getType() == TransactionEntity.TYPE_EXPENSE) {
+                amount = amount * -1;
+                color = ContextCompat.getColor(context, R.color.expense);
+            }
+
+            holder.setViewText(R.id.nameLabel, categoryName);
+            int count = item.getTransactionCount();
+            holder.setViewText(R.id.transLabel, context.getResources().getQuantityString(R.plurals.transaction_count, count, count));
+            amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
+            amountLabel.setTextColor(color);
+
+            itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
+                    .putExtra("transactionDetail", item)));
         }
-
-
-        if (item.getIcon() == 0) {
-            imageView.setImageResource(R.drawable.category_0);
-        } else {
-            imageView.setImageResource(DataHelper.getCategoryIcons().get(item.getIcon()));
-        }
-
-        String categoryName = item.getCategory(context);
-        if (Objects.equals(categoryName, "")) {
-            categoryName = item.getCategoryName();
-        }
-
-        double amount = item.getAmount();
-        int color = ContextCompat.getColor(context, R.color.income);
-        if (item.getType() == TransactionEntity.TYPE_EXPENSE) {
-            amount = amount * -1;
-            color = ContextCompat.getColor(context, R.color.expense);
-        }
-
-        holder.setViewText(R.id.nameLabel, categoryName);
-        int count = item.getTransactionCount();
-        holder.setViewText(R.id.transLabel, context.getResources().getQuantityString(R.plurals.transaction_count, count, count));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
-        amountLabel.setTextColor(color);
-
-        itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
-                .putExtra("transactionDetail", item)));
     }
 }

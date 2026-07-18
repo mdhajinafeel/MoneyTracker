@@ -24,4 +24,5 @@
 
     <color name="income">#3f96e2</color>
     <color name="expense">#f73242</color>
+    <color name="transfer">#2196F3</color>
 </resources>

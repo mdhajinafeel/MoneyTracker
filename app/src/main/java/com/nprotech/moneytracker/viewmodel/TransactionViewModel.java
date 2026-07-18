@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
@@ -8,7 +9,6 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
-import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
@@ -36,42 +36,68 @@ public class TransactionViewModel extends ViewModel {
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataDeletedStatus = new SingleLiveEvent<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
+    private final LiveData<List<DailyTransModel>> dailyTransactions;
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-    }
 
-
-    public LiveData<List<DailyTransModel>> getDailyTransactionData(int accountId) {
-        return Transformations.map(
-                transactionRepository.getTransactions(accountId),
-                this::groupTransactions
-        );
+        dailyTransactions = Transformations.switchMap(selectedAccountId,
+                accountId -> Transformations.map(transactionRepository.getTransactions(accountId), this::groupTransactions));
     }
 
     private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
+
         Map<String, DailyTransModel> map = new LinkedHashMap<>();
+
         for (TransactionWithDetails item : list) {
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(item.transaction.transactionDate);
+
             int day = calendar.get(Calendar.DAY_OF_MONTH);
             int month = calendar.get(Calendar.MONTH) + 1;
             int year = calendar.get(Calendar.YEAR);
+
             String key = year + "-" + month + "-" + day;
+
             DailyTransModel model = map.get(key);
+
             if (model == null) {
                 model = new DailyTransModel();
                 model.setDay(day);
                 model.setMonth(month);
                 model.setYear(year);
                 model.setCurrencySymbol(item.currencySymbol);
-                model.setType(item.transaction.type);
+                model.setAmount(0);
                 map.put(key, model);
             }
-            model.setAmount(model.getAmount() + item.transaction.amount);
+
+            // Calculate daily total
+            switch (item.transaction.type) {
+
+                case TransactionEntity.TYPE_INCOME:
+                    model.setAmount(model.getAmount() + item.transaction.amount);
+                    break;
+
+                case TransactionEntity.TYPE_EXPENSE:
+                    model.setAmount(model.getAmount() - item.transaction.amount);
+                    break;
+
+                case TransactionEntity.TYPE_TRANSFER:
+                    // Transfer does not affect total wealth
+                    break;
+            }
+
+            // Deduct transfer fee
+            if (item.feeTransaction != null) {
+                model.setAmount(model.getAmount() - item.feeTransaction.amount);
+            }
+
             model.getTransactions().add(item);
         }
+
         return new ArrayList<>(map.values());
     }
 
@@ -80,8 +106,8 @@ public class TransactionViewModel extends ViewModel {
     }
 
     public void saveTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
+
         long transId = transactionRepository.saveTransaction(transaction);
-        AppLogger.d(getClass(), "Returned transId = " + transId);
         if (transId > 0) {
 
             // UPDATE WALLET
@@ -100,11 +126,19 @@ public class TransactionViewModel extends ViewModel {
         }
     }
 
+    public void saveTransaction(TransactionEntity transaction) {
+
+        long transId = transactionRepository.saveTransaction(transaction);
+        if (transId > 0) {
+            dataSavedStatus.postValue(true);
+        } else {
+            dataSavedStatus.postValue(false);
+        }
+    }
+
     public void updateTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
 
         int rows = transactionRepository.updateTransaction(transaction);
-        AppLogger.d(getClass(), "Updated rows = " + rows);
-
         if (rows > 0) {
             // UPDATE WALLET
             if (wallet != null) {
@@ -150,7 +184,7 @@ public class TransactionViewModel extends ViewModel {
         return transactionRepository.getTransactionAmountByCategory(walletId);
     }
 
-    public TransactionWithDetails getTransactions(String tempTransactionServerId){
+    public TransactionWithDetails getTransactions(String tempTransactionServerId) {
         return transactionRepository.getTransactions(tempTransactionServerId);
     }
 
@@ -163,5 +197,38 @@ public class TransactionViewModel extends ViewModel {
             boolean success = transactionRepository.deleteTransaction(transaction, wallet, account);
             dataDeletedStatus.postValue(success);
         });
+    }
+
+    public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity,
+                                        WalletEntity fromWallet, WalletEntity toWallet, AccountEntity account) {
+        executor.execute(() -> {
+            transactionRepository.saveTransferTransaction(transaction, feeTransactionActivity, fromWallet, toWallet, account);
+            dataSavedStatus.postValue(true);
+        });
+    }
+
+    public void updateTransferTransaction(TransactionEntity transferTransaction, TransactionEntity feeTransaction, TransactionEntity oldFeeTransaction,
+                                          WalletEntity oldFromWallet, WalletEntity oldToWallet, WalletEntity newFromWallet, WalletEntity newToWallet,
+                                          AccountEntity account) {
+        executor.execute(() -> {
+            transactionRepository.updateTransferTransaction(transferTransaction, feeTransaction, oldFeeTransaction, oldFromWallet, oldToWallet, newFromWallet, newToWallet, account);
+            dataUpdatedStatus.postValue(true);
+        });
+    }
+
+    public TransactionEntity getFeeTransaction(String parentTransactionId) {
+        return transactionRepository.getFeeTransaction(parentTransactionId);
+    }
+
+    public void deleteFeeTransaction(TransactionEntity transaction) {
+        transactionRepository.deleteFeeTransaction(transaction);
+    }
+
+    public void selectAccount(int accountId) {
+        selectedAccountId.setValue(accountId);
+    }
+
+    public LiveData<List<DailyTransModel>> getDailyTransactions() {
+        return dailyTransactions;
     }
 }

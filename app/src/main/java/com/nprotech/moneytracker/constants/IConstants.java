@@ -15,5 +15,8 @@ public interface IConstants {
     int STARTUP_STATISTICS = 3;
     int STARTUP_WALLET = 4;
 
-    int DEFAULT_CATEGORY_ID = 24;
+    // DEFAULT CATEGORY ID
+    int DEFAULT_CATEGORY_ADJUST_ID = 25;
+    int DEFAULT_CATEGORY_FEE_ID = 30;
+    int DEFAULT_CATEGORY_TRANSFER_ID = 31;
 }

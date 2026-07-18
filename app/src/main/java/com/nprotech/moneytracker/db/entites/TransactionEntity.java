@@ -49,6 +49,7 @@ public class TransactionEntity implements Serializable {
     public long updatedAt;
     public boolean isSynced = false;
     public boolean isDeleted = false;
+    public String parentTransactionId = "";
 
     public TransactionEntity() {
     }

@@ -83,6 +83,8 @@ public class WalletFragment extends Fragment {
         try {
             walletsAdapter = new WalletsAdapter(requireContext(), new ArrayList<>());
             rvWallets.setAdapter(walletsAdapter);
+            rvWallets.setHasFixedSize(true);
+            rvWallets.setItemAnimator(null);
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }

@@ -71,4 +71,8 @@ public class AccountViewModel extends ViewModel {
     public List<WalletEntity> getWalletsByAccountId(int accountId) {
         return walletRepository.getWalletsByAccountId(accountId);
     }
+
+    public void updateAccount(AccountEntity account) {
+        accountRepository.updateAccount(account);
+    }
 }

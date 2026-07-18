@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -35,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.IConstants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -59,6 +61,7 @@ import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -71,6 +74,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private AppCompatTextView nameLabel, amountLabel, initialLabel, incomeLabel, expenseLabel, transferLabel, transactionAllLabel;
     private MaterialButton btnAdjustBalance;
     private RecyclerView rvTransactions;
+    private FloatingActionButton fabAddTransaction;
     private CategoryViewModel categoryViewModel;
     private WalletViewModel walletViewModel;
     private TransactionViewModel transactionViewModel;
@@ -109,6 +113,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             rvTransactions = findViewById(R.id.rvTransactions);
             transactionAllLabel = findViewById(R.id.transactionAllLabel);
             layoutEmpty = findViewById(R.id.layoutEmpty);
+            fabAddTransaction = findViewById(R.id.fabAddTransaction);
 
             tvTitle.setText(R.string.wallet_details);
 
@@ -266,6 +271,25 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
             nameWrapper.setOnClickListener(view -> switchWallets());
 
+            fabAddTransaction.setOnClickListener(v -> {
+                v.animate()
+                        .scaleX(1.1f)
+                        .scaleY(1.1f)
+                        .setDuration(120)
+                        .withEndAction(() ->
+                                v.animate()
+                                        .scaleX(1f)
+                                        .scaleY(1f)
+                                        .setDuration(120)
+                                        .start())
+                        .start();
+
+                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateTransactionActivity.class)
+                        .putExtra("action", "add")
+                        .putExtra("type", TransactionEntity.TYPE_EXPENSE));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
             getOnBackPressedDispatcher().addCallback(this,
                     new OnBackPressedCallback(true) {
                         @Override
@@ -358,6 +382,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
         AppCompatRadioButton rbAdjustTransaction = view.findViewById(R.id.rbAdjustTransaction);
         AppCompatRadioButton rbChangeInitial = view.findViewById(R.id.rbChangeInitial);
+        AppCompatEditText etReason = view.findViewById(R.id.etReason);
 
         dialog.setView(view);
 
@@ -381,7 +406,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         view.findViewById(R.id.tvOk).setOnClickListener(v -> {
 
             if (rbAdjustTransaction.isChecked()) {
-                adjustWalletBalance(wallet, actualBalance);
+                adjustWalletBalance(wallet, actualBalance, Objects.requireNonNull(etReason.getText()).toString().trim());
             } else if (rbChangeInitial.isChecked()) {
                 changeInitialAmount(wallet, actualBalance);
             }
@@ -392,71 +417,85 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         dialog.show();
     }
 
-    private void adjustWalletBalance(WalletEntity wallet, double actualBalance) {
+    public void adjustWalletBalance(WalletEntity wallet, double enteredBalance, String note) {
 
-        double difference = actualBalance - wallet.amount;
+        double currentBalance = wallet.amount;
+        double difference = enteredBalance - currentBalance;
+        long currentTime = System.currentTimeMillis();
 
         if (difference == 0) {
             return;
         }
 
-        long currentTime = System.currentTimeMillis();
+        // Update wallet balance
+        wallet.amount = enteredBalance;
+        walletViewModel.updateWallet(wallet);
 
+        // Update account balance
+        AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
+        account.balance = (account.balance + difference);
+        accountViewModel.updateAccount(account);
+
+        // Save adjustment transaction
         TransactionEntity transaction = new TransactionEntity();
         transaction.walletId = wallet.id;
         transaction.amount = Math.abs(difference);
-        transaction.transactionDate = System.currentTimeMillis();
+        transaction.transactionDate = currentTime;
         transaction.description = getString(R.string.adjustment);
         transaction.tempTransactionServerId = "T_"+ currentTime;
         transaction.accountId = PreferenceManager.INSTANCE.getAccountId();
         transaction.createdAt = currentTime;
         transaction.updatedAt = currentTime;
-        transaction.isSynced = false;
-        transaction.isDeleted = false;
 
         if (difference > 0) {
             transaction.type = TransactionEntity.TYPE_INCOME;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ID, 1);
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_INCOME);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
+
         } else {
             transaction.type = TransactionEntity.TYPE_EXPENSE;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ID, 2);
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_EXPENSE);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
         }
 
-        // Update wallet balance
-        wallet.amount = actualBalance;
+        transaction.description = getString(R.string.adjustment);
 
-        // Update account balance
-        AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
-        if (account != null) {
-            account.balance += difference;
+        if (note != null) {
+            transaction.memo = note;
         }
 
-        transactionViewModel.saveTransaction(transaction, wallet, account);
+        transactionViewModel.saveTransaction(transaction);
     }
 
-    private void changeInitialAmount(WalletEntity wallet, double actualBalance) {
+    public void changeInitialAmount(WalletEntity wallet, double newInitialAmount) {
 
-        double difference = actualBalance - wallet.amount;
+        double oldInitialAmount = wallet.initialAmount;
+        double difference = newInitialAmount - oldInitialAmount;
 
         if (difference == 0) {
             return;
         }
 
-        wallet.initialAmount += difference;
-        wallet.amount = actualBalance;
+        // Update initial amount
+        wallet.initialAmount = newInitialAmount;
 
+        // Update wallet balance
+        wallet.amount = (wallet.amount + difference);
+        walletViewModel.updateWallet(wallet);
+
+        // Update account balance
         AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
-        if (account != null) {
-            account.balance += difference;
-            walletViewModel.updateWalletAndAccount(wallet, account);
-        } else {
-            walletViewModel.updateWallet(wallet);
-        }
+        account.balance = (account.balance + difference);
+        accountViewModel.updateAccount(account);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        bindData(walletId);
     }
 }

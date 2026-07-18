@@ -22,6 +22,7 @@
     <string name="category_salary">Salary</string>
     <string name="category_shopping">Shopping</string>
     <string name="category_tips">Tips</string>
+    <string name="category_cashback">Cashback</string>
     <string name="category_transportation">Transportation</string>
     <string name="category_travel">Travel</string>
     <string name="adjustment">Adjustment</string>

@@ -35,12 +35,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
 
         Date dailyTransDateTime = item.getDateTime();
 
-        double amount;
-        if(item.getType() == TransactionEntity.TYPE_INCOME) {
-            amount = item.getAmount();
-        } else {
-            amount = item.getAmount() * -1;
-        }
+        double amount = item.getAmount();
 
         dayLabel.setText(new SimpleDateFormat("dd", Locale.getDefault()).format(dailyTransDateTime));
         monthLabel.setText(new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMM yyyy"), Locale.getDefault()).format(dailyTransDateTime));

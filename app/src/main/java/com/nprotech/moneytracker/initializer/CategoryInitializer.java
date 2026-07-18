@@ -30,6 +30,7 @@ public class CategoryInitializer {
             try {
                 categoryDao.insertAll(getCategoryIncomeData());
                 categoryDao.insertAll(getCategoryExpenseData());
+                categoryDao.insertAll(getCategoryTransferData());
             } catch (Exception e) {
                 AppLogger.e(context.getClass(), "loadCategories", e);
             }
@@ -39,17 +40,17 @@ public class CategoryInitializer {
     }
 
     private static List<CategoryEntity> getCategoryIncomeData() {
-        String[] strArr = {"#34BFFF", "#016165", "#00C1BF", "#FFCA00", "#FFAD00", "#EE4036", "#9C005E", "#652D90", "#9457FA"};
-        int[] iArr = {158, 160, 152, 153, 162, 159, 164, 161, 146};
+        String[] strArr = {"#34BFFF", "#016165", "#00C1BF", "#FFCA00", "#FFAD00", "#EE4036", "#9C005E", "#652D90", "#10B981", "#9457FA"};
+        int[] iArr = {158, 160, 152, 153, 162, 159, 164, 161, 174, 146};
 
         List<CategoryEntity> categories = new ArrayList<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 15));
         }
 
-        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 24));
-        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 27));
-        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 28));
+        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 25));
+        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 28));
+        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 29));
 
         return categories;
     }
@@ -66,9 +67,19 @@ public class CategoryInitializer {
             i = i2;
         }
 
-        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 24));
-        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 25));
-        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 26));
+        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 25));
+        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 26));
+        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 27));
+
+        return categories;
+    }
+
+    private static List<CategoryEntity> getCategoryTransferData() {
+
+        List<CategoryEntity> categories = new ArrayList<>();
+
+        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 30));
+        categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 31));
 
         return categories;
     }

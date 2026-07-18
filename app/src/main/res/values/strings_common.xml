@@ -108,6 +108,7 @@
     <string name="dot">.</string>
     <string name="number_000">000</string>
 
+    <!-- COMMON -->
     <string name="next">Next</string>
     <string name="skip">Skip</string>
     <string name="press_again_to_exit">Press again to exit</string>
@@ -126,4 +127,5 @@
     <string name="icon">Icon</string>
     <string name="select_icon">Select Icon</string>
     <string name="delete_message">Are you sure you want to delete?</string>
+    <string name="text_arrow"> \u2192 </string>
 </resources>

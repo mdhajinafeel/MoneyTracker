@@ -129,6 +129,41 @@
                 android:textSize="@dimen/text_16" />
         </RadioGroup>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroup">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/reasonLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_16"
+                android:fontFamily="@font/exo2_bold"
+                android:text="@string/reason"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etReason"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:background="@drawable/bg_edit_text_underline"
+                android:ems="10"
+                android:fontFamily="@font/exo2_medium"
+                android:inputType="textCapWords"
+                android:textSize="@dimen/text_16"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reasonLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

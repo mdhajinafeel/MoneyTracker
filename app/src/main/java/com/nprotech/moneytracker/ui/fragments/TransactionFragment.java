@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -25,6 +27,7 @@ import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -83,20 +86,21 @@ public class TransactionFragment extends Fragment {
 
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
 
-                if (account == null) {
-                    return;
+                if (account != null) {
+                    transactionViewModel.selectAccount(account.id);
                 }
+            });
 
-                transactionViewModel.getDailyTransactionData(account.id).observe(getViewLifecycleOwner(), dailyTransModels -> {
-                    if (dailyTransModels != null && !dailyTransModels.isEmpty()) {
-                        emptyWrapper.setVisibility(View.GONE);
-                        rvTransactions.setVisibility(View.VISIBLE);
-                        dailyTransactionAdapter.setItems(dailyTransModels);
-                    } else {
-                        rvTransactions.setVisibility(View.GONE);
-                        emptyWrapper.setVisibility(View.VISIBLE);
-                    }
-                });
+            transactionViewModel.getDailyTransactions().observe(getViewLifecycleOwner(), dailyTransModels -> {
+
+                if (dailyTransModels == null || dailyTransModels.isEmpty()) {
+                    rvTransactions.setVisibility(View.GONE);
+                    emptyWrapper.setVisibility(View.VISIBLE);
+                } else {
+                    emptyWrapper.setVisibility(View.GONE);
+                    rvTransactions.setVisibility(View.VISIBLE);
+                    dailyTransactionAdapter.setItems(dailyTransModels);
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -108,6 +112,8 @@ public class TransactionFragment extends Fragment {
             rvTransactions.setLayoutManager(new LinearLayoutManager(requireContext()));
             dailyTransactionAdapter = new DailyTransactionAdapter(requireContext(), new ArrayList<>());
             rvTransactions.setAdapter(dailyTransactionAdapter);
+            rvTransactions.setHasFixedSize(true);
+            rvTransactions.setItemAnimator(null);
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }

@@ -46,4 +46,8 @@ public class AccountRepository {
     public int getLastAccountOrder() {
         return accountDao.getLastAccountOrder();
     }
+
+    public void updateAccount(AccountEntity account) {
+        accountDao.updateAccount(account);
+    }
 }

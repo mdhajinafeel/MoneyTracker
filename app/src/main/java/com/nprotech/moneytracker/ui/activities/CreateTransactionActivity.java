@@ -47,6 +47,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.IConstants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
@@ -608,6 +609,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                         holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                             selectedWallet = walletEntity;
+
+                            tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                                    CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+
                             updateSaveButtonState();
                             dialog.dismiss();
                         });
@@ -619,6 +624,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                         holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                             selectedFromWallet = walletEntity;
+                            tvFromWallet.setText(getString(R.string.wallet_info, selectedFromWallet.name,
+                                    CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
                             updateSaveButtonState();
                             dialog.dismiss();
                         });
@@ -1116,14 +1123,163 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private void saveTransferTransaction() {
 
-        TransactionEntity transaction = buildTransaction();
+        TransactionEntity transferTransaction = buildTransaction();
 
-        transaction.type = TransactionEntity.TYPE_TRANSFER;
-        transaction.fromWalletId = selectedFromWallet.id;
-        transaction.categoryId = null;
-        transaction.defaultCategoryId = null;
+        CategoryEntity transferCategory = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_TRANSFER_ID);
 
-        transactionViewModel.saveTransaction(transaction, null, null);
+        transferTransaction.type = TransactionEntity.TYPE_TRANSFER;
+        transferTransaction.fromWalletId = selectedFromWallet.id;
+        transferTransaction.categoryId = transferCategory.id;
+        transferTransaction.defaultCategoryId = transferCategory.defaultCategory;
+
+        WalletEntity fromWallet = walletViewModel.getWalletByWalletId(selectedFromWallet.id);
+        WalletEntity toWallet = walletViewModel.getWalletByWalletId(selectedWallet.id);
+
+        TransactionEntity feeTransaction = null;
+        TransactionEntity oldFeeTransaction;
+
+        if (transactionWithDetails != null) {
+
+            // ------------------------
+            // EDIT TRANSFER
+            // ------------------------
+
+            WalletEntity oldFromWallet =
+                    walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.fromWalletId);
+
+            WalletEntity oldToWallet =
+                    walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.walletId);
+
+            // Undo old transfer
+            oldFromWallet.amount += transactionWithDetails.transaction.amount;
+            oldToWallet.amount -= transactionWithDetails.transaction.amount;
+
+            if (!oldFromWallet.isExclude && oldToWallet.isExclude) {
+                account.balance += transactionWithDetails.transaction.amount;
+            } else if (oldFromWallet.isExclude && !oldToWallet.isExclude) {
+                account.balance -= transactionWithDetails.transaction.amount;
+            }
+
+            // Undo old fee
+            oldFeeTransaction = transactionViewModel.getFeeTransaction(transactionWithDetails.transaction.tempTransactionServerId);
+
+            if (oldFeeTransaction != null) {
+
+                oldFromWallet.amount += oldFeeTransaction.amount;
+
+                if (!oldFromWallet.isExclude) {
+                    account.balance += oldFeeTransaction.amount;
+                }
+            }
+
+            // Apply new transfer
+            fromWallet.amount -= transactionAmount;
+            toWallet.amount += transactionAmount;
+
+            if (!fromWallet.isExclude && toWallet.isExclude) {
+                account.balance -= transactionAmount;
+            } else if (fromWallet.isExclude && !toWallet.isExclude) {
+                account.balance += transactionAmount;
+            }
+
+            // Apply new fee
+            if (transactionFee > 0) {
+
+                long currentTime = System.currentTimeMillis();
+
+                fromWallet.amount -= transactionFee;
+
+                if (!fromWallet.isExclude) {
+                    account.balance -= transactionFee;
+                }
+
+                if (oldFeeTransaction != null) {
+
+                    feeTransaction = oldFeeTransaction;
+
+                    feeTransaction.walletId = fromWallet.id;
+                    feeTransaction.fromWalletId = fromWallet.id;
+                    feeTransaction.amount = transactionFee;
+                    feeTransaction.transactionDate = transferTransaction.transactionDate;
+
+                } else {
+
+                    feeTransaction = new TransactionEntity();
+
+                    CategoryEntity category = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_FEE_ID);
+
+                    feeTransaction.serverId = 0;
+                    feeTransaction.tempTransactionServerId = "T_" + currentTime + "_FEE";
+                    feeTransaction.accountId = account.id;
+                    feeTransaction.walletId = fromWallet.id;
+                    feeTransaction.fromWalletId = fromWallet.id;
+                    feeTransaction.type = TransactionEntity.TYPE_EXPENSE;
+                    feeTransaction.amount = transactionFee;
+                    feeTransaction.fee = 0;
+                    feeTransaction.categoryId = category.id;
+                    feeTransaction.defaultCategoryId = category.defaultCategory;
+                    feeTransaction.transactionDate = transferTransaction.transactionDate;
+                    feeTransaction.description = getString(R.string.fee);
+                    feeTransaction.memo = "";
+                    feeTransaction.parentTransactionId =
+                            transferTransaction.tempTransactionServerId;
+                    feeTransaction.createdAt = currentTime;
+                }
+                feeTransaction.updatedAt = currentTime;
+            }
+
+            transactionViewModel.updateTransferTransaction(transferTransaction, feeTransaction, oldFeeTransaction, oldFromWallet, oldToWallet, fromWallet,
+                    toWallet, account);
+
+        } else {
+
+            // ------------------------
+            // NEW TRANSFER
+            // ------------------------
+
+            fromWallet.amount -= transactionAmount;
+            toWallet.amount += transactionAmount;
+
+            if (!fromWallet.isExclude && toWallet.isExclude) {
+                account.balance -= transactionAmount;
+            } else if (fromWallet.isExclude && !toWallet.isExclude) {
+                account.balance += transactionAmount;
+            }
+
+            if (transactionFee > 0) {
+                long currentTime = System.currentTimeMillis();
+                CategoryEntity category = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_FEE_ID);
+
+                fromWallet.amount -= transactionFee;
+
+                if (!fromWallet.isExclude) {
+                    account.balance -= transactionFee;
+                }
+
+                feeTransaction = new TransactionEntity();
+
+                feeTransaction.serverId = 0;
+                feeTransaction.tempTransactionServerId = "T_" + currentTime + "_FEE";
+                feeTransaction.accountId = account.id;
+                feeTransaction.walletId = fromWallet.id;
+                feeTransaction.fromWalletId = fromWallet.id;
+                feeTransaction.type = TransactionEntity.TYPE_EXPENSE;
+                feeTransaction.amount = transactionFee;
+                feeTransaction.categoryId = category.id;
+                feeTransaction.defaultCategoryId = category.defaultCategory;
+                feeTransaction.transactionDate = transferTransaction.transactionDate;
+                feeTransaction.description = getString(R.string.fee);
+                feeTransaction.parentTransactionId = transferTransaction.tempTransactionServerId;
+                feeTransaction.createdAt = currentTime;
+                feeTransaction.updatedAt = currentTime;
+            }
+
+            transactionViewModel.saveTransferTransaction(transferTransaction, feeTransaction, fromWallet, toWallet, account);
+        }
+    }
+
+    private CategoryEntity getTransferCategoryId(int categoryId) {
+        return categoryViewModel.getDefaultCategoryByType(categoryId, TransactionEntity.TYPE_TRANSFER);
     }
 
     @NonNull

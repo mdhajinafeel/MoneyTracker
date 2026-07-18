@@ -19,7 +19,7 @@ public interface CategoryDao {
     @Query("SELECT COUNT(*) FROM categories")
     int getCategoriesCount();
 
-    @Query("SELECT * FROM categories WHERE type = :type AND defaultCategory < 24 ORDER BY ordering")
+    @Query("SELECT * FROM categories WHERE type = :type AND defaultCategory < 25 ORDER BY ordering")
     LiveData<List<CategoryEntity>> fetchCategoriesByType(int type);
 
     @Query("SELECT * FROM categories WHERE id = :categoryId LIMIT 1")

@@ -66,6 +66,7 @@ public class DataHelper {
                 getResourceString(context, R.string.category_transportation),
                 getResourceString(context, R.string.category_travel),
                 getResourceString(context, R.string.category_others),
+
                 getResourceString(context, R.string.category_allowance),
                 getResourceString(context, R.string.category_award),
                 getResourceString(context, R.string.category_bonus),
@@ -74,12 +75,16 @@ public class DataHelper {
                 getResourceString(context, R.string.category_lottery),
                 getResourceString(context, R.string.category_salary),
                 getResourceString(context, R.string.category_tips),
+                getResourceString(context, R.string.category_cashback),
                 getResourceString(context, R.string.category_others),
+
                 getResourceString(context, R.string.adjustment),
                 getResourceString(context, R.string.loan),
                 getResourceString(context, R.string.repay),
                 getResourceString(context, R.string.debt),
-                getResourceString(context, R.string.collect)}[i - 1];
+                getResourceString(context, R.string.collect),
+                getResourceString(context, R.string.fee),
+                getResourceString(context, R.string.transfer)}[i - 1];
     }
 
     //----------------------
@@ -257,8 +262,11 @@ public class DataHelper {
         arrayList.add(R.drawable.ic_repay);
         arrayList.add(R.drawable.ic_lend);
         arrayList.add(R.drawable.ic_receive);
+        arrayList.add(R.drawable.ic_fee);
+        arrayList.add(R.drawable.ic_transfer);
         arrayList.add(R.drawable.ic_increase_borrow);
         arrayList.add(R.drawable.ic_increase_lend);
+        arrayList.add(R.drawable.ic_cashback);
         return arrayList;
     }
 

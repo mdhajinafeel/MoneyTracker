@@ -1,12 +1,14 @@
 package com.nprotech.moneytracker.ui.adapters;
 
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatRadioButton;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.os.ConfigurationCompat;
 import androidx.core.text.TextUtilsCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,8 +48,14 @@ public class SettingOptionsAdapter extends RecyclerView.Adapter<SettingOptionsAd
 
         CommonDataEntity item = list.get(position);
 
+        Typeface medium = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_medium);
+        Typeface semiBold = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_semibold);
+
         holder.rbOption.setText(item.nameResId);
-        holder.rbOption.setChecked(position == selectedPosition);
+
+        boolean isSelected = position == selectedPosition;
+        holder.rbOption.setChecked(isSelected);
+        holder.rbOption.setTypeface(isSelected ? semiBold : medium);
 
         Configuration configuration = holder.itemView.getResources().getConfiguration();
         Locale locale = ConfigurationCompat.getLocales(configuration).get(0);

@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c95305fd50a6e1649ebc22a28abdeeeb",
+    "identityHash": "64c0b108dd38f98214031a5c10e3545a",
     "entities": [
       {
         "tableName": "currencies",
@@ -412,7 +412,7 @@
       },
       {
         "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `parentTransactionId` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -515,6 +515,11 @@
             "columnName": "isDeleted",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "parentTransactionId",
+            "columnName": "parentTransactionId",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -661,7 +666,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c95305fd50a6e1649ebc22a28abdeeeb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '64c0b108dd38f98214031a5c10e3545a')"
     ]
   }
 }
