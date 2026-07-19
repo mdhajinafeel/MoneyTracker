@@ -18,9 +18,9 @@
     <!-- Day -->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvDay"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:padding="@dimen/padding_4"
         android:fontFamily="@font/exo2_medium"
         android:textColor="@color/black"
         android:textSize="@dimen/text_14"

@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.utils;
 
+import android.content.Context;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -60,5 +62,9 @@ public class CommonUtils {
 
     public static long getLongFromString(String s) {
         return new BigDecimal(s).multiply(new BigDecimal(100)).longValue();
+    }
+
+    public static int dpToPx(Context context, int dp) {
+        return Math.round(dp * context.getResources().getDisplayMetrics().density);
     }
 }

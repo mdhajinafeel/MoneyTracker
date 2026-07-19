@@ -93,6 +93,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private RecyclerView rvNoteImage;
     private RecyclerViewAdapter<Uri> uriRecyclerViewAdapter;
     private Date date;
+    private long transactionDate;
     private AccountEntity account;
     private WalletEntity selectedWallet, selectedFromWallet;
     private AccountViewModel accountViewModel;
@@ -190,6 +191,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
+                transactionDate = bundle.getLong("transactionDate", System.currentTimeMillis());
+
                 backPressed();
                 makeReadOnly();
                 setupListeners();
@@ -282,7 +285,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 tvSave.setEnabled(false);
                 enabledSaveOption(false);
 
-                date = DateHelper.getCurrentDateTime();
+                if(transactionDate > 0) {
+                    date = new Date(transactionDate);
+                } else {
+                    date = DateHelper.getCurrentDateTime();
+                }
 
                 tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
                 tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));

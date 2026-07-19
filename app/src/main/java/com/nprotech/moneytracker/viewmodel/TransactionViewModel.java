@@ -39,9 +39,6 @@ public class TransactionViewModel extends ViewModel {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
     private final LiveData<List<DailyTransModel>> dailyTransactions;
-    private final MutableLiveData<CalendarRange> calendarRange = new MutableLiveData<>();
-    private final LiveData<List<CalendarSummaryModel>> calendarSummary;
-    private final LiveData<CalendarSummaryModel> calendarHeader;
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository) {
@@ -49,9 +46,6 @@ public class TransactionViewModel extends ViewModel {
 
         dailyTransactions = Transformations.switchMap(selectedAccountId,
                 accountId -> Transformations.map(transactionRepository.getTransactions(accountId), this::groupTransactions));
-
-        calendarSummary = Transformations.switchMap(calendarRange, range -> transactionRepository.getCalendarSummary(range.accountId, range.startDate, range.endDate));
-        calendarHeader = Transformations.switchMap(calendarRange, range -> transactionRepository.getCalendarHeader(range.accountId, range.startDate, range.endDate));
     }
 
     private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
@@ -237,28 +231,5 @@ public class TransactionViewModel extends ViewModel {
 
     public LiveData<List<DailyTransModel>> getDailyTransactions() {
         return dailyTransactions;
-    }
-
-    public static class CalendarRange {
-        public int accountId;
-        public long startDate, endDate;
-
-        public CalendarRange(int accountId, long startDate, long endDate) {
-            this.accountId = accountId;
-            this.startDate = startDate;
-            this.endDate = endDate;
-        }
-    }
-
-    public void loadCalendar(int accountId, long startDate, long endDate) {
-        calendarRange.setValue(new CalendarRange(accountId, startDate, endDate));
-    }
-
-    public LiveData<List<CalendarSummaryModel>> getCalendarSummary() {
-        return calendarSummary;
-    }
-
-    public LiveData<CalendarSummaryModel> getCalendarHeader() {
-        return calendarHeader;
     }
 }

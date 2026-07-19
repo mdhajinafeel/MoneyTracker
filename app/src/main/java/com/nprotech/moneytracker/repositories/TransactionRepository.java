@@ -169,4 +169,8 @@ public class TransactionRepository {
     public LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate) {
         return transactionDao.getCalendarHeader(accountId, startDate, endDate);
     }
+
+    public LiveData<List<TransactionWithDetails>> getTransactionsForDay(int accountId, long start, long end) {
+        return transactionDao.getTransactionsForDay(accountId, start, end);
+    }
 }

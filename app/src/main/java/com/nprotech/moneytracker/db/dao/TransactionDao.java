@@ -99,4 +99,17 @@ public interface TransactionDao {
                     "AND isDeleted = 0 " +
                     "AND transactionDate BETWEEN :startDate AND :endDate")
     LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate);
+
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "WHERE t.accountId = :accountId AND t.transactionDate BETWEEN :start AND :end " +
+            "AND t.isDeleted = 0 " +
+            "ORDER BY t.transactionDate DESC")
+    LiveData<List<TransactionWithDetails>> getTransactionsForDay(int accountId, long start, long end);
 }

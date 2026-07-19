@@ -1,6 +1,5 @@
 package com.nprotech.moneytracker.ui.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -17,6 +16,12 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
 
     private int weekStartOn;
 
+    public interface OnDateClickListener {
+        void onDateClick(CalendarDayModel day);
+    }
+
+    private OnDateClickListener onDateClickListener;
+
     public CalendarAdapter(Context context, int weekStartOn) {
         super(context, new ArrayList<>(), R.layout.item_calendar_day);
         this.weekStartOn = weekStartOn;
@@ -27,7 +32,6 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
         holder.setViewText(R.id.tvDay, String.valueOf(item.day));
 
         if (item.hasTransaction) {
-
             holder.setViewVisibility(R.id.tvIncome, View.VISIBLE);
             holder.setViewVisibility(R.id.tvExpense, View.VISIBLE);
             holder.setViewVisibility(R.id.tvTotal, View.VISIBLE);
@@ -35,21 +39,33 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
             holder.setViewText(R.id.tvIncome, "+" + CommonUtils.formatCompact(item.income));
             holder.setViewText(R.id.tvExpense, "-" + CommonUtils.formatCompact(item.expense));
             holder.setViewText(R.id.tvTotal, CommonUtils.formatCompact(item.total));
-
         }
         else {
-
             holder.setViewVisibility(R.id.tvIncome, View.GONE);
             holder.setViewVisibility(R.id.tvExpense, View.GONE);
             holder.setViewVisibility(R.id.tvTotal, View.GONE);
-
         }
 
-        if (!item.currentMonth) {
-            holder.setViewTextColor(R.id.tvDay, Color.LTGRAY);
+        boolean isToday = CalendarHelper.isSameDay(item.date, CalendarHelper.getInitialDate());
+
+        if (isToday) {
+            holder.setViewBackgroundColor(R.id.tvDay, R.color.blue_alpha);
+            holder.setViewTextColor(R.id.tvDay, Color.WHITE);
         } else {
-            holder.setViewTextColor(R.id.tvDay, Color.BLACK);
+            holder.setViewBackgroundColor(R.id.tvDay, android.R.color.transparent);
+
+            if (!item.currentMonth) {
+                holder.setViewTextColor(R.id.tvDay, Color.LTGRAY);
+            } else {
+                holder.setViewTextColor(R.id.tvDay, Color.BLACK);
+            }
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onDateClickListener != null) {
+                onDateClickListener.onDateClick(item);
+            }
+        });
     }
 
     @Override
@@ -69,8 +85,7 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
         notifyItemChanged(0); // Refresh header
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void refresh() {
-        notifyDataSetChanged();
+    public void setOnDateClickListener(OnDateClickListener listener) {
+        this.onDateClickListener = listener;
     }
 }

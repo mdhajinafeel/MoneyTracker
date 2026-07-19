@@ -9,7 +9,7 @@
         android:id="@+id/tvSelectWallet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/margin_16"
         android:fontFamily="@font/exo2_bold"
         android:text="@string/select_wallet"
         android:textColor="@color/black"

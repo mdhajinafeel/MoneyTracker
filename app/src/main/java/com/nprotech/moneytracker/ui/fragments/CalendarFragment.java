@@ -1,6 +1,6 @@
 package com.nprotech.moneytracker.ui.fragments;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,17 +13,26 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.CalendarDayModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.CalendarAdapter;
+import com.nprotech.moneytracker.ui.adapters.TransactionAdapter;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
-import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
+import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.CalendarViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,9 +55,12 @@ public class CalendarFragment extends Fragment {
     private RecyclerView rvCalendar;
     private Date date;
     private CalendarAdapter calendarAdapter;
-    private TransactionViewModel transactionViewModel;
+    private CalendarViewModel calendarViewModel;
+    private AccountViewModel accountViewModel;
+    private String currencySymbol = "";
     private List<CalendarDayModel> monthCells;
     private long loadedStart = -1, loadedEnd = -1;
+    private Date selectedDate;
 
     @Nullable
     @Override
@@ -64,7 +76,8 @@ public class CalendarFragment extends Fragment {
             tvTotal = view.findViewById(R.id.tvTotal);
             rvCalendar = view.findViewById(R.id.rvCalendar);
 
-            transactionViewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+            calendarViewModel = new ViewModelProvider(requireActivity()).get(CalendarViewModel.class);
+            accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
 
             bindData();
             initializeAdapters();
@@ -104,6 +117,8 @@ public class CalendarFragment extends Fragment {
             rvCalendar.setAdapter(calendarAdapter);
             rvCalendar.setHasFixedSize(true);
             rvCalendar.setItemAnimator(null);
+
+            calendarAdapter.setOnDateClickListener(this::showDayTransactions);
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }
@@ -128,7 +143,6 @@ public class CalendarFragment extends Fragment {
     }
 
     private void loadCalendar() {
-
         int weekStartOn = PreferenceManager.INSTANCE.getWeekStartOn();
         tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
         calendarAdapter.setWeekStartOn(weekStartOn);
@@ -138,19 +152,21 @@ public class CalendarFragment extends Fragment {
 
     private void observeData() {
 
-        transactionViewModel.getCalendarSummary()
-                .observe(getViewLifecycleOwner(), this::updateCalendar);
+        accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
+            if (account != null) {
+                currencySymbol = account.currencySymbol;
+            }
+        });
 
-        transactionViewModel.getCalendarHeader()
-                .observe(getViewLifecycleOwner(), header -> {
+        calendarViewModel.getCalendarSummary().observe(getViewLifecycleOwner(), this::updateCalendar);
 
-                    if (header == null)
-                        return;
-
-                    tvIncome.setText(CommonUtils.formatCompact(header.income));
-                    tvExpense.setText(CommonUtils.formatCompact(header.expense));
-                    tvTotal.setText(CommonUtils.formatCompact(header.total));
-                });
+        calendarViewModel.getCalendarHeader().observe(getViewLifecycleOwner(), header -> {
+            if (header == null)
+                return;
+            tvIncome.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.income));
+            tvExpense.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.expense));
+            tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
+        });
     }
 
     private void loadCalendarData() {
@@ -180,14 +196,9 @@ public class CalendarFragment extends Fragment {
         loadedStart = start;
         loadedEnd = end;
 
-        transactionViewModel.loadCalendar(
-                (int) PreferenceManager.INSTANCE.getAccountId(),
-                start,
-                end
-        );
+        calendarViewModel.loadCalendar((int) PreferenceManager.INSTANCE.getAccountId(), start, end);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private void updateCalendar(List<CalendarSummaryModel> summaries) {
 
         if (summaries == null) {
@@ -250,6 +261,119 @@ public class CalendarFragment extends Fragment {
         }
     }
 
+    private void showDayTransactions(CalendarDayModel day) {
+        try {
+
+            BottomSheetDialog dialog = new BottomSheetDialog(requireActivity());
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_calendar_transaction_layout, requireActivity().findViewById(android.R.id.content), false);
+            AppCompatTextView tvTransactionDate = bottomView.findViewById(R.id.tvTransactionDate);
+            AppCompatTextView tvAmount = bottomView.findViewById(R.id.tvAmount);
+            RecyclerView rvTransactions = bottomView.findViewById(R.id.rvTransactions);
+            AppCompatTextView tvNoTransactions = bottomView.findViewById(R.id.tvNoTransactions);
+            AppCompatImageView ivPreviousDay = bottomView.findViewById(R.id.ivPreviousDay);
+            AppCompatImageView ivNextDay = bottomView.findViewById(R.id.ivNextDay);
+            MaterialButton btnAddTransaction = bottomView.findViewById(R.id.btnAddTransaction);
+
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
+            tvTransactionDate.setText(sdf.format(day.date));
+
+            rvTransactions.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvTransactions.setHasFixedSize(true);
+            rvTransactions.setItemAnimator(null);
+
+            loadSelectedDay(day.date, tvTransactionDate);
+
+            calendarViewModel.getDayTransactions().observe(getViewLifecycleOwner(), transactions -> {
+
+                double total = 0;
+
+                if (transactions == null || transactions.isEmpty()) {
+                    rvTransactions.setVisibility(View.GONE);
+                    tvNoTransactions.setVisibility(View.VISIBLE);
+                    updateRecyclerViewHeight(rvTransactions, 0);
+                } else {
+
+                    for (TransactionWithDetails item : transactions) {
+                        switch (item.transaction.type) {
+                            case 1: // Income
+                                total += item.transaction.amount;
+                                break;
+
+                            case 2: // Expense
+                                total -= item.transaction.amount;
+                                break;
+
+                            case 3: // Transfer
+                                // Ignore transfers in net total
+                                break;
+                        }
+                    }
+                    tvNoTransactions.setVisibility(View.GONE);
+                    rvTransactions.setVisibility(View.VISIBLE);
+                    rvTransactions.setAdapter(new TransactionAdapter(requireContext(), transactions, currencySymbol));
+                    updateRecyclerViewHeight(rvTransactions, transactions.size());
+                }
+
+                tvAmount.setText(CommonUtils.getBeautifyAmount(currencySymbol, total));
+            });
+
+            ivPreviousDay.setOnClickListener(v -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(selectedDate);
+                calendar.add(Calendar.DAY_OF_MONTH, -1);
+                loadSelectedDay(calendar.getTime(), tvTransactionDate);
+            });
+
+            ivNextDay.setOnClickListener(v -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(selectedDate);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
+                loadSelectedDay(calendar.getTime(), tvTransactionDate);
+            });
+
+            btnAddTransaction.setOnClickListener(view -> {
+                startActivity(new Intent(requireContext(), CreateTransactionActivity.class)
+                        .putExtra("action", "add")
+                        .putExtra("type", TransactionEntity.TYPE_EXPENSE)
+                        .putExtra("transactionDate", CalendarHelper.getStartOfDay(selectedDate.getTime())));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            dialog.setContentView(bottomView);
+            dialog.show();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "showDayTransactions", e);
+        }
+    }
+
+    private void loadSelectedDay(Date date, AppCompatTextView tvTransactionDate) {
+
+        selectedDate = date;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
+        tvTransactionDate.setText(sdf.format(date));
+
+        long start = CalendarHelper.getStartOfDay(date.getTime());
+        long end = CalendarHelper.getEndOfDay(date.getTime());
+
+        calendarViewModel.loadDayTransactions((int) PreferenceManager.INSTANCE.getAccountId(), start, end);
+    }
+
+    private void updateRecyclerViewHeight(RecyclerView recyclerView, int itemCount) {
+
+        ViewGroup.LayoutParams params = recyclerView.getLayoutParams();
+
+        if (itemCount >= 7) {
+            // Approximate height of one transaction item (adjust if needed)
+            int itemHeight = CommonUtils.dpToPx(requireContext(), 72);
+
+            params.height = itemHeight * 7;
+        } else {
+            params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+
+        recyclerView.setLayoutParams(params);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -260,26 +384,12 @@ public class CalendarFragment extends Fragment {
         super.onHiddenChanged(hidden);
 
         if (!hidden && calendarAdapter != null) {
-
             Date today = CalendarHelper.getInitialDate();
-
-            if (!isSameMonth(date, today)) {
+            if (!CalendarHelper.isSameMonth(date, today)) {
                 date = today;
                 loadCalendar();
                 loadCalendarData();
             }
         }
-    }
-
-    private boolean isSameMonth(Date first, Date second) {
-
-        Calendar c1 = Calendar.getInstance();
-        Calendar c2 = Calendar.getInstance();
-
-        c1.setTime(first);
-        c2.setTime(second);
-
-        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
-                && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH);
     }
 }

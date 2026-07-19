@@ -22,6 +22,7 @@
     <string name="delete_transaction">Delete Transaction</string>
     <string name="total">Total</string>
     <string name="all_transaction">All transactions</string>
+    <string name="no_transaction">No transactions yet</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>
