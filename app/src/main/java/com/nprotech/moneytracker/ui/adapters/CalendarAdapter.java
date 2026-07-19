@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.View;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.models.CalendarDayModel;
+import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,17 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
             holder.setViewVisibility(R.id.tvExpense, View.VISIBLE);
             holder.setViewVisibility(R.id.tvTotal, View.VISIBLE);
 
-        } else {
+            holder.setViewText(R.id.tvIncome, "+" + CommonUtils.formatCompact(item.income));
+            holder.setViewText(R.id.tvExpense, "-" + CommonUtils.formatCompact(item.expense));
+            holder.setViewText(R.id.tvTotal, CommonUtils.formatCompact(item.total));
+
+        }
+        else {
 
             holder.setViewVisibility(R.id.tvIncome, View.GONE);
             holder.setViewVisibility(R.id.tvExpense, View.GONE);
             holder.setViewVisibility(R.id.tvTotal, View.GONE);
+
         }
 
         if (!item.currentMonth) {
@@ -59,5 +67,10 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
     public void setWeekStartOn(int weekStartOn) {
         this.weekStartOn = weekStartOn;
         notifyItemChanged(0); // Refresh header
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void refresh() {
+        notifyDataSetChanged();
     }
 }

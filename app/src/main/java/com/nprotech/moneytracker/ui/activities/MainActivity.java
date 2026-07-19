@@ -248,9 +248,8 @@ public class MainActivity extends BaseActivity {
             return;
 
         getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.fade_fast_in, R.anim.fade_fast_out)
                 .hide(activeFragment)
-                .show(fragment).commit();
+                .show(fragment).commitNow();
 
         activeFragment = fragment;
         updateToolbar(fragment);

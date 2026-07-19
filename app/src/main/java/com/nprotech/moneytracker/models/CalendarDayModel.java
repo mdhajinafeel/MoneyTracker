@@ -7,10 +7,8 @@ public class CalendarDayModel implements Serializable {
 
     public Date date;
     public int day;
-    public boolean currentMonth,today,selected;
-    public double income,expense,total;
-
-    public boolean hasTransaction;
+    public boolean currentMonth, today, selected, hasTransaction;
+    public double income, expense, total;
 
     public CalendarDayModel(Date date, int day, boolean currentMonth, boolean today, boolean selected) {
         this.date = date;

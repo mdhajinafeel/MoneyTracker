@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
+import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
@@ -75,4 +76,27 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM transactions WHERE parentTransactionId = :parentTransactionId LIMIT 1")
     TransactionEntity getFeeTransaction(String parentTransactionId);
+
+    @Query("SELECT CAST(strftime('%s', date(transactionDate/1000, 'unixepoch', 'localtime')) AS INTEGER) * 1000 AS dayTimestamp, " +
+                    "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
+                    "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
+                    "SUM(CASE WHEN type = 1 THEN amount ELSE -amount END) AS total " +
+                    "FROM transactions " +
+                    "WHERE accountId = :accountId " +
+                    "AND isDeleted = 0 " +
+                    "AND transactionDate BETWEEN :startDate AND :endDate " +
+                    "GROUP BY date(transactionDate/1000, 'unixepoch', 'localtime') " +
+                    "ORDER BY dayTimestamp"
+    )
+    LiveData<List<CalendarSummaryModel>> getCalendarSummary(int accountId, long startDate, long endDate);
+
+    @Query("SELECT 0 AS dayTimestamp, " +
+                    "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
+                    "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
+                    "SUM(CASE WHEN type = 1 THEN amount ELSE -amount END) AS total " +
+                    "FROM transactions " +
+                    "WHERE accountId = :accountId " +
+                    "AND isDeleted = 0 " +
+                    "AND transactionDate BETWEEN :startDate AND :endDate")
+    LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate);
 }

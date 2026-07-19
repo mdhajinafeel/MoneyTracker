@@ -11,6 +11,7 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
@@ -159,5 +160,13 @@ public class TransactionRepository {
             transaction.updatedAt = System.currentTimeMillis();
             transactionDao.update(transaction);
         });
+    }
+
+    public LiveData<List<CalendarSummaryModel>> getCalendarSummary(int accountId, long startDate, long endDate) {
+        return transactionDao.getCalendarSummary(accountId, startDate, endDate);
+    }
+
+    public LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate) {
+        return transactionDao.getCalendarHeader(accountId, startDate, endDate);
     }
 }

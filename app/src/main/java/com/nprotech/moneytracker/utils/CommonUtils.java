@@ -47,6 +47,17 @@ public class CommonUtils {
         return decimalFormat.format(value);
     }
 
+    public static String formatCompact(double value) {
+
+        if (value >= 1000000)
+            return String.format(Locale.getDefault(), "%.1fM", value / 1000000);
+
+        if (value >= 1000)
+            return String.format(Locale.getDefault(), "%.1fK", value / 1000);
+
+        return String.format(Locale.getDefault(), "%.0f", value);
+    }
+
     public static long getLongFromString(String s) {
         return new BigDecimal(s).multiply(new BigDecimal(100)).longValue();
     }
