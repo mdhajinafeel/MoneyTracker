@@ -153,9 +153,17 @@ public class CalendarFragment extends Fragment {
     private void observeData() {
 
         accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
-            if (account != null) {
-                currencySymbol = account.currencySymbol;
+            if (account == null) {
+                return;
             }
+
+            currencySymbol = account.currencySymbol;
+
+            // Force reload for the newly selected account
+            loadedStart = -1;
+            loadedEnd = -1;
+
+            loadCalendarData();
         });
 
         calendarViewModel.getCalendarSummary().observe(getViewLifecycleOwner(), this::updateCalendar);

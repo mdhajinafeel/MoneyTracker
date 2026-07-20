@@ -151,6 +151,11 @@ dependencies {
     implementation libs.autofittextview
 
     // ---------------------------
+    // Chart
+    // ---------------------------
+    implementation libs.mpandroidchart
+
+    // ---------------------------
     // Testing
     // ---------------------------
     testImplementation libs.junit

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="balance">Balance</string>
+    <string name="opening_balance">Opening balance</string>
+    <string name="ending_balance">Ending balance</string>
+    <string name="overview">Overview</string>
+    <string name="breakdown">Breakdown</string>
+</resources>

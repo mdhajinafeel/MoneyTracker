@@ -26,4 +26,6 @@
     <color name="income">#3f96e2</color>
     <color name="expense">#f73242</color>
     <color name="transfer">#2196F3</color>
+    <color name="opening_balance">#1E88E5</color>
+    <color name="closing_balance">#43A047</color>
 </resources>

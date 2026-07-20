@@ -10,6 +10,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
+import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
@@ -41,6 +42,7 @@ public interface TransactionDao {
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactions(int accountId);
 
+    @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName " +
             "FROM transactions t " +
@@ -112,4 +114,12 @@ public interface TransactionDao {
             "AND t.isDeleted = 0 " +
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactionsForDay(int accountId, long start, long end);
+
+    @Query("SELECT SUM(w.initialAmount) + IFNULL( ( SELECT SUM( CASE WHEN t.type = 1 THEN t.amount WHEN t.type = 2 THEN -t.amount ELSE 0 END ) " +
+            "FROM transactions t WHERE t.accountId = w.accountId AND t.isDeleted = 0 " +
+            "AND t.transactionDate < :startDate ), 0 ) AS openingBalance, SUM(w.initialAmount) + " +
+            "IFNULL( ( SELECT SUM( CASE WHEN t.type = 1 THEN t.amount WHEN t.type = 2 THEN -t.amount ELSE 0 END ) " +
+            "FROM transactions t WHERE t.accountId = w.accountId AND t.isDeleted = 0 AND t.transactionDate <= :endDate ), 0 ) AS closingBalance " +
+            "FROM wallets w WHERE w.accountId = :accountId AND w.isDeleted = 0")
+    LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long startDate, long endDate);
 }
