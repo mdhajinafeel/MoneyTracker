@@ -9,7 +9,10 @@ import com.nprotech.moneytracker.models.BalanceRangeModel;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.models.CalendarRangeModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
+import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -23,6 +26,7 @@ public class StatisticsViewModel extends ViewModel {
     private final MutableLiveData<CalendarRangeModel> calendarRange = new MutableLiveData<>();
     private final MutableLiveData<BalanceRangeModel> balanceRange = new MutableLiveData<>();
     private final LiveData<BalanceSummaryModel> balanceSummary;
+    private final MutableLiveData<List<CategoryExpenseModel>> categoryExpense = new MutableLiveData<>();
 
     @Inject
     public StatisticsViewModel(TransactionRepository transactionRepository) {
@@ -55,5 +59,13 @@ public class StatisticsViewModel extends ViewModel {
 
     public LiveData<BalanceSummaryModel> getBalanceSummary() {
         return balanceSummary;
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getCategoryExpense() {
+        return categoryExpense;
+    }
+
+    public void loadCategoryExpense(int accountId, long start, long end) {
+        transactionRepository.getExpenseByCategory(accountId, start, end).observeForever(categoryExpense::setValue);
     }
 }

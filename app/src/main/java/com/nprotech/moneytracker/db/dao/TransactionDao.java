@@ -12,6 +12,7 @@ import androidx.room.Update;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
+import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
@@ -41,6 +42,19 @@ public interface TransactionDao {
             "WHERE t.isDeleted = 0 AND t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2, 3) AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactions(int accountId);
+
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "AND t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2, 3) AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC")
+    LiveData<List<TransactionWithDetails>> getTransactions(int accountId, long startDate, long endDate);
 
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
@@ -122,4 +136,12 @@ public interface TransactionDao {
             "FROM transactions t WHERE t.accountId = w.accountId AND t.isDeleted = 0 AND t.transactionDate <= :endDate ), 0 ) AS closingBalance " +
             "FROM wallets w WHERE w.accountId = :accountId AND w.isDeleted = 0")
     LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long startDate, long endDate);
+
+    @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
+            "c.color AS color, SUM(t.amount) AS amount " +
+            "FROM transactions t " +
+            "INNER JOIN categories c ON c.id = t.categoryId " +
+            "WHERE t.accountId = :accountId AND t.type = 2 " +
+            "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate GROUP BY c.id ORDER BY amount DESC")
+    LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long startDate, long endDate);
 }

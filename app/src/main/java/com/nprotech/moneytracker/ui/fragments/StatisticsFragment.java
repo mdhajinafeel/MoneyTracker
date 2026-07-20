@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.ui.fragments;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +16,25 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
+import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.ui.activities.TransactionOverviewActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.StatisticsViewModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -35,7 +46,7 @@ public class StatisticsFragment extends Fragment {
     private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal;
     private AutofitTextView tvOpeningBalance, tvEndingBalance;
     private AppCompatImageView ivPrevious, ivNext;
-    private PieChart pieChart;
+    private PieChart pieBreakdownChart;
     private ConstraintLayout overviewMoreWrapper, chartMoreWrapper;
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
@@ -58,7 +69,7 @@ public class StatisticsFragment extends Fragment {
             tvIncome = view.findViewById(R.id.tvIncome);
             tvExpense = view.findViewById(R.id.tvExpense);
             tvTotal = view.findViewById(R.id.tvTotal);
-            pieChart = view.findViewById(R.id.pieChart);
+            pieBreakdownChart = view.findViewById(R.id.pieBreakdownChart);
             overviewMoreWrapper = view.findViewById(R.id.overviewMoreWrapper);
             chartMoreWrapper = view.findViewById(R.id.chartMoreWrapper);
 
@@ -120,6 +131,8 @@ public class StatisticsFragment extends Fragment {
                 tvExpense.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.expense));
                 tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
             });
+
+            statisticsViewModel.getCategoryExpense().observe(getViewLifecycleOwner(), this::setupPieBreakdownChart);
         } catch (Exception e) {
             AppLogger.e(getClass(), "observeData", e);
         }
@@ -154,6 +167,77 @@ public class StatisticsFragment extends Fragment {
 
         statisticsViewModel.loadCalendar(selectedAccountId, start, end);
         statisticsViewModel.loadBalanceSummary(selectedAccountId, start, end);
+        statisticsViewModel.loadCategoryExpense(selectedAccountId, start, end);
+    }
+
+    private void setupPieBreakdownChart(List<CategoryExpenseModel> list) {
+        try {
+            if (list == null || list.isEmpty()) {
+                pieBreakdownChart.clear();
+                pieBreakdownChart.setNoDataText("No expense data");
+                return;
+            }
+
+            List<PieEntry> entries = new ArrayList<>();
+            List<Integer> colors = new ArrayList<>();
+
+            double total = 0;
+
+            for (CategoryExpenseModel item : list) {
+                total += item.amount;
+
+                String categoryName = item.categoryName;
+
+                if (item.defaultCategoryId > 0) {
+                    categoryName = DataHelper.getDefaultCategory(requireContext(), item.defaultCategoryId);
+                }
+
+                entries.add(new PieEntry((float) item.amount, categoryName));
+
+                try {
+                    colors.add(Color.parseColor(item.color));
+                } catch (IllegalArgumentException e) {
+                    colors.add(Color.GRAY); // fallback color
+                }
+            }
+
+            PieDataSet dataSet = new PieDataSet(entries, "");
+            dataSet.setColors(colors);
+            dataSet.setSliceSpace(3f);
+            dataSet.setSelectionShift(6f);
+
+            PieData data = new PieData(dataSet);
+            data.setDrawValues(false);
+
+            pieBreakdownChart.setData(data);
+            pieBreakdownChart.setCenterText(CommonUtils.getBeautifyAmount(currencySymbol, total));
+
+            pieBreakdownChart.setUsePercentValues(true);
+
+            pieBreakdownChart.setDrawHoleEnabled(true);
+            pieBreakdownChart.setHoleRadius(50f);
+
+            pieBreakdownChart.setTransparentCircleRadius(45f);
+
+            pieBreakdownChart.setEntryLabelColor(Color.WHITE);
+
+            pieBreakdownChart.setDrawEntryLabels(false);
+
+            pieBreakdownChart.setRotationEnabled(true);
+
+            pieBreakdownChart.setHighlightPerTapEnabled(true);
+
+            pieBreakdownChart.getDescription().setEnabled(false);
+
+            pieBreakdownChart.getLegend().setEnabled(false);
+
+            pieBreakdownChart.animateY(1000);
+
+            pieBreakdownChart.invalidate();
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "setupPieBreakdownChart", e);
+        }
     }
 
     private void setupListeners() {
@@ -177,6 +261,16 @@ public class StatisticsFragment extends Fragment {
                 loadCalendarData();
             });
 
+            overviewMoreWrapper.setOnClickListener(view -> {
+                startActivity(new Intent(requireContext(), TransactionOverviewActivity.class)
+                        .putExtra("accountId", selectedAccountId)
+                        .putExtra("transactionDate", date.getTime()));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            chartMoreWrapper.setOnClickListener(view -> {
+
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }

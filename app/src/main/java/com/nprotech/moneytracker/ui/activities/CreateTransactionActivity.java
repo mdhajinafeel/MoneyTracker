@@ -42,6 +42,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -285,7 +286,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 tvSave.setEnabled(false);
                 enabledSaveOption(false);
 
-                if(transactionDate > 0) {
+                if (transactionDate > 0) {
                     date = new Date(transactionDate);
                 } else {
                     date = DateHelper.getCurrentDateTime();
@@ -683,44 +684,51 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     }
 
     private void initializeAdapter() {
-        uriRecyclerViewAdapter = new RecyclerViewAdapter<>(this, selectedFileUri, R.layout.item_transaction_images) {
-            @SuppressLint("NotifyDataSetChanged")
-            @Override
-            public void onPostBindViewHolder(ViewHolder holder, Uri uri) {
+        try {
+            uriRecyclerViewAdapter = new RecyclerViewAdapter<>(this, selectedFileUri, R.layout.item_transaction_images) {
+                @SuppressLint("NotifyDataSetChanged")
+                @Override
+                public void onPostBindViewHolder(ViewHolder holder, Uri uri) {
 
-                AppCompatImageView ivImage = holder.getView(R.id.ivNotePhoto);
+                    AppCompatImageView ivImage = holder.getView(R.id.ivNotePhoto);
 
-                String mime = getContentResolver().getType(uri);
+                    String mime = getContentResolver().getType(uri);
 
-                if (mime == null) {
-                    String path = uri.getPath();
-                    String extension = MimeTypeMap.getFileExtensionFromUrl(path);
+                    if (mime == null) {
+                        String path = uri.getPath();
+                        String extension = MimeTypeMap.getFileExtensionFromUrl(path);
 
-                    if (!TextUtils.isEmpty(extension)) {
-                        mime = MimeTypeMap.getSingleton()
-                                .getMimeTypeFromExtension(extension.toLowerCase());
+                        if (!TextUtils.isEmpty(extension)) {
+                            mime = MimeTypeMap.getSingleton()
+                                    .getMimeTypeFromExtension(extension.toLowerCase());
+                        }
                     }
+
+                    if (mime != null && mime.startsWith("image")) {
+                        Glide.with(ivImage.getContext())
+                                .load(uri)
+                                .into(ivImage);
+                    } else {
+                        ivImage.setImageResource(getFileIconFromUri(uri));
+                    }
+
+                    holder.getView(R.id.cardDelete).setOnClickListener(v -> {
+                        selectedFileUri.remove(uri);
+                        uriRecyclerViewAdapter.remove(uri);
+                        deleteAttachment(uri, transactionWithDetails != null);
+                        rvNoteImage.setVisibility(selectedFileUri.isEmpty() ? View.GONE : View.VISIBLE);
+                        noteImage.setVisibility(selectedFileUri.size() == 5 ? View.GONE : View.VISIBLE);
+                    });
                 }
+            };
 
-                if (mime != null && mime.startsWith("image")) {
-                    Glide.with(ivImage.getContext())
-                            .load(uri)
-                            .into(ivImage);
-                } else {
-                    ivImage.setImageResource(getFileIconFromUri(uri));
-                }
-
-                holder.getView(R.id.cardDelete).setOnClickListener(v -> {
-                    selectedFileUri.remove(uri);
-                    deleteAttachment(uri, transactionWithDetails != null);
-                    notifyDataSetChanged();
-                    noteImage.setVisibility(selectedFileUri.size() == 5 ? View.GONE : View.VISIBLE);
-                });
-            }
-        };
-
-        rvNoteImage.setAdapter(uriRecyclerViewAdapter);
-        rvNoteImage.setHasFixedSize(true);
+            rvNoteImage.setAdapter(uriRecyclerViewAdapter);
+            rvNoteImage.setHasFixedSize(true);
+            rvNoteImage.setItemAnimator(null);
+            rvNoteImage.setLayoutManager(new GridLayoutManager(this, 3));
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAdapter", e);
+        }
     }
 
     private void showPicker() {
@@ -792,13 +800,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         }
 
         rvNoteImage.setVisibility(View.VISIBLE);
-        uriRecyclerViewAdapter.notifyDataSetChanged();
 
-        if (selectedFileUri.size() == 5) {
-            noteImage.setVisibility(View.GONE);
-        } else {
-            noteImage.setVisibility(View.VISIBLE);
-        }
+        // Update adapter data
+        uriRecyclerViewAdapter.setItems(fileUris);
+
+        noteImage.setVisibility(fileUris.size() == 5 ? View.GONE : View.VISIBLE);
     }
 
     private int getFileIconFromUri(Uri uri) {

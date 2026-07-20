@@ -185,6 +185,13 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
         return mFullList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    public void remove(T item) {
+        mDataList.remove(item);
+        mFullList.remove(item);
+        notifyDataSetChanged();
+    }
+
     public void setFooterLayout(int footerLayoutId) {
         mFooterLayoutId = footerLayoutId;
     }

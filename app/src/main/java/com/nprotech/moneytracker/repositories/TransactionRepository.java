@@ -13,6 +13,7 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
+import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
@@ -36,7 +37,10 @@ public class TransactionRepository {
         this.transactionAttachmentDao = transactionAttachmentDao;
     }
 
-    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId) {
+    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId, long startDate, long endDate) {
+        if(startDate > 0 || endDate > 0) {
+            return transactionDao.getTransactions(accountId, startDate, endDate);
+        }
         return transactionDao.getTransactions(accountId);
     }
 
@@ -177,5 +181,9 @@ public class TransactionRepository {
 
     public LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long start, long end) {
         return transactionDao.getBalanceSummary(accountId, start, end);
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long start, long end) {
+        return transactionDao.getExpenseByCategory(accountId, start, end);
     }
 }

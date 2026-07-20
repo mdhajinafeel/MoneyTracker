@@ -84,7 +84,7 @@ public class TransactionFragment extends Fragment {
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
 
                 if (account != null) {
-                    transactionViewModel.selectAccount(account.id);
+                    transactionViewModel.loadTransactions(account.id, 0, 0);
                 }
             });
 

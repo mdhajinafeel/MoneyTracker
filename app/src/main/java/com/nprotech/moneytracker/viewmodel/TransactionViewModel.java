@@ -9,9 +9,9 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
-import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
+import com.nprotech.moneytracker.models.TransactionFilterModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
@@ -37,15 +37,16 @@ public class TransactionViewModel extends ViewModel {
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataDeletedStatus = new SingleLiveEvent<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
+    private final MutableLiveData<TransactionFilterModel> filter = new MutableLiveData<>();
     private final LiveData<List<DailyTransModel>> dailyTransactions;
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
 
-        dailyTransactions = Transformations.switchMap(selectedAccountId,
-                accountId -> Transformations.map(transactionRepository.getTransactions(accountId), this::groupTransactions));
+        dailyTransactions = Transformations.switchMap(filter,
+                value -> Transformations.map(
+                        transactionRepository.getTransactions(value.accountId, value.startDate, value.endDate), this::groupTransactions));
     }
 
     private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
@@ -225,8 +226,8 @@ public class TransactionViewModel extends ViewModel {
         transactionRepository.deleteFeeTransaction(transaction);
     }
 
-    public void selectAccount(int accountId) {
-        selectedAccountId.setValue(accountId);
+    public void loadTransactions(int accountId, long startDate, long endDate) {
+        filter.setValue(new TransactionFilterModel(accountId, startDate, endDate));
     }
 
     public LiveData<List<DailyTransModel>> getDailyTransactions() {
