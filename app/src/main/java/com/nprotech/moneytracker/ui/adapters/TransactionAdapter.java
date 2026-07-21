@@ -74,6 +74,9 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             }
         }
 
+        imageView.setImageTintList(
+                ContextCompat.getColorStateList(context, android.R.color.white));
+
         String categoryName = transaction.getCategoryName(context);
         if (Objects.equals(categoryName, "")) {
             categoryName = item.categoryName;

@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.models.BalanceRangeModel;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
+import com.nprotech.moneytracker.models.BreakdownFilter;
 import com.nprotech.moneytracker.models.CalendarRangeModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,6 +29,8 @@ public class StatisticsViewModel extends ViewModel {
     private final MutableLiveData<BalanceRangeModel> balanceRange = new MutableLiveData<>();
     private final LiveData<BalanceSummaryModel> balanceSummary;
     private final MutableLiveData<List<CategoryExpenseModel>> categoryExpense = new MutableLiveData<>();
+    private final MutableLiveData<List<CategoryExpenseModel>> categoryIncome = new MutableLiveData<>();
+    private final MutableLiveData<BreakdownFilter> breakdownFilter = new MutableLiveData<>();
 
     @Inject
     public StatisticsViewModel(TransactionRepository transactionRepository) {
@@ -65,7 +69,28 @@ public class StatisticsViewModel extends ViewModel {
         return categoryExpense;
     }
 
+    public void loadCategoryTransaction(int accountId, long start, long end) {
+        transactionRepository.getExpenseByCategory(accountId, start, end).observeForever(categoryExpense::setValue);
+        transactionRepository.getIncomeByCategory(accountId, start, end).observeForever(categoryIncome::setValue);
+    }
+
     public void loadCategoryExpense(int accountId, long start, long end) {
         transactionRepository.getExpenseByCategory(accountId, start, end).observeForever(categoryExpense::setValue);
+    }
+
+    public void loadCategoryIncome(int accountId, long start, long end) {
+        transactionRepository.getIncomeByCategory(accountId, start, end).observeForever(categoryIncome::setValue);
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getCategoryIncome() {
+        return categoryIncome;
+    }
+
+    public LiveData<BreakdownFilter> getBreakdownFilter() {
+        return breakdownFilter;
+    }
+
+    public void setBreakdownFilter(BreakdownFilter filter) {
+        breakdownFilter.setValue(filter);
     }
 }

@@ -4,7 +4,7 @@ public class CategoryExpenseModel {
 
     public int categoryId, defaultCategoryId;
     public String categoryName, color;
-    public double amount;
+    public double amount, percentage;
 
     public CategoryExpenseModel(int categoryId, int defaultCategoryId, String categoryName, String color, double amount) {
         this.categoryId = categoryId;

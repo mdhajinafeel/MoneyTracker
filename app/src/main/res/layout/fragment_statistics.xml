@@ -137,9 +137,9 @@
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_16"
+                android:fontFamily="@font/exo2_bold"
                 android:maxLines="1"
                 android:textColor="@color/opening_balance"
-                android:fontFamily="@font/exo2_bold"
                 android:textSize="@dimen/text_16"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/midGuideline"
@@ -154,8 +154,8 @@
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
-                android:maxLines="1"
                 android:fontFamily="@font/exo2_bold"
+                android:maxLines="1"
                 android:textColor="@color/closing_balance"
                 android:textSize="@dimen/text_16"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -240,10 +240,10 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvIncome"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvIncome"
@@ -252,13 +252,13 @@
                     android:layout_marginEnd="@dimen/margin_16"
                     android:gravity="end"
                     android:maxLines="1"
+                    android:textAlignment="viewEnd"
                     android:textColor="@color/income"
                     android:textSize="@dimen/text_18"
                     app:fontFamily="@font/exo2_semibold"
-                    android:textAlignment="viewEnd"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -281,10 +281,10 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvExpense"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvExpense"
@@ -293,13 +293,13 @@
                     android:layout_marginEnd="@dimen/margin_16"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:textSize="@dimen/text_18"
-                    android:textColor="@color/expense"
-                    app:fontFamily="@font/exo2_semibold"
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/expense"
+                    android:textSize="@dimen/text_18"
+                    app:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -322,10 +322,10 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvTotal"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvTotal"
@@ -334,33 +334,25 @@
                     android:layout_marginEnd="@dimen/margin_16"
                     android:gravity="end"
                     android:maxLines="1"
-                    android:textSize="@dimen/text_18"
-                    android:textColor="@color/dark_grey"
-                    app:fontFamily="@font/exo2_semibold"
                     android:textAlignment="viewEnd"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_18"
+                    app:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
-                android:id="@+id/viewLineOverview"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/grey_88"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/totalWrapper" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/overviewMoreWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_10"
                 android:background="@color/grey_88"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/viewLineOverview">
+                app:layout_constraintTop_toBottomOf="@+id/totalWrapper">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"
@@ -418,13 +410,63 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_8"
                 android:text="@string/breakdown"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_18"
                 app:fontFamily="@font/exo2_bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/chartToggleGroup"
+                app:layout_constraintEnd_toStartOf="@id/chartToggleGroup"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@id/chartToggleGroup" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/chartToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:checkedButton="@id/btnExpense"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnExpense"
+                    android:layout_width="82dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_bold"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="@dimen/padding_8"
+                    android:text="@string/expense"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_12"
+                    app:backgroundTint="@color/toggle_background"
+                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:strokeColor="@color/vibrant_orange" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnIncome"
+                    android:layout_width="82dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_bold"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingHorizontal="@dimen/padding_8"
+                    android:text="@string/income"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_12"
+                    app:backgroundTint="@color/toggle_background"
+                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:strokeColor="@color/vibrant_orange" />
+
+            </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieBreakdownChart"
@@ -433,9 +475,37 @@
                 android:layout_marginStart="@dimen/margin_12"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_12"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@+id/chartMoreWrapper"
                 app:layout_constraintEnd_toStartOf="@+id/midChartGuideline"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chartLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/chartToggleGroup" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/legendWrapper"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:visibility="visible"
+                app:layout_constraintBottom_toTopOf="@id/chartMoreWrapper"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/midChartGuideline"
+                app:layout_constraintTop_toBottomOf="@id/chartToggleGroup">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvChartLegend"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/midChartGuideline"
@@ -446,25 +516,14 @@
                 app:layout_constraintGuide_percent="0.52"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <View
-                android:id="@+id/viewLineChart"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/grey_88"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pieBreakdownChart" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/chartMoreWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/grey_88"
-                android:layout_marginTop="@dimen/margin_10"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pieBreakdownChart">
+                app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="0dp"

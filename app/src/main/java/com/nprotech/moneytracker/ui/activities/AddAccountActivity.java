@@ -3,7 +3,9 @@ package com.nprotech.moneytracker.ui.activities;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -29,6 +31,7 @@ import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
@@ -92,22 +95,21 @@ public class AddAccountActivity extends BaseActivity {
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
             walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
-            setupClickListeners();
-            setupCurrencyLauncher();
-
+            setupListeners();
+            setupLauncher();
             fetchDefaultCurrency();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void setupCurrencyLauncher() {
+    private void setupLauncher() {
         currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            currency =  IntentUtils.getSerializableExtra(getIntent(), "currency", CurrencyEntity.class);
+                            currency = IntentUtils.getSerializableExtra(getIntent(), "currency", CurrencyEntity.class);
                             if (currency != null) {
                                 etCurrency.setText(currency.name);
                                 tilInitialAmount.setPrefixText(currency.symbol);
@@ -119,7 +121,7 @@ public class AddAccountActivity extends BaseActivity {
                 });
     }
 
-    private void setupClickListeners() {
+    private void setupListeners() {
 
         toolbar.setNavigationOnClickListener(v -> handleBackNavigation());
 
@@ -145,6 +147,41 @@ public class AddAccountActivity extends BaseActivity {
             intent.putExtra("type", "account");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_right, R.anim.slide_out_left);
             currencyLauncher.launch(intent, options);
+        });
+
+        etInitialAmount.addTextChangedListener(new TextWatcher() {
+
+            private boolean isEditing;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isEditing) return;
+
+                String value = s.toString().replace(",", "");
+                if (value.isEmpty()) return;
+
+                try {
+                    isEditing = true;
+
+                    double amount = Double.parseDouble(value);
+                    String formatted = CommonUtils.getBeautifyAmount(amount);
+
+                    etInitialAmount.setText(formatted);
+                    etInitialAmount.setSelection(formatted.length());
+
+                } catch (NumberFormatException ignored) {
+                } finally {
+                    isEditing = false;
+                }
+            }
         });
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -246,7 +283,7 @@ public class AddAccountActivity extends BaseActivity {
         if (isSkip) {
             initialAmount = 0;
         } else {
-            initialAmount = Double.parseDouble(Objects.requireNonNull(etInitialAmount.getText()).toString());
+            initialAmount = CommonUtils.parseAmount(Objects.requireNonNull(etInitialAmount.getText()).toString());
         }
 
         AccountEntity account = new AccountEntity();

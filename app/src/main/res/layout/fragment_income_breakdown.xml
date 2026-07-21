@@ -21,7 +21,7 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_8"
-            android:src="?attr/emptyCategory"
+            android:src="?attr/emptyRecord"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,7 +33,7 @@
             android:layout_marginStart="@dimen/margin_8"
             android:layout_marginTop="@dimen/margin_8"
             android:layout_marginEnd="@dimen/margin_8"
-            android:text="@string/empty_category"
+            android:text="@string/no_transaction"
             android:textAlignment="center"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_24"
@@ -49,7 +49,6 @@
             android:layout_marginTop="@dimen/margin_12"
             android:layout_marginEnd="@dimen/margin_24"
             android:layout_marginBottom="@dimen/margin_8"
-            android:text="@string/empty_category_hint"
             android:textAlignment="center"
             android:textColor="@color/medium_grey"
             android:textSize="@dimen/text_16"
@@ -60,8 +59,18 @@
             app:layout_constraintTop_toBottomOf="@+id/emptyTitleLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChartIncome"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvIncomeCategory"
+        android:id="@+id/rvIncomeBreakdown"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:visibility="gone"
@@ -69,5 +78,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/pieChartIncome" />
 </androidx.constraintlayout.widget.ConstraintLayout>

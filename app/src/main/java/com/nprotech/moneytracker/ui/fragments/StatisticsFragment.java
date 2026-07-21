@@ -2,7 +2,13 @@ package com.nprotech.moneytracker.ui.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +18,29 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.ui.activities.TransactionBreakdownActivity;
 import com.nprotech.moneytracker.ui.activities.TransactionOverviewActivity;
+import com.nprotech.moneytracker.ui.adapters.ChartLegendAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
@@ -46,7 +62,9 @@ public class StatisticsFragment extends Fragment {
     private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal;
     private AutofitTextView tvOpeningBalance, tvEndingBalance;
     private AppCompatImageView ivPrevious, ivNext;
+    private MaterialButtonToggleGroup chartToggleGroup;
     private PieChart pieBreakdownChart;
+    private RecyclerView rvChartLegend;
     private ConstraintLayout overviewMoreWrapper, chartMoreWrapper;
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
@@ -54,6 +72,9 @@ public class StatisticsFragment extends Fragment {
     private String currencySymbol = "";
     private long loadedStart = -1, loadedEnd = -1;
     private int selectedAccountId = -1;
+    private ChartLegendAdapter chartLegendAdapter;
+    private List<CategoryExpenseModel> expenseList = new ArrayList<>();
+    private List<CategoryExpenseModel> incomeList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -70,13 +91,16 @@ public class StatisticsFragment extends Fragment {
             tvExpense = view.findViewById(R.id.tvExpense);
             tvTotal = view.findViewById(R.id.tvTotal);
             pieBreakdownChart = view.findViewById(R.id.pieBreakdownChart);
+            rvChartLegend = view.findViewById(R.id.rvChartLegend);
             overviewMoreWrapper = view.findViewById(R.id.overviewMoreWrapper);
             chartMoreWrapper = view.findViewById(R.id.chartMoreWrapper);
+            chartToggleGroup = view.findViewById(R.id.chartToggleGroup);
 
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
             statisticsViewModel = new ViewModelProvider(requireActivity()).get(StatisticsViewModel.class);
 
             bindData();
+            initializeAdapter();
             observeData();
             loadCalendarData();
             setupListeners();
@@ -91,9 +115,31 @@ public class StatisticsFragment extends Fragment {
             if (date == null) {
                 date = CalendarHelper.getInitialDate();
                 tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
+
+                chartToggleGroup.check(R.id.btnExpense);
+
+                pieBreakdownChart.clear();
+                pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
+                pieBreakdownChart.setNoDataTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextTypeface(
+                        ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void initializeAdapter() {
+        try {
+            chartLegendAdapter = new ChartLegendAdapter(requireContext());
+
+            rvChartLegend.setLayoutManager(new LinearLayoutManager(requireActivity()));
+            rvChartLegend.setHasFixedSize(true);
+            rvChartLegend.setItemAnimator(null);
+            rvChartLegend.setAdapter(chartLegendAdapter);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAdapter", e);
         }
     }
 
@@ -132,7 +178,21 @@ public class StatisticsFragment extends Fragment {
                 tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
             });
 
-            statisticsViewModel.getCategoryExpense().observe(getViewLifecycleOwner(), this::setupPieBreakdownChart);
+            statisticsViewModel.getCategoryExpense().observe(getViewLifecycleOwner(), list -> {
+                expenseList = list == null ? new ArrayList<>() : list;
+
+                if (chartToggleGroup.getCheckedButtonId() == R.id.btnExpense) {
+                    setupPieBreakdownChart(expenseList, getString(R.string.expense));
+                }
+            });
+
+            statisticsViewModel.getCategoryIncome().observe(getViewLifecycleOwner(), list -> {
+                incomeList = list == null ? new ArrayList<>() : list;
+
+                if (chartToggleGroup.getCheckedButtonId() == R.id.btnIncome) {
+                    setupPieBreakdownChart(incomeList, getString(R.string.income));
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "observeData", e);
         }
@@ -167,15 +227,43 @@ public class StatisticsFragment extends Fragment {
 
         statisticsViewModel.loadCalendar(selectedAccountId, start, end);
         statisticsViewModel.loadBalanceSummary(selectedAccountId, start, end);
-        statisticsViewModel.loadCategoryExpense(selectedAccountId, start, end);
+        statisticsViewModel.loadCategoryTransaction(selectedAccountId, start, end);
     }
 
-    private void setupPieBreakdownChart(List<CategoryExpenseModel> list) {
+    private void setupPieBreakdownChart(List<CategoryExpenseModel> list, String title) {
         try {
             if (list == null || list.isEmpty()) {
+
+                chartLegendAdapter.replaceItems(new ArrayList<>());
+                rvChartLegend.setVisibility(View.GONE);
+
                 pieBreakdownChart.clear();
-                pieBreakdownChart.setNoDataText("No expense data");
+                pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
+                pieBreakdownChart.setNoDataTextColor(
+                        ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextTypeface(
+                        ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
                 return;
+            }
+
+            List<CategoryExpenseModel> chartData = new ArrayList<>();
+            double remaining = 0;
+
+            for (int i = 0; i < list.size(); i++) {
+                if (i < 5) {
+                    chartData.add(list.get(i));
+                } else {
+                    remaining += list.get(i).amount;
+                }
+            }
+
+            if (remaining > 0) {
+                chartData.add(new CategoryExpenseModel(
+                        0,
+                        0,
+                        getString(R.string.remaining),
+                        "#BDBDBD",
+                        remaining));
             }
 
             List<PieEntry> entries = new ArrayList<>();
@@ -183,7 +271,8 @@ public class StatisticsFragment extends Fragment {
 
             double total = 0;
 
-            for (CategoryExpenseModel item : list) {
+            for (CategoryExpenseModel item : chartData) {
+
                 total += item.amount;
 
                 String categoryName = item.categoryName;
@@ -196,10 +285,16 @@ public class StatisticsFragment extends Fragment {
 
                 try {
                     colors.add(Color.parseColor(item.color));
-                } catch (IllegalArgumentException e) {
-                    colors.add(Color.GRAY); // fallback color
+                } catch (Exception e) {
+                    colors.add(Color.GRAY);
                 }
             }
+
+            for (CategoryExpenseModel item : chartData) {
+                item.percentage = total == 0 ? 0 : (item.amount * 100.0) / total;
+            }
+
+            updateCenterText(title, total, pieBreakdownChart);
 
             PieDataSet dataSet = new PieDataSet(entries, "");
             dataSet.setColors(colors);
@@ -210,30 +305,22 @@ public class StatisticsFragment extends Fragment {
             data.setDrawValues(false);
 
             pieBreakdownChart.setData(data);
-            pieBreakdownChart.setCenterText(CommonUtils.getBeautifyAmount(currencySymbol, total));
-
             pieBreakdownChart.setUsePercentValues(true);
-
             pieBreakdownChart.setDrawHoleEnabled(true);
             pieBreakdownChart.setHoleRadius(50f);
-
             pieBreakdownChart.setTransparentCircleRadius(45f);
-
             pieBreakdownChart.setEntryLabelColor(Color.WHITE);
-
             pieBreakdownChart.setDrawEntryLabels(false);
-
             pieBreakdownChart.setRotationEnabled(true);
-
             pieBreakdownChart.setHighlightPerTapEnabled(true);
-
             pieBreakdownChart.getDescription().setEnabled(false);
-
             pieBreakdownChart.getLegend().setEnabled(false);
 
             pieBreakdownChart.animateY(1000);
-
             pieBreakdownChart.invalidate();
+
+            chartLegendAdapter.replaceItems(chartData);
+            rvChartLegend.setVisibility(View.VISIBLE);
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupPieBreakdownChart", e);
@@ -269,7 +356,39 @@ public class StatisticsFragment extends Fragment {
             });
 
             chartMoreWrapper.setOnClickListener(view -> {
+                startActivity(new Intent(requireContext(), TransactionBreakdownActivity.class)
+                        .putExtra("accountId", selectedAccountId)
+                        .putExtra("transactionDate", date.getTime()));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
 
+            pieBreakdownChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+                @Override
+                public void onValueSelected(Entry e, Highlight h) {
+                    PieEntry entry = (PieEntry) e;
+                    updateCenterText(entry.getLabel(), entry.getValue(), pieBreakdownChart);
+                    chartLegendAdapter.setSelectedPosition((int) h.getX());
+                }
+
+                @Override
+                public void onNothingSelected() {
+                    if (chartToggleGroup.getCheckedButtonId() == R.id.btnExpense) {
+                        updateCenterText(getString(R.string.expense), getTotal(expenseList), pieBreakdownChart);
+                    } else {
+                        updateCenterText(getString(R.string.income), getTotal(incomeList), pieBreakdownChart);
+                    }
+                    chartLegendAdapter.setSelectedPosition(RecyclerView.NO_POSITION);
+                }
+            });
+
+            chartToggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+                if (!isChecked) return;
+
+                if (checkedId == R.id.btnExpense) {
+                    setupPieBreakdownChart(expenseList, getString(R.string.expense));
+                } else if (checkedId == R.id.btnIncome) {
+                    setupPieBreakdownChart(incomeList, getString(R.string.income));
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -295,5 +414,43 @@ public class StatisticsFragment extends Fragment {
         loadedStart = -1;
         loadedEnd = -1;
         loadCalendarData();
+    }
+
+    private void updateCenterText(String title, double amount, PieChart pieChart) {
+
+        String value = CommonUtils.getBeautifyAmount(currencySymbol, amount);
+        String text = value + "\n" + title;
+
+        SpannableString center = new SpannableString(text);
+        int valueEnd = value.length();
+
+        // Amount
+        center.setSpan(new StyleSpan(Typeface.BOLD),
+                0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new RelativeSizeSpan(1.6f),
+                0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Title
+        center.setSpan(new RelativeSizeSpan(0.80f),
+                valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new ForegroundColorSpan(Color.GRAY),
+                valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        pieChart.setCenterText(center);
+
+        Typeface typeface = ResourcesCompat.getFont(requireContext(), R.font.exo2_medium);
+        if (typeface != null) {
+            pieChart.setCenterTextTypeface(typeface);
+        }
+    }
+
+    private double getTotal(List<CategoryExpenseModel> list) {
+        double total = 0;
+        if (list != null) {
+            for (CategoryExpenseModel item : list) {
+                total += item.amount;
+            }
+        }
+        return total;
     }
 }

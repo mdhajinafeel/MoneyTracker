@@ -1,8 +1,11 @@
 package com.nprotech.moneytracker.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
+
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.CalendarHelper;
@@ -15,6 +18,8 @@ import java.util.List;
 public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
 
     private int weekStartOn;
+    private final Context context;
+    private final Typeface medium, semiBold;
 
     public interface OnDateClickListener {
         void onDateClick(CalendarDayModel day);
@@ -25,10 +30,15 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
     public CalendarAdapter(Context context, int weekStartOn) {
         super(context, new ArrayList<>(), R.layout.item_calendar_day);
         this.weekStartOn = weekStartOn;
+        this.context = context;
+
+        medium = ResourcesCompat.getFont(context, R.font.exo2_medium);
+        semiBold = ResourcesCompat.getFont(context, R.font.exo2_semibold);
     }
 
     @Override
     public void onPostBindViewHolder(ViewHolder holder, CalendarDayModel item) {
+
         holder.setViewText(R.id.tvDay, String.valueOf(item.day));
 
         if (item.hasTransaction) {
@@ -46,19 +56,15 @@ public class CalendarAdapter extends RecyclerViewAdapter<CalendarDayModel> {
             holder.setViewVisibility(R.id.tvTotal, View.GONE);
         }
 
-        boolean isToday = CalendarHelper.isSameDay(item.date, CalendarHelper.getInitialDate());
+        holder.setViewBackgroundResource(R.id.tvDay, android.R.color.transparent);
 
-        if (isToday) {
-            holder.setViewBackgroundColor(R.id.tvDay, R.color.blue_alpha);
-            holder.setViewTextColor(R.id.tvDay, Color.WHITE);
+        // Highlight current date
+        if (CalendarHelper.isSameDay(item.date, new java.util.Date())) {
+            holder.setViewBackgroundResource(R.id.tvDay, R.color.blue_alpha);
+            holder.setViewTextColor(R.id.tvDay, ContextCompat.getColor(context, R.color.midnight_blue));
+            holder.setViewTypeface(R.id.tvDay, semiBold);
         } else {
-            holder.setViewBackgroundColor(R.id.tvDay, android.R.color.transparent);
-
-            if (!item.currentMonth) {
-                holder.setViewTextColor(R.id.tvDay, Color.LTGRAY);
-            } else {
-                holder.setViewTextColor(R.id.tvDay, Color.BLACK);
-            }
+            holder.setViewTypeface(R.id.tvDay, medium);
         }
 
         holder.itemView.setOnClickListener(v -> {

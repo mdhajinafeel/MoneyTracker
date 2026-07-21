@@ -186,4 +186,8 @@ public class TransactionRepository {
     public LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long start, long end) {
         return transactionDao.getExpenseByCategory(accountId, start, end);
     }
+
+    public LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long start, long end) {
+        return transactionDao.getIncomeByCategory(accountId, start, end);
+    }
 }

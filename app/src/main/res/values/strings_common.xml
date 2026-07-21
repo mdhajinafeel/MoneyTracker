@@ -130,6 +130,7 @@
     <string name="reorder">Reorder</string>
     <string name="cancel">Cancel</string>
     <string name="no_record">No Record</string>
+    <string name="no_data">No Data</string>
     <string name="detail">Detail</string>
     <string name="parsing_error">There is an error when parsing the data</string>
     <string name="update">Update</string>
@@ -142,4 +143,6 @@
     <string name="dash">-</string>
     <string name="add_text">Add</string>
     <string name="show_more">Show more</string>
+    <string name="remaining">Remaining</string>
+    <string name="percent_value_0">(0.0%)</string>
 </resources>

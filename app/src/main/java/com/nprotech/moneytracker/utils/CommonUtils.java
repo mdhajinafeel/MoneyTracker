@@ -29,6 +29,19 @@ public class CommonUtils {
         return sb.toString();
     }
 
+    public static String getBeautifyAmount(double amount) {
+        boolean z = 0 > amount;
+        StringBuilder sb = new StringBuilder();
+        sb.append(z ? "-" : "");
+        sb.append(StringUtils.SPACE);
+        if (z) {
+            amount = -amount;
+        }
+
+        sb.append(getFormattedAmount(amount));
+        return sb.toString();
+    }
+
     private static String getFormattedAmount(double amount) {
         if (amount == 0) {
             return "0";
@@ -66,5 +79,17 @@ public class CommonUtils {
 
     public static int dpToPx(Context context, int dp) {
         return Math.round(dp * context.getResources().getDisplayMetrics().density);
+    }
+
+    public static double parseAmount(String amount) {
+        if (amount == null || amount.trim().isEmpty()) {
+            return 0;
+        }
+
+        return Double.parseDouble(amount.replace(",", "").trim());
+    }
+
+    public static float convertDpToPixel(Context context, float dp) {
+        return dp * (context.getResources().getDisplayMetrics().densityDpi / 160.0f);
     }
 }

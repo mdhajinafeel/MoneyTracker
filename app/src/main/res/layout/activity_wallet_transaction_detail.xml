@@ -332,7 +332,7 @@
         android:id="@+id/fabAddTransaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_32"
+        android:layout_marginBottom="@dimen/margin_30"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/vibrant_orange"

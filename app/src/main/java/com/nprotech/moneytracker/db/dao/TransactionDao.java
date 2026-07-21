@@ -94,26 +94,31 @@ public interface TransactionDao {
     TransactionEntity getFeeTransaction(String parentTransactionId);
 
     @Query("SELECT CAST(strftime('%s', date(transactionDate/1000, 'unixepoch', 'localtime')) AS INTEGER) * 1000 AS dayTimestamp, " +
-                    "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
-                    "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
-                    "SUM(CASE WHEN type = 1 THEN amount ELSE -amount END) AS total " +
-                    "FROM transactions " +
-                    "WHERE accountId = :accountId " +
-                    "AND isDeleted = 0 " +
-                    "AND transactionDate BETWEEN :startDate AND :endDate " +
-                    "GROUP BY date(transactionDate/1000, 'unixepoch', 'localtime') " +
-                    "ORDER BY dayTimestamp"
-    )
+            "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
+            "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
+            "SUM(CASE " +
+            "WHEN type = 1 THEN amount " +
+            "WHEN type = 2 THEN -amount " +
+            "ELSE 0 END) AS total " +
+            "FROM transactions " +
+            "WHERE accountId = :accountId " +
+            "AND isDeleted = 0 " +
+            "AND transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY date(transactionDate/1000, 'unixepoch', 'localtime') " +
+            "ORDER BY dayTimestamp")
     LiveData<List<CalendarSummaryModel>> getCalendarSummary(int accountId, long startDate, long endDate);
 
     @Query("SELECT 0 AS dayTimestamp, " +
-                    "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
-                    "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
-                    "SUM(CASE WHEN type = 1 THEN amount ELSE -amount END) AS total " +
-                    "FROM transactions " +
-                    "WHERE accountId = :accountId " +
-                    "AND isDeleted = 0 " +
-                    "AND transactionDate BETWEEN :startDate AND :endDate")
+            "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
+            "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
+            "SUM(CASE " +
+            "WHEN type = 1 THEN amount " +
+            "WHEN type = 2 THEN -amount " +
+            "ELSE 0 END) AS total " +
+            "FROM transactions " +
+            "WHERE accountId = :accountId " +
+            "AND isDeleted = 0 " +
+            "AND transactionDate BETWEEN :startDate AND :endDate")
     LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate);
 
     @Transaction
@@ -138,10 +143,18 @@ public interface TransactionDao {
     LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long startDate, long endDate);
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
-            "c.color AS color, SUM(t.amount) AS amount " +
+            "c.color AS color, SUM(t.amount) AS amount, 0 AS percentage " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "WHERE t.accountId = :accountId AND t.type = 2 " +
             "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate GROUP BY c.id ORDER BY amount DESC")
     LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long startDate, long endDate);
+
+    @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
+            "c.color AS color, SUM(t.amount) AS amount, 0 AS percentage " +
+            "FROM transactions t " +
+            "INNER JOIN categories c ON c.id = t.categoryId " +
+            "WHERE t.accountId = :accountId AND t.type = 1 " +
+            "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate GROUP BY c.id ORDER BY amount DESC")
+    LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long startDate, long endDate);
 }

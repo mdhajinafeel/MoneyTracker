@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -14,8 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
@@ -41,6 +44,7 @@ public class TransactionOverviewActivity extends BaseActivity {
     private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal;
     private ConstraintLayout emptyWrapper;
     private RecyclerView rvTransactions;
+    private FloatingActionButton fabAddTransaction;
     private Date date;
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
@@ -72,6 +76,7 @@ public class TransactionOverviewActivity extends BaseActivity {
             ivNext = findViewById(R.id.ivNext);
             rvTransactions = findViewById(R.id.rvTransactions);
             emptyWrapper = findViewById(R.id.emptyWrapper);
+            fabAddTransaction = findViewById(R.id.fabAddTransaction);
 
             tvTitle.setText(getString(R.string.transaction_overview));
 
@@ -93,7 +98,7 @@ public class TransactionOverviewActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
 
-            if(bundle != null) {
+            if (bundle != null) {
                 bindData(bundle);
                 initializeAdapters();
                 observeData();
@@ -126,15 +131,15 @@ public class TransactionOverviewActivity extends BaseActivity {
 
     private void observeData() {
         try {
-             AccountEntity account = accountViewModel.getAccountDetailById(accountId);
-             if(account != null) {
-                 selectedAccountId = account.id;
-                 currencySymbol = account.currencySymbol;
+            AccountEntity account = accountViewModel.getAccountDetailById(accountId);
+            if (account != null) {
+                selectedAccountId = account.id;
+                currencySymbol = account.currencySymbol;
 
-                 loadedStart = -1;
-                 loadedEnd = -1;
-                 loadCalendarData();
-             }
+                loadedStart = -1;
+                loadedEnd = -1;
+                loadCalendarData();
+            }
 
             statisticsViewModel.getCalendarHeader().observe(this, header -> {
                 if (header == null)
@@ -228,6 +233,25 @@ public class TransactionOverviewActivity extends BaseActivity {
 
                 tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
                 loadCalendarData();
+            });
+
+            fabAddTransaction.setOnClickListener(v -> {
+                v.animate()
+                        .scaleX(1.1f)
+                        .scaleY(1.1f)
+                        .setDuration(120)
+                        .withEndAction(() ->
+                                v.animate()
+                                        .scaleX(1f)
+                                        .scaleY(1f)
+                                        .setDuration(120)
+                                        .start())
+                        .start();
+
+                startActivity(new Intent(TransactionOverviewActivity.this, CreateTransactionActivity.class)
+                        .putExtra("action", "add")
+                        .putExtra("type", TransactionEntity.TYPE_EXPENSE));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
