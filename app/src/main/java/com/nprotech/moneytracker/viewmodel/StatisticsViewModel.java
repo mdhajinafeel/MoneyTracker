@@ -30,6 +30,8 @@ public class StatisticsViewModel extends ViewModel {
     private final LiveData<BalanceSummaryModel> balanceSummary;
     private final MutableLiveData<List<CategoryExpenseModel>> categoryExpense = new MutableLiveData<>();
     private final MutableLiveData<List<CategoryExpenseModel>> categoryIncome = new MutableLiveData<>();
+    private final MutableLiveData<List<CategoryExpenseModel>> categoryExpenseTransaction = new MutableLiveData<>();
+    private final MutableLiveData<List<CategoryExpenseModel>> categoryIncomeTransaction = new MutableLiveData<>();
     private final MutableLiveData<BreakdownFilter> breakdownFilter = new MutableLiveData<>();
 
     @Inject
@@ -50,7 +52,7 @@ public class StatisticsViewModel extends ViewModel {
     }
 
     public void loadCalendar(int accountId, long startDate, long endDate) {
-        calendarRange.setValue(new CalendarRangeModel(accountId, startDate, endDate));
+        calendarRange.setValue(new CalendarRangeModel(accountId, startDate, endDate, ""));
     }
 
     public void loadBalanceSummary(int accountId, long startDate, long endDate) {
@@ -74,16 +76,26 @@ public class StatisticsViewModel extends ViewModel {
         transactionRepository.getIncomeByCategory(accountId, start, end).observeForever(categoryIncome::setValue);
     }
 
-    public void loadCategoryExpense(int accountId, long start, long end) {
+    public void loadCategoryExpense(int transactionType, int accountId, long start, long end) {
         transactionRepository.getExpenseByCategory(accountId, start, end).observeForever(categoryExpense::setValue);
+        transactionRepository.getTransactionListByCategory(transactionType, accountId, start, end).observeForever(categoryExpenseTransaction::setValue);
     }
 
-    public void loadCategoryIncome(int accountId, long start, long end) {
+    public void loadCategoryIncome(int transactionType, int accountId, long start, long end) {
         transactionRepository.getIncomeByCategory(accountId, start, end).observeForever(categoryIncome::setValue);
+        transactionRepository.getTransactionListByCategory(transactionType, accountId, start, end).observeForever(categoryIncomeTransaction::setValue);
     }
 
     public LiveData<List<CategoryExpenseModel>> getCategoryIncome() {
         return categoryIncome;
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getCategoryIncomeTransaction() {
+        return categoryIncomeTransaction;
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getCategoryExpenseTransaction() {
+        return categoryExpenseTransaction;
     }
 
     public LiveData<BreakdownFilter> getBreakdownFilter() {

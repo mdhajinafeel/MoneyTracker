@@ -15,6 +15,7 @@
     <string name="cash">Cash</string>
     <string name="enter_the_amount">Enter the amount</string>
     <string name="date">Date</string>
+    <string name="select_date">Select Date</string>
     <string name="amount">Amount</string>
     <string name="add_record">Tap the + button to add your first record.</string>
     <string name="type">Type</string>
@@ -23,6 +24,9 @@
     <string name="total">Total</string>
     <string name="all_transaction">All transactions</string>
     <string name="no_transaction">No transactions yet</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="date_compare">End Date must be greater than Dtart Date</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

@@ -2,7 +2,6 @@ package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -11,7 +10,6 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
-import com.nprotech.moneytracker.models.TransactionFilterModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
@@ -37,16 +35,15 @@ public class TransactionViewModel extends ViewModel {
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataDeletedStatus = new SingleLiveEvent<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private final MutableLiveData<TransactionFilterModel> filter = new MutableLiveData<>();
-    private final LiveData<List<DailyTransModel>> dailyTransactions;
+    private final MutableLiveData<List<DailyTransModel>> dailyTransactions = new MutableLiveData<>(new ArrayList<>());
+    private static final int PAGE_SIZE = 100;
+    private int currentPage = 0, accountId;
+    private boolean loading = false, hasMore = true;
+    private long startDate, endDate;
 
     @Inject
     public TransactionViewModel(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
-
-        dailyTransactions = Transformations.switchMap(filter,
-                value -> Transformations.map(
-                        transactionRepository.getTransactions(value.accountId, value.startDate, value.endDate), this::groupTransactions));
     }
 
     private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
@@ -227,10 +224,74 @@ public class TransactionViewModel extends ViewModel {
     }
 
     public void loadTransactions(int accountId, long startDate, long endDate) {
-        filter.setValue(new TransactionFilterModel(accountId, startDate, endDate));
+        this.accountId = accountId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        currentPage = 0;
+        hasMore = true;
+        dailyTransactions.setValue(new ArrayList<>());
+        loadNextPage();
+    }
+
+    public void loadNextPage() {
+
+        if (loading || !hasMore)
+            return;
+
+        loading = true;
+
+        executor.execute(() -> {
+            List<TransactionWithDetails> page = transactionRepository.getTransactionsPaged(accountId, startDate, endDate, currentPage, PAGE_SIZE);
+
+            if (page.size() < PAGE_SIZE) {
+                hasMore = false;
+            }
+
+            List<DailyTransModel> grouped = groupTransactions(page);
+            List<DailyTransModel> current = dailyTransactions.getValue();
+
+            if (current == null) {
+                current = new ArrayList<>();
+            }
+
+            merge(current, grouped);
+            dailyTransactions.postValue(current);
+            currentPage++;
+            loading = false;
+        });
     }
 
     public LiveData<List<DailyTransModel>> getDailyTransactions() {
         return dailyTransactions;
+    }
+
+    private void merge(List<DailyTransModel> current, List<DailyTransModel> newItems) {
+
+        if (newItems == null || newItems.isEmpty()) {
+            return;
+        }
+
+        // First load
+        if (current.isEmpty()) {
+            current.addAll(newItems);
+            return;
+        }
+
+        DailyTransModel lastCurrent = current.get(current.size() - 1);
+        DailyTransModel firstNew = newItems.get(0);
+
+        // Same day? Merge them.
+        if (lastCurrent.getYear() == firstNew.getYear()
+                && lastCurrent.getMonth() == firstNew.getMonth()
+                && lastCurrent.getDay() == firstNew.getDay()) {
+
+            lastCurrent.setAmount(lastCurrent.getAmount() + firstNew.getAmount());
+            lastCurrent.getTransactions().addAll(firstNew.getTransactions());
+
+            // Remove merged header
+            newItems.remove(0);
+        }
+
+        current.addAll(newItems);
     }
 }

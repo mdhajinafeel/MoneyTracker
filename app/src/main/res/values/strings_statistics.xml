@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Daily</string>
+    <string name="calendar_weekly">Weekly</string>
+    <string name="calendar_monthly">Monthly</string>
+    <string name="calendar_quarterly">Quarterly</string>
+    <string name="calendar_yearly">Yearly</string>
+    <string name="calendar_all">All</string>
+    <string name="calendar_custom">Custom</string>
+
     <string name="balance">Balance</string>
     <string name="opening_balance">Opening balance</string>
     <string name="ending_balance">Ending balance</string>
     <string name="overview">Overview</string>
     <string name="breakdown">Breakdown</string>
     <string name="transaction_overview">Transaction Overview</string>
+    <string name="select_range">Select range</string>
+    <string name="all_time">All Time</string>
 </resources>

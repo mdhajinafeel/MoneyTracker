@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.graphics.Insets;
@@ -17,6 +18,7 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.ui.adapters.CategoryPageAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -104,6 +106,14 @@ public class ManageCategoryActivity extends BaseActivity {
             viewPager.setOffscreenPageLimit(1);
             viewPager.setUserInputEnabled(true);
 
+            getOnBackPressedDispatcher().addCallback(this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        }
+                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }

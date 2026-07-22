@@ -63,7 +63,7 @@ public class WalletPickerActivity extends BaseActivity {
             tvTitle.setText(getString(R.string.select_icon));
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
             tvSave.setVisibility(View.VISIBLE);
             tvSave.setText(getString(R.string.done));
@@ -94,7 +94,7 @@ public class WalletPickerActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(WalletPickerActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(WalletPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
 

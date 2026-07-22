@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -234,6 +235,16 @@ public class TransactionDetailActivity extends BaseActivity {
                     Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
             });
+
+            getOnBackPressedDispatcher().addCallback(
+                    this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(TransactionDetailActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        }
+                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }

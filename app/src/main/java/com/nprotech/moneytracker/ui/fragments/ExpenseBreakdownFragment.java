@@ -19,6 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -29,19 +30,22 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.ui.adapters.TransactionBreakdownAdapter;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.CustomPieChartRenderer;
+import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.StatisticsViewModel;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +55,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ExpenseBreakdownFragment extends Fragment {
 
     private ConstraintLayout emptyWrapper;
+    private MaterialCardView breakdownCard;
     private RecyclerView rvExpenseBreakdown;
     private PieChart pieChartExpense;
     private AccountViewModel accountViewModel;
@@ -59,6 +64,7 @@ public class ExpenseBreakdownFragment extends Fragment {
     private int selectedAccountId;
     private long loadedStart, loadedEnd;
     private List<CategoryExpenseModel> expenseList = new ArrayList<>();
+    private TransactionBreakdownAdapter transactionBreakdownAdapter;
 
     @Nullable
     @Override
@@ -67,6 +73,7 @@ public class ExpenseBreakdownFragment extends Fragment {
         try {
             rvExpenseBreakdown = view.findViewById(R.id.rvExpenseBreakdown);
             emptyWrapper = view.findViewById(R.id.emptyWrapper);
+            breakdownCard = view.findViewById(R.id.breakdownCard);
             pieChartExpense = view.findViewById(R.id.pieChartExpense);
 
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
@@ -74,6 +81,7 @@ public class ExpenseBreakdownFragment extends Fragment {
 
             setupListeners();
             observeData();
+            initializeAdapters();
         } catch (Exception e) {
             AppLogger.e(getClass(), "onCreateView", e);
         }
@@ -85,33 +93,19 @@ public class ExpenseBreakdownFragment extends Fragment {
 
             statisticsViewModel.getBreakdownFilter().observe(getViewLifecycleOwner(), filter -> {
 
-                if (filter == null) {
-                    return;
-                }
+                if (filter == null) return;
 
                 selectedAccountId = filter.accountId;
 
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(filter.transactionDate);
+                loadedStart = filter.startDate;
+                loadedEnd = filter.endDate;
 
-                calendar.set(Calendar.DAY_OF_MONTH, 1);
-                calendar.set(Calendar.HOUR_OF_DAY, 0);
-                calendar.set(Calendar.MINUTE, 0);
-                calendar.set(Calendar.SECOND, 0);
-                calendar.set(Calendar.MILLISECOND, 0);
-
-                loadedStart = calendar.getTimeInMillis();
-
-                calendar.add(Calendar.MONTH, 1);
-                calendar.add(Calendar.MILLISECOND, -1);
-
-                loadedEnd = calendar.getTimeInMillis();
-
-                statisticsViewModel.loadCategoryExpense(selectedAccountId, loadedStart, loadedEnd);
+                statisticsViewModel.loadCategoryExpense(TransactionEntity.TYPE_EXPENSE, selectedAccountId, loadedStart, loadedEnd);
 
                 AccountEntity account = accountViewModel.getAccountDetailById(selectedAccountId);
                 if (account != null) {
                     currencySymbol = account.currencySymbol;
+                    transactionBreakdownAdapter.setCurrencySymbol(currencySymbol);
                 }
             });
 
@@ -119,8 +113,32 @@ public class ExpenseBreakdownFragment extends Fragment {
                 expenseList = list == null ? new ArrayList<>() : list;
                 setupPieBreakdownChart(expenseList, getString(R.string.expense));
             });
+
+            statisticsViewModel.getCategoryExpenseTransaction().observe(getViewLifecycleOwner(), transactionList -> {
+                if (transactionList == null || transactionList.isEmpty()) {
+                    breakdownCard.setVisibility(View.GONE);
+                    emptyWrapper.setVisibility(View.VISIBLE);
+                } else {
+                    emptyWrapper.setVisibility(View.GONE);
+                    breakdownCard.setVisibility(View.VISIBLE);
+                    transactionBreakdownAdapter.setItems(transactionList);
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "observeData", e);
+        }
+    }
+
+    private void initializeAdapters() {
+        try {
+            rvExpenseBreakdown.setLayoutManager(new LinearLayoutManager(requireContext()));
+            transactionBreakdownAdapter = new TransactionBreakdownAdapter(requireContext(), new ArrayList<>(), currencySymbol, TransactionEntity.TYPE_EXPENSE);
+            rvExpenseBreakdown.setAdapter(transactionBreakdownAdapter);
+            rvExpenseBreakdown.setHasFixedSize(true);
+            rvExpenseBreakdown.setItemAnimator(null);
+            rvExpenseBreakdown.addItemDecoration(new SimpleDividerItemDecoration(requireContext()));
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAdapters", e);
         }
     }
 
@@ -134,32 +152,12 @@ public class ExpenseBreakdownFragment extends Fragment {
                 return;
             }
 
-            List<CategoryExpenseModel> chartData = new ArrayList<>();
-            double remaining = 0;
-
-            for (int i = 0; i < list.size(); i++) {
-                if (i < 5) {
-                    chartData.add(list.get(i));
-                } else {
-                    remaining += list.get(i).amount;
-                }
-            }
-
-            if (remaining > 0) {
-                chartData.add(new CategoryExpenseModel(
-                        0,
-                        0,
-                        getString(R.string.remaining),
-                        "#BDBDBD",
-                        remaining));
-            }
-
             List<PieEntry> entries = new ArrayList<>();
             List<Integer> colors = new ArrayList<>();
 
             double total = 0;
 
-            for (CategoryExpenseModel item : chartData) {
+            for (CategoryExpenseModel item : list) {
 
                 total += item.amount;
 
@@ -178,7 +176,7 @@ public class ExpenseBreakdownFragment extends Fragment {
                 }
             }
 
-            for (CategoryExpenseModel item : chartData) {
+            for (CategoryExpenseModel item : list) {
                 item.percentage = total == 0 ? 0 : (item.amount * 100.0) / total;
             }
 
@@ -191,6 +189,7 @@ public class ExpenseBreakdownFragment extends Fragment {
             pieChartExpense.setRotationEnabled(true);
             pieChartExpense.setDrawEntryLabels(false);
             pieChartExpense.setExtraOffsets(10f, 10f, 10f, 10f);
+            pieChartExpense.setExtraBottomOffset(40f);
             pieChartExpense.setMinOffset(5f);
             pieChartExpense.getLegend().setEnabled(false);
 
@@ -208,7 +207,7 @@ public class ExpenseBreakdownFragment extends Fragment {
 
             emptyWrapper.setVisibility(View.GONE);
             pieChartExpense.setVisibility(View.VISIBLE);
-            rvExpenseBreakdown.setVisibility(View.VISIBLE);
+            breakdownCard.setVisibility(View.VISIBLE);
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupPieBreakdownChart", e);

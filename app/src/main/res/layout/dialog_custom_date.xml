@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_16"
+    app:cardElevation="@dimen/corner_elevation_8"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_20">
+
+        <!-- Title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:fontFamily="@font/exo2_bold"
+            android:text="@string/select_date"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/startDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_16"
+                android:fontFamily="@font/exo2_bold"
+                android:text="@string/start_date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvStartDate"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:layout_marginTop="@dimen/margin_4"
+                android:background="@drawable/bg_edit_text_underline"
+                android:drawableEnd="@drawable/ic_account_caret"
+                android:ems="10"
+                android:fontFamily="@font/exo2_medium"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:paddingStart="@dimen/padding_0"
+                android:paddingEnd="@dimen/padding_16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/startDateLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/endDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_16"
+                android:fontFamily="@font/exo2_bold"
+                android:text="@string/end_date"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:layout_marginTop="@dimen/margin_4"
+                android:background="@drawable/bg_edit_text_underline"
+                android:drawableEnd="@drawable/ic_account_caret"
+                android:ems="10"
+                android:fontFamily="@font/exo2_medium"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:paddingStart="@dimen/padding_0"
+                android:paddingEnd="@dimen/padding_16"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/endDateLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/exo2_bold"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:paddingVertical="@dimen/margin_8"
+                android:text="@string/cancel"
+                android:textAllCaps="true"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/exo2_bold"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:paddingVertical="@dimen/margin_8"
+                android:text="@string/done"
+                android:textAllCaps="true"
+                android:textColor="@color/vibrant_orange"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

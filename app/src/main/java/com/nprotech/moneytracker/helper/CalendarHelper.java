@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.models.CalendarDayModel;
+import com.nprotech.moneytracker.models.CalendarRangeModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -565,5 +566,141 @@ public class CalendarHelper {
 
         return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
                 && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static CalendarRangeModel getDailyRange(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long start = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+
+        long end = calendar.getTimeInMillis();
+
+        String title = new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(date);
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+    }
+
+    public static CalendarRangeModel getWeeklyRange(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        calendar.setFirstDayOfWeek(PreferenceManager.INSTANCE.getWeekStartOn());
+
+        calendar.set(Calendar.DAY_OF_WEEK, PreferenceManager.INSTANCE.getWeekStartOn());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long start = calendar.getTimeInMillis();
+
+        Calendar endCalendar = (Calendar) calendar.clone();
+        endCalendar.add(Calendar.DAY_OF_MONTH, 7);
+        endCalendar.add(Calendar.MILLISECOND, -1);
+
+        long end = endCalendar.getTimeInMillis();
+
+        String title = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(new Date(start)) + " - "
+                + new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(end));
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+    }
+
+    public static CalendarRangeModel getMonthlyRange(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long start = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+
+        long end = calendar.getTimeInMillis();
+
+        String title = new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date);
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+    }
+
+    public static CalendarRangeModel getQuarterRange(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int quarter = calendar.get(Calendar.MONTH) / 3;
+
+        calendar.set(Calendar.MONTH, quarter * 3);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long start = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.MONTH, 3);
+        calendar.add(Calendar.MILLISECOND, -1);
+
+        long end = calendar.getTimeInMillis();
+
+        String title = "Q" + (quarter + 1) + " " + calendar.get(Calendar.YEAR);
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+    }
+
+    public static CalendarRangeModel getYearRange(Date date) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int year = calendar.get(Calendar.YEAR);
+
+        calendar.set(Calendar.DAY_OF_YEAR, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long start = calendar.getTimeInMillis();
+
+        calendar.add(Calendar.YEAR, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+
+        long end = calendar.getTimeInMillis();
+
+        String title = String.valueOf(year);
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+    }
+
+    public static CalendarRangeModel getAllRange(Context context) {
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), 0, Long.MAX_VALUE, context.getString(R.string.all_time));
+    }
+
+    public static CalendarRangeModel getCustomRange(long startDate, long endDate) {
+        String title =
+                new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(startDate))
+                        + " - "
+                        + new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(endDate));
+
+        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), startDate, endDate, title);
     }
 }

@@ -1,8 +1,12 @@
 package com.nprotech.moneytracker.models;
 
+import android.content.Context;
+
+import com.nprotech.moneytracker.helper.DataHelper;
+
 public class CategoryExpenseModel {
 
-    public int categoryId, defaultCategoryId;
+    public int categoryId, defaultCategoryId, transactionCount, icon;
     public String categoryName, color;
     public double amount, percentage;
 
@@ -12,5 +16,16 @@ public class CategoryExpenseModel {
         this.categoryName = categoryName;
         this.color = color;
         this.amount = amount;
+    }
+
+    public String getCategoryName(Context context) {
+        return getCategory(context);
+    }
+
+    public String getCategory(Context context) {
+        if (this.defaultCategoryId != 0) {
+            return DataHelper.getDefaultCategory(context, this.defaultCategoryId);
+        }
+        return "";
     }
 }

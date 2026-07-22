@@ -14,6 +14,7 @@ public final class ActivityUtils {
     /**
      * Applies the activity open transition.
      */
+    @SuppressWarnings("deprecation")
     public static void overrideOpenTransition(
             Activity activity,
             @AnimRes int enterAnim,
@@ -25,9 +26,10 @@ public final class ActivityUtils {
                     enterAnim,
                     exitAnim
             );
-        } else {
-            overridePendingTransitionCompat(activity, enterAnim, exitAnim);
         }
+
+        // Fallback (works reliably on all versions)
+        activity.overridePendingTransition(enterAnim, exitAnim);
     }
 
     /**

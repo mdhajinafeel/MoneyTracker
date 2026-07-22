@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -57,7 +58,10 @@ public class CategoryPickerActivity extends BaseActivity {
             AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
 
             tvTitle.setText(getString(R.string.select_category));
-            icBack.setOnClickListener(view -> finish());
+            icBack.setOnClickListener(view -> {
+                finish();
+                ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
+            });
 
             emptyWrapper = findViewById(R.id.emptyWrapper);
             rvCategories = findViewById(R.id.rvCategories);
@@ -99,6 +103,15 @@ public class CategoryPickerActivity extends BaseActivity {
                     }
                 });
             }
+
+            getOnBackPressedDispatcher().addCallback(this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                        }
+                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }

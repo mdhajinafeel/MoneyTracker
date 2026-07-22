@@ -52,39 +52,39 @@ public class DataHelper {
 
     public static String getDefaultCategory(Context context, int i) {
         return new String[]{
-                getResourceString(context, R.string.category_bills),
-                getResourceString(context, R.string.category_clothing),
-                getResourceString(context, R.string.category_education),
-                getResourceString(context, R.string.category_entertainment),
-                getResourceString(context, R.string.category_fitness),
-                getResourceString(context, R.string.category_food_and_beverages),
-                getResourceString(context, R.string.category_gifts),
-                getResourceString(context, R.string.category_health_and_beauty),
-                getResourceString(context, R.string.category_furniture),
-                getResourceString(context, R.string.category_pet),
-                getResourceString(context, R.string.category_shopping),
-                getResourceString(context, R.string.category_transportation),
-                getResourceString(context, R.string.category_travel),
-                getResourceString(context, R.string.category_others),
+                getResourceString(context, R.string.category_bills),            //1
+                getResourceString(context, R.string.category_clothing),         //2
+                getResourceString(context, R.string.category_education),        //3
+                getResourceString(context, R.string.category_entertainment),    //4
+                getResourceString(context, R.string.category_fitness),          //5
+                getResourceString(context, R.string.category_food_and_beverages),             //6
+                getResourceString(context, R.string.category_gifts),            //7
+                getResourceString(context, R.string.category_health_and_beauty),           //8
+                getResourceString(context, R.string.category_furniture),        //9
+                getResourceString(context, R.string.category_pet),              //10
+                getResourceString(context, R.string.category_shopping),         //11
+                getResourceString(context, R.string.category_transportation),   //12
+                getResourceString(context, R.string.category_travel),           //13
+                getResourceString(context, R.string.category_others),           //14
 
-                getResourceString(context, R.string.category_allowance),
-                getResourceString(context, R.string.category_award),
-                getResourceString(context, R.string.category_bonus),
-                getResourceString(context, R.string.category_dividend),
-                getResourceString(context, R.string.category_investment),
-                getResourceString(context, R.string.category_lottery),
-                getResourceString(context, R.string.category_salary),
-                getResourceString(context, R.string.category_tips),
-                getResourceString(context, R.string.category_cashback),
-                getResourceString(context, R.string.category_others),
+                getResourceString(context, R.string.category_allowance),        //15
+                getResourceString(context, R.string.category_award),            //16
+                getResourceString(context, R.string.category_bonus),            //17
+                getResourceString(context, R.string.category_dividend),         //18
+                getResourceString(context, R.string.category_investment),       //19
+                getResourceString(context, R.string.category_lottery),          //20
+                getResourceString(context, R.string.category_salary),           //21
+                getResourceString(context, R.string.category_tips),             //22
+                getResourceString(context, R.string.category_cashback),         //23
+                getResourceString(context, R.string.category_others),           //24
 
-                getResourceString(context, R.string.adjustment),
-                getResourceString(context, R.string.loan),
-                getResourceString(context, R.string.repay),
-                getResourceString(context, R.string.debt),
-                getResourceString(context, R.string.collect),
-                getResourceString(context, R.string.fee),
-                getResourceString(context, R.string.transfer)}[i - 1];
+                getResourceString(context, R.string.adjustment),       //25
+                getResourceString(context, R.string.loan),             //26
+                getResourceString(context, R.string.repay),        //27
+                getResourceString(context, R.string.debt),             //28
+                getResourceString(context, R.string.collect),  //29
+                getResourceString(context, R.string.fee),              //30
+                getResourceString(context, R.string.transfer)}[i - 1]; //31
     }
 
     //----------------------

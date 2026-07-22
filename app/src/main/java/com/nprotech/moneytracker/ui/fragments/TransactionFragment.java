@@ -75,7 +75,7 @@ public class TransactionFragment extends Fragment {
                                         .start())
                         .start();
 
-                startActivity(new Intent(requireContext(), CreateTransactionActivity.class)
+                startActivity(new Intent(requireActivity(), CreateTransactionActivity.class)
                         .putExtra("action", "add")
                         .putExtra("type", TransactionEntity.TYPE_EXPENSE));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
@@ -111,6 +111,20 @@ public class TransactionFragment extends Fragment {
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);
+
+            rvTransactions.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    if (lm == null)
+                        return;
+                    int last = lm.findLastVisibleItemPosition();
+                    if (last >= dailyTransactionAdapter.getItemCount() - 5) {
+                        transactionViewModel.loadNextPage();
+                    }
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }

@@ -60,6 +60,10 @@ public class MoneyTrackerApp extends Application {
             PreferenceManager.INSTANCE.setSmartReminder(1);
         }
 
+        if (PreferenceManager.INSTANCE.getStatisticsFilter() == 0) {
+            PreferenceManager.INSTANCE.setStatisticsFilter(3);
+        }
+
         // Firebase crashlytics
         firebaseCrashlytics();
     }

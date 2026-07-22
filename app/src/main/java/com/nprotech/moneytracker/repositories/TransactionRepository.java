@@ -44,6 +44,14 @@ public class TransactionRepository {
         return transactionDao.getTransactions(accountId);
     }
 
+    public List<TransactionWithDetails> getTransactionsPaged(int accountId, long startDate, long endDate, int page, int pageSize) {
+        int offset = page * pageSize;
+        if (startDate > 0 || endDate > 0) {
+            return transactionDao.getTransactionsPaged(accountId, startDate, endDate, pageSize, offset);
+        }
+        return transactionDao.getTransactionsPaged(accountId, pageSize, offset);
+    }
+
     public TransactionWithDetails getTransactions(String tempTransactionServerId) {
         return transactionDao.getTransactions(tempTransactionServerId);
     }
@@ -189,5 +197,9 @@ public class TransactionRepository {
 
     public LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long start, long end) {
         return transactionDao.getIncomeByCategory(accountId, start, end);
+    }
+
+    public LiveData<List<CategoryExpenseModel>> getTransactionListByCategory(int transactionType, int accountId, long start, long end) {
+        return transactionDao.getTransactionListByCategory(transactionType, accountId, start, end);
     }
 }

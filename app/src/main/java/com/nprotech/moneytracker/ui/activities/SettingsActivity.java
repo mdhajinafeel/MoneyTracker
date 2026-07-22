@@ -32,6 +32,7 @@ import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.ui.adapters.SettingOptionsAdapter;
 import com.nprotech.moneytracker.ui.adapters.SettingsAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.CommonDataViewModel;
 
 import java.util.ArrayList;
@@ -76,7 +77,11 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                 return insets;
             });
 
-            icBack.setOnClickListener(view -> finish());
+            icBack.setOnClickListener(view -> {
+                finish();
+                ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+            });
+
             tvTitle.setText(getString(R.string.settings));
 
             commonDataViewModel = new ViewModelProvider(this).get(CommonDataViewModel.class);
@@ -89,6 +94,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                         @Override
                         public void handleOnBackPressed() {
                             finish();
+                            ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
                         }
                     });
 
@@ -105,9 +111,9 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
             settingItemModelList.add(new SettingItemModel(SettingType.ACCOUNT, getString(R.string.account), true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet),  true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency),  true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category),  true, false, null, true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet), true, false, null, true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), true, false, null, true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), true, false, null, true, false));
 
             SettingsAdapter adapter = new SettingsAdapter(settingItemModelList, this);
 
@@ -121,11 +127,11 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private void fetchConfigurationSettings() {
         try {
             configurationList = new ArrayList<>();
-            configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on) , true, true, getWeekStartSubtitle(), true, true));
-            configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen) , true, true, getStartupScreenSubtitle(), true, true));
-            configurationList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language) , true, true, getLanguageSubtitle(), true, false));
-            configurationList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password) , true, true, getString(R.string.not_set), true, false));
-            configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder) , true, true, getSmartReminderSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), true, true, getLanguageSubtitle(), true, false));
+            configurationList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password), true, true, getString(R.string.not_set), true, false));
+            configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true));
 
             configurationAdapter = new SettingsAdapter(configurationList, this);
 

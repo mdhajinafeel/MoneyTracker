@@ -16,6 +16,7 @@ public enum PreferenceManager {
     private static final String KEY_PASSWORD_SET = "passwordSet";
     private static final String KEY_SMART_REMINDER = "smartReminder";
     private static final String KEY_STARTUP_SCREEN = "startUpScreen";
+    private static final String KEY_STATISTICS_FILTER = "statisticFilter";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -98,5 +99,14 @@ public enum PreferenceManager {
 
     public int getStartUpScreen() {
         return prefStore.getInt(KEY_STARTUP_SCREEN, 0);
+    }
+
+    // ===== STATISTICS FILTER =====
+    public void setStatisticsFilter(int statisticsFilter) {
+        prefStore.edit().putInt(KEY_STATISTICS_FILTER, statisticsFilter).apply();
+    }
+
+    public int getStatisticsFilter() {
+        return prefStore.getInt(KEY_STATISTICS_FILTER, 0);
     }
 }

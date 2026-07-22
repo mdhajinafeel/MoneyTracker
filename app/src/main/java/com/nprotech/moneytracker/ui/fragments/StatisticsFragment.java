@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.fragments;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -12,9 +13,11 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,15 +35,23 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.enums.CalendarFilterType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.models.CalendarFilterModel;
+import com.nprotech.moneytracker.models.CalendarRangeModel;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.ui.activities.MainActivity;
 import com.nprotech.moneytracker.ui.activities.TransactionBreakdownActivity;
 import com.nprotech.moneytracker.ui.activities.TransactionOverviewActivity;
 import com.nprotech.moneytracker.ui.adapters.ChartLegendAdapter;
+import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
+import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
@@ -57,9 +68,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import me.grantland.widget.AutofitTextView;
 
 @AndroidEntryPoint
-public class StatisticsFragment extends Fragment {
+public class StatisticsFragment extends Fragment implements MainActivity.ToolbarActionListener {
 
-    private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal;
+    private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal, tvStartDate, tvEndDate;
     private AutofitTextView tvOpeningBalance, tvEndingBalance;
     private AppCompatImageView ivPrevious, ivNext;
     private MaterialButtonToggleGroup chartToggleGroup;
@@ -75,6 +86,8 @@ public class StatisticsFragment extends Fragment {
     private ChartLegendAdapter chartLegendAdapter;
     private List<CategoryExpenseModel> expenseList = new ArrayList<>();
     private List<CategoryExpenseModel> incomeList = new ArrayList<>();
+    private CalendarFilterType selectedFilter;
+    private long customStartDate = -1, customEndDate = -1;
 
     @Nullable
     @Override
@@ -120,10 +133,13 @@ public class StatisticsFragment extends Fragment {
 
                 pieBreakdownChart.clear();
                 pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
-                pieBreakdownChart.setNoDataTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.dark_grey));
-                pieBreakdownChart.setNoDataTextTypeface(
-                        ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
+                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
+            }
+
+            if (selectedFilter == null) {
+                selectedFilter = CalendarFilterType.fromId(PreferenceManager.INSTANCE.getStatisticsFilter());
+                updateNavigationButtons();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -171,8 +187,7 @@ public class StatisticsFragment extends Fragment {
             });
 
             statisticsViewModel.getCalendarHeader().observe(getViewLifecycleOwner(), header -> {
-                if (header == null)
-                    return;
+                if (header == null) return;
                 tvIncome.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.income));
                 tvExpense.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.expense));
                 tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
@@ -200,34 +215,66 @@ public class StatisticsFragment extends Fragment {
 
     private void loadCalendarData() {
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        if (selectedAccountId <= 0 || date == null) return;
 
-        // First day of the selected month
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
+        CalendarRangeModel range = switch (selectedFilter) {
+            case DAILY -> CalendarHelper.getDailyRange(date);
+            case WEEKLY -> CalendarHelper.getWeeklyRange(date);
+            case QUARTERLY -> CalendarHelper.getQuarterRange(date);
+            case YEARLY -> CalendarHelper.getYearRange(date);
+            case ALL -> CalendarHelper.getAllRange(requireContext());
+            case CUSTOM -> CalendarHelper.getCustomRange(customStartDate, customEndDate);
+            default -> CalendarHelper.getMonthlyRange(date);
+        };
 
-        long start = calendar.getTimeInMillis();
+        tvDate.setText(range.title);
 
-        // Last day of the selected month
-        calendar.add(Calendar.MONTH, 1);
-        calendar.add(Calendar.MILLISECOND, -1);
-
-        long end = calendar.getTimeInMillis();
-
-        if (start == loadedStart && end == loadedEnd) {
+        if (loadedStart == range.startDate && loadedEnd == range.endDate) {
             return;
         }
 
-        loadedStart = start;
-        loadedEnd = end;
+        loadedStart = range.startDate;
+        loadedEnd = range.endDate;
 
-        statisticsViewModel.loadCalendar(selectedAccountId, start, end);
-        statisticsViewModel.loadBalanceSummary(selectedAccountId, start, end);
-        statisticsViewModel.loadCategoryTransaction(selectedAccountId, start, end);
+        statisticsViewModel.loadCalendar(selectedAccountId, range.startDate, range.endDate);
+        statisticsViewModel.loadBalanceSummary(selectedAccountId, range.startDate, range.endDate);
+        statisticsViewModel.loadCategoryTransaction(selectedAccountId, range.startDate, range.endDate);
+    }
+
+    private void moveDate(int offset) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        switch (selectedFilter) {
+
+            case DAILY:
+                calendar.add(Calendar.DAY_OF_MONTH, offset);
+                break;
+
+            case WEEKLY:
+                calendar.add(Calendar.WEEK_OF_YEAR, offset);
+                break;
+
+            case MONTHLY:
+                calendar.add(Calendar.MONTH, offset);
+                break;
+
+            case QUARTERLY:
+                calendar.add(Calendar.MONTH, offset * 3);
+                break;
+
+            case YEARLY:
+                calendar.add(Calendar.YEAR, offset);
+                break;
+
+            case ALL:
+            case CUSTOM:
+                return;
+        }
+
+        date = calendar.getTime();
+        loadCalendarData();
     }
 
     private void setupPieBreakdownChart(List<CategoryExpenseModel> list, String title) {
@@ -239,10 +286,8 @@ public class StatisticsFragment extends Fragment {
 
                 pieBreakdownChart.clear();
                 pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
-                pieBreakdownChart.setNoDataTextColor(
-                        ContextCompat.getColor(requireContext(), R.color.dark_grey));
-                pieBreakdownChart.setNoDataTextTypeface(
-                        ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
+                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
                 return;
             }
 
@@ -258,12 +303,7 @@ public class StatisticsFragment extends Fragment {
             }
 
             if (remaining > 0) {
-                chartData.add(new CategoryExpenseModel(
-                        0,
-                        0,
-                        getString(R.string.remaining),
-                        "#BDBDBD",
-                        remaining));
+                chartData.add(new CategoryExpenseModel(0, 0, getString(R.string.remaining), "#BDBDBD", remaining));
             }
 
             List<PieEntry> entries = new ArrayList<>();
@@ -330,27 +370,15 @@ public class StatisticsFragment extends Fragment {
     private void setupListeners() {
         try {
 
-            ivPrevious.setOnClickListener(v -> {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.MONTH, -1);
-                date = calendar.getTime();
-                tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
-                loadCalendarData();
-            });
-
-            ivNext.setOnClickListener(v -> {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.MONTH, 1);
-                date = calendar.getTime();
-                tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
-                loadCalendarData();
-            });
+            ivPrevious.setOnClickListener(v -> moveDate(-1));
+            ivNext.setOnClickListener(v -> moveDate(1));
 
             overviewMoreWrapper.setOnClickListener(view -> {
                 startActivity(new Intent(requireContext(), TransactionOverviewActivity.class)
                         .putExtra("accountId", selectedAccountId)
+                        .putExtra("selectedFilter", selectedFilter.getId())
+                        .putExtra("customStartDate", customStartDate)
+                        .putExtra("customEndDate", customEndDate)
                         .putExtra("transactionDate", date.getTime()));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -358,6 +386,9 @@ public class StatisticsFragment extends Fragment {
             chartMoreWrapper.setOnClickListener(view -> {
                 startActivity(new Intent(requireContext(), TransactionBreakdownActivity.class)
                         .putExtra("accountId", selectedAccountId)
+                        .putExtra("selectedFilter", selectedFilter.getId())
+                        .putExtra("customStartDate", customStartDate)
+                        .putExtra("customEndDate", customEndDate)
                         .putExtra("transactionDate", date.getTime()));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -404,16 +435,8 @@ public class StatisticsFragment extends Fragment {
         super.onHiddenChanged(hidden);
 
         if (!hidden) {
-            resetToCurrentMonth();
+            resetStatistics();
         }
-    }
-
-    private void resetToCurrentMonth() {
-        date = CalendarHelper.getInitialDate();
-        tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
-        loadedStart = -1;
-        loadedEnd = -1;
-        loadCalendarData();
     }
 
     private void updateCenterText(String title, double amount, PieChart pieChart) {
@@ -425,16 +448,12 @@ public class StatisticsFragment extends Fragment {
         int valueEnd = value.length();
 
         // Amount
-        center.setSpan(new StyleSpan(Typeface.BOLD),
-                0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        center.setSpan(new RelativeSizeSpan(1.6f),
-                0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new StyleSpan(Typeface.BOLD), 0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new RelativeSizeSpan(1.6f), 0, valueEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         // Title
-        center.setSpan(new RelativeSizeSpan(0.80f),
-                valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        center.setSpan(new ForegroundColorSpan(Color.GRAY),
-                valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new RelativeSizeSpan(0.80f), valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        center.setSpan(new ForegroundColorSpan(Color.GRAY), valueEnd + 1, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         pieChart.setCenterText(center);
 
@@ -452,5 +471,210 @@ public class StatisticsFragment extends Fragment {
             }
         }
         return total;
+    }
+
+    @Override
+    public void onChartClicked() {
+
+    }
+
+    @Override
+    public void onCalendarClicked() {
+        List<CalendarFilterModel> calendarFilterModelList = new ArrayList<>();
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.DAILY, 1, R.drawable.ic_calendar_daily, getString(R.string.calendar_daily), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.WEEKLY, 2, R.drawable.ic_calendar_weekly, getString(R.string.calendar_weekly), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.MONTHLY, 3, R.drawable.ic_calendar_monthly, getString(R.string.calendar_monthly), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.QUARTERLY, 4, R.drawable.ic_quarterly, getString(R.string.calendar_quarterly), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.YEARLY, 5, R.drawable.ic_yearly, getString(R.string.calendar_yearly), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.ALL, 6, R.drawable.ic_calendar_all, getString(R.string.calendar_all), false));
+        calendarFilterModelList.add(new CalendarFilterModel(CalendarFilterType.CUSTOM, 7, R.drawable.ic_calendar_custom, getString(R.string.calendar_custom), false));
+
+        BottomSheetDialog dialog = new BottomSheetDialog(requireActivity());
+        View bottomView = getLayoutInflater().inflate(R.layout.bottom_calendar_filter_layout, requireActivity().findViewById(android.R.id.content), false);
+        RecyclerView rvSelectRange = bottomView.findViewById(R.id.rvSelectRange);
+
+        RecyclerViewAdapter<CalendarFilterModel> adapter = new RecyclerViewAdapter<>(requireContext(), calendarFilterModelList, R.layout.item_calendar_filter) {
+            @Override
+            public void onPostBindViewHolder(ViewHolder holder, CalendarFilterModel calendarFilter) {
+
+                Typeface medium = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_medium);
+                Typeface semiBold = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_semibold);
+
+                holder.setViewText(R.id.tvFilterName, calendarFilter.filterName);
+                holder.setViewImageDrawable(R.id.ivIcon, ContextCompat.getDrawable(requireContext(), calendarFilter.icon));
+
+                holder.setViewVisibility(R.id.ivSelected, selectedFilter.getId() == calendarFilter.type.getId() ? View.VISIBLE : View.GONE);
+                holder.setViewTypeface(R.id.tvFilterName, selectedFilter.getId() == calendarFilter.type.getId() ? semiBold : medium);
+
+                holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
+
+                    if (calendarFilter.type == CalendarFilterType.CUSTOM) {
+                        dialog.dismiss();
+                        openDateDialog(calendarFilter.type);
+                    } else {
+                        selectedFilter = calendarFilter.type;
+                        updateNavigationButtons();
+                        date = new Date();
+
+                        loadedStart = -1;
+                        loadedEnd = -1;
+
+                        dialog.dismiss();
+
+                        loadCalendarData();
+                    }
+                });
+            }
+        };
+
+        rvSelectRange.setAdapter(adapter);
+        rvSelectRange.setHasFixedSize(true);
+        rvSelectRange.setItemAnimator(null);
+
+        dialog.setContentView(bottomView);
+        dialog.show();
+    }
+
+    public void openDateDialog(CalendarFilterType calendarFilter) {
+
+        AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_custom_date, requireActivity().findViewById(android.R.id.content), false);
+
+        tvStartDate = view.findViewById(R.id.tvStartDate);
+        tvEndDate = view.findViewById(R.id.tvEndDate);
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        CalendarRangeModel range = CalendarHelper.getMonthlyRange(new Date());
+
+        customStartDate = range.startDate;
+        customEndDate = range.endDate;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        tvStartDate.setText(sdf.format(new Date(range.startDate)));
+        tvEndDate.setText(sdf.format(new Date(range.endDate)));
+
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+
+        tvStartDate.setOnClickListener(v -> {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(customStartDate > 0 ? customStartDate : System.currentTimeMillis());
+
+            DatePickerDialog picker = new DatePickerDialog(requireContext(), R.style.CustomDateTimePickerDialog, (view1, year, month, dayOfMonth) -> {
+                Calendar selected = Calendar.getInstance();
+                selected.set(year, month, dayOfMonth, 0, 0, 0);
+                selected.set(Calendar.MILLISECOND, 0);
+                customStartDate = selected.getTimeInMillis();
+
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                tvStartDate.setText(sdf1.format(selected.getTime()));
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+            picker.show();
+            applyFont(picker.getDatePicker());
+
+            int color = ContextCompat.getColor(requireContext(), R.color.vibrant_orange);
+            picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(color);
+            picker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
+        });
+
+        tvEndDate.setOnClickListener(v -> {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(customEndDate > 0 ? customEndDate : (customStartDate > 0 ? customStartDate : System.currentTimeMillis()));
+
+            DatePickerDialog picker = new DatePickerDialog(requireContext(), R.style.CustomDateTimePickerDialog, (view1, year, month, dayOfMonth) -> {
+
+                Calendar selected = Calendar.getInstance();
+                selected.set(year, month, dayOfMonth, 23, 59, 59);
+                selected.set(Calendar.MILLISECOND, 999);
+
+                customEndDate = selected.getTimeInMillis();
+
+                SimpleDateFormat sdf1 = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                tvEndDate.setText(sdf1.format(selected.getTime()));
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+            picker.show();
+            applyFont(picker.getDatePicker());
+
+            // Don't allow selecting an end date before the start date
+            if (customStartDate > 0) {
+                picker.getDatePicker().setMinDate(customStartDate);
+            }
+
+            int color = ContextCompat.getColor(requireContext(), R.color.vibrant_orange);
+            picker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(color);
+            picker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
+        });
+
+        view.findViewById(R.id.tvOk).setOnClickListener(v -> {
+            selectedFilter = calendarFilter;
+
+            updateNavigationButtons();
+
+            // Current date (today), not the first day of the month
+            date = new Date();
+
+            loadedStart = -1;
+            loadedEnd = -1;
+
+            dialog.dismiss();
+
+            loadCalendarData();
+        });
+
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
+
+    private void updateNavigationButtons() {
+
+        boolean enabled = selectedFilter != CalendarFilterType.ALL && selectedFilter != CalendarFilterType.CUSTOM;
+
+        ivPrevious.setEnabled(enabled);
+        ivNext.setEnabled(enabled);
+
+        float alpha = enabled ? 1f : 0.3f;
+        ivPrevious.setAlpha(alpha);
+        ivNext.setAlpha(alpha);
+    }
+
+    private void resetStatistics() {
+
+        date = new Date();
+
+        selectedFilter = CalendarFilterType.MONTHLY;
+        PreferenceManager.INSTANCE.setStatisticsFilter(selectedFilter.getId());
+
+        customStartDate = -1;
+        customEndDate = -1;
+
+        loadedStart = -1;
+        loadedEnd = -1;
+
+        updateNavigationButtons();
+
+        chartToggleGroup.check(R.id.btnExpense);
+
+        loadCalendarData();
+    }
+
+    private void applyFont(View view) {
+        Typeface tf = ResourcesCompat.getFont(requireContext(), R.font.exo2_medium);
+
+        if (view instanceof TextView) {
+            ((TextView) view).setTypeface(tf);
+        } else if (view instanceof ViewGroup group) {
+            for (int i = 0; i < group.getChildCount(); i++) {
+                applyFont(group.getChildAt(i));
+            }
+        }
     }
 }

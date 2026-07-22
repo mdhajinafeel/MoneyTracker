@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.graphics.Insets;
@@ -16,31 +17,33 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.enums.CalendarFilterType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.models.BreakdownFilter;
-import com.nprotech.moneytracker.ui.adapters.TransactionBreakdownAdapter;
+import com.nprotech.moneytracker.models.CalendarRangeModel;
+import com.nprotech.moneytracker.ui.adapters.BreakdownPagerAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.StatisticsViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class TransactionBreakdownActivity extends BaseActivity {
 
-    private AppCompatImageView icBack, ivPrevious, ivNext;
-    private AppCompatTextView tvDate;
+    private AppCompatImageView icBack, ivCalendar, ivPrevious, ivNext;
+    private AppCompatTextView tvDate, tvStartDate, tvEndDate;
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private Date date;
     private int selectedAccountId;
     private StatisticsViewModel statisticsViewModel;
+    private CalendarFilterType selectedFilter;
+    private long customStartDate = -1, customEndDate = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +59,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
+            ivCalendar = toolbarWrapper.findViewById(R.id.ivCalendar);
             tvDate = findViewById(R.id.tvDate);
             ivPrevious = findViewById(R.id.ivPrevious);
             ivNext = findViewById(R.id.ivNext);
@@ -63,6 +67,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
             viewPager = findViewById(R.id.viewPager);
 
             tvTitle.setText(getString(R.string.breakdown));
+            ivCalendar.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -77,7 +82,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
             });
 
             Bundle bundle = getIntent().getExtras();
-            if(bundle != null) {
+            if (bundle != null) {
 
                 statisticsViewModel = new ViewModelProvider(this).get(StatisticsViewModel.class);
 
@@ -94,6 +99,14 @@ public class TransactionBreakdownActivity extends BaseActivity {
     private void bindData(Bundle bundle) {
         try {
             selectedAccountId = bundle.getInt("accountId", 0);
+
+            int filterId = bundle.getInt("selectedFilter", CalendarFilterType.MONTHLY.getId());
+
+            selectedFilter = CalendarFilterType.fromId(filterId);
+            customStartDate = bundle.getLong("customStartDate", -1);
+            customEndDate = bundle.getLong("customEndDate", -1);
+            updateNavigationButtons();
+
             long transactionDate = bundle.getLong("transactionDate", -1);
 
             if (transactionDate != -1) {
@@ -102,11 +115,9 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 date = CalendarHelper.getInitialDate();
             }
 
-            tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
+            updateBreakdown();
 
-            statisticsViewModel.setBreakdownFilter(new BreakdownFilter(selectedAccountId, date));
-
-            TransactionBreakdownAdapter adapter = new TransactionBreakdownAdapter(this);
+            BreakdownPagerAdapter adapter = new BreakdownPagerAdapter(this);
             viewPager.setAdapter(adapter);
             viewPager.setOffscreenPageLimit(1);
 
@@ -165,27 +176,85 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
             });
 
-            ivPrevious.setOnClickListener(v -> {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.MONTH, -1);
-                date = calendar.getTime();
+            ivPrevious.setOnClickListener(v -> moveDate(-1));
 
-                tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
-                statisticsViewModel.setBreakdownFilter(new BreakdownFilter(selectedAccountId, date));
-            });
+            ivNext.setOnClickListener(v -> moveDate(1));
 
-            ivNext.setOnClickListener(v -> {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.MONTH, 1);
-                date = calendar.getTime();
-
-                tvDate.setText(new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date));
-                statisticsViewModel.setBreakdownFilter(new BreakdownFilter(selectedAccountId, date));
-            });
+            getOnBackPressedDispatcher().addCallback(this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(TransactionBreakdownActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        }
+                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
+    }
+
+    private void updateBreakdown() {
+
+        CalendarRangeModel range = switch (selectedFilter) {
+            case DAILY -> CalendarHelper.getDailyRange(date);
+            case WEEKLY -> CalendarHelper.getWeeklyRange(date);
+            case QUARTERLY -> CalendarHelper.getQuarterRange(date);
+            case YEARLY -> CalendarHelper.getYearRange(date);
+            case ALL -> CalendarHelper.getAllRange(this);
+            case CUSTOM -> CalendarHelper.getCustomRange(customStartDate, customEndDate);
+            default -> CalendarHelper.getMonthlyRange(date);
+        };
+
+        tvDate.setText(range.title);
+        statisticsViewModel.setBreakdownFilter(new BreakdownFilter(selectedAccountId, selectedFilter, date, range.startDate, range.endDate));
+    }
+
+    private void moveDate(int offset) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        switch (selectedFilter) {
+
+            case DAILY:
+                calendar.add(Calendar.DAY_OF_MONTH, offset);
+                break;
+
+            case WEEKLY:
+                calendar.add(Calendar.WEEK_OF_YEAR, offset);
+                break;
+
+            case MONTHLY:
+                calendar.add(Calendar.MONTH, offset);
+                break;
+
+            case QUARTERLY:
+                calendar.add(Calendar.MONTH, offset * 3);
+                break;
+
+            case YEARLY:
+                calendar.add(Calendar.YEAR, offset);
+                break;
+
+            case ALL:
+            case CUSTOM:
+                return;
+        }
+
+        date = calendar.getTime();
+        updateBreakdown();
+    }
+
+    private void updateNavigationButtons() {
+
+        boolean enabled = selectedFilter != CalendarFilterType.ALL
+                && selectedFilter != CalendarFilterType.CUSTOM;
+
+        ivPrevious.setEnabled(enabled);
+        ivNext.setEnabled(enabled);
+
+        float alpha = enabled ? 1f : 0.3f;
+        ivPrevious.setAlpha(alpha);
+        ivNext.setAlpha(alpha);
     }
 }

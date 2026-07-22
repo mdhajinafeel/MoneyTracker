@@ -49,7 +49,7 @@ public class MainActivity extends BaseActivity {
     private AppCompatTextView tvAccountName, tvAccountBalance;
     private AccountViewModel accountViewModel;
     private BottomNavigationView bottomNav;
-    private AppCompatImageView ivSettings;
+    private AppCompatImageView ivSettings, ivChart, ivCalendar;
     private final List<AccountEntity> accountList = new ArrayList<>();
     private final TransactionFragment transactionFragment = new TransactionFragment();
     private final CalendarFragment calendarFragment = new CalendarFragment();
@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity {
     private Fragment activeFragment;
     private long lastBackPressedTime = 0;
     private static final long EXIT_INTERVAL = 2000;
+    private ToolbarActionListener toolbarActionListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,8 @@ public class MainActivity extends BaseActivity {
 
             balanceWrapper = findViewById(R.id.balanceWrapper);
             ivSettings = findViewById(R.id.ivSettings);
+            ivChart = findViewById(R.id.ivChart);
+            ivCalendar = findViewById(R.id.ivCalendar);
             tvAccountName = findViewById(R.id.tvAccountName);
             tvAccountBalance = findViewById(R.id.tvAccountBalance);
             bottomNav = findViewById(R.id.bottomNav);
@@ -191,6 +194,18 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
+
+            ivChart.setOnClickListener(v -> {
+                if (toolbarActionListener != null) {
+                    toolbarActionListener.onChartClicked();
+                }
+            });
+
+            ivCalendar.setOnClickListener(v -> {
+                if (toolbarActionListener != null) {
+                    toolbarActionListener.onCalendarClicked();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);
         }
@@ -252,7 +267,14 @@ public class MainActivity extends BaseActivity {
                 .show(fragment).commitNow();
 
         activeFragment = fragment;
-        updateToolbar(fragment);
+
+        if (activeFragment instanceof ToolbarActionListener) {
+            toolbarActionListener = (ToolbarActionListener) fragment;
+        } else {
+            toolbarActionListener = null;
+        }
+
+        updateToolbar(activeFragment);
     }
 
     private void updateToolbar(Fragment fragment) {
@@ -260,13 +282,23 @@ public class MainActivity extends BaseActivity {
         if (fragment instanceof TransactionFragment) {
             balanceWrapper.setVisibility(View.VISIBLE);
             ivSettings.setVisibility(View.GONE);
+            ivChart.setVisibility(View.GONE);
+            ivCalendar.setVisibility(View.GONE);
+        } else if (fragment instanceof CalendarFragment) {
+            balanceWrapper.setVisibility(View.GONE);
+            ivSettings.setVisibility(View.GONE);
+            ivChart.setVisibility(View.GONE);
+            ivCalendar.setVisibility(View.GONE);
+        } else if (fragment instanceof StatisticsFragment) {
+            balanceWrapper.setVisibility(View.GONE);
+            ivSettings.setVisibility(View.GONE);
+            ivChart.setVisibility(View.VISIBLE);
+            ivCalendar.setVisibility(View.VISIBLE);
         } else if (fragment instanceof WalletFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.VISIBLE);
-        } else if (fragment instanceof CalendarFragment
-                || fragment instanceof StatisticsFragment) {
-            balanceWrapper.setVisibility(View.GONE);
-            ivSettings.setVisibility(View.GONE);
+            ivChart.setVisibility(View.GONE);
+            ivCalendar.setVisibility(View.GONE);
         }
     }
 
@@ -330,6 +362,17 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
+        if (activeFragment instanceof ToolbarActionListener) {
+            toolbarActionListener = (ToolbarActionListener) activeFragment;
+        } else {
+            toolbarActionListener = null;
+        }
+
         updateToolbar(activeFragment);
+    }
+
+    public interface ToolbarActionListener {
+        void onChartClicked();
+        void onCalendarClicked();
     }
 }

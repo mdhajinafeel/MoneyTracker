@@ -52,7 +52,7 @@ public class CalendarViewModel extends ViewModel {
     }
 
     public void loadCalendar(int accountId, long startDate, long endDate) {
-        calendarRange.setValue(new CalendarRangeModel(accountId, startDate, endDate));
+        calendarRange.setValue(new CalendarRangeModel(accountId, startDate, endDate, ""));
     }
 
     public LiveData<List<CalendarSummaryModel>> getCalendarSummary() {

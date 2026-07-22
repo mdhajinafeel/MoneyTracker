@@ -130,12 +130,8 @@
         </RadioGroup>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clAmount"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radioGroup">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/reasonLabel"
@@ -156,8 +152,8 @@
                 android:ems="10"
                 android:fontFamily="@font/exo2_medium"
                 android:inputType="textCapWords"
-                android:textSize="@dimen/text_16"
                 android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/reasonLabel" />
