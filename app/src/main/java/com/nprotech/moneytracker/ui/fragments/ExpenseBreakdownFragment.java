@@ -148,7 +148,7 @@ public class ExpenseBreakdownFragment extends Fragment {
 
                 emptyWrapper.setVisibility(View.VISIBLE);
                 pieChartExpense.setVisibility(View.GONE);
-                rvExpenseBreakdown.setVisibility(View.GONE);
+                breakdownCard.setVisibility(View.GONE);
                 return;
             }
 

@@ -11,14 +11,17 @@ public class BreakdownFilter {
     public Date date;
     public long startDate;
     public long endDate;
+    public int transactionType;
 
     public BreakdownFilter(int accountId,
+                           int transactionType,
                            CalendarFilterType filter,
                            Date date,
                            long startDate,
                            long endDate) {
 
         this.accountId = accountId;
+        this.transactionType = transactionType;
         this.filter = filter;
         this.date = date;
         this.startDate = startDate;

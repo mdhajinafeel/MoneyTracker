@@ -19,19 +19,22 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.enums.CalendarFilterType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
-import com.nprotech.moneytracker.models.BreakdownFilter;
+import com.nprotech.moneytracker.models.BreakdownChartModel;
 import com.nprotech.moneytracker.models.CalendarFilterModel;
 import com.nprotech.moneytracker.models.CalendarRangeModel;
-import com.nprotech.moneytracker.ui.adapters.BreakdownPagerAdapter;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -48,14 +51,14 @@ import java.util.Locale;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class TransactionBreakdownActivity extends BaseActivity {
+public class TransactionPeriodActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivCalendar, ivPrevious, ivNext;
-    private AppCompatTextView tvDate, tvStartDate, tvEndDate;
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager;
+    private AppCompatTextView tvDate, tvStartDate, tvEndDate, amountLabel;
+    private BarChart barChartSpending;
     private Date date;
-    private int selectedAccountId;
+    private RecyclerView rvTransactions;
+    private int selectedAccountId, transactionType;
     private StatisticsViewModel statisticsViewModel;
     private CalendarFilterType selectedFilter;
     private long customStartDate = -1, customEndDate = -1;
@@ -63,7 +66,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction_breakdown);
+        setContentView(R.layout.activity_transaction_period);
         statusBarSetting();
         hideKeyboard(this);
         initComponents();
@@ -78,10 +81,10 @@ public class TransactionBreakdownActivity extends BaseActivity {
             tvDate = findViewById(R.id.tvDate);
             ivPrevious = findViewById(R.id.ivPrevious);
             ivNext = findViewById(R.id.ivNext);
-            tabLayout = findViewById(R.id.tabLayout);
-            viewPager = findViewById(R.id.viewPager);
+            barChartSpending = findViewById(R.id.barChartSpending);
+            rvTransactions = findViewById(R.id.rvTransactions);
 
-            tvTitle.setText(getString(R.string.breakdown));
+            tvTitle.setText(getString(R.string.period_spending));
             ivCalendar.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
@@ -90,7 +93,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(viewPager, (view, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(rvTransactions, (view, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
                 return insets;
@@ -114,6 +117,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
     private void bindData(Bundle bundle) {
         try {
             selectedAccountId = bundle.getInt("accountId", 0);
+            transactionType = 2;
 
             int filterId = bundle.getInt("selectedFilter", CalendarFilterType.MONTHLY.getId());
 
@@ -130,65 +134,137 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 date = CalendarHelper.getInitialDate();
             }
 
-            updateBreakdown();
+            updatePeriodSpending();
 
-            BreakdownPagerAdapter adapter = new BreakdownPagerAdapter(this);
-            viewPager.setAdapter(adapter);
-            viewPager.setOffscreenPageLimit(1);
+            statisticsViewModel.getBreakdownChart().observe(this, chart -> {
 
-            new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-                if (position == 0) {
-                    tab.setText(getString(R.string.income));
-                } else {
-                    tab.setText(getString(R.string.expense));
-                }
-            }).attach();
-
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-
-                    // 🔥 Animation
-                    View tabView = ((ViewGroup) tabLayout.getChildAt(0))
-                            .getChildAt(tab.getPosition());
-
-                    tabView.animate()
-                            .scaleX(1.1f)
-                            .scaleY(1.1f)
-                            .setDuration(150)
-                            .withEndAction(() -> tabView.animate()
-                                    .scaleX(1f)
-                                    .scaleY(1f)
-                                    .setDuration(150)
-                                    .start())
-                            .start();
+                if (chart == null || chart.isEmpty()) {
+                    barChartSpending.clear();
+                    return;
                 }
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                }
+                showBarChart(chart);
             });
-
-            viewPager.setCurrentItem(1, false);
-            viewPager.setPageTransformer(null);
-            viewPager.setOffscreenPageLimit(1);
-            viewPager.setUserInputEnabled(true);
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
+    }
+
+    private void updatePeriodSpending() {
+
+        CalendarRangeModel range = switch (selectedFilter) {
+            case DAILY -> CalendarHelper.getDailyRange(date);
+            case WEEKLY -> CalendarHelper.getWeeklyRange(date);
+            case QUARTERLY -> CalendarHelper.getQuarterRange(date);
+            case YEARLY -> CalendarHelper.getYearRange(date);
+            case ALL -> CalendarHelper.getAllRange(this);
+            case CUSTOM -> CalendarHelper.getCustomRange(customStartDate, customEndDate);
+            default -> CalendarHelper.getMonthlyRange(date);
+        };
+
+        tvDate.setText(range.title);
+        statisticsViewModel.loadBreakdown(
+                selectedAccountId,
+                transactionType,
+                selectedFilter,
+                date,
+                range.startDate,
+                range.endDate);
+    }
+
+    private void showBarChart(List<BreakdownChartModel> list) {
+
+        List<BarEntry> entries = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            entries.add(new BarEntry(i, (float) list.get(i).amount));
+        }
+
+        BarDataSet dataSet = new BarDataSet(entries, "");
+
+        dataSet.setColor(ContextCompat.getColor(this, R.color.vibrant_orange));
+        dataSet.setDrawValues(false);
+        dataSet.setHighLightAlpha(0);
+
+        BarData data = new BarData(dataSet);
+        data.setBarWidth(0.5f);
+        barChartSpending.setData(data);
+
+        setupXAxis(list);
+
+        barChartSpending.getDescription().setEnabled(false);
+        barChartSpending.getLegend().setEnabled(false);
+
+        barChartSpending.setDrawGridBackground(false);
+        barChartSpending.setDrawBorders(false);
+
+        barChartSpending.setFitBars(true);
+        barChartSpending.setPinchZoom(false);
+        barChartSpending.setScaleEnabled(false);
+        barChartSpending.setDoubleTapToZoomEnabled(false);
+
+        barChartSpending.setExtraTopOffset(10);
+        barChartSpending.setExtraBottomOffset(10);
+
+        barChartSpending.getAxisRight().setEnabled(false);
+
+        YAxis left = barChartSpending.getAxisLeft();
+
+        left.setDrawAxisLine(false);
+        left.setDrawGridLines(true);
+        left.enableGridDashedLine(10f, 10f, 0f);
+
+        left.setAxisMinimum(0f);
+
+        left.setTextSize(11f);
+
+        barChartSpending.invalidate();
+    }
+
+    private void setupXAxis(List<BreakdownChartModel> list) {
+
+        XAxis axis = barChartSpending.getXAxis();
+
+        axis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        axis.setGranularity(1f);
+
+        axis.setValueFormatter(new ValueFormatter() {
+
+            @Override
+            public String getFormattedValue(float value) {
+
+                int index = (int) value;
+
+                if (index < 0 || index >= list.size())
+                    return "";
+
+                BreakdownChartModel model = list.get(index);
+
+                return switch (selectedFilter) {
+                    case DAILY -> String.format(Locale.getDefault(),
+                            "%02d", (int) model.period);
+                    case WEEKLY, MONTHLY, CUSTOM -> CalendarHelper.formatDay(model.period);
+                    case QUARTERLY, YEARLY -> CalendarHelper.formatMonth(model.period);
+                    case ALL -> String.valueOf((int) model.period);
+                    default -> "";
+                };
+            }
+        });
+
+        axis.setDrawGridLines(false);
+        axis.setDrawAxisLine(true);
+        axis.setGranularity(1f);
+        axis.setLabelCount(7);
+        axis.setTextSize(12f);
+        axis.setYOffset(6f);
     }
 
     private void setupListeners() {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             ivPrevious.setOnClickListener(v -> moveDate(-1));
@@ -229,7 +305,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
                             if (selectedFilter != CalendarFilterType.CUSTOM) {
                                 date = new Date();
                                 updateNavigationButtons();
-                                updateBreakdown();
+                                updatePeriodSpending();
                             }
 
                             dialog.dismiss();
@@ -249,33 +325,16 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 dialog.show();
             });
 
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(TransactionBreakdownActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
-                        }
-                    });
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    ActivityUtils.overrideCloseTransition(TransactionPeriodActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
-    }
-
-    private void updateBreakdown() {
-
-        CalendarRangeModel range = switch (selectedFilter) {
-            case DAILY -> CalendarHelper.getDailyRange(date);
-            case WEEKLY -> CalendarHelper.getWeeklyRange(date);
-            case QUARTERLY -> CalendarHelper.getQuarterRange(date);
-            case YEARLY -> CalendarHelper.getYearRange(date);
-            case ALL -> CalendarHelper.getAllRange(this);
-            case CUSTOM -> CalendarHelper.getCustomRange(customStartDate, customEndDate);
-            default -> CalendarHelper.getMonthlyRange(date);
-        };
-
-        tvDate.setText(range.title);
-        statisticsViewModel.setBreakdownFilter(new BreakdownFilter(selectedAccountId, 0, selectedFilter, date, range.startDate, range.endDate));
     }
 
     private void moveDate(int offset) {
@@ -311,7 +370,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
         }
 
         date = calendar.getTime();
-        updateBreakdown();
+        updatePeriodSpending();
     }
 
     private void updateNavigationButtons() {
@@ -416,7 +475,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
             calendar.setTimeInMillis(customStartDate);
 
             date = calendar.getTime();
-            updateBreakdown();
+            updatePeriodSpending();
             dialog.dismiss();
         });
 

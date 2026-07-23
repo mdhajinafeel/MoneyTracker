@@ -72,6 +72,7 @@
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
+                android:contentDescription="@string/app_name"
                 android:layout_height="wrap_content"
                 android:background="@color/vibrant_orange"
                 app:layout_constraintEnd_toEndOf="parent"

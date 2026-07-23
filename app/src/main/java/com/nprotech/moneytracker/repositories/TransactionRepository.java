@@ -12,6 +12,7 @@ import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
+import com.nprotech.moneytracker.models.BreakdownChartModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
@@ -35,13 +36,6 @@ public class TransactionRepository {
         this.walletDao = walletDao;
         this.transactionDao = transactionDao;
         this.transactionAttachmentDao = transactionAttachmentDao;
-    }
-
-    public LiveData<List<TransactionWithDetails>> getTransactions(int accountId, long startDate, long endDate) {
-        if(startDate > 0 || endDate > 0) {
-            return transactionDao.getTransactions(accountId, startDate, endDate);
-        }
-        return transactionDao.getTransactions(accountId);
     }
 
     public List<TransactionWithDetails> getTransactionsPaged(int accountId, long startDate, long endDate, int page, int pageSize) {
@@ -201,5 +195,22 @@ public class TransactionRepository {
 
     public LiveData<List<CategoryExpenseModel>> getTransactionListByCategory(int transactionType, int accountId, long start, long end) {
         return transactionDao.getTransactionListByCategory(transactionType, accountId, start, end);
+    }
+
+    // SPENDING
+    public LiveData<List<BreakdownChartModel>> getHourlyBreakdown(int accountId, int transactionType, long startDate, long endDate) {
+        return transactionDao.getHourlyBreakdown(accountId, transactionType, startDate, endDate);
+    }
+
+    public LiveData<List<BreakdownChartModel>> getDailyBreakdown(int accountId, int transactionType, long startDate, long endDate) {
+        return transactionDao.getDailyBreakdown(accountId, transactionType, startDate, endDate);
+    }
+
+    public LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(int accountId, int transactionType, long startDate, long endDate) {
+        return transactionDao.getMonthlyBreakdown(accountId, transactionType, startDate, endDate);
+    }
+
+    public LiveData<List<BreakdownChartModel>> getYearlyBreakdown(int accountId, int transactionType) {
+        return transactionDao.getYearlyBreakdown(accountId, transactionType);
     }
 }

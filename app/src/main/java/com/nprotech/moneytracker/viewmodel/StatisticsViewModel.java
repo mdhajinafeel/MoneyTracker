@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.nprotech.moneytracker.enums.CalendarFilterType;
 import com.nprotech.moneytracker.models.BalanceRangeModel;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
+import com.nprotech.moneytracker.models.BreakdownChartModel;
 import com.nprotech.moneytracker.models.BreakdownFilter;
 import com.nprotech.moneytracker.models.CalendarRangeModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
@@ -33,6 +35,7 @@ public class StatisticsViewModel extends ViewModel {
     private final MutableLiveData<List<CategoryExpenseModel>> categoryExpenseTransaction = new MutableLiveData<>();
     private final MutableLiveData<List<CategoryExpenseModel>> categoryIncomeTransaction = new MutableLiveData<>();
     private final MutableLiveData<BreakdownFilter> breakdownFilter = new MutableLiveData<>();
+    private final LiveData<List<BreakdownChartModel>> breakdownChart;
 
     @Inject
     public StatisticsViewModel(TransactionRepository transactionRepository) {
@@ -49,6 +52,69 @@ public class StatisticsViewModel extends ViewModel {
                         range.accountId,
                         range.startDate,
                         range.endDate));
+
+        breakdownChart = Transformations.switchMap(breakdownFilter, filter -> {
+
+            switch (filter.filter) {
+
+                case DAILY:
+                    return transactionRepository.getHourlyBreakdown(
+                            filter.accountId,
+                            filter.transactionType,
+                            filter.startDate,
+                            filter.endDate);
+
+                case WEEKLY:
+                case MONTHLY:
+                    return transactionRepository.getDailyBreakdown(
+                            filter.accountId,
+                            filter.transactionType,
+                            filter.startDate,
+                            filter.endDate);
+
+                case QUARTERLY:
+                case YEARLY:
+                    return transactionRepository.getMonthlyBreakdown(
+                            filter.accountId,
+                            filter.transactionType,
+                            filter.startDate,
+                            filter.endDate);
+
+                case ALL:
+                    return transactionRepository.getYearlyBreakdown(
+                            filter.accountId,
+                            filter.transactionType);
+
+                case CUSTOM:
+
+                    long days = (filter.endDate - filter.startDate) / 86400000L;
+
+                    if (days <= 31) {
+
+                        return transactionRepository.getDailyBreakdown(
+                                filter.accountId,
+                                filter.transactionType,
+                                filter.startDate,
+                                filter.endDate);
+
+                    } else if (days <= 365) {
+
+                        return transactionRepository.getMonthlyBreakdown(
+                                filter.accountId,
+                                filter.transactionType,
+                                filter.startDate,
+                                filter.endDate);
+
+                    } else {
+
+                        return transactionRepository.getYearlyBreakdown(
+                                filter.accountId,
+                                filter.transactionType);
+                    }
+            }
+
+            return new MutableLiveData<>();
+        });
     }
 
     public void loadCalendar(int accountId, long startDate, long endDate) {
@@ -104,5 +170,25 @@ public class StatisticsViewModel extends ViewModel {
 
     public void setBreakdownFilter(BreakdownFilter filter) {
         breakdownFilter.setValue(filter);
+    }
+
+    public void loadBreakdown(int accountId,
+                              int transactionType,
+                              CalendarFilterType filter,
+                              Date date,
+                              long startDate,
+                              long endDate) {
+
+        breakdownFilter.setValue(new BreakdownFilter(
+                accountId,
+                transactionType,
+                filter,
+                date,
+                startDate,
+                endDate));
+    }
+
+    public LiveData<List<BreakdownChartModel>> getBreakdownChart() {
+        return breakdownChart;
     }
 }

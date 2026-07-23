@@ -49,6 +49,7 @@ import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.ui.activities.MainActivity;
 import com.nprotech.moneytracker.ui.activities.TransactionBreakdownActivity;
 import com.nprotech.moneytracker.ui.activities.TransactionOverviewActivity;
+import com.nprotech.moneytracker.ui.activities.TransactionPeriodActivity;
 import com.nprotech.moneytracker.ui.adapters.ChartLegendAdapter;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
@@ -475,7 +476,13 @@ public class StatisticsFragment extends Fragment implements MainActivity.Toolbar
 
     @Override
     public void onChartClicked() {
-
+        startActivity(new Intent(requireContext(), TransactionPeriodActivity.class)
+                .putExtra("accountId", selectedAccountId)
+                .putExtra("selectedFilter", selectedFilter.getId())
+                .putExtra("customStartDate", customStartDate)
+                .putExtra("customEndDate", customEndDate)
+                .putExtra("transactionDate", date.getTime()));
+        ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
     }
 
     @Override

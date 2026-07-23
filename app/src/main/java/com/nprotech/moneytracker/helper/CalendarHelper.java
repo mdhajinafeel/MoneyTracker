@@ -703,4 +703,25 @@ public class CalendarHelper {
 
         return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), startDate, endDate, title);
     }
+
+    public static String formatDay(long timestamp) {
+        return new SimpleDateFormat("dd", Locale.getDefault()).format(new Date(timestamp));
+    }
+
+    public static String formatWeekDay(long timestamp) {
+        return new SimpleDateFormat("EEE", Locale.getDefault()).format(new Date(timestamp));
+    }
+
+    public static String formatMonth(long month) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, (int) month - 1);
+
+        return new SimpleDateFormat("MMM", Locale.getDefault())
+                .format(calendar.getTime());
+    }
+
+    public static String formatYear(long year) {
+        return String.valueOf(year);
+    }
 }

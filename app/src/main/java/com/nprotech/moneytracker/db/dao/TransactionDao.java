@@ -11,6 +11,7 @@ import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.models.BalanceSummaryModel;
+import com.nprotech.moneytracker.models.BreakdownChartModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
@@ -30,32 +31,6 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM transactions WHERE tempTransactionServerId = :tempTransactionServerId")
     TransactionEntity getTransactionById(String tempTransactionServerId);
-
-    @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
-            "FROM transactions t " +
-            "JOIN wallets w ON w.id = t.walletId " +
-            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
-            "WHERE t.isDeleted = 0 AND t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2, 3) AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
-            "ORDER BY t.transactionDate DESC")
-    LiveData<List<TransactionWithDetails>> getTransactions(int accountId);
-
-    @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
-            "FROM transactions t " +
-            "JOIN wallets w ON w.id = t.walletId " +
-            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
-            "WHERE t.isDeleted = 0 " +
-            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
-            "AND t.accountId= :accountId AND w.accountId= :accountId AND t.type IN (1, 2, 3) AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
-            "ORDER BY t.transactionDate DESC")
-    LiveData<List<TransactionWithDetails>> getTransactions(int accountId, long startDate, long endDate);
 
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
@@ -203,4 +178,77 @@ public interface TransactionDao {
             "WHERE t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate AND t.type = :transactionType AND accountId = :accountId " +
             "GROUP BY categoryId ORDER BY categoryId")
     LiveData<List<CategoryExpenseModel>> getTransactionListByCategory(int transactionType, int accountId, long startDate, long endDate);
+
+    @Query("""
+SELECT
+CAST(strftime('%H', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
+SUM(amount) AS amount,
+COUNT(*) AS transactionCount
+FROM transactions
+WHERE accountId = :accountId
+AND type = :transactionType
+AND isDeleted = 0
+AND transactionDate BETWEEN :startDate AND :endDate
+GROUP BY period
+ORDER BY period
+""")
+    LiveData<List<BreakdownChartModel>> getHourlyBreakdown(
+            int accountId,
+            int transactionType,
+            long startDate,
+            long endDate);
+
+    @Query("""
+SELECT
+(transactionDate / 86400000) * 86400000 AS period,
+SUM(amount) AS amount,
+COUNT(*) AS transactionCount
+FROM transactions
+WHERE accountId = :accountId
+AND type = :transactionType
+AND isDeleted = 0
+AND transactionDate BETWEEN :startDate AND :endDate
+GROUP BY period
+ORDER BY period
+""")
+    LiveData<List<BreakdownChartModel>> getDailyBreakdown(
+            int accountId,
+            int transactionType,
+            long startDate,
+            long endDate);
+
+    @Query("""
+SELECT
+CAST(strftime('%m', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
+SUM(amount) AS amount,
+COUNT(*) AS transactionCount
+FROM transactions
+WHERE accountId = :accountId
+AND type = :transactionType
+AND isDeleted = 0
+AND transactionDate BETWEEN :startDate AND :endDate
+GROUP BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime')
+ORDER BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime')
+""")
+    LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(
+            int accountId,
+            int transactionType,
+            long startDate,
+            long endDate);
+
+    @Query("""
+SELECT
+CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
+SUM(amount) AS amount,
+COUNT(*) AS transactionCount
+FROM transactions
+WHERE accountId = :accountId
+AND type = :transactionType
+AND isDeleted = 0
+GROUP BY period
+ORDER BY period
+""")
+    LiveData<List<BreakdownChartModel>> getYearlyBreakdown(
+            int accountId,
+            int transactionType);
 }

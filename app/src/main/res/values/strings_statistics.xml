@@ -18,4 +18,5 @@
     <string name="transaction_overview">Transaction Overview</string>
     <string name="select_range">Select range</string>
     <string name="all_time">All Time</string>
+    <string name="period_spending">Period Spending</string>
 </resources>
