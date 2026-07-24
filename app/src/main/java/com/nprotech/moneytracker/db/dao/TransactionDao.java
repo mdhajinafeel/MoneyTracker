@@ -180,18 +180,18 @@ public interface TransactionDao {
     LiveData<List<CategoryExpenseModel>> getTransactionListByCategory(int transactionType, int accountId, long startDate, long endDate);
 
     @Query("""
-SELECT
-CAST(strftime('%H', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
-SUM(amount) AS amount,
-COUNT(*) AS transactionCount
-FROM transactions
-WHERE accountId = :accountId
-AND type = :transactionType
-AND isDeleted = 0
-AND transactionDate BETWEEN :startDate AND :endDate
-GROUP BY period
-ORDER BY period
-""")
+            SELECT
+            CAST(strftime('%H', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
+            SUM(amount) AS amount,
+            COUNT(*) AS transactionCount
+            FROM transactions
+            WHERE accountId = :accountId
+            AND type = :transactionType
+            AND isDeleted = 0
+            AND transactionDate BETWEEN :startDate AND :endDate
+            GROUP BY period
+            ORDER BY period
+            """)
     LiveData<List<BreakdownChartModel>> getHourlyBreakdown(
             int accountId,
             int transactionType,
@@ -199,18 +199,18 @@ ORDER BY period
             long endDate);
 
     @Query("""
-SELECT
-(transactionDate / 86400000) * 86400000 AS period,
-SUM(amount) AS amount,
-COUNT(*) AS transactionCount
-FROM transactions
-WHERE accountId = :accountId
-AND type = :transactionType
-AND isDeleted = 0
-AND transactionDate BETWEEN :startDate AND :endDate
-GROUP BY period
-ORDER BY period
-""")
+            SELECT
+            (transactionDate / 86400000) * 86400000 AS period,
+            SUM(amount) AS amount,
+            COUNT(*) AS transactionCount
+            FROM transactions
+            WHERE accountId = :accountId
+            AND type = :transactionType
+            AND isDeleted = 0
+            AND transactionDate BETWEEN :startDate AND :endDate
+            GROUP BY period
+            ORDER BY period
+            """)
     LiveData<List<BreakdownChartModel>> getDailyBreakdown(
             int accountId,
             int transactionType,
@@ -218,18 +218,37 @@ ORDER BY period
             long endDate);
 
     @Query("""
-SELECT
-CAST(strftime('%m', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
-SUM(amount) AS amount,
-COUNT(*) AS transactionCount
-FROM transactions
-WHERE accountId = :accountId
-AND type = :transactionType
-AND isDeleted = 0
-AND transactionDate BETWEEN :startDate AND :endDate
-GROUP BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime')
-ORDER BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime')
-""")
+            SELECT
+            MIN(transactionDate) AS period,
+            SUM(amount) AS amount,
+            COUNT(*) AS transactionCount
+            FROM transactions
+            WHERE accountId = :accountId
+            AND type = :transactionType
+            AND isDeleted = 0
+            AND transactionDate BETWEEN :startDate AND :endDate
+            GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime')
+            ORDER BY MIN(transactionDate)
+            """)
+    LiveData<List<BreakdownChartModel>> getWeeklyBreakdown(
+            int accountId,
+            int transactionType,
+            long startDate,
+            long endDate);
+
+    @Query("""
+            SELECT
+            MIN(transactionDate) AS period,
+            SUM(amount) AS amount,
+            COUNT(*) AS transactionCount
+            FROM transactions
+            WHERE accountId = :accountId
+            AND type = :transactionType
+            AND isDeleted = 0
+            AND transactionDate BETWEEN :startDate AND :endDate
+            GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime')
+            ORDER BY MIN(transactionDate)
+            """)
     LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(
             int accountId,
             int transactionType,
@@ -237,18 +256,42 @@ ORDER BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime')
             long endDate);
 
     @Query("""
-SELECT
-CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
-SUM(amount) AS amount,
-COUNT(*) AS transactionCount
-FROM transactions
-WHERE accountId = :accountId
-AND type = :transactionType
-AND isDeleted = 0
-GROUP BY period
-ORDER BY period
-""")
+            SELECT
+            CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
+            SUM(amount) AS amount,
+            COUNT(*) AS transactionCount
+            FROM transactions
+            WHERE accountId = :accountId
+            AND type = :transactionType
+            AND isDeleted = 0
+            GROUP BY period
+            ORDER BY period
+            """)
     LiveData<List<BreakdownChartModel>> getYearlyBreakdown(
             int accountId,
             int transactionType);
+
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
+            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id=t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id=t.categoryId AND c1.type=t.type " +
+            "WHERE t.isDeleted=0 AND t.type = :transactionType " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "AND t.accountId=:accountId " +
+            "AND w.accountId=:accountId " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId='') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT :limit OFFSET :offset")
+    List<TransactionWithDetails> getTransactionsForPeriod(
+            int accountId,
+            int transactionType,
+            long startDate,
+            long endDate,
+            int limit,
+            int offset);
 }

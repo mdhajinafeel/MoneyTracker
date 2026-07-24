@@ -13,8 +13,10 @@ import com.nprotech.moneytracker.models.BreakdownFilter;
 import com.nprotech.moneytracker.models.CalendarRangeModel;
 import com.nprotech.moneytracker.models.CalendarSummaryModel;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +38,17 @@ public class StatisticsViewModel extends ViewModel {
     private final MutableLiveData<List<CategoryExpenseModel>> categoryIncomeTransaction = new MutableLiveData<>();
     private final MutableLiveData<BreakdownFilter> breakdownFilter = new MutableLiveData<>();
     private final LiveData<List<BreakdownChartModel>> breakdownChart;
+    private final MutableLiveData<List<TransactionWithDetails>> transactions = new MutableLiveData<>();
+    private int currentOffset = 0;
+    private static final int PAGE_SIZE = 20;
+
+    private boolean isLoading = false;
+    private boolean hasMore = true;
+
+    private int accountId;
+    private int transactionType;
+    private long startDate;
+    private long endDate;
 
     @Inject
     public StatisticsViewModel(TransactionRepository transactionRepository) {
@@ -65,6 +78,11 @@ public class StatisticsViewModel extends ViewModel {
                             filter.endDate);
 
                 case WEEKLY:
+                    return transactionRepository.getWeeklyBreakdown(
+                            filter.accountId,
+                            filter.transactionType,
+                            filter.startDate,
+                            filter.endDate);
                 case MONTHLY:
                     return transactionRepository.getDailyBreakdown(
                             filter.accountId,
@@ -172,23 +190,57 @@ public class StatisticsViewModel extends ViewModel {
         breakdownFilter.setValue(filter);
     }
 
-    public void loadBreakdown(int accountId,
-                              int transactionType,
-                              CalendarFilterType filter,
-                              Date date,
-                              long startDate,
-                              long endDate) {
+    public void loadBreakdown(int accountId, int transactionType, CalendarFilterType filter, Date date, long startDate, long endDate) {
+        breakdownFilter.setValue(new BreakdownFilter(accountId, transactionType, filter, date, startDate, endDate));
+    }
 
-        breakdownFilter.setValue(new BreakdownFilter(
-                accountId,
-                transactionType,
-                filter,
-                date,
-                startDate,
-                endDate));
+    public void loadTransactions(int accountId, int transactionType, long startDate, long endDate) {
+
+        this.accountId = accountId;
+        this.transactionType = transactionType;
+        this.startDate = startDate;
+        this.endDate = endDate;
+
+        currentOffset = 0;
+        hasMore = true;
+
+        List<TransactionWithDetails> list = transactionRepository.getTransactionsForPeriod(accountId, transactionType, startDate, endDate, PAGE_SIZE, currentOffset);
+
+        transactions.setValue(list);
+
+        hasMore = list.size() == PAGE_SIZE;
+    }
+
+    public void loadNextPage() {
+
+        if (isLoading || !hasMore) {
+            return;
+        }
+
+        isLoading = true;
+
+        currentOffset += PAGE_SIZE;
+
+        List<TransactionWithDetails> next = transactionRepository.getTransactionsForPeriod(accountId, transactionType, startDate, endDate, PAGE_SIZE, currentOffset);
+        List<TransactionWithDetails> current = transactions.getValue();
+
+        if (current == null) {
+            current = new ArrayList<>();
+        }
+
+        current.addAll(next);
+
+        transactions.setValue(current);
+
+        hasMore = next.size() == PAGE_SIZE;
+        isLoading = false;
     }
 
     public LiveData<List<BreakdownChartModel>> getBreakdownChart() {
         return breakdownChart;
+    }
+
+    public LiveData<List<TransactionWithDetails>> getTransactions() {
+        return transactions;
     }
 }

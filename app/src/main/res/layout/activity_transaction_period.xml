@@ -77,21 +77,21 @@
             android:layout_marginStart="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_16"
             android:layout_marginEnd="@dimen/margin_16"
-            android:text="@string/total"
             android:fontFamily="@font/exo2_semibold"
+            android:text="@string/total"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_16"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbarWrapper"/>
+            app:layout_constraintTop_toBottomOf="@id/toolbarWrapper" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/amountLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
-            android:layout_marginEnd="@dimen/margin_16"
             android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_16"
             android:fontFamily="@font/exo2_bold"
             android:textColor="@color/black"
             android:textSize="@dimen/text_18"
@@ -99,16 +99,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartSpending"
+        <FrameLayout
+            android:id="@+id/chartContainer"
             android:layout_width="0dp"
             android:layout_height="300dp"
-            android:layout_marginTop="@dimen/margin_10"
-            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/amountLabel"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toBottomOf="@id/amountLabel">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChartSpending"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:visibility="gone" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartSpending"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginBottom="@dimen/margin_10"
+                android:visibility="gone" />
+        </FrameLayout>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/breakdownCard"
@@ -117,14 +135,14 @@
             android:layout_marginStart="@dimen/margin_12"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_46"
-            android:visibility="visible"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/corner_radius_8"
             app:cardElevation="@dimen/corner_elevation_6"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/barChartSpending"
+            app:layout_constraintTop_toBottomOf="@id/chartContainer"
             app:strokeColor="@color/grey_88"
             app:strokeWidth="1dp">
 
@@ -194,4 +212,21 @@
                 app:layout_constraintTop_toBottomOf="@+id/emptyTitleLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddTransaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_30"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/vibrant_orange"
+        app:fabCustomSize="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="25dp"
+        app:shapeAppearanceOverlay="@style/FabCircleShape"
+        app:tint="@color/white"
+        app:useCompatPadding="true"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

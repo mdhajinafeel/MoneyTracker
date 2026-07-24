@@ -99,7 +99,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         if (item.fromWalletName != null && !item.fromWalletName.isEmpty()) {
             holder.setViewText(R.id.detailLabel, item.fromWalletName + context.getString(R.string.text_arrow) + item.walletName);
         } else {
-            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
+            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "AAA" : transaction.description);
         }
 
         if (feeTransaction != null) {

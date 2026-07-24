@@ -1,6 +1,14 @@
 package com.nprotech.moneytracker.utils;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
+
+import com.nprotech.moneytracker.R;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -91,5 +99,17 @@ public class CommonUtils {
 
     public static float convertDpToPixel(Context context, float dp) {
         return dp * (context.getResources().getDisplayMetrics().densityDpi / 160.0f);
+    }
+
+    public static void applyFont(Context context, View view) {
+        Typeface tf = ResourcesCompat.getFont(context, R.font.exo2_medium);
+
+        if (view instanceof TextView) {
+            ((TextView) view).setTypeface(tf);
+        } else if (view instanceof ViewGroup group) {
+            for (int i = 0; i < group.getChildCount(); i++) {
+                applyFont(context, group.getChildAt(i));
+            }
+        }
     }
 }
