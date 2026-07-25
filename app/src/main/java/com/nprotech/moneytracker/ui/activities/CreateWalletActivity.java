@@ -57,7 +57,7 @@ public class CreateWalletActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivWalletIcon;
     private AppCompatEditText etWalletName;
-    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount;
+    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount, rateLabel;
     private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner, statementDateSpinner, paymentDateSpinner;
     private FrameLayout frameColor;
     private ConstraintLayout excludeWrapper, statementDateWrapper, paymentDateWrapper;
@@ -68,9 +68,10 @@ public class CreateWalletActivity extends BaseActivity {
     private AccountViewModel accountViewModel;
     private WalletViewModel walletViewModel;
     private ArrayList<String> walletColorLists;
-    private int walletIcon = 0;
+    private int walletIcon = 0, walletId = 0;
     private WalletEntity walletEntity;
     private SwitchCompat switchExcludeView;
+    private String selectedCurrencyCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +102,7 @@ public class CreateWalletActivity extends BaseActivity {
             ivWalletIcon = findViewById(R.id.ivWalletIcon);
             amountLabel = findViewById(R.id.amountLabel);
             tvAmount = findViewById(R.id.tvAmount);
+            rateLabel = findViewById(R.id.rateLabel);
             excludeWrapper = findViewById(R.id.excludeWrapper);
             statementDateWrapper = findViewById(R.id.statementDateWrapper);
             paymentDateWrapper = findViewById(R.id.paymentDateWrapper);
@@ -124,6 +126,7 @@ public class CreateWalletActivity extends BaseActivity {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
                 isEdit = bundle.getBoolean("isEdit");
+                walletId = bundle.getInt("walletId", 0);
 
                 makeReadOnly();
                 initializeAdapters();
@@ -180,12 +183,15 @@ public class CreateWalletActivity extends BaseActivity {
         try {
             if (isEdit) {
                 tvTitle.setText(getString(R.string.edit_wallet));
+                tvSave.setText(getString(R.string.update));
 
-                walletEntity = IntentUtils.getSerializableExtra(getIntent(), "wallet", WalletEntity.class);
+                walletEntity = walletViewModel.getWalletByWalletId(walletId);
 
                 if (walletEntity != null) {
+                    account = accountViewModel.getAccountDetailById(walletEntity.accountId);
+
                     etWalletName.setText(walletEntity.name.trim());
-                    walletAmount = walletEntity.amount;
+                    walletAmount = walletEntity.initialAmount;
                     walletIcon = walletEntity.categoryIcon;
                     ivWalletIcon.setImageResource(DataHelper.getWalletIcons().get(walletIcon));
                     tvAmount.setText(CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletAmount));
@@ -195,17 +201,7 @@ public class CreateWalletActivity extends BaseActivity {
                     if (colorPosition >= 0) colorSpinner.setSelection(colorPosition);
 
                     //Currency
-                    CurrencySpinnerAdapter adapter = (CurrencySpinnerAdapter) currencySpinner.getAdapter();
-
-                    if (adapter != null) {
-                        for (int i = 0; i < adapter.getCount(); i++) {
-                            AccountCurrencyMappingEntity item = adapter.getItem(i);
-                            if (item != null && walletEntity.currencyCode.equals(item.currencyCode)) {
-                                currencySpinner.setSelection(i);
-                                break;
-                            }
-                        }
-                    }
+                    selectedCurrencyCode = walletEntity.currencyCode;
 
                     // Wallet Type
                     typeSpinner.setSelection(walletEntity.walletType);
@@ -315,22 +311,45 @@ public class CreateWalletActivity extends BaseActivity {
                                 accountCurrencyMappingEntities);
                         currencySpinner.setAdapter(currencySpinnerAdapter);
 
-                        currencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            private boolean firstSelection = true;
+                        if (selectedCurrencyCode != null) {
+                            for (int i = 0; i < currencySpinnerAdapter.getCount(); i++) {
+                                AccountCurrencyMappingEntity item = currencySpinnerAdapter.getItem(i);
 
+                                if (item != null && Objects.equals(item.currencyCode, selectedCurrencyCode)) {
+                                    currencySpinner.setSelection(i, false);
+                                    updateAmountText();
+                                    break;
+                                }
+                            }
+
+                            selectedCurrencyCode = null;
+                        }
+
+                        currencySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-                                // Ignore the initial automatic selection
-                                if (firstSelection) {
-                                    firstSelection = false;
-                                    return;
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                                AccountCurrencyMappingEntity currency =
+                                        (AccountCurrencyMappingEntity) parent.getItemAtPosition(position);
+
+                                if (currency != null && currency.currencySymbol != null) {
+                                    updateAmountText();
                                 }
 
+                                // Last item = Add Currency
                                 if (position == parent.getCount() - 1) {
+
+                                    // Move back to the previous selection
+                                    int previousPosition = Math.max(0, parent.getSelectedItemPosition() - 1);
+                                    currencySpinner.setSelection(previousPosition, false);
+
                                     hideKeyboard(CreateWalletActivity.this);
-                                    Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class);
-                                    ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
-                                    currencyLauncher.launch(intent, options);
+
+                                    currencySpinner.post(() -> {
+                                        Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class);
+                                        ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(CreateWalletActivity.this, R.anim.left_to_right, R.anim.scale_out);
+                                        currencyLauncher.launch(intent, options);
+                                    });
                                 }
                             }
 
@@ -377,7 +396,7 @@ public class CreateWalletActivity extends BaseActivity {
 
                             if (type != null && type.equalsIgnoreCase("amount")) {
                                 walletAmount = amount;
-                                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                                updateAmountText();
                                 updateSaveButtonState();
                             }
                         }
@@ -405,10 +424,7 @@ public class CreateWalletActivity extends BaseActivity {
                                     AccountCurrencyMappingEntity.class);
 
                             if (accountCurrencyMapping != null) {
-                                CurrencySpinnerAdapter adapter = (CurrencySpinnerAdapter) currencySpinner.getAdapter();
-                                adapter.insert(accountCurrencyMapping, adapter.getCount() - 1);
-                                adapter.notifyDataSetChanged();
-                                currencySpinner.setSelection(adapter.getPosition(accountCurrencyMapping));
+                                selectedCurrencyCode = accountCurrencyMapping.currencyCode;
                             }
                         }
                     }
@@ -429,8 +445,10 @@ public class CreateWalletActivity extends BaseActivity {
 
             if (isEdit) {
 
-                // Difference between new and old initial amount
-                double difference = walletAmount - walletEntity.initialAmount;
+                double oldRate = walletEntity.exchangeRate;
+                double newRate = currency.conversionRate;
+                double oldBalance = walletEntity.amount;
+                double oldInitialAmount = walletEntity.initialAmount;
 
                 walletEntity.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
                 walletEntity.walletColor = walletColorLists.get(colorSpinner.getSelectedItemPosition());
@@ -438,14 +456,12 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity.currencyName = currency.currencyName;
                 walletEntity.currencyCode = currency.currencyCode;
                 walletEntity.currencySymbol = currency.currencySymbol;
-
                 walletEntity.categoryIcon = walletIcon;
 
-                // Update initial amount
-                walletEntity.initialAmount = walletAmount;
+                walletEntity.amount = oldBalance - oldInitialAmount + walletAmount;
 
-                // Update current balance
-                walletEntity.amount += difference;
+                walletEntity.initialAmount = walletAmount;
+                walletEntity.exchangeRate = newRate;
 
                 walletEntity.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
 
@@ -465,7 +481,11 @@ public class CreateWalletActivity extends BaseActivity {
                 walletViewModel.updateWallet(walletEntity);
 
                 // Update account balance
-                account.balance += difference;
+                double oldAccountValue = oldBalance * oldRate;
+
+                // Add new wallet value to account (using new exchange rate)
+                double newAccountValue = walletEntity.amount * newRate;
+                account.balance += (newAccountValue - oldAccountValue);
                 account.isSynced = false;
                 accountViewModel.updateAccount(account);
 
@@ -486,9 +506,9 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.categoryIcon = walletIcon;
                 wallet.initialAmount = walletAmount;
                 wallet.amount = walletAmount;
+                wallet.exchangeRate = currency.conversionRate;
 
-                wallet.ordering = walletViewModel.getMaxWalletOrdering(
-                        (int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+                wallet.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
 
                 wallet.isExclude = switchExcludeView.isChecked();
 
@@ -509,7 +529,7 @@ public class CreateWalletActivity extends BaseActivity {
                 walletViewModel.saveWallet(wallet);
 
                 // Update account balance
-                account.balance += wallet.amount;
+                account.balance += wallet.amount * wallet.exchangeRate;
                 account.isSynced = false;
                 accountViewModel.updateAccount(account);
 
@@ -523,5 +543,47 @@ public class CreateWalletActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "saveWallet", e);
         }
+    }
+
+    private void updateAmountText() {
+        AccountCurrencyMappingEntity currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
+
+        if (currency == null) {
+            return;
+        }
+
+        tvAmount.setText(CommonUtils.getBeautifyAmount(currency.currencySymbol, walletAmount));
+        String targetCurrency = isEdit ? walletEntity.currencyCode : account.currencyCode;
+
+        if (Objects.equals(currency.currencyCode, targetCurrency)) {
+            rateLabel.setVisibility(View.GONE);
+        } else {
+            rateLabel.setVisibility(View.VISIBLE);
+            rateLabel.setText(getString(R.string.exchange_rate_format, "1.00", currency.currencyCode,
+                    getFormattedRate(currency.conversionRate), targetCurrency));
+        }
+    }
+
+    private String getFormattedRate(double conversionRate) {
+        String rate = String.valueOf(conversionRate);
+
+        if (rate.isEmpty() || ".".equals(rate)) {
+            return "0.00";
+        }
+
+        if (!rate.contains(".")) {
+            return rate + ".00";
+        }
+
+        int decimalIndex = rate.indexOf('.');
+        int decimalDigits = rate.length() - decimalIndex - 1;
+
+        if (decimalDigits == 0) {
+            return rate + "00";
+        } else if (decimalDigits == 1) {
+            return rate + "0";
+        }
+
+        return rate;
     }
 }

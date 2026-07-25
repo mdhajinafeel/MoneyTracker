@@ -105,7 +105,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         if (feeTransaction != null) {
             feeTransaction.amount = feeTransaction.amount * -1;
             feeLabel.setText(feeTransaction.getCategoryName(context));
-            feeAmountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, feeTransaction.amount));
+            feeAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, feeTransaction.amount));
             feeAmountLabel.setTextColor(ContextCompat.getColor(context, R.color.expense));
 
             feeLabel.setVisibility(View.VISIBLE);
@@ -116,7 +116,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         }
 
         holder.setViewText(R.id.timeLabel, new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date(transaction.transactionDate)));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, amount));
+        amountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, amount));
         amountLabel.setTextColor(color);
 
         itemView.setOnClickListener(view -> {

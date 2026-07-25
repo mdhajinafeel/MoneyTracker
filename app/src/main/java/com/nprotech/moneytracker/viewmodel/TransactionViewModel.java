@@ -77,11 +77,11 @@ public class TransactionViewModel extends ViewModel {
             switch (item.transaction.type) {
 
                 case TransactionEntity.TYPE_INCOME:
-                    model.setAmount(model.getAmount() + item.transaction.amount);
+                    model.setAmount(model.getAmount() + (item.transaction.amount * item.exchangeRate));
                     break;
 
                 case TransactionEntity.TYPE_EXPENSE:
-                    model.setAmount(model.getAmount() - item.transaction.amount);
+                    model.setAmount(model.getAmount() - (item.transaction.amount * item.exchangeRate));
                     break;
 
                 case TransactionEntity.TYPE_TRANSFER:

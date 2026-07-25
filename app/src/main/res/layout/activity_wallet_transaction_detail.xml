@@ -5,6 +5,8 @@
     android:layout_height="match_parent">
 
     <!-- Toolbar -->
+
+    <!-- Content -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarWrapper"
         android:layout_width="0dp"
@@ -12,6 +14,7 @@
         android:background="@color/vibrant_orange"
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -21,7 +24,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Content -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="0dp"
@@ -118,117 +120,162 @@
                 android:letterSpacing="0.01"
                 android:text="@string/adjust_balance"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/text_18"
                 app:backgroundTint="@color/vibrant_orange"
                 app:cornerRadius="@dimen/corner_radius_4"
                 app:elevation="@dimen/corner_elevation_8"
-                app:iconGravity="end"
-                app:iconSize="20dp"
-                app:iconTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/amountLabel" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/initialTitleLabel"
-                android:layout_width="wrap_content"
+            <!-- Initial Amount -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/initialRow"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_14"
-                android:fontFamily="@font/exo2_medium"
-                android:text="@string/initial_amount"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/btnAdjustBalance"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAdjustBalance" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/incomeTitleLabel"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/initialTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/initial_amount"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/initialLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Income -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/incomeRow"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_14"
-                android:fontFamily="@font/exo2_medium"
-                android:text="@string/income"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/initialRow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/initialTitleLabel" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/expenseTitleLabel"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/incomeTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/income"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/incomeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/income"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Expense -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/expenseRow"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_14"
-                android:fontFamily="@font/exo2_medium"
-                android:text="@string/expense"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/incomeRow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/incomeTitleLabel" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/transferTitleLabel"
-                android:layout_width="wrap_content"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/expenseTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expense"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/expenseLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/expense"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Transfer -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/transferRow"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_14"
-                android:fontFamily="@font/exo2_medium"
-                android:text="@string/transfer"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:layout_constraintTop_toBottomOf="@id/expenseRow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/expenseTitleLabel" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/initialLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAdjustBalance" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/transferTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transfer"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/incomeLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:textColor="@color/income"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/initialTitleLabel" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/transferLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/expenseLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:textColor="@color/expense"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/incomeTitleLabel" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/transferLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/expenseTitleLabel" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View
                 android:id="@+id/divider"
@@ -236,9 +283,9 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_16"
                 android:background="@color/grey_88"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transferRow"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/transferLabel" />
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/llTransactionHeader"

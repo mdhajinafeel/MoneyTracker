@@ -19,8 +19,12 @@ import java.util.Locale;
 
 public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel> {
 
-    public DailyTransactionAdapter(Context context, List<DailyTransModel> list) {
+    private String accountCurrencySymbol;
+
+    public DailyTransactionAdapter(Context context, List<DailyTransModel> list, String accountCurrencySymbol) {
         super(context, list, R.layout.item_transaction_header);
+        this.accountCurrencySymbol = accountCurrencySymbol;
+
     }
 
     @Override
@@ -39,7 +43,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         dayLabel.setText(new SimpleDateFormat("dd", Locale.getDefault()).format(dailyTransDateTime));
         monthLabel.setText(new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), "MMM yyyy"), Locale.getDefault()).format(dailyTransDateTime));
         weekLabel.setText(new SimpleDateFormat("EEEE", Locale.getDefault()).format(dailyTransDateTime));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
+        amountLabel.setText(CommonUtils.getBeautifyAmount(getAccountCurrencySymbol(), amount));
 
         if (item.getTransactions() == null || item.getTransactions().isEmpty()) {
             rvTransactions.setVisibility(View.GONE);
@@ -50,5 +54,13 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         rvTransactions.setLayoutManager(new LinearLayoutManager(rvTransactions.getContext()));
         rvTransactions.setNestedScrollingEnabled(false);
         rvTransactions.setAdapter(new TransactionAdapter(rvTransactions.getContext(), item.getTransactions(), item.getCurrencySymbol()));
+    }
+
+    public void setAccountCurrencySymbol(String accountCurrencySymbol) {
+        this.accountCurrencySymbol = accountCurrencySymbol;
+    }
+
+    public String getAccountCurrencySymbol() {
+        return accountCurrencySymbol;
     }
 }

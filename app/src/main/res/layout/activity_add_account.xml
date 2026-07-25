@@ -267,6 +267,7 @@
                         android:inputType="none"
                         android:drawableStart="@drawable/ic_cash"
                         android:drawableEnd="@drawable/ic_dropdown"
+                        android:drawableTint="@color/vibrant_orange"
                         android:drawablePadding="@dimen/padding_10"
                         android:fontFamily="@font/exo2_medium"
                         android:longClickable="false"
@@ -366,6 +367,7 @@
                         android:fontFamily="@font/exo2_medium"
                         android:inputType="numberDecimal"
                         android:padding="@dimen/padding_16"
+                        android:drawableTint="@color/vibrant_orange"
                         android:drawablePadding="@dimen/padding_10"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_18" />

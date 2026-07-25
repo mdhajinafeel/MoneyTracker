@@ -21,9 +21,9 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/nav_wallet"
-        android:title="@string/wallet"
-        android:icon="@drawable/ic_wallet"
+        android:id="@+id/nav_more"
+        android:title="@string/more"
+        android:icon="@drawable/ic_more"
         app:showAsAction="ifRoom" />
 
 </menu>

@@ -70,7 +70,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private ConstraintLayout imageWrapper;
     private LinearLayout nameWrapper, layoutEmpty;
-    private AppCompatImageView icBack, imageView;
+    private AppCompatImageView icBack, ivEdit, imageView;
     private AppCompatTextView nameLabel, amountLabel, initialLabel, incomeLabel, expenseLabel, transferLabel, transactionAllLabel;
     private MaterialButton btnAdjustBalance;
     private RecyclerView rvTransactions;
@@ -100,6 +100,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             NestedScrollView scrollView = findViewById(R.id.scrollView);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
+            ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
             imageWrapper = findViewById(R.id.imageWrapper);
             imageView = findViewById(R.id.imageView);
             nameWrapper = findViewById(R.id.nameWrapper);
@@ -116,6 +117,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             fabAddTransaction = findViewById(R.id.fabAddTransaction);
 
             tvTitle.setText(R.string.wallet_details);
+            ivEdit.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -258,6 +260,13 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             icBack.setOnClickListener(view -> {
                 finish();
                 ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+            });
+
+            ivEdit.setOnClickListener(view -> {
+                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateWalletActivity.class)
+                        .putExtra("isEdit", true)
+                        .putExtra("walletId", walletId));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
             btnAdjustBalance.setOnClickListener(view -> {

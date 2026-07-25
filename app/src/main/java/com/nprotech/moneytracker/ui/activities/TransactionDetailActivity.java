@@ -294,22 +294,26 @@ public class TransactionDetailActivity extends BaseActivity {
             WalletEntity wallet = walletViewModel.getWalletByWalletId(transaction.walletId);
             AccountEntity account = accountViewModel.getAccountDetailById((int) transaction.accountId);
 
+            double exchangeRate = 1;
             switch (transaction.type) {
                 case TransactionEntity.TYPE_INCOME:
+
                     if (wallet != null) {
                         wallet.amount -= transaction.amount;
+                        exchangeRate = wallet.exchangeRate;
                     }
                     if (account != null) {
-                        account.balance -= transaction.amount;
+                        account.balance -= (transaction.amount * exchangeRate);
                     }
                     break;
 
                 case TransactionEntity.TYPE_EXPENSE:
                     if (wallet != null) {
                         wallet.amount += transaction.amount;
+                        exchangeRate = wallet.exchangeRate;
                     }
                     if (account != null) {
-                        account.balance += transaction.amount;
+                        account.balance += (transaction.amount * exchangeRate);
                     }
                     break;
 
@@ -328,9 +332,9 @@ public class TransactionDetailActivity extends BaseActivity {
                     // Reverse account effect for excluded wallets
                     if (account != null && fromWallet != null && wallet != null) {
                         if (!fromWallet.isExclude && wallet.isExclude) {
-                            account.balance += transaction.amount;
+                            account.balance += (transaction.amount * fromWallet.exchangeRate);
                         } else if (fromWallet.isExclude && !wallet.isExclude) {
-                            account.balance -= transaction.amount;
+                            account.balance -= (transaction.amount * wallet.exchangeRate);
                         }
                     }
 
@@ -344,7 +348,7 @@ public class TransactionDetailActivity extends BaseActivity {
                         }
 
                         if (account != null && fromWallet != null && !fromWallet.isExclude) {
-                            account.balance += feeTransaction.amount;
+                            account.balance += (feeTransaction.amount * fromWallet.exchangeRate);
                         }
 
                         // Delete only fee transaction

@@ -65,7 +65,7 @@ public class AddAccountActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
-        statusBarSetting();
+        statusBarAddAccountSetting();
         hideKeyboard(this);
         initComponents();
     }
@@ -311,6 +311,7 @@ public class AddAccountActivity extends BaseActivity {
             accountCurrencyMappingEntity.mainCurrencyCode = currency.code;
             accountCurrencyMappingEntity.mainCurrencySymbol = currency.symbol;
             accountCurrencyMappingEntity.mainCurrencyName = currency.name;
+            accountCurrencyMappingEntity.conversionRate = 1;
             accountCurrencyMappingEntity.isActive = true;
             accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
@@ -325,6 +326,7 @@ public class AddAccountActivity extends BaseActivity {
             wallet.categoryIcon = 0;
             wallet.initialAmount = initialAmount;
             wallet.amount = initialAmount;
+            wallet.exchangeRate = 1;
             wallet.dueDate = 0;
             wallet.statementDate = 0;
             wallet.ordering = walletViewModel.getMaxWalletOrdering((int) accountId) + 1;

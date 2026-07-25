@@ -35,7 +35,7 @@ public interface TransactionDao {
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
             "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
@@ -53,7 +53,7 @@ public interface TransactionDao {
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
             "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
@@ -71,7 +71,7 @@ public interface TransactionDao {
 
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
@@ -106,37 +106,33 @@ public interface TransactionDao {
     @Query("SELECT * FROM transactions WHERE parentTransactionId = :parentTransactionId LIMIT 1")
     TransactionEntity getFeeTransaction(String parentTransactionId);
 
-    @Query("SELECT CAST(strftime('%s', date(transactionDate/1000, 'unixepoch', 'localtime')) AS INTEGER) * 1000 AS dayTimestamp, " +
-            "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
-            "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
-            "SUM(CASE " +
-            "WHEN type = 1 THEN amount " +
-            "WHEN type = 2 THEN -amount " +
-            "ELSE 0 END) AS total " +
-            "FROM transactions " +
-            "WHERE accountId = :accountId " +
-            "AND isDeleted = 0 " +
-            "AND transactionDate BETWEEN :startDate AND :endDate " +
-            "GROUP BY date(transactionDate/1000, 'unixepoch', 'localtime') " +
+    @Query("SELECT CAST(strftime('%s', date(t.transactionDate/1000, 'unixepoch', 'localtime')) AS INTEGER) * 1000 AS dayTimestamp, " +
+            "SUM(CASE WHEN type = 1 THEN (t.amount * w.exchangeRate) ELSE 0 END) AS income, " +
+            "SUM(CASE WHEN type = 2 THEN (t.amount * w.exchangeRate) ELSE 0 END) AS expense, " +
+            "SUM(CASE WHEN type = 1 THEN (t.amount * w.exchangeRate) WHEN type = 2 THEN (-t.amount * w.exchangeRate) ELSE 0 END) AS total " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId " +
+            "AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY date(t.transactionDate/1000, 'unixepoch', 'localtime') " +
             "ORDER BY dayTimestamp")
     LiveData<List<CalendarSummaryModel>> getCalendarSummary(int accountId, long startDate, long endDate);
 
     @Query("SELECT 0 AS dayTimestamp, " +
-            "SUM(CASE WHEN type = 1 THEN amount ELSE 0 END) AS income, " +
-            "SUM(CASE WHEN type = 2 THEN amount ELSE 0 END) AS expense, " +
-            "SUM(CASE " +
-            "WHEN type = 1 THEN amount " +
-            "WHEN type = 2 THEN -amount " +
-            "ELSE 0 END) AS total " +
-            "FROM transactions " +
-            "WHERE accountId = :accountId " +
-            "AND isDeleted = 0 " +
-            "AND transactionDate BETWEEN :startDate AND :endDate")
+            "SUM(CASE WHEN type = 1 THEN (t.amount * w.exchangeRate) ELSE 0 END) AS income, " +
+            "SUM(CASE WHEN type = 2 THEN (t.amount * w.exchangeRate) ELSE 0 END) AS expense, " +
+            "SUM(CASE WHEN type = 1 THEN (t.amount * w.exchangeRate) WHEN type = 2 THEN (-t.amount * w.exchangeRate) ELSE 0 END) AS total " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId " +
+            "AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate")
     LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate);
 
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
@@ -147,134 +143,111 @@ public interface TransactionDao {
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactionsForDay(int accountId, long start, long end);
 
-    @Query("SELECT SUM(w.initialAmount) + IFNULL( ( SELECT SUM( CASE WHEN t.type = 1 THEN t.amount WHEN t.type = 2 THEN -t.amount ELSE 0 END ) " +
-            "FROM transactions t WHERE t.accountId = w.accountId AND t.isDeleted = 0 " +
-            "AND t.transactionDate < :startDate ), 0 ) AS openingBalance, SUM(w.initialAmount) + " +
-            "IFNULL( ( SELECT SUM( CASE WHEN t.type = 1 THEN t.amount WHEN t.type = 2 THEN -t.amount ELSE 0 END ) " +
-            "FROM transactions t WHERE t.accountId = w.accountId AND t.isDeleted = 0 AND t.transactionDate <= :endDate ), 0 ) AS closingBalance " +
+    @Query("SELECT " +
+            "SUM(w.initialAmount * w.exchangeRate) + " +
+            "IFNULL((" +
+            "SELECT SUM(" +
+            "CASE " +
+            "WHEN t.type = 1 THEN t.amount * tw.exchangeRate " +
+            "WHEN t.type = 2 THEN -t.amount * tw.exchangeRate " +
+            "ELSE 0 END) " +
+            "FROM transactions t " +
+            "INNER JOIN wallets tw ON tw.id = t.walletId " +
+            "WHERE t.accountId = w.accountId " +
+            "AND t.isDeleted = 0 " +
+            "AND t.transactionDate < :startDate" +
+            "), 0) AS openingBalance, " +
+
+            "SUM(w.initialAmount * w.exchangeRate) + " +
+            "IFNULL((" +
+            "SELECT SUM(" +
+            "CASE " +
+            "WHEN t.type = 1 THEN t.amount * tw.exchangeRate " +
+            "WHEN t.type = 2 THEN -t.amount * tw.exchangeRate " +
+            "ELSE 0 END) " +
+            "FROM transactions t " +
+            "INNER JOIN wallets tw ON tw.id = t.walletId " +
+            "WHERE t.accountId = w.accountId " +
+            "AND t.isDeleted = 0 " +
+            "AND t.transactionDate <= :endDate" +
+            "), 0) AS closingBalance " +
             "FROM wallets w WHERE w.accountId = :accountId AND w.isDeleted = 0")
     LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long startDate, long endDate);
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
-            "c.color AS color, SUM(t.amount) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
+            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
             "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "WHERE t.accountId = :accountId AND t.type = 2 " +
             "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate GROUP BY c.id ORDER BY amount DESC")
     LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long startDate, long endDate);
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
-            "c.color AS color, SUM(t.amount) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
+            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
             "WHERE t.accountId = :accountId AND t.type = 1 " +
             "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate GROUP BY c.id ORDER BY amount DESC")
     LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long startDate, long endDate);
 
-    @Query("SELECT CASE WHEN :transactionType = 1 THEN SUM(t.amount) ELSE SUM(t.amount * -1) END AS amount, COUNT(*) AS transactionCount, c.name AS categoryName, t.categoryId, t.defaultCategoryId, c.color, c.icon, 0 AS percentage, " +
+    @Query("SELECT CASE WHEN :transactionType = 1 THEN SUM(t.amount * w.exchangeRate) ELSE SUM((t.amount * w.exchangeRate) * -1) END AS amount, COUNT(*) AS transactionCount, c.name AS categoryName, t.categoryId, t.defaultCategoryId, c.color, c.icon, 0 AS percentage, " +
             "c.icon AS icon " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
-            "WHERE t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate AND t.type = :transactionType AND accountId = :accountId " +
-            "GROUP BY categoryId ORDER BY categoryId")
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate AND t.type = :transactionType AND t.accountId = :accountId " +
+            "GROUP BY t.categoryId ORDER BY categoryId")
     LiveData<List<CategoryExpenseModel>> getTransactionListByCategory(int transactionType, int accountId, long startDate, long endDate);
 
-    @Query("""
-            SELECT
-            CAST(strftime('%H', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
-            SUM(amount) AS amount,
-            COUNT(*) AS transactionCount
-            FROM transactions
-            WHERE accountId = :accountId
-            AND type = :transactionType
-            AND isDeleted = 0
-            AND transactionDate BETWEEN :startDate AND :endDate
-            GROUP BY period
-            ORDER BY period
-            """)
-    LiveData<List<BreakdownChartModel>> getHourlyBreakdown(
-            int accountId,
-            int transactionType,
-            long startDate,
-            long endDate);
+    @Query("SELECT CAST(strftime('%H', t.transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period, SUM(t.amount * w.exchangeRate) AS amount, " +
+            "COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId AND type = :transactionType " +
+            "AND t.isDeleted = 0 AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY period ORDER BY period")
+    LiveData<List<BreakdownChartModel>> getHourlyBreakdown(int accountId, int transactionType, long startDate, long endDate);
 
-    @Query("""
-            SELECT
-            (transactionDate / 86400000) * 86400000 AS period,
-            SUM(amount) AS amount,
-            COUNT(*) AS transactionCount
-            FROM transactions
-            WHERE accountId = :accountId
-            AND type = :transactionType
-            AND isDeleted = 0
-            AND transactionDate BETWEEN :startDate AND :endDate
-            GROUP BY period
-            ORDER BY period
-            """)
-    LiveData<List<BreakdownChartModel>> getDailyBreakdown(
-            int accountId,
-            int transactionType,
-            long startDate,
-            long endDate);
+    @Query("SELECT (transactionDate / 86400000) * 86400000 AS period, SUM(t.amount * w.exchangeRate) AS amount, COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId AND t.type = :transactionType AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY period ORDER BY period")
+    LiveData<List<BreakdownChartModel>> getDailyBreakdown(int accountId, int transactionType, long startDate, long endDate);
 
-    @Query("""
-            SELECT
-            MIN(transactionDate) AS period,
-            SUM(amount) AS amount,
-            COUNT(*) AS transactionCount
-            FROM transactions
-            WHERE accountId = :accountId
-            AND type = :transactionType
-            AND isDeleted = 0
-            AND transactionDate BETWEEN :startDate AND :endDate
-            GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime')
-            ORDER BY MIN(transactionDate)
-            """)
-    LiveData<List<BreakdownChartModel>> getWeeklyBreakdown(
-            int accountId,
-            int transactionType,
-            long startDate,
-            long endDate);
+    @Query("SELECT MIN(transactionDate) AS period, SUM(t.amount * w.exchangeRate) AS amount, COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId AND t.type = :transactionType AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime') " +
+            "ORDER BY MIN(transactionDate)")
+    LiveData<List<BreakdownChartModel>> getWeeklyBreakdown(int accountId, int transactionType, long startDate, long endDate);
 
-    @Query("""
-            SELECT
-            MIN(transactionDate) AS period,
-            SUM(amount) AS amount,
-            COUNT(*) AS transactionCount
-            FROM transactions
-            WHERE accountId = :accountId
-            AND type = :transactionType
-            AND isDeleted = 0
-            AND transactionDate BETWEEN :startDate AND :endDate
-            GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime')
-            ORDER BY MIN(transactionDate)
-            """)
-    LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(
-            int accountId,
-            int transactionType,
-            long startDate,
-            long endDate);
+    @Query("SELECT MIN(transactionDate) AS period, SUM(t.amount * w.exchangeRate) AS amount, COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId AND t.type = :transactionType AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY strftime('%Y-%m-%d', transactionDate / 1000, 'unixepoch', 'localtime') " +
+            "ORDER BY MIN(transactionDate)")
+    LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(int accountId, int transactionType, long startDate, long endDate);
 
-    @Query("""
-            SELECT
-            CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period,
-            SUM(amount) AS amount,
-            COUNT(*) AS transactionCount
-            FROM transactions
-            WHERE accountId = :accountId
-            AND type = :transactionType
-            AND isDeleted = 0
-            GROUP BY period
-            ORDER BY period
-            """)
-    LiveData<List<BreakdownChartModel>> getYearlyBreakdown(
-            int accountId,
-            int transactionType);
+    @Query("SELECT CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period, SUM(t.amount * w.exchangeRate) AS amount, " +
+            "COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId AND t.type = :transactionType AND t.isDeleted = 0 " +
+            "GROUP BY period ORDER BY period")
+    LiveData<List<BreakdownChartModel>> getYearlyBreakdown(int accountId, int transactionType);
 
     @Transaction
     @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
             "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
@@ -287,11 +260,5 @@ public interface TransactionDao {
             "AND (t.parentTransactionId IS NULL OR t.parentTransactionId='') " +
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
-    List<TransactionWithDetails> getTransactionsForPeriod(
-            int accountId,
-            int transactionType,
-            long startDate,
-            long endDate,
-            int limit,
-            int offset);
+    List<TransactionWithDetails> getTransactionsForPeriod(int accountId, int transactionType, long startDate, long endDate, int limit, int offset);
 }

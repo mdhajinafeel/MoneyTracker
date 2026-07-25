@@ -224,10 +224,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     transactionAmount = transactionWithDetails.transaction.amount;
                     transactionFee = transactionWithDetails.transaction.fee;
 
-                    tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetails.currencySymbol, transactionWithDetails.transaction.amount));
+                    updateAmountText();
                     tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, transactionWithDetails.transaction.fee));
                 } else {
-                    tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
+                    updateAmountText();
                     tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
                 }
 
@@ -292,7 +292,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     date = DateHelper.getCurrentDateTime();
                 }
 
-                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
                 tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, 0));
 
                 if (!walletLists.isEmpty()) {
@@ -300,6 +299,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
                             CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
                 }
+
+                updateAmountText();
             }
 
             tvDay.setText(DateHelper.getFormattedDate(date));
@@ -560,7 +561,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                             if (type != null && type.equalsIgnoreCase("amount")) {
                                 transactionAmount = amount;
-                                tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                                updateAmountText();
                             } else if (type != null && type.equalsIgnoreCase("fee")) {
                                 transactionFee = amount;
                                 tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
@@ -621,6 +622,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                             tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
                                     CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
 
+                            updateAmountText();
                             updateSaveButtonState();
                             dialog.dismiss();
                         });
@@ -1072,12 +1074,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.defaultCategoryId = incomeCategory.defaultCategory;
 
         WalletEntity wallet = walletViewModel.getWalletByWalletId(selectedWallet.id);
+        double exchangeRate = 1;
         if (wallet != null) {
             wallet.amount = wallet.amount + transactionAmount;
+            exchangeRate = wallet.exchangeRate;
         }
 
         if (account != null) {
-            account.balance = account.balance + transactionAmount;
+            account.balance += (transactionAmount * exchangeRate);
         }
 
         transactionViewModel.saveTransaction(transaction, wallet, account);
@@ -1099,6 +1103,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // -----------------------------
 
             double oldAmount = transactionWithDetails.transaction.amount;
+            double exchangeRate = 1;
 
             if (wallet != null) {
                 // Undo old expense
@@ -1106,14 +1111,15 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 // Apply new expense
                 wallet.amount -= transactionAmount;
+                exchangeRate = wallet.exchangeRate;
             }
 
             if (account != null) {
                 // Undo old expense
-                account.balance += oldAmount;
+                account.balance += (oldAmount * exchangeRate);
 
                 // Apply new expense
-                account.balance -= transactionAmount;
+                account.balance -= (transactionAmount * exchangeRate);
             }
 
             transactionViewModel.updateTransaction(transaction, wallet, account);
@@ -1122,12 +1128,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // NEW TRANSACTION
             // -----------------------------
 
+            double exchangeRate = 1;
             if (wallet != null) {
                 wallet.amount -= transactionAmount;
+                exchangeRate = wallet.exchangeRate;
             }
 
             if (account != null) {
-                account.balance -= transactionAmount;
+                account.balance -= (transactionAmount * exchangeRate);
             }
 
             transactionViewModel.saveTransaction(transaction, wallet, account);
@@ -1164,8 +1172,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.walletId);
 
             // Undo old transfer
+
+            double oldAccountAmount = transactionWithDetails.transaction.amount * oldFromWallet.exchangeRate;
+            double oldConvertedAmount = oldAccountAmount / oldToWallet.exchangeRate;
+
             oldFromWallet.amount += transactionWithDetails.transaction.amount;
-            oldToWallet.amount -= transactionWithDetails.transaction.amount;
+            oldToWallet.amount -= oldConvertedAmount;
 
             if (!oldFromWallet.isExclude && oldToWallet.isExclude) {
                 account.balance += transactionWithDetails.transaction.amount;
@@ -1181,18 +1193,21 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 oldFromWallet.amount += oldFeeTransaction.amount;
 
                 if (!oldFromWallet.isExclude) {
-                    account.balance += oldFeeTransaction.amount;
+                    account.balance += (oldFeeTransaction.amount * oldFromWallet.exchangeRate);
                 }
             }
 
             // Apply new transfer
+            double accountAmount = transactionAmount * fromWallet.exchangeRate;
+            double convertedAmount = accountAmount / toWallet.exchangeRate;
+
             fromWallet.amount -= transactionAmount;
-            toWallet.amount += transactionAmount;
+            toWallet.amount += convertedAmount;
 
             if (!fromWallet.isExclude && toWallet.isExclude) {
-                account.balance -= transactionAmount;
+                account.balance -= accountAmount;
             } else if (fromWallet.isExclude && !toWallet.isExclude) {
-                account.balance += transactionAmount;
+                account.balance += accountAmount;
             }
 
             // Apply new fee
@@ -1203,7 +1218,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 fromWallet.amount -= transactionFee;
 
                 if (!fromWallet.isExclude) {
-                    account.balance -= transactionFee;
+                    account.balance -= (transactionFee * fromWallet.exchangeRate);
                 }
 
                 if (oldFeeTransaction != null) {
@@ -1250,13 +1265,16 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // NEW TRANSFER
             // ------------------------
 
+            double accountAmount = transactionAmount * fromWallet.exchangeRate;
+            double convertedAmount = accountAmount / toWallet.exchangeRate;
+
             fromWallet.amount -= transactionAmount;
-            toWallet.amount += transactionAmount;
+            toWallet.amount += convertedAmount;
 
             if (!fromWallet.isExclude && toWallet.isExclude) {
-                account.balance -= transactionAmount;
+                account.balance -= accountAmount;
             } else if (fromWallet.isExclude && !toWallet.isExclude) {
-                account.balance += transactionAmount;
+                account.balance += accountAmount;
             }
 
             if (transactionFee > 0) {
@@ -1266,7 +1284,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 fromWallet.amount -= transactionFee;
 
                 if (!fromWallet.isExclude) {
-                    account.balance -= transactionFee;
+                    account.balance -= (transactionFee * fromWallet.exchangeRate);
                 }
 
                 feeTransaction = new TransactionEntity();
@@ -1329,6 +1347,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.memo = Objects.requireNonNull(etMemo.getText()).toString().trim();
 
         return transaction;
+    }
+
+    private void updateAmountText() {
+        String symbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
+        tvAmount.setText(CommonUtils.getBeautifyAmount(symbol, transactionAmount));
     }
 
     private void backPressed() {

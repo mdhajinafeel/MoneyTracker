@@ -192,6 +192,8 @@ public class AddCurrencyActivity extends BaseActivity {
                     accountCurrencyMappingEntity.mainCurrencySymbol = mainCurrency.symbol;
                 }
 
+                accountCurrencyMappingEntity.conversionRate = Double.parseDouble(Objects.requireNonNull(etRate.getText()).toString());
+
                 accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
                 runOnUiThread(() -> {

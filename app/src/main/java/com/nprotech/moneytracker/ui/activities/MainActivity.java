@@ -32,7 +32,7 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.ui.fragments.CalendarFragment;
 import com.nprotech.moneytracker.ui.fragments.StatisticsFragment;
 import com.nprotech.moneytracker.ui.fragments.TransactionFragment;
-import com.nprotech.moneytracker.ui.fragments.WalletFragment;
+import com.nprotech.moneytracker.ui.fragments.MoreFragment;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
     private final TransactionFragment transactionFragment = new TransactionFragment();
     private final CalendarFragment calendarFragment = new CalendarFragment();
     private final StatisticsFragment statisticsFragment = new StatisticsFragment();
-    private final WalletFragment walletFragment = new WalletFragment();
+    private final MoreFragment moreFragment = new MoreFragment();
     private Fragment activeFragment;
     private long lastBackPressedTime = 0;
     private static final long EXIT_INTERVAL = 2000;
@@ -121,8 +121,8 @@ public class MainActivity extends BaseActivity {
                 } else if (item.getItemId() == R.id.nav_statistic) {
                     loadFragment(statisticsFragment);
                     return true;
-                } else if (item.getItemId() == R.id.nav_wallet) {
-                    loadFragment(walletFragment);
+                } else if (item.getItemId() == R.id.nav_more) {
+                    loadFragment(moreFragment);
                     return true;
                 }
 
@@ -139,8 +139,8 @@ public class MainActivity extends BaseActivity {
                     bottomNav.setSelectedItemId(R.id.nav_calendar);
                 } else if (fragment instanceof StatisticsFragment) {
                     bottomNav.setSelectedItemId(R.id.nav_statistic);
-                } else if (fragment instanceof WalletFragment) {
-                    bottomNav.setSelectedItemId(R.id.nav_wallet);
+                } else if (fragment instanceof MoreFragment) {
+                    bottomNav.setSelectedItemId(R.id.nav_more);
                 }
             });
 
@@ -294,7 +294,7 @@ public class MainActivity extends BaseActivity {
             ivSettings.setVisibility(View.GONE);
             ivChart.setVisibility(View.VISIBLE);
             ivCalendar.setVisibility(View.VISIBLE);
-        } else if (fragment instanceof WalletFragment) {
+        } else if (fragment instanceof MoreFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.VISIBLE);
             ivChart.setVisibility(View.GONE);
@@ -314,8 +314,8 @@ public class MainActivity extends BaseActivity {
                 .hide(calendarFragment)
                 .add(R.id.fragmentContainer, statisticsFragment, "statistics")
                 .hide(statisticsFragment)
-                .add(R.id.fragmentContainer, walletFragment, "wallet")
-                .hide(walletFragment)
+                .add(R.id.fragmentContainer, moreFragment, "wallet")
+                .hide(moreFragment)
                 .commitNow();
 
         switch (startUpScreen) {
@@ -340,14 +340,14 @@ public class MainActivity extends BaseActivity {
                 bottomNav.setSelectedItemId(R.id.nav_statistic);
                 break;
 
-            case IConstants.STARTUP_WALLET:
+            case IConstants.STARTUP_MORE:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .show(walletFragment)
+                        .show(moreFragment)
                         .commit();
 
-                activeFragment = walletFragment;
-                bottomNav.setSelectedItemId(R.id.nav_wallet);
+                activeFragment = moreFragment;
+                bottomNav.setSelectedItemId(R.id.nav_more);
                 break;
 
             case IConstants.STARTUP_TRANSACTION:

@@ -25,6 +25,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ManageCategoryActivity extends BaseActivity {
 
+    private AppCompatImageView icBack, ivAdd;
+    private TabLayout tabLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +42,11 @@ public class ManageCategoryActivity extends BaseActivity {
 
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
-            AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
-            AppCompatImageView ivAdd = toolbarWrapper.findViewById(R.id.ivAdd);
-            TabLayout tabLayout = findViewById(R.id.tabLayout);
+            icBack = toolbarWrapper.findViewById(R.id.icBack);
+            ivAdd = toolbarWrapper.findViewById(R.id.ivAdd);
+            tabLayout = findViewById(R.id.tabLayout);
             ViewPager2 viewPager = findViewById(R.id.viewPager);
 
-            icBack.setOnClickListener(view -> finish());
             tvTitle.setText(R.string.manage_category);
             ivAdd.setVisibility(View.VISIBLE);
 
@@ -71,6 +73,27 @@ public class ManageCategoryActivity extends BaseActivity {
                     tab.setText(getString(R.string.expense));
                 }
             }).attach();
+
+            viewPager.setPageTransformer(null);
+            viewPager.setOffscreenPageLimit(1);
+            viewPager.setUserInputEnabled(true);
+
+            setUpListeners();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initComponents", e);
+        }
+    }
+
+    private void setUpListeners() {
+        try {
+            icBack.setOnClickListener(view -> {
+                finish();
+                ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+            });
+
+            ivAdd.setOnClickListener(view -> {
+
+            });
 
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
@@ -102,10 +125,6 @@ public class ManageCategoryActivity extends BaseActivity {
                 }
             });
 
-            viewPager.setPageTransformer(null);
-            viewPager.setOffscreenPageLimit(1);
-            viewPager.setUserInputEnabled(true);
-
             getOnBackPressedDispatcher().addCallback(this,
                     new OnBackPressedCallback(true) {
                         @Override
@@ -114,8 +133,8 @@ public class ManageCategoryActivity extends BaseActivity {
                             ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
                         }
                     });
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "initComponents", e);
+        }catch (Exception e) {
+            AppLogger.e(getClass(), "setUpListeners", e);
         }
     }
 }

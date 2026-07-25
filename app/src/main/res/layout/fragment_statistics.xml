@@ -23,7 +23,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_previous"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivNext"
@@ -34,13 +34,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_next"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_18"
             app:fontFamily="@font/exo2_semibold"
             app:layout_constraintBottom_toBottomOf="parent"

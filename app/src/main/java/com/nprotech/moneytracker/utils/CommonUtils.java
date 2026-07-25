@@ -72,13 +72,18 @@ public class CommonUtils {
 
     public static String formatCompact(double value) {
 
-        if (value >= 1000000)
-            return String.format(Locale.getDefault(), "%.1fM", value / 1000000);
+        double abs = Math.abs(value);
+        DecimalFormat df = new DecimalFormat("#.##");
 
-        if (value >= 1000)
-            return String.format(Locale.getDefault(), "%.1fK", value / 1000);
+        if (abs >= 1_000_000) {
+            return df.format(value / 1_000_000) + "M";
+        }
 
-        return String.format(Locale.getDefault(), "%.0f", value);
+        if (abs >= 1_000) {
+            return df.format(value / 1_000) + "K";
+        }
+
+        return df.format(value);
     }
 
     public static long getLongFromString(String s) {

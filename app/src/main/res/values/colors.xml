@@ -2,7 +2,7 @@
 <resources>
     <color name="azure_blue">#FF2563EB</color>
     <color name="emerald_green">#FF10B981</color>
-    <color name="vibrant_orange">#FFF59E0B</color>
+    <color name="vibrant_orange">#FF6A1B9A</color>
     <color name="teal">#FF03DAC5</color>
     <color name="dark_teal">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -17,7 +17,7 @@
     <color name="medium_grey">#666666</color>
     <color name="grey_88">#E0E0E0</color>
     <color name="funky_grey">#777777</color>
-    <color name="light_grey">#EDEDED</color>
+    <color name="light_grey">#F6F6F6</color>
 
     <color name="background">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>

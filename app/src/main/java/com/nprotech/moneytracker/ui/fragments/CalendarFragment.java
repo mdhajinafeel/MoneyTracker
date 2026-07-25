@@ -304,11 +304,11 @@ public class CalendarFragment extends Fragment {
                     for (TransactionWithDetails item : transactions) {
                         switch (item.transaction.type) {
                             case 1: // Income
-                                total += item.transaction.amount;
+                                total += item.transaction.amount * item.exchangeRate;
                                 break;
 
                             case 2: // Expense
-                                total -= item.transaction.amount;
+                                total -= item.transaction.amount * item.exchangeRate;
                                 break;
 
                             case 3: // Transfer

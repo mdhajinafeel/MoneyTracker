@@ -19,5 +19,6 @@ public class AccountCurrencyMappingEntity implements Serializable {
     public String mainCurrencyCode;
     public String mainCurrencyName;
     public String mainCurrencySymbol;
+    public double conversionRate;
     public boolean isActive;
 }

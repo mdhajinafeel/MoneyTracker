@@ -26,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    protected void statusBarSetting() {
+    protected void statusBarAddAccountSetting() {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
@@ -44,6 +44,29 @@ public class BaseActivity extends AppCompatActivity {
         // false = light icons (white)
         // true = dark icons (black)
         controller.setAppearanceLightStatusBars(true);
+
+        // Android 14 and below
+        setStatusBarColorCompat(window);
+    }
+
+    protected void statusBarSetting() {
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        Window window = getWindow();
+
+        // Keep classic layout (content below status bar)
+        WindowCompat.setDecorFitsSystemWindows(window, true);
+
+        // Set status bar icon color
+        WindowInsetsControllerCompat controller =
+                new WindowInsetsControllerCompat(window, window.getDecorView());
+
+        // false = light icons (white)
+        // true = dark icons (black)
+        controller.setAppearanceLightStatusBars(false);
 
         // Android 14 and below
         setStatusBarColorCompat(window);

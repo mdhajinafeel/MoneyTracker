@@ -40,7 +40,7 @@ public class CurrencyListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_list);
-        statusBarSetting();
+        statusBarAddAccountSetting();
         hideKeyboard(this);
         initComponents();
     }

@@ -10,4 +10,5 @@
     <string name="currency_display">%1$s (%2$s)</string>
     <string name="rate">Rate</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="manage_currency">Manage Currency</string>
 </resources>

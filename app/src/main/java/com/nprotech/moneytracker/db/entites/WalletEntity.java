@@ -20,6 +20,7 @@ public class WalletEntity implements Serializable {
     public int categoryIcon;
     public double initialAmount;
     public double amount;
+    public double exchangeRate;
     public long dueDate;
     public long statementDate;
     public int ordering;

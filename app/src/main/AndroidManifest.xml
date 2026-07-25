@@ -169,6 +169,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Manage Currency Screen -->
+        <activity
+            android:name=".ui.activities.ManageCurrencyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Transaction Overview Screen -->
         <activity
             android:name=".ui.activities.TransactionOverviewActivity"

@@ -231,7 +231,7 @@ public class TransactionOverviewActivity extends BaseActivity {
     private void initializeAdapters() {
         try {
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
-            dailyTransactionAdapter = new DailyTransactionAdapter(this, new ArrayList<>());
+            dailyTransactionAdapter = new DailyTransactionAdapter(this, new ArrayList<>(), currencySymbol);
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);

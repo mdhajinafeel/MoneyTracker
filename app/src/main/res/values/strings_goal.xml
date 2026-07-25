@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="goal">Goal</string>
+    <string name="add_goal">Add Goal</string>
+</resources>

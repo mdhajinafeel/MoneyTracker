@@ -37,6 +37,7 @@ public class TransactionFragment extends Fragment {
     private TransactionViewModel transactionViewModel;
     private AccountViewModel accountViewModel;
     private DailyTransactionAdapter dailyTransactionAdapter;
+    private String accountCurrencySymbol = "";
 
     @Nullable
     @Override
@@ -85,6 +86,8 @@ public class TransactionFragment extends Fragment {
 
                 if (account != null) {
                     transactionViewModel.loadTransactions(account.id, 0, 0);
+                    accountCurrencySymbol = account.currencySymbol;
+                    dailyTransactionAdapter.setAccountCurrencySymbol(accountCurrencySymbol);
                 }
             });
 
@@ -107,7 +110,7 @@ public class TransactionFragment extends Fragment {
     private void initializeAdapters() {
         try {
             rvTransactions.setLayoutManager(new LinearLayoutManager(requireContext()));
-            dailyTransactionAdapter = new DailyTransactionAdapter(requireContext(), new ArrayList<>());
+            dailyTransactionAdapter = new DailyTransactionAdapter(requireContext(), new ArrayList<>(), accountCurrencySymbol);
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);

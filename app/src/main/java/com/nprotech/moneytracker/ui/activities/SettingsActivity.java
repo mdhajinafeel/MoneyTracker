@@ -203,6 +203,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             Intent intent = new Intent(this, ManageCategoryActivity.class);
             ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
             categoryLauncher.launch(intent, options);
+        } if (item.settingType == SettingType.MANAGE_CATEGORY) {
+            Intent intent = new Intent(this, ManageCategoryActivity.class);
+            ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
+            categoryLauncher.launch(intent, options);
         } else if (item.settingType == SettingType.WEEK_STARTS_ON) {
             fetchData(IConstants.DAY);
         } else if (item.settingType == SettingType.STARTUP_SCREEN) {

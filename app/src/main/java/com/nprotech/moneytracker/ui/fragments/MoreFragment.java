@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class WalletFragment extends Fragment {
+public class MoreFragment extends Fragment {
 
     private RecyclerView rvWallets;
     private WalletsAdapter walletsAdapter;
@@ -36,7 +36,7 @@ public class WalletFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet, container, false);
+        View view = inflater.inflate(R.layout.fragment_more, container, false);
         try {
 
             rvWallets = view.findViewById(R.id.rvWallets);

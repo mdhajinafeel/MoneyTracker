@@ -25,7 +25,8 @@
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <!-- Title -->
         <androidx.appcompat.widget.AppCompatTextView
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/exo2_semibold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_18"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/icBack"
@@ -48,7 +49,7 @@
             android:fontFamily="@font/exo2_semibold"
             android:text="@string/save"
             android:textAllCaps="true"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_16"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -63,11 +64,11 @@
             android:layout_marginEnd="@dimen/margin_20"
             android:fontFamily="@font/exo2_semibold"
             android:src="@drawable/ic_add"
-            app:tint="@color/black"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <!-- Delete -->
         <androidx.appcompat.widget.AppCompatImageView
@@ -77,10 +78,10 @@
             android:layout_marginEnd="@dimen/margin_12"
             android:src="@drawable/ic_delete"
             android:visibility="gone"
-            app:tint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <!-- Edit -->
         <androidx.appcompat.widget.AppCompatImageView
@@ -90,10 +91,10 @@
             android:layout_marginEnd="@dimen/margin_10"
             android:src="@drawable/ic_edit"
             android:visibility="gone"
-            app:tint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivDelete" />
+            app:layout_constraintEnd_toStartOf="@id/ivDelete"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
 
         <!-- Calendar -->
         <androidx.appcompat.widget.AppCompatImageView
@@ -103,9 +104,9 @@
             android:layout_marginEnd="@dimen/margin_24"
             android:src="@drawable/ic_calendar_menu"
             android:visibility="gone"
-            app:tint="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>

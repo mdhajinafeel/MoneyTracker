@@ -19,5 +19,6 @@ public class TransactionWithDetails implements Serializable {
     public TransactionEntity feeTransaction;
 
     public String currencySymbol, color, categoryName, walletName, fromWalletName;
+    public double exchangeRate;
     public Integer icon;
 }

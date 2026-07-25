@@ -129,7 +129,7 @@ public class CommonInitializer {
         list.add(new CommonDataEntity(IConstants.STARTUP_SCREEN, 1, "", R.string.transaction, true, true));
         list.add(new CommonDataEntity(IConstants.STARTUP_SCREEN, 2, "", R.string.calendar, true, true));
         list.add(new CommonDataEntity(IConstants.STARTUP_SCREEN, 3, "", R.string.statistic, true, true));
-        list.add(new CommonDataEntity(IConstants.STARTUP_SCREEN, 4, "", R.string.wallet, true, true));
+        list.add(new CommonDataEntity(IConstants.STARTUP_SCREEN, 4, "", R.string.more, true, true));
 
         return list;
     }
