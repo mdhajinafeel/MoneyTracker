@@ -1445,4 +1445,10 @@ public class TransactionPeriodActivity extends BaseActivity {
 
         amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, total));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updatePeriodSpending();
+    }
 }
