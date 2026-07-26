@@ -156,6 +156,11 @@ dependencies {
     implementation libs.mpandroidchart
 
     // ---------------------------
+    // Circle Indicator
+    // ---------------------------
+    implementation libs.circleindicator
+
+    // ---------------------------
     // Testing
     // ---------------------------
     testImplementation libs.junit

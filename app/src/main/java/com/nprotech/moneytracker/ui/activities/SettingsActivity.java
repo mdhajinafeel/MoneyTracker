@@ -10,12 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,7 +42,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class SettingsActivity extends BaseActivity implements SettingsAdapter.OnSettingActionListener {
 
     private RecyclerView rvConfigurations, rvManagement, rvBackup, rvOthers;
-    private ActivityResultLauncher<Intent> categoryLauncher;
     private CommonDataViewModel commonDataViewModel;
     private List<SettingItemModel> configurationList;
     private SettingsAdapter configurationAdapter;
@@ -85,8 +81,6 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             tvTitle.setText(getString(R.string.settings));
 
             commonDataViewModel = new ViewModelProvider(this).get(CommonDataViewModel.class);
-
-            setupLauncher();
 
             getOnBackPressedDispatcher().addCallback(
                     this,
@@ -199,14 +193,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     @Override
     public void onSettingClick(SettingItemModel item) {
-        if (Objects.requireNonNull(item.settingType) == SettingType.MANAGE_CATEGORY) {
-            Intent intent = new Intent(this, ManageCategoryActivity.class);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
-            categoryLauncher.launch(intent, options);
-        } if (item.settingType == SettingType.MANAGE_CATEGORY) {
-            Intent intent = new Intent(this, ManageCategoryActivity.class);
-            ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
-            categoryLauncher.launch(intent, options);
+        if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {
+            startActivity(new Intent(SettingsActivity.this, ManageCurrencyActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
+        }
+        if (item.settingType == SettingType.MANAGE_CATEGORY) {
+            startActivity(new Intent(SettingsActivity.this, ManageCategoryActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
         } else if (item.settingType == SettingType.WEEK_STARTS_ON) {
             fetchData(IConstants.DAY);
         } else if (item.settingType == SettingType.STARTUP_SCREEN) {
@@ -282,13 +275,6 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
-    }
-
-    private void setupLauncher() {
-        categoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    // DO NOTHING
-                });
     }
 
     private void updateConfigurationSubtitle(SettingType settingType, String value) {

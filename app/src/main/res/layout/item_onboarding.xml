@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_onboarding"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_24">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgOnboarding"
+        android:layout_width="320dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="@dimen/margin_16"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_24"
+        android:gravity="center"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_34"
+        app:fontFamily="@font/exo2_bold" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_16"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="@dimen/text_16"
+        app:fontFamily="@font/exo2_semibold" />
+
+</LinearLayout>

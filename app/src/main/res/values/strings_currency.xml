@@ -11,4 +11,6 @@
     <string name="rate">Rate</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
     <string name="manage_currency">Manage Currency</string>
+    <string name="no_currency">No currency</string>
+    <string name="delete_currency">Delete Currency</string>
 </resources>

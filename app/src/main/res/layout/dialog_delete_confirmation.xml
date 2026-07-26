@@ -15,17 +15,17 @@
         android:padding="@dimen/margin_20">
 
         <!-- Title -->
+
+        <!-- Message -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8"
             android:fontFamily="@font/exo2_bold"
-            android:text="@string/delete_transaction"
             android:textColor="@color/black"
             android:textSize="@dimen/text_18" />
 
-        <!-- Message -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"

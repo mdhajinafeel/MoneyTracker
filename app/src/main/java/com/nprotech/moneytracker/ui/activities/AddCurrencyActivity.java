@@ -184,6 +184,7 @@ public class AddCurrencyActivity extends BaseActivity {
                 accountCurrencyMappingEntity.currencyName = currency.name;
                 accountCurrencyMappingEntity.currencySymbol = currency.symbol;
                 accountCurrencyMappingEntity.isActive = true;
+                accountCurrencyMappingEntity.isBase = false;
 
                 if (mainCurrency != null) {
                     accountCurrencyMappingEntity.mainCurrencyId = mainCurrency.id;

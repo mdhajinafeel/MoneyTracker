@@ -85,6 +85,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Onboarding Screen -->
+        <activity
+            android:name=".ui.activities.OnboardingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Currency Screen -->
         <activity
             android:name=".ui.activities.CurrencyListActivity"

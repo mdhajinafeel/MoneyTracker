@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Your Money, Mastered</string>
+    <string name="walkthrough_1_desc">Track every expense, monitor your budget, and understand where your money goes.</string>
+    <string name="walkthrough_2_title">Manage Every Wallet</string>
+    <string name="walkthrough_2_desc">Keep cash, bank accounts, cards, and digital wallets together in one secure place.</string>
+    <string name="walkthrough_3_title">Log Expenses Instantly</string>
+    <string name="walkthrough_3_desc">Add transactions with categories, notes, and attachments in just a few taps.</string>
+    <string name="walkthrough_4_title"><![CDATA[Smart Reports & Analytics]]></string>
+    <string name="walkthrough_4_desc">Visualize your spending with powerful charts and personalized financial insights.</string>
+    <string name="walkthrough_5_title">Stay Ahead with Reminders</string>
+    <string name="walkthrough_5_desc">Stay on top of bills, subscriptions, and recurring payments with smart reminders.</string>
+    <string name="walkthrough_6_title">Achieve Your Financial Goals</string>
+    <string name="walkthrough_6_desc">Build better money habits, save more, and grow your financial confidence every day.</string>
+</resources>

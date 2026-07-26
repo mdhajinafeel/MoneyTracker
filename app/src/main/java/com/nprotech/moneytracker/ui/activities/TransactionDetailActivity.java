@@ -272,6 +272,8 @@ public class TransactionDetailActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        tvTitle.setText(R.string.delete_transaction);
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {

@@ -11,7 +11,10 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.repositories.AccountRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -24,6 +27,11 @@ public class AccountViewModel extends ViewModel {
     private final WalletRepository walletRepository;
     private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
     private final LiveData<AccountEntity> selectedAccount;
+    private boolean loading = false, hasMore = true;
+    private int currentPage = 0, accountId;
+    private static final int PAGE_SIZE = 100;
+    private final MutableLiveData<List<AccountCurrencyMappingEntity>> accountCurrencyMapping = new MutableLiveData<>(new ArrayList<>());
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Inject
     public AccountViewModel(AccountRepository accountRepository, WalletRepository walletRepository) {
@@ -74,5 +82,38 @@ public class AccountViewModel extends ViewModel {
 
     public void updateAccount(AccountEntity account) {
         accountRepository.updateAccount(account);
+    }
+
+    public void loadAccountCurrencies(int accountId) {
+        this.accountId = accountId;
+        currentPage = 0;
+        hasMore = true;
+        accountCurrencyMapping.setValue(new ArrayList<>());
+        loadNextPage();
+    }
+
+
+    public void loadNextPage() {
+
+        if (loading || !hasMore)
+            return;
+
+        loading = true;
+
+        executor.execute(() -> {
+            List<AccountCurrencyMappingEntity> page = accountRepository.fetchAccountCurrencyByAccountId(accountId, currentPage, PAGE_SIZE);
+
+            if (page.size() < PAGE_SIZE) {
+                hasMore = false;
+            }
+
+            accountCurrencyMapping.postValue(page);
+            currentPage++;
+            loading = false;
+        });
+    }
+
+    public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyMapping() {
+        return accountCurrencyMapping;
     }
 }

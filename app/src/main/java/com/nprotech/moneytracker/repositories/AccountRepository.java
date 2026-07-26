@@ -6,6 +6,7 @@ import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 
 import java.util.List;
 
@@ -49,5 +50,10 @@ public class AccountRepository {
 
     public void updateAccount(AccountEntity account) {
         accountDao.updateAccount(account);
+    }
+
+    public List<AccountCurrencyMappingEntity> fetchAccountCurrencyByAccountId(int accountId, int page, int pageSize) {
+        int offset = page * pageSize;
+        return accountCurrencyMappingDao.fetchAccountCurrencyByAccountId(accountId, pageSize, offset);
     }
 }

@@ -65,7 +65,7 @@ public class AddAccountActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_account);
-        statusBarAddAccountSetting();
+        statusBarDarkSetting();
         hideKeyboard(this);
         initComponents();
     }
@@ -241,7 +241,7 @@ public class AddAccountActivity extends BaseActivity {
 
         tvStep2.setBackgroundResource(R.drawable.bg_step_inactive);
         tvStep2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.medium_grey));
-        viewLine1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey_88));
+        viewLine1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.onboarding_light));
         etWalletName.requestFocus();
     }
 
@@ -254,7 +254,7 @@ public class AddAccountActivity extends BaseActivity {
 
         tvStep3.setBackgroundResource(R.drawable.bg_step_inactive);
         tvStep3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.medium_grey));
-        viewLine2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.grey_88));
+        viewLine2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.onboarding_light));
     }
 
     private void animateLayout(View hideView, View showView) {
@@ -313,6 +313,7 @@ public class AddAccountActivity extends BaseActivity {
             accountCurrencyMappingEntity.mainCurrencyName = currency.name;
             accountCurrencyMappingEntity.conversionRate = 1;
             accountCurrencyMappingEntity.isActive = true;
+            accountCurrencyMappingEntity.isBase = true;
             accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
             WalletEntity wallet = new WalletEntity();

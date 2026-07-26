@@ -26,7 +26,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    protected void statusBarAddAccountSetting() {
+    protected void statusBarDarkSetting() {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();

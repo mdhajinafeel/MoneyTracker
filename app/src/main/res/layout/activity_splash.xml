@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/medium_grey"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/onboarding_background">
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="260dp"
+        android:layout_height="260dp"
+        android:alpha="0"
+        android:scaleType="fitCenter"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        android:src="@drawable/ic_app_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tvAppName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:alpha="0"
+        android:text="@string/app_name"
+        android:textColor="#2B1256"
+        android:textSize="@dimen/text_30"
+        app:fontFamily="@font/exo2_bold"
+        app:layout_constraintTop_toBottomOf="@id/imgLogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

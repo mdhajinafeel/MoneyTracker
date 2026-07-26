@@ -7,6 +7,7 @@ public enum PreferenceManager {
 
     INSTANCE;
 
+    private static final String KEY_ONBOARDING_COMPLETED = "onBoardingCompleted";
     private static final String KEY_ACCOUNT_ID = "accountId";
     private static final String KEY_WALLET_ID = "walletId";
     private static final String KEY_DARK_MODE = "darkMode";
@@ -19,6 +20,15 @@ public enum PreferenceManager {
     private static final String KEY_STATISTICS_FILTER = "statisticFilter";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
+
+    // ===== ONBOARDING =====
+    public void setOnBoardingCompleted(boolean onBoardingCompleted) {
+        prefStore.edit().putBoolean(KEY_ONBOARDING_COMPLETED, onBoardingCompleted).apply();
+    }
+
+    public boolean getOnBoardingCompleted() {
+        return prefStore.getBoolean(KEY_ONBOARDING_COMPLETED, false);
+    }
 
     // ===== ACCOUNT ID =====
     public void setAccountId(long accountId) {

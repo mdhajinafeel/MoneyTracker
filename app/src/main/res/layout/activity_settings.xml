@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarWrapper"
@@ -16,128 +16,152 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/toolbar_back" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlManagement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="ifContentScrolls"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvManagement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/management"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/margin_12"
-            android:textSize="@dimen/text_16"
-            app:fontFamily="@font/exo2_bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvManagement"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvManagement"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <!-- Management -->
+            <RelativeLayout
+                android:id="@+id/rlManagement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_6">
 
-    <RelativeLayout
-        android:id="@+id/rlConfigurations"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlManagement">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvManagement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_settings_management"
+                    android:drawablePadding="@dimen/padding_10"
+                    android:text="@string/management"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_bold" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvConfiguration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/configuration"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_16"
-            app:fontFamily="@font/exo2_bold" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvManagement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvManagement"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvConfigurations"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvConfiguration"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <!-- Configuration -->
+            <RelativeLayout
+                android:id="@+id/rlConfigurations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_6">
 
-    </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvConfiguration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_settings_configuration"
+                    android:drawablePadding="@dimen/padding_10"
+                    android:text="@string/configuration"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_bold" />
 
-    <RelativeLayout
-        android:id="@+id/rlBackup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlConfigurations">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvConfigurations"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvConfiguration"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBackup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/backup"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/margin_12"
-            android:textSize="@dimen/text_16"
-            app:fontFamily="@font/exo2_bold" />
+            <!-- Backup -->
+            <RelativeLayout
+                android:id="@+id/rlBackup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_6">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBackup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBackup"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBackup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_settings_backup"
+                    android:drawablePadding="@dimen/padding_10"
+                    android:text="@string/backup"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_bold" />
 
-    </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvBackup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvBackup"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlOthers"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rlBackup">
+            <!-- Others -->
+            <RelativeLayout
+                android:id="@+id/rlOthers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_6">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvOthers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/others"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/margin_12"
-            android:textSize="@dimen/text_16"
-            app:fontFamily="@font/exo2_bold" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvOthers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_settings_other"
+                    android:drawablePadding="@dimen/padding_10"
+                    android:text="@string/others"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvOthers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOthers"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </RelativeLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvOthers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvOthers"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/white"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

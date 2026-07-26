@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5111886c2dc79c4070277e002c61dbff",
+    "identityHash": "85399f3ccf18eedede9e69c3d7cb63c1",
     "entities": [
       {
         "tableName": "currencies",
@@ -157,7 +157,7 @@
       },
       {
         "tableName": "account_currency_mapping",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `currencyId` INTEGER NOT NULL, `currencyCode` TEXT, `currencyName` TEXT, `currencySymbol` TEXT, `mainCurrencyId` INTEGER NOT NULL, `mainCurrencyCode` TEXT, `mainCurrencyName` TEXT, `mainCurrencySymbol` TEXT, `conversionRate` REAL NOT NULL, `isActive` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `currencyId` INTEGER NOT NULL, `currencyCode` TEXT, `currencyName` TEXT, `currencySymbol` TEXT, `mainCurrencyId` INTEGER NOT NULL, `mainCurrencyCode` TEXT, `mainCurrencyName` TEXT, `mainCurrencySymbol` TEXT, `conversionRate` REAL NOT NULL, `isActive` INTEGER NOT NULL, `isBase` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -222,6 +222,12 @@
           {
             "fieldPath": "isActive",
             "columnName": "isActive",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isBase",
+            "columnName": "isBase",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -678,7 +684,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5111886c2dc79c4070277e002c61dbff')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85399f3ccf18eedede9e69c3d7cb63c1')"
     ]
   }
 }

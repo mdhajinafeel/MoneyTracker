@@ -346,7 +346,8 @@ public class CreateWalletActivity extends BaseActivity {
                                     hideKeyboard(CreateWalletActivity.this);
 
                                     currencySpinner.post(() -> {
-                                        Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class);
+                                        Intent intent = new Intent(CreateWalletActivity.this, AddCurrencyActivity.class)
+                                                .putExtra("isEdit", false);
                                         ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(CreateWalletActivity.this, R.anim.left_to_right, R.anim.scale_out);
                                         currencyLauncher.launch(intent, options);
                                     });

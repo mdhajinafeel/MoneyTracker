@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/onboarding_background"
     android:fitsSystemWindows="true">
 
     <!-- TOOLBAR -->
@@ -11,13 +11,13 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@color/onboarding_background"
         android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
-        app:navigationIconTint="@color/black">
+        app:navigationIconTint="@color/vibrant_orange">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/exo2_bold"
             android:text="@string/add_account"
-            android:textColor="@color/black"
+            android:textColor="@color/vibrant_orange"
             android:textSize="@dimen/text_20" />
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -57,7 +57,7 @@
             android:layout_width="50dp"
             android:layout_height="2dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/grey_88" />
+            android:background="@color/onboarding_light" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStep2"
@@ -75,7 +75,7 @@
             android:layout_width="50dp"
             android:layout_height="2dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/grey_88" />
+            android:background="@color/onboarding_light" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStep3"

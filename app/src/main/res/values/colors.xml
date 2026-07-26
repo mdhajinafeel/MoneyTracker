@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="primary">#FF6A1B9A</color>
+    <color name="primary_dark">#FF5B1485</color>
+    <color name="primary_light">#FF8E24AA</color>
+
     <color name="azure_blue">#FF2563EB</color>
     <color name="emerald_green">#FF10B981</color>
     <color name="vibrant_orange">#FF6A1B9A</color>
@@ -28,4 +33,11 @@
     <color name="transfer">#2196F3</color>
     <color name="opening_balance">#1E88E5</color>
     <color name="closing_balance">#43A047</color>
+
+    <color name="indicator_active">#6A1B9A</color>
+    <color name="indicator_inactive">#DDD6FE</color>
+    <color name="onboarding_background">#e6d9fc</color>
+    <color name="onboarding_light">#FCFAFF</color>
+    <color name="text_primary">#24134E</color>
+    <color name="text_secondary">#6F6F86</color>
 </resources>
