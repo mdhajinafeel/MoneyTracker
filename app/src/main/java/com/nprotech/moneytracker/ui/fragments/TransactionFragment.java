@@ -18,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.activities.CreateTransactionActivity;
 import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -136,5 +137,6 @@ public class TransactionFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        transactionViewModel.loadTransactions((int) PreferenceManager.INSTANCE.getAccountId(), 0, 0);
     }
 }

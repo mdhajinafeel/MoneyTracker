@@ -34,4 +34,10 @@ public interface WalletDao {
 
     @Query("SELECT IFNULL(MAX(ordering), 0) FROM wallets WHERE accountId = :accountId")
     int getMaxWalletOrdering(int accountId);
+
+    @Query("SELECT * FROM wallets WHERE accountId = :accountId AND currencyCode = :currencyCode AND isActive = 1 AND isDeleted = 0")
+    List<WalletEntity> getWalletsByAccountAndCurrency(int accountId, String currencyCode);
+
+    @Query("SELECT IFNULL(SUM(amount * exchangeRate), 0) FROM wallets WHERE accountId = :accountId AND isDeleted = 0 AND isActive = 1")
+    double getAccountBalance(int accountId);
 }

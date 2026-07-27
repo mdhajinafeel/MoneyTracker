@@ -108,5 +108,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
+
+        <!-- Attach -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAttach"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="@dimen/margin_24"
+            android:src="@drawable/ic_attach"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.Toolbar>

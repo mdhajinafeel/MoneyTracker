@@ -47,6 +47,88 @@ public class DataHelper {
         arrayList.add("#424243");
         arrayList.add("#455A64");
         arrayList.add("#66757f");
+
+        arrayList.add("#00E5FF"); // Bright Cyan
+        arrayList.add("#18FFFF"); // Aqua Cyan
+        arrayList.add("#26C6DA"); // Turquoise
+        arrayList.add("#4DD0E1"); // Sky Cyan
+        arrayList.add("#80DEEA"); // Light Aqua
+
+        arrayList.add("#00E676"); // Neon Green
+        arrayList.add("#00C853"); // Emerald Green
+        arrayList.add("#43A047"); // Forest Green
+        arrayList.add("#66BB6A"); // Leaf Green
+        arrayList.add("#81C784"); // Mint Green
+        arrayList.add("#2E7D32"); // Dark Green
+
+        arrayList.add("#AEEA00"); // Lime
+        arrayList.add("#CDDC39"); // Lime Yellow
+        arrayList.add("#9CCC65"); // Olive Green
+        arrayList.add("#689F38"); // Moss Green
+
+        arrayList.add("#FFD600"); // Gold
+        arrayList.add("#FBC02D"); // Mustard
+        arrayList.add("#F9A825"); // Amber
+        arrayList.add("#FFA726"); // Orange Gold
+        arrayList.add("#FF8F00"); // Dark Amber
+
+        arrayList.add("#FF7043"); // Coral Orange
+        arrayList.add("#FF5722"); // Deep Orange
+        arrayList.add("#FF6E40"); // Sunset Orange
+        arrayList.add("#FF5252"); // Soft Red
+        arrayList.add("#E53935"); // Crimson Red
+
+        arrayList.add("#EC407A"); // Rose Pink
+        arrayList.add("#F06292"); // Bubblegum Pink
+        arrayList.add("#F48FB1"); // Light Pink
+        arrayList.add("#D81B60"); // Raspberry
+        arrayList.add("#C2185B"); // Dark Rose
+
+        arrayList.add("#AB47BC"); // Orchid Purple
+        arrayList.add("#8E24AA"); // Violet
+        arrayList.add("#7B1FA2"); // Royal Purple
+        arrayList.add("#5E35B1"); // Indigo
+        arrayList.add("#3949AB"); // Sapphire Blue
+
+        arrayList.add("#3F51B5"); // Royal Blue
+        arrayList.add("#1E88E5"); // Ocean Blue
+        arrayList.add("#039BE5"); // Azure Blue
+        arrayList.add("#0288D1"); // Cerulean Blue
+        arrayList.add("#1976D2"); // Cobalt Blue
+
+        arrayList.add("#00897B"); // Teal
+        arrayList.add("#00695C"); // Dark Teal
+        arrayList.add("#26A69A"); // Sea Green
+        arrayList.add("#4DB6AC"); // Aqua Green
+
+        arrayList.add("#6D4C41"); // Coffee Brown
+        arrayList.add("#795548"); // Walnut Brown
+        arrayList.add("#8D6E63"); // Cocoa Brown
+        arrayList.add("#A1887F"); // Sand Brown
+
+        arrayList.add("#546E7A"); // Slate Gray
+        arrayList.add("#78909C"); // Steel Gray
+        arrayList.add("#90A4AE"); // Blue Gray
+        arrayList.add("#607D8B"); // Charcoal Gray
+
+        arrayList.add("#2D3436"); // Graphite
+        arrayList.add("#263238"); // Midnight Gray
+        arrayList.add("#37474F"); // Gunmetal
+
+        arrayList.add("#6C63FF"); // Lavender Blue
+        arrayList.add("#5B8DEF"); // Cornflower Blue
+        arrayList.add("#00B894"); // Jade Green
+        arrayList.add("#00CEC9"); // Tiffany Blue
+        arrayList.add("#FDCB6E"); // Champagne Gold
+        arrayList.add("#E17055"); // Terracotta
+        arrayList.add("#E84393"); // Hot Pink
+        arrayList.add("#A29BFE"); // Lavender
+        arrayList.add("#0984E3"); // Bright Blue
+        arrayList.add("#16A085"); // Jade
+        arrayList.add("#8E44AD"); // Amethyst
+        arrayList.add("#2ECC71"); // Emerald
+        arrayList.add("#B8860B"); // Metallic Gold
+        arrayList.add("#34495E"); // Navy Gray
         return arrayList;
     }
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
+import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
@@ -31,8 +33,10 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -42,15 +46,18 @@ public class ManageCurrencyActivity extends BaseActivity {
     private AppCompatImageView icBack, ivAdd;
     private RelativeLayout rlAccountCurrency;
     private RecyclerView rvAccountCurrency;
+    private AppCompatTextView tvBaseCurrencyName;
     private AccountViewModel accountViewModel;
+    private WalletViewModel walletViewModel;
     private ConstraintLayout emptyWrapper;
     private RecyclerViewAdapter<AccountCurrencyMappingEntity> accountCurrencyRecyclerViewAdapter;
     private ActivityResultLauncher<Intent> currencyLauncher;
+    private int accountId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_currency_mapping);
+        setContentView(R.layout.activity_currency_mapping);
         statusBarDarkSetting();
         hideKeyboard(this);
 
@@ -67,6 +74,7 @@ public class ManageCurrencyActivity extends BaseActivity {
             tvTitle.setText(getString(R.string.currency));
             ivAdd.setVisibility(View.VISIBLE);
 
+            tvBaseCurrencyName = findViewById(R.id.tvBaseCurrencyName);
             rlAccountCurrency = findViewById(R.id.rlAccountCurrency);
             rvAccountCurrency = findViewById(R.id.rvAccountCurrency);
             emptyWrapper = findViewById(R.id.emptyWrapper);
@@ -85,6 +93,7 @@ public class ManageCurrencyActivity extends BaseActivity {
             });
 
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+            walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
 
             bindData();
             initializeAdapters();
@@ -98,10 +107,16 @@ public class ManageCurrencyActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            int accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+            accountId = (int) PreferenceManager.INSTANCE.getAccountId();
 
             if (accountId != 0) {
                 accountViewModel.loadAccountCurrencies(accountId);
+
+                AccountCurrencyMappingEntity baseCurrencyMapping = accountViewModel.fetchAccountBaseCurrencyByAccountId(accountId);
+
+                if (baseCurrencyMapping != null) {
+                    tvBaseCurrencyName.setText(getString(R.string.currency_name_format, baseCurrencyMapping.mainCurrencyCode, baseCurrencyMapping.mainCurrencyName));
+                }
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -128,9 +143,7 @@ public class ManageCurrencyActivity extends BaseActivity {
                         currencyLauncher.launch(intent, options);
                     });
 
-                    holder.getView(R.id.ivDelete).setOnClickListener(view -> {
-                        showDeleteDialog(currency);
-                    });
+                    holder.getView(R.id.ivDelete).setOnClickListener(view -> showDeleteDialog(currency));
                 }
             };
 
@@ -207,7 +220,7 @@ public class ManageCurrencyActivity extends BaseActivity {
             currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
                         if (result.getResultCode() == RESULT_OK) {
-                            accountViewModel.loadAccountCurrencies((int) PreferenceManager.INSTANCE.getAccountId());
+                            accountViewModel.loadAccountCurrencies(accountId);
                         }
                     });
         } catch (Exception e) {
@@ -220,7 +233,12 @@ public class ManageCurrencyActivity extends BaseActivity {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
         tvTitle.setText(R.string.delete_currency);
+        tvMessage.setText(R.string.delete_message_currency);
+        tvSubMessage.setText(R.string.message_currency);
+        tvSubMessage.setVisibility(View.VISIBLE);
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
@@ -228,17 +246,34 @@ public class ManageCurrencyActivity extends BaseActivity {
         }
         view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
-            String mainCurrencyCode = currency.mainCurrencyCode;
-            String subCurrencyCode = currency.currencyCode;
-            deleteCurrency(mainCurrencyCode, subCurrencyCode);
+            deleteCurrency(currency);
             dialog.dismiss();
         });
 
         dialog.show();
     }
 
-    private void deleteCurrency(String mainCurrencyCode, String subCurrencyCode) {
+    private void deleteCurrency(AccountCurrencyMappingEntity currency) {
         try {
+            if (accountViewModel.updateAccountCurrencyMapping(accountId, currency.currencyId, currency.currencyCode)) {
+                List<WalletEntity> wallets = walletViewModel.getWalletsByAccountAndCurrency(accountId, currency.currencyCode);
+                if (wallets != null && !wallets.isEmpty()) {
+                    for (WalletEntity wallet : wallets) {
+                        wallet.currencyCode = currency.mainCurrencyCode;
+                        wallet.currencyName = currency.mainCurrencyName;
+                        wallet.currencySymbol = currency.mainCurrencySymbol;
+                        wallet.exchangeRate = 1;
+                        walletViewModel.updateWallet(wallet);
+                    }
+                }
+
+                // Recalculate account balance
+                double balance = walletViewModel.getAccountBalance(accountId);
+                accountViewModel.updateAccountBalance(accountId, balance);
+
+                Toast.makeText(getApplicationContext(), R.string.currency_has_been_removed_successfully, Toast.LENGTH_SHORT).show();
+                accountViewModel.loadAccountCurrencies(accountId);
+            }
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteCurrency", e);

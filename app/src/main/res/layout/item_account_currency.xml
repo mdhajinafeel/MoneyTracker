@@ -32,7 +32,7 @@
             android:id="@+id/tvCurrencyRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginTop="@dimen/margin_4"
             android:textColor="@color/medium_grey"
             android:textSize="@dimen/text_14"
             android:visibility="visible"

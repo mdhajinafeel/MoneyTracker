@@ -30,16 +30,25 @@
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:fontFamily="@font/exo2_medium"
             android:text="@string/delete_message"
             android:textColor="@color/dark_grey"
             android:textSize="@dimen/text_16" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubMessage"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_width="wrap_content"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_regular"
+            android:textColor="@color/funky_grey"
+            android:textSize="@dimen/text_14" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_24"
+            android:layout_marginTop="@dimen/margin_40"
             android:gravity="end"
             android:orientation="horizontal">
 

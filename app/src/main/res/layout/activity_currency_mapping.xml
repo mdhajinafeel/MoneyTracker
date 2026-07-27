@@ -19,6 +19,50 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
+        android:id="@+id/rlBaseCurrency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding_6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBaseCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:text="@string/base_currency"
+            android:textAllCaps="true"
+            android:textColor="@color/vibrant_orange"
+            android:textSize="@dimen/text_16"
+            app:drawableTint="@color/vibrant_orange"
+            app:fontFamily="@font/exo2_bold" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/labelWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvBaseCurrency"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginEnd="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_12">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBaseCurrencyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:fontFamily="@font/exo2_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/rlAccountCurrency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,12 +70,26 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
+        app:layout_constraintTop_toBottomOf="@+id/rlBaseCurrency">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAdditionalCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
+            android:text="@string/additional_currency"
+            android:textAllCaps="true"
+            android:textColor="@color/vibrant_orange"
+            android:textSize="@dimen/text_16"
+            app:drawableTint="@color/vibrant_orange"
+            app:fontFamily="@font/exo2_bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAccountCurrency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAdditionalCurrency"
             android:layout_marginTop="@dimen/margin_10"
             android:background="@color/white"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -45,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
+        app:layout_constraintTop_toBottomOf="@+id/rlBaseCurrency">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivEmpty"

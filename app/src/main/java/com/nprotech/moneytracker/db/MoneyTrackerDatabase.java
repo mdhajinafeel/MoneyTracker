@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.nprotech.moneytracker.BuildConfig;
+import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CommonDataDao;
@@ -53,7 +54,7 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     // ✅ Build Room database
                     Builder<MoneyTrackerDatabase> builder = Room.databaseBuilder(context.getApplicationContext(), MoneyTrackerDatabase.class,
-                                    "money_tracker")
+                                    context.getString(R.string.app_name) + ".db")
                             .fallbackToDestructiveMigration(true);
 
                     // ✅ Allow main thread queries in DEBUG only

@@ -56,4 +56,12 @@ public class AccountRepository {
         int offset = page * pageSize;
         return accountCurrencyMappingDao.fetchAccountCurrencyByAccountId(accountId, pageSize, offset);
     }
+
+    public AccountCurrencyMappingEntity fetchAccountBaseCurrencyByAccountId(int accountId) {
+        return accountCurrencyMappingDao.fetchAccountBaseCurrencyByAccountId(accountId);
+    }
+
+    public boolean updateAccountCurrencyMapping(int accountId, int currencyId, String currencyCode) {
+        return accountCurrencyMappingDao.updateAccountCurrencyMapping(accountId, currencyId, currencyCode) > 0;
+    }
 }

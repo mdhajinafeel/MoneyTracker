@@ -31,7 +31,7 @@ public class ManageCategoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manager_category);
+        setContentView(R.layout.activity_manage_category);
         statusBarSetting();
         hideKeyboard(this);
         initComponents();

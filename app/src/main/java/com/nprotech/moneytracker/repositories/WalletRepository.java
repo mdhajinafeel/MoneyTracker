@@ -38,4 +38,12 @@ public class WalletRepository {
     public int getMaxWalletOrdering(int accountId) {
         return walletDao.getMaxWalletOrdering(accountId);
     }
+
+    public List<WalletEntity> getWalletsByAccountAndCurrency(int accountId, String currencyCode) {
+        return walletDao.getWalletsByAccountAndCurrency(accountId, currencyCode);
+    }
+
+    public double getAccountBalance(int accountId) {
+        return walletDao.getAccountBalance(accountId);
+    }
 }

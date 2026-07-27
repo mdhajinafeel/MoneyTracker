@@ -29,8 +29,9 @@
                 android:gravity="center_vertical"
                 android:text="@string/wallets"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
+                app:drawableTint="@color/vibrant_orange"
                 app:fontFamily="@font/exo2_bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -65,8 +66,9 @@
                 android:gravity="center_vertical"
                 android:text="@string/budget"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
+                app:drawableTint="@color/vibrant_orange"
                 app:fontFamily="@font/exo2_bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -87,7 +89,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/rvBudgets"
                 android:layout_marginTop="@dimen/margin_4"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -127,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/layoutAddBudget"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -149,10 +151,11 @@
                 android:layout_marginTop="@dimen/margin_12"
                 android:drawableStart="@drawable/ic_more_goal"
                 android:drawablePadding="@dimen/padding_8"
+                app:drawableTint="@color/vibrant_orange"
                 android:gravity="center_vertical"
                 android:text="@string/goal"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
                 app:fontFamily="@font/exo2_bold" />
 
@@ -174,7 +177,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/rvGoal"
                 android:layout_marginTop="@dimen/margin_4"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -214,7 +217,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/layoutAddGoal"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -236,10 +239,11 @@
                 android:layout_marginTop="@dimen/margin_12"
                 android:drawableStart="@drawable/ic_more_debt"
                 android:drawablePadding="@dimen/padding_8"
+                app:drawableTint="@color/vibrant_orange"
                 android:gravity="center_vertical"
                 android:text="@string/debt"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
                 app:fontFamily="@font/exo2_bold" />
 
@@ -261,7 +265,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/rvDebt"
                 android:layout_marginTop="@dimen/margin_4"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -301,7 +305,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/layoutAddDebt"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -323,10 +327,11 @@
                 android:layout_marginTop="@dimen/margin_12"
                 android:drawableStart="@drawable/ic_more_recurring"
                 android:drawablePadding="@dimen/padding_8"
+                app:drawableTint="@color/vibrant_orange"
                 android:gravity="center_vertical"
                 android:text="@string/recurring"
                 android:textAllCaps="true"
-                android:textColor="@color/black"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
                 app:fontFamily="@font/exo2_bold" />
 
@@ -348,7 +353,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/rvRecurring"
                 android:layout_marginTop="@dimen/margin_4"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -388,7 +393,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/layoutAddRecurring"
-                android:background="@color/grey_88"
+                android:background="@color/light_grey"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

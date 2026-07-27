@@ -52,8 +52,9 @@
                     android:drawablePadding="@dimen/padding_10"
                     android:text="@string/management"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/vibrant_orange"
                     android:textSize="@dimen/text_16"
+                    app:drawableTint="@color/vibrant_orange"
                     app:fontFamily="@font/exo2_bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -84,8 +85,9 @@
                     android:drawablePadding="@dimen/padding_10"
                     android:text="@string/configuration"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/vibrant_orange"
                     android:textSize="@dimen/text_16"
+                    app:drawableTint="@color/vibrant_orange"
                     app:fontFamily="@font/exo2_bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -116,8 +118,9 @@
                     android:drawablePadding="@dimen/padding_10"
                     android:text="@string/backup"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/vibrant_orange"
                     android:textSize="@dimen/text_16"
+                    app:drawableTint="@color/vibrant_orange"
                     app:fontFamily="@font/exo2_bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -148,8 +151,9 @@
                     android:drawablePadding="@dimen/padding_10"
                     android:text="@string/others"
                     android:textAllCaps="true"
-                    android:textColor="@color/black"
+                    android:textColor="@color/vibrant_orange"
                     android:textSize="@dimen/text_16"
+                    app:drawableTint="@color/vibrant_orange"
                     app:fontFamily="@font/exo2_bold" />
 
                 <androidx.recyclerview.widget.RecyclerView

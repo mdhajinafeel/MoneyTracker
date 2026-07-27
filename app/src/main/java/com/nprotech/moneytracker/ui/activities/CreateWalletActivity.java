@@ -266,7 +266,7 @@ public class CreateWalletActivity extends BaseActivity {
                         statementDateWrapper.setVisibility(View.GONE);
                         paymentDateWrapper.setVisibility(View.GONE);
 
-                        amountLabel.setText(getString(R.string.amount));
+                        amountLabel.setText(getString(R.string.initial_amount));
                     }
                 }
 

@@ -116,4 +116,22 @@ public class AccountViewModel extends ViewModel {
     public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyMapping() {
         return accountCurrencyMapping;
     }
+
+    public boolean updateAccountCurrencyMapping(int accountId, int currencyId, String currencyCode) {
+        return accountRepository.updateAccountCurrencyMapping(accountId, currencyId, currencyCode);
+    }
+
+    public void updateAccountBalance(int accountId, double balance) {
+        executor.execute(() -> {
+            AccountEntity account = accountRepository.getAccountDetailById(accountId);
+            if (account != null) {
+                account.balance = balance;
+                accountRepository.updateAccount(account);
+            }
+        });
+    }
+
+    public AccountCurrencyMappingEntity fetchAccountBaseCurrencyByAccountId(int accountId) {
+        return accountRepository.fetchAccountBaseCurrencyByAccountId(accountId);
+    }
 }

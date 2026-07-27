@@ -196,8 +196,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {
             startActivity(new Intent(SettingsActivity.this, ManageCurrencyActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
-        }
-        if (item.settingType == SettingType.MANAGE_CATEGORY) {
+        } else if (item.settingType == SettingType.MANAGE_CATEGORY) {
             startActivity(new Intent(SettingsActivity.this, ManageCategoryActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
         } else if (item.settingType == SettingType.WEEK_STARTS_ON) {
@@ -208,6 +207,9 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             fetchData(IConstants.LANGUAGE);
         } else if (item.settingType == SettingType.SMART_REMINDER) {
             fetchData(IConstants.SMART_REMINDER);
+        } else if (item.settingType == SettingType.MANAGE_BACKUP) {
+            startActivity(new Intent(SettingsActivity.this, ManageBackupActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
         }
     }
 

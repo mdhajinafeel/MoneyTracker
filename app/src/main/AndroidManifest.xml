@@ -183,6 +183,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Manage Backup Screen -->
+        <activity
+            android:name=".ui.activities.ManageBackupActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Transaction Overview Screen -->
         <activity
             android:name=".ui.activities.TransactionOverviewActivity"
