@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/onboarding_background">
+    android:background="@color/app_background">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgLogo"
@@ -25,14 +25,28 @@
         android:id="@+id/tvAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:alpha="0"
+        android:layout_marginTop="@dimen/margin_28"
         android:text="@string/app_name"
-        android:textColor="#2B1256"
+        android:textColor="@color/text_primary"
         android:textSize="@dimen/text_30"
+        android:alpha="0"
         app:fontFamily="@font/exo2_bold"
         app:layout_constraintTop_toBottomOf="@id/imgLogo"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAppTagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:alpha="0"
+        android:text="@string/app_tagline"
+        android:textColor="@color/primary_light"
+        android:textSize="@dimen/text_16"
+        app:fontFamily="@font/exo2_mediumitalic"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

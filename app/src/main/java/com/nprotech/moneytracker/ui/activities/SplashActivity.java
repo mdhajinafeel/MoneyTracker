@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class SplashActivity extends BaseActivity {
 
     private AppCompatImageView imgLogo;
-    private AppCompatTextView tvAppName;
+    private AppCompatTextView tvAppName, tvAppTagline;
     private static final int SPLASH_DELAY = 1500; // 1 second
     private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK
             | Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -34,6 +34,7 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
         imgLogo = findViewById(R.id.imgLogo);
         tvAppName = findViewById(R.id.tvAppName);
+        tvAppTagline = findViewById(R.id.tvAppTagline);
 
         statusBarDarkSetting();
 
@@ -71,6 +72,7 @@ public class SplashActivity extends BaseActivity {
         imgLogo.setScaleY(0.90f);
 
         tvAppName.setAlpha(0f);
+        tvAppTagline.setAlpha(0f);
 
         imgLogo.animate()
                 .alpha(1f)
@@ -91,6 +93,12 @@ public class SplashActivity extends BaseActivity {
 
         tvAppName.postDelayed(() ->
                 tvAppName.animate()
+                        .alpha(1f)
+                        .setDuration(300)
+                        .start(), 250);
+
+        tvAppTagline.postDelayed(() ->
+                tvAppTagline.animate()
                         .alpha(1f)
                         .setDuration(300)
                         .start(), 250);
