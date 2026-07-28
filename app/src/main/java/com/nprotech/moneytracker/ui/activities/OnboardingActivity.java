@@ -37,9 +37,7 @@ public class OnboardingActivity extends BaseActivity {
     private boolean isNavigating = false;
     private int currentPage = 0;
     private ViewPager2.OnPageChangeCallback pageCallback;
-    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TOP;
+    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
