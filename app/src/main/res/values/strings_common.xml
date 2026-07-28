@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Every Expense. Every Insight.</string>
 
     <!-- MENU -->
     <string name="transaction">Transaction</string>
     <string name="calendar">Calendar</string>
-    <string name="statistic">Statistic</string>
+    <string name="statistic">Insights</string>
     <string name="more">More</string>
     <string name="wallet">Wallet</string>
 

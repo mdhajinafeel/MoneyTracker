@@ -10,6 +10,7 @@
     <string name="calendar_all">All</string>
     <string name="calendar_custom">Custom</string>
 
+    <string name="total_balance">Total Balance</string>
     <string name="balance">Balance</string>
     <string name="opening_balance">Opening balance</string>
     <string name="ending_balance">Ending balance</string>

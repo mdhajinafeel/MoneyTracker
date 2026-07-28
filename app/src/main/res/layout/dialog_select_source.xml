@@ -22,7 +22,7 @@
             android:layout_marginBottom="@dimen/margin_16"
             android:fontFamily="@font/exo2_bold"
             android:text="@string/select_source"
-            android:textColor="@color/black"
+            android:textColor="@color/primary_dark"
             android:textSize="@dimen/text_18" />
 
         <!-- Camera -->
@@ -37,6 +37,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                app:tint="@color/vibrant_orange"
                 android:src="@drawable/ic_camera" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -62,6 +63,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                app:tint="@color/vibrant_orange"
                 android:src="@drawable/ic_gallery" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -87,6 +89,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                app:tint="@color/vibrant_orange"
                 android:src="@drawable/ic_file_document" />
 
             <androidx.appcompat.widget.AppCompatTextView

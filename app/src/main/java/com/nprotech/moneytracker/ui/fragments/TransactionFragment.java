@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
@@ -39,6 +40,8 @@ public class TransactionFragment extends Fragment {
     private AccountViewModel accountViewModel;
     private DailyTransactionAdapter dailyTransactionAdapter;
     private String accountCurrencySymbol = "";
+    private ShimmerFrameLayout shimmerLayout;
+    private boolean firstLoad = true;
 
     @Nullable
     @Override
@@ -48,6 +51,7 @@ public class TransactionFragment extends Fragment {
             fabAdd = view.findViewById(R.id.fabAdd);
             emptyWrapper = view.findViewById(R.id.emptyWrapper);
             rvTransactions = view.findViewById(R.id.rvTransactions);
+            shimmerLayout = view.findViewById(R.id.shimmerLayout);
 
             transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
@@ -86,6 +90,11 @@ public class TransactionFragment extends Fragment {
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
 
                 if (account != null) {
+
+                    if (firstLoad) {
+                        showLoading();
+                    }
+
                     transactionViewModel.loadTransactions(account.id, 0, 0);
                     accountCurrencySymbol = account.currencySymbol;
                     dailyTransactionAdapter.setAccountCurrencySymbol(accountCurrencySymbol);
@@ -93,6 +102,9 @@ public class TransactionFragment extends Fragment {
             });
 
             transactionViewModel.getDailyTransactions().observe(getViewLifecycleOwner(), dailyTransModels -> {
+
+                hideLoading();
+                firstLoad = false;
 
                 if (dailyTransModels == null || dailyTransModels.isEmpty()) {
                     rvTransactions.setVisibility(View.GONE);
@@ -134,9 +146,25 @@ public class TransactionFragment extends Fragment {
         }
     }
 
+    private void showLoading() {
+        shimmerLayout.setVisibility(View.VISIBLE);
+        shimmerLayout.startShimmer();
+
+        rvTransactions.setVisibility(View.GONE);
+        emptyWrapper.setVisibility(View.GONE);
+    }
+
+    private void hideLoading() {
+        shimmerLayout.stopShimmer();
+        shimmerLayout.setVisibility(View.GONE);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        transactionViewModel.loadTransactions((int) PreferenceManager.INSTANCE.getAccountId(), 0, 0);
+
+        if (!firstLoad) {
+            transactionViewModel.loadTransactions((int) PreferenceManager.INSTANCE.getAccountId(), 0, 0);
+        }
     }
 }

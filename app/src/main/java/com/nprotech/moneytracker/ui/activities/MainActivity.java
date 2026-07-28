@@ -36,6 +36,7 @@ import com.nprotech.moneytracker.ui.fragments.MoreFragment;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +46,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MainActivity extends BaseActivity {
 
-    private ConstraintLayout balanceWrapper;
-    private AppCompatTextView tvAccountName, tvAccountBalance;
+    private ConstraintLayout balanceWrapper, incomeWrapper, expenseWrapper;
+    private AppCompatTextView tvAccountName, tvAccountBalance, tvTotalIncome, tvTotalExpense;
     private AccountViewModel accountViewModel;
+    private TransactionViewModel transactionViewModel;
     private BottomNavigationView bottomNav;
     private AppCompatImageView ivSettings, ivChart, ivCalendar;
     private final List<AccountEntity> accountList = new ArrayList<>();
@@ -75,14 +77,19 @@ public class MainActivity extends BaseActivity {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
 
             balanceWrapper = findViewById(R.id.balanceWrapper);
+            incomeWrapper = findViewById(R.id.incomeWrapper);
+            expenseWrapper = findViewById(R.id.expenseWrapper);
             ivSettings = findViewById(R.id.ivSettings);
             ivChart = findViewById(R.id.ivChart);
             ivCalendar = findViewById(R.id.ivCalendar);
             tvAccountName = findViewById(R.id.tvAccountName);
             tvAccountBalance = findViewById(R.id.tvAccountBalance);
+            tvTotalIncome = findViewById(R.id.tvTotalIncome);
+            tvTotalExpense = findViewById(R.id.tvTotalExpense);
             bottomNav = findViewById(R.id.bottomNav);
 
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+            transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -174,8 +181,12 @@ public class MainActivity extends BaseActivity {
             }
 
             tvAccountName.setText(accountEntity.name);
-            tvAccountBalance.setText(getString(R.string.account_balance_format,
-                    CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, accountEntity.balance)));
+            tvAccountBalance.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, accountEntity.balance));
+
+            transactionViewModel.accountSummaryById(accountEntity.id).observe(this, balanceSummaryModel -> {
+                tvTotalIncome.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, balanceSummaryModel.openingBalance));
+                tvTotalExpense.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, balanceSummaryModel.closingBalance));
+            });
         });
 
         accountViewModel.getAllAccounts().observe(this, accounts -> {
@@ -222,14 +233,10 @@ public class MainActivity extends BaseActivity {
             RecyclerViewAdapter<AccountEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), accountList, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, AccountEntity accountEntity) {
-
                     holder.setViewText(R.id.tvAccountName, accountEntity.name);
-
                     holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
                             CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, accountEntity.balance)));
-
                     holder.getView(R.id.ivSelected).setVisibility(PreferenceManager.INSTANCE.getAccountId() == accountEntity.id ? View.VISIBLE : View.GONE);
-
                     holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                         PreferenceManager.INSTANCE.setAccountId(accountEntity.id);
                         accountViewModel.selectAccount(accountEntity.id);
@@ -284,21 +291,33 @@ public class MainActivity extends BaseActivity {
             ivSettings.setVisibility(View.GONE);
             ivChart.setVisibility(View.GONE);
             ivCalendar.setVisibility(View.GONE);
+
+            incomeWrapper.setVisibility(View.VISIBLE);
+            expenseWrapper.setVisibility(View.VISIBLE);
         } else if (fragment instanceof CalendarFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.GONE);
             ivChart.setVisibility(View.GONE);
             ivCalendar.setVisibility(View.GONE);
+
+            incomeWrapper.setVisibility(View.GONE);
+            expenseWrapper.setVisibility(View.GONE);
         } else if (fragment instanceof StatisticsFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.GONE);
             ivChart.setVisibility(View.VISIBLE);
             ivCalendar.setVisibility(View.VISIBLE);
+
+            incomeWrapper.setVisibility(View.GONE);
+            expenseWrapper.setVisibility(View.GONE);
         } else if (fragment instanceof MoreFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.VISIBLE);
             ivChart.setVisibility(View.GONE);
             ivCalendar.setVisibility(View.GONE);
+
+            incomeWrapper.setVisibility(View.GONE);
+            expenseWrapper.setVisibility(View.GONE);
         }
     }
 

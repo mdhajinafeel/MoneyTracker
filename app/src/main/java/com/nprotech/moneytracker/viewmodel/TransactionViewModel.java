@@ -8,6 +8,7 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
@@ -293,5 +294,9 @@ public class TransactionViewModel extends ViewModel {
         }
 
         current.addAll(newItems);
+    }
+
+    public LiveData<BalanceSummaryModel> accountSummaryById(int accountId) {
+        return transactionRepository.accountSummaryById(accountId);
     }
 }

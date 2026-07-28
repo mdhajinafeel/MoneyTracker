@@ -17,36 +17,183 @@
 
         <include layout="@layout/toolbar_menu" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/balanceWrapper"
             android:layout_width="0dp"
-            android:layout_height="55dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:background="@drawable/bg_box"
+            android:paddingStart="@dimen/padding_20"
+            android:paddingTop="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_20"
+            android:paddingBottom="@dimen/padding_6"
+            app:layout_constraintEnd_toStartOf="@id/guideline50"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/balanceImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_12"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_account_wallet"
                 app:tint="@color/white" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvAccountBalance"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_10"
-                android:fontFamily="@font/exo2_medium"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_14"
+                android:layout_marginStart="@dimen/margin_10"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/balanceImage"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_medium"
+                    android:text="@string/total_balance"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_12" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAccountBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_18" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/incomeWrapper"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@drawable/bg_box_white"
+            android:paddingStart="@dimen/padding_16"
+            android:paddingTop="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_16"
+            android:paddingBottom="@dimen/padding_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/expenseWrapper"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/balanceWrapper">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/incomeImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_circle_income"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_expense"
+                app:tint="@color/income"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/incomeImage"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_medium"
+                    android:text="@string/total_income"
+                    android:textColor="@color/income"
+                    android:textSize="@dimen/text_12" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTotalIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textColor="@color/income"
+                    android:textSize="@dimen/text_18" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/expenseWrapper"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@drawable/bg_box_white"
+            android:paddingStart="@dimen/padding_16"
+            android:paddingTop="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_16"
+            android:paddingBottom="@dimen/padding_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/incomeWrapper"
+            app:layout_constraintTop_toBottomOf="@id/balanceWrapper">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/expenseImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_circle_expense"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:srcCompat="@drawable/ic_income"
+                app:tint="@color/expense"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/expenseImage"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_medium"
+                    android:text="@string/total_expense"
+                    android:textColor="@color/expense"
+                    android:textSize="@dimen/text_12" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTotalExpense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textColor="@color/expense"
+                    android:textSize="@dimen/text_18" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

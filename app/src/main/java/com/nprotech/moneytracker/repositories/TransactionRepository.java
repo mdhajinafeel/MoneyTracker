@@ -221,4 +221,8 @@ public class TransactionRepository {
     public List<TransactionWithDetails> getTransactionsForPeriod(int accountId, int transactionType, long startDate, long endDate, int limit, int offset) {
         return transactionDao.getTransactionsForPeriod(accountId, transactionType, startDate, endDate, limit, offset);
     }
+
+    public LiveData<BalanceSummaryModel> accountSummaryById(int accountId) {
+        return transactionDao.accountSummaryById(accountId);
+    }
 }

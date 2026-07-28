@@ -6,10 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -49,10 +52,10 @@ import me.grantland.widget.AutofitTextView;
 @AndroidEntryPoint
 public class CalendarFragment extends Fragment {
 
-    private AutofitTextView tvIncome, tvExpense, tvTotal;
     private AppCompatTextView tvDate;
     private AppCompatImageView ivPrevious, ivNext;
     private RecyclerView rvCalendar;
+    private View incomeCard, expenseCard, totalCard;
     private Date date;
     private CalendarAdapter calendarAdapter;
     private CalendarViewModel calendarViewModel;
@@ -71,10 +74,10 @@ public class CalendarFragment extends Fragment {
             ivPrevious = view.findViewById(R.id.ivPrevious);
             ivNext = view.findViewById(R.id.ivNext);
             tvDate = view.findViewById(R.id.tvDate);
-            tvIncome = view.findViewById(R.id.tvIncome);
-            tvExpense = view.findViewById(R.id.tvExpense);
-            tvTotal = view.findViewById(R.id.tvTotal);
             rvCalendar = view.findViewById(R.id.rvCalendar);
+            incomeCard = view.findViewById(R.id.cardIncome);
+            expenseCard = view.findViewById(R.id.cardExpense);
+            totalCard = view.findViewById(R.id.cardTotal);
 
             calendarViewModel = new ViewModelProvider(requireActivity()).get(CalendarViewModel.class);
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
@@ -171,9 +174,10 @@ public class CalendarFragment extends Fragment {
         calendarViewModel.getCalendarHeader().observe(getViewLifecycleOwner(), header -> {
             if (header == null)
                 return;
-            tvIncome.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.income));
-            tvExpense.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.expense));
-            tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
+
+            setupSummaryCard(incomeCard, R.drawable.ic_expense, getString(R.string.income), header.income, R.color.income, R.drawable.bg_circle_income);
+            setupSummaryCard(expenseCard, R.drawable.ic_income, getString(R.string.expense), header.expense, R.color.expense, R.drawable.bg_circle_expense);
+            setupSummaryCard(totalCard, R.drawable.ic_equal, getString(R.string.total), header.total, R.color.dark_grey, R.drawable.bg_circle_equal);
         });
     }
 
@@ -318,7 +322,7 @@ public class CalendarFragment extends Fragment {
                     }
                     tvNoTransactions.setVisibility(View.GONE);
                     rvTransactions.setVisibility(View.VISIBLE);
-                    rvTransactions.setAdapter(new TransactionAdapter(requireContext(), transactions, currencySymbol));
+                    rvTransactions.setAdapter(new TransactionAdapter(requireContext(), transactions, R.layout.item_transaction_period_detail));
                     updateRecyclerViewHeight(rvTransactions, transactions.size());
                 }
 
@@ -380,6 +384,28 @@ public class CalendarFragment extends Fragment {
         }
 
         recyclerView.setLayoutParams(params);
+    }
+
+    private void setupSummaryCard(View card, @DrawableRes int icon, String title, double amount, @ColorRes int colorRes, @DrawableRes int drawableRes) {
+
+        AppCompatImageView imgIcon = card.findViewById(R.id.imgIcon);
+        AppCompatTextView tvTitle = card.findViewById(R.id.tvTitle);
+        AutofitTextView tvAmount = card.findViewById(R.id.tvAmount);
+        View indicator = card.findViewById(R.id.colorIndicator);
+
+        int color = ContextCompat.getColor(requireActivity(), colorRes);
+
+        imgIcon.setImageResource(icon);
+        imgIcon.setColorFilter(color);
+        imgIcon.setBackgroundDrawable(ContextCompat.getDrawable(requireActivity(), drawableRes));
+
+        tvTitle.setText(title);
+        tvTitle.setTextColor(color);
+
+        tvAmount.setText(CommonUtils.getBeautifyAmount(currencySymbol, amount));
+        tvAmount.setTextColor(color);
+
+        indicator.setBackgroundColor(color);
     }
 
     @Override

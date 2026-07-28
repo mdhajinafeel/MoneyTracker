@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="income">Income</string>
+    <string name="total_income">Total Income</string>
     <string name="expense">Expense</string>
+    <string name="total_expense">Total Expense</string>
     <string name="transfer">Transfer</string>
     <string name="recurring">Recurring</string>
     <string name="trans_delete_failed">Transaction deleted failed</string>
@@ -17,7 +19,7 @@
     <string name="date">Date</string>
     <string name="select_date">Select Date</string>
     <string name="amount">Amount</string>
-    <string name="add_record">Tap the + button to add your first record.</string>
+    <string name="add_record">Tap the + button to add your first transaction.</string>
     <string name="type">Type</string>
     <string name="view_all">View all</string>
     <string name="delete_transaction">Delete Transaction</string>
@@ -26,7 +28,8 @@
     <string name="no_transaction">No transactions yet</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
-    <string name="date_compare">End Date must be greater than Dtart Date</string>
+    <string name="date_compare">End Date must be greater than Start Date</string>
+    <string name="date_amp_time"><![CDATA[Date & Time]]></string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

@@ -261,4 +261,11 @@ public interface TransactionDao {
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
     List<TransactionWithDetails> getTransactionsForPeriod(int accountId, int transactionType, long startDate, long endDate, int limit, int offset);
+
+    @Query("SELECT SUM(CASE WHEN t.type = 1 THEN t.amount * w.exchangeRate ELSE 0 END) AS openingBalance, " +
+            "SUM(CASE WHEN t.type = 2 THEN t.amount * w.exchangeRate ELSE 0 END) AS closingBalance " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.isDeleted = 0 AND t.accountId = :accountId")
+    LiveData<BalanceSummaryModel> accountSummaryById(int accountId);
 }

@@ -33,12 +33,10 @@ import java.util.Objects;
 
 public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetails> {
 
-    private final String currencySymbol;
     private final Context context;
 
-    public TransactionAdapter(Context context, List<TransactionWithDetails> list, String currencySymbol) {
-        super(context, list, R.layout.item_transaction_detail);
-        this.currencySymbol = currencySymbol;
+    public TransactionAdapter(Context context, List<TransactionWithDetails> list, int layoutId) {
+        super(context, list, layoutId);
         this.context = context;
     }
 
@@ -54,6 +52,8 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         AppCompatTextView amountLabel = holder.getView(R.id.amountLabel);
         AppCompatTextView feeAmountLabel = holder.getView(R.id.feeAmountLabel);
         AppCompatTextView feeLabel = holder.getView(R.id.feeLabel);
+        AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
+        AppCompatTextView tvBadgeFee = holder.getView(R.id.tvBadgeFee);
 
         if (Build.VERSION.SDK_INT >= 29) {
             colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
@@ -84,22 +84,37 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
 
         double amount;
         int color = ContextCompat.getColor(context, R.color.income);
+        Drawable badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_income);
+        String badgeText = context.getString(R.string.income);
         if (transaction.type == 1) {
             amount = transaction.amount;
         } else if (transaction.type == 3) {
             amount = transaction.amount;
             color = ContextCompat.getColor(context, R.color.transfer);
+            badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_transfer);
+            badgeText = context.getString(R.string.transfer);
         } else {
             amount = transaction.amount * -1;
             color = ContextCompat.getColor(context, R.color.expense);
+            badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_expense);
+            badgeText = context.getString(R.string.expense);
         }
 
         holder.setViewText(R.id.nameLabel, categoryName);
 
+
         if (item.fromWalletName != null && !item.fromWalletName.isEmpty()) {
             holder.setViewText(R.id.detailLabel, item.fromWalletName + context.getString(R.string.text_arrow) + item.walletName);
+
+            tvBadgeDetail.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_badge_transfer));
+            tvBadgeDetail.setText(context.getString(R.string.transfer));
+            tvBadgeDetail.setTextColor(ContextCompat.getColor(context, R.color.transfer));
         } else {
-            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "AAA" : transaction.description);
+            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
+
+            tvBadgeDetail.setBackgroundDrawable(badge);
+            tvBadgeDetail.setText(badgeText);
+            tvBadgeDetail.setTextColor(color);
         }
 
         if (feeTransaction != null) {
@@ -108,9 +123,16 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             feeAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, feeTransaction.amount));
             feeAmountLabel.setTextColor(ContextCompat.getColor(context, R.color.expense));
 
+            tvBadgeFee.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.bg_badge_expense));
+            tvBadgeFee.setText(context.getString(R.string.expense));
+            tvBadgeFee.setTextColor(ContextCompat.getColor(context, R.color.expense));
+
+            tvBadgeFee.setVisibility(View.VISIBLE);
             feeLabel.setVisibility(View.VISIBLE);
             feeAmountLabel.setVisibility(View.VISIBLE);
         } else {
+
+            tvBadgeFee.setVisibility(View.GONE);
             feeLabel.setVisibility(View.GONE);
             feeAmountLabel.setVisibility(View.GONE);
         }

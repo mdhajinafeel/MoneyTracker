@@ -18,6 +18,7 @@
             android:drawablePadding="@dimen/padding_10"
             android:ellipsize="end"
             android:maxLines="1"
+            android:layout_marginStart="@dimen/margin_6"
             app:fontFamily="@font/exo2_semibold"
             android:textColor="@color/white"
             android:textSize="@dimen/text_18"

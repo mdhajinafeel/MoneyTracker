@@ -12,6 +12,7 @@ public class DailyTransModel implements Serializable {
     private int day, month, year, type;
     private String currencySymbol;
     private List<TransactionWithDetails> transactions = new ArrayList<>();
+    private boolean expanded = true;
 
     public double getAmount() {
         return amount;
@@ -75,6 +76,14 @@ public class DailyTransModel implements Serializable {
 
     public void setFee(double fee) {
         this.fee = fee;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
     }
 
     public Date getDateTime() {

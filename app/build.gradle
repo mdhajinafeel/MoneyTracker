@@ -161,6 +161,11 @@ dependencies {
     implementation libs.circleindicator
 
     // ---------------------------
+    // Shimmer
+    // ---------------------------
+    implementation libs.shimmer
+
+    // ---------------------------
     // Testing
     // ---------------------------
     testImplementation libs.junit

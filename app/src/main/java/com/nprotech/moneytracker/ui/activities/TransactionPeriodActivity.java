@@ -263,7 +263,7 @@ public class TransactionPeriodActivity extends BaseActivity {
     private void initializeAdapters() {
         try {
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
-            transactionAdapter = new TransactionAdapter(this, new ArrayList<>(), currencySymbol);
+            transactionAdapter = new TransactionAdapter(this, new ArrayList<>(), R.layout.item_transaction_period_detail);
             rvTransactions.setAdapter(transactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);
