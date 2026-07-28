@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/onboarding_background"
+    android:background="@color/app_background"
     android:fitsSystemWindows="true">
 
     <!-- TOOLBAR -->
@@ -11,13 +11,13 @@
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/onboarding_background"
+        android:background="@color/app_background"
         android:elevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
-        app:navigationIconTint="@color/vibrant_orange">
+        app:navigationIconTint="@color/primary_dark">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/exo2_bold"
             android:text="@string/add_account"
-            android:textColor="@color/vibrant_orange"
+            android:textColor="@color/primary_dark"
             android:textSize="@dimen/text_20" />
 
     </com.google.android.material.appbar.MaterialToolbar>
@@ -57,7 +57,7 @@
             android:layout_width="50dp"
             android:layout_height="2dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/onboarding_light" />
+            android:background="@color/light_lavender" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStep2"
@@ -66,7 +66,7 @@
             android:background="@drawable/bg_step_inactive"
             android:gravity="center"
             android:text="@string/number_2"
-            android:textColor="@color/medium_grey"
+            android:textColor="@color/primary_light"
             android:textSize="@dimen/text_18"
             app:fontFamily="@font/exo2_bold" />
 
@@ -75,7 +75,7 @@
             android:layout_width="50dp"
             android:layout_height="2dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/onboarding_light" />
+            android:background="@color/light_lavender" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvStep3"
@@ -84,7 +84,7 @@
             android:background="@drawable/bg_step_inactive"
             android:gravity="center"
             android:text="@string/number_3"
-            android:textColor="@color/medium_grey"
+            android:textColor="@color/primary_light"
             android:textSize="@dimen/text_18"
             app:fontFamily="@font/exo2_bold" />
     </LinearLayout>
@@ -112,9 +112,10 @@
                 android:visibility="visible">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
                     android:layout_gravity="center"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/account_book" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -124,7 +125,7 @@
                     android:layout_marginTop="@dimen/margin_24"
                     android:gravity="center"
                     android:text="@string/account_heading"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="@dimen/text_22"
                     app:fontFamily="@font/exo2_semibold" />
 
@@ -208,8 +209,8 @@
                 android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
                     android:layout_gravity="center"
                     android:src="@drawable/currency" />
 
@@ -220,7 +221,7 @@
                     android:layout_marginTop="@dimen/margin_24"
                     android:gravity="center"
                     android:text="@string/choose_currency"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="@dimen/text_22"
                     app:fontFamily="@font/exo2_semibold" />
 
@@ -262,14 +263,14 @@
                         android:id="@+id/etCurrency"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:focusable="false"
                         android:cursorVisible="false"
-                        android:inputType="none"
                         android:drawableStart="@drawable/ic_cash"
                         android:drawableEnd="@drawable/ic_dropdown"
-                        android:drawableTint="@color/vibrant_orange"
                         android:drawablePadding="@dimen/padding_10"
+                        android:drawableTint="@color/vibrant_orange"
+                        android:focusable="false"
                         android:fontFamily="@font/exo2_medium"
+                        android:inputType="none"
                         android:longClickable="false"
                         android:padding="@dimen/padding_16"
                         android:textColor="@color/black"
@@ -308,8 +309,8 @@
                 android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="250dp"
-                    android:layout_height="250dp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
                     android:layout_gravity="center"
                     android:src="@drawable/wallet" />
 
@@ -320,7 +321,7 @@
                     android:layout_marginTop="@dimen/margin_24"
                     android:gravity="center"
                     android:text="@string/initial_balance"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="@dimen/text_22"
                     app:fontFamily="@font/exo2_semibold" />
 
@@ -354,21 +355,21 @@
                     app:boxStrokeColor="@color/vibrant_orange"
                     app:boxStrokeWidth="2dp"
                     app:boxStrokeWidthFocused="2dp"
-                    app:prefixTextAppearance="@style/CurrencyPrefixStyle"
-                    app:prefixTextColor="@color/vibrant_orange"
                     app:hintTextColor="@color/vibrant_orange"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:prefixTextAppearance="@style/CurrencyPrefixStyle"
+                    app:prefixTextColor="@color/vibrant_orange">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etInitialAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:drawableTint="@color/vibrant_orange"
                         android:fontFamily="@font/exo2_medium"
                         android:inputType="numberDecimal"
                         android:padding="@dimen/padding_16"
-                        android:drawableTint="@color/vibrant_orange"
-                        android:drawablePadding="@dimen/padding_10"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_18" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -401,7 +402,7 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center"
                     android:text="@string/skip"
-                    android:textColor="@color/black"
+                    android:textColor="@color/primary_dark"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_medium" />
             </LinearLayout>

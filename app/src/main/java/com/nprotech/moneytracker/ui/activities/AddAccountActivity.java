@@ -57,9 +57,7 @@ public class AddAccountActivity extends BaseActivity {
     private AccountViewModel accountViewModel;
     private WalletViewModel walletViewModel;
     private CurrencyEntity currency;
-    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TOP;
+    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,8 +238,8 @@ public class AddAccountActivity extends BaseActivity {
         toolbar.setNavigationIcon(null);
 
         tvStep2.setBackgroundResource(R.drawable.bg_step_inactive);
-        tvStep2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.medium_grey));
-        viewLine1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.onboarding_light));
+        tvStep2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_light));
+        viewLine1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_lavender));
         etWalletName.requestFocus();
     }
 
@@ -253,8 +251,8 @@ public class AddAccountActivity extends BaseActivity {
         animateLayout(layoutStep3, layoutStep2);
 
         tvStep3.setBackgroundResource(R.drawable.bg_step_inactive);
-        tvStep3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.medium_grey));
-        viewLine2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.onboarding_light));
+        tvStep3.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_light));
+        viewLine2.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_lavender));
     }
 
     private void animateLayout(View hideView, View showView) {

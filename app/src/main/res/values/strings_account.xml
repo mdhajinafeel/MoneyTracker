@@ -7,7 +7,7 @@
     <string name="account_name">Account Name</string>
     <string name="create_account">Create Account</string>
     <string name="select_account">Select account</string>
-    <string name="initial_balance">Enter initial balance</string>
+    <string name="initial_balance">Enter initial amount</string>
     <string name="opening_balance_subtext">Add the opening balance for this account.</string>
     <string name="initial_amount">Initial Amount</string>
     <string name="account_balance_format">Balance : %1$s</string>

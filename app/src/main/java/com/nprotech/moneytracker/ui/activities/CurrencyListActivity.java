@@ -80,7 +80,7 @@ public class CurrencyListActivity extends BaseActivity {
                     @Override
                     public void onPostBindViewHolder(ViewHolder holder, CurrencyEntity currencyEntity) {
                         holder.setViewText(R.id.tvCurrencyCode, currencyEntity.code);
-                        holder.setViewText(R.id.tvCurrencyName, currencyEntity.name);
+                        holder.setViewText(R.id.tvCurrencyName, currencyEntity.name + " (" + currencyEntity.symbol + ")");
 
                         AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                         if (currency != null && currency.id == currencyEntity.id) {
