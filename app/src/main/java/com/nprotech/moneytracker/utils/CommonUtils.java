@@ -1,7 +1,10 @@
 package com.nprotech.moneytracker.utils;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -116,5 +119,61 @@ public class CommonUtils {
                 applyFont(context, group.getChildAt(i));
             }
         }
+    }
+
+    public static Drawable createIconBackground(Context context, String colorHex) {
+
+        int color = Color.parseColor(colorHex);
+
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.OVAL);
+
+        drawable.setColor(lightenColor(color, 0.35f));
+
+        drawable.setStroke(
+                CommonUtils.dpToPx(context, 1),
+                Color.argb(50, 255, 255, 255));
+
+        return drawable;
+    }
+
+    public static Drawable createGradient(Context context, String colorHex) {
+
+        int color = Color.parseColor(colorHex);
+
+        GradientDrawable gradient = new GradientDrawable(
+                GradientDrawable.Orientation.TR_BL,
+                new int[]{
+                        lightenColor(color, 0.18f),
+                        color,
+                        darkenColor(color)
+                });
+
+        gradient.setCornerRadius(dpToPx(context, 8));
+        // Soft white border
+        gradient.setStroke(dpToPx(context, 1), Color.argb(40, 255, 255, 255));
+        return gradient;
+    }
+
+    private static int lightenColor(int color, float factor) {
+
+        int r = Color.red(color);
+        int g = Color.green(color);
+        int b = Color.blue(color);
+
+        r += (int) ((255 - r) * factor);
+        g += (int) ((255 - g) * factor);
+        b += (int) ((255 - b) * factor);
+
+        return Color.rgb(r, g, b);
+    }
+
+    private static int darkenColor(int color) {
+
+        return Color.rgb(
+                (int) (Color.red(color) * (1 - (float) 0.08)),
+                (int) (Color.green(color) * (1 - (float) 0.08)),
+                (int) (Color.blue(color) * (1 - (float) 0.08))
+        );
     }
 }

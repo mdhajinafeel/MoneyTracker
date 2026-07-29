@@ -1,17 +1,11 @@
 package com.nprotech.moneytracker.ui.adapters;
 
 import android.content.Context;
-import android.graphics.BlendMode;
-import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -24,10 +18,12 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
 
     private OnAddWalletClickListener mOnAddWalletClickListener;
     private OnWalletClickListener mOnWalletClickListener;
+    private final Context context;
 
     public WalletsAdapter(Context context, List<WalletEntity> list) {
         super(context, list, R.layout.item_wallet_list);
         setFooterLayout(R.layout.item_wallet_add);
+        this.context = context;
     }
 
     @Override
@@ -40,17 +36,12 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
 
         int walletIcon = DataHelper.getWalletIcons().get(item.categoryIcon);
 
-        if (Build.VERSION.SDK_INT >= 29) {
-            walletWrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.walletColor), BlendMode.SRC_OVER));
-        } else {
+        walletWrapper.setBackground(CommonUtils.createGradient(context, item.walletColor));
 
-            Drawable drawable = walletWrapper.getBackground().mutate();
-            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-            DrawableCompat.setTint(drawable, Color.parseColor(item.walletColor));
-            walletWrapper.setBackground(drawable);
-        }
-
+        walletImage.setBackground(CommonUtils.createIconBackground(context, item.walletColor));
         walletImage.setImageResource(walletIcon);
+        walletImage.setColorFilter(Color.WHITE);
+
         walletAccountLabel.setText(item.name);
         walletAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, item.amount));
 

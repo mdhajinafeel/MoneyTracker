@@ -7,11 +7,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/walletWrapper"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="@dimen/margin_8"
-        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_height="80dp"
+        android:layout_marginStart="@dimen/margin_4"
         android:layout_marginTop="@dimen/margin_2"
-        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:layout_marginBottom="@dimen/margin_6"
         android:background="@drawable/bg_wallet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,48 +28,66 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/walletImage"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_circle"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="@dimen/margin_10"
                 android:padding="@dimen/padding_4"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDetail"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:padding="@dimen/padding_4"
+                android:src="@drawable/ic_right_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_8"
-                android:layout_marginTop="@dimen/margin_4"
                 android:layout_marginEnd="@dimen/margin_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/walletImage">
+                app:layout_constraintStart_toEndOf="@+id/walletImage"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/walletAccountLabel"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
                     android:fontFamily="@font/exo2_bold"
                     android:gravity="center"
-                    android:lines="1"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_14"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/walletAmountLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="20dp"
-                    android:fontFamily="@font/exo2_semibold"
+                    android:id="@+id/walletTypeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:fontFamily="@font/exo2_bold"
                     android:gravity="center"
-                    android:lines="1"
                     android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/walletAccountLabel" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/walletAmountLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_4"
+                    android:fontFamily="@font/exo2_semibold"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_18"
                     app:autoSizeMaxTextSize="@dimen/text_16"
@@ -77,9 +95,8 @@
                     app:autoSizeStepGranularity="1sp"
                     app:autoSizeTextType="uniform"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/walletAccountLabel" />
+                    app:layout_constraintTop_toBottomOf="@+id/walletTypeLabel" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
