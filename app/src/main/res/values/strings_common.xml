@@ -168,7 +168,8 @@
     <string name="previous">Previous</string>
     <string name="dash">-</string>
     <string name="add_text">Add</string>
-    <string name="show_more">Show more</string>
     <string name="remaining">Remaining</string>
     <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">View Details</string>
+    <string name="view_breakdown">View all breakdown</string>
 </resources>

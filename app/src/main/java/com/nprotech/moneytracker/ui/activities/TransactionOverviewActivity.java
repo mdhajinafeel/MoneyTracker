@@ -52,12 +52,14 @@ import java.util.List;
 import java.util.Locale;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import me.grantland.widget.AutofitTextView;
 
 @AndroidEntryPoint
 public class TransactionOverviewActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivCalendar, ivPrevious, ivNext;
-    private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal, tvStartDate, tvEndDate;
+    private AppCompatTextView tvDate, tvStartDate, tvEndDate;
+    private AutofitTextView tvIncome, tvExpense, tvTotal;
     private ConstraintLayout emptyWrapper;
     private RecyclerView rvTransactions;
     private FloatingActionButton fabAddTransaction;

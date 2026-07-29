@@ -38,6 +38,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         AppCompatTextView dayLabel = holder.itemView.findViewById(R.id.tvDate);
         AppCompatTextView tvMonth = holder.itemView.findViewById(R.id.tvMonth);
         AppCompatTextView tvDay = holder.itemView.findViewById(R.id.tvDay);
+        AppCompatTextView tvTransactionCount = holder.itemView.findViewById(R.id.tvTransactionCount);
         AppCompatTextView tvAmount = holder.itemView.findViewById(R.id.tvAmount);
         AppCompatImageView ivCollapse = holder.itemView.findViewById(R.id.ivCollapse);
 
@@ -92,6 +93,8 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         } else {
             adapter.setItems(item.getTransactions());
         }
+
+        tvTransactionCount.setText(context.getResources().getQuantityString(R.plurals.transaction_count, item.getTransactions().size(), item.getTransactions().size()));
 
         // Restore expanded state
         rvTransactions.setVisibility(item.isExpanded() ? View.VISIBLE : View.GONE);

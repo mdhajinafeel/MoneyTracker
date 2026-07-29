@@ -40,7 +40,7 @@
                 style="@style/Widget.Expenixo.TransactionSegment"
                 android:layout_width="0dp"
                 android:textSize="@dimen/text_16"
-                app:icon="@drawable/ic_expense"
+                app:icon="@drawable/ic_income"
                 app:iconTint="@color/income"
                 app:iconSize="20dp"
                 app:iconPadding="@dimen/padding_4"
@@ -54,7 +54,7 @@
                 style="@style/Widget.Expenixo.TransactionSegment"
                 android:layout_width="0dp"
                 android:textSize="@dimen/text_16"
-                app:icon="@drawable/ic_income"
+                app:icon="@drawable/ic_expense"
                 app:iconSize="20dp"
                 app:iconTint="@color/expense"
                 app:iconPadding="@dimen/padding_4"
@@ -153,20 +153,29 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/dateTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/dateTitleLabel" />
+
+                            <View
+                                android:id="@+id/viewSeparate"
+                                android:layout_width="1dp"
+                                android:layout_height="32dp"
+                                android:layout_marginStart="@dimen/margin_16"
+                                android:background="@color/grey_88"
+                                app:layout_constraintStart_toEndOf="@id/tvDay"
+                                app:layout_constraintTop_toBottomOf="@id/dateTitleLabel"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvHour"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin_32"
+                                android:layout_marginStart="@dimen/margin_16"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintBaseline_toBaselineOf="@id/tvDay"
-                                app:layout_constraintStart_toEndOf="@id/tvDay" />
+                                app:layout_constraintStart_toEndOf="@id/viewSeparate" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>
 
@@ -218,7 +227,9 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                android:textColorHint="@color/grey"
+                                android:hint="@string/select_wallet"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/fromWalletTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/fromWalletTitleLabel" />
 
@@ -280,7 +291,7 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/walletTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/walletTitleLabel" />
 
@@ -341,8 +352,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
-                                android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                android:textSize="@dimen/text_20"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/amountTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/amountTitleLabel" />
 
@@ -405,7 +416,7 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/feeTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/feeTitleLabel" />
 
@@ -467,7 +478,9 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:textColor="@color/text_field"
                                 android:textSize="@dimen/text_16"
-                                app:fontFamily="@font/exo2_semibold"
+                                android:textColorHint="@color/grey"
+                                android:hint="@string/select_category"
+                                app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/categoryTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/categoryTitleLabel" />
 
@@ -533,6 +546,7 @@
                                 android:inputType="textCapWords"
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
+                                android:textColorHint="@color/grey"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/text_16"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -601,6 +615,7 @@
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
                                     android:hint="@string/add_note"
+                                    android:textColorHint="@color/grey"
                                     android:inputType="textCapWords"
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"

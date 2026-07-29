@@ -11,13 +11,17 @@
     <color name="text_field">#212121</color>
     <color name="card_shadow">#E8E8E8</color>
     <color name="text_grey">#6B7280</color>
+    <color name="light_white">#8CFFFFFF</color>
 
     <color name="income">#15803D</color>
     <color name="light_income">#6615803D</color>
+    <color name="dim_income">#3315803D</color>
     <color name="expense">#f73242</color>
     <color name="light_expense">#66f73242</color>
+    <color name="dim_expense">#33f73242</color>
     <color name="transfer">#2196F3</color>
     <color name="light_transfer">#662196F3</color>
+    <color name="dim_transfer">#332196F3</color>
 
     <color name="azure_blue">#FF2563EB</color>
     <color name="emerald_green">#FF10B981</color>

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/app_light_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/dateWrapper"
@@ -58,53 +58,45 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateWrapper" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/summaryWrapper"
+    <LinearLayout
+        android:id="@+id/layoutSummary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:layout_marginTop="@dimen/margin_2"
+        app:layout_constraintTop_toBottomOf="@id/divider2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <LinearLayout
+        <include
+            android:id="@+id/cardIncome"
+            layout="@layout/item_summary_card"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="3"
-            app:layout_constraintTop_toBottomOf="@id/divider2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="4dp"/>
 
-            <include
-                android:id="@+id/cardIncome"
-                layout="@layout/item_summary_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/margin_10"
-                android:layout_marginEnd="4dp"/>
+        <include
+            android:id="@+id/cardExpense"
+            layout="@layout/item_summary_card"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"/>
 
-            <include
-                android:id="@+id/cardExpense"
-                layout="@layout/item_summary_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginHorizontal="2dp"/>
+        <include
+            android:id="@+id/cardTotal"
+            layout="@layout/item_summary_card"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:layout_marginStart="4dp"/>
 
-            <include
-                android:id="@+id/cardTotal"
-                layout="@layout/item_summary_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginEnd="@dimen/margin_10"
-                android:layout_marginStart="4dp"/>
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
     <View
         android:id="@+id/divider6"
@@ -113,7 +105,7 @@
         android:background="@color/grey_88"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/summaryWrapper" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutSummary" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCalendar"

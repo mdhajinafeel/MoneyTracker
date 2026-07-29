@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemView"
     android:layout_width="match_parent"
-    android:padding="@dimen/padding_10"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_10">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/colorView"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginTop="@dimen/margin_6"
         android:background="@drawable/bg_circle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@id/labelWrapper"
+        app:layout_constraintBottom_toBottomOf="@id/labelWrapper"
+        app:layout_constraintVertical_bias="0.5">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView"
             android:layout_width="26dp"
             android:layout_height="26dp"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,9 +33,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_6"
         android:layout_marginEnd="@dimen/margin_2"
+        app:layout_constraintStart_toEndOf="@id/colorView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/colorView"
-        app:layout_constraintTop_toTopOf="@id/colorView">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/nameLabel"
@@ -43,9 +46,19 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_20"
             app:fontFamily="@font/exo2_semibold"
-            app:layout_constraintEnd_toStartOf="@+id/amountLabel"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/amountLabel"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/amountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18"
+            app:fontFamily="@font/exo2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/nameLabel" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/feeLabel"
@@ -67,14 +80,14 @@
             android:layout_marginStart="@dimen/margin_8"
             android:background="@drawable/bg_badge_income"
             android:gravity="center"
-            android:visibility="gone"
             android:paddingStart="@dimen/padding_6"
             android:paddingEnd="@dimen/padding_6"
             android:textSize="@dimen/text_10"
+            android:visibility="gone"
             app:fontFamily="@font/exo2_semibold"
-            app:layout_constraintBottom_toBottomOf="@id/feeLabel"
             app:layout_constraintStart_toEndOf="@id/feeLabel"
-            app:layout_constraintTop_toTopOf="@id/feeLabel" />
+            app:layout_constraintTop_toTopOf="@id/feeLabel"
+            app:layout_constraintBottom_toBottomOf="@id/feeLabel" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/feeAmountLabel"
@@ -82,7 +95,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/text_16"
-            android:visibility="visible"
+            android:visibility="gone"
             app:fontFamily="@font/exo2_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@id/feeLabel" />
@@ -97,45 +110,34 @@
             android:textSize="@dimen/text_14"
             app:fontFamily="@font/exo2_medium"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feeLabel" />
+            app:layout_constraintTop_toBottomOf="@id/feeLabel" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvBadgeDetail"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="@dimen/margin_8"
-            android:background="@drawable/bg_badge_income"
             android:gravity="center"
             android:paddingStart="@dimen/padding_6"
             android:paddingEnd="@dimen/padding_6"
             android:textSize="@dimen/text_10"
             app:fontFamily="@font/exo2_semibold"
-            app:layout_constraintBottom_toBottomOf="@id/detailLabel"
             app:layout_constraintStart_toEndOf="@id/detailLabel"
-            app:layout_constraintTop_toTopOf="@id/detailLabel" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/amountLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_18"
-            app:fontFamily="@font/exo2_bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBaseline_toBaselineOf="@id/nameLabel" />
+            app:layout_constraintTop_toTopOf="@id/detailLabel"
+            app:layout_constraintBottom_toBottomOf="@id/detailLabel" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/timeLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_6"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_16"
             android:drawableStart="@drawable/ic_time"
             android:drawablePadding="@dimen/padding_6"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
             app:fontFamily="@font/exo2_medium"
+            app:layout_constraintTop_toBottomOf="@id/feeAmountLabel"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/feeAmountLabel" />
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

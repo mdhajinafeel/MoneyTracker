@@ -106,7 +106,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_expense"
+                app:srcCompat="@drawable/ic_income"
                 app:tint="@color/income"/>
 
             <LinearLayout
@@ -165,7 +165,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/ic_income"
+                app:srcCompat="@drawable/ic_expense"
                 app:tint="@color/expense"/>
 
             <LinearLayout

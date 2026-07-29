@@ -214,6 +214,10 @@ public class TransactionRepository {
         return transactionDao.getMonthlyBreakdown(accountId, transactionType, startDate, endDate);
     }
 
+    public LiveData<List<BreakdownChartModel>> getYearMonthlyBreakdown(int accountId, int transactionType, long startDate, long endDate) {
+        return transactionDao.getYearMonthlyBreakdown(accountId, transactionType, startDate, endDate);
+    }
+
     public LiveData<List<BreakdownChartModel>> getYearlyBreakdown(int accountId, int transactionType) {
         return transactionDao.getYearlyBreakdown(accountId, transactionType);
     }

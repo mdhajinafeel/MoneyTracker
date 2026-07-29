@@ -236,6 +236,19 @@ public interface TransactionDao {
             "ORDER BY MIN(transactionDate)")
     LiveData<List<BreakdownChartModel>> getMonthlyBreakdown(int accountId, int transactionType, long startDate, long endDate);
 
+    @Query("SELECT MIN(transactionDate) AS period, " +
+            "SUM(t.amount * w.exchangeRate) AS amount, " +
+            "COUNT(*) AS transactionCount " +
+            "FROM transactions t " +
+            "INNER JOIN wallets w ON w.id = t.walletId " +
+            "WHERE t.accountId = :accountId " +
+            "AND t.type = :transactionType " +
+            "AND t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "GROUP BY strftime('%Y-%m', transactionDate / 1000, 'unixepoch', 'localtime') " +
+            "ORDER BY MIN(transactionDate)")
+    LiveData<List<BreakdownChartModel>> getYearMonthlyBreakdown(int accountId, int transactionType, long startDate, long endDate);
+
     @Query("SELECT CAST(strftime('%Y', transactionDate / 1000, 'unixepoch', 'localtime') AS INTEGER) AS period, SUM(t.amount * w.exchangeRate) AS amount, " +
             "COUNT(*) AS transactionCount " +
             "FROM transactions t " +

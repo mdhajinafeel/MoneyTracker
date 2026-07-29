@@ -90,7 +90,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateTransactionActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private AppCompatImageView icBack, noteImage;
-    private AppCompatTextView tvSave, tvTitle, tvAmount, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletLabel;
+    private AppCompatTextView tvSave, tvTitle, tvAmount, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletTitleLabel;
     private AppCompatEditText etDescription, etMemo;
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
     private MaterialCardView cardAmount, cardFromWallet, cardWallet, cardFee, cardCategory;
@@ -134,7 +134,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
 
-            walletLabel = findViewById(R.id.walletLabel);
+            walletTitleLabel = findViewById(R.id.walletTitleLabel);
 
             tvDay = findViewById(R.id.tvDay);
             tvHour = findViewById(R.id.tvHour);
@@ -532,7 +532,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 cardFromWallet.setVisibility(View.GONE);
                 cardCategory.setVisibility(View.VISIBLE);
 
-                walletLabel.setText(getString(R.string.wallet));
+                walletTitleLabel.setText(getString(R.string.wallet));
                 if (incomeCategory != null) {
                     tvCategory.setText(incomeCategory.getName(getApplicationContext()));
                 } else {
@@ -557,7 +557,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 cardFromWallet.setVisibility(View.GONE);
                 cardCategory.setVisibility(View.VISIBLE);
 
-                walletLabel.setText(getString(R.string.wallet));
+                walletTitleLabel.setText(getString(R.string.wallet));
                 if (expenseCategory != null) {
                     tvCategory.setText(expenseCategory.getName(getApplicationContext()));
                 } else {
@@ -582,7 +582,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 cardFromWallet.setVisibility(View.VISIBLE);
                 cardCategory.setVisibility(View.GONE);
 
-                walletLabel.setText(getString(R.string.to_wallet));
+                walletTitleLabel.setText(getString(R.string.to_wallet));
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchTransMode", e);

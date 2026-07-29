@@ -54,7 +54,7 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     // ✅ Build Room database
                     Builder<MoneyTrackerDatabase> builder = Room.databaseBuilder(context.getApplicationContext(), MoneyTrackerDatabase.class,
-                                    context.getString(R.string.app_name) + ".db")
+                                    context.getString(R.string.app_name).toLowerCase())
                             .fallbackToDestructiveMigration(true);
 
                     // ✅ Allow main thread queries in DEBUG only

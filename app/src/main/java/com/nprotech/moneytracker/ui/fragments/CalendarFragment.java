@@ -175,8 +175,8 @@ public class CalendarFragment extends Fragment {
             if (header == null)
                 return;
 
-            setupSummaryCard(incomeCard, R.drawable.ic_expense, getString(R.string.income), header.income, R.color.income, R.drawable.bg_circle_income);
-            setupSummaryCard(expenseCard, R.drawable.ic_income, getString(R.string.expense), header.expense, R.color.expense, R.drawable.bg_circle_expense);
+            setupSummaryCard(incomeCard, R.drawable.ic_income, getString(R.string.income), header.income, R.color.income, R.drawable.bg_circle_income);
+            setupSummaryCard(expenseCard, R.drawable.ic_expense, getString(R.string.expense), header.expense, R.color.expense, R.drawable.bg_circle_expense);
             setupSummaryCard(totalCard, R.drawable.ic_equal, getString(R.string.total), header.total, R.color.dark_grey, R.drawable.bg_circle_equal);
         });
     }

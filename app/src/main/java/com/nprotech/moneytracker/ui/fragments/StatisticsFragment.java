@@ -55,6 +55,7 @@ import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.StatisticsViewModel;
 
@@ -71,13 +72,13 @@ import me.grantland.widget.AutofitTextView;
 @AndroidEntryPoint
 public class StatisticsFragment extends Fragment implements MainActivity.ToolbarActionListener {
 
-    private AppCompatTextView tvDate, tvIncome, tvExpense, tvTotal, tvStartDate, tvEndDate;
-    private AutofitTextView tvOpeningBalance, tvEndingBalance;
+    private AppCompatTextView tvDate, tvStartDate, tvEndDate, overviewMoreWrapper;
+    private AutofitTextView tvIncome, tvExpense, tvTotal, tvOpeningBalance, tvEndingBalance;
     private AppCompatImageView ivPrevious, ivNext;
     private MaterialButtonToggleGroup chartToggleGroup;
     private PieChart pieBreakdownChart;
     private RecyclerView rvChartLegend;
-    private ConstraintLayout overviewMoreWrapper, chartMoreWrapper;
+    private ConstraintLayout chartMoreWrapper;
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
     private Date date;
@@ -667,8 +668,6 @@ public class StatisticsFragment extends Fragment implements MainActivity.Toolbar
         loadedEnd = -1;
 
         updateNavigationButtons();
-
-        chartToggleGroup.check(R.id.btnExpense);
 
         loadCalendarData();
     }

@@ -79,59 +79,80 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgWallet"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginEnd="@dimen/margin_10"
+                android:scaleType="center"
+                android:src="@drawable/ic_wallet_insights"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBalance"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/ic_account_wallet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary_dark" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/titleLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_6"
                 android:text="@string/balance"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_14"
                 app:fontFamily="@font/exo2_bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/ivBalance"
+                app:layout_constraintStart_toEndOf="@+id/ivBalance"
+                app:layout_constraintTop_toTopOf="@+id/ivBalance" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/openingTitleLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/opening_balance"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
                 app:layout_constraintEnd_toStartOf="@+id/midGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="0dp"
+                android:id="@+id/closingTitleLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@string/ending_balance"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
                 app:layout_constraintStart_toStartOf="@+id/midGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/tvOpeningBalance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
@@ -140,16 +161,15 @@
                 android:fontFamily="@font/exo2_bold"
                 android:maxLines="1"
                 android:textColor="@color/opening_balance"
-                android:textSize="@dimen/text_16"
+                android:textSize="@dimen/text_20"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/midGuideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/openingTitleLabel"
                 app:minTextSize="@dimen/text_4" />
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/tvEndingBalance"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_8"
@@ -157,10 +177,9 @@
                 android:fontFamily="@font/exo2_bold"
                 android:maxLines="1"
                 android:textColor="@color/closing_balance"
-                android:textSize="@dimen/text_16"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="@dimen/text_20"
                 app:layout_constraintStart_toEndOf="@+id/midGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/openingTitleLabel"
+                app:layout_constraintTop_toBottomOf="@+id/closingTitleLabel"
                 app:minTextSize="@dimen/text_4" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -168,7 +187,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5" />
+                app:layout_constraintGuide_percent="0.4" />
 
             <View
                 android:id="@+id/centerDivider"
@@ -176,7 +195,7 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_16"
-                android:background="@color/funky_grey"
+                android:background="@color/light_grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/midGuideline"
                 app:layout_constraintStart_toStartOf="@id/midGuideline"
@@ -204,180 +223,224 @@
             android:id="@+id/overviewWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivOverview"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/ic_overview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary_dark" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overviewLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginStart="@dimen/margin_6"
                 android:text="@string/overview"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_14"
                 app:fontFamily="@font/exo2_bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivOverview"
+                app:layout_constraintStart_toEndOf="@+id/ivOverview"
+                app:layout_constraintTop_toTopOf="@+id/ivOverview" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/overviewMoreWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_12"
+                android:background="@drawable/bg_box_curved_purple"
+                android:drawableEnd="@drawable/ic_right_arrow"
+                android:drawablePadding="@dimen/padding_6"
+                android:drawableTint="@color/primary"
+                android:fontFamily="@font/exo2_semibold"
+                android:paddingStart="@dimen/padding_10"
+                android:paddingTop="@dimen/padding_6"
+                android:paddingEnd="@dimen/padding_10"
+                android:paddingBottom="@dimen/padding_6"
+                android:text="@string/view_details"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_12"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/incomeWrapper"
+            <!-- 33% Guideline -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.3333" />
+
+            <!-- 66% Guideline -->
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.6666" />
+
+            <!-- ================= Income ================= -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/incomeTitleLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_8"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_4"
+                android:gravity="center"
+                android:text="@string/income"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
+                app:layout_constraintEnd_toStartOf="@id/guideline1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/overviewLabel">
+                app:layout_constraintTop_toBottomOf="@id/incomeImage" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/incomeTitleLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:text="@string/income"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tvIncome"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/incomeImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="@dimen/margin_22"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:background="@drawable/bg_circle_income"
+                android:padding="@dimen/padding_8"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toStartOf="@id/guideline1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/overviewLabel"
+                app:srcCompat="@drawable/ic_income"
+                app:tint="@color/income" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvIncome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/income"
-                    android:textSize="@dimen/text_18"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/expenseWrapper"
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tvIncome"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_8"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:fontFamily="@font/exo2_bold"
+                android:gravity="center"
+                android:textColor="@color/income"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toStartOf="@id/guideline1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/incomeWrapper">
+                app:layout_constraintTop_toBottomOf="@id/incomeTitleLabel"
+                app:minTextSize="@dimen/text_10" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/expenseTitleLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:text="@string/expense"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tvExpense"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvExpense"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/expense"
-                    android:textSize="@dimen/text_18"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/totalWrapper"
+            <!-- ================= Expense ================= -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/expenseTitleLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
-                android:layout_marginBottom="@dimen/margin_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/expenseWrapper">
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_4"
+                android:gravity="center"
+                android:text="@string/expense"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/expenseImage" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/totalTitleLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:text="@string/total"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/tvTotal"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/expenseImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="@dimen/margin_22"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:background="@drawable/bg_circle_expense"
+                android:padding="@dimen/padding_8"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/overviewLabel"
+                app:srcCompat="@drawable/ic_expense"
+                app:tint="@color/expense" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:gravity="end"
-                    android:maxLines="1"
-                    android:textAlignment="viewEnd"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="@dimen/text_18"
-                    app:fontFamily="@font/exo2_semibold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/overviewMoreWrapper"
-                android:layout_width="match_parent"
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tvExpense"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/grey_88"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:fontFamily="@font/exo2_bold"
+                android:gravity="center"
+                android:textColor="@color/expense"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/expenseTitleLabel"
+                app:minTextSize="@dimen/text_10" />
+
+            <!-- ================= Total ================= -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/totalTitleLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_4"
+                android:gravity="center"
+                android:text="@string/total"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalWrapper">
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/totalImage" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_8"
-                    android:layout_marginBottom="@dimen/margin_8"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/show_more"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/totalImage"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="@dimen/margin_22"
+                android:layout_marginBottom="@dimen/margin_4"
+                android:background="@drawable/bg_circle_equal"
+                android:padding="@dimen/padding_8"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/overviewLabel"
+                app:srcCompat="@drawable/ic_equal"
+                app:tint="@color/dark_grey" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_right_arrow"
-                    app:tint="@color/black" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <me.grantland.widget.AutofitTextView
+                android:id="@+id/tvTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:fontFamily="@font/exo2_bold"
+                android:gravity="center"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/totalTitleLabel"
+                app:minTextSize="@dimen/text_10" />
+
+            <!-- Divider 1 -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/light_grey"
+                app:layout_constraintBottom_toBottomOf="@id/tvIncome"
+                app:layout_constraintEnd_toEndOf="@id/guideline1"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@id/overviewLabel" />
+
+            <!-- Divider 2 -->
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/light_grey"
+                app:layout_constraintBottom_toBottomOf="@id/tvIncome"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline2"
+                app:layout_constraintTop_toBottomOf="@id/overviewLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -401,31 +464,40 @@
             android:id="@+id/chartWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginBottom="@dimen/margin_12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBreakdown"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:src="@drawable/ic_breakdown"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/primary_dark" />
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/chartLabel"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginEnd="@dimen/margin_8"
+                android:layout_marginStart="@dimen/margin_6"
                 android:text="@string/breakdown"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_18"
+                android:textSize="@dimen/text_14"
                 app:fontFamily="@font/exo2_bold"
-                app:layout_constraintBottom_toBottomOf="@id/chartToggleGroup"
-                app:layout_constraintEnd_toStartOf="@id/chartToggleGroup"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/chartToggleGroup" />
+                app:layout_constraintBottom_toBottomOf="@+id/ivBreakdown"
+                app:layout_constraintStart_toEndOf="@+id/ivBreakdown"
+                app:layout_constraintTop_toTopOf="@+id/ivBreakdown" />
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/chartToggleGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_16"
+                android:textColor="@color/toggle_text_color"
                 app:checkedButton="@id/btnExpense"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -435,6 +507,7 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnExpense"
                     android:layout_width="82dp"
+                    style="@style/Widget.Expenixo.TransactionSegment"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/exo2_bold"
                     android:insetTop="0dp"
@@ -444,14 +517,16 @@
                     android:paddingHorizontal="@dimen/padding_8"
                     android:text="@string/expense"
                     android:textAllCaps="false"
+                    android:textColor="@color/toggle_text_color"
                     android:textSize="@dimen/text_12"
                     app:backgroundTint="@color/toggle_background"
-                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:cornerRadius="@dimen/corner_radius_12"
                     app:strokeColor="@color/vibrant_orange" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnIncome"
                     android:layout_width="82dp"
+                    style="@style/Widget.Expenixo.TransactionSegment"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/exo2_bold"
                     android:insetTop="0dp"
@@ -461,9 +536,10 @@
                     android:paddingHorizontal="@dimen/padding_8"
                     android:text="@string/income"
                     android:textAllCaps="false"
+                    android:textColor="@color/toggle_text_color"
                     android:textSize="@dimen/text_12"
                     app:backgroundTint="@color/toggle_background"
-                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:cornerRadius="@dimen/corner_radius_12"
                     app:strokeColor="@color/vibrant_orange" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -473,7 +549,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/graph_height"
                 android:layout_marginStart="@dimen/margin_12"
-                android:layout_marginTop="@dimen/margin_8"
+                android:layout_marginTop="@dimen/margin_22"
                 android:layout_marginEnd="@dimen/margin_12"
                 android:layout_marginBottom="@dimen/margin_10"
                 android:visibility="visible"
@@ -513,14 +589,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintGuide_percent="0.52"
+                app:layout_constraintGuide_percent="0.52040815"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/chartMoreWrapper"
                 android:layout_width="match_parent"
+                android:layout_margin="@dimen/margin_20"
                 android:layout_height="wrap_content"
-                android:background="@color/grey_88"
+                android:background="@drawable/bg_box_purple"
+                app:layout_constraintTop_toBottomOf="@+id/pieBreakdownChart"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -531,23 +609,23 @@
                     android:layout_marginStart="@dimen/margin_16"
                     android:layout_marginTop="@dimen/margin_8"
                     android:layout_marginBottom="@dimen/margin_8"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/show_more"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:text="@string/view_breakdown"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/text_14"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:layout_marginEnd="@dimen/margin_16"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_right_arrow"
-                    app:tint="@color/black" />
+                    app:tint="@color/primary" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

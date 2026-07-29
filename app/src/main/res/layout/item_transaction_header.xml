@@ -15,7 +15,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_12">
+        android:paddingStart="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_12"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingBottom="@dimen/padding_4">
 
         <!-- Date -->
         <LinearLayout
@@ -74,7 +77,18 @@
                     app:fontFamily="@font/exo2_semibold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/tvAmount"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvTransactionCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:textColor="@color/funky_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvDay"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView

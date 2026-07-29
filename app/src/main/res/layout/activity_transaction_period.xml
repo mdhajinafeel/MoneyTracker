@@ -131,15 +131,15 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/breakdownCard"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
             android:layout_marginStart="@dimen/margin_12"
             android:layout_marginEnd="@dimen/margin_12"
-            android:layout_marginBottom="@dimen/margin_46"
+            android:layout_marginBottom="@dimen/margin_12"
             android:visibility="gone"
             app:cardBackgroundColor="@color/white"
             app:cardCornerRadius="@dimen/corner_radius_8"
             app:cardElevation="@dimen/corner_elevation_6"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chartContainer"
@@ -149,8 +149,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTransactions"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
                 android:paddingTop="@dimen/margin_4"
                 android:paddingBottom="@dimen/margin_4"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -222,11 +224,11 @@
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/vibrant_orange"
         app:fabCustomSize="50dp"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:maxImageSize="25dp"
         app:shapeAppearanceOverlay="@style/FabCircleShape"
         app:tint="@color/white"
-        app:useCompatPadding="true"/>
+        app:useCompatPadding="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

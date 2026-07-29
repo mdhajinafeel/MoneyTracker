@@ -91,8 +91,14 @@ public class StatisticsViewModel extends ViewModel {
                             filter.endDate);
 
                 case QUARTERLY:
-                case YEARLY:
                     return transactionRepository.getMonthlyBreakdown(
+                            filter.accountId,
+                            filter.transactionType,
+                            filter.startDate,
+                            filter.endDate);
+
+                case YEARLY:
+                    return transactionRepository.getYearMonthlyBreakdown(
                             filter.accountId,
                             filter.transactionType,
                             filter.startDate,

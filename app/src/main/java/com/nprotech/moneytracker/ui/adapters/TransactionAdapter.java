@@ -74,8 +74,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             }
         }
 
-        imageView.setImageTintList(
-                ContextCompat.getColorStateList(context, android.R.color.white));
+        imageView.setImageTintList(ContextCompat.getColorStateList(context, android.R.color.white));
 
         String categoryName = transaction.getCategoryName(context);
         if (Objects.equals(categoryName, "")) {
@@ -86,9 +85,9 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         int color = ContextCompat.getColor(context, R.color.income);
         Drawable badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_income);
         String badgeText = context.getString(R.string.income);
-        if (transaction.type == 1) {
+        if (transaction.type == TransactionEntity.TYPE_INCOME) {
             amount = transaction.amount;
-        } else if (transaction.type == 3) {
+        } else if (transaction.type == TransactionEntity.TYPE_TRANSFER) {
             amount = transaction.amount;
             color = ContextCompat.getColor(context, R.color.transfer);
             badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_transfer);
@@ -101,7 +100,6 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         }
 
         holder.setViewText(R.id.nameLabel, categoryName);
-
 
         if (item.fromWalletName != null && !item.fromWalletName.isEmpty()) {
             holder.setViewText(R.id.detailLabel, item.fromWalletName + context.getString(R.string.text_arrow) + item.walletName);

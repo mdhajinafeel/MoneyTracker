@@ -33,7 +33,7 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
     private final Context context;
 
     public TransactionBreakdownAdapter(Context context, List<CategoryExpenseModel> list, String currencySymbol, int transactionType) {
-        super(context, list, R.layout.item_transaction_detail);
+        super(context, list, R.layout.item_transaction_period_detail);
         this.currencySymbol = currencySymbol;
         this.context = context;
         this.transactionType = transactionType;
@@ -47,6 +47,8 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
         AppCompatImageView imageView = holder.getView(R.id.imageView);
         AppCompatTextView amountLabel = holder.getView(R.id.amountLabel);
         AppCompatTextView detailLabel = holder.getView(R.id.detailLabel);
+        AppCompatTextView timeLabel = holder.getView(R.id.timeLabel);
+        AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
 
         if (Build.VERSION.SDK_INT >= 29) {
             colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
@@ -71,16 +73,34 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
             categoryName = item.categoryName;
         }
 
+        double amount;
         int color = ContextCompat.getColor(context, R.color.income);
-        if (transactionType == TransactionEntity.TYPE_EXPENSE) {
+        Drawable badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_income);
+        String badgeText = context.getString(R.string.income);
+        if (transactionType == TransactionEntity.TYPE_INCOME) {
+            amount = item.amount;
+        } else if (transactionType == TransactionEntity.TYPE_TRANSFER) {
+            amount = item.amount;
+            color = ContextCompat.getColor(context, R.color.transfer);
+            badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_transfer);
+            badgeText = context.getString(R.string.transfer);
+        } else {
+            amount = item.amount * -1;
             color = ContextCompat.getColor(context, R.color.expense);
+            badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_expense);
+            badgeText = context.getString(R.string.expense);
         }
-
         holder.setViewText(R.id.nameLabel, categoryName);
 
-        holder.setViewText(R.id.timeLabel, context.getResources().getQuantityString(R.plurals.transaction_count, item.transactionCount, item.transactionCount));
-        amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, item.amount));
+        tvBadgeDetail.setBackgroundDrawable(badge);
+        tvBadgeDetail.setText(badgeText);
+        tvBadgeDetail.setTextColor(color);
+
+        timeLabel.setText(context.getResources().getQuantityString(R.plurals.transaction_count, item.transactionCount, item.transactionCount));
+        amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, amount));
         amountLabel.setTextColor(color);
+
+        timeLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,0);
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.getDefault());
         numberFormat.setMinimumFractionDigits(1);
