@@ -72,7 +72,7 @@
         android:gravity="center"
         android:padding="@dimen/padding_6"
         android:text="@string/no_transaction"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textSize="@dimen/text_18"
         android:fontFamily="@font/exo2_semibold"
         android:visibility="gone"

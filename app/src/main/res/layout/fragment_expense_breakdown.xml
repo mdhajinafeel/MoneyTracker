@@ -35,7 +35,7 @@
             android:layout_marginEnd="@dimen/margin_8"
             android:text="@string/no_transaction"
             android:textAlignment="center"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/text_primary"
             android:textSize="@dimen/text_24"
             app:fontFamily="@font/exo2_semibold"
             app:layout_constraintEnd_toEndOf="parent"

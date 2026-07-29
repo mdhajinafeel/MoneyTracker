@@ -107,7 +107,7 @@ public class AddAccountActivity extends BaseActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent data = result.getData();
                         if (data != null) {
-                            currency = IntentUtils.getSerializableExtra(getIntent(), "currency", CurrencyEntity.class);
+                            currency = IntentUtils.getSerializableExtra(data, "currency", CurrencyEntity.class);
                             if (currency != null) {
                                 etCurrency.setText(currency.name);
                                 tilInitialAmount.setPrefixText(currency.symbol);
@@ -207,6 +207,8 @@ public class AddAccountActivity extends BaseActivity {
         tvStep2.setBackgroundResource(R.drawable.bg_step_active);
         tvStep2.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         viewLine1.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.vibrant_orange));
+
+        etCurrency.post(() -> etCurrency.requestFocus());
     }
 
     private void showStep3() {
@@ -318,7 +320,7 @@ public class AddAccountActivity extends BaseActivity {
             wallet.accountId = (int) accountId;
             wallet.name = getString(R.string.cash);
             wallet.walletType = 1;
-            wallet.walletColor = "#0097E6";
+            wallet.walletColor = "#6A1B9A";
             wallet.currencyName = currency.name;
             wallet.currencyCode = currency.code;
             wallet.currencySymbol = currency.symbol;

@@ -12,6 +12,7 @@ public class DataHelper {
 
     public static ArrayList<String> getColorList() {
         ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("#6A1B9A");
         arrayList.add("#34BFFF");
         arrayList.add("#0097E6");
         arrayList.add("#0077C5");

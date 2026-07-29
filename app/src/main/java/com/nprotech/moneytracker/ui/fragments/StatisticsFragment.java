@@ -135,7 +135,7 @@ public class StatisticsFragment extends Fragment implements MainActivity.Toolbar
 
                 pieBreakdownChart.clear();
                 pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
-                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary));
                 pieBreakdownChart.setNoDataTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
             }
 
@@ -288,7 +288,7 @@ public class StatisticsFragment extends Fragment implements MainActivity.Toolbar
 
                 pieBreakdownChart.clear();
                 pieBreakdownChart.setNoDataText(getString(R.string.no_transaction));
-                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.dark_grey));
+                pieBreakdownChart.setNoDataTextColor(ContextCompat.getColor(requireContext(), R.color.text_primary));
                 pieBreakdownChart.setNoDataTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.exo2_semibold));
                 return;
             }
