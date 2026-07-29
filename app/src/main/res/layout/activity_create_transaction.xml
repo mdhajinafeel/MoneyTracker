@@ -39,29 +39,29 @@
                 android:id="@+id/btnIncome"
                 style="@style/Widget.Expenixo.TransactionSegment"
                 android:layout_width="0dp"
-                android:textSize="@dimen/text_16"
-                app:icon="@drawable/ic_income"
-                app:iconTint="@color/income"
-                app:iconSize="20dp"
-                app:iconPadding="@dimen/padding_4"
-                android:fontFamily="@font/exo2_semibold"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/income" />
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/income"
+                android:textSize="@dimen/text_16"
+                app:icon="@drawable/ic_income"
+                app:iconPadding="@dimen/padding_4"
+                app:iconSize="20dp"
+                app:iconTint="@color/income" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnExpense"
                 style="@style/Widget.Expenixo.TransactionSegment"
                 android:layout_width="0dp"
-                android:textSize="@dimen/text_16"
-                app:icon="@drawable/ic_expense"
-                app:iconSize="20dp"
-                app:iconTint="@color/expense"
-                app:iconPadding="@dimen/padding_4"
-                android:fontFamily="@font/exo2_semibold"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/expense" />
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/expense"
+                android:textSize="@dimen/text_16"
+                app:icon="@drawable/ic_expense"
+                app:iconPadding="@dimen/padding_4"
+                app:iconSize="20dp"
+                app:iconTint="@color/expense" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnTransfer"
@@ -164,7 +164,7 @@
                                 android:layout_marginStart="@dimen/margin_16"
                                 android:background="@color/grey_88"
                                 app:layout_constraintStart_toEndOf="@id/tvDay"
-                                app:layout_constraintTop_toBottomOf="@id/dateTitleLabel"/>
+                                app:layout_constraintTop_toBottomOf="@id/dateTitleLabel" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvHour"
@@ -185,9 +185,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/margin_16"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:visibility="gone"
                         app:cardCornerRadius="@dimen/corner_radius_12"
                         app:cardElevation="2dp"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cardDateTime"
@@ -225,10 +225,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_8"
-                                android:textColor="@color/text_field"
-                                android:textSize="@dimen/text_16"
-                                android:textColorHint="@color/grey"
                                 android:hint="@string/select_wallet"
+                                android:textColor="@color/text_field"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/text_16"
                                 app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/fromWalletTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/fromWalletTitleLabel" />
@@ -374,9 +374,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/margin_16"
                         android:layout_marginTop="@dimen/margin_10"
+                        android:visibility="gone"
                         app:cardCornerRadius="@dimen/corner_radius_12"
                         app:cardElevation="2dp"
-                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cardAmount"
@@ -476,10 +476,10 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/margin_8"
-                                android:textColor="@color/text_field"
-                                android:textSize="@dimen/text_16"
-                                android:textColorHint="@color/grey"
                                 android:hint="@string/select_category"
+                                android:textColor="@color/text_field"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/text_16"
                                 app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/categoryTitleLabel"
                                 app:layout_constraintTop_toBottomOf="@id/categoryTitleLabel" />
@@ -546,8 +546,8 @@
                                 android:inputType="textCapWords"
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
-                                android:textColorHint="@color/grey"
                                 android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
                                 android:textSize="@dimen/text_16"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/descTitleLabel"
@@ -603,9 +603,9 @@
                                 android:layout_width="0dp"
                                 android:layout_height="@dimen/edit_text_height_40"
                                 android:background="@drawable/bg_edit_text_underline"
-                                app:layout_constraintTop_toBottomOf="@id/noteTitleLabel"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/noteTitleLabel"
-                                app:layout_constraintEnd_toEndOf="parent">
+                                app:layout_constraintTop_toBottomOf="@id/noteTitleLabel">
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/etMemo"
@@ -615,16 +615,16 @@
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
                                     android:hint="@string/add_note"
-                                    android:textColorHint="@color/grey"
                                     android:inputType="textCapWords"
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
                                     android:textSize="@dimen/text_16"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"/>
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <androidx.appcompat.widget.AppCompatImageView
                                     android:id="@+id/noteImage"
@@ -636,10 +636,10 @@
                                     android:focusable="true"
                                     android:padding="4dp"
                                     android:src="@drawable/ic_camera"
-                                    app:tint="@color/dark_grey"
+                                    app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintBottom_toBottomOf="parent"/>
+                                    app:tint="@color/dark_grey" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -651,12 +651,12 @@
                                 android:clipToPadding="false"
                                 android:padding="@dimen/padding_4"
                                 android:visibility="gone"
-                                app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
-                                app:layout_constraintStart_toStartOf="@id/noteTitleLabel"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                                app:spanCount="3"/>
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/noteTitleLabel"
+                                app:layout_constraintTop_toBottomOf="@id/constraintLayout2"
+                                app:spanCount="3" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </com.google.android.material.card.MaterialCardView>

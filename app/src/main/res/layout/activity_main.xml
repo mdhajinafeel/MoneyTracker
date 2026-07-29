@@ -202,7 +202,7 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/light_grey"
+        android:background="@color/app_light_background"
         android:clipToPadding="false"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"

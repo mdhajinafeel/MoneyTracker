@@ -106,7 +106,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_previous"
-            app:tint="@color/black" />
+            app:tint="@color/text_primary" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddTransaction"
@@ -134,7 +134,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_next"
-            app:tint="@color/black" />
+            app:tint="@color/text_primary" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

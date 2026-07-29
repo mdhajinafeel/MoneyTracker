@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8"
             android:fontFamily="@font/exo2_bold"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="@dimen/text_18" />
 
         <androidx.recyclerview.widget.RecyclerView

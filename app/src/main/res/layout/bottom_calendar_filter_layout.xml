@@ -12,7 +12,7 @@
         android:layout_margin="@dimen/margin_16"
         android:fontFamily="@font/exo2_bold"
         android:text="@string/select_range"
-        android:textColor="@color/black"
+        android:textColor="@color/text_primary"
         android:textSize="@dimen/text_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
