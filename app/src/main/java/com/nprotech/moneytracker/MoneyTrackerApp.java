@@ -13,6 +13,7 @@ import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CommonInitializer;
 import com.nprotech.moneytracker.initializer.CurrencyInitializer;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.util.List;
 
@@ -70,9 +71,10 @@ public class MoneyTrackerApp extends Application {
 
     private void initSecureSharedPref() {
         try {
-            String prefName = "NPROTECH_PREF";
-            String prefix = "nprotech_money_tracker";
-            byte[] seed = "nprotech_money_tracker".getBytes();
+            String appName = getApplicationContext().getString(R.string.app_name);
+            String prefName = appName +  "_PREF";
+            String prefix = appName.toLowerCase() + "_money_tracker";
+            byte[] seed = (appName.toLowerCase() + "_money_tracker").getBytes(StandardCharsets.UTF_8);
             SecuredPreferenceStore.init(getApplicationContext(), prefName, prefix, seed, new DefaultRecoveryHandler());
             SecuredPreferenceStore.setRecoveryHandler(new DefaultRecoveryHandler() {
                 @Override
