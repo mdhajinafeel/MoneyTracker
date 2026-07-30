@@ -10,5 +10,6 @@
     <string name="initial_balance">Enter initial amount</string>
     <string name="opening_balance_subtext">Add the opening balance for this account.</string>
     <string name="initial_amount">Initial Amount</string>
+    <string name="initial">Initial</string>
     <string name="account_balance_format">Balance : %1$s</string>
 </resources>

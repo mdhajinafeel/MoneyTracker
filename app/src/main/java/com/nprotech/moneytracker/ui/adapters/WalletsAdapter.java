@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.ui.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -32,17 +33,19 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
         ConstraintLayout walletWrapper = holder.itemView.findViewById(R.id.walletWrapper);
         AppCompatImageView walletImage = holder.itemView.findViewById(R.id.walletImage);
         AppCompatTextView walletAccountLabel = holder.itemView.findViewById(R.id.walletAccountLabel);
+        AppCompatTextView walletTypeLabel = holder.itemView.findViewById(R.id.walletTypeLabel);
         AppCompatTextView walletAmountLabel = holder.itemView.findViewById(R.id.walletAmountLabel);
 
         int walletIcon = DataHelper.getWalletIcons().get(item.categoryIcon);
 
-        walletWrapper.setBackground(CommonUtils.createGradient(context, item.walletColor));
+        walletWrapper.setBackground(CommonUtils.createGradient(context, item.walletColor, 8));
 
-        walletImage.setBackground(CommonUtils.createIconBackground(context, item.walletColor));
+        walletImage.setBackground(CommonUtils.createIconBackground(context, item.walletColor, GradientDrawable.RECTANGLE, 10));
         walletImage.setImageResource(walletIcon);
         walletImage.setColorFilter(Color.WHITE);
 
         walletAccountLabel.setText(item.name);
+        walletTypeLabel.setText(DataHelper.getWalletTypeName(context, item.walletType));
         walletAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, item.amount));
 
         holder.itemView.setOnClickListener(v -> {

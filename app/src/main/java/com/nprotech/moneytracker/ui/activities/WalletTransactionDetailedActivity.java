@@ -1,12 +1,7 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
-import android.graphics.BlendMode;
-import android.graphics.BlendModeColorFilter;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,7 +20,6 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
-import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
@@ -36,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.IConstants;
@@ -54,6 +49,7 @@ import com.nprotech.moneytracker.ui.adapters.WalletTransactionAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
@@ -64,17 +60,20 @@ import java.util.List;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
+import me.grantland.widget.AutofitTextView;
 
 @AndroidEntryPoint
 public class WalletTransactionDetailedActivity extends BaseActivity {
 
-    private ConstraintLayout imageWrapper;
-    private LinearLayout nameWrapper, layoutEmpty;
+    private ConstraintLayout walletContainer;
+    private MaterialCardView walletTransactionCard;
     private AppCompatImageView icBack, ivEdit, imageView;
-    private AppCompatTextView nameLabel, amountLabel, initialLabel, incomeLabel, expenseLabel, transferLabel, transactionAllLabel;
+    private AppCompatTextView tvWalletName, tvWalletType, tvAvailableBalance, transactionAllLabel;
     private MaterialButton btnAdjustBalance;
-    private RecyclerView rvTransactions;
+    private AutofitTextView tvInitial, tvIncome, tvExpense, tvTransfer;
+    private LinearLayout layoutEmpty;
     private FloatingActionButton fabAddTransaction;
+    private RecyclerView rvTransactions;
     private CategoryViewModel categoryViewModel;
     private WalletViewModel walletViewModel;
     private TransactionViewModel transactionViewModel;
@@ -101,19 +100,20 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
-            imageWrapper = findViewById(R.id.imageWrapper);
+            walletContainer = findViewById(R.id.walletContainer);
             imageView = findViewById(R.id.imageView);
-            nameWrapper = findViewById(R.id.nameWrapper);
-            nameLabel = findViewById(R.id.nameLabel);
-            amountLabel = findViewById(R.id.amountLabel);
-            initialLabel = findViewById(R.id.initialLabel);
-            incomeLabel = findViewById(R.id.incomeLabel);
-            expenseLabel = findViewById(R.id.expenseLabel);
-            transferLabel = findViewById(R.id.transferLabel);
+            tvWalletName = findViewById(R.id.tvWalletName);
+            tvWalletType = findViewById(R.id.tvWalletType);
+            tvAvailableBalance = findViewById(R.id.tvAvailableBalance);
+            tvInitial = findViewById(R.id.tvInitial);
+            tvIncome = findViewById(R.id.tvIncome);
+            tvExpense = findViewById(R.id.tvExpense);
+            tvTransfer = findViewById(R.id.tvTransfer);
             btnAdjustBalance = findViewById(R.id.btnAdjustBalance);
             rvTransactions = findViewById(R.id.rvTransactions);
             transactionAllLabel = findViewById(R.id.transactionAllLabel);
             layoutEmpty = findViewById(R.id.layoutEmpty);
+            walletTransactionCard = findViewById(R.id.walletTransactionCard);
             fabAddTransaction = findViewById(R.id.fabAddTransaction);
 
             tvTitle.setText(R.string.wallet_details);
@@ -134,16 +134,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
                 Insets navInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
                 Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-
                 int bottom = Math.max(navInsets.bottom, imeInsets.bottom);
-
-                view.setPadding(
-                        view.getPaddingLeft(),
-                        view.getPaddingTop(),
-                        view.getPaddingRight(),
-                        bottom + getResources().getDimensionPixelSize(R.dimen.bottom_navigation_height)
-                );
-
+                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), bottom + getResources().getDimensionPixelSize(R.dimen.bottom_navigation_height));
                 return insets;
             });
 
@@ -179,6 +171,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             walletTransactionAdapter = new WalletTransactionAdapter(WalletTransactionDetailedActivity.this, new ArrayList<>());
             rvTransactions.setAdapter(walletTransactionAdapter);
             rvTransactions.setNestedScrollingEnabled(false);
+            rvTransactions.addItemDecoration(new SimpleDividerItemDecoration(this));
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }
@@ -220,11 +213,13 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
             transactionCategoryLiveData.observe(this, transactionCategoryModels -> {
                 if (transactionCategoryModels == null || transactionCategoryModels.isEmpty()) {
+                    walletTransactionCard.setVisibility(View.GONE);
                     rvTransactions.setVisibility(View.GONE);
                     layoutEmpty.setVisibility(View.VISIBLE);
                     transactionAllLabel.setVisibility(View.GONE);
                 } else {
                     layoutEmpty.setVisibility(View.GONE);
+                    walletTransactionCard.setVisibility(View.VISIBLE);
                     rvTransactions.setVisibility(View.VISIBLE);
                     transactionAllLabel.setVisibility(View.VISIBLE);
 
@@ -234,22 +229,18 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
             int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
 
-            if (Build.VERSION.SDK_INT >= 29) {
-                imageWrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(wallet.walletColor), BlendMode.SRC_OVER));
-            } else {
-                Drawable drawable = imageWrapper.getBackground().mutate();
-                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-                DrawableCompat.setTint(drawable, Color.parseColor(wallet.walletColor));
-                imageWrapper.setBackground(drawable);
-            }
+            walletContainer.setBackground(CommonUtils.createGradient(getApplicationContext(), wallet.walletColor, 12));
 
+            imageView.setBackground(CommonUtils.createIconBackground(getApplicationContext(), wallet.walletColor, GradientDrawable.RECTANGLE, 10));
             imageView.setImageResource(walletIcon);
-            nameLabel.setText(wallet.name);
-            amountLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
-            initialLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.initialAmount));
-            incomeLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, incomeAmount));
-            expenseLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, expenseAmount));
-            transferLabel.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, transferAmount));
+
+            tvWalletName.setText(wallet.name);
+            tvWalletType.setText(DataHelper.getWalletTypeName(getApplicationContext(), wallet.walletType));
+            tvAvailableBalance.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
+            tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.initialAmount));
+            tvIncome.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, incomeAmount));
+            tvExpense.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, expenseAmount));
+            tvTransfer.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, transferAmount));
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -278,7 +269,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 calculatorLauncher.launch(intent, options);
             });
 
-            nameWrapper.setOnClickListener(view -> switchWallets());
+            tvWalletName.setOnClickListener(view -> switchWallets());
 
             fabAddTransaction.setOnClickListener(v -> {
                 v.animate()
@@ -309,6 +300,28 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                     });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
+        }
+    }
+
+    private void setupLauncher() {
+        try {
+            calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK) {
+                            Intent data = result.getData();
+                            if (data != null) {
+                                double amount = data.getDoubleExtra("amount", 0);
+                                String type = data.getStringExtra("type");
+                                if (type != null && type.equalsIgnoreCase("amount")) {
+                                    if (amount != wallet.amount) {
+                                        showAdjustBalanceDialog(amount);
+                                    }
+                                }
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "setupLauncher", e);
         }
     }
 
@@ -355,28 +368,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchAccounts", e);
-        }
-    }
-
-    private void setupLauncher() {
-        try {
-            calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == RESULT_OK) {
-                            Intent data = result.getData();
-                            if (data != null) {
-                                double amount = data.getDoubleExtra("amount", 0);
-                                String type = data.getStringExtra("type");
-                                if (type != null && type.equalsIgnoreCase("amount")) {
-                                    if (amount != wallet.amount) {
-                                        showAdjustBalanceDialog(amount);
-                                    }
-                                }
-                            }
-                        }
-                    });
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "setupLauncher", e);
         }
     }
 
@@ -451,7 +442,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         transaction.amount = Math.abs(difference);
         transaction.transactionDate = currentTime;
         transaction.description = getString(R.string.adjustment);
-        transaction.tempTransactionServerId = "T_"+ currentTime;
+        transaction.tempTransactionServerId = "T_" + currentTime;
         transaction.accountId = PreferenceManager.INSTANCE.getAccountId();
         transaction.createdAt = currentTime;
         transaction.updatedAt = currentTime;

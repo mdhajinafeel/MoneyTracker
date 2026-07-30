@@ -11,126 +11,116 @@ import java.util.List;
 public class DataHelper {
 
     public static ArrayList<String> getColorList() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("#6A1B9A");
-        arrayList.add("#34BFFF");
-        arrayList.add("#0097E6");
-        arrayList.add("#0077C5");
-        arrayList.add("#055393");
-        arrayList.add("#008481");
-        arrayList.add("#00A6A4");
-        arrayList.add("#00C1BF");
-        arrayList.add("#29B473");
-        arrayList.add("#7FD000");
-        arrayList.add("#FFCA00");
-        arrayList.add("#FFBB00");
-        arrayList.add("#FFAD00");
-        arrayList.add("#FF8000");
-        arrayList.add("#F95700");
-        arrayList.add("#EE4036");
-        arrayList.add("#D52B1E");
-        arrayList.add("#B80000");
-        arrayList.add("#9C005E");
-        arrayList.add("#90278E");
-        arrayList.add("#652D90");
-        arrayList.add("#4E2B8F");
-        arrayList.add("#6436AF");
-        arrayList.add("#7A3DD8");
-        arrayList.add("#9457FA");
-        arrayList.add("#FF59CC");
-        arrayList.add("#E31C9E");
-        arrayList.add("#C9007A");
-        arrayList.add("#810035");
-        arrayList.add("#A52A2A");
-        arrayList.add("#8B4513");
-        arrayList.add("#7A5649");
-        arrayList.add("#5E4138");
-        arrayList.add("#424243");
-        arrayList.add("#455A64");
-        arrayList.add("#66757f");
+        ArrayList<String> colors = new ArrayList<>();
 
-        arrayList.add("#00E5FF"); // Bright Cyan
-        arrayList.add("#18FFFF"); // Aqua Cyan
-        arrayList.add("#26C6DA"); // Turquoise
-        arrayList.add("#4DD0E1"); // Sky Cyan
-        arrayList.add("#80DEEA"); // Light Aqua
+        // Default (Recommended)
+        colors.add("#6A1B9A");
 
-        arrayList.add("#00E676"); // Neon Green
-        arrayList.add("#00C853"); // Emerald Green
-        arrayList.add("#43A047"); // Forest Green
-        arrayList.add("#66BB6A"); // Leaf Green
-        arrayList.add("#81C784"); // Mint Green
-        arrayList.add("#2E7D32"); // Dark Green
+        // Purple
+        colors.add("#4A148C");
+        colors.add("#7B1FA2");
+        colors.add("#8E24AA");
+        colors.add("#AB47BC");
+        colors.add("#BA68C8");
+        colors.add("#9575CD");
 
-        arrayList.add("#AEEA00"); // Lime
-        arrayList.add("#CDDC39"); // Lime Yellow
-        arrayList.add("#9CCC65"); // Olive Green
-        arrayList.add("#689F38"); // Moss Green
+        // Indigo
+        colors.add("#283593");
+        colors.add("#303F9F");
+        colors.add("#3949AB");
+        colors.add("#3F51B5");
+        colors.add("#5C6BC0");
+        colors.add("#7986CB");
 
-        arrayList.add("#FFD600"); // Gold
-        arrayList.add("#FBC02D"); // Mustard
-        arrayList.add("#F9A825"); // Amber
-        arrayList.add("#FFA726"); // Orange Gold
-        arrayList.add("#FF8F00"); // Dark Amber
+        // Blue
+        colors.add("#1565C0");
+        colors.add("#1976D2");
+        colors.add("#1E88E5");
+        colors.add("#2196F3");
+        colors.add("#42A5F5");
+        colors.add("#64B5F6");
+        colors.add("#039BE5");
 
-        arrayList.add("#FF7043"); // Coral Orange
-        arrayList.add("#FF5722"); // Deep Orange
-        arrayList.add("#FF6E40"); // Sunset Orange
-        arrayList.add("#FF5252"); // Soft Red
-        arrayList.add("#E53935"); // Crimson Red
+        // Cyan
+        colors.add("#00838F");
+        colors.add("#0097A7");
+        colors.add("#00ACC1");
+        colors.add("#00BCD4");
+        colors.add("#26C6DA");
+        colors.add("#00E5FF");
 
-        arrayList.add("#EC407A"); // Rose Pink
-        arrayList.add("#F06292"); // Bubblegum Pink
-        arrayList.add("#F48FB1"); // Light Pink
-        arrayList.add("#D81B60"); // Raspberry
-        arrayList.add("#C2185B"); // Dark Rose
+        // Teal
+        colors.add("#00695C");
+        colors.add("#00796B");
+        colors.add("#00897B");
+        colors.add("#009688");
+        colors.add("#26A69A");
+        colors.add("#4DB6AC");
 
-        arrayList.add("#AB47BC"); // Orchid Purple
-        arrayList.add("#8E24AA"); // Violet
-        arrayList.add("#7B1FA2"); // Royal Purple
-        arrayList.add("#5E35B1"); // Indigo
-        arrayList.add("#3949AB"); // Sapphire Blue
+        // Green
+        colors.add("#1B5E20");
+        colors.add("#2E7D32");
+        colors.add("#388E3C");
+        colors.add("#43A047");
+        colors.add("#4CAF50");
+        colors.add("#66BB6A");
+        colors.add("#2ECC71");
 
-        arrayList.add("#3F51B5"); // Royal Blue
-        arrayList.add("#1E88E5"); // Ocean Blue
-        arrayList.add("#039BE5"); // Azure Blue
-        arrayList.add("#0288D1"); // Cerulean Blue
-        arrayList.add("#1976D2"); // Cobalt Blue
+        // Lime
+        colors.add("#689F38");
+        colors.add("#9CCC65");
+        colors.add("#CDDC39");
+        colors.add("#AEEA00");
 
-        arrayList.add("#00897B"); // Teal
-        arrayList.add("#00695C"); // Dark Teal
-        arrayList.add("#26A69A"); // Sea Green
-        arrayList.add("#4DB6AC"); // Aqua Green
+        // Yellow / Gold
+        colors.add("#B8860B");
+        colors.add("#F9A825");
+        colors.add("#FBC02D");
+        colors.add("#FDD835");
+        colors.add("#FFD54F");
 
-        arrayList.add("#6D4C41"); // Coffee Brown
-        arrayList.add("#795548"); // Walnut Brown
-        arrayList.add("#8D6E63"); // Cocoa Brown
-        arrayList.add("#A1887F"); // Sand Brown
+        // Orange
+        colors.add("#E65100");
+        colors.add("#EF6C00");
+        colors.add("#F57C00");
+        colors.add("#FB8C00");
+        colors.add("#FFA726");
 
-        arrayList.add("#546E7A"); // Slate Gray
-        arrayList.add("#78909C"); // Steel Gray
-        arrayList.add("#90A4AE"); // Blue Gray
-        arrayList.add("#607D8B"); // Charcoal Gray
+        // Deep Orange
+        colors.add("#BF360C");
+        colors.add("#E64A19");
+        colors.add("#F4511E");
+        colors.add("#FF5722");
+        colors.add("#FF7043");
 
-        arrayList.add("#2D3436"); // Graphite
-        arrayList.add("#263238"); // Midnight Gray
-        arrayList.add("#37474F"); // Gunmetal
+        // Red
+        colors.add("#B71C1C");
+        colors.add("#C62828");
+        colors.add("#D32F2F");
+        colors.add("#E53935");
+        colors.add("#F44336");
 
-        arrayList.add("#6C63FF"); // Lavender Blue
-        arrayList.add("#5B8DEF"); // Cornflower Blue
-        arrayList.add("#00B894"); // Jade Green
-        arrayList.add("#00CEC9"); // Tiffany Blue
-        arrayList.add("#FDCB6E"); // Champagne Gold
-        arrayList.add("#E17055"); // Terracotta
-        arrayList.add("#E84393"); // Hot Pink
-        arrayList.add("#A29BFE"); // Lavender
-        arrayList.add("#0984E3"); // Bright Blue
-        arrayList.add("#16A085"); // Jade
-        arrayList.add("#8E44AD"); // Amethyst
-        arrayList.add("#2ECC71"); // Emerald
-        arrayList.add("#B8860B"); // Metallic Gold
-        arrayList.add("#34495E"); // Navy Gray
-        return arrayList;
+        // Pink
+        colors.add("#AD1457");
+        colors.add("#C2185B");
+        colors.add("#D81B60");
+        colors.add("#E91E63");
+        colors.add("#EC407A");
+
+        // Brown
+        colors.add("#5D4037");
+        colors.add("#6D4C41");
+        colors.add("#795548");
+        colors.add("#8D6E63");
+
+        // Blue Grey
+        colors.add("#263238");
+        colors.add("#37474F");
+        colors.add("#455A64");
+        colors.add("#546E7A");
+        colors.add("#607D8B");
+
+        return colors;
     }
 
     public static String getDefaultCategory(Context context, int i) {
@@ -404,5 +394,16 @@ public class DataHelper {
             AppLogger.e(context.getClass(), "getAttributeColor", e);
             return R.color.white;
         }
+    }
+
+    public static String getWalletTypeName(Context context, int type) {
+        return switch (type) {
+            case 1 -> context.getString(R.string.general);
+            case 2 -> context.getString(R.string.cash);
+            case 3 -> context.getString(R.string.bank);
+            case 4 -> context.getString(R.string.credit_card);
+            case 5 -> context.getString(R.string.debit_card);
+            default -> context.getString(R.string.general);
+        };
     }
 }

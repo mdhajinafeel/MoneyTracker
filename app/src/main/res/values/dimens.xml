@@ -57,6 +57,7 @@
     <!-- ELEVATION -->
     <dimen name="corner_elevation_0">0dp</dimen>
     <dimen name="corner_elevation_2">2dp</dimen>
+    <dimen name="corner_elevation_4">4dp</dimen>
     <dimen name="corner_elevation_6">6dp</dimen>
     <dimen name="corner_elevation_8">8dp</dimen>
 

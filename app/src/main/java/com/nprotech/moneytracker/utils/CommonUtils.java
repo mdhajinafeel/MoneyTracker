@@ -121,12 +121,13 @@ public class CommonUtils {
         }
     }
 
-    public static Drawable createIconBackground(Context context, String colorHex) {
+    public static Drawable createIconBackground(Context context, String colorHex, int shape, int cornerRadius) {
 
         int color = Color.parseColor(colorHex);
 
         GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.OVAL);
+        drawable.setShape(shape);
+        drawable.setCornerRadius(dpToPx(context, cornerRadius));
 
         drawable.setColor(lightenColor(color, 0.35f));
 
@@ -137,7 +138,7 @@ public class CommonUtils {
         return drawable;
     }
 
-    public static Drawable createGradient(Context context, String colorHex) {
+    public static Drawable createGradient(Context context, String colorHex, int cornerRadius) {
 
         int color = Color.parseColor(colorHex);
 
@@ -149,7 +150,7 @@ public class CommonUtils {
                         darkenColor(color)
                 });
 
-        gradient.setCornerRadius(dpToPx(context, 8));
+        gradient.setCornerRadius(dpToPx(context, cornerRadius));
         // Soft white border
         gradient.setStroke(dpToPx(context, 1), Color.argb(40, 255, 255, 255));
         return gradient;

@@ -40,271 +40,414 @@
             android:focusable="true"
             android:focusableInTouchMode="true">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/imageWrapper"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="@dimen/margin_20"
-                android:background="@drawable/bg_circle"
-                android:backgroundTint="@color/grey_88"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWallet"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginStart="@dimen/margin_8"
+                android:layout_marginEnd="@dimen/margin_8"
+                app:cardBackgroundColor="@color/colorTransparent"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_6"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#ffffff" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/walletContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/nameWrapper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_4"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="@dimen/padding_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageWrapper">
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/imageWrapper"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/margin_20"
+                        android:layout_marginTop="@dimen/margin_20"
+                        app:cardBackgroundColor="@color/colorTransparent"
+                        app:cardCornerRadius="@dimen/corner_radius_10"
+                        app:cardElevation="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeWidth="0dp">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/nameLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/padding_10"
+                            android:scaleType="centerInside"
+                            app:tint="@color/white" />
+                    </com.google.android.material.card.MaterialCardView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_marginStart="@dimen/margin_4"
-                    app:srcCompat="@drawable/ic_account_caret"
-                    app:tint="@color/black" />
-            </LinearLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvWalletName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_14"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:textColor="@color/white"
+                        android:drawableEnd="@drawable/ic_account_caret"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:drawableTint="@color/white"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintBottom_toBottomOf="@id/imageWrapper"
+                        app:layout_constraintStart_toEndOf="@id/imageWrapper"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amountLabel"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_12"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:lines="1"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_24"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nameWrapper" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvWalletType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_14"
+                        android:fontFamily="@font/exo2_medium"
+                        android:textColor="@color/light_white"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="@id/imageWrapper"
+                        app:layout_constraintStart_toEndOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/tvWalletName" />
+
+                    <View
+                        android:id="@+id/viewLine"
+                        android:layout_width="0dp"
+                        android:layout_height="0.6dp"
+                        android:background="@color/light_white"
+                        android:layout_marginTop="@dimen/margin_12"
+                        app:layout_constraintEnd_toStartOf="@id/ivWallet"
+                        app:layout_constraintStart_toStartOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/imageWrapper" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblAvailableBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:text="@string/available_balance"
+                        android:textColor="@color/ghost_white"
+                        android:textSize="@dimen/text_14"
+                        app:layout_constraintStart_toStartOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/viewLine" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAvailableBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_bold"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_20"
+                        app:layout_constraintStart_toStartOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/lblAvailableBalance" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivWallet"
+                        android:layout_width="96dp"
+                        android:layout_height="96dp"
+                        android:layout_margin="@dimen/margin_10"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_wallet_3d"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAdjustBalance"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="@dimen/margin_40"
-                android:layout_marginTop="@dimen/margin_12"
-                android:layout_marginEnd="@dimen/margin_40"
-                android:layout_marginBottom="@dimen/margin_12"
+                android:layout_height="50dp"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginVertical="@dimen/margin_8"
+                android:drawableTint="@color/white"
                 android:fontFamily="@font/exo2_semibold"
                 android:letterSpacing="0.01"
                 android:text="@string/adjust_balance"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_18"
-                app:backgroundTint="@color/vibrant_orange"
-                app:cornerRadius="@dimen/corner_radius_4"
+                android:textSize="@dimen/text_14"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="@dimen/corner_radius_8"
                 app:elevation="@dimen/corner_elevation_8"
+                app:icon="@drawable/ic_adjust_balance"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/amountLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/cardWallet" />
 
-            <!-- Initial Amount -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/initialRow"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSummary"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_14"
+                android:layout_marginTop="@dimen/margin_12"
                 android:layout_marginEnd="@dimen/margin_16"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_6"
+                app:layout_constraintTop_toBottomOf="@id/btnAdjustBalance"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnAdjustBalance">
+                app:layout_constraintEnd_toEndOf="parent">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/initialTitleLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/initial_amount"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/initialLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <!-- 25% -->
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="95dp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- 50% -->
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.50"/>
 
-            <!-- Income -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/incomeRow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/initialRow">
+                    <!-- 75% -->
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.75"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/incomeTitleLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/income"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <!-- Divider 1 -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/light_grey"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline1"
+                        app:layout_constraintEnd_toEndOf="@id/guideline1"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/incomeLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:textColor="@color/income"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <!-- Divider 2 -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/light_grey"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintEnd_toEndOf="@id/guideline2"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- Divider 3 -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:background="@color/light_grey"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline3"
+                        app:layout_constraintEnd_toEndOf="@id/guideline3"/>
 
-            <!-- Expense -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/expenseRow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/incomeRow">
+                    <!-- ================= Initial Amount ================= -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgInitial"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_8"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_wallet"
+                        app:tint="@color/primary"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideline1"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/expenseTitleLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/expense"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvInitialTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:gravity="center"
+                        android:text="@string/initial"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12"
+                        android:fontFamily="@font/exo2_medium"
+                        app:layout_constraintTop_toBottomOf="@id/imgInitial"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideline1"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/expenseLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:textColor="@color/expense"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <me.grantland.widget.AutofitTextView
+                        android:id="@+id/tvInitial"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        android:fontFamily="@font/exo2_bold"
+                        app:minTextSize="@dimen/text_10"
+                        app:layout_constraintTop_toBottomOf="@id/tvInitialTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/guideline1"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <!-- ================= Income ================= -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgIncome"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/bg_box_income"
+                        android:padding="@dimen/padding_8"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_income"
+                        app:tint="@color/income"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline1"
+                        app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
-            <!-- Transfer -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/transferRow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_14"
-                android:layout_marginEnd="@dimen/margin_16"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/expenseRow">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvIncomeTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:gravity="center"
+                        android:text="@string/income"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12"
+                        android:fontFamily="@font/exo2_medium"
+                        app:layout_constraintTop_toBottomOf="@id/imgIncome"
+                        app:layout_constraintStart_toStartOf="@id/guideline1"
+                        app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/transferTitleLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_medium"
-                    android:text="@string/transfer"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <me.grantland.widget.AutofitTextView
+                        android:id="@+id/tvIncome"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:gravity="center"
+                        android:textColor="@color/income"
+                        android:textSize="@dimen/text_16"
+                        android:fontFamily="@font/exo2_bold"
+                        app:minTextSize="@dimen/text_10"
+                        app:layout_constraintTop_toBottomOf="@id/tvIncomeTitle"
+                        app:layout_constraintStart_toStartOf="@id/guideline1"
+                        app:layout_constraintEnd_toStartOf="@id/guideline2"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/transferLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <!-- ================= Expense ================= -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgExpense"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/bg_box_expense"
+                        android:padding="@dimen/padding_8"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_expense"
+                        app:tint="@color/expense"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@id/guideline3"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvExpenseTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:gravity="center"
+                        android:text="@string/expense"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12"
+                        android:fontFamily="@font/exo2_medium"
+                        app:layout_constraintTop_toBottomOf="@id/imgExpense"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@id/guideline3"/>
 
-            <View
-                android:id="@+id/divider"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="@dimen/margin_16"
-                android:background="@color/grey_88"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/transferRow" />
+                    <me.grantland.widget.AutofitTextView
+                        android:id="@+id/tvExpense"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:textColor="@color/expense"
+                        android:textSize="@dimen/text_16"
+                        android:fontFamily="@font/exo2_bold"
+                        app:minTextSize="@dimen/text_10"
+                        app:layout_constraintTop_toBottomOf="@id/tvExpenseTitle"
+                        app:layout_constraintStart_toStartOf="@id/guideline2"
+                        app:layout_constraintEnd_toStartOf="@id/guideline3"/>
+
+                    <!-- ================= Transfer ================= -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgTransfer"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/bg_box_transfer"
+                        android:padding="@dimen/padding_8"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_transfer_trans"
+                        app:tint="@color/transfer"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/guideline3"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTransferTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:gravity="center"
+                        android:text="@string/transfer"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_12"
+                        android:fontFamily="@font/exo2_medium"
+                        app:layout_constraintTop_toBottomOf="@id/imgTransfer"
+                        app:layout_constraintStart_toStartOf="@id/guideline3"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <me.grantland.widget.AutofitTextView
+                        android:id="@+id/tvTransfer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:gravity="center"
+                        android:textColor="@color/transfer"
+                        android:textSize="@dimen/text_16"
+                        android:fontFamily="@font/exo2_bold"
+                        app:minTextSize="@dimen/text_10"
+                        app:layout_constraintTop_toBottomOf="@id/tvTransferTitle"
+                        app:layout_constraintStart_toStartOf="@id/guideline3"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/llTransactionHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/divider">
+                app:layout_constraintTop_toBottomOf="@id/cardSummary">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/transactionListLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_12"
                     android:layout_marginEnd="@dimen/margin_8"
                     android:ellipsize="end"
                     android:fontFamily="@font/exo2_bold"
                     android:maxLines="1"
                     android:text="@string/transaction_list"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_18"
+                    android:textSize="@dimen/text_16"
                     app:layout_constraintEnd_toStartOf="@id/transactionAllLabel"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -314,8 +457,8 @@
                     android:id="@+id/transactionAllLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10"
-                    android:layout_marginEnd="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_12"
+                    android:layout_marginEnd="@dimen/margin_16"
                     android:fontFamily="@font/exo2_semibold"
                     android:text="@string/view_all"
                     android:textColor="@color/black"
@@ -325,21 +468,34 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- RECYCLER VIEW -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvTransactions"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/walletTransactionCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_10"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:overScrollMode="never"
-                android:paddingBottom="@dimen/padding_12"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_8"
                 android:visibility="gone"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:cardElevation="@dimen/corner_elevation_6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llTransactionHeader" />
+                app:layout_constraintTop_toBottomOf="@id/llTransactionHeader"
+                app:strokeColor="@color/grey_88"
+                app:strokeWidth="1dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTransactions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"
+                    android:paddingTop="@dimen/margin_4"
+                    android:paddingBottom="@dimen/margin_4"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:id="@+id/layoutEmpty"
@@ -364,8 +520,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_12"
                     android:fontFamily="@font/exo2_semibold"
-                    android:text="@string/no_record"
-                    android:textColor="@color/black"
+                    android:text="@string/no_transaction"
+                    android:textColor="@color/text_primary"
                     android:textSize="@dimen/text_18"
                     app:fontFamily="@font/exo2_semibold" />
 

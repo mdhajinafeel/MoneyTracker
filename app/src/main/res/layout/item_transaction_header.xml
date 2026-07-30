@@ -9,8 +9,9 @@
     android:layout_marginBottom="@dimen/margin_6"
     android:background="@color/white"
     android:clipToPadding="false"
-    app:cardCornerRadius="@dimen/corner_radius_4"
-    app:cardElevation="@dimen/corner_elevation_2">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/corner_radius_10"
+    app:cardElevation="@dimen/corner_elevation_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
         android:paddingStart="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_12"
         android:paddingTop="@dimen/padding_12"
-        android:paddingBottom="@dimen/padding_4">
+        android:paddingBottom="@dimen/padding_12">
 
         <!-- Date -->
         <LinearLayout

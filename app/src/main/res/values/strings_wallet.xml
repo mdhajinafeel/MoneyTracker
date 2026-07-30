@@ -12,6 +12,7 @@
     <string name="wallet_updated_successfully">Wallet updated successfully</string>
     <string name="credit_limit">Credit Limit</string>
     <string name="adjust_balance">Adjust Balance</string>
+    <string name="available_balance">Available Balance</string>
     <string name="transaction_list">Transaction List</string>
     <string name="wallet_details">Wallet Details</string>
     <string name="adjust_by_transaction_hint">Adjusting your balance will create an adjustment transaction.</string>
