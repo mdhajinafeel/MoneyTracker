@@ -112,7 +112,7 @@ public class ManageBackupActivity extends BaseActivity {
             });
 
             btnCreateBackup.setOnClickListener(view -> {
-                String fileName = getString(R.string.app_name).toLowerCase() + "_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".mtbackup";
+                String fileName = getString(R.string.app_name).toLowerCase() + "_db_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".mtbackup";
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("application/octet-stream");
@@ -189,7 +189,7 @@ public class ManageBackupActivity extends BaseActivity {
                 MoneyTrackerDatabase.getInstance(getApplicationContext()).close();
 
                 // Use your actual Room database name here
-                File db = getDatabasePath(getString(R.string.app_name).toLowerCase());
+                File db = getDatabasePath(getString(R.string.app_name) + "_db".toLowerCase());
 
                 if (!db.exists()) {
                     runOnUiThread(() -> Toast.makeText(this, R.string.database_not_found, Toast.LENGTH_SHORT).show());
