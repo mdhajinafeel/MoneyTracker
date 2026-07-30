@@ -3,31 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/app_background">
+    android:background="@color/app_background"
+    android:fitsSystemWindows="true">
 
     <!-- TOOLBAR -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
         android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorTransparent"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navigationIcon="@drawable/ic_back"
-        app:navigationIconTint="@color/primary_dark">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/select_currency"
-            android:textColor="@color/primary_dark"
-            android:textSize="@dimen/text_20"
-            android:fontFamily="@font/exo2_bold" />
-
-    </com.google.android.material.appbar.MaterialToolbar>
+        <include layout="@layout/toolbar_back_trans" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- SEARCH -->
     <com.google.android.material.textfield.TextInputLayout
@@ -35,9 +26,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_16"
         android:hint="@string/search_currency"
         app:boxBackgroundMode="outline"
         app:boxCornerRadiusBottomEnd="@dimen/corner_radius_12"
@@ -49,36 +40,50 @@
         app:boxStrokeWidthFocused="2dp"
         app:endIconDrawable="@drawable/ic_search"
         app:endIconMode="custom"
+        app:endIconTint="@color/primary"
         app:hintTextColor="@color/vibrant_orange"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_medium"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:fontFamily="@font/exo2_medium"
             android:padding="@dimen/padding_14"
             android:textColor="@color/black"
             android:textSize="@dimen/text_16" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- RECYCLER VIEW -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCurrency"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCurrency"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_10"
-        android:clipToPadding="false"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:paddingBottom="@dimen/padding_12"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius_8"
+        app:cardElevation="@dimen/corner_elevation_6"
+        app:layout_constraintTop_toBottomOf="@id/tilSearch"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilSearch" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:strokeColor="@color/grey_88"
+        app:strokeWidth="1dp">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/padding_12"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

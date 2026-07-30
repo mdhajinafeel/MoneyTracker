@@ -107,12 +107,14 @@ public class AddCurrencyActivity extends BaseActivity {
             }
 
             currency = masterViewModel.getFirstCurrencyForWallet((int) PreferenceManager.INSTANCE.getAccountId());
+
+            etRate.setText(R.string.exchange_rate_default_value);
+
             if (currency != null) {
                 tvCurrencyName.setText(getString(R.string.currency_display, currency.code, currency.name));
                 updateExchangeRate();
             }
 
-            etRate.setText(R.string.exchange_rate_default_value);
             updateSaveButton();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -138,7 +140,7 @@ public class AddCurrencyActivity extends BaseActivity {
             });
 
             tvCurrencyName.setOnClickListener(view -> {
-                Intent intent = new Intent(this, CurrencyListActivity.class);
+                Intent intent = new Intent(this, CurrencyPickerActivity.class);
                 intent.putExtra("currency", currency);
                 intent.putExtra("type", "wallet");
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.slide_in_right, R.anim.slide_out_left);

@@ -293,7 +293,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTransactions"
         android:layout_width="0dp"

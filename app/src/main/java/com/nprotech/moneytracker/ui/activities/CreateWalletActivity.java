@@ -18,7 +18,6 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -26,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -60,7 +60,7 @@ public class CreateWalletActivity extends BaseActivity {
     private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount, rateLabel;
     private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner, statementDateSpinner, paymentDateSpinner;
     private FrameLayout frameColor;
-    private ConstraintLayout excludeWrapper, statementDateWrapper, paymentDateWrapper;
+    private MaterialCardView cardWalletExclude, cardWalletStatement, cardWalletPayment;
     private ActivityResultLauncher<Intent> calculatorLauncher, walletIconLauncher, currencyLauncher;
     private boolean isEdit = false;
     private double walletAmount = 0;
@@ -103,9 +103,9 @@ public class CreateWalletActivity extends BaseActivity {
             amountLabel = findViewById(R.id.amountLabel);
             tvAmount = findViewById(R.id.tvAmount);
             rateLabel = findViewById(R.id.rateLabel);
-            excludeWrapper = findViewById(R.id.excludeWrapper);
-            statementDateWrapper = findViewById(R.id.statementDateWrapper);
-            paymentDateWrapper = findViewById(R.id.paymentDateWrapper);
+            cardWalletExclude = findViewById(R.id.cardWalletExclude);
+            cardWalletStatement = findViewById(R.id.cardWalletStatement);
+            cardWalletPayment = findViewById(R.id.cardWalletPayment);
             switchExcludeView = findViewById(R.id.switchExcludeView);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
@@ -146,7 +146,7 @@ public class CreateWalletActivity extends BaseActivity {
         try {
             List<String> walletTypes = Arrays.asList(getString(R.string.general), getString(R.string.cash), getString(R.string.bank), getString(R.string.credit_card), getString(R.string.debit_card));
 
-            FontSpinnerAdapter fontSpinnerAdapter = new FontSpinnerAdapter(this, walletTypes);
+            FontSpinnerAdapter fontSpinnerAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletTypes);
             typeSpinner.setAdapter(fontSpinnerAdapter);
 
             walletColorLists = new ArrayList<>();
@@ -155,8 +155,8 @@ public class CreateWalletActivity extends BaseActivity {
             colorSpinner.setAdapter(colorSpinnerAdapter);
 
             List<String> dateList = DateHelper.getMonthDates();
-            FontSpinnerAdapter statementAdapter = new FontSpinnerAdapter(this, dateList);
-            FontSpinnerAdapter paymentAdapter = new FontSpinnerAdapter(this, dateList);
+            FontSpinnerAdapter statementAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, dateList);
+            FontSpinnerAdapter paymentAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, dateList);
 
             statementDateSpinner.setAdapter(statementAdapter);
             paymentDateSpinner.setAdapter(paymentAdapter);
@@ -256,15 +256,15 @@ public class CreateWalletActivity extends BaseActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                     if (position == 3) { // Credit Card
-                        statementDateWrapper.setVisibility(View.VISIBLE);
-                        paymentDateWrapper.setVisibility(View.VISIBLE);
-                        excludeWrapper.setVisibility(View.GONE);
+                        cardWalletStatement.setVisibility(View.VISIBLE);
+                        cardWalletPayment.setVisibility(View.VISIBLE);
+                        cardWalletExclude.setVisibility(View.GONE);
 
                         amountLabel.setText(getString(R.string.credit_limit));
                     } else {
-                        excludeWrapper.setVisibility(View.VISIBLE);
-                        statementDateWrapper.setVisibility(View.GONE);
-                        paymentDateWrapper.setVisibility(View.GONE);
+                        cardWalletExclude.setVisibility(View.VISIBLE);
+                        cardWalletStatement.setVisibility(View.GONE);
+                        cardWalletPayment.setVisibility(View.GONE);
 
                         amountLabel.setText(getString(R.string.initial_amount));
                     }

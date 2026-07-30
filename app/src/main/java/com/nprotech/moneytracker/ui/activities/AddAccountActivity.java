@@ -140,7 +140,7 @@ public class AddAccountActivity extends BaseActivity {
         tvSkip.setOnClickListener(view -> saveAccounts(true));
 
         etCurrency.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CurrencyListActivity.class);
+            Intent intent = new Intent(this, CurrencyPickerActivity.class);
             intent.putExtra("currency", currency);
             intent.putExtra("type", "account");
             ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_right, R.anim.slide_out_left);
@@ -319,7 +319,7 @@ public class AddAccountActivity extends BaseActivity {
             WalletEntity wallet = new WalletEntity();
             wallet.accountId = (int) accountId;
             wallet.name = getString(R.string.cash);
-            wallet.walletType = 1;
+            wallet.walletType = 0;
             wallet.walletColor = "#6A1B9A";
             wallet.currencyName = currency.name;
             wallet.currencyCode = currency.code;

@@ -94,7 +94,7 @@
 
         <!-- Currency Screen -->
         <activity
-            android:name=".ui.activities.CurrencyListActivity"
+            android:name=".ui.activities.CurrencyPickerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

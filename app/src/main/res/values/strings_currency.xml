@@ -19,4 +19,6 @@
     <string name="currency_has_been_removed_successfully">Currency has been removed successfully</string>
     <string name="base_currency">Base Currency</string>
     <string name="additional_currency">Additional Currency</string>
+    <string name="currency_subtext">Choose the currency you want to use</string>
+    <string name="enter_the_rate">Enter the rate</string>
 </resources>

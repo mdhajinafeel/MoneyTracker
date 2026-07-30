@@ -111,6 +111,7 @@
                         android:id="@+id/cardDateTime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_6"
                         android:layout_marginHorizontal="@dimen/margin_16"
                         app:cardCornerRadius="@dimen/corner_radius_12"
                         app:cardElevation="2dp"
@@ -127,12 +128,15 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivDate"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
                                 android:src="@drawable/ic_calendar"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/primary" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/dateTitleLabel"
@@ -201,8 +205,10 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivFromWallet"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
                                 android:src="@drawable/ic_wallet"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -236,6 +242,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_account_caret"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -265,8 +272,11 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivWallet"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_wallet"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -298,6 +308,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_account_caret"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -327,8 +338,11 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivAmount"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_amount"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -360,6 +374,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_account_caret"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -390,8 +405,10 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivFee"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
                                 android:src="@drawable/ic_fee_transfer"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -422,6 +439,7 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="16dp"
+                                app:tint="@color/primary"
                                 android:layout_height="16dp"
                                 android:src="@drawable/ic_account_caret"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -452,8 +470,11 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivCategory"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_category"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -487,6 +508,7 @@
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:layout_width="16dp"
                                 android:layout_height="16dp"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_account_caret"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -516,8 +538,11 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivDescription"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_desc"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -579,8 +604,11 @@
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivNote"
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_6"
+                                app:tint="@color/primary"
                                 android:src="@drawable/ic_note"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -639,7 +667,7 @@
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:tint="@color/dark_grey" />
+                                    app:tint="@color/primary" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 

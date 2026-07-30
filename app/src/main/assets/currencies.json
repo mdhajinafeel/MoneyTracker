@@ -2,22 +2,22 @@
   {
     "code": "AED",
     "name": "United Arab Emirati Dirham",
-    "symbol": "AED"
+    "symbol": "د.إ"
   },
   {
     "code": "AFN",
     "name": "Afghan Afghani",
-    "symbol": "AFN"
+    "symbol": "؋"
   },
   {
     "code": "ALL",
     "name": "Albanian Lek",
-    "symbol": "ALL"
+    "symbol": "L"
   },
   {
     "code": "AMD",
     "name": "Armenian Dram",
-    "symbol": "AMD"
+    "symbol": "֏"
   },
   {
     "code": "ANG",
@@ -27,7 +27,7 @@
   {
     "code": "AOA",
     "name": "Angolan Kwanza",
-    "symbol": "AOA"
+    "symbol": "Kz"
   },
   {
     "code": "ARS",
@@ -107,7 +107,7 @@
   {
     "code": "BTC",
     "name": "Bitcoin",
-    "symbol": "BTC"
+    "symbol": "₿"
   },
   {
     "code": "BTN",
@@ -187,7 +187,7 @@
   {
     "code": "DKK",
     "name": "Danish Krone",
-    "symbol": "Kr."
+    "symbol": "kr."
   },
   {
     "code": "DOP",
@@ -197,7 +197,7 @@
   {
     "code": "DZD",
     "name": "Algerian Dinar",
-    "symbol": "DZD"
+    "symbol": "د.ج"
   },
   {
     "code": "EEK",
@@ -222,7 +222,7 @@
   {
     "code": "ETH",
     "name": "Ethereum",
-    "symbol": "ETH"
+    "symbol": "Ξ"
   },
   {
     "code": "EUR",
@@ -247,7 +247,7 @@
   {
     "code": "GEL",
     "name": "Georgian Lari",
-    "symbol": "GEL"
+    "symbol": "₾"
   },
   {
     "code": "GHS",
@@ -322,12 +322,12 @@
   {
     "code": "IQD",
     "name": "Iraqi Dinar",
-    "symbol": "IQD"
+    "symbol": "ع.د"
   },
   {
     "code": "IRR",
     "name": "Iranian Rial",
-    "symbol": "IRR"
+    "symbol": "﷼"
   },
   {
     "code": "ISK",
@@ -347,7 +347,7 @@
   {
     "code": "JOD",
     "name": "Jordanian Dinar",
-    "symbol": "JOD"
+    "symbol": "د.ا"
   },
   {
     "code": "KES",
@@ -362,12 +362,12 @@
   {
     "code": "KHR",
     "name": "Cambodian Riel",
-    "symbol": "KHR"
+    "symbol": "៛"
   },
   {
     "code": "KMF",
     "name": "Comorian Franc",
-    "symbol": "KMF"
+    "symbol": "CF"
   },
   {
     "code": "KRW",
@@ -397,7 +397,7 @@
   {
     "code": "LBP",
     "name": "Lebanese Pound",
-    "symbol": "LBP"
+    "symbol": "ل.ل"
   },
   {
     "code": "LKR",
@@ -437,7 +437,7 @@
   {
     "code": "MAD",
     "name": "Moroccan Dirham",
-    "symbol": "MAD"
+    "symbol": "DH"
   },
   {
     "code": "MDL",
@@ -452,7 +452,7 @@
   {
     "code": "MKD",
     "name": "Macedonian Denar",
-    "symbol": "Ден"
+    "symbol": "ден"
   },
   {
     "code": "MMK",
@@ -502,7 +502,7 @@
   {
     "code": "MZN",
     "name": "Mozambican Metical",
-    "symbol": "MTn"
+    "symbol": "MT"
   },
   {
     "code": "NAD",
@@ -557,7 +557,7 @@
   {
     "code": "PKR",
     "name": "Pakistani Rupee",
-    "symbol": "₨."
+    "symbol": "₨"
   },
   {
     "code": "PLN",
@@ -572,7 +572,7 @@
   {
     "code": "QAR",
     "name": "Qatari Riyal",
-    "symbol": "QR"
+    "symbol": "ر.ق"
   },
   {
     "code": "RON",
@@ -597,7 +597,7 @@
   {
     "code": "SAR",
     "name": "Saudi Riyal",
-    "symbol": "SR"
+    "symbol": "﷼"
   },
   {
     "code": "SBD",
@@ -612,7 +612,7 @@
   {
     "code": "SDG",
     "name": "Sudanese Pound",
-    "symbol": "SDG"
+    "symbol": "ج.س."
   },
   {
     "code": "SDR",
@@ -677,7 +677,7 @@
   {
     "code": "TJS",
     "name": "Tajikistani Somoni",
-    "symbol": "TJS"
+    "symbol": "ЅМ"
   },
   {
     "code": "TMT",
@@ -707,7 +707,7 @@
   {
     "code": "TZS",
     "name": "Tanzanian Shilling",
-    "symbol": "TZS"
+    "symbol": "TSh"
   },
   {
     "code": "UAH",
@@ -717,7 +717,7 @@
   {
     "code": "UGX",
     "name": "Ugandan Shilling",
-    "symbol": "Ush"
+    "symbol": "USh"
   },
   {
     "code": "USD",
@@ -732,7 +732,7 @@
   {
     "code": "UZS",
     "name": "Uzbekistani som",
-    "symbol": "UZ$"
+    "symbol": "soʻm"
   },
   {
     "code": "VEF",
@@ -777,17 +777,17 @@
   {
     "code": "XRP",
     "name": "Ripple",
-    "symbol": "XRP"
+    "symbol": "✕"
   },
   {
     "code": "YER",
     "name": "Yemeni Rial",
-    "symbol": "YER"
+    "symbol": "﷼"
   },
   {
     "code": "ZAR",
     "name": "South African Rand",
-    "symbol": "$"
+    "symbol": "R"
   },
   {
     "code": "ZMW",

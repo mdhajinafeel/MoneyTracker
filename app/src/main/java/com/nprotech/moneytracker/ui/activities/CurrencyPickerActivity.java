@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
@@ -19,6 +24,7 @@ import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
+import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 
 import java.util.ArrayList;
@@ -27,7 +33,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CurrencyListActivity extends BaseActivity {
+public class CurrencyPickerActivity extends BaseActivity {
 
     private RecyclerView rvCurrency;
     private MasterViewModel masterViewModel;
@@ -47,12 +53,39 @@ public class CurrencyListActivity extends BaseActivity {
 
     private void initComponents() {
         try {
-            MaterialToolbar toolbar = findViewById(R.id.toolbar);
-            toolbar.setNavigationOnClickListener(v -> finish());
+            ConstraintLayout toolbarWrapper = findViewById(R.id.toolbarWrapper);
+            AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
+            MaterialCardView cardCurrency = findViewById(R.id.cardCurrency);
 
             etSearch = findViewById(R.id.etSearch);
             rvCurrency = findViewById(R.id.rvCurrency);
             masterViewModel = new ViewModelProvider(this).get(MasterViewModel.class);
+
+            ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
+                int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+                v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+
+            ViewCompat.setOnApplyWindowInsetsListener(cardCurrency, (view, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
+                return insets;
+            });
+
+            icBack.setOnClickListener(view -> {
+                finish();
+                ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+            });
+
+            getOnBackPressedDispatcher().addCallback(this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        }
+                    });
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
@@ -80,7 +113,8 @@ public class CurrencyListActivity extends BaseActivity {
                     @Override
                     public void onPostBindViewHolder(ViewHolder holder, CurrencyEntity currencyEntity) {
                         holder.setViewText(R.id.tvCurrencyCode, currencyEntity.code);
-                        holder.setViewText(R.id.tvCurrencyName, currencyEntity.name + " (" + currencyEntity.symbol + ")");
+                        holder.setViewText(R.id.tvCurrencyName, currencyEntity.name);
+                        holder.setViewText(R.id.tvCurrencySymbol, currencyEntity.symbol);
 
                         AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                         if (currency != null && currency.id == currencyEntity.id) {
@@ -94,13 +128,15 @@ public class CurrencyListActivity extends BaseActivity {
                             intent.putExtra("currency", currencyEntity);
                             setResult(-1, intent);
                             finish();
-                            ActivityUtils.overrideCloseTransition(CurrencyListActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
+                            ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
                         });
                     }
                 };
 
                 rvCurrency.setAdapter(currenciesRecyclerViewAdapter);
                 rvCurrency.setHasFixedSize(true);
+                rvCurrency.setItemAnimator(null);
+                rvCurrency.addItemDecoration(new SimpleDividerItemDecoration(this));
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "fetchCurrencies", e);

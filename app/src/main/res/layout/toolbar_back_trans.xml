@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbarBack"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTransparent"
+    android:elevation="@dimen/corner_elevation_8"
+    app:contentInsetEnd="0dp"
+    app:contentInsetLeft="0dp"
+    app:contentInsetRight="0dp"
+    app:contentInsetStart="0dp"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingBottom="@dimen/padding_12">
+
+        <!-- Back Button -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icBack"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="@dimen/margin_12"
+            android:background="@drawable/bg_circle_white"
+            android:elevation="@dimen/corner_elevation_8"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/ic_back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
+        <!-- Title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/select_currency"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/icBack"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSubText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_medium"
+            android:text="@string/currency_subtext"
+            android:textColor="@color/funky_grey"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/icBack"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.Toolbar>

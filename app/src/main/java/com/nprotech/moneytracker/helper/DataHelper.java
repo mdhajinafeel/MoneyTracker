@@ -397,6 +397,9 @@ public class DataHelper {
     }
 
     public static String getWalletTypeName(Context context, int type) {
+
+        type = type + 1;
+
         return switch (type) {
             case 1 -> context.getString(R.string.general);
             case 2 -> context.getString(R.string.cash);

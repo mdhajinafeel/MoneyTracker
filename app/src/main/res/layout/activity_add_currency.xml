@@ -43,113 +43,153 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/topWrapper"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/padding_16"
-                android:background="@color/white"
-                android:paddingBottom="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCurrencyName"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/currencyLabel"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/padding_24"
-                        android:layout_marginTop="@dimen/padding_16"
-                        android:layout_marginEnd="@dimen/padding_24"
-                        android:fontFamily="@font/exo2_bold"
-                        android:text="@string/currency"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_16"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvCurrencyName"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height_40"
-                        android:layout_marginStart="@dimen/margin_24"
-                        android:layout_marginEnd="@dimen/margin_24"
-                        android:background="@drawable/bg_edit_text_underline"
-                        android:drawableEnd="@drawable/ic_account_caret"
-                        android:ems="10"
-                        android:fontFamily="@font/exo2_medium"
-                        android:gravity="center_vertical"
-                        android:inputType="textCapWords"
-                        android:paddingStart="@dimen/padding_0"
-                        android:paddingEnd="@dimen/padding_16"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_16"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/currencyLabel" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clRate"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCurrency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_6"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/clCurrencyName">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/rateLabel"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/padding_24"
-                        android:layout_marginTop="@dimen/padding_16"
-                        android:layout_marginEnd="@dimen/padding_24"
-                        android:fontFamily="@font/exo2_bold"
-                        android:text="@string/rate"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_16"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:padding="@dimen/padding_16">
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/etRate"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/edit_text_height_40"
-                        android:layout_marginStart="@dimen/margin_24"
-                        android:layout_marginEnd="@dimen/margin_24"
-                        android:background="@drawable/bg_edit_text_underline"
-                        android:ems="10"
-                        android:fontFamily="@font/exo2_medium"
-                        android:inputType="numberDecimal"
-                        android:paddingStart="@dimen/padding_0"
-                        android:paddingEnd="@dimen/padding_16"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_16"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/rateLabel" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivCurrency"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_currency"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRate"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/currencyLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/currency"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivCurrency"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCurrencyName"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:drawableEnd="@drawable/ic_account_caret"
+                            android:drawableTint="@color/primary"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="center_vertical"
+                            android:hint="@string/select_currency"
+                            android:inputType="numberDecimal"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/currencyLabel"
+                            app:layout_constraintTop_toBottomOf="@id/currencyLabel" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardCurrency"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_24"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:layout_marginEnd="@dimen/margin_24"
-                        android:layout_marginBottom="@dimen/margin_24"
-                        android:fontFamily="@font/exo2_semibold"
-                        android:textColor="@color/funky_grey"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/etRate" />
+                        android:padding="@dimen/padding_16">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivRate"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_exchange"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/currencyRateLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/rate"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivRate"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etRate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:hint="@string/enter_the_rate"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/currencyRateLabel"
+                            app:layout_constraintTop_toBottomOf="@id/currencyRateLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_medium"
+                            android:textColor="@color/funky_grey"
+                            android:textSize="@dimen/text_14"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/currencyRateLabel"
+                            app:layout_constraintTop_toBottomOf="@+id/etRate" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
