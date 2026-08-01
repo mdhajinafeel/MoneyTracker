@@ -13,6 +13,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,15 +25,20 @@ import com.nprotech.moneytracker.constants.IConstants;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.BillingHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.helper.SettingHelper;
+import com.nprotech.moneytracker.models.PremiumFeatureModel;
 import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.ui.adapters.SettingOptionsAdapter;
 import com.nprotech.moneytracker.ui.adapters.SettingsAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.CommonDataViewModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,10 +47,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SettingsActivity extends BaseActivity implements SettingsAdapter.OnSettingActionListener {
 
+    private AppCompatTextView tvPrice;
     private RecyclerView rvConfigurations, rvManagement, rvBackup, rvOthers;
     private CommonDataViewModel commonDataViewModel;
     private List<SettingItemModel> configurationList;
     private SettingsAdapter configurationAdapter;
+    private BillingHelper billingHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +68,11 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
+            View featureWallet = findViewById(R.id.featureWallet);
+            View featureCloud = findViewById(R.id.featureCloud);
+            View featureOthers = findViewById(R.id.featureOthers);
+            View root = findViewById(R.id.rootView);
+            tvPrice = findViewById(R.id.tvPrice);
 
             rvConfigurations = findViewById(R.id.rvConfigurations);
             rvManagement = findViewById(R.id.rvManagement);
@@ -70,6 +83,12 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
                 v.setPadding(v.getPaddingLeft(), top,
                         v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -92,6 +111,19 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                         }
                     });
 
+            List<PremiumFeatureModel> features = Arrays.asList(
+                    new PremiumFeatureModel(R.drawable.ic_wallet, "Unlimited\nWallets"),
+                    new PremiumFeatureModel(R.drawable.ic_cloud, "Cloud\nBackup"),
+                    new PremiumFeatureModel(R.drawable.ic_settings_other, "+12\nfeatures")
+            );
+
+            billingHelper = new BillingHelper(this);
+
+            bindFeature(featureWallet, features.get(0));
+            bindFeature(featureCloud, features.get(1));
+            bindFeature(featureOthers, features.get(2));
+            fetchProductRateMonthly();
+
             rvConfigurations.post(this::fetchConfigurationSettings);
             rvManagement.post(this::fetchManagementSettings);
             rvBackup.post(this::fetchBackupSettings);
@@ -101,15 +133,28 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         }
     }
 
+    private void bindFeature(View featureView, PremiumFeatureModel feature) {
+
+        AppCompatImageView ivIcon = featureView.findViewById(R.id.ivIcon);
+        AppCompatTextView tvFeature = featureView.findViewById(R.id.tvFeature);
+
+        ivIcon.setImageResource(feature.icon);
+        tvFeature.setText(feature.title);
+    }
+
     private void fetchManagementSettings() {
         try {
-            List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.ACCOUNT, getString(R.string.account), true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.WALLET, getString(R.string.wallet), true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.CURRENCY, getString(R.string.currency), true, false, null, true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, getString(R.string.manage_category), true, false, null, true, false));
+            List<SettingItemModel> managementList = new ArrayList<>();
+            managementList.add(new SettingItemModel(SettingType.ACCOUNT, R.drawable.ic_account, R.color.account_dark, R.color.account_light,
+                    getString(R.string.account), true, true, getString(R.string.manage_account_details), true, false));
+            managementList.add(new SettingItemModel(SettingType.WALLET, R.drawable.ic_account_wallet, R.color.wallet_dark, R.color.wallet_light,
+                    getString(R.string.wallet), true, true, getString(R.string.manage_wallets), true, false));
+            managementList.add(new SettingItemModel(SettingType.CURRENCY, R.drawable.ic_exchange, R.color.currency_dark, R.color.currency_light,
+                    getString(R.string.currency), true, true, getString(R.string.manage_currencies), true, false));
+            managementList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, R.drawable.ic_category, R.color.category_dark, R.color.category_light,
+                    getString(R.string.manage_category), true, true, getString(R.string.manage_categories), true, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(settingItemModelList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, managementList, this);
 
             rvManagement.setLayoutManager(new LinearLayoutManager(this));
             rvManagement.setAdapter(adapter);
@@ -121,13 +166,18 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private void fetchConfigurationSettings() {
         try {
             configurationList = new ArrayList<>();
-            configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true));
-            configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true));
-            configurationList.add(new SettingItemModel(SettingType.LANGUAGE, getString(R.string.language), true, true, getLanguageSubtitle(), true, false));
-            configurationList.add(new SettingItemModel(SettingType.PASSWORD, getString(R.string.password), true, true, getString(R.string.not_set), true, false));
-            configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, R.drawable.ic_calendar, R.color.week_dark, R.color.week_light,
+                    getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, R.drawable.ic_startup, R.color.startup_dark, R.color.startup_light,
+                    getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true));
+            configurationList.add(new SettingItemModel(SettingType.LANGUAGE, R.drawable.ic_language, R.color.language_dark, R.color.language_light,
+                    getString(R.string.language), true, true, getLanguageSubtitle(), true, false));
+            configurationList.add(new SettingItemModel(SettingType.PASSWORD, R.drawable.ic_password, R.color.password_dark, R.color.password_light,
+                    getString(R.string.password), true, true, getString(R.string.not_set), true, false));
+            configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, R.drawable.ic_reminder, R.color.reminder_dark, R.color.reminder_light,
+                    getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true));
 
-            configurationAdapter = new SettingsAdapter(configurationList, this);
+            configurationAdapter = new SettingsAdapter(this, configurationList, this);
 
             rvConfigurations.setLayoutManager(new LinearLayoutManager(this));
             rvConfigurations.setAdapter(configurationAdapter);
@@ -139,23 +189,30 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private void fetchBackupSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, getString(R.string.manage_backup), true, false, null, true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, R.drawable.ic_settings_backup, R.color.backup_dark, R.color.backup_light,
+                    getString(R.string.manage_backup), true, true, getString(R.string.backup_restore_data), true, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(settingItemModelList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, this);
 
             rvBackup.setLayoutManager(new LinearLayoutManager(this));
             rvBackup.setAdapter(adapter);
         } catch (Exception e) {
-            AppLogger.e(getClass(), "fetchOtherSettings", e);
+            AppLogger.e(getClass(), "fetchBackupSettings", e);
         }
     }
 
     private void fetchOtherSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, getString(R.string.version), false, true, getAppVersion(), false, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.RATE_APP, R.drawable.ic_rating, R.color.rate_dark, R.color.rate_light, getString(R.string.rate_app) + " " + getString(R.string.app_name), true, true, getString(R.string.rate_app_desc, getString(R.string.app_name)), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.SHARE_APP, R.drawable.ic_share, R.color.rate_dark, R.color.share_light, getString(R.string.share_app) + " " + getString(R.string.app_name), true, true, getString(R.string.share_app) + " " + getString(R.string.app_name) + " " + getString(R.string.with_your_friends), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.SEND_FEEDBACK, R.drawable.ic_feedback, R.color.feedback_dark, R.color.feedback_light, getString(R.string.send_feedback), true, true, getString(R.string.help_us_improve) + getString(R.string.app_name), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.PRIVACY_POLICY, R.drawable.ic_privacy, R.color.privacy_dark, R.color.privacy_light, getString(R.string.privacy_policy), true, true, getString(R.string.read_privacy_policy), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.TERMS_CONDITIONS, R.drawable.ic_terms, R.color.terms_dark, R.color.terms_light, getString(R.string.terms_conditions), true, true, getString(R.string.read_our_terms_and_conditions), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.ABOUT, R.drawable.ic_about, R.color.about_dark, R.color.about_light, getString(R.string.about) + " " + getString(R.string.app_name), true, true, getString(R.string.learn_more) + getString(R.string.app_name), true, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, R.drawable.ic_version, R.color.version_dark, R.color.version_light, getString(R.string.version), false, true, getAppVersion(), false, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(settingItemModelList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, this);
 
             rvOthers.setLayoutManager(new LinearLayoutManager(this));
             rvOthers.setAdapter(adapter);
@@ -210,6 +267,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         } else if (item.settingType == SettingType.MANAGE_BACKUP) {
             startActivity(new Intent(SettingsActivity.this, ManageBackupActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
+        } else if (item.settingType == SettingType.RATE_APP) {
+            SettingHelper.rateApp(this);
+        } else if (item.settingType == SettingType.SHARE_APP) {
+            SettingHelper.shareApp(this);
         }
     }
 
@@ -363,5 +424,31 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             AppLogger.e(getClass(), "getAppVersion", e);
             return "";
         }
+    }
+
+    private void fetchProductRateMonthly() {
+        try {
+            billingHelper.loadSubscriptionPrice(IConstants.SUBSCRIPTION_MONTHLY, new BillingHelper.PriceListener() {
+
+                @Override
+                public void onPriceLoaded(String price) {
+                    runOnUiThread(() -> tvPrice.setText(price));
+                }
+
+                @Override
+                public void onError() {
+                    // TODO
+                    runOnUiThread(() -> tvPrice.setText(CommonUtils.getBeautifyAmount("$", 49)));
+                }
+            });
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "fetchProductRateMonthly", e);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        billingHelper.destroy();
     }
 }

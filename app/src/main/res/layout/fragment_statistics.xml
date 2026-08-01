@@ -253,8 +253,8 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overviewMoreWrapper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:layout_marginEnd="@dimen/margin_12"
                 android:background="@drawable/bg_box_curved_purple"
                 android:drawableEnd="@drawable/ic_right_arrow"

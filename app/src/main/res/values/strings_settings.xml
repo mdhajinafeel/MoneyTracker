@@ -15,4 +15,26 @@
     <string name="manage_backup">Manage Backup</string>
     <string name="not_set">Not set</string>
     <string name="trigger_reminder_at">Trigger reminder at %1$s</string>
+    <string name="rate_app">Rate </string>
+    <string name="share_app">Share </string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_conditions">Terms &amp; Conditions</string>
+    <string name="about">About</string>
+    <string name="manage_account_details">Manage your account details</string>
+    <string name="manage_wallets">Manage your wallets</string>
+    <string name="manage_currencies">Manage currencies and rates</string>
+    <string name="manage_categories">Manage income and expense categories</string>
+    <string name="backup_restore_data">Backup and restore your data</string>
+    <string name="rate_app_desc">If you like %1$s, please rate us.</string>
+    <string name="with_your_friends"> with your friends</string>
+    <string name="help_us_improve">"Help us improve "</string>
+    <string name="read_privacy_policy">Read our privacy policy</string>
+    <string name="read_our_terms_and_conditions">Read our terms and conditions</string>
+    <string name="learn_more">"Learn more about "</string>
+    <string name="upgrade_subtext">Unlock all premium features and take control of your finances.</string>
+    <string name="month">/month</string>
+    <string name="premium">Premium</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="upgrade_to_premium">Upgrade to Premium</string>
 </resources>

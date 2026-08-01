@@ -32,7 +32,7 @@
     <string name="collect">Debt collection</string>
     <string name="category_allowance">Allowance</string>
     <string name="category_award">Award</string>
-    <string name="manage_category">Manage Category</string>
+    <string name="manage_category">Categories</string>
     <string name="empty_category">No Categories</string>
     <string name="empty_category_hint">Tap the + button to add categories.</string>
     <string name="empty_category_picker_hint">Tap the manage category to add categories.</string>

@@ -2,17 +2,28 @@ package com.nprotech.moneytracker.enums;
 
 public enum SettingType {
 
+    // MANAGEMENT
     ACCOUNT,
     WALLET,
     CURRENCY,
     MANAGE_CATEGORY,
 
+    // CONFIG
     WEEK_STARTS_ON,
     STARTUP_SCREEN,
     LANGUAGE,
     PASSWORD,
     SMART_REMINDER,
 
+    // BACKUP
     MANAGE_BACKUP,
+
+    // OTHERS
+    RATE_APP,
+    SHARE_APP,
+    SEND_FEEDBACK,
+    PRIVACY_POLICY,
+    TERMS_CONDITIONS,
+    ABOUT,
     VERSION
 }

@@ -166,6 +166,17 @@ dependencies {
     implementation libs.shimmer
 
     // ---------------------------
+    // Billing
+    // ---------------------------
+    implementation libs.billing
+
+    // ---------------------------
+    // Review
+    // ---------------------------
+    implementation libs.review
+    implementation libs.tasks
+
+    // ---------------------------
     // Testing
     // ---------------------------
     testImplementation libs.junit

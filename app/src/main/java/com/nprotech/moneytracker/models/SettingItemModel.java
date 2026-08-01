@@ -1,5 +1,8 @@
 package com.nprotech.moneytracker.models;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+
 import com.nprotech.moneytracker.enums.SettingType;
 
 import java.io.Serializable;
@@ -9,8 +12,9 @@ public class SettingItemModel implements Serializable {
     public SettingType settingType;
     public String title, subTitle;
     public boolean isEnabled, enabledSubTitle, navigationVisible, isPremium;
+    public int icon, fgColor, bgColor;
 
-    public SettingItemModel(SettingType settingType, String title, boolean isEnabled,
+    public SettingItemModel(SettingType settingType, @DrawableRes int icon, @ColorRes int fgColor, @ColorRes int bgColor, String title, boolean isEnabled,
                             boolean enabledSubTitle, String subTitle, boolean navigationVisible, boolean isPremium) {
         this.settingType = settingType;
         this.title = title;
@@ -19,5 +23,8 @@ public class SettingItemModel implements Serializable {
         this.subTitle = subTitle;
         this.navigationVisible = navigationVisible;
         this.isPremium = isPremium;
+        this.icon = icon;
+        this.fgColor = fgColor;
+        this.bgColor = bgColor;
     }
 }

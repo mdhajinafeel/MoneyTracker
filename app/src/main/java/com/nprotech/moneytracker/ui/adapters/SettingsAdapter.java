@@ -1,6 +1,8 @@
 package com.nprotech.moneytracker.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
@@ -24,10 +28,12 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     private final List<SettingItemModel> items;
     private final OnSettingActionListener listener;
+    private final Context context;
 
-    public SettingsAdapter(List<SettingItemModel> items, OnSettingActionListener listener) {
+    public SettingsAdapter(Context context, List<SettingItemModel> items, OnSettingActionListener listener) {
         this.items = items;
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
@@ -41,13 +47,22 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SettingItemModel item = items.get(position);
-        holder.title.setText(item.title);
+        holder.tvSettingName.setText(item.title);
 
         holder.ivNavigation.setVisibility(item.navigationVisible ? View.VISIBLE : View.GONE);
         holder.ivPremium.setVisibility(item.isPremium ? View.VISIBLE : View.GONE);
-        holder.subTitle.setVisibility(item.enabledSubTitle ? View.VISIBLE : View.GONE);
 
-        holder.subTitle.setText(item.enabledSubTitle ? item.subTitle : null);
+        holder.tvSettingDesc.setVisibility(item.enabledSubTitle ? View.VISIBLE : View.GONE);
+        holder.tvSettingDesc.setText(item.enabledSubTitle ? item.subTitle : null);
+
+        holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, item.icon));
+        holder.imageView.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, item.fgColor)));
+
+        holder.colorView.setBackgroundTintList(
+                ColorStateList.valueOf(
+                        ContextCompat.getColor(context, item.bgColor)
+                )
+        );
 
         if (item.isEnabled) {
             holder.itemView.setOnClickListener(v -> {
@@ -59,7 +74,11 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
             holder.itemView.setOnClickListener(null);
         }
 
-        holder.divider.setVisibility(position == items.size() - 1 ? View.GONE : View.VISIBLE);
+        if(position == getItemCount() - 1) {
+            holder.divider.setAlpha(0f);
+        } else {
+            holder.divider.setAlpha(1f);
+        }
     }
 
     @Override
@@ -69,16 +88,20 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
 
     // ✅ Make ViewHolder public static
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        AppCompatTextView title, subTitle;
-        AppCompatImageView ivNavigation, ivPremium;
+
+        ConstraintLayout colorView;
+        AppCompatTextView tvSettingName, tvSettingDesc;
+        AppCompatImageView ivNavigation, ivPremium, imageView;
         View divider;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            title = itemView.findViewById(R.id.title);
-            subTitle = itemView.findViewById(R.id.subtitle);
+            colorView = itemView.findViewById(R.id.colorView);
+            tvSettingName = itemView.findViewById(R.id.tvSettingName);
+            tvSettingDesc = itemView.findViewById(R.id.tvSettingDesc);
             ivNavigation = itemView.findViewById(R.id.ivNavigation);
+            imageView = itemView.findViewById(R.id.imageView);
             ivPremium = itemView.findViewById(R.id.ivPremium);
             divider = itemView.findViewById(R.id.divider);
         }

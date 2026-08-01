@@ -15,7 +15,7 @@ securedpreferencestore = "0.7.4"
 okhttp = "5.4.0"
 retrofit = "3.0.0"
 stetho = "1.6.0"
-firebaseBom = "34.16.0"
+firebaseBom = "34.17.0"
 firebaseAnalytics = "23.2.0"
 firebaseMessaging = "25.1.1"
 glide = "5.0.9"
@@ -30,6 +30,9 @@ autofittext = "0.2.1"
 mpandroidchart = "v3.1.0"
 circleindicator = "2.1.6"
 shimmer = "0.5.0"
+billing = "9.1.0"
+review = "2.0.2"
+tasks = "18.4.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -69,6 +72,9 @@ autofittextview = { module = "me.grantland:autofittextview", version.ref = "auto
 mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
 circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
+review = { module = "com.google.android.play:review", version.ref = "review" }
+tasks = { module = "com.google.android.gms:play-services-tasks", version.ref = "tasks" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

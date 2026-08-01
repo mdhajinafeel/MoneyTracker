@@ -19,4 +19,9 @@ public interface IConstants {
     int DEFAULT_CATEGORY_ADJUST_ID = 25;
     int DEFAULT_CATEGORY_FEE_ID = 30;
     int DEFAULT_CATEGORY_TRANSFER_ID = 31;
+
+
+    // SUBSCRIPTION ID
+    String SUBSCRIPTION_MONTHLY = "premium_monthly";
+    String SUBSCRIPTION_YEARLY = "premium_yearly";
 }

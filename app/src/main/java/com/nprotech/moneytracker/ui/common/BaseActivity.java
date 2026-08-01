@@ -49,6 +49,7 @@ public class BaseActivity extends AppCompatActivity {
         setStatusBarColorCompat(window);
     }
 
+    @SuppressWarnings("deprecation")
     protected void statusBarSetting() {
 
         if (getSupportActionBar() != null) {
@@ -57,19 +58,20 @@ public class BaseActivity extends AppCompatActivity {
 
         Window window = getWindow();
 
-        // Keep classic layout (content below status bar)
         WindowCompat.setDecorFitsSystemWindows(window, true);
+        WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(window, window.getDecorView());
 
-        // Set status bar icon color
-        WindowInsetsControllerCompat controller =
-                new WindowInsetsControllerCompat(window, window.getDecorView());
-
-        // false = light icons (white)
-        // true = dark icons (black)
+        // White status bar icons
         controller.setAppearanceLightStatusBars(false);
 
-        // Android 14 and below
+        // White navigation bar icons
+        controller.setAppearanceLightNavigationBars(false);
+
         setStatusBarColorCompat(window);
+
+        // Navigation bar color
+        window.setNavigationBarColor(ContextCompat.getColor(this, R.color.primary_dark)
+        );
     }
 
     @SuppressWarnings("deprecation")
