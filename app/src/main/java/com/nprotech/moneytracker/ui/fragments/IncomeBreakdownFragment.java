@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,7 +59,7 @@ public class IncomeBreakdownFragment extends Fragment {
 
     private ConstraintLayout emptyWrapper;
     private RecyclerView rvIncomeBreakdown;
-    private MaterialCardView breakdownCard;
+    private MaterialCardView incomeBreakdownCard;
     private PieChart pieChartIncome;
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
@@ -71,10 +74,17 @@ public class IncomeBreakdownFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_income_breakdown, container, false);
         try {
+            View root = view.findViewById(R.id.rootView);
             rvIncomeBreakdown = view.findViewById(R.id.rvIncomeBreakdown);
             emptyWrapper = view.findViewById(R.id.emptyWrapper);
-            breakdownCard = view.findViewById(R.id.breakdownCard);
+            incomeBreakdownCard = view.findViewById(R.id.incomeBreakdownCard);
             pieChartIncome = view.findViewById(R.id.pieChartIncome);
+
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
+                return insets;
+            });
 
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
             statisticsViewModel = new ViewModelProvider(requireActivity()).get(StatisticsViewModel.class);
@@ -116,11 +126,11 @@ public class IncomeBreakdownFragment extends Fragment {
 
             statisticsViewModel.getCategoryIncomeTransaction().observe(getViewLifecycleOwner(), transactionList -> {
                 if (transactionList == null || transactionList.isEmpty()) {
-                    breakdownCard.setVisibility(View.GONE);
+                    incomeBreakdownCard.setVisibility(View.GONE);
                     emptyWrapper.setVisibility(View.VISIBLE);
                 } else {
                     emptyWrapper.setVisibility(View.GONE);
-                    breakdownCard.setVisibility(View.VISIBLE);
+                    incomeBreakdownCard.setVisibility(View.VISIBLE);
                     transactionBreakdownAdapter.setItems(transactionList);
                 }
             });
@@ -148,7 +158,7 @@ public class IncomeBreakdownFragment extends Fragment {
 
                 emptyWrapper.setVisibility(View.VISIBLE);
                 pieChartIncome.setVisibility(View.GONE);
-                breakdownCard.setVisibility(View.GONE);
+                incomeBreakdownCard.setVisibility(View.GONE);
                 return;
             }
 
@@ -207,7 +217,7 @@ public class IncomeBreakdownFragment extends Fragment {
 
             emptyWrapper.setVisibility(View.GONE);
             pieChartIncome.setVisibility(View.VISIBLE);
-            breakdownCard.setVisibility(View.VISIBLE);
+            incomeBreakdownCard.setVisibility(View.VISIBLE);
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupPieBreakdownChart", e);

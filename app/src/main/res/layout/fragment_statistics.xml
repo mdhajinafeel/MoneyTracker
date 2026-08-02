@@ -150,7 +150,7 @@
                 app:layout_constraintStart_toStartOf="@+id/midGuideline"
                 app:layout_constraintTop_toBottomOf="@+id/titleLabel" />
 
-            <me.grantland.widget.AutofitTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvOpeningBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -164,10 +164,9 @@
                 android:textSize="@dimen/text_20"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/openingTitleLabel"
-                app:minTextSize="@dimen/text_4" />
+                app:layout_constraintTop_toBottomOf="@+id/openingTitleLabel" />
 
-            <me.grantland.widget.AutofitTextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvEndingBalance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -179,8 +178,7 @@
                 android:textColor="@color/closing_balance"
                 android:textSize="@dimen/text_20"
                 app:layout_constraintStart_toEndOf="@+id/midGuideline"
-                app:layout_constraintTop_toBottomOf="@+id/closingTitleLabel"
-                app:minTextSize="@dimen/text_4" />
+                app:layout_constraintTop_toBottomOf="@+id/closingTitleLabel" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/midGuideline"
@@ -253,11 +251,11 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/overviewMoreWrapper"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_12"
                 android:background="@drawable/bg_box_curved_purple"
-                android:drawableEnd="@drawable/ic_right_arrow"
+                android:drawableEnd="@drawable/ic_right_arrow_small"
                 android:drawablePadding="@dimen/padding_6"
                 android:drawableTint="@color/primary"
                 android:fontFamily="@font/exo2_semibold"

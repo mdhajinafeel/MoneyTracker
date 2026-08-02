@@ -55,7 +55,6 @@ import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
-import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.StatisticsViewModel;
 
@@ -72,8 +71,8 @@ import me.grantland.widget.AutofitTextView;
 @AndroidEntryPoint
 public class StatisticsFragment extends Fragment implements MainActivity.ToolbarActionListener {
 
-    private AppCompatTextView tvDate, tvStartDate, tvEndDate, overviewMoreWrapper;
-    private AutofitTextView tvIncome, tvExpense, tvTotal, tvOpeningBalance, tvEndingBalance;
+    private AppCompatTextView tvDate, tvStartDate, tvEndDate, tvOpeningBalance, tvEndingBalance, overviewMoreWrapper;
+    private AutofitTextView tvIncome, tvExpense, tvTotal;
     private AppCompatImageView ivPrevious, ivNext;
     private MaterialButtonToggleGroup chartToggleGroup;
     private PieChart pieBreakdownChart;

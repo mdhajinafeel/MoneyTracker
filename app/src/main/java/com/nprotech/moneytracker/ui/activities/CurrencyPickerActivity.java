@@ -75,7 +75,7 @@ public class CurrencyPickerActivity extends BaseActivity {
 
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             getOnBackPressedDispatcher().addCallback(this,
@@ -83,7 +83,7 @@ public class CurrencyPickerActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(CurrencyPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
 

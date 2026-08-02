@@ -90,12 +90,6 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(viewPager, (view, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
-                return insets;
-            });
-
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 
@@ -188,7 +182,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             ivPrevious.setOnClickListener(v -> moveDate(-1));
@@ -254,7 +248,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(TransactionBreakdownActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(TransactionBreakdownActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
         } catch (Exception e) {

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/rootView"
     android:layout_height="match_parent"
     android:background="@color/app_light_background">
 
@@ -159,7 +160,6 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginEnd="@dimen/margin_16"
-                android:layout_marginVertical="@dimen/margin_8"
                 android:drawableTint="@color/white"
                 android:fontFamily="@font/exo2_semibold"
                 android:letterSpacing="0.01"
@@ -492,8 +492,6 @@
                     android:clipToPadding="false"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"
-                    android:paddingTop="@dimen/margin_4"
-                    android:paddingBottom="@dimen/margin_4"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </com.google.android.material.card.MaterialCardView>
 

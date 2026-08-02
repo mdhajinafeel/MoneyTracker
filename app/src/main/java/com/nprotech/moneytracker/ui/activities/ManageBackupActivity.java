@@ -108,7 +108,7 @@ public class ManageBackupActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(ManageBackupActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(ManageBackupActivity.this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             btnCreateBackup.setOnClickListener(view -> {
@@ -124,7 +124,7 @@ public class ManageBackupActivity extends BaseActivity {
                 @Override
                 public void handleOnBackPressed() {
                     finish();
-                    ActivityUtils.overrideCloseTransition(ManageBackupActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                    ActivityUtils.overrideCloseTransition(ManageBackupActivity.this, R.anim.scale_in, R.anim.right_to_left);
                 }
             });
         } catch (Exception e) {

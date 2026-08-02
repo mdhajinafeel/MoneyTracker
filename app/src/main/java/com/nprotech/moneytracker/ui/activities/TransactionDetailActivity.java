@@ -145,7 +145,7 @@ public class TransactionDetailActivity extends BaseActivity {
                 }
             }
 
-            nameLabel.setText(transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
+            nameLabel.setText(transaction.description == null || transaction.description.isEmpty() ? "—" : transaction.description);
             categoryLabel.setText(transaction.getCategoryName(getApplicationContext()));
             amountLabel.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
             dateLabel.setText(DateHelper.getFormattedDateTime(getApplicationContext(), transaction.transactionDate));
@@ -209,7 +209,7 @@ public class TransactionDetailActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             ivEdit.setOnClickListener(view -> {
@@ -230,7 +230,7 @@ public class TransactionDetailActivity extends BaseActivity {
                     intent.putExtra("tempTransactionServerId", transactionWithDetails.transaction.tempTransactionServerId);
                     setResult(RESULT_OK, intent);
                     finish();
-                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                 } else {
                     Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
@@ -242,7 +242,7 @@ public class TransactionDetailActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(TransactionDetailActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(TransactionDetailActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
         } catch (Exception e) {

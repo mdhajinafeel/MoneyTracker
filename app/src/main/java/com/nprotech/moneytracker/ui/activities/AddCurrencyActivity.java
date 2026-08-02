@@ -17,7 +17,6 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.nprotech.moneytracker.R;
@@ -61,7 +60,7 @@ public class AddCurrencyActivity extends BaseActivity {
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            NestedScrollView scrollView = findViewById(R.id.scrollView);
+            View rootView = findViewById(R.id.rootView);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
@@ -78,9 +77,9 @@ public class AddCurrencyActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
-                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeInsets.bottom);
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -127,7 +126,7 @@ public class AddCurrencyActivity extends BaseActivity {
                     @Override
                     public void handleOnBackPressed() {
                         finish();
-                        ActivityUtils.overrideCloseTransition(AddCurrencyActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        ActivityUtils.overrideCloseTransition(AddCurrencyActivity.this, R.anim.scale_in, R.anim.right_to_left);
                     }
                 });
     }
@@ -136,7 +135,7 @@ public class AddCurrencyActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             tvCurrencyName.setOnClickListener(view -> {

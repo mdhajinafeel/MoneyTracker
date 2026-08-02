@@ -343,7 +343,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             tvDay.setOnClickListener(view -> {
@@ -1436,7 +1436,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     @Override
                     public void handleOnBackPressed() {
                         finish();
-                        ActivityUtils.overrideCloseTransition(CreateTransactionActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                        ActivityUtils.overrideCloseTransition(CreateTransactionActivity.this, R.anim.scale_in, R.anim.right_to_left);
                     }
                 });
     }

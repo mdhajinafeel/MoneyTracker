@@ -16,6 +16,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,13 +28,14 @@ import com.nprotech.moneytracker.constants.IConstants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.models.BalanceSummaryModel;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.ui.fragments.CalendarFragment;
+import com.nprotech.moneytracker.ui.fragments.MoreFragment;
 import com.nprotech.moneytracker.ui.fragments.StatisticsFragment;
 import com.nprotech.moneytracker.ui.fragments.TransactionFragment;
-import com.nprotech.moneytracker.ui.fragments.MoreFragment;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
@@ -53,14 +56,15 @@ public class MainActivity extends BaseActivity {
     private BottomNavigationView bottomNav;
     private AppCompatImageView ivSettings, ivChart, ivCalendar;
     private final List<AccountEntity> accountList = new ArrayList<>();
-    private final TransactionFragment transactionFragment = new TransactionFragment();
-    private final CalendarFragment calendarFragment = new CalendarFragment();
-    private final StatisticsFragment statisticsFragment = new StatisticsFragment();
-    private final MoreFragment moreFragment = new MoreFragment();
+    private TransactionFragment transactionFragment;
+    private CalendarFragment calendarFragment;
+    private StatisticsFragment statisticsFragment;
+    private MoreFragment moreFragment;
     private Fragment activeFragment;
     private long lastBackPressedTime = 0;
     private static final long EXIT_INTERVAL = 2000;
     private ToolbarActionListener toolbarActionListener;
+    private LiveData<BalanceSummaryModel> accountSummaryLiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +72,10 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         statusBarSetting();
         hideKeyboard(this);
-        initComponents();
+        initComponents(savedInstanceState);
     }
 
-    private void initComponents() {
+    private void initComponents(Bundle savedInstanceState) {
         try {
 
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
@@ -136,7 +140,7 @@ public class MainActivity extends BaseActivity {
                 return false;
             });
 
-            loadStartUpScreen();
+            restoreOrCreateFragments(savedInstanceState);
 
             getSupportFragmentManager().addOnBackStackChangedListener(() -> {
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
@@ -183,7 +187,20 @@ public class MainActivity extends BaseActivity {
             tvAccountName.setText(accountEntity.name);
             tvAccountBalance.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, accountEntity.balance));
 
-            transactionViewModel.accountSummaryById(accountEntity.id).observe(this, balanceSummaryModel -> {
+            // Remove previous observer
+            if (accountSummaryLiveData != null) {
+                accountSummaryLiveData.removeObservers(this);
+            }
+
+            // Observe new account
+            accountSummaryLiveData = transactionViewModel.accountSummaryById(accountEntity.id);
+
+            accountSummaryLiveData.observe(this, balanceSummaryModel -> {
+
+                if (balanceSummaryModel == null) {
+                    return;
+                }
+
                 tvTotalIncome.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, balanceSummaryModel.openingBalance));
                 tvTotalExpense.setText(CommonUtils.getBeautifyAmount(accountEntity.currencySymbol, balanceSummaryModel.closingBalance));
             });
@@ -263,25 +280,27 @@ public class MainActivity extends BaseActivity {
 
     private void loadFragment(Fragment fragment) {
 
-        if (fragment == activeFragment)
+        if (fragment == null || fragment == activeFragment)
             return;
 
         if (isFinishing() || isDestroyed())
             return;
 
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setReorderingAllowed(true)
                 .hide(activeFragment)
                 .show(fragment).commitNow();
 
         activeFragment = fragment;
 
-        if (activeFragment instanceof ToolbarActionListener) {
+        if (fragment instanceof ToolbarActionListener) {
             toolbarActionListener = (ToolbarActionListener) fragment;
         } else {
             toolbarActionListener = null;
         }
 
-        updateToolbar(activeFragment);
+        updateToolbar(fragment);
     }
 
     private void updateToolbar(Fragment fragment) {
@@ -321,64 +340,108 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private void loadStartUpScreen() {
+    private void restoreOrCreateFragments(Bundle savedInstanceState) {
 
-        int startUpScreen = PreferenceManager.INSTANCE.getStartUpScreen();
+        FragmentManager fm = getSupportFragmentManager();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.fragmentContainer, transactionFragment, "transaction")
-                .hide(transactionFragment)
-                .add(R.id.fragmentContainer, calendarFragment, "calendar")
-                .hide(calendarFragment)
-                .add(R.id.fragmentContainer, statisticsFragment, "statistics")
-                .hide(statisticsFragment)
-                .add(R.id.fragmentContainer, moreFragment, "wallet")
-                .hide(moreFragment)
-                .commitNow();
+        transactionFragment = (TransactionFragment) fm.findFragmentByTag("transaction");
+        calendarFragment = (CalendarFragment) fm.findFragmentByTag("calendar");
+        statisticsFragment = (StatisticsFragment) fm.findFragmentByTag("statistics");
+        moreFragment = (MoreFragment) fm.findFragmentByTag("wallet");
 
-        switch (startUpScreen) {
+        if (savedInstanceState == null) {
 
-            case IConstants.STARTUP_CALENDAR:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .show(calendarFragment)
-                        .commit();
+            // Create fragments
+            if (transactionFragment == null) {
+                transactionFragment = new TransactionFragment();
+            }
 
-                activeFragment = calendarFragment;
-                bottomNav.setSelectedItemId(R.id.nav_calendar);
-                break;
+            if (calendarFragment == null) {
+                calendarFragment = new CalendarFragment();
+            }
 
-            case IConstants.STARTUP_STATISTICS:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .show(statisticsFragment)
-                        .commit();
+            if (statisticsFragment == null) {
+                statisticsFragment = new StatisticsFragment();
+            }
 
-                activeFragment = statisticsFragment;
-                bottomNav.setSelectedItemId(R.id.nav_statistic);
-                break;
+            if (moreFragment == null) {
+                moreFragment = new MoreFragment();
+            }
 
-            case IConstants.STARTUP_MORE:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .show(moreFragment)
-                        .commit();
+            // Add fragments only once
+            fm.beginTransaction()
+                    .add(R.id.fragmentContainer, transactionFragment, "transaction")
+                    .hide(transactionFragment)
+                    .add(R.id.fragmentContainer, calendarFragment, "calendar")
+                    .hide(calendarFragment)
+                    .add(R.id.fragmentContainer, statisticsFragment, "statistics")
+                    .hide(statisticsFragment)
+                    .add(R.id.fragmentContainer, moreFragment, "wallet")
+                    .hide(moreFragment)
+                    .commitNow();
 
-                activeFragment = moreFragment;
-                bottomNav.setSelectedItemId(R.id.nav_more);
-                break;
+            int startUpScreen = PreferenceManager.INSTANCE.getStartUpScreen();
 
-            case IConstants.STARTUP_TRANSACTION:
-            default:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .show(transactionFragment)
-                        .commit();
+            switch (startUpScreen) {
 
+                case IConstants.STARTUP_CALENDAR:
+                    activeFragment = calendarFragment;
+                    bottomNav.setSelectedItemId(R.id.nav_calendar);
+                    break;
+
+                case IConstants.STARTUP_STATISTICS:
+                    activeFragment = statisticsFragment;
+                    bottomNav.setSelectedItemId(R.id.nav_statistic);
+                    break;
+
+                case IConstants.STARTUP_MORE:
+                    activeFragment = moreFragment;
+                    bottomNav.setSelectedItemId(R.id.nav_more);
+                    break;
+
+                case IConstants.STARTUP_TRANSACTION:
+                default:
+                    activeFragment = transactionFragment;
+                    bottomNav.setSelectedItemId(R.id.nav_transaction);
+                    break;
+            }
+
+            fm.beginTransaction()
+                    .show(activeFragment)
+                    .commitNow();
+
+        } else {
+
+            // Android restored fragments after process death
+
+            if (transactionFragment != null && transactionFragment.isVisible()) {
                 activeFragment = transactionFragment;
                 bottomNav.setSelectedItemId(R.id.nav_transaction);
-                break;
+
+            } else if (calendarFragment != null && calendarFragment.isVisible()) {
+                activeFragment = calendarFragment;
+                bottomNav.setSelectedItemId(R.id.nav_calendar);
+
+            } else if (statisticsFragment != null && statisticsFragment.isVisible()) {
+                activeFragment = statisticsFragment;
+                bottomNav.setSelectedItemId(R.id.nav_statistic);
+
+            } else if (moreFragment != null && moreFragment.isVisible()) {
+                activeFragment = moreFragment;
+                bottomNav.setSelectedItemId(R.id.nav_more);
+
+            } else {
+                // Fallback
+                activeFragment = transactionFragment;
+
+                if (transactionFragment != null && transactionFragment.isAdded()) {
+                    fm.beginTransaction()
+                            .show(transactionFragment)
+                            .commitNow();
+                }
+
+                bottomNav.setSelectedItemId(R.id.nav_transaction);
+            }
         }
 
         if (activeFragment instanceof ToolbarActionListener) {
@@ -392,6 +455,7 @@ public class MainActivity extends BaseActivity {
 
     public interface ToolbarActionListener {
         void onChartClicked();
+
         void onCalendarClicked();
     }
 }

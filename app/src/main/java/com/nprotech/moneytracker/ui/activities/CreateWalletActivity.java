@@ -22,7 +22,6 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.card.MaterialCardView;
@@ -85,7 +84,7 @@ public class CreateWalletActivity extends BaseActivity {
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            NestedScrollView scrollView = findViewById(R.id.scrollView);
+            View root = findViewById(R.id.rootView);
             tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -114,9 +113,9 @@ public class CreateWalletActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
-                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeInsets.bottom);
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -365,7 +364,7 @@ public class CreateWalletActivity extends BaseActivity {
 
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             getOnBackPressedDispatcher().addCallback(this,
@@ -373,7 +372,7 @@ public class CreateWalletActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(CreateWalletActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(CreateWalletActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
         } catch (Exception e) {
@@ -539,7 +538,7 @@ public class CreateWalletActivity extends BaseActivity {
 
             setResult(RESULT_OK);
             finish();
-            ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+            ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
 
         } catch (Exception e) {
             AppLogger.e(getClass(), "saveWallet", e);

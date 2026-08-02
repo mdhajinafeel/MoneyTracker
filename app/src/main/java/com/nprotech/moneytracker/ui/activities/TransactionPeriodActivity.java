@@ -101,6 +101,7 @@ public class TransactionPeriodActivity extends BaseActivity {
 
     private void initComponents() {
         try {
+            View root = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -126,9 +127,9 @@ public class TransactionPeriodActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(breakdownCard, (view, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 

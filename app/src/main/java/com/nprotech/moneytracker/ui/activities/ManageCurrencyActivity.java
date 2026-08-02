@@ -193,7 +193,7 @@ public class ManageCurrencyActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(ManageCurrencyActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(ManageCurrencyActivity.this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             ivAdd.setOnClickListener(view -> {
@@ -207,7 +207,7 @@ public class ManageCurrencyActivity extends BaseActivity {
                 @Override
                 public void handleOnBackPressed() {
                     finish();
-                    ActivityUtils.overrideCloseTransition(ManageCurrencyActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                    ActivityUtils.overrideCloseTransition(ManageCurrencyActivity.this, R.anim.scale_in, R.anim.right_to_left);
                 }
             });
         } catch (Exception e) {

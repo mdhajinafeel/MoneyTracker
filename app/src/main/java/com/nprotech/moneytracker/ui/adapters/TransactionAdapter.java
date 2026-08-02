@@ -108,7 +108,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             tvBadgeDetail.setText(context.getString(R.string.transfer));
             tvBadgeDetail.setTextColor(ContextCompat.getColor(context, R.color.transfer));
         } else {
-            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "---" : transaction.description);
+            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "—" : transaction.description);
 
             tvBadgeDetail.setBackgroundDrawable(badge);
             tvBadgeDetail.setText(badgeText);

@@ -260,7 +260,7 @@ public class TransactionOverviewActivity extends BaseActivity {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             ivPrevious.setOnClickListener(v -> moveDate(-1));
@@ -291,7 +291,7 @@ public class TransactionOverviewActivity extends BaseActivity {
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(TransactionOverviewActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(TransactionOverviewActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
 

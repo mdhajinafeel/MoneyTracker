@@ -22,7 +22,6 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -96,7 +95,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            NestedScrollView scrollView = findViewById(R.id.scrollView);
+            View root = findViewById(R.id.rootView);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
@@ -125,17 +124,9 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
-                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeInsets.bottom);
-                return insets;
-            });
-
-            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
-                Insets navInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
-                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-                int bottom = Math.max(navInsets.bottom, imeInsets.bottom);
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), bottom + getResources().getDimensionPixelSize(R.dimen.bottom_navigation_height));
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 

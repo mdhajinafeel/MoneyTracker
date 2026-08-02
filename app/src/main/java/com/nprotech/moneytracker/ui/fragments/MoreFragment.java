@@ -72,7 +72,7 @@ public class MoreFragment extends Fragment {
                 Intent intent = new Intent(requireContext(), WalletTransactionDetailedActivity.class);
                 intent.putExtra("walletId", wallet.id);
                 startActivity(intent);
-                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.left_to_right, R.anim.scale_out);
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);

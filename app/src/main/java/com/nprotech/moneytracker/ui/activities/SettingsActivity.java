@@ -94,7 +94,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
             icBack.setOnClickListener(view -> {
                 finish();
-                ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
             });
 
             tvTitle.setText(getString(R.string.settings));
@@ -107,7 +107,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                         @Override
                         public void handleOnBackPressed() {
                             finish();
-                            ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.bottom_to_top);
+                            ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     });
 
