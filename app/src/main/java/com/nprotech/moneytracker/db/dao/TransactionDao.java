@@ -86,7 +86,7 @@ public interface TransactionDao {
 
     @Query("SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
             "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END AS type, " +
-            "t.categoryId, c1.name AS categoryName FROM transactions t " +
+            "t.categoryId, c1.name AS categoryName, t.walletId FROM transactions t " +
             "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
@@ -175,7 +175,8 @@ public interface TransactionDao {
     LiveData<BalanceSummaryModel> getBalanceSummary(int accountId, long startDate, long endDate);
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
-            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
+            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon, " +
+            "t.type, t.walletId " +
             "FROM transactions t " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
@@ -184,7 +185,8 @@ public interface TransactionDao {
     LiveData<List<CategoryExpenseModel>> getExpenseByCategory(int accountId, long startDate, long endDate);
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
-            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon " +
+            "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon, " +
+            "t.type, t.walletId " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
@@ -281,4 +283,42 @@ public interface TransactionDao {
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "WHERE t.isDeleted = 0 AND t.accountId = :accountId")
     LiveData<BalanceSummaryModel> accountSummaryById(int accountId);
+
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
+            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.accountId = :accountId " +
+            "AND w.accountId = :accountId " +
+            "AND t.type IN (1,2,3) " +
+            "AND w.id = :walletId AND t.categoryId = :categoryId " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT :limit OFFSET :offset")
+    List<TransactionWithDetails> getTransactionsByCategory(int accountId, int walletId, int categoryId, int limit, int offset);
+
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
+            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.accountId = :accountId " +
+            "AND w.accountId = :accountId " +
+            "AND t.type IN (1,2,3) " +
+            "AND w.id = :walletId " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT :limit OFFSET :offset")
+    List<TransactionWithDetails> getTransactionsByWallet(int accountId, int walletId, int limit, int offset);
 }

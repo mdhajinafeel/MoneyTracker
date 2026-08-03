@@ -88,7 +88,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         TransactionAdapter adapter = (TransactionAdapter) rvTransactions.getAdapter();
 
         if (adapter == null) {
-            adapter = new TransactionAdapter(context, item.getTransactions(), R.layout.item_transaction_detail);
+            adapter = new TransactionAdapter(context, item.getTransactions(), R.layout.item_transaction_detail, true);
             rvTransactions.setAdapter(adapter);
         } else {
             adapter.setItems(item.getTransactions());

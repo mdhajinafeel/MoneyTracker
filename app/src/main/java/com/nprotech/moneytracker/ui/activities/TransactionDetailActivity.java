@@ -116,6 +116,7 @@ public class TransactionDetailActivity extends BaseActivity {
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
                 finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);

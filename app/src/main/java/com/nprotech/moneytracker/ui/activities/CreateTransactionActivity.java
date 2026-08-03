@@ -216,6 +216,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 bindData(action != null && action.equals("edit"));
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);

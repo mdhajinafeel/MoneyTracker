@@ -322,7 +322,7 @@ public class CalendarFragment extends Fragment {
                     }
                     tvNoTransactions.setVisibility(View.GONE);
                     rvTransactions.setVisibility(View.VISIBLE);
-                    rvTransactions.setAdapter(new TransactionAdapter(requireContext(), transactions, R.layout.item_transaction_period_detail));
+                    rvTransactions.setAdapter(new TransactionAdapter(requireContext(), transactions, R.layout.item_transaction_period_detail, true));
                     updateRecyclerViewHeight(rvTransactions, transactions.size());
                 }
 

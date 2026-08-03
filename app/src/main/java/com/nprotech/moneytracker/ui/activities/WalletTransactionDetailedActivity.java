@@ -147,9 +147,13 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                     setupListeners();
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                 }
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
@@ -261,6 +265,17 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             });
 
             tvWalletName.setOnClickListener(view -> switchWallets());
+
+            transactionAllLabel.setOnClickListener(view -> {
+                Intent intent = new Intent(WalletTransactionDetailedActivity.this, CategoryTransactionActivity.class);
+                intent.putExtra("type", 0);
+                intent.putExtra("categoryId", 0);
+                intent.putExtra("walletId", walletId);
+                intent.putExtra("categoryName", "");
+                startActivity(intent);
+
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
 
             fabAddTransaction.setOnClickListener(v -> {
                 v.animate()

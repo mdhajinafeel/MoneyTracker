@@ -143,6 +143,8 @@ public class TransactionPeriodActivity extends BaseActivity {
                 setupListeners();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
@@ -264,7 +266,7 @@ public class TransactionPeriodActivity extends BaseActivity {
     private void initializeAdapters() {
         try {
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
-            transactionAdapter = new TransactionAdapter(this, new ArrayList<>(), R.layout.item_transaction_period_detail);
+            transactionAdapter = new TransactionAdapter(this, new ArrayList<>(), R.layout.item_transaction_period_detail, false);
             rvTransactions.setAdapter(transactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);

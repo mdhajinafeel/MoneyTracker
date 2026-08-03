@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class TransactionCategoryModel implements Serializable {
 
-    private int defaultCategoryId, categoryId, icon, transactionCount, type;
+    private int defaultCategoryId, categoryId, icon, transactionCount, type, walletId;
     private double amount;
     private String color, currencySymbol, categoryName;
 
@@ -83,6 +83,14 @@ public class TransactionCategoryModel implements Serializable {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public int getWalletId() {
+        return walletId;
+    }
+
+    public void setWalletId(int walletId) {
+        this.walletId = walletId;
     }
 
     public String getCategory(Context context) {

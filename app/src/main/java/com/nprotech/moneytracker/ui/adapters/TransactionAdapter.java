@@ -34,10 +34,12 @@ import java.util.Objects;
 public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetails> {
 
     private final Context context;
+    private final boolean dividerVisible;
 
-    public TransactionAdapter(Context context, List<TransactionWithDetails> list, int layoutId) {
+    public TransactionAdapter(Context context, List<TransactionWithDetails> list, int layoutId, boolean dividerVisible) {
         super(context, list, layoutId);
         this.context = context;
+        this.dividerVisible = dividerVisible;
     }
 
     @Override
@@ -54,6 +56,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         AppCompatTextView feeLabel = holder.getView(R.id.feeLabel);
         AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
         AppCompatTextView tvBadgeFee = holder.getView(R.id.tvBadgeFee);
+        View divider = holder.getView(R.id.divider);
 
         if (Build.VERSION.SDK_INT >= 29) {
             colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
@@ -148,5 +151,17 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
                 ActivityUtils.overrideOpenTransition((Activity) context, R.anim.top_to_bottom, R.anim.scale_out);
             }
         });
+
+        if(dividerVisible) {
+            int position = holder.getBindingAdapterPosition();
+
+            if (position == getItemCount() - 1) {
+                divider.setAlpha(0f);
+            } else {
+                divider.setAlpha(1f);
+            }
+        } else {
+            divider.setVisibility(View.GONE);
+        }
     }
 }

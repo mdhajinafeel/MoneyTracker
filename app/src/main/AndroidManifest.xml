@@ -211,6 +211,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Category Transaction Screen -->
+        <activity
+            android:name=".ui.activities.CategoryTransactionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Firebase Crashlytics -->
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"

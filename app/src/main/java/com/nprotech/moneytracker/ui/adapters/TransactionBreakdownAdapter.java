@@ -1,13 +1,16 @@
 package com.nprotech.moneytracker.ui.adapters;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -19,6 +22,8 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
+import com.nprotech.moneytracker.ui.activities.CategoryTransactionActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.text.NumberFormat;
@@ -49,6 +54,7 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
         AppCompatTextView detailLabel = holder.getView(R.id.detailLabel);
         AppCompatTextView timeLabel = holder.getView(R.id.timeLabel);
         AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
+        View divider = holder.getView(R.id.divider);
 
         if (Build.VERSION.SDK_INT >= 29) {
             colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(item.color), BlendMode.SRC_OVER));
@@ -110,8 +116,18 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
         detailLabel.setText(detail);
 
         itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, CategoryTransactionActivity.class);
+            intent.putExtra("type", item.type);
+            intent.putExtra("categoryId", item.categoryId);
+            intent.putExtra("walletId", item.walletId);
+            context.startActivity(intent);
 
+            if (context instanceof Activity) {
+                ActivityUtils.overrideOpenTransition((Activity) context, R.anim.top_to_bottom, R.anim.scale_out);
+            }
         });
+
+        divider.setVisibility(View.GONE);
     }
 
     private double getPercentage(CategoryExpenseModel item) {

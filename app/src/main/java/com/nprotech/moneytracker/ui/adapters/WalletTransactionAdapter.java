@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BlendMode;
@@ -19,7 +20,8 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
-import com.nprotech.moneytracker.ui.activities.TransactionDetailActivity;
+import com.nprotech.moneytracker.ui.activities.CategoryTransactionActivity;
+import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.util.List;
@@ -76,8 +78,18 @@ public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCat
             amountLabel.setText(CommonUtils.getBeautifyAmount(item.getCurrencySymbol(), amount));
             amountLabel.setTextColor(color);
 
-            itemView.setOnClickListener(view -> context.startActivity(new Intent(context, TransactionDetailActivity.class)
-                    .putExtra("transactionDetail", item)));
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(context, CategoryTransactionActivity.class);
+                intent.putExtra("type", item.getType());
+                intent.putExtra("categoryId", item.getCategoryId());
+                intent.putExtra("walletId", item.getWalletId());
+                intent.putExtra("categoryName", item.getCategoryName());
+                context.startActivity(intent);
+
+                if (context instanceof Activity) {
+                    ActivityUtils.overrideOpenTransition((Activity) context, R.anim.top_to_bottom, R.anim.scale_out);
+                }
+            });
         }
     }
 }

@@ -229,4 +229,13 @@ public class TransactionRepository {
     public LiveData<BalanceSummaryModel> accountSummaryById(int accountId) {
         return transactionDao.accountSummaryById(accountId);
     }
+
+    public List<TransactionWithDetails> getTransactionsByCategory(int accountId, int walletId, int categoryId, int page, int pageSize) {
+        int offset = page * pageSize;
+
+        if(categoryId > 0) {
+            return transactionDao.getTransactionsByCategory(accountId, walletId, categoryId, pageSize, offset);
+        }
+        return transactionDao.getTransactionsByWallet(accountId, walletId, pageSize, offset);
+    }
 }
