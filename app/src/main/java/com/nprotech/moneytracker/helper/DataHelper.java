@@ -6,6 +6,7 @@ import android.util.TypedValue;
 import com.nprotech.moneytracker.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DataHelper {
@@ -151,13 +152,13 @@ public class DataHelper {
                 getResourceString(context, R.string.category_cashback),         //23
                 getResourceString(context, R.string.category_others),           //24
 
-                getResourceString(context, R.string.adjustment),       //25
-                getResourceString(context, R.string.loan),             //26
-                getResourceString(context, R.string.repay),        //27
-                getResourceString(context, R.string.debt),             //28
-                getResourceString(context, R.string.collect),  //29
-                getResourceString(context, R.string.fee),              //30
-                getResourceString(context, R.string.transfer)}[i - 1]; //31
+                getResourceString(context, R.string.adjustment),                //25
+                getResourceString(context, R.string.loan),                      //26
+                getResourceString(context, R.string.repay),                     //27
+                getResourceString(context, R.string.debt),                      //28
+                getResourceString(context, R.string.collect),                   //29
+                getResourceString(context, R.string.fee),                       //30
+                getResourceString(context, R.string.transfer)}[i - 1];          //31
     }
 
     //----------------------
@@ -408,5 +409,98 @@ public class DataHelper {
             case 5 -> context.getString(R.string.debit_card);
             default -> context.getString(R.string.general);
         };
+    }
+
+    //----------------------
+    //--- GOALS ---
+    //----------------------
+    public static ArrayList<String> getGoalColorList() {
+        return new ArrayList<>(Arrays.asList(
+                "#F44336", // Red
+                "#E91E63", // Pink
+                "#9C27B0", // Purple
+                "#673AB7", // Deep Purple
+                "#3F51B5", // Indigo
+                "#2196F3", // Blue
+
+                "#03A9F4", // Light Blue
+                "#00BCD4", // Cyan
+                "#009688", // Teal
+                "#4CAF50", // Green
+                "#8BC34A", // Light Green
+                "#CDDC39", // Lime
+
+                "#FFEB3B", // Yellow
+                "#FFC107", // Amber
+                "#FF9800", // Orange
+                "#FF5722", // Deep Orange
+                "#795548", // Brown
+                "#607D8B", // Blue Grey
+
+                "#9E9E9E", // Grey
+                "#000000", // Black
+                "#FFFFFF", // White
+                "#EC407A", // Rose
+                "#26A69A", // Mint
+                "#FFD54F"  // Gold
+        ));
+    }
+
+    public static ArrayList<String> getGoalCategoryList() {
+        return new ArrayList<>(Arrays.asList(
+                "Travel",
+                "Emergency Fund",
+                "Home",
+                "Vehicle",
+                "Education",
+                "Medical",
+                "Wedding",
+                "Business",
+                "Investment",
+                "Retirement",
+                "Vacation",
+                "Shopping",
+                "Electronics",
+                "Gift",
+                "Festival",
+                "Insurance",
+                "Debt Payoff",
+                "Fitness",
+                "Religious",
+                "Baby & Family",
+                "Pets",
+                "Other"
+        ));
+    }
+
+    public static List<Integer> getGoalIcons() {
+        List<Integer> arrayList = new ArrayList<>();
+
+        arrayList.add(R.drawable.goal_0);
+        arrayList.add(R.drawable.goal_1);
+        arrayList.add(R.drawable.goal_2);
+        arrayList.add(R.drawable.goal_3);
+        arrayList.add(R.drawable.goal_4);
+        arrayList.add(R.drawable.goal_5);
+        arrayList.add(R.drawable.goal_6);
+        arrayList.add(R.drawable.goal_7);
+        arrayList.add(R.drawable.goal_8);
+        arrayList.add(R.drawable.goal_9);
+        arrayList.add(R.drawable.goal_10);
+        arrayList.add(R.drawable.goal_11);
+        arrayList.add(R.drawable.goal_12);
+        arrayList.add(R.drawable.goal_13);
+        arrayList.add(R.drawable.goal_14);
+        arrayList.add(R.drawable.goal_15);
+        arrayList.add(R.drawable.goal_16);
+        arrayList.add(R.drawable.goal_17);
+        arrayList.add(R.drawable.goal_18);
+        arrayList.add(R.drawable.goal_19);
+        arrayList.add(R.drawable.goal_20);
+        arrayList.add(R.drawable.goal_21);
+        arrayList.add(R.drawable.goal_22);
+        arrayList.add(R.drawable.goal_23);
+
+        return arrayList;
     }
 }
