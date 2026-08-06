@@ -195,7 +195,7 @@ public interface TransactionDao {
     LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long startDate, long endDate);
 
     @Query("SELECT CASE WHEN :transactionType = 1 THEN SUM(t.amount * w.exchangeRate) ELSE SUM((t.amount * w.exchangeRate) * -1) END AS amount, COUNT(*) AS transactionCount, c.name AS categoryName, t.categoryId, t.defaultCategoryId, c.color, c.icon, 0 AS percentage, " +
-            "c.icon AS icon " +
+            "c.icon AS icon, 0 AS walletId, 0 AS type " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "INNER JOIN wallets w ON w.id = t.walletId " +

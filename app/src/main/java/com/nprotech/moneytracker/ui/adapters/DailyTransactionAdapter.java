@@ -40,6 +40,7 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         AppCompatTextView tvDay = holder.itemView.findViewById(R.id.tvDay);
         AppCompatTextView tvTransactionCount = holder.itemView.findViewById(R.id.tvTransactionCount);
         AppCompatTextView tvAmount = holder.itemView.findViewById(R.id.tvAmount);
+        AppCompatTextView tvBadgeFuture = holder.itemView.findViewById(R.id.tvBadgeFuture);
         AppCompatImageView ivCollapse = holder.itemView.findViewById(R.id.ivCollapse);
 
         View divider = holder.getView(R.id.divider);
@@ -47,6 +48,15 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         RecyclerView rvTransactions = holder.getView(R.id.rvDetailedTransactions);
 
         Date dailyTransDateTime = item.getDateTime();
+
+        boolean isFuture = isFutureTransaction(dailyTransDateTime);
+        tvBadgeFuture.setVisibility(isFuture ? View.VISIBLE : View.GONE);
+        if (isFuture) {
+            tvBadgeFuture.setText(R.string.future);
+            tvBadgeFuture.setVisibility(View.VISIBLE);
+        } else {
+            tvBadgeFuture.setVisibility(View.GONE);
+        }
 
         dayLabel.setText(new SimpleDateFormat("dd", Locale.getDefault()).format(dailyTransDateTime));
         tvDay.setText(new SimpleDateFormat("EEEE", Locale.getDefault()).format(dailyTransDateTime));
@@ -136,5 +146,14 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
 
     public String getAccountCurrencySymbol() {
         return accountCurrencySymbol;
+    }
+
+    private boolean isFutureTransaction(Date transactionDate) {
+
+        if (transactionDate == null) {
+            return false;
+        }
+
+        return transactionDate.after(new Date());
     }
 }

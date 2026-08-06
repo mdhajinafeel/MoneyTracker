@@ -91,6 +91,22 @@
                     app:layout_constraintBottom_toBottomOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBadgeFuture"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_badge_future"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/padding_6"
+                    android:paddingEnd="@dimen/padding_6"
+                    android:textSize="@dimen/text_10"
+                    app:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintStart_toEndOf="@id/tvTransactionCount"
+                    app:layout_constraintTop_toTopOf="@id/tvTransactionCount"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

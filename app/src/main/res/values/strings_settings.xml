@@ -4,6 +4,7 @@
     <string name="management">Management</string>
     <string name="others">Others</string>
     <string name="version">Version</string>
+    <string name="version_label">Version %1$s</string>
     <string name="app_version">%1$s.%2$d</string>
     <string name="account">Account</string>
     <string name="week_starts_on">Week Starts On</string>
@@ -37,4 +38,21 @@
     <string name="premium">Premium</string>
     <string name="upgrade">Upgrade</string>
     <string name="upgrade_to_premium">Upgrade to Premium</string>
+    <string name="about_app">%1$s %2$s</string>
+    <string name="about_desc">Track every expense, manage budgets and gain meaningful insights to make smarter financial decisions.</string>
+    <string name="about_tag1">for better financial management, worldwide.</string>
+    <string name="about_tag">Built with passion</string>
+    <string name="smart_tracking">Smart Tracking</string>
+    <string name="smart_tracking_desc">Track income and expense effortlessly in one place</string>
+    <string name="power_insights">Power Insights</string>
+    <string name="power_insights_desc">Visualize your spending and make better decisions.</string>
+    <string name="manage_better">Manage Better</string>
+    <string name="manage_better_desc">Budgets, categories and multiple wallets to stay in control.</string>
+    <string name="secure_private"><![CDATA[Secure & Private]]></string>
+    <string name="secure_private_desc">Your data is safe with enterprise grade security.</string>
+    <string name="app_version_label">App Version</string>
+    <string name="build_number">Build Number</string>
+    <string name="why_choose">Why Choose %1$s?</string>
+    <string name="app_information">App Information</string>
+    <string name="copyright_desc">© %1$s %2$s. All rights reserved.\nThank you for trusting %3$s.</string>
 </resources>

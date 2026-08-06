@@ -252,10 +252,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     public void onSettingClick(SettingItemModel item) {
         if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {
             startActivity(new Intent(SettingsActivity.this, ManageCurrencyActivity.class));
-            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.MANAGE_CATEGORY) {
             startActivity(new Intent(SettingsActivity.this, ManageCategoryActivity.class));
-            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.WEEK_STARTS_ON) {
             fetchData(IConstants.DAY);
         } else if (item.settingType == SettingType.STARTUP_SCREEN) {
@@ -266,11 +266,14 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             fetchData(IConstants.SMART_REMINDER);
         } else if (item.settingType == SettingType.MANAGE_BACKUP) {
             startActivity(new Intent(SettingsActivity.this, ManageBackupActivity.class));
-            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.left_to_right, R.anim.scale_out);
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.RATE_APP) {
             SettingHelper.rateApp(this);
         } else if (item.settingType == SettingType.SHARE_APP) {
             SettingHelper.shareApp(this);
+        } else if (item.settingType == SettingType.ABOUT) {
+            startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         }
     }
 
