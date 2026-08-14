@@ -52,7 +52,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.constants.IConstants;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
@@ -1224,7 +1224,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
         TransactionEntity transferTransaction = buildTransaction();
 
-        CategoryEntity transferCategory = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_TRANSFER_ID);
+        CategoryEntity transferCategory = getTransferCategoryId(Constants.DEFAULT_CATEGORY_TRANSFER_ID);
 
         transferTransaction.type = TransactionEntity.TYPE_TRANSFER;
         transferTransaction.fromWalletId = selectedFromWallet.id;
@@ -1312,7 +1312,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                     feeTransaction = new TransactionEntity();
 
-                    CategoryEntity category = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_FEE_ID);
+                    CategoryEntity category = getTransferCategoryId(Constants.DEFAULT_CATEGORY_FEE_ID);
 
                     feeTransaction.serverId = 0;
                     feeTransaction.tempTransactionServerId = "T_" + currentTime + "_FEE";
@@ -1357,7 +1357,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             if (transactionFee > 0) {
                 long currentTime = System.currentTimeMillis();
-                CategoryEntity category = getTransferCategoryId(IConstants.DEFAULT_CATEGORY_FEE_ID);
+                CategoryEntity category = getTransferCategoryId(Constants.DEFAULT_CATEGORY_FEE_ID);
 
                 fromWallet.amount -= transactionFee;
 
@@ -1445,7 +1445,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        tvDay.setText(DateHelper.getDateFromPicker(getApplicationContext(), i, i1, i2));
+        tvDay.setText(DateHelper.getDateFromPicker(i, i1, i2));
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(1, i);

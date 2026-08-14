@@ -32,7 +32,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.constants.IConstants;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
@@ -456,14 +456,14 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         if (difference > 0) {
             transaction.type = TransactionEntity.TYPE_INCOME;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_INCOME);
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_INCOME);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
 
         } else {
             transaction.type = TransactionEntity.TYPE_EXPENSE;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(IConstants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_EXPENSE);
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_EXPENSE);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
         }

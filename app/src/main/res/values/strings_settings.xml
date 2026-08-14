@@ -55,4 +55,7 @@
     <string name="why_choose">Why Choose %1$s?</string>
     <string name="app_information">App Information</string>
     <string name="copyright_desc">© %1$s %2$s. All rights reserved.\nThank you for trusting %3$s.</string>
+    <string name="unlimited_wallets">Unlimited\nWallets</string>
+    <string name="cloud_backup">Cloud\nBackup</string>
+    <string name="more_features">+12\nfeatures</string>
 </resources>

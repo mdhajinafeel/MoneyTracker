@@ -8,6 +8,7 @@ import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
@@ -76,5 +77,11 @@ public class DBModule {
     @Singleton
     public TransactionAttachmentDao provideTransactionAttachmentDao(MoneyTrackerDatabase db) {
         return db.transactionAttachmentDao();
+    }
+
+    @Provides
+    @Singleton
+    public GoalDao provideGoalDao(MoneyTrackerDatabase db) {
+        return db.goalDao();
     }
 }

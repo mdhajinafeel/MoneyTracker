@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_2">
+
+    <!-- Icon -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/colorView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="@dimen/margin_12"
+        android:background="@drawable/bg_circle_theme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:padding="@dimen/padding_4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Setting Name -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSettingName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:fontFamily="@font/exo2_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintEnd_toStartOf="@id/colorBadgeView"
+        app:layout_constraintStart_toEndOf="@id/colorView"
+        app:layout_constraintTop_toTopOf="@id/colorView" />
+
+    <!-- Description -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSettingDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:fontFamily="@font/exo2_semibold"
+        android:includeFontPadding="false"
+        android:textColor="@color/funky_grey"
+        android:textSize="@dimen/text_12"
+        app:layout_constraintEnd_toStartOf="@id/colorBadgeView"
+        app:layout_constraintStart_toEndOf="@id/colorView"
+        app:layout_constraintTop_toBottomOf="@id/tvSettingName" />
+
+    <!-- Badge -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/colorBadgeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_12"
+        android:visibility="gone"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:background="@drawable/bg_badge_more_options"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivNavigation"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBadgeCount"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:gravity="center"
+            android:paddingStart="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_6"
+            android:textSize="@dimen/text_10"
+            android:fontFamily="@font/exo2_semibold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Arrow -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNavigation"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="@dimen/margin_12"
+        android:src="@drawable/ic_right_arrow_small"
+        android:tint="@color/primary"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Custom Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="0.7dp"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:background="@color/grey_88"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvSettingDesc"
+        app:layout_constraintTop_toBottomOf="@id/colorView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

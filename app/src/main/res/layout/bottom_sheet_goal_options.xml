@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!-- Goal Header -->
+    <LinearLayout
+        android:id="@+id/goalHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_4"
+        android:paddingBottom="@dimen/padding_4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvGoalName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_18" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvGoalAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:textColor="@color/funky_grey"
+            android:textSize="@dimen/text_14" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ECE8F0"
+        app:layout_constraintTop_toBottomOf="@+id/goalHeader" />
+
+    <!-- Add Money -->
+    <LinearLayout
+        android:id="@+id/optionAddMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/viewDivider">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_add_money"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/add_money"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/add_savings_to_this_goal"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- View Details -->
+    <LinearLayout
+        android:id="@+id/optionWithdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/optionAddMoney">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_withdrawal"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/withdraw_money"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16" />
+
+    </LinearLayout>
+
+    <!-- View Details -->
+    <LinearLayout
+        android:id="@+id/optionViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/optionWithdrawal">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_view_eye"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/view_details"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16" />
+
+    </LinearLayout>
+
+    <!-- Edit -->
+    <LinearLayout
+        android:id="@+id/optionEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/optionViewDetails">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit_solid"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/edit_goal"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16" />
+    </LinearLayout>
+
+    <!-- Mark Completed -->
+    <LinearLayout
+        android:id="@+id/optionComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/optionEdit">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_achieved"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/mark_as_completed"
+            android:textColor="#17121F"
+            android:textSize="@dimen/text_16" />
+    </LinearLayout>
+
+    <!-- Divider before Delete -->
+    <View
+        android:id="@+id/viewLineDelete"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_4"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:background="#ECE8F0"
+        app:layout_constraintTop_toBottomOf="@+id/optionComplete" />
+
+    <!-- Delete -->
+    <LinearLayout
+        android:id="@+id/optionDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        app:layout_constraintTop_toBottomOf="@+id/viewLineDelete">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete_solid"
+            app:tint="@color/delete_red" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:text="@string/delete_goal"
+            android:textColor="@color/delete_red"
+            android:textStyle="bold"
+            android:fontFamily="@font/exo2_semibold"
+            android:textSize="@dimen/text_16"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

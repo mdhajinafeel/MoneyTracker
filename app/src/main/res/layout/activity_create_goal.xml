@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <!-- Toolbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="false"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topWrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivGoal"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_more_goal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/nameLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/goal_name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivGoal"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etGoalName"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:hint="@string/example_goal_name"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:maxLength="40"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/nameLabel"
+                            app:layout_constraintTop_toBottomOf="@id/nameLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/maxLimitLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/funky_grey"
+                            android:textSize="@dimen/text_8"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintTop_toBottomOf="@+id/etGoalName"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalName"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivGoalCategory"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_category"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/goalCategoryLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivGoalCategory"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCategory"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_marginEnd="@dimen/margin_12"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="start|center_vertical"
+                            android:layoutDirection="ltr"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_8"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textDirection="ltr"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/ivGoalIcon"
+                            app:layout_constraintStart_toStartOf="@id/goalCategoryLabel"
+                            app:layout_constraintTop_toBottomOf="@id/goalCategoryLabel" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivGoalIcon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="@dimen/margin_10"
+                            android:background="@drawable/bg_corner_theme"
+                            android:padding="@dimen/padding_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tvCategory"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalWallet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalCategory"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivGoalWallet"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_wallet"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/walletLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/default_wallet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivGoalWallet"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGoalWallet"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/select_wallet"
+                            android:inputType="numberDecimal"
+                            android:layoutDirection="ltr"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textDirection="ltr"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/walletLabel"
+                            app:layout_constraintTop_toBottomOf="@id/walletLabel" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            app:tint="@color/primary"
+                            android:src="@drawable/ic_account_caret"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalTarget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalWallet"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivTargetAmount"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_amount"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/targetAmountLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/target_amount"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivTargetAmount"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTargetAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/enter_amount"
+                            android:inputType="numberDecimal"
+                            android:layoutDirection="ltr"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_10"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textDirection="ltr"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/targetAmountLabel"
+                            app:layout_constraintTop_toBottomOf="@id/targetAmountLabel" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            app:tint="@color/primary"
+                            android:src="@drawable/ic_account_caret"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalTarget"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivTargetDate"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_calendar"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/targetDateLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/target_date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivTargetDate"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTargetDate"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="start|center_vertical"
+                            android:inputType="numberDecimal"
+                            android:layoutDirection="ltr"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textDirection="ltr"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/targetDateLabel"
+                            app:layout_constraintTop_toBottomOf="@id/targetDateLabel" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            app:tint="@color/primary"
+                            android:src="@drawable/ic_account_caret"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalInitial"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalDate"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivGoalInitial"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_amount"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/goalInitialLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/initial_savings"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivGoalInitial"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGoalInitial"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:drawableTint="@color/primary"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:gravity="start|center_vertical"
+                            android:hint="@string/enter_amount"
+                            android:inputType="numberDecimal"
+                            android:layoutDirection="ltr"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textDirection="ltr"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/goalInitialLabel"
+                            app:layout_constraintTop_toBottomOf="@id/goalInitialLabel" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            app:tint="@color/primary"
+                            android:src="@drawable/ic_account_caret"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalAutoSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalInitial"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivAutoSave"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_autosave"
+                            app:layout_constraintBottom_toBottomOf="@+id/labelAutoSaveHint"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/autoSaveLabel"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/autoSaveLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/auto_save"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintStart_toEndOf="@id/ivAutoSave"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/labelAutoSaveHint"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_16"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:text="@string/goal_autosave_hint"
+                            android:textColor="@color/funky_grey"
+                            android:textSize="@dimen/text_12"
+                            app:layout_constraintEnd_toStartOf="@+id/switchAutoView"
+                            app:layout_constraintStart_toStartOf="@id/autoSaveLabel"
+                            app:layout_constraintTop_toBottomOf="@id/autoSaveLabel" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchAutoView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="@+id/labelAutoSaveHint"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/autoSaveLabel"
+                            app:thumbTint="@color/switch_thumb_selector"
+                            app:trackTint="@color/switch_track_selector" />
+
+                        <!-- Auto Save Fields -->
+                        <LinearLayout
+                            android:id="@+id/layoutAutoSaveFields"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/labelAutoSaveHint">
+
+                            <!-- Amount -->
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/autoAmountLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_12"
+                                android:text="@string/amount"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAutoSaveAmount"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edit_text_height_40"
+                                android:background="@drawable/bg_edit_text_underline"
+                                android:drawableEnd="@drawable/ic_account_caret"
+                                android:drawableTint="@color/primary"
+                                android:ems="10"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="start|center_vertical"
+                                android:hint="@string/enter_amount"
+                                android:inputType="numberDecimal"
+                                android:layoutDirection="ltr"
+                                android:paddingStart="@dimen/padding_0"
+                                android:paddingEnd="@dimen/padding_16"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textDirection="ltr"
+                                android:textSize="@dimen/text_14" />
+
+                            <!-- Frequency -->
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/frequencyLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_12"
+                                android:text="@string/frequency"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvFrequency"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/edit_text_height_40"
+                                android:background="@drawable/bg_edit_text_underline"
+                                android:drawableEnd="@drawable/ic_account_caret"
+                                android:drawableTint="@color/primary"
+                                android:ems="10"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="start|center_vertical"
+                                android:inputType="numberDecimal"
+                                android:layoutDirection="ltr"
+                                android:paddingStart="@dimen/padding_0"
+                                android:paddingEnd="@dimen/padding_16"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/grey"
+                                android:textDirection="ltr"
+                                android:textSize="@dimen/text_14" />
+
+                            <!-- Starts On -->
+                            <LinearLayout
+                                android:id="@+id/layoutStartDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_12"
+                                    android:text="@string/starts_on"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_12"
+                                    app:fontFamily="@font/exo2_bold" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvStartDate"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:background="@drawable/bg_edit_text_underline"
+                                    android:ems="10"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:gravity="start|center_vertical"
+                                    android:inputType="numberDecimal"
+                                    android:layoutDirection="ltr"
+                                    android:paddingStart="@dimen/padding_0"
+                                    android:paddingEnd="@dimen/padding_16"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
+                                    android:textDirection="ltr"
+                                    android:textSize="@dimen/text_14" />
+                            </LinearLayout>
+
+                            <!-- Weekly -->
+                            <LinearLayout
+                                android:id="@+id/layoutWeekDay"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_12"
+                                    android:text="@string/week_day"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_12"
+                                    app:fontFamily="@font/exo2_bold" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvWeekDay"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:background="@drawable/bg_edit_text_underline"
+                                    android:drawableEnd="@drawable/ic_account_caret"
+                                    android:drawableTint="@color/primary"
+                                    android:ems="10"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:gravity="start|center_vertical"
+                                    android:inputType="numberDecimal"
+                                    android:layoutDirection="ltr"
+                                    android:paddingStart="@dimen/padding_0"
+                                    android:paddingEnd="@dimen/padding_16"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
+                                    android:textDirection="ltr"
+                                    android:textSize="@dimen/text_14" />
+                            </LinearLayout>
+
+                            <!-- Monthly -->
+                            <LinearLayout
+                                android:id="@+id/layoutDayOfMonth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_12"
+                                    android:text="@string/day_of_month"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_12"
+                                    app:fontFamily="@font/exo2_bold" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvDayOfMonth"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:background="@drawable/bg_edit_text_underline"
+                                    android:drawableEnd="@drawable/ic_account_caret"
+                                    android:drawableTint="@color/primary"
+                                    android:ems="10"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:gravity="start|center_vertical"
+                                    android:inputType="numberDecimal"
+                                    android:layoutDirection="ltr"
+                                    android:paddingStart="@dimen/padding_0"
+                                    android:paddingEnd="@dimen/padding_16"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
+                                    android:textDirection="ltr"
+                                    android:textSize="@dimen/text_14" />
+                            </LinearLayout>
+
+                            <!-- Yearly -->
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/layoutYearly"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
+
+                                <!-- Month -->
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/monthLabel"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/margin_12"
+                                    android:text="@string/goal_month"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_12"
+                                    app:fontFamily="@font/exo2_bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@id/dayLabel"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/dayLabel"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginTop="12dp"
+                                    android:text="@string/day"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/text_12"
+                                    app:fontFamily="@font/exo2_bold"
+                                    app:layout_constraintStart_toEndOf="@id/monthLabel"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <!-- Month Value -->
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvMonth"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_marginTop="@dimen/margin_4"
+                                    android:background="@drawable/bg_edit_text_underline"
+                                    android:drawableEnd="@drawable/ic_account_caret"
+                                    android:drawableTint="@color/primary"
+                                    android:gravity="center_vertical"
+                                    android:paddingEnd="@dimen/padding_16"
+                                    android:paddingStart="@dimen/padding_0"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/text_14"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toStartOf="@id/tvDay"
+                                    app:layout_constraintTop_toBottomOf="@id/monthLabel" />
+
+                                <!-- Day Value -->
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvDay"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_marginStart="@dimen/margin_8"
+                                    android:layout_marginTop="@dimen/margin_4"
+                                    android:background="@drawable/bg_edit_text_underline"
+                                    android:drawableEnd="@drawable/ic_account_caret"
+                                    android:drawableTint="@color/primary"
+                                    android:gravity="center_vertical"
+                                    android:paddingEnd="@dimen/padding_16"
+                                    android:paddingStart="@dimen/padding_0"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/text_14"
+                                    app:layout_constraintStart_toEndOf="@id/tvMonth"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/dayLabel" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

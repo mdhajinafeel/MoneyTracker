@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "85399f3ccf18eedede9e69c3d7cb63c1",
+    "identityHash": "50b1db9856762e0192b0c7f6b0408f37",
     "entities": [
       {
         "tableName": "currencies",
@@ -430,7 +430,7 @@
       },
       {
         "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `parentTransactionId` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `parentTransactionId` TEXT, `goalId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -538,6 +538,12 @@
             "fieldPath": "parentTransactionId",
             "columnName": "parentTransactionId",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "goalId",
+            "columnName": "goalId",
+            "affinity": "INTEGER",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -680,11 +686,160 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_transactions_attachment_attachmentPath` ON `${TABLE_NAME}` (`attachmentPath`)"
           }
         ]
+      },
+      {
+        "tableName": "goals",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `targetAmount` REAL NOT NULL, `savedAmount` REAL NOT NULL, `targetDate` INTEGER NOT NULL, `category` INTEGER NOT NULL, `walletId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `autoSaveEnabled` INTEGER NOT NULL, `autoSaveWalletId` INTEGER NOT NULL, `autoSaveAmount` REAL NOT NULL, `autoSaveFrequency` INTEGER NOT NULL, `autoSaveStartDate` INTEGER NOT NULL, `autoSaveWeekDay` INTEGER NOT NULL, `autoSaveDayOfMonth` INTEGER NOT NULL, `autoSaveMonth` INTEGER NOT NULL, `autoSaveDay` INTEGER NOT NULL, `nextAutoSaveDate` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isCompleted` INTEGER NOT NULL, `startedDate` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "targetAmount",
+            "columnName": "targetAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "savedAmount",
+            "columnName": "savedAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "targetDate",
+            "columnName": "targetDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "walletId",
+            "columnName": "walletId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveEnabled",
+            "columnName": "autoSaveEnabled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveWalletId",
+            "columnName": "autoSaveWalletId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveAmount",
+            "columnName": "autoSaveAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveFrequency",
+            "columnName": "autoSaveFrequency",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveStartDate",
+            "columnName": "autoSaveStartDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveWeekDay",
+            "columnName": "autoSaveWeekDay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveDayOfMonth",
+            "columnName": "autoSaveDayOfMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveMonth",
+            "columnName": "autoSaveMonth",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autoSaveDay",
+            "columnName": "autoSaveDay",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nextAutoSaveDate",
+            "columnName": "nextAutoSaveDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isSynced",
+            "columnName": "isSynced",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDeleted",
+            "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isCompleted",
+            "columnName": "isCompleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedDate",
+            "columnName": "startedDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '85399f3ccf18eedede9e69c3d7cb63c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '50b1db9856762e0192b0c7f6b0408f37')"
     ]
   }
 }

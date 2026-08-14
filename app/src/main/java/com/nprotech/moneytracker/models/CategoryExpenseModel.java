@@ -6,7 +6,7 @@ import com.nprotech.moneytracker.helper.DataHelper;
 
 public class CategoryExpenseModel {
 
-    public int categoryId, defaultCategoryId, transactionCount, icon, walletId, type;
+    public int categoryId, defaultCategoryId, transactionCount, icon, walletId, type, goalId;
     public String categoryName, color;
     public double amount, percentage;
 

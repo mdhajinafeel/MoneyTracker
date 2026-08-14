@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.constants.IConstants;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
@@ -384,22 +384,22 @@ public class MainActivity extends BaseActivity {
 
             switch (startUpScreen) {
 
-                case IConstants.STARTUP_CALENDAR:
+                case Constants.STARTUP_CALENDAR:
                     activeFragment = calendarFragment;
                     bottomNav.setSelectedItemId(R.id.nav_calendar);
                     break;
 
-                case IConstants.STARTUP_STATISTICS:
+                case Constants.STARTUP_STATISTICS:
                     activeFragment = statisticsFragment;
                     bottomNav.setSelectedItemId(R.id.nav_statistic);
                     break;
 
-                case IConstants.STARTUP_MORE:
+                case Constants.STARTUP_MORE:
                     activeFragment = moreFragment;
                     bottomNav.setSelectedItemId(R.id.nav_more);
                     break;
 
-                case IConstants.STARTUP_TRANSACTION:
+                case Constants.STARTUP_TRANSACTION:
                 default:
                     activeFragment = transactionFragment;
                     bottomNav.setSelectedItemId(R.id.nav_transaction);

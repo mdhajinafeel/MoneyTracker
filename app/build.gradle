@@ -96,6 +96,12 @@ dependencies {
     annotationProcessor libs.hilt.compiler
 
     // ---------------------------
+    // Hilt Worker
+    // ---------------------------
+    implementation libs.hilt.worker
+    annotationProcessor libs.hilt.worker.complier
+
+    // ---------------------------
     // Lifecycle
     // ---------------------------
     implementation libs.lifecycle.viewmodel

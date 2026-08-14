@@ -446,30 +446,31 @@ public class DataHelper {
         ));
     }
 
-    public static ArrayList<String> getGoalCategoryList() {
+    public static ArrayList<String> getGoalCategoryList(Context context) {
         return new ArrayList<>(Arrays.asList(
-                "Travel",
-                "Emergency Fund",
-                "Home",
-                "Vehicle",
-                "Education",
-                "Medical",
-                "Wedding",
-                "Business",
-                "Investment",
-                "Retirement",
-                "Vacation",
-                "Shopping",
-                "Electronics",
-                "Gift",
-                "Festival",
-                "Insurance",
-                "Debt Payoff",
-                "Fitness",
-                "Religious",
-                "Baby & Family",
-                "Pets",
-                "Other"
+                context.getString(R.string.travel),
+                context.getString(R.string.emergency_fund),
+                context.getString(R.string.home),
+                context.getString(R.string.vehicle),
+                context.getString(R.string.education),
+                context.getString(R.string.medical),
+                context.getString(R.string.wedding),
+                context.getString(R.string.business),
+                context.getString(R.string.investment),
+                context.getString(R.string.retirement),
+                context.getString(R.string.vacation),
+                context.getString(R.string.shopping),
+                context.getString(R.string.gadgets),
+                context.getString(R.string.gift),
+                context.getString(R.string.festival),
+                context.getString(R.string.insurance),
+                context.getString(R.string.debt_payoff),
+                context.getString(R.string.fitness),
+                context.getString(R.string.religious),
+                context.getString(R.string.baby_family),
+                context.getString(R.string.pets),
+                context.getString(R.string.custom),
+                context.getString(R.string.others)
         ));
     }
 
@@ -500,6 +501,7 @@ public class DataHelper {
         arrayList.add(R.drawable.goal_21);
         arrayList.add(R.drawable.goal_22);
         arrayList.add(R.drawable.goal_23);
+        arrayList.add(R.drawable.goal_24);
 
         return arrayList;
     }

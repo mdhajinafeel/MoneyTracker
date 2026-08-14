@@ -3,13 +3,17 @@ package com.nprotech.moneytracker.utils;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.ColorUtils;
 
 import com.nprotech.moneytracker.R;
 
@@ -18,13 +22,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class CommonUtils {
-
-    public static String getPlainAmount(BigDecimal digit) {
-        return digit.remainder(new BigDecimal(1)).compareTo(new BigDecimal(0)) == 0 ? String.valueOf(digit.longValue()) : String.format(Locale.ENGLISH, "%.2f", digit);
-    }
 
     public static String getBeautifyAmount(String symbol, double amount) {
         boolean z = 0 > amount;
@@ -87,10 +89,6 @@ public class CommonUtils {
         }
 
         return df.format(value);
-    }
-
-    public static long getLongFromString(String s) {
-        return new BigDecimal(s).multiply(new BigDecimal(100)).longValue();
     }
 
     public static int dpToPx(Context context, int dp) {
@@ -176,5 +174,70 @@ public class CommonUtils {
                 (int) (Color.green(color) * (1 - (float) 0.08)),
                 (int) (Color.blue(color) * (1 - (float) 0.08))
         );
+    }
+
+    public static Drawable createGoalProgressDrawable(Context context, int progressColor) {
+
+        int backgroundColor = adjustAlpha(progressColor);
+
+        GradientDrawable background = new GradientDrawable();
+        background.setShape(GradientDrawable.RECTANGLE);
+        background.setColor(backgroundColor);
+        background.setCornerRadius(dpToPx(context, 5));
+
+        GradientDrawable progress = new GradientDrawable();
+        progress.setShape(GradientDrawable.RECTANGLE);
+        progress.setColor(progressColor);
+        progress.setCornerRadius(dpToPx(context, 5));
+
+        ClipDrawable clipDrawable = new ClipDrawable(
+                progress,
+                Gravity.START,
+                ClipDrawable.HORIZONTAL
+        );
+
+        Drawable[] layers = {
+                background,
+                clipDrawable
+        };
+
+        return new LayerDrawable(layers) {{
+            setId(0, android.R.id.background);
+            setId(1, android.R.id.progress);
+        }};
+    }
+
+    private static int adjustAlpha(int color) {
+        int alpha = Math.round(Color.alpha(color) * (float) 0.2);
+        return ColorUtils.setAlphaComponent(color, alpha);
+    }
+
+    public static int calculateGoalProgress(double savedAmount, double targetAmount) {
+        if (targetAmount <= 0) {
+            return 0;
+        }
+
+        int progress = (int) Math.round((savedAmount / targetAmount) * 100);
+
+        return Math.max(0, Math.min(progress, 100));
+    }
+
+    public static long calculateDaysLeft(long targetDate) {
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
+        Calendar target = Calendar.getInstance();
+        target.setTimeInMillis(targetDate);
+        target.set(Calendar.HOUR_OF_DAY, 0);
+        target.set(Calendar.MINUTE, 0);
+        target.set(Calendar.SECOND, 0);
+        target.set(Calendar.MILLISECOND, 0);
+
+        long difference = target.getTimeInMillis() - today.getTimeInMillis();
+
+        return Math.max(0, TimeUnit.MILLISECONDS.toDays(difference));
     }
 }

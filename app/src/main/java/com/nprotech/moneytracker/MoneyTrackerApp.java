@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CommonInitializer;
@@ -67,6 +68,9 @@ public class MoneyTrackerApp extends Application {
 
         // Firebase crashlytics
         firebaseCrashlytics();
+
+        // Goal Work Manager
+        GoalWorkManagerHelper.scheduleAutoSave(this);
     }
 
     private void initSecureSharedPref() {

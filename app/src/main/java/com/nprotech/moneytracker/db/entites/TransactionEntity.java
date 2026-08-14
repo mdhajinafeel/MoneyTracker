@@ -29,6 +29,10 @@ public class TransactionEntity implements Serializable {
     public static final int TYPE_INCOME = 1;
     public static final int TYPE_EXPENSE = 2;
     public static final int TYPE_TRANSFER = 3;
+    public static final int TYPE_BUDGET = 4;
+    public static final int TYPE_GOAL = 5;
+    public static final int TYPE_DEBT = 6;
+    public static final int TYPE_RECURRING = 7;
 
     @PrimaryKey(autoGenerate = true)
     public long id;
@@ -50,6 +54,7 @@ public class TransactionEntity implements Serializable {
     public boolean isSynced = false;
     public boolean isDeleted = false;
     public String parentTransactionId = "";
+    public int goalId = 0;
 
     public TransactionEntity() {
     }

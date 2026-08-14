@@ -82,6 +82,11 @@ public class DateHelper {
                 .format(timestamp);
     }
 
+    public static String getFormattedDate(long timestamp, String format) {
+        return new SimpleDateFormat(format, Locale.getDefault())
+                .format(timestamp);
+    }
+
     public static String getFormattedDate(Date date) {
         return new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(date);
     }
@@ -98,7 +103,7 @@ public class DateHelper {
         return new SimpleDateFormat(DateFormat.getBestDateTimePattern(Locale.getDefault(), DateFormat.is24HourFormat(context) ? "kk:mm" : "hh:mm aa"), Locale.getDefault()).format(date.getTime());
     }
 
-    public static String getDateFromPicker(Context context, int year, int month, int day) {
+    public static String getDateFromPicker(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, day);
         return getFormattedDate(calendar.getTime());

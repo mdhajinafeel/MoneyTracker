@@ -61,8 +61,6 @@ public class CategoryTransactionActivity extends BaseActivity {
             rvTransactions = findViewById(R.id.rvTransactions);
             emptyWrapper = findViewById(R.id.emptyWrapper);
 
-
-
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
                 v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());

@@ -14,6 +14,7 @@
     <color name="light_white">#8CFFFFFF</color>
 
     <color name="income">#15803D</color>
+    <color name="dark_income">#0E592A</color>
     <color name="light_income">#6615803D</color>
     <color name="dim_income">#3315803D</color>
     <color name="expense">#f73242</color>
@@ -60,9 +61,19 @@
     <color name="version_light">#EBEBEB</color>
     <color name="smart_light">#F3E8FF</color>
 
+    <color name="budget_dark">#6A1B9A</color>
+    <color name="budget_light">#F0E4F7</color>
+    <color name="goal_dark">#7B1FA2</color>
+    <color name="goal_light">#F1E5F8</color>
+    <color name="debt_dark">#E65100</color>
+    <color name="debt_light">#FCE8DD</color>
+    <color name="recurring_dark">#00897B</color>
+    <color name="recurring_light">#E0F3EF</color>
+
     <color name="azure_blue">#FF2563EB</color>
     <color name="emerald_green">#FF10B981</color>
     <color name="vibrant_orange">#FF6A1B9A</color>
+    <color name="vibrant_orange_disabled">#666A1B9A</color>
     <color name="teal">#FF03DAC5</color>
     <color name="dark_teal">#FF018786</color>
     <color name="black">#FF000000</color>
@@ -91,4 +102,12 @@
     <color name="onboarding_light">#FCFAFF</color>
     <color name="text_primary">#24134E</color>
     <color name="text_secondary">#6F6F86</color>
+
+    <color name="delete_red">#D32F2F</color>
+    <color name="text_disabled">#FFF3E8</color>
+
+    <color name="withdraw_orange">#F57C00</color>
+    <color name="withdraw_orange_dark">#E65100</color>
+    <color name="withdraw_orange_light">#FFF1E6</color>
+    <color name="withdraw_orange_disabled">#F8C9A0</color>
 </resources>

@@ -33,6 +33,7 @@ shimmer = "0.5.0"
 billing = "9.1.0"
 review = "2.0.2"
 tasks = "18.4.1"
+hiltWorker = "1.2.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -45,6 +46,8 @@ room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRunti
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroid" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltAndroid" }
+hilt-worker = { module = "androidx.hilt:hilt-work", version.ref = "hiltWorker" }
+hilt-worker-complier = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltWorker" }
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycleViewmodel" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite" }

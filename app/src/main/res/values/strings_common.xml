@@ -174,4 +174,5 @@
     <string name="percent_value_0">(0.0%)</string>
     <string name="view_details">View Details</string>
     <string name="view_breakdown">View all breakdown</string>
+    <string name="error_when_deleting_the_data">Error when deleting the data</string>
 </resources>

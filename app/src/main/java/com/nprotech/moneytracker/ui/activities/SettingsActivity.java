@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.constants.IConstants;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
@@ -112,9 +112,9 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                     });
 
             List<PremiumFeatureModel> features = Arrays.asList(
-                    new PremiumFeatureModel(R.drawable.ic_wallet, "Unlimited\nWallets"),
-                    new PremiumFeatureModel(R.drawable.ic_cloud, "Cloud\nBackup"),
-                    new PremiumFeatureModel(R.drawable.ic_settings_other, "+12\nfeatures")
+                    new PremiumFeatureModel(R.drawable.ic_wallet, getString(R.string.unlimited_wallets)),
+                    new PremiumFeatureModel(R.drawable.ic_cloud, getString(R.string.cloud_backup)),
+                    new PremiumFeatureModel(R.drawable.ic_settings_other, getString(R.string.more_features))
             );
 
             billingHelper = new BillingHelper(this);
@@ -223,22 +223,22 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     private void fetchData(int type) {
         try {
-            if (type == IConstants.DAY) {
+            if (type == Constants.DAY) {
                 List<CommonDataEntity> daysList = commonDataViewModel.getDataByType(type);
                 showSettingDialog(daysList, type);
             }
 
-            if (type == IConstants.STARTUP_SCREEN) {
+            if (type == Constants.STARTUP_SCREEN) {
                 List<CommonDataEntity> screenList = commonDataViewModel.getDataByType(type);
                 showSettingDialog(screenList, type);
             }
 
-            if (type == IConstants.LANGUAGE) {
+            if (type == Constants.LANGUAGE) {
                 List<CommonDataEntity> languagesList = commonDataViewModel.getDataByType(type);
                 showSettingDialog(languagesList, type);
             }
 
-            if (type == IConstants.SMART_REMINDER) {
+            if (type == Constants.SMART_REMINDER) {
                 List<CommonDataEntity> smartReminderList = commonDataViewModel.getDataByType(type);
                 showSettingDialog(smartReminderList, type);
             }
@@ -257,13 +257,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             startActivity(new Intent(SettingsActivity.this, ManageCategoryActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.WEEK_STARTS_ON) {
-            fetchData(IConstants.DAY);
+            fetchData(Constants.DAY);
         } else if (item.settingType == SettingType.STARTUP_SCREEN) {
-            fetchData(IConstants.STARTUP_SCREEN);
+            fetchData(Constants.STARTUP_SCREEN);
         } else if (item.settingType == SettingType.LANGUAGE) {
-            fetchData(IConstants.LANGUAGE);
+            fetchData(Constants.LANGUAGE);
         } else if (item.settingType == SettingType.SMART_REMINDER) {
-            fetchData(IConstants.SMART_REMINDER);
+            fetchData(Constants.SMART_REMINDER);
         } else if (item.settingType == SettingType.MANAGE_BACKUP) {
             startActivity(new Intent(SettingsActivity.this, ManageBackupActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
@@ -294,13 +294,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         rvOptions.setLayoutParams(params);
         rvOptions.setLayoutManager(new LinearLayoutManager(this));
 
-        if (type == IConstants.DAY) {
+        if (type == Constants.DAY) {
             tvTitle.setText(getString(R.string.week_starts_on));
-        } else if (type == IConstants.STARTUP_SCREEN) {
+        } else if (type == Constants.STARTUP_SCREEN) {
             tvTitle.setText(getString(R.string.startup_screen));
-        } else if (type == IConstants.LANGUAGE) {
+        } else if (type == Constants.LANGUAGE) {
             tvTitle.setText(getString(R.string.language));
-        } else if (type == IConstants.SMART_REMINDER) {
+        } else if (type == Constants.SMART_REMINDER) {
             tvTitle.setText(getString(R.string.smart_reminder));
         }
 
@@ -316,16 +316,16 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         view.findViewById(R.id.tvOk).setOnClickListener(v -> {
             CommonDataEntity selectedItem = adapter.getSelectedItem();
             if (selectedItem != null) {
-                if (type == IConstants.DAY) {
+                if (type == Constants.DAY) {
                     PreferenceManager.INSTANCE.setWeekStartOn(selectedItem.value);
                     updateConfigurationSubtitle(SettingType.WEEK_STARTS_ON, getString(selectedItem.nameResId));
-                } else if (type == IConstants.STARTUP_SCREEN) {
+                } else if (type == Constants.STARTUP_SCREEN) {
                     PreferenceManager.INSTANCE.setStartUpScreen(selectedItem.value);
                     updateConfigurationSubtitle(SettingType.STARTUP_SCREEN, getString(selectedItem.nameResId));
-                } else if (type == IConstants.LANGUAGE) {
+                } else if (type == Constants.LANGUAGE) {
                     PreferenceManager.INSTANCE.setLanguage(selectedItem.value);
                     updateConfigurationSubtitle(SettingType.LANGUAGE, getString(selectedItem.nameResId));
-                } else if (type == IConstants.SMART_REMINDER) {
+                } else if (type == Constants.SMART_REMINDER) {
                     PreferenceManager.INSTANCE.setSmartReminder(selectedItem.value);
                     if (selectedItem.value == 1) {
                         updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(selectedItem.nameResId));
@@ -355,7 +355,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     }
 
     private String getWeekStartSubtitle() {
-        List<CommonDataEntity> days = commonDataViewModel.getDataByType(IConstants.DAY);
+        List<CommonDataEntity> days = commonDataViewModel.getDataByType(Constants.DAY);
         for (CommonDataEntity item : days) {
             if (item.value == PreferenceManager.INSTANCE.getWeekStartOn()) {
                 return getString(item.nameResId);
@@ -365,7 +365,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     }
 
     private String getStartupScreenSubtitle() {
-        List<CommonDataEntity> screens = commonDataViewModel.getDataByType(IConstants.STARTUP_SCREEN);
+        List<CommonDataEntity> screens = commonDataViewModel.getDataByType(Constants.STARTUP_SCREEN);
         for (CommonDataEntity item : screens) {
             if (item.value == PreferenceManager.INSTANCE.getStartUpScreen()) {
                 return getString(item.nameResId);
@@ -375,7 +375,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     }
 
     private String getLanguageSubtitle() {
-        List<CommonDataEntity> languages = commonDataViewModel.getDataByType(IConstants.LANGUAGE);
+        List<CommonDataEntity> languages = commonDataViewModel.getDataByType(Constants.LANGUAGE);
         for (CommonDataEntity item : languages) {
             if (item.value == PreferenceManager.INSTANCE.getLanguage()) {
                 return getString(item.nameResId);
@@ -385,7 +385,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     }
 
     private String getSmartReminderSubtitle() {
-        List<CommonDataEntity> smartReminders = commonDataViewModel.getDataByType(IConstants.SMART_REMINDER);
+        List<CommonDataEntity> smartReminders = commonDataViewModel.getDataByType(Constants.SMART_REMINDER);
         for (CommonDataEntity item : smartReminders) {
             if (item.value == PreferenceManager.INSTANCE.getSmartReminder()) {
                 if (item.value == 1) {
@@ -431,7 +431,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     private void fetchProductRateMonthly() {
         try {
-            billingHelper.loadSubscriptionPrice(IConstants.SUBSCRIPTION_MONTHLY, new BillingHelper.PriceListener() {
+            billingHelper.loadSubscriptionPrice(Constants.SUBSCRIPTION_MONTHLY, new BillingHelper.PriceListener() {
 
                 @Override
                 public void onPriceLoaded(String price) {

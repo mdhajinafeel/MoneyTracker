@@ -6,11 +6,13 @@ import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 import com.nprotech.moneytracker.repositories.CategoryRepository;
 import com.nprotech.moneytracker.repositories.CommonDataRepository;
+import com.nprotech.moneytracker.repositories.GoalRepository;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 import com.nprotech.moneytracker.repositories.AccountRepository;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
@@ -59,7 +61,14 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    TransactionRepository provideTransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao, TransactionDao transactionDao, TransactionAttachmentDao transactionAttachmentDao) {
+    TransactionRepository provideTransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao,
+                                                       TransactionDao transactionDao, TransactionAttachmentDao transactionAttachmentDao) {
         return new TransactionRepository(database, accountDao, walletDao, transactionDao, transactionAttachmentDao);
+    }
+
+    @Provides
+    @Singleton
+    GoalRepository provideGoalRepository(GoalDao goalDao, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
+        return new GoalRepository(goalDao, walletDao, transactionDao, accountDao);
     }
 }

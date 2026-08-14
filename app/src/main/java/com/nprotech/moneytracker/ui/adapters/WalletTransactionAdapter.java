@@ -83,7 +83,12 @@ public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCat
                 intent.putExtra("type", item.getType());
                 intent.putExtra("categoryId", item.getCategoryId());
                 intent.putExtra("walletId", item.getWalletId());
-                intent.putExtra("categoryName", item.getCategoryName());
+
+                if (item.getCategoryName() != null && !item.getCategoryName().isEmpty()) {
+                    intent.putExtra("categoryName", item.getCategoryName());
+                } else {
+                    intent.putExtra("categoryName", item.getCategory(context));
+                }
                 context.startActivity(intent);
 
                 if (context instanceof Activity) {

@@ -753,4 +753,39 @@ public class CalendarHelper {
 
         return calendar.getTimeInMillis();
     }
+
+    public static String getWeekDayName(int day, Context context) {
+
+        String[] days = {
+                context.getString(R.string.sunday),
+                context.getString(R.string.monday),
+                context.getString(R.string.tuesday),
+                context.getString(R.string.wednesday),
+                context.getString(R.string.thursday),
+                context.getString(R.string.friday),
+                context.getString(R.string.saturday)
+        };
+
+        return days[day - Calendar.SUNDAY];
+    }
+
+    public static String getMonthName(int month, Context context) {
+
+        String[] months = {
+                context.getString(R.string.january),
+                context.getString(R.string.february),
+                context.getString(R.string.march),
+                context.getString(R.string.april),
+                context.getString(R.string.may),
+                context.getString(R.string.june),
+                context.getString(R.string.july),
+                context.getString(R.string.august),
+                context.getString(R.string.september),
+                context.getString(R.string.october),
+                context.getString(R.string.november),
+                context.getString(R.string.december),
+        };
+
+        return months[month];
+    }
 }

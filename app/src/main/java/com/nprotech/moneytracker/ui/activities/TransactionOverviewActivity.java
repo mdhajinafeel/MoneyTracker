@@ -85,6 +85,7 @@ public class TransactionOverviewActivity extends BaseActivity {
 
     private void initComponents() {
         try {
+            View rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -108,7 +109,7 @@ public class TransactionOverviewActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(rvTransactions, (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;

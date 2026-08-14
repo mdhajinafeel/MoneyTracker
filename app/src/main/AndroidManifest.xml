@@ -141,6 +141,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Create Goal Screen -->
+        <activity
+            android:name=".ui.activities.CreateGoalActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Wallet Icon Picker Screen -->
         <activity
             android:name=".ui.activities.WalletPickerActivity"
@@ -214,6 +221,34 @@
         <!-- Category Transaction Screen -->
         <activity
             android:name=".ui.activities.CategoryTransactionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Goal Category Picker Screen -->
+        <activity
+            android:name=".ui.activities.GoalCategoryPickerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Goal Screen -->
+        <activity
+            android:name=".ui.activities.GoalActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Goal Money Screen -->
+        <activity
+            android:name=".ui.activities.GoalMoneyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Goal View Screen -->
+        <activity
+            android:name=".ui.activities.GoalViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

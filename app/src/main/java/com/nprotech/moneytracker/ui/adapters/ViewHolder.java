@@ -41,53 +41,51 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
     // 🔹 TEXT
     public void setViewText(int viewId, CharSequence text) {
-        AppCompatTextView view = (AppCompatTextView) getView(viewId);
+        AppCompatTextView view = getView(viewId);
         if (view != null) view.setText(text);
     }
 
     public ViewHolder setViewText(int viewId, int resId) {
-        AppCompatTextView view = (AppCompatTextView) getView(viewId);
+        AppCompatTextView view = getView(viewId);
         if (view != null) view.setText(resId);
         return this;
     }
 
     public void setViewTextColor(int viewId, int color) {
-        AppCompatTextView view = (AppCompatTextView) getView(viewId);
+        AppCompatTextView view = getView(viewId);
         if (view != null) view.setTextColor(color);
     }
 
     public ViewHolder setViewTextSize(int viewId, float size) {
-        AppCompatTextView view = (AppCompatTextView) getView(viewId);
+        AppCompatTextView view = getView(viewId);
         if (view != null) view.setTextSize(size);
         return this;
     }
 
-    public ViewHolder setViewTypeface(int viewId, Typeface typeface) {
-        AppCompatTextView view = (AppCompatTextView) getView(viewId);
+    public void setViewTypeface(int viewId, Typeface typeface) {
+        AppCompatTextView view = getView(viewId);
         if (view != null) view.setTypeface(typeface);
-        return this;
     }
 
     // 🔹 IMAGE
     public void setViewImageResource(int viewId, int resId) {
-        AppCompatImageView view = (AppCompatImageView) getView(viewId);
+        AppCompatImageView view = getView(viewId);
         if (view != null) view.setImageResource(resId);
     }
 
     public ViewHolder setViewImageBitmap(int viewId, Bitmap bitmap) {
-        AppCompatImageView view = (AppCompatImageView) getView(viewId);
+        AppCompatImageView view = getView(viewId);
         if (view != null) view.setImageBitmap(bitmap);
         return this;
     }
 
-    public ViewHolder setViewImageDrawable(int viewId, Drawable drawable) {
-        AppCompatImageView view = (AppCompatImageView) getView(viewId);
+    public void setViewImageDrawable(int viewId, Drawable drawable) {
+        AppCompatImageView view = getView(viewId);
         if (view != null) view.setImageDrawable(drawable);
-        return this;
     }
 
     public ViewHolder setViewImageURI(int viewId, Uri uri) {
-        AppCompatImageView view = (AppCompatImageView) getView(viewId);
+        AppCompatImageView view = getView(viewId);
         if (view != null) view.setImageURI(uri);
         return this;
     }

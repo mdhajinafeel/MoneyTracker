@@ -122,6 +122,7 @@ public class CategoryPickerActivity extends BaseActivity {
             RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(getApplicationContext(), expenseCategories, R.layout.item_category_picker) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
+
                     holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
                     holder.setViewText(R.id.tvCategory, categoryEntity.getName(getApplicationContext()));
 

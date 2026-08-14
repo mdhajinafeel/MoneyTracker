@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_6"
+    android:layout_marginEnd="@dimen/margin_6"
+    android:clipToPadding="false"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/corner_radius_4"
+    app:cardMaxElevation="@dimen/corner_elevation_4">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:padding="@dimen/padding_10">
+
+        <!-- Goal Icon Background -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivGoalIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/bg_corner_theme"
+            android:padding="@dimen/padding_10"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Left content starts at 22% -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.18" />
+
+        <!-- Left content ends at 72% -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.72" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leftWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_marginEnd="@dimen/margin_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvGoalName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:fontFamily="@font/exo2_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/goalCategoryContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginTop="@dimen/margin_6"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/tvGoalName"
+                app:layout_constraintTop_toBottomOf="@id/tvGoalName">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGoalCategoryDot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bg_goal_category_dot" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvGoalCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_4"
+                    android:fontFamily="@font/exo2_medium"
+                    android:includeFontPadding="false"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12" />
+
+            </LinearLayout>
+
+            <!-- Saved Amount -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSavedAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:fontFamily="@font/exo2_semibold"
+                android:textColor="@color/dark_income"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintStart_toStartOf="@id/tvGoalName"
+                app:layout_constraintTop_toBottomOf="@id/goalCategoryContainer" />
+
+            <!-- Target Amount -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTargetAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:fontFamily="@font/exo2_semibold"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_14"
+                app:layout_constraintBottom_toBottomOf="@id/tvSavedAmount"
+                app:layout_constraintStart_toEndOf="@id/tvSavedAmount"
+                app:layout_constraintTop_toTopOf="@id/tvSavedAmount" />
+
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressGoal"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                android:layout_marginTop="@dimen/margin_4"
+                android:max="100"
+                android:progressDrawable="@drawable/progress_goal"
+                app:layout_constraintStart_toStartOf="@id/tvGoalName"
+                app:layout_constraintTop_toBottomOf="@id/tvSavedAmount" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/rightWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- More -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMore"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:contentDescription="@string/more"
+                android:src="@drawable/ic_more_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_bold"
+                android:gravity="center"
+                android:minWidth="68dp"
+                android:paddingStart="@dimen/padding_10"
+                android:paddingEnd="@dimen/padding_10"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_18"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivMore" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDaysLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:fontFamily="@font/exo2_medium"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvProgress" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTargetDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@drawable/bg_goal_progress"
+                android:drawableStart="@drawable/ic_calendar_small"
+                android:drawablePadding="@dimen/padding_4"
+                android:fontFamily="@font/exo2_medium"
+                android:padding="@dimen/padding_4"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDaysLeft" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

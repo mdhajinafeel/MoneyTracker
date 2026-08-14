@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.initializer;
 
 import android.content.Context;
 
+import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
@@ -31,6 +32,7 @@ public class CategoryInitializer {
                 categoryDao.insertAll(getCategoryIncomeData());
                 categoryDao.insertAll(getCategoryExpenseData());
                 categoryDao.insertAll(getCategoryTransferData());
+                categoryDao.insertAll(getGoalCategoryData(context));
             } catch (Exception e) {
                 AppLogger.e(context.getClass(), "loadCategories", e);
             }
@@ -80,6 +82,39 @@ public class CategoryInitializer {
 
         categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 30));
         categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 31));
+
+        return categories;
+    }
+
+    private static List<CategoryEntity> getGoalCategoryData(Context context) {
+
+        List<CategoryEntity> categories = new ArrayList<>();
+
+        categories.add(new CategoryEntity(context.getString(R.string.emergency_fund), "#F66F77", 5, 5, true, 0, 1));
+        categories.add(new CategoryEntity(context.getString(R.string.travel), "#AED8F4", 0, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.home), "#DBA877", 1, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.vehicle), "#F8D732", 2, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.education), "#424242", 3, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.medical), "#D75640", 4, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.gift), "#A04C8D", 6, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.investment), "#CA9D4E", 7, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.wedding), "#EDCF54", 8, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.gadgets), "#373535", 9, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.business), "#E6A13F", 10, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.baby_family), "#D95F45", 11, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.festival), "#141212", 12, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.laptop), "#5C81D5", 13, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.gaming), "#46609E", 14, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.shopping), "#D13434", 15, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.restaurant), "#472E11", 16, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.fitness), "#BE8EEF", 17, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.pets), "#9E8759", 18, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.religious), "#FF6F52", 19, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.charity), "#84C688", 20, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.visa), "#5158C3", 21, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.vacation), "#6A6B6B", 22, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.startup), "#943F42", 23, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.others), "#F1ED7B", 24, 5, true, 0, 0));
 
         return categories;
     }
