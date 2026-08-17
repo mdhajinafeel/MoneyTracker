@@ -6,7 +6,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.nprotech.moneytracker.ui.fragments.AchievedGoalFragment;
-import com.nprotech.moneytracker.ui.fragments.MyGoalFragment;
+import com.nprotech.moneytracker.ui.fragments.ArchivedGoalFragment;
+import com.nprotech.moneytracker.ui.fragments.InProgressGoalFragment;
 
 public class GoalTabAdapter extends FragmentStateAdapter {
 
@@ -17,16 +18,21 @@ public class GoalTabAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return position == 0 ? new MyGoalFragment() : new AchievedGoalFragment();
+        return switch (position) {
+            case 0 -> new InProgressGoalFragment();
+            case 1 -> new AchievedGoalFragment();
+            case 2 -> new ArchivedGoalFragment();
+            default -> throw new IllegalArgumentException("Invalid position: " + position);
+        };
     }
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public boolean containsItem(long itemId) {
-        return itemId == 0 || itemId == 1;
+        return itemId >= 0 && itemId < 3;
     }
 }

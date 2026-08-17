@@ -205,7 +205,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardGoalWallet"
+                    android:id="@+id/cardGoalCurrency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_16"
@@ -224,37 +224,37 @@
                         android:padding="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivGoalWallet"
+                            android:id="@+id/ivCurrency"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/bg_circle_theme"
                             android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_wallet"
+                            android:src="@drawable/ic_currency"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:tint="@color/primary" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/walletLabel"
+                            android:id="@+id/currencyLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/default_wallet"
+                            android:text="@string/currency"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_16"
                             app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivGoalWallet"
+                            app:layout_constraintStart_toEndOf="@id/ivCurrency"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvGoalWallet"
+                            android:id="@+id/tvTargetCurrency"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/edit_text_height_40"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
-                            android:hint="@string/select_wallet"
+                            android:hint="@string/select_currency"
                             android:inputType="numberDecimal"
                             android:layoutDirection="ltr"
                             android:paddingStart="@dimen/padding_0"
@@ -264,8 +264,8 @@
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/walletLabel"
-                            app:layout_constraintTop_toBottomOf="@id/walletLabel" />
+                            app:layout_constraintStart_toStartOf="@id/currencyLabel"
+                            app:layout_constraintTop_toBottomOf="@id/currencyLabel" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="16dp"
@@ -289,7 +289,7 @@
                     app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardGoalWallet"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalCurrency"
                     app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
@@ -503,6 +503,71 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardGoalInitial"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivDescription"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            app:tint="@color/primary"
+                            android:src="@drawable/ic_desc"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/descTitleLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/memo"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivDescription"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_40"
+                            android:background="@drawable/bg_edit_text_underline"
+                            android:ems="10"
+                            android:fontFamily="@font/exo2_medium"
+                            android:hint="@string/add_note"
+                            android:inputType="textCapWords"
+                            android:paddingStart="@dimen/padding_0"
+                            android:paddingEnd="@dimen/padding_16"
+                            android:maxLength="40"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/grey"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/descTitleLabel"
+                            app:layout_constraintTop_toBottomOf="@id/descTitleLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardGoalAutoSave"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -512,7 +577,7 @@
                     app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardGoalInitial"
+                    app:layout_constraintTop_toBottomOf="@+id/cardDescription"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
@@ -699,8 +764,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/edit_text_height_40"
                                     android:background="@drawable/bg_edit_text_underline"
-                                    android:drawableEnd="@drawable/ic_account_caret"
-                                    android:drawableTint="@color/primary"
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
                                     android:gravity="start|center_vertical"
@@ -736,8 +799,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="@dimen/edit_text_height_40"
                                     android:background="@drawable/bg_edit_text_underline"
-                                    android:drawableEnd="@drawable/ic_account_caret"
-                                    android:drawableTint="@color/primary"
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
                                     android:gravity="start|center_vertical"
@@ -793,8 +854,6 @@
                                     android:layout_height="@dimen/edit_text_height_40"
                                     android:layout_marginTop="@dimen/margin_4"
                                     android:background="@drawable/bg_edit_text_underline"
-                                    android:drawableEnd="@drawable/ic_account_caret"
-                                    android:drawableTint="@color/primary"
                                     android:gravity="center_vertical"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:paddingStart="@dimen/padding_0"
@@ -813,8 +872,6 @@
                                     android:layout_marginStart="@dimen/margin_8"
                                     android:layout_marginTop="@dimen/margin_4"
                                     android:background="@drawable/bg_edit_text_underline"
-                                    android:drawableEnd="@drawable/ic_account_caret"
-                                    android:drawableTint="@color/primary"
                                     android:gravity="center_vertical"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:paddingStart="@dimen/padding_0"

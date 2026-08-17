@@ -1,17 +1,16 @@
 package com.nprotech.moneytracker.repositories;
 
-import androidx.lifecycle.LiveData;
-import androidx.room.Transaction;
+import android.content.Context;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+
+import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
-import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.constants.GoalContributionType;
 import com.nprotech.moneytracker.db.dao.GoalDao;
-import com.nprotech.moneytracker.db.dao.TransactionDao;
-import com.nprotech.moneytracker.db.dao.WalletDao;
+import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
-import com.nprotech.moneytracker.db.entites.TransactionEntity;
-import com.nprotech.moneytracker.db.entites.WalletEntity;
-import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 
 import java.util.Calendar;
@@ -20,282 +19,362 @@ import java.util.List;
 public class GoalRepository {
 
     private final GoalDao goalDao;
-    private final WalletDao walletDao;
-    private final TransactionDao transactionDao;
-    private final AccountDao accountDao;
 
-    public GoalRepository(GoalDao goalDao, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
+    public GoalRepository(GoalDao goalDao) {
         this.goalDao = goalDao;
-        this.walletDao = walletDao;
-        this.transactionDao = transactionDao;
-        this.accountDao = accountDao;
     }
 
-    public long insertGoal(GoalEntity goal) {
-        return goalDao.insertGoal(goal);
+    public LiveData<List<GoalWithDetails>> getGoals(int accountId, boolean isArchived, boolean isCompleted) {
+        return goalDao.getGoals(accountId, isArchived, isCompleted);
     }
 
-    //==============================================================
-    // SAVE MONEY TO GOAL
-    // Manual Save + Auto Save
-    //==============================================================
-    @Transaction
-    public void saveGoalMoney(int goalId, int walletId, double amount, boolean autoSave) {
-
-        try {
-
-            // -------------------------------------------------------
-            // VALIDATION
-            // -------------------------------------------------------
-
-            if (amount <= 0) {
-                throw new IllegalArgumentException("Goal save amount must be greater than zero");
-            }
-
-            // -------------------------------------------------------
-            // GET GOAL
-            // -------------------------------------------------------
-
-            GoalEntity goal = goalDao.getGoalById(goalId);
-
-            if (goal == null) {
-                throw new IllegalStateException("Goal not found: " + goalId);
-            }
-
-            // -------------------------------------------------------
-            // GET WALLET
-            // -------------------------------------------------------
-
-            WalletEntity wallet = walletDao.getWalletByWalletId(walletId);
-            if (wallet == null) {
-                throw new IllegalStateException("Wallet not found: " + walletId);
-            }
-
-            // -------------------------------------------------------
-            // CHECK WALLET BALANCE
-            // -------------------------------------------------------
-
-            if (wallet.amount < amount) {
-                throw new InsufficientWalletBalanceException("Insufficient wallet balance");
-            }
-
-            // -------------------------------------------------------
-            // CREATE GOAL TRANSACTION
-            // -------------------------------------------------------
-
-            TransactionEntity transaction = new TransactionEntity();
-            transaction.type = TransactionEntity.TYPE_GOAL;
-            transaction.goalId = goalId;
-            transaction.walletId = walletId;
-            transaction.amount = amount;
-            transaction.transactionDate = System.currentTimeMillis();
-
-            if (autoSave) {
-                transaction.description = "Auto Save - " + goal.name;
-            } else {
-                transaction.description = "Goal - " + goal.name;
-            }
-
-            transactionDao.insert(transaction);
-
-            // -------------------------------------------------------
-            // UPDATE WALLET BALANCE
-            // -------------------------------------------------------
-
-            wallet.amount = wallet.amount - amount;
-
-            walletDao.updateWallet(wallet);
-
-            // -------------------------------------------------------
-            // UPDATE GOAL SAVED AMOUNT
-            // -------------------------------------------------------
-
-            goal.savedAmount = goal.savedAmount + amount;
-
-            // -------------------------------------------------------
-            // UPDATE NEXT AUTO SAVE DATE
-            // -------------------------------------------------------
-
-            if (autoSave && goal.autoSaveEnabled) {
-                goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal);
-            }
-
-            // -------------------------------------------------------
-            // UPDATE GOAL
-            // -------------------------------------------------------
-
-            goalDao.updateGoal(goal);
-
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "saveGoalMoney", e);
-            throw e;
-        }
-    }
-
-
-    //==============================================================
-    // CALCULATE NEXT AUTO SAVE DATE
-    //==============================================================
-
-    private long calculateNextAutoSaveDate(GoalEntity goal) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(goal.nextAutoSaveDate);
-
-        switch (goal.autoSaveFrequency) {
-
-            //======================================================
-            // DAILY
-            //======================================================
-
-            case Constants.GOAL_FREQUENCY_DAILY:
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-                break;
-
-            //======================================================
-            // WEEKLY
-            //======================================================
-            case Constants.GOAL_FREQUENCY_WEEKLY:
-                calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                break;
-
-            //======================================================
-            // MONTHLY
-            //======================================================
-            case Constants.GOAL_FREQUENCY_MONTHLY:
-                int dayOfMonth = goal.autoSaveDayOfMonth;
-                calendar.add(Calendar.MONTH, 1);
-                int maximumDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(dayOfMonth, maximumDay));
-                break;
-
-            //======================================================
-            // YEARLY
-            //======================================================
-            case Constants.GOAL_FREQUENCY_YEARLY:
-                int month = goal.autoSaveMonth;
-                int day = goal.autoSaveDay;
-                calendar.add(Calendar.YEAR, 1);
-                calendar.set(Calendar.MONTH, month);
-                int maximumDayOfMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(day, maximumDayOfMonth));
-                break;
-
-            default:
-                throw new IllegalArgumentException("Unknown goal auto save frequency: " + goal.autoSaveFrequency);
-        }
-
-        return calendar.getTimeInMillis();
-    }
-
-
-    //==============================================================
-    // INSUFFICIENT BALANCE EXCEPTION
-    //==============================================================
-
-    public static class InsufficientWalletBalanceException extends IllegalStateException {
-        public InsufficientWalletBalanceException(String message) {
-            super(message);
-        }
-    }
-
-    public List<GoalEntity> getDueAutoSaveGoals() {
-        return goalDao.getDueAutoSaveGoals(System.currentTimeMillis());
-    }
-
-    public void skipAutoSave(GoalEntity goal) {
-        goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal);
-        goalDao.updateGoal(goal);
-    }
-
-    public LiveData<List<GoalWithDetails>> getGoals(boolean isCompleted, int accountId) {
-        return goalDao.getGoals(isCompleted, accountId);
+     public LiveData<List<GoalWithDetails>> getArchivedGoals(int accountId) {
+        return goalDao.getArchivedGoals(accountId);
     }
 
     public LiveData<GoalWithDetails> getGoalDetailById(int goalId) {
         return goalDao.getGoalDetailById(goalId);
     }
 
-    public void addMoneyToGoal(GoalWithDetails goal, WalletEntity wallet, double amount) {
-
-        long now = System.currentTimeMillis();
-
-        double newGoalAmount = goal.savedAmount + amount;
-        double newWalletAmount = wallet.amount - amount;
-
-        // Goal balance
-        goalDao.updateSavedAmount(goal.id, newGoalAmount, now);
-
-        // Wallet balance
-        walletDao.updateWalletById(wallet.id, newWalletAmount);
-
-        // Account balance
-        accountDao.updateAccountById(wallet.accountId, -amount);
-
-        // Transaction
-        TransactionEntity transaction = new TransactionEntity();
-        transaction.type = TransactionEntity.TYPE_EXPENSE;
-        transaction.amount = amount;
-        transaction.walletId = wallet.id;
-        transaction.tempTransactionServerId = "T_" + now;
-        transaction.accountId = goal.accountId;
-        transaction.memo = goal.notes;
-        transaction.description = goal.description;
-        transaction.transactionDate = goal.moneyDate;
-        transaction.createdAt = now;
-        transaction.updatedAt = now;
-        transaction.isSynced = false;
-        transaction.isDeleted = false;
-        transaction.fee = 0;
-        transaction.categoryId = goal.categoryId;
-        transaction.defaultCategoryId = 0;
-        transaction.goalId = goal.id;
-
-        transactionDao.insert(transaction);
+    public boolean deleteGoal(int goalId) {
+        return goalDao.deleteGoal(goalId, System.currentTimeMillis()) > 0;
     }
 
-    public void withdrawMoneyFromGoal(GoalWithDetails goal, WalletEntity wallet, double amount) {
+    public boolean disableAutoSave(int goalId) {
+        return goalDao.disableAutoSave(goalId, System.currentTimeMillis()) > 0;
+    }
+
+
+
+    public boolean archiveRestoreGoal(int goalId, boolean isArchive) {
+        if(goalDao.archiveRestoreGoal(goalId, System.currentTimeMillis(), isArchive, isArchive ? System.currentTimeMillis() : 0) > 0) {
+            updateGoalCompletion(goalId);
+        }
+
+        return true;
+    }
+
+    public boolean markAsCompletedGoal(int goalId) {
+        return goalDao.markAsCompletedGoal(goalId, System.currentTimeMillis()) > 0;
+    }
+
+    public boolean markAsInProgressGoal(int goalId) {
+        return goalDao.markAsInProgressGoal(goalId, System.currentTimeMillis()) > 0;
+    }
+
+    // --------------------------------------------------
+    // CREATE GOAL
+    // --------------------------------------------------
+
+    public long createGoal(GoalEntity goal, double initialAmount, Context context) {
+
         long now = System.currentTimeMillis();
 
-        if (goal.savedAmount < amount) {
+        goal.createdAt = now;
+        goal.updatedAt = now;
+
+        if (goal.autoSaveEnabled) {
+            goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal, now);
+        } else {
+            goal.nextAutoSaveDate = 0;
+        }
+
+        long goalId = goalDao.insertGoal(goal);
+
+        if (goalId > 0 && initialAmount > 0) {
+
+            GoalContributionEntity contribution = new GoalContributionEntity((int) goalId, initialAmount, GoalContributionType.INITIAL,
+                    now, context.getString(R.string.initial_savings), now, now);
+            long contributeId = goalDao.insertContribution(contribution);
+            if (contributeId > 0) {
+                goalDao.updateSavedAmount((int) goalId, initialAmount, now);
+            }
+
+            updateGoalCompletion((int) goalId);
+        }
+
+
+        return goalId;
+    }
+
+    // --------------------------------------------------
+    // ADD MONEY
+    // --------------------------------------------------
+
+    public void addMoney(int goalId, double amount, long date, @Nullable String note, double savedAmount) {
+
+        long now = System.currentTimeMillis();
+
+        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.ADD, date, note, now, now);
+        long contributeId = goalDao.insertContribution(contribution);
+        if (contributeId > 0) {
+            goalDao.updateSavedAmount(goalId, savedAmount, now);
+        }
+
+        updateGoalCompletion(goalId);
+    }
+
+    // --------------------------------------------------
+    // WITHDRAW MONEY
+    // --------------------------------------------------
+
+    public void withdrawMoney(int goalId, double amount, long date, @Nullable String note, double savedAmount) {
+
+        long now = System.currentTimeMillis();
+
+        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.WITHDRAW, date, note, now, now);
+        long contributeId = goalDao.insertContribution(contribution);
+        if (contributeId > 0) {
+            goalDao.updateSavedAmount(goalId, savedAmount, now);
+        }
+        updateGoalCompletion(goalId);
+    }
+
+    // --------------------------------------------------
+    // DISABLE AUTO SAVE
+    // --------------------------------------------------
+
+    // --------------------------------------------------
+    // CURRENT AMOUNT
+    // --------------------------------------------------
+
+    public double getCurrentAmount(int goalId) {
+        return goalDao.getCurrentAmount(goalId);
+    }
+
+    private void updateGoalCompletion(int goalId) {
+
+        GoalEntity goal = goalDao.getGoal(goalId);
+
+        if (goal == null) {
             return;
         }
 
-        double newGoalAmount = goal.savedAmount - amount;
-        double newWalletAmount = wallet.amount + amount;
+        double current = goalDao.getCurrentAmount(goalId);
 
-        // Goal balance
-        goalDao.updateSavedAmount(goal.id, newGoalAmount, now);
-
-        // Wallet balance
-        walletDao.updateWalletById(wallet.id, newWalletAmount);
-
-        // Account balance
-        accountDao.updateAccountById(wallet.accountId, amount);
-
-        // Transaction
-        TransactionEntity transaction = new TransactionEntity();
-        transaction.type = TransactionEntity.TYPE_INCOME;
-        transaction.amount = amount;
-        transaction.walletId = wallet.id;
-        transaction.tempTransactionServerId = "T_" + now;
-        transaction.accountId = goal.accountId;
-        transaction.memo = goal.notes;
-        transaction.description = goal.description;
-        transaction.transactionDate = goal.moneyDate;
-        transaction.createdAt = now;
-        transaction.updatedAt = now;
-        transaction.isSynced = false;
-        transaction.isDeleted = false;
-        transaction.fee = 0;
-        transaction.categoryId = goal.categoryId;
-        transaction.defaultCategoryId = 0;
-        transaction.goalId = goal.id;
-
-        transactionDao.insert(transaction);
+        goal.isCompleted = current >= goal.targetAmount;
+        if (goal.isCompleted) {
+            goal.completedOn = System.currentTimeMillis();
+        } else {
+            goal.completedOn = 0;
+        }
+        goal.updatedAt = System.currentTimeMillis();
+        goalDao.updateGoal(goal);
     }
 
-    public boolean deleteGoal(int goalId) {
-        return goalDao.deleteGoal(goalId, System.currentTimeMillis()) > 0;
+    // --------------------------------------------------
+    // AUTO SAVE
+    // --------------------------------------------------
+
+    public void executeAutoSave(GoalEntity goal) {
+
+        if (!goal.autoSaveEnabled) {
+            return;
+        }
+
+        long now = System.currentTimeMillis();
+
+        // Safety check
+        if (goal.nextAutoSaveDate > now) {
+            return;
+        }
+
+        double currentAmount = getCurrentAmount(goal.id);
+        double remaining = goal.targetAmount - currentAmount;
+
+        // Goal already completed
+        if (remaining <= 0) {
+
+            goal.autoSaveEnabled = false;
+            goal.isCompleted = true;
+            goal.completedOn = now;
+            goal.updatedAt = now;
+
+            goalDao.updateGoal(goal);
+
+            return;
+        }
+
+        // Don't exceed target
+        double amount = Math.min(goal.autoSaveAmount, remaining);
+
+        // Create AUTO_SAVE contribution
+        GoalContributionEntity contribution = new GoalContributionEntity();
+
+        contribution.setGoalId(goal.id);
+        contribution.setAmount(amount);
+        contribution.setType(GoalContributionType.AUTO_SAVE);
+        contribution.setDate(now);
+        contribution.setNote("Automatic savings");
+        contribution.setCreatedAt(now);
+
+        long contributeId = goalDao.insertContribution(contribution);
+        if (contributeId > 0) {
+            goal.savedAmount = currentAmount + amount;
+            goalDao.updateSavedAmount(goal.id, goal.savedAmount, now);
+        }
+
+        // Calculate NEXT auto-save date
+        goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal, goal.nextAutoSaveDate);
+
+        // Check if target was reached
+        double newAmount = getCurrentAmount(goal.id);
+
+        if (newAmount >= goal.targetAmount) {
+            goal.isCompleted = true;
+            goal.completedOn = now;
+            goal.autoSaveEnabled = false;
+            goal.nextAutoSaveDate = 0;
+        }
+
+        goal.updatedAt = now;
+        goalDao.updateGoal(goal);
+    }
+
+    private long calculateNextAutoSaveDate(GoalEntity goal, long currentDate) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(currentDate);
+
+        switch (goal.autoSaveFrequency) {
+
+            case Constants.GOAL_FREQUENCY_DAILY:
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                break;
+
+            case Constants.GOAL_FREQUENCY_WEEKLY:
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                break;
+
+            case Constants.GOAL_FREQUENCY_MONTHLY:
+                calendar.add(Calendar.MONTH, 1);
+                int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDayOfMonth, maxDay));
+                break;
+
+            case Constants.GOAL_FREQUENCY_YEARLY:
+                calendar.add(Calendar.YEAR, 1);
+                calendar.set(Calendar.MONTH, goal.autoSaveMonth);
+                int maxYearDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDay, maxYearDay));
+                break;
+        }
+
+        return calendar.getTimeInMillis();
+    }
+
+    public LiveData<Integer> getActiveGoalCount(int accountId) {
+        return goalDao.getActiveGoalCount(accountId);
+    }
+
+    public List<GoalEntity> getDueAutoSaveGoals(long currentTime) {
+        return goalDao.getDueAutoSaveGoals(currentTime);
+    }
+
+    public Long getEarliestAutoSaveDate() {
+        return goalDao.getEarliestAutoSaveDate();
+    }
+
+    public GoalWithDetails fetchGoalDetails(int goalId) {
+        return goalDao.fetchGoalDetails(goalId);
+    }
+
+    // --------------------------------------------------
+    // UPDATE GOAL
+    // --------------------------------------------------
+
+    public int updateGoal(GoalEntity goal, Context context) {
+
+        long now = System.currentTimeMillis();
+
+        // ---------------------------------------------
+        // Get existing goal
+        // ---------------------------------------------
+
+        GoalEntity existingGoal = goalDao.getGoal(goal.id);
+
+        if (existingGoal == null) {
+            return 0;
+        }
+
+        // ---------------------------------------------
+        // Preserve existing goal state
+        // ---------------------------------------------
+
+        goal.savedAmount = existingGoal.savedAmount;
+        goal.startedDate = existingGoal.startedDate;
+        goal.createdAt = existingGoal.createdAt;
+        goal.isCompleted = existingGoal.isCompleted;
+        goal.completedOn = existingGoal.completedOn;
+        goal.isArchived = existingGoal.isArchived;
+        goal.archivedOn = existingGoal.archivedOn;
+        goal.isDeleted = existingGoal.isDeleted;
+        goal.isSynced = false;
+        goal.updatedAt = now;
+
+        // ---------------------------------------------
+        // INITIAL AMOUNT
+        // ---------------------------------------------
+
+        double oldInitialAmount = existingGoal.initialAmount;
+        double newInitialAmount = goal.initialAmount;
+        double initialDifference = newInitialAmount - oldInitialAmount;
+
+        goal.savedAmount = existingGoal.savedAmount + initialDifference;
+
+        // Prevent negative saved amount
+        if (goal.savedAmount < 0) {
+            goal.savedAmount = 0;
+        }
+
+        // ---------------------------------------------
+        // AUTO SAVE
+        // ---------------------------------------------
+
+        if (goal.autoSaveEnabled) {
+            goal.nextAutoSaveDate = goal.autoSaveStartDate;
+
+        } else {
+            goal.autoSaveAmount = 0;
+            goal.autoSaveFrequency = 0;
+            goal.autoSaveStartDate = 0;
+            goal.autoSaveWeekDay = 0;
+            goal.autoSaveDayOfMonth = 0;
+            goal.autoSaveMonth = 0;
+            goal.autoSaveDay = 0;
+            goal.nextAutoSaveDate = 0;
+        }
+
+        // ---------------------------------------------
+        // UPDATE INITIAL CONTRIBUTION
+        // ---------------------------------------------
+
+        GoalContributionEntity initialContribution = goalDao.getInitialContribution(goal.id, GoalContributionType.INITIAL);
+
+        if (initialContribution != null) {
+            initialContribution.setAmount(newInitialAmount);
+            initialContribution.setUpdatedAt(now);
+
+            goalDao.updateContribution(initialContribution);
+
+        } else if (newInitialAmount > 0) {
+            GoalContributionEntity contribution =
+                    new GoalContributionEntity(goal.id, newInitialAmount, GoalContributionType.INITIAL, existingGoal.startedDate,
+                            context.getString(R.string.initial_savings), now, now);
+
+            goalDao.insertContribution(contribution);
+        }
+
+        int result = goalDao.updateGoal(goal);
+
+        // ---------------------------------------------
+        // RECHECK COMPLETION
+        // ---------------------------------------------
+
+        if (result > 0) {
+            updateGoalCompletion(goal.id);
+        }
+
+        return result;
     }
 }

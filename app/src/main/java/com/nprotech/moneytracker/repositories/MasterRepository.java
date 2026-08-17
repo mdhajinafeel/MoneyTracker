@@ -25,6 +25,10 @@ public class MasterRepository {
         return currencyDao.getFirstCurrencyForWallet(accountId);
     }
 
+    public CurrencyEntity getFirstCurrencyForAccount(int accountId) {
+        return currencyDao.getFirstCurrencyForAccount(accountId);
+    }
+
     public List<CurrencyEntity> getCurrenciesForWallet(int accountId) {
         return currencyDao.getCurrenciesForWallet(accountId);
     }

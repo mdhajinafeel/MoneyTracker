@@ -2,4 +2,5 @@
 <resources>
     <string name="budget">Budget</string>
     <string name="add_budget">Add Budget</string>
+    <string name="plan_your_spending">Plan your spending</string>
 </resources>

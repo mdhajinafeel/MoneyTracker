@@ -42,7 +42,7 @@
         android:id="@+id/viewDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#ECE8F0"
+        android:background="@color/light_grey"
         app:layout_constraintTop_toBottomOf="@+id/goalHeader" />
 
     <!-- Add Money -->
@@ -59,6 +59,7 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/viewDivider">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -87,12 +88,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
                 android:fontFamily="@font/exo2_medium"
-                android:text="@string/add_savings_to_this_goal"
+                android:text="@string/add_savings"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_12" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/viewAddMoney"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionAddMoney" />
 
     <!-- View Details -->
     <LinearLayout
@@ -108,7 +118,8 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
-        app:layout_constraintTop_toBottomOf="@+id/optionAddMoney">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewAddMoney">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -116,17 +127,41 @@
             android:src="@drawable/ic_withdrawal"
             app:tint="@color/primary" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_weight="1"
-            android:fontFamily="@font/exo2_semibold"
-            android:text="@string/withdraw_money"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/text_16" />
+            android:orientation="vertical">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/withdraw_money"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/withdraw_savings"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/viewWithdrawal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionWithdrawal" />
 
     <!-- View Details -->
     <LinearLayout
@@ -142,7 +177,8 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
-        app:layout_constraintTop_toBottomOf="@+id/optionWithdrawal">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewWithdrawal">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -150,17 +186,42 @@
             android:src="@drawable/ic_view_eye"
             app:tint="@color/primary" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_16"
             android:layout_weight="1"
-            android:fontFamily="@font/exo2_semibold"
-            android:text="@string/view_details"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/text_16" />
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/view_details"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/view_goal_detail"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/viewViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionViewDetails" />
 
     <!-- Edit -->
     <LinearLayout
@@ -176,7 +237,8 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
-        app:layout_constraintTop_toBottomOf="@+id/optionViewDetails">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewViewDetails">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -184,16 +246,41 @@
             android:src="@drawable/ic_edit_solid"
             app:tint="@color/primary" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_weight="1"
-            android:fontFamily="@font/exo2_semibold"
-            android:text="@string/edit_goal"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/text_16" />
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/edit_goal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/edit_goal_detail"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:id="@+id/viewEdit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionEdit" />
 
     <!-- Mark Completed -->
     <LinearLayout
@@ -209,7 +296,8 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
-        app:layout_constraintTop_toBottomOf="@+id/optionEdit">
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewEdit">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="24dp"
@@ -217,15 +305,208 @@
             android:src="@drawable/ic_achieved"
             app:tint="@color/primary" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/margin_16"
             android:layout_weight="1"
-            android:fontFamily="@font/exo2_semibold"
-            android:text="@string/mark_as_completed"
-            android:textColor="#17121F"
-            android:textSize="@dimen/text_16" />
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/mark_achieved"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/finish_goal"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewComplete"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionComplete" />
+
+    <!-- Mark In Progress -->
+    <LinearLayout
+        android:id="@+id/optionProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionComplete">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_in_progress"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/move_progress"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/move_back_progress"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewProgress"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionProgress" />
+
+    <!-- Restore -->
+    <LinearLayout
+        android:id="@+id/optionRestore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionProgress">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_restore"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/restore_goal"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/move_back"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewRestore"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionRestore" />
+
+    <!-- Archived -->
+    <LinearLayout
+        android:id="@+id/optionArchive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewRestore">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_archive"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/archived"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/archived_move"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <!-- Divider before Delete -->
@@ -233,11 +514,10 @@
         android:id="@+id/viewLineDelete"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="@dimen/margin_20"
-        android:layout_marginTop="@dimen/margin_4"
-        android:layout_marginEnd="@dimen/margin_20"
-        android:background="#ECE8F0"
-        app:layout_constraintTop_toBottomOf="@+id/optionComplete" />
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionArchive" />
 
     <!-- Delete -->
     <LinearLayout
@@ -253,6 +533,7 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/viewLineDelete">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -266,10 +547,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
             android:text="@string/delete_goal"
             android:textColor="@color/delete_red"
-            android:textStyle="bold"
-            android:fontFamily="@font/exo2_semibold"
-            android:textSize="@dimen/text_16"/>
+            android:textSize="@dimen/text_16"
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

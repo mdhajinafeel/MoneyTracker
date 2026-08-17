@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,6 +34,8 @@ import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.GoalWithDetails;
+import com.nprotech.moneytracker.ui.activities.CreateGoalActivity;
+import com.nprotech.moneytracker.ui.activities.GoalDetailActivity;
 import com.nprotech.moneytracker.ui.activities.GoalMoneyActivity;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
@@ -79,7 +83,7 @@ public class AchievedGoalFragment extends Fragment {
     private void bindData() {
         try {
 
-            goalViewModel.getGoals(true, (int) PreferenceManager.INSTANCE.getAccountId()).observe(getViewLifecycleOwner(), goalWithDetails -> {
+            goalViewModel.getGoals((int) PreferenceManager.INSTANCE.getAccountId(), false, true).observe(getViewLifecycleOwner(), goalWithDetails -> {
                 if (goalWithDetails.isEmpty()) {
                     emptyWrapper.setVisibility(View.VISIBLE);
                     rvGoals.setVisibility(View.GONE);
@@ -149,10 +153,33 @@ public class AchievedGoalFragment extends Fragment {
             AppCompatTextView tvGoalName = bottomView.findViewById(R.id.tvGoalName);
             AppCompatTextView tvGoalAmount = bottomView.findViewById(R.id.tvGoalAmount);
             LinearLayout optionViewDetails = bottomView.findViewById(R.id.optionViewDetails);
+            View viewViewDetails = bottomView.findViewById(R.id.viewViewDetails);
             LinearLayout optionAddMoney = bottomView.findViewById(R.id.optionAddMoney);
+            View viewAddMoney = bottomView.findViewById(R.id.viewAddMoney);
+            LinearLayout optionEdit = bottomView.findViewById(R.id.optionEdit);
+            View viewEdit = bottomView.findViewById(R.id.viewEdit);
             LinearLayout optionWithdrawal = bottomView.findViewById(R.id.optionWithdrawal);
+            View viewWithdrawal = bottomView.findViewById(R.id.viewWithdrawal);
+            LinearLayout optionArchive = bottomView.findViewById(R.id.optionArchive);
+            LinearLayout optionDelete = bottomView.findViewById(R.id.optionDelete);
+            View viewLineDelete = bottomView.findViewById(R.id.viewLineDelete);
+            LinearLayout optionProgress = bottomView.findViewById(R.id.optionProgress);
+            View viewProgress = bottomView.findViewById(R.id.viewProgress);
 
             tvGoalName.setText(goal.name);
+            optionViewDetails.setVisibility(View.VISIBLE);
+            viewViewDetails.setVisibility(View.VISIBLE);
+            optionEdit.setVisibility(View.VISIBLE);
+            viewEdit.setVisibility(View.VISIBLE);
+            optionAddMoney.setVisibility(View.VISIBLE);
+            viewAddMoney.setVisibility(View.VISIBLE);
+            optionWithdrawal.setVisibility(View.VISIBLE);
+            viewWithdrawal.setVisibility(View.VISIBLE);
+            optionDelete.setVisibility(View.VISIBLE);
+            optionArchive.setVisibility(View.VISIBLE);
+            viewLineDelete.setVisibility(View.VISIBLE);
+            optionProgress.setVisibility(View.VISIBLE);
+            viewProgress.setVisibility(View.VISIBLE);
 
             String savedAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goal.savedAmount);
             String targetAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goal.targetAmount);
@@ -179,16 +206,86 @@ public class AchievedGoalFragment extends Fragment {
             // VIEW DETAILS
             optionViewDetails.setOnClickListener(view -> {
                 dialog.dismiss();
-                startActivity(new Intent(requireActivity(), GoalMoneyActivity.class)
-                        .putExtra("addMoney", false)
+                startActivity(new Intent(requireActivity(), GoalDetailActivity.class)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            // EDIT DETAILS
+            optionEdit.setOnClickListener(view -> {
+                dialog.dismiss();
+                startActivity(new Intent(requireActivity(), CreateGoalActivity.class)
+                        .putExtra("isEdit", true)
+                        .putExtra("goalId", goal.id));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            // ARCHIVE
+            optionArchive.setOnClickListener(view -> {
+                dialog.dismiss();
+                if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
+                    Toast.makeText(requireActivity(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // PROGRESS
+            optionProgress.setOnClickListener(v -> {
+                dialog.dismiss();
+                if (goalViewModel.markAsInProgressGoal(goal.id)) {
+                    Toast.makeText(requireActivity(), getString(R.string.goal_moved_successfully), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.error_move), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // DELETE
+            optionDelete.setOnClickListener(view -> {
+                dialog.dismiss();
+                showDeleteDialog(goal);
             });
 
             dialog.setContentView(bottomView);
             dialog.show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "showOptionDialog", e);
+        }
+    }
+
+    private void showDeleteDialog(GoalWithDetails goal) {
+
+        AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        tvTitle.setText(R.string.delete_goal);
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            deleteGoal(goal);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void deleteGoal(GoalWithDetails goal) {
+        try {
+            if (goal == null) {
+                return;
+            }
+
+            if (goalViewModel.deleteGoal(goal.id)) {
+                Toast.makeText(requireActivity(), getString(R.string.goal_deleted_successfully), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.error_delete_goal), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteGoal", e);
         }
     }
 }

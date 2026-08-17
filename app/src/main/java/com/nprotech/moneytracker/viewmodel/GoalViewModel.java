@@ -1,10 +1,14 @@
 package com.nprotech.moneytracker.viewmodel;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.GoalEntity;
-import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.repositories.GoalRepository;
 
@@ -18,49 +22,92 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class GoalViewModel extends ViewModel {
 
     private final GoalRepository goalRepository;
+    private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
+    private final LiveData<Integer> goalCount;
 
     @Inject
     public GoalViewModel(GoalRepository goalRepository) {
         this.goalRepository = goalRepository;
+        goalCount = Transformations.switchMap(accountId, goalRepository::getActiveGoalCount);
     }
 
-    public long insertGoal(GoalEntity goal) {
-        return goalRepository.insertGoal(goal);
+    public void selectAccount(int id) {
+        accountId.setValue(id);
     }
 
-    public void saveGoalMoney(int goalId, int walletId, double amount, boolean autoSave) {
-        goalRepository.saveGoalMoney(goalId, walletId, amount, autoSave);
+    public long createGoal(GoalEntity goal, double initialAmount, Context context) {
+        long goalId = goalRepository.createGoal(goal, initialAmount, context);
+
+        if (goalId > 0) {
+            Long nextRunDate = goalRepository.getEarliestAutoSaveDate();
+
+            if (nextRunDate != null) {
+                long delay = nextRunDate - System.currentTimeMillis();
+
+                if (delay < 0) {
+                    delay = 0;
+                }
+
+                GoalWorkManagerHelper.scheduleAutoSave(context, delay);
+            }
+        }
+
+        return goalId;
     }
 
-    public LiveData<List<GoalWithDetails>> getGoals(boolean isCompleted, int accountId) {
-        return goalRepository.getGoals(isCompleted, accountId);
+    public LiveData<List<GoalWithDetails>> getGoals(int accountId, boolean isArchived, boolean isCompleted) {
+        return goalRepository.getGoals(accountId, isArchived, isCompleted);
+    }
+
+    public LiveData<List<GoalWithDetails>> getArchivedGoals(int accountId) {
+        return goalRepository.getArchivedGoals(accountId);
+    }
+
+    public GoalWithDetails fetchGoalDetails(int goalId) {
+        return goalRepository.fetchGoalDetails(goalId);
     }
 
     public LiveData<GoalWithDetails> getGoalDetailById(int goalId) {
         return goalRepository.getGoalDetailById(goalId);
     }
 
-    public void addMoneyToGoal(GoalWithDetails goal, WalletEntity wallet, double amount) {
-        if (goal == null || wallet == null || amount <= 0) {
-            return;
-        }
-
-        goalRepository.addMoneyToGoal(goal, wallet, amount);
-    }
-
-    public void withdrawMoneyFromGoal(GoalWithDetails goal, WalletEntity wallet, double amount) {
-        if (goal == null || wallet == null || amount <= 0) {
-            return;
-        }
-
-        if (goal.savedAmount < amount) {
-            return;
-        }
-
-        goalRepository.withdrawMoneyFromGoal(goal, wallet, amount);
-    }
-
     public boolean deleteGoal(int goalId) {
         return goalRepository.deleteGoal(goalId);
+    }
+
+    public boolean disableAutoSave(int goalId) {
+        return goalRepository.disableAutoSave(goalId);
+    }
+
+    public boolean archiveRestoreGoal(int goalId, boolean isArchive) {
+        return goalRepository.archiveRestoreGoal(goalId, isArchive);
+    }
+
+    public boolean markAsCompletedGoal(int goalId) {
+        return goalRepository.markAsCompletedGoal(goalId);
+    }
+
+    public boolean markAsInProgressGoal(int goalId) {
+        return goalRepository.markAsInProgressGoal(goalId);
+    }
+
+    public void addMoney(GoalWithDetails goal) {
+        goalRepository.addMoney(goal.id, goal.goalAmount, goal.moneyDate, goal.notes, goal.savedAmount);
+    }
+
+    public void withdrawMoney(GoalWithDetails goal) {
+        goalRepository.withdrawMoney(goal.id, goal.goalAmount, goal.moneyDate, goal.notes, goal.savedAmount);
+    }
+
+    public double getCurrentAmount(int goalId) {
+        return goalRepository.getCurrentAmount(goalId);
+    }
+
+    public LiveData<Integer> goalCount() {
+        return goalCount;
+    }
+
+    public int updateGoal(GoalEntity goal, Context context) {
+        return goalRepository.updateGoal(goal, context);
     }
 }

@@ -3,12 +3,14 @@ package com.nprotech.moneytracker;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.hilt.work.HiltWorkerFactory;
+import androidx.work.Configuration;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
-import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CommonInitializer;
@@ -18,12 +20,17 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.HiltAndroidApp;
 import devliving.online.securedpreferencestore.DefaultRecoveryHandler;
 import devliving.online.securedpreferencestore.SecuredPreferenceStore;
 
 @HiltAndroidApp
-public class MoneyTrackerApp extends Application {
+public class MoneyTrackerApp extends Application implements Configuration.Provider {
+
+    @Inject
+    HiltWorkerFactory hiltWorkerFactory;
 
     @Override
     public void onCreate() {
@@ -68,9 +75,6 @@ public class MoneyTrackerApp extends Application {
 
         // Firebase crashlytics
         firebaseCrashlytics();
-
-        // Goal Work Manager
-        GoalWorkManagerHelper.scheduleAutoSave(this);
     }
 
     private void initSecureSharedPref() {
@@ -97,5 +101,11 @@ public class MoneyTrackerApp extends Application {
 
         // Global crash handler
         Thread.setDefaultUncaughtExceptionHandler(new CrashlyticsExceptionHandler());
+    }
+
+    @NonNull
+    @Override
+    public Configuration getWorkManagerConfiguration() {
+        return new Configuration.Builder().setWorkerFactory(hiltWorkerFactory).build();
     }
 }

@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -23,29 +22,21 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
-import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.GoalWithDetails;
-import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
-import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
-import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -55,18 +46,15 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class GoalMoneyActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivGoalIcon;
-    private AppCompatTextView tvTitle, tvGoalName, tvGoalAmount, tvGoalProgress, tvRemainingAmount, walletLabel, tvGoalWallet, tvTargetAmount,
+    private AppCompatTextView tvTitle, tvGoalName, tvGoalAmount, tvGoalProgress, tvRemainingAmount, tvTargetAmount,
             tvTargetDate;
     private AppCompatEditText etMemo;
-    private MaterialCardView cardGoalAmount, cardGoalWallet, cardGoalDate;
+    private MaterialCardView cardGoalAmount, cardGoalDate;
     private MaterialButton btnCancel, btnAddMoney;
     private ProgressBar progressGoal;
     private GoalViewModel goalViewModel;
-    private AccountViewModel accountViewModel;
     private double goalAmount;
     private ActivityResultLauncher<Intent> calculatorLauncher;
-    private WalletEntity selectedWallet;
-    private List<WalletEntity> walletLists;
     private long targetDate = 0;
     private boolean isAddMoney;
     private GoalWithDetails goal;
@@ -92,14 +80,11 @@ public class GoalMoneyActivity extends BaseActivity {
             tvGoalAmount = findViewById(R.id.tvGoalAmount);
             tvGoalProgress = findViewById(R.id.tvGoalProgress);
             tvRemainingAmount = findViewById(R.id.tvRemainingAmount);
-            walletLabel = findViewById(R.id.walletLabel);
-            tvGoalWallet = findViewById(R.id.tvGoalWallet);
             tvTargetAmount = findViewById(R.id.tvTargetAmount);
             tvTargetDate = findViewById(R.id.tvTargetDate);
             etMemo = findViewById(R.id.etMemo);
             progressGoal = findViewById(R.id.progressGoal);
             cardGoalAmount = findViewById(R.id.cardGoalAmount);
-            cardGoalWallet = findViewById(R.id.cardGoalWallet);
             cardGoalDate = findViewById(R.id.cardGoalDate);
             btnCancel = findViewById(R.id.btnCancel);
             btnAddMoney = findViewById(R.id.btnAddMoney);
@@ -120,7 +105,6 @@ public class GoalMoneyActivity extends BaseActivity {
             if (bundle != null) {
 
                 goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
-                accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
                 bindData(bundle);
                 setupListeners();
@@ -142,14 +126,6 @@ public class GoalMoneyActivity extends BaseActivity {
 
             if (goalId > 0) {
 
-                walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
-
-                if (!walletLists.isEmpty()) {
-                    selectedWallet = walletLists.get(0);
-                    tvGoalWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                            CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
-                }
-
                 goalViewModel.getGoalDetailById(goalId).observe(this, goalWithDetail -> {
                     if (goalWithDetail != null) {
 
@@ -166,10 +142,10 @@ public class GoalMoneyActivity extends BaseActivity {
 
                         tvGoalName.setText(goalWithDetail.name);
 
-                        String savedAmount = CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalWithDetail.savedAmount);
-                        String targetAmount = CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalWithDetail.targetAmount);
+                        String savedAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goalWithDetail.savedAmount);
+                        String targetAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goalWithDetail.targetAmount);
                         double remainingAmount = goalWithDetail.targetAmount - goalWithDetail.savedAmount;
-                        tvRemainingAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, remainingAmount));
+                        tvRemainingAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, remainingAmount));
                         tvGoalAmount.setText(getString(R.string.goal_amount_progress, savedAmount, targetAmount));
 
                         progressGoal.setProgressDrawable(CommonUtils.createGoalProgressDrawable(this, goalColor));
@@ -182,21 +158,7 @@ public class GoalMoneyActivity extends BaseActivity {
                 targetDate = System.currentTimeMillis();
                 tvTargetDate.setText(DateHelper.getFormattedDate(DateHelper.getCurrentDateTime()));
 
-                if (isAddMoney) {
-
-                    btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_selector));
-
-                    tvTitle.setText(getString(R.string.add_money_goal));
-                    walletLabel.setText(getString(R.string.from_wallet));
-                    btnAddMoney.setText(getString(R.string.add_money));
-                } else {
-
-                    btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_withdraw_selector));
-
-                    tvTitle.setText(getString(R.string.withdraw_money_goal));
-                    walletLabel.setText(getString(R.string.to_wallet));
-                    btnAddMoney.setText(getString(R.string.withdraw_money));
-                }
+                updateActionMode();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
                 finish();
@@ -204,6 +166,18 @@ public class GoalMoneyActivity extends BaseActivity {
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void updateActionMode() {
+        if (isAddMoney) {
+            btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_selector));
+            tvTitle.setText(getString(R.string.add_money_goal));
+            btnAddMoney.setText(getString(R.string.add_money));
+        } else {
+            btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_withdraw_selector));
+            tvTitle.setText(getString(R.string.withdraw_money_goal));
+            btnAddMoney.setText(getString(R.string.withdraw_money));
         }
     }
 
@@ -231,12 +205,6 @@ public class GoalMoneyActivity extends BaseActivity {
             cardGoalDate.setOnClickListener(view -> openTargetDatePicker());
             tvTargetDate.setOnClickListener(view -> cardGoalDate.performClick());
 
-            cardGoalWallet.setOnClickListener(view -> {
-                hideKeyboard(this);
-                selectWallets();
-            });
-            tvGoalWallet.setOnClickListener(view -> cardGoalWallet.performClick());
-
             cardGoalAmount.setOnClickListener(view -> {
                 hideKeyboard(this);
                 Intent intent = new Intent(this, CalculatorActivity.class);
@@ -249,31 +217,49 @@ public class GoalMoneyActivity extends BaseActivity {
 
             btnAddMoney.setOnClickListener(view -> {
 
-                if(!Objects.requireNonNull(etMemo.getText()).toString().isEmpty()) {
+                if (!Objects.requireNonNull(etMemo.getText()).toString().isEmpty()) {
                     goal.notes = etMemo.getText().toString().trim();
                 }
 
                 goal.moneyDate = targetDate;
 
-                if (goalAmount <= 0 || selectedWallet == null) {
+                if (goalAmount <= 0) {
                     return;
                 }
 
+                goal.goalAmount = goalAmount;
+
+                double currentAmount = goalViewModel.getCurrentAmount(goal.id);
+
                 if (isAddMoney) {
-                    goal.description = getString(R.string.goal_contribution);
+                    // Add Money
+                    if (currentAmount + goalAmount > goal.targetAmount) {
+                        Toast.makeText(getApplicationContext(), R.string.amount_exceeds, Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    goalViewModel.addMoneyToGoal(goal, selectedWallet, goalAmount);
+                        goal.savedAmount = goal.savedAmount + goalAmount;
 
-                    Toast.makeText(getApplicationContext(), getString(R.string.money_added_successfully_to_the_goal), Toast.LENGTH_SHORT).show();
+                        goalViewModel.addMoney(goal);
+                        Toast.makeText(getApplicationContext(), R.string.money_added, Toast.LENGTH_SHORT).show();
+                        finish();
+                        ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                    }
                 } else {
-                    goal.description = getString(R.string.goal_withdrawal);
+                    // Withdraw Money
+                    if (currentAmount <= 0) {
+                        Toast.makeText(getApplicationContext(), R.string.no_money_withdraw, Toast.LENGTH_SHORT).show();
+                    } else if (goalAmount > currentAmount) {
+                        Toast.makeText(getApplicationContext(), R.string.withdrawal_exceeds_amount, Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    goalViewModel.withdrawMoneyFromGoal(goal, selectedWallet, goalAmount);
+                        goal.savedAmount = goal.savedAmount - goalAmount;
 
-                    Toast.makeText(getApplicationContext(), getString(R.string.money_withdraw_successfully_from_the_goal), Toast.LENGTH_SHORT).show();
+                        goalViewModel.withdrawMoney(goal);
+                        Toast.makeText(getApplicationContext(), R.string.money_withdraw, Toast.LENGTH_SHORT).show();
+                        finish();
+                        ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                    }
                 }
-                finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -291,7 +277,7 @@ public class GoalMoneyActivity extends BaseActivity {
 
                             if (type != null && type.equalsIgnoreCase("goalAmount")) {
                                 goalAmount = amount;
-                                tvTargetAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalAmount));
+                                tvTargetAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, goalAmount));
                             }
                             updateSaveButtonState();
                         }
@@ -302,7 +288,6 @@ public class GoalMoneyActivity extends BaseActivity {
     private void updateSaveButtonState() {
         boolean enabled = goalAmount > 0;
 
-        enabled &= selectedWallet != null;
         enabled &= !tvTargetDate.getText().toString().isEmpty();
 
         btnAddMoney.setEnabled(enabled);
@@ -331,51 +316,5 @@ public class GoalMoneyActivity extends BaseActivity {
         int color = ContextCompat.getColor(this, R.color.vibrant_orange);
         dialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(color);
         dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
-    }
-
-    private void selectWallets() {
-        try {
-
-            BottomSheetDialog dialog = new BottomSheetDialog(this);
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
-            RecyclerView rvWallets = bottomView.findViewById(R.id.rvWallets);
-            View viewLine = bottomView.findViewById(R.id.viewLine);
-            LinearLayout layoutAddWallet = bottomView.findViewById(R.id.layoutAddWallet);
-            viewLine.setVisibility(View.GONE);
-            layoutAddWallet.setVisibility(View.GONE);
-
-            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletLists, R.layout.item_switch_accounts) {
-                @Override
-                public void onPostBindViewHolder(ViewHolder holder, WalletEntity walletEntity) {
-
-                    holder.setViewText(R.id.tvAccountName, walletEntity.name);
-
-                    holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
-                            CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.amount)));
-
-                    if (selectedWallet != null) {
-                        holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
-                    }
-
-                    holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
-                        selectedWallet = walletEntity;
-
-                        tvGoalWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
-                        tvTargetAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalAmount));
-
-                        updateSaveButtonState();
-                        dialog.dismiss();
-                    });
-                }
-            };
-
-            rvWallets.setAdapter(adapter);
-            rvWallets.setHasFixedSize(true);
-            dialog.setContentView(bottomView);
-            dialog.show();
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "switchAccounts", e);
-        }
     }
 }

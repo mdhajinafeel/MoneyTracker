@@ -29,6 +29,7 @@ import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.adapters.WalletsAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.GoalViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.util.ArrayList;
@@ -43,7 +44,9 @@ public class MoreFragment extends Fragment {
     private WalletsAdapter walletsAdapter;
     private WalletViewModel walletViewModel;
     private AccountViewModel accountViewModel;
-
+    private GoalViewModel goalViewModel;
+    private List<MoreOptionsModel> moreOptionsModels;
+    private RecyclerViewAdapter<MoreOptionsModel> moreOptionsAdapter;
 
     @Nullable
     @Override
@@ -56,6 +59,7 @@ public class MoreFragment extends Fragment {
 
             walletViewModel = new ViewModelProvider(requireActivity()).get(WalletViewModel.class);
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
+            goalViewModel = new ViewModelProvider(requireActivity()).get(GoalViewModel.class);
 
             initializeAdapters();
             setupListeners();
@@ -70,6 +74,7 @@ public class MoreFragment extends Fragment {
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
                 if (account != null) {
                     walletViewModel.selectAccount(account.id);
+                    goalViewModel.selectAccount(account.id);
                 }
             });
 
@@ -86,6 +91,17 @@ public class MoreFragment extends Fragment {
                         .putExtra("walletId", wallet.id));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
+
+            goalViewModel.goalCount().observe(getViewLifecycleOwner(), count -> {
+                if (count == null) {
+                    count = 0;
+                }
+
+                MoreOptionsModel goalModel = moreOptionsModels.get(1);
+                goalModel.count = count;
+
+                moreOptionsAdapter.notifyItemChanged(1);
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
@@ -98,13 +114,13 @@ public class MoreFragment extends Fragment {
             rvWallets.setHasFixedSize(true);
             rvWallets.setItemAnimator(null);
 
-            List<MoreOptionsModel> moreOptionsModels = new ArrayList<>();
-            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_BUDGET, getString(R.string.budget), "Plan your spending", R.drawable.ic_more_budget, R.color.budget_dark, R.color.budget_light, 0));
-            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_GOAL, getString(R.string.goals), "Track your progress", R.drawable.ic_more_goal, R.color.goal_dark, R.color.goal_light, 2));
-            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_DEBT, getString(R.string.debt), "Manage what you have owe", R.drawable.ic_more_debt, R.color.debt_dark, R.color.debt_light, 0));
-            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_RECURRING, getString(R.string.recurring), "Track recurring transactions", R.drawable.ic_more_recurring, R.color.reminder_dark, R.color.recurring_light, 0));
+            moreOptionsModels = new ArrayList<>();
+            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_BUDGET, getString(R.string.budget), getString(R.string.plan_your_spending), R.drawable.ic_more_budget, R.color.budget_dark, R.color.budget_light, 0));
+            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_GOAL, getString(R.string.goals), getString(R.string.track_your_progress), R.drawable.ic_more_goal, R.color.goal_dark, R.color.goal_light, 0));
+            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_DEBT, getString(R.string.debt), getString(R.string.manage_what_you_have_owe), R.drawable.ic_more_debt, R.color.debt_dark, R.color.debt_light, 0));
+            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_RECURRING, getString(R.string.recurring), getString(R.string.track_recurring_transactions), R.drawable.ic_more_recurring, R.color.reminder_dark, R.color.recurring_light, 0));
 
-            RecyclerViewAdapter<MoreOptionsModel> moreOptionsAdapter = new RecyclerViewAdapter<>(requireActivity(), moreOptionsModels, R.layout.item_more_options) {
+            moreOptionsAdapter = new RecyclerViewAdapter<>(requireActivity(), moreOptionsModels, R.layout.item_more_options) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, MoreOptionsModel moreOptionsModel) {
 

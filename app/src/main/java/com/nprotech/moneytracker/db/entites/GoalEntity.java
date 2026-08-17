@@ -13,18 +13,15 @@ public class GoalEntity {
 
     public double targetAmount;
     public double savedAmount;
-
+    public double initialAmount;
     public long targetDate;
-
     public int category;
-
-    // Goal Wallet
-    public int walletId;
+    public int currencyId;
     public int accountId;
+    public String notes;
 
     // Auto Save
     public boolean autoSaveEnabled;
-    public int autoSaveWalletId;
     public double autoSaveAmount;
     public int autoSaveFrequency;
     public long autoSaveStartDate;
@@ -37,6 +34,10 @@ public class GoalEntity {
     public boolean isSynced;
     public boolean isDeleted;
     public boolean isCompleted;
+    public long completedOn;
+    public boolean isArchived;
+    public long archivedOn;
     public long startedDate;
+    public long createdAt;
     public long updatedAt;
 }

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -34,6 +35,8 @@ import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.GoalWithDetails;
+import com.nprotech.moneytracker.ui.activities.CreateGoalActivity;
+import com.nprotech.moneytracker.ui.activities.GoalDetailActivity;
 import com.nprotech.moneytracker.ui.activities.GoalMoneyActivity;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
@@ -46,7 +49,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MyGoalFragment extends Fragment {
+public class InProgressGoalFragment extends Fragment {
 
     private RecyclerView rvGoals;
     private ConstraintLayout emptyWrapper;
@@ -81,7 +84,7 @@ public class MyGoalFragment extends Fragment {
     private void bindData() {
         try {
 
-            goalViewModel.getGoals(false, (int) PreferenceManager.INSTANCE.getAccountId()).observe(getViewLifecycleOwner(), goalWithDetails -> {
+            goalViewModel.getGoals((int) PreferenceManager.INSTANCE.getAccountId(), false, false).observe(getViewLifecycleOwner(), goalWithDetails -> {
                 if (goalWithDetails.isEmpty()) {
                     emptyWrapper.setVisibility(View.VISIBLE);
                     rvGoals.setVisibility(View.GONE);
@@ -98,12 +101,17 @@ public class MyGoalFragment extends Fragment {
 
     private void initializeAdapter() {
         try {
+
+            Drawable calendarDrawable = AppCompatResources.getDrawable(requireActivity(), R.drawable.ic_calendar);
+
             goalAdapter = new RecyclerViewAdapter<>(requireActivity(), new ArrayList<>(), R.layout.item_goal_detail) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, GoalWithDetails goalWithDetail) {
 
                     AppCompatTextView tvGoalCategory = holder.getView(R.id.tvGoalCategory);
                     AppCompatTextView tvProgress = holder.getView(R.id.tvProgress);
+                    AppCompatTextView tvAutoSave = holder.getView(R.id.tvAutoSave);
+                    AppCompatTextView tvTargetDate = holder.getView(R.id.tvTargetDate);
                     AppCompatImageView ivGoalCategoryDot = holder.getView(R.id.ivGoalCategoryDot);
                     ProgressBar progressGoal = holder.getView(R.id.progressGoal);
 
@@ -115,7 +123,7 @@ public class MyGoalFragment extends Fragment {
                     tvGoalCategory.setText(goalWithDetail.categoryName);
                     holder.setViewText(R.id.tvSavedAmount, CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.savedAmount));
                     holder.setViewText(R.id.tvTargetAmount, " / " + CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.targetAmount));
-                    holder.setViewText(R.id.tvTargetDate, DateHelper.getFormattedDate(goalWithDetail.targetDate, "dd MMM yyyy"));
+                    tvTargetDate.setText(DateHelper.getFormattedDate(goalWithDetail.targetDate, "dd MMM yyyy"));
                     tvProgress.setText(getResources().getString(R.string.progress_percentage, progress));
                     holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
 
@@ -134,6 +142,21 @@ public class MyGoalFragment extends Fragment {
                     tvProgress.setTextColor(goalColor);
 
                     holder.getView(R.id.ivMore).setOnClickListener(view -> showOptionDialog(goalWithDetail));
+
+                    if (goalWithDetail.autoSaveEnabled) {
+                        tvAutoSave.setVisibility(View.VISIBLE);
+                        tvAutoSave.setText(getString(R.string.auto_save_on_date, getString(R.string.auto_save),
+                                CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.autoSaveAmount),
+                                DateHelper.getFormattedDate(goalWithDetail.nextAutoSaveDate, "dd MMM")));
+                    } else {
+                        tvAutoSave.setVisibility(View.GONE);
+                    }
+
+                    if (calendarDrawable != null) {
+                        int size = getResources().getDimensionPixelSize(R.dimen.icon_12);
+                        calendarDrawable.setBounds(0, 0, size, size);
+                        tvTargetDate.setCompoundDrawablesRelative(calendarDrawable, null, null, null);
+                    }
                 }
             };
             rvGoals.setAdapter(goalAdapter);
@@ -151,11 +174,33 @@ public class MyGoalFragment extends Fragment {
             AppCompatTextView tvGoalName = bottomView.findViewById(R.id.tvGoalName);
             AppCompatTextView tvGoalAmount = bottomView.findViewById(R.id.tvGoalAmount);
             LinearLayout optionViewDetails = bottomView.findViewById(R.id.optionViewDetails);
+            View viewViewDetails = bottomView.findViewById(R.id.viewViewDetails);
             LinearLayout optionAddMoney = bottomView.findViewById(R.id.optionAddMoney);
+            View viewAddMoney = bottomView.findViewById(R.id.viewAddMoney);
+            LinearLayout optionEdit = bottomView.findViewById(R.id.optionEdit);
+            View viewEdit = bottomView.findViewById(R.id.viewEdit);
             LinearLayout optionWithdrawal = bottomView.findViewById(R.id.optionWithdrawal);
+            View viewWithdrawal = bottomView.findViewById(R.id.viewWithdrawal);
+            LinearLayout optionComplete = bottomView.findViewById(R.id.optionComplete);
+            View viewComplete = bottomView.findViewById(R.id.viewComplete);
+            LinearLayout optionArchive = bottomView.findViewById(R.id.optionArchive);
             LinearLayout optionDelete = bottomView.findViewById(R.id.optionDelete);
+            View viewLineDelete = bottomView.findViewById(R.id.viewLineDelete);
 
             tvGoalName.setText(goal.name);
+            optionViewDetails.setVisibility(View.VISIBLE);
+            viewViewDetails.setVisibility(View.VISIBLE);
+            optionEdit.setVisibility(View.VISIBLE);
+            viewEdit.setVisibility(View.VISIBLE);
+            optionAddMoney.setVisibility(View.VISIBLE);
+            viewAddMoney.setVisibility(View.VISIBLE);
+            optionWithdrawal.setVisibility(View.VISIBLE);
+            viewWithdrawal.setVisibility(View.VISIBLE);
+            optionDelete.setVisibility(View.VISIBLE);
+            optionComplete.setVisibility(View.VISIBLE);
+            viewComplete.setVisibility(View.VISIBLE);
+            optionArchive.setVisibility(View.VISIBLE);
+            viewLineDelete.setVisibility(View.VISIBLE);
 
             String savedAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goal.savedAmount);
             String targetAmount = CommonUtils.getBeautifyAmount(goal.currencySymbol, goal.targetAmount);
@@ -182,10 +227,38 @@ public class MyGoalFragment extends Fragment {
             // VIEW DETAILS
             optionViewDetails.setOnClickListener(view -> {
                 dialog.dismiss();
-                startActivity(new Intent(requireActivity(), GoalMoneyActivity.class)
-                        .putExtra("addMoney", false)
+                startActivity(new Intent(requireActivity(), GoalDetailActivity.class)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            // EDIT DETAILS
+            optionEdit.setOnClickListener(view -> {
+                dialog.dismiss();
+                startActivity(new Intent(requireActivity(), CreateGoalActivity.class)
+                        .putExtra("isEdit", true)
+                        .putExtra("goalId", goal.id));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            // COMPLETED
+            optionComplete.setOnClickListener(view -> {
+                dialog.dismiss();
+                if (goalViewModel.markAsCompletedGoal(goal.id)) {
+                    Toast.makeText(requireActivity(), getString(R.string.goal_achieved_successfully), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.error_completing), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            // ARCHIVE
+            optionArchive.setOnClickListener(view -> {
+                dialog.dismiss();
+                if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
+                    Toast.makeText(requireActivity(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
+                }
             });
 
             // DELETE
@@ -227,10 +300,10 @@ public class MyGoalFragment extends Fragment {
                 return;
             }
 
-            if(goalViewModel.deleteGoal(goal.id)) {
+            if (goalViewModel.deleteGoal(goal.id)) {
                 Toast.makeText(requireActivity(), getString(R.string.goal_deleted_successfully), Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(requireActivity(), getString(R.string.error_when_deleting_the_data), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireActivity(), getString(R.string.error_delete_goal), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);

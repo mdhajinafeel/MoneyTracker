@@ -22,13 +22,14 @@ import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
+import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 @Database(entities = {CurrencyEntity.class, CategoryEntity.class, CommonDataEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
-        TransactionAttachmentEntity.class, GoalEntity.class},
+        TransactionAttachmentEntity.class, GoalEntity.class, GoalContributionEntity.class},
         version = 1)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 

@@ -33,6 +33,10 @@ public class MasterViewModel extends ViewModel {
         return masterRepository.getFirstCurrencyForWallet(accountId);
     }
 
+    public CurrencyEntity getFirstCurrencyForAccount(int accountId) {
+        return masterRepository.getFirstCurrencyForAccount(accountId);
+    }
+
     public List<CurrencyEntity> getCurrenciesForWallet(int accountId) {
         return masterRepository.getCurrenciesForWallet(accountId);
     }

@@ -101,7 +101,7 @@ public class CurrencyPickerActivity extends BaseActivity {
 
     private void fetchCurrencies(String type) {
         try {
-            if (type.equalsIgnoreCase("account")) {
+            if (type.equalsIgnoreCase("account") || type.equalsIgnoreCase("goal")) {
                 currencyLists = masterViewModel.getAllCurrencies();
             } else if (type.equalsIgnoreCase("wallet")) {
                 currencyLists = masterViewModel.getCurrenciesForWallet((int) PreferenceManager.INSTANCE.getAccountId());

@@ -35,7 +35,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolbarBack"
+                app:tabGravity="fill"
                 app:tabIndicatorColor="@color/ghost_white"
+                app:tabIndicatorFullWidth="false"
+                app:tabMode="fixed"
                 app:tabSelectedTextColor="@color/white"
                 app:tabTextColor="@color/light_white" />
         </androidx.constraintlayout.widget.ConstraintLayout>

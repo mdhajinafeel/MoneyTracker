@@ -68,7 +68,7 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    GoalRepository provideGoalRepository(GoalDao goalDao, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
-        return new GoalRepository(goalDao, walletDao, transactionDao, accountDao);
+    GoalRepository provideGoalRepository(GoalDao goalDao) {
+        return new GoalRepository(goalDao);
     }
 }

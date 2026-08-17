@@ -9,6 +9,7 @@
     <string name="trans_delete_failed">Transaction deleted failed</string>
     <string name="fee">Fee</string>
     <string name="memo">Note</string>
+    <string name="notes">Notes</string>
     <string name="add_note">Add a note…</string>
     <string name="description">Description</string>
     <string name="short_description">Short Description</string>

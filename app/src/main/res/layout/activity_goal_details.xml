@@ -1,0 +1,1429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <!-- Toolbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="false"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topWrapper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_12"
+                    android:layout_marginTop="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_10">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/headerContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/very_light_lavender"
+                            android:padding="@dimen/padding_12"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivGoalIcon"
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:padding="@dimen/padding_8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_bold"
+                                app:layout_constraintStart_toEndOf="@id/ivGoalIcon"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalStatus"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:background="@drawable/bg_badge_income"
+                                android:gravity="center"
+                                android:drawablePadding="@dimen/padding_4"
+                                android:drawableTint="@color/income"
+                                android:paddingHorizontal="@dimen/padding_8"
+                                android:paddingVertical="@dimen/padding_2"
+                                android:textAllCaps="true"
+                                android:textColor="@color/income"
+                                android:textSize="@dimen/text_10"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintStart_toEndOf="@id/ivGoalIcon"
+                                app:layout_constraintTop_toBottomOf="@id/tvGoalName" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalCategory"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:drawablePadding="@dimen/padding_4"
+                                android:drawableTint="@color/primary_dark"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/padding_4"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintStart_toEndOf="@id/ivGoalIcon"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGoalStatus" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivGoalDot"
+                                android:layout_width="3dp"
+                                android:layout_height="3dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/bg_goal_category_dot"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvTargetDays"
+                                app:layout_constraintStart_toEndOf="@id/tvGoalCategory"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGoalStatus"
+                                app:layout_constraintTop_toTopOf="@+id/tvTargetDays" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvTargetDays"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_2"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:drawablePadding="@dimen/padding_4"
+                                android:drawableTint="@color/primary_dark"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/padding_4"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintStart_toEndOf="@id/ivGoalDot"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGoalStatus" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvTargetDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_marginTop="@dimen/margin_2"
+                                android:drawablePadding="@dimen/padding_4"
+                                android:drawableTint="@color/primary_dark"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center_vertical"
+                                android:padding="@dimen/padding_4"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintStart_toEndOf="@id/ivGoalIcon"
+                                app:layout_constraintTop_toBottomOf="@+id/tvGoalCategory" />
+
+                            <!-- Progress Bar -->
+                            <FrameLayout
+                                android:layout_width="72dp"
+                                android:layout_height="72dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ProgressBar
+                                    android:id="@+id/progressRingGoal"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:indeterminate="false"
+                                    android:max="100"
+                                    android:progressDrawable="@drawable/progress_goal_circular" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvGoalProgress"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:gravity="center"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="@dimen/text_12" />
+                            </FrameLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/headerContainer">
+
+                            <!-- 25% Guideline -->
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guidelineHeader1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.333" />
+
+                            <!-- 50% Guideline -->
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guidelineHeader2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.667" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblGoalSavedAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:text="@string/saved_amount"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/guidelineHeader1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalSavedAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/guidelineHeader1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/lblGoalSavedAmount" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblGoalTargetAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:text="@string/target_amount"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintEnd_toStartOf="@id/guidelineHeader2"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader1"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalTargetAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintEnd_toStartOf="@id/guidelineHeader2"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader1"
+                                app:layout_constraintTop_toBottomOf="@+id/lblGoalTargetAmount" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblGoalRemainingAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:textColor="@color/income"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_medium"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader2"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalRemainingAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:textColor="@color/income"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader2"
+                                app:layout_constraintTop_toBottomOf="@+id/lblGoalRemainingAmount" />
+
+                            <!-- Divider 1 -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginVertical="@dimen/margin_4"
+                                android:background="@color/light_grey"
+                                app:layout_constraintBottom_toBottomOf="@id/tvGoalSavedAmount"
+                                app:layout_constraintEnd_toEndOf="@id/guidelineHeader1"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader1"
+                                app:layout_constraintTop_toTopOf="@id/lblGoalSavedAmount" />
+
+                            <!-- Divider 2 -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginVertical="@dimen/margin_4"
+                                android:background="@color/light_grey"
+                                app:layout_constraintBottom_toBottomOf="@id/tvGoalRemainingAmount"
+                                app:layout_constraintEnd_toEndOf="@id/guidelineHeader2"
+                                app:layout_constraintStart_toStartOf="@id/guidelineHeader2"
+                                app:layout_constraintTop_toTopOf="@id/lblGoalRemainingAmount" />
+
+                            <!-- Progress Bar -->
+                            <ProgressBar
+                                android:id="@+id/progressGoal"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="6dp"
+                                android:layout_marginHorizontal="@dimen/margin_16"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:max="100"
+                                android:progressDrawable="@drawable/progress_goal"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvGoalSavedAmount" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvGoalReachHint"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:drawablePadding="@dimen/padding_2"
+                                android:textColor="@color/income"
+                                android:visibility="gone"
+                                android:textSize="@dimen/text_8"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/progressGoal" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalAutoSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_12"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalName"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/autoSaveContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/very_light_income"
+                            android:padding="@dimen/padding_12"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:visibility="gone">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivAutoSaveIcon"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:layout_marginStart="@dimen/margin_6"
+                                android:background="@drawable/bg_circle_equal"
+                                android:backgroundTint="@color/light_income"
+                                android:padding="@dimen/padding_6"
+                                android:src="@drawable/ic_refresh"
+                                android:tint="@color/dark_income"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblAutoSave"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:text="@string/auto_save"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_16"
+                                app:fontFamily="@font/exo2_bold"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:layout_constraintStart_toEndOf="@id/ivAutoSaveIcon"
+                                app:layout_constraintTop_toTopOf="@+id/ivAutoSaveIcon" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblBadgeEnabled"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:layout_marginEnd="@dimen/margin_6"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_income"
+                                android:gravity="center"
+                                android:paddingHorizontal="@dimen/padding_8"
+                                android:paddingVertical="@dimen/padding_4"
+                                android:text="@string/enabled"
+                                android:textAllCaps="true"
+                                android:textColor="@color/income"
+                                android:textSize="@dimen/text_10"
+                                app:fontFamily="@font/exo2_semibold"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/ivAutoSaveIcon" />
+
+                            <!-- 25% Guideline -->
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.25" />
+
+                            <!-- 50% Guideline -->
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.50" />
+
+                            <!-- 75% Guideline -->
+                            <androidx.constraintlayout.widget.Guideline
+                                android:id="@+id/guideline3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                app:layout_constraintGuide_percent="0.75" />
+
+                            <!-- ================= Amount ================= -->
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/amountImage"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginBottom="@dimen/margin_4"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_income"
+                                android:padding="@dimen/padding_8"
+                                android:scaleType="centerInside"
+                                app:layout_constraintEnd_toStartOf="@id/guideline1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:srcCompat="@drawable/ic_amount"
+                                app:tint="@color/dark_income" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblAutoSaveAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center"
+                                android:text="@string/amount"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_10"
+                                app:layout_constraintEnd_toStartOf="@id/guideline1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/amountImage"
+                                app:minTextSize="@dimen/text_10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAutoSaveAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:gravity="center"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintEnd_toStartOf="@id/guideline1"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/lblAutoSaveAmount"
+                                app:minTextSize="@dimen/text_8" />
+
+                            <!-- ================= Frequency ================= -->
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/frequencyImage"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginBottom="@dimen/margin_4"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_income"
+                                android:padding="@dimen/padding_8"
+                                android:scaleType="centerInside"
+                                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                                app:layout_constraintStart_toStartOf="@id/guideline1"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:srcCompat="@drawable/ic_calendar_custom"
+                                app:tint="@color/dark_income" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblFrequency"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center"
+                                android:text="@string/frequency"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_10"
+                                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                                app:layout_constraintStart_toStartOf="@id/guideline1"
+                                app:layout_constraintTop_toBottomOf="@+id/frequencyImage"
+                                app:minTextSize="@dimen/text_10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvFrequency"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:gravity="center"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintEnd_toStartOf="@id/guideline2"
+                                app:layout_constraintStart_toStartOf="@id/guideline1"
+                                app:layout_constraintTop_toBottomOf="@+id/lblFrequency"
+                                app:minTextSize="@dimen/text_8" />
+
+                            <!-- ================= Next Save ================= -->
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/timeImage"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginBottom="@dimen/margin_4"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_income"
+                                android:padding="@dimen/padding_8"
+                                android:scaleType="centerInside"
+                                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                                app:layout_constraintStart_toStartOf="@id/guideline2"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:srcCompat="@drawable/ic_time_solid"
+                                app:tint="@color/dark_income" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblNextSave"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center"
+                                android:text="@string/next_auto_save"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_10"
+                                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                                app:layout_constraintStart_toStartOf="@id/guideline2"
+                                app:layout_constraintTop_toBottomOf="@+id/timeImage"
+                                app:minTextSize="@dimen/text_10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvNextSave"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:gravity="center"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintEnd_toStartOf="@id/guideline3"
+                                app:layout_constraintStart_toStartOf="@id/guideline2"
+                                app:layout_constraintTop_toBottomOf="@+id/lblNextSave"
+                                app:minTextSize="@dimen/text_8" />
+
+                            <!-- ================= Start Date ================= -->
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/startImage"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:layout_marginBottom="@dimen/margin_4"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_income"
+                                android:padding="@dimen/padding_8"
+                                android:scaleType="centerInside"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/guideline3"
+                                app:layout_constraintTop_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:srcCompat="@drawable/ic_calendar"
+                                app:tint="@color/dark_income" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblStartDate"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center"
+                                android:text="@string/start_date"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/guideline3"
+                                app:layout_constraintTop_toBottomOf="@+id/startImage"
+                                app:minTextSize="@dimen/text_10" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvStartDate"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:gravity="center"
+                                android:textColor="@color/very_dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="@id/guideline3"
+                                app:layout_constraintTop_toBottomOf="@+id/lblStartDate"
+                                app:minTextSize="@dimen/text_8" />
+
+                            <!-- Divider 1 -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginVertical="@dimen/margin_6"
+                                android:background="@color/light_grey"
+                                app:layout_constraintBottom_toBottomOf="@id/tvAutoSaveAmount"
+                                app:layout_constraintEnd_toEndOf="@id/guideline1"
+                                app:layout_constraintStart_toStartOf="@id/guideline1"
+                                app:layout_constraintTop_toTopOf="@id/amountImage" />
+
+                            <!-- Divider 2 -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginVertical="@dimen/margin_6"
+                                android:background="@color/light_grey"
+                                app:layout_constraintBottom_toBottomOf="@id/tvFrequency"
+                                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                                app:layout_constraintStart_toStartOf="@id/guideline2"
+                                app:layout_constraintTop_toTopOf="@id/frequencyImage" />
+
+                            <!-- Divider 3 -->
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="0dp"
+                                android:layout_marginVertical="@dimen/margin_6"
+                                android:background="@color/light_grey"
+                                app:layout_constraintBottom_toBottomOf="@id/tvNextSave"
+                                app:layout_constraintEnd_toEndOf="@id/guideline3"
+                                app:layout_constraintStart_toStartOf="@id/guideline3"
+                                app:layout_constraintTop_toTopOf="@id/timeImage" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_6"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:background="@drawable/bg_box_purple"
+                                android:backgroundTint="@color/dim_income"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvAutoSaveAmount">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvAutoSaveHint"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginHorizontal="@dimen/margin_4"
+                                    android:layout_marginTop="@dimen/margin_6"
+                                    android:drawablePadding="@dimen/padding_6"
+                                    android:drawableTint="@color/dark_income"
+                                    android:fontFamily="@font/exo2_semibold"
+                                    android:gravity="center"
+                                    android:padding="@dimen/padding_6"
+                                    android:text="@string/auto_save_hint"
+                                    android:textColor="@color/income"
+                                    android:textSize="@dimen/text_8"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:minTextSize="@dimen/text_8" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/autoSaveDisabledContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/very_light_grey"
+                            android:padding="@dimen/padding_12"
+                            android:visibility="gone"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivAutoSaveDisabled"
+                                android:layout_width="36dp"
+                                android:layout_height="36dp"
+                                android:background="@drawable/bg_circle_theme"
+                                android:backgroundTint="@color/light_lavender"
+                                android:padding="@dimen/padding_10"
+                                android:src="@drawable/ic_reminder"
+                                android:tint="@color/primary_dark"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAutoSaveDisabledTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_8"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/auto_save_not_enabled"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/text_14"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/ivAutoSaveDisabled" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAutoSaveDisabledDescription"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_16"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center"
+                                android:text="@string/enable_auto_save_description"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_10"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvAutoSaveDisabledTitle" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnEnableAutoSave"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="@dimen/margin_16"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:layout_marginEnd="@dimen/margin_16"
+                                android:drawableTint="@color/white"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:letterSpacing="0.01"
+                                android:text="@string/enable_auto_save"
+                                android:textAllCaps="true"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/text_12"
+                                app:backgroundTint="@color/primary"
+                                app:cornerRadius="@dimen/corner_radius_8"
+                                app:elevation="@dimen/corner_elevation_8"
+                                app:icon="@drawable/ic_refresh"
+                                app:iconGravity="textStart"
+                                app:iconPadding="12dp"
+                                app:iconSize="16dp"
+                                app:iconTint="@color/white"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tvAutoSaveDisabledDescription" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/disableContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:visibility="gone"
+                            android:layout_marginBottom="@dimen/margin_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/autoSaveContainer">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAutoSaveDisabled"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginHorizontal="@dimen/margin_4"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:drawablePadding="@dimen/padding_6"
+                                android:drawableTint="@color/bright_red"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:gravity="center"
+                                android:padding="@dimen/padding_6"
+                                android:text="@string/disable_auto_save"
+                                android:textColor="@color/expense"
+                                android:textSize="@dimen/text_12"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalContribution"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_12"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalAutoSave"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_12">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblRecentContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:text="@string/recent_contribution"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblViewAllContribution"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_6"
+                            android:drawablePadding="@dimen/padding_4"
+                            android:drawableTint="@color/primary_dark"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:text="@string/view_all"
+                            android:textColor="@color/primary_dark"
+                            android:textSize="@dimen/text_14"
+                            app:layout_constraintBottom_toBottomOf="@+id/lblRecentContribution"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lblRecentContribution" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/summaryContainer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lblRecentContribution">
+
+                            <LinearLayout
+                                android:id="@+id/layoutContributionSummary"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/margin_12"
+                                android:layout_marginTop="@dimen/margin_10"
+                                android:orientation="horizontal"
+                                android:weightSum="4"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent">
+
+                                <!-- Auto Save -->
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/margin_4"
+                                    android:layout_weight="1"
+                                    app:cardBackgroundColor="@color/very_light_income"
+                                    app:cardCornerRadius="@dimen/corner_radius_10"
+                                    app:cardElevation="0dp"
+                                    app:strokeWidth="0dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_8"
+                                        tools:ignore="TooDeepLayout">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="32dp"
+                                            android:layout_height="32dp"
+                                            android:background="@drawable/bg_circle_equal"
+                                            android:backgroundTint="@color/light_income"
+                                            android:padding="@dimen/padding_6"
+                                            android:src="@drawable/ic_refresh"
+                                            app:tint="@color/income" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_4"
+                                            android:gravity="center"
+                                            android:text="@string/auto_save"
+                                            android:textColor="@color/income"
+                                            android:textSize="@dimen/text_10"
+                                            app:fontFamily="@font/exo2_semibold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvAutoSaveSummaryAmount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_12"
+                                            app:fontFamily="@font/exo2_bold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvAutoSaveSummaryCount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/dark_grey"
+                                            android:textSize="@dimen/text_8"
+                                            app:fontFamily="@font/exo2_medium" />
+
+                                    </LinearLayout>
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <!-- Manual -->
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/margin_4"
+                                    android:layout_weight="1"
+                                    app:cardBackgroundColor="@color/very_light_lavender"
+                                    app:cardCornerRadius="@dimen/corner_radius_10"
+                                    app:cardElevation="0dp"
+                                    app:strokeWidth="0dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_8">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="32dp"
+                                            android:layout_height="32dp"
+                                            android:background="@drawable/bg_circle_equal"
+                                            android:backgroundTint="@color/light_lavender"
+                                            android:padding="@dimen/padding_6"
+                                            android:src="@drawable/ic_wallet"
+                                            app:tint="@color/primary_dark"
+                                            tools:ignore="TooManyViews" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_4"
+                                            android:gravity="center"
+                                            android:text="@string/manual"
+                                            android:textColor="@color/primary_dark"
+                                            android:textSize="@dimen/text_10"
+                                            app:fontFamily="@font/exo2_semibold"
+                                            tools:ignore="TooManyViews" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvManualSummaryAmount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_12"
+                                            app:fontFamily="@font/exo2_bold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvManualSummaryCount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/dark_grey"
+                                            android:textSize="@dimen/text_8"
+                                            app:fontFamily="@font/exo2_medium" />
+
+                                    </LinearLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <!-- Initial Amount -->
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="@dimen/margin_4"
+                                    android:layout_weight="1"
+                                    app:cardBackgroundColor="@color/very_light_orange"
+                                    app:cardCornerRadius="@dimen/corner_radius_10"
+                                    app:cardElevation="0dp"
+                                    app:strokeWidth="0dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_8">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="32dp"
+                                            android:layout_height="32dp"
+                                            android:background="@drawable/bg_circle_equal"
+                                            android:backgroundTint="@color/light_orange"
+                                            android:padding="@dimen/padding_6"
+                                            android:src="@drawable/ic_star"
+                                            app:tint="@color/orange" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_4"
+                                            android:gravity="center"
+                                            android:text="@string/initial"
+                                            android:textColor="@color/orange"
+                                            android:textSize="@dimen/text_10"
+                                            app:fontFamily="@font/exo2_semibold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvInitialSummaryAmount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_12"
+                                            app:fontFamily="@font/exo2_bold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvInitialSummaryCount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/dark_grey"
+                                            android:textSize="@dimen/text_8"
+                                            app:fontFamily="@font/exo2_medium" />
+
+                                    </LinearLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <!-- Withdrawal -->
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin_4"
+                                    android:layout_weight="1"
+                                    app:cardBackgroundColor="@color/very_light_expense"
+                                    app:cardCornerRadius="@dimen/corner_radius_10"
+                                    app:cardElevation="0dp"
+                                    app:strokeWidth="0dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical"
+                                        android:padding="@dimen/padding_8">
+
+                                        <androidx.appcompat.widget.AppCompatImageView
+                                            android:layout_width="32dp"
+                                            android:layout_height="32dp"
+                                            android:background="@drawable/bg_circle_equal"
+                                            android:backgroundTint="@color/light_expense"
+                                            android:padding="@dimen/padding_6"
+                                            android:src="@drawable/ic_withdraw"
+                                            app:tint="@color/expense" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_4"
+                                            android:gravity="center"
+                                            android:text="@string/withdrawal"
+                                            android:textColor="@color/expense"
+                                            android:textSize="@dimen/text_10"
+                                            app:fontFamily="@font/exo2_semibold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvWithdrawalSummaryAmount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/text_12"
+                                            app:fontFamily="@font/exo2_bold" />
+
+                                        <androidx.appcompat.widget.AppCompatTextView
+                                            android:id="@+id/tvWithdrawalSummaryCount"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_2"
+                                            android:gravity="center"
+                                            android:textColor="@color/dark_grey"
+                                            android:textSize="@dimen/text_8"
+                                            app:fontFamily="@font/exo2_medium" />
+                                    </LinearLayout>
+                                </com.google.android.material.card.MaterialCardView>
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <View
+                            android:id="@+id/viewLine"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginHorizontal="@dimen/margin_10"
+                            android:layout_marginVertical="@dimen/margin_10"
+                            android:background="@color/light_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/summaryContainer" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblNoContributions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:text="@string/no_transaction"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/text_12"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/viewLine" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTransactions"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:clipToPadding="false"
+                            android:paddingBottom="16dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/viewLine" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardGoalInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_12"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardGoalContribution"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/padding_12">
+
+                        <!-- 50% Guideline -->
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guidelineGoalInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.50" />
+
+                        <!-- Divider 1 -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:background="@color/light_grey"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guidelineGoalInfo"
+                            app:layout_constraintStart_toStartOf="@id/guidelineGoalInfo"
+                            app:layout_constraintTop_toBottomOf="@+id/lblGoalInformation" />
+
+                        <!-- Divider 2 -->
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:layout_marginHorizontal="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:background="@color/light_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/categoryImage" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblGoalInformation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:text="@string/goal_information"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- ================= Category ================= -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/categoryImage"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_14"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            android:background="@drawable/bg_box_purple"
+                            android:padding="@dimen/padding_8"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/lblGoalInformation"
+                            app:srcCompat="@drawable/ic_category"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblCategory"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintStart_toEndOf="@+id/categoryImage"
+                            app:layout_constraintTop_toTopOf="@+id/categoryImage"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCategory"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintBottom_toBottomOf="@+id/categoryImage"
+                            app:layout_constraintEnd_toStartOf="@id/guidelineGoalInfo"
+                            app:layout_constraintStart_toEndOf="@+id/categoryImage"
+                            app:layout_constraintTop_toBottomOf="@+id/lblCategory"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <!-- ================= Created ================= -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/createdOnImage"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_14"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            android:background="@drawable/bg_box_purple"
+                            android:padding="@dimen/padding_8"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toStartOf="@id/guidelineGoalInfo"
+                            app:layout_constraintTop_toBottomOf="@+id/lblGoalInformation"
+                            app:srcCompat="@drawable/ic_calendar"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblCreatedOn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/created_on"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintStart_toEndOf="@+id/createdOnImage"
+                            app:layout_constraintTop_toTopOf="@+id/createdOnImage"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCreatedOn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintBottom_toBottomOf="@+id/createdOnImage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/createdOnImage"
+                            app:layout_constraintTop_toBottomOf="@+id/lblCreatedOn"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <!-- ================= Notes ================= -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/notesImage"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_20"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            android:background="@drawable/bg_box_purple"
+                            android:padding="@dimen/padding_8"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/categoryImage"
+                            app:srcCompat="@drawable/ic_desc"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblNotes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/notes"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintStart_toEndOf="@+id/notesImage"
+                            app:layout_constraintTop_toTopOf="@+id/notesImage"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvNotes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintEnd_toStartOf="@id/guidelineGoalInfo"
+                            app:layout_constraintStart_toEndOf="@+id/notesImage"
+                            app:layout_constraintTop_toBottomOf="@+id/lblNotes"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <!-- ================= Goal Id ================= -->
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/goalIdImage"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_20"
+                            android:layout_marginBottom="@dimen/margin_4"
+                            android:background="@drawable/bg_box_purple"
+                            android:padding="@dimen/padding_8"
+                            android:scaleType="centerInside"
+                            app:layout_constraintStart_toStartOf="@id/guidelineGoalInfo"
+                            app:layout_constraintTop_toBottomOf="@+id/createdOnImage"
+                            app:srcCompat="@drawable/ic_grid_id"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblGoalId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/goal_id"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintStart_toEndOf="@+id/goalIdImage"
+                            app:layout_constraintTop_toTopOf="@+id/goalIdImage"
+                            app:minTextSize="@dimen/text_8" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvGoalId"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintBottom_toBottomOf="@+id/goalIdImage"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/goalIdImage"
+                            app:layout_constraintTop_toBottomOf="@+id/lblGoalId"
+                            app:minTextSize="@dimen/text_8" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

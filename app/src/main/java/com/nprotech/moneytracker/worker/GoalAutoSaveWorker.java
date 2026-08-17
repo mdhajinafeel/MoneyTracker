@@ -7,10 +7,9 @@ import androidx.hilt.work.HiltWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
-import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
 import com.nprotech.moneytracker.repositories.GoalRepository;
 
 import java.util.List;
@@ -21,12 +20,12 @@ import dagger.assisted.AssistedInject;
 @HiltWorker
 public class GoalAutoSaveWorker extends Worker {
 
-    private final GoalRepository goalRepository;
+    private final GoalRepository repository;
 
     @AssistedInject
-    public GoalAutoSaveWorker(@Assisted @NonNull Context context, @Assisted @NonNull WorkerParameters workerParams, GoalRepository goalRepository) {
-        super(context, workerParams);
-        this.goalRepository = goalRepository;
+    public GoalAutoSaveWorker(@Assisted @NonNull Context context, @Assisted @NonNull WorkerParameters params, GoalRepository repository) {
+        super(context, params);
+        this.repository = repository;
     }
 
     @NonNull
@@ -34,35 +33,38 @@ public class GoalAutoSaveWorker extends Worker {
     public Result doWork() {
 
         try {
-            List<GoalEntity> goals = goalRepository.getDueAutoSaveGoals();
-            for (GoalEntity goal : goals) {
-                processGoal(goal);
-            }
-            return Result.success();
 
+            long now = System.currentTimeMillis();
+
+            List<GoalEntity> goals = repository.getDueAutoSaveGoals(now);
+
+            for (GoalEntity goal : goals) {
+
+                try {
+                    repository.executeAutoSave(goal);
+                } catch (Exception e) {
+                    AppLogger.e(getClass(), "executeAutoSave", e);
+                }
+            }
+
+            scheduleNext();
+            return Result.success();
         } catch (Exception e) {
             AppLogger.e(getClass(), "doWork", e);
             return Result.retry();
         }
     }
 
-    private void processGoal(GoalEntity goal) {
+    private void scheduleNext() {
 
-        try {
-            goalRepository.saveGoalMoney(goal.id, goal.autoSaveWalletId, goal.autoSaveAmount, true);
-        } catch (GoalRepository.InsufficientWalletBalanceException e) {
-            handleAutoSaveFailed(goal);
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "processGoal", e);
+        Long nextRunDate = repository.getEarliestAutoSaveDate();
+
+        if (nextRunDate == null) {
+            return;
         }
-    }
 
-    private void handleAutoSaveFailed(GoalEntity goal) {
-        // Don't create transaction.
-        // Don't decrease wallet.
-        // Don't increase goal.
+        long delay = nextRunDate - System.currentTimeMillis();
 
-        // Move to next scheduled occurrence.
-        goalRepository.skipAutoSave(goal);
+        GoalWorkManagerHelper.scheduleAutoSave(getApplicationContext(), Math.max(delay, 0));
     }
 }

@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -36,15 +37,16 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
+import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
-import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.GoalFrequencyModel;
+import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -54,6 +56,7 @@ import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
+import com.nprotech.moneytracker.viewmodel.MasterViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -68,28 +71,30 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateGoalActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivGoalIcon;
-    private AppCompatTextView tvSave, tvCategory, tvTargetAmount, tvTargetDate, tvGoalInitial, tvGoalWallet, tvAutoSaveAmount, tvFrequency,
+    private AppCompatTextView tvSave, tvCategory, tvTargetCurrency, tvTargetAmount, tvTargetDate, tvGoalInitial, tvAutoSaveAmount, tvFrequency,
             tvStartDate, tvWeekDay, tvDayOfMonth, tvMonth, tvDay, maxLimitLabel;
-    private AppCompatEditText etGoalName;
-    private MaterialCardView cardGoalCategory, cardGoalTarget, cardGoalDate, cardGoalInitial, cardGoalWallet;
+    private AppCompatEditText etGoalName, etDescription;
+    private MaterialCardView cardGoalCategory, cardGoalCurrency, cardGoalTarget, cardGoalDate, cardGoalInitial;
     private SwitchCompat switchAutoView;
     private LinearLayout layoutAutoSaveFields, layoutStartDate, layoutWeekDay, layoutDayOfMonth;
     private ConstraintLayout layoutYearly;
     private double targetAmount = 0, goalInitialAmount = 0, autoSaveAmount = 0;
-    private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
+    private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher, currencyLauncher;
     private AccountEntity account;
     private AccountViewModel accountViewModel;
     private CategoryViewModel categoryViewModel;
+    private MasterViewModel masterViewModel;
     private GoalViewModel goalViewModel;
     private CategoryEntity goalCategory;
-    private List<WalletEntity> walletLists;
-    private WalletEntity selectedWallet;
+    private CurrencyEntity currency;
     private int selectedFrequency = Constants.GOAL_FREQUENCY_MONTHLY;
     private long targetDate = 0, autoSaveStartDate = 0;
     private int autoSaveWeekDay = Calendar.MONDAY;
     private int autoSaveDayOfMonth = 1;
     private int autoSaveMonth = Calendar.JANUARY;
     private int autoSaveDay = 1;
+    private boolean isEdit = false;
+    private int goalId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -108,16 +113,18 @@ public class CreateGoalActivity extends BaseActivity {
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
 
-            tvTitle.setText(getString(R.string.add_goal));
             tvSave.setVisibility(View.VISIBLE);
 
             cardGoalCategory = findViewById(R.id.cardGoalCategory);
+            cardGoalCurrency = findViewById(R.id.cardGoalCurrency);
             cardGoalTarget = findViewById(R.id.cardGoalTarget);
             cardGoalDate = findViewById(R.id.cardGoalDate);
             cardGoalInitial = findViewById(R.id.cardGoalInitial);
             etGoalName = findViewById(R.id.etGoalName);
+            etDescription = findViewById(R.id.etDescription);
             maxLimitLabel = findViewById(R.id.maxLimitLabel);
             tvCategory = findViewById(R.id.tvCategory);
+            tvTargetCurrency = findViewById(R.id.tvTargetCurrency);
             ivGoalIcon = findViewById(R.id.ivGoalIcon);
             tvTargetDate = findViewById(R.id.tvTargetDate);
             tvTargetAmount = findViewById(R.id.tvTargetAmount);
@@ -128,8 +135,6 @@ public class CreateGoalActivity extends BaseActivity {
             layoutWeekDay = findViewById(R.id.layoutWeekDay);
             layoutDayOfMonth = findViewById(R.id.layoutDayOfMonth);
             layoutYearly = findViewById(R.id.layoutYearly);
-            tvGoalWallet = findViewById(R.id.tvGoalWallet);
-            cardGoalWallet = findViewById(R.id.cardGoalWallet);
             tvAutoSaveAmount = findViewById(R.id.tvAutoSaveAmount);
             tvFrequency = findViewById(R.id.tvFrequency);
             tvStartDate = findViewById(R.id.tvStartDate);
@@ -140,6 +145,7 @@ public class CreateGoalActivity extends BaseActivity {
 
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
             categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+            masterViewModel = new ViewModelProvider(this).get(MasterViewModel.class);
             goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
@@ -154,10 +160,27 @@ public class CreateGoalActivity extends BaseActivity {
                 return insets;
             });
 
-            bindData();
-            setupListeners();
-            setupLauncher();
-            updateSaveButtonState();
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+
+                isEdit = bundle.getBoolean("isEdit", false);
+                goalId = bundle.getInt("goalId", 0);
+
+                if (isEdit) {
+                    tvTitle.setText(getString(R.string.edit_goal));
+                } else {
+                    tvTitle.setText(getString(R.string.add_goal));
+                }
+
+                bindData();
+                setupListeners();
+                setupLauncher();
+                updateSaveButtonState();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
@@ -167,31 +190,113 @@ public class CreateGoalActivity extends BaseActivity {
         try {
 
             account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
-            walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
 
-            maxLimitLabel.setText(getString(R.string.character_limit, 0));
+            if (isEdit) {
 
-            goalCategory = getGoalCategoryId();
-            updateCategory();
+                tvSave.setText(getString(R.string.update));
 
-            if (!walletLists.isEmpty()) {
-                selectedWallet = walletLists.get(0);
-                tvGoalWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                        CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+                GoalWithDetails goal = goalViewModel.fetchGoalDetails(goalId);
+                if (goal != null) {
+
+                    currency = masterViewModel.getCurrencyByCode(goal.currencyCode);
+                    goalCategory = categoryViewModel.getCategoryById(goal.categoryId, false);
+
+                    etGoalName.setText(goal.name);
+                    maxLimitLabel.setText(getString(R.string.character_limit, Objects.requireNonNull(etGoalName.getText()).toString().length()));
+
+                    targetAmount = goal.targetAmount;
+                    goalInitialAmount = goal.initialAmount;
+                    autoSaveAmount = goal.autoSaveAmount;
+
+                    targetDate = goal.targetDate;
+                    tvTargetDate.setText(DateHelper.getFormattedDate(targetDate, "dd/MM/yyyy"));
+                    etDescription.setText(goal.notes);
+
+                    // ---------------------------------------------
+// AUTO SAVE
+// ---------------------------------------------
+                    if (goal.autoSaveEnabled) {
+
+                        // Enable auto save
+                        switchAutoView.setChecked(true);
+
+                        // Restore auto save values
+                        autoSaveAmount = goal.autoSaveAmount;
+                        selectedFrequency = goal.autoSaveFrequency;
+
+                        autoSaveStartDate = goal.autoSaveStartDate;
+                        autoSaveWeekDay = goal.autoSaveWeekDay;
+                        autoSaveDayOfMonth = goal.autoSaveDayOfMonth;
+                        autoSaveMonth = goal.autoSaveMonth;
+                        autoSaveDay = goal.autoSaveDay;
+
+                        // Restore start date
+                        if (autoSaveStartDate > 0) {
+                            tvStartDate.setText(DateHelper.getFormattedDate(autoSaveStartDate, "dd MMM yyyy"));
+                        }
+
+                        // Restore frequency
+                        switch (selectedFrequency) {
+
+                            case Constants.GOAL_FREQUENCY_DAILY:
+                                tvFrequency.setText(getString(R.string.calendar_daily));
+                                break;
+
+                            case Constants.GOAL_FREQUENCY_WEEKLY:
+                                tvFrequency.setText(getString(R.string.calendar_weekly));
+                                break;
+
+                            case Constants.GOAL_FREQUENCY_MONTHLY:
+                                tvFrequency.setText(getString(R.string.calendar_monthly));
+                                break;
+
+                            case Constants.GOAL_FREQUENCY_YEARLY:
+                                tvFrequency.setText(getString(R.string.calendar_yearly));
+                                break;
+
+                            default:
+                                selectedFrequency = Constants.GOAL_FREQUENCY_MONTHLY;
+                                tvFrequency.setText(getString(R.string.calendar_monthly));
+                                break;
+                        }
+
+                        // Restore frequency-specific fields
+                        updateFrequencyFields();
+
+                        // Show auto-save fields
+                        layoutAutoSaveFields.setVisibility(View.VISIBLE);
+                        layoutAutoSaveFields.setAlpha(1f);
+                        layoutAutoSaveFields.setTranslationY(0f);
+
+                    } else {
+
+                        // Auto save disabled
+                        switchAutoView.setChecked(false);
+
+                        initializeAutoSaveFields();
+                    }
+                }
+            } else {
+
+                tvSave.setText(getString(R.string.save));
+
+                currency = masterViewModel.getFirstCurrencyForAccount((int) PreferenceManager.INSTANCE.getAccountId());
+                maxLimitLabel.setText(getString(R.string.character_limit, 0));
+
+                goalCategory = getGoalCategoryId();
+
+                targetDate = System.currentTimeMillis();
+                tvTargetDate.setText(DateHelper.getFormattedDate(DateHelper.getCurrentDateTime()));
+
+                layoutAutoSaveFields.setVisibility(View.GONE);
+                layoutAutoSaveFields.setAlpha(1f);
+                layoutAutoSaveFields.setTranslationY(0f);
+
+                initializeAutoSaveFields();
             }
 
-            tvTargetAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, targetAmount));
-            tvGoalInitial.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalInitialAmount));
-            tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, autoSaveAmount));
-
-            layoutAutoSaveFields.setVisibility(View.GONE);
-            layoutAutoSaveFields.setAlpha(1f);
-            layoutAutoSaveFields.setTranslationY(0f);
-
-            targetDate = System.currentTimeMillis();
-            tvTargetDate.setText(DateHelper.getFormattedDate(DateHelper.getCurrentDateTime()));
-
-            initializeAutoSaveFields();
+            updateCategory();
+            updateCurrencyFields();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -259,7 +364,15 @@ public class CreateGoalActivity extends BaseActivity {
                 categoryLauncher.launch(intent, options);
             });
             tvCategory.setOnClickListener(view -> cardGoalCategory.performClick());
-            ivGoalIcon.setOnClickListener(view -> cardGoalCategory.performClick());
+
+            cardGoalCurrency.setOnClickListener(view -> {
+                Intent intent = new Intent(this, CurrencyPickerActivity.class);
+                intent.putExtra("currency", currency);
+                intent.putExtra("type", "goal");
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.slide_in_right, R.anim.slide_out_left);
+                currencyLauncher.launch(intent, options);
+            });
+            tvTargetCurrency.setOnClickListener(view -> cardGoalCurrency.performClick());
 
             cardGoalDate.setOnClickListener(view -> openTargetDatePicker());
             tvTargetDate.setOnClickListener(view -> cardGoalDate.performClick());
@@ -285,13 +398,10 @@ public class CreateGoalActivity extends BaseActivity {
             tvGoalInitial.setOnClickListener(view -> cardGoalInitial.performClick());
 
             // AUTO SAVE
-            switchAutoView.setOnCheckedChangeListener((compoundButton, isChecked) -> animateAutoSaveFields(isChecked));
-
-            cardGoalWallet.setOnClickListener(view -> {
-                hideKeyboard(this);
-                selectWallets();
+            switchAutoView.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+                animateAutoSaveFields(isChecked);
+                updateSaveButtonState();
             });
-            tvGoalWallet.setOnClickListener(view -> cardGoalWallet.performClick());
 
             tvAutoSaveAmount.setOnClickListener(view -> {
                 hideKeyboard(this);
@@ -325,13 +435,13 @@ public class CreateGoalActivity extends BaseActivity {
 
                             if (type != null && type.equalsIgnoreCase("targetAmount")) {
                                 targetAmount = amount;
-                                tvTargetAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, targetAmount));
+                                tvTargetAmount.setText(CommonUtils.getBeautifyAmount(currency.symbol, targetAmount));
                             } else if (type != null && type.equalsIgnoreCase("goalInitialAmount")) {
                                 goalInitialAmount = amount;
-                                tvGoalInitial.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalInitialAmount));
+                                tvGoalInitial.setText(CommonUtils.getBeautifyAmount(currency.symbol, goalInitialAmount));
                             } else if (type != null && type.equalsIgnoreCase("autoSaveAmount")) {
                                 autoSaveAmount = amount;
-                                tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, autoSaveAmount));
+                                tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(currency.symbol, autoSaveAmount));
                             }
                             updateSaveButtonState();
                         }
@@ -349,6 +459,19 @@ public class CreateGoalActivity extends BaseActivity {
                                 goalCategory = categoryEntity;
                                 updateCategory();
                                 updateSaveButtonState();
+                            }
+                        }
+                    }
+                });
+
+        currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            currency = IntentUtils.getSerializableExtra(data, "currency", CurrencyEntity.class);
+                            if (currency != null) {
+                                updateCurrencyFields();
                             }
                         }
                     }
@@ -390,6 +513,12 @@ public class CreateGoalActivity extends BaseActivity {
         enabled &= !tvTargetDate.getText().toString().isEmpty();
         enabled &= !Objects.requireNonNull(etGoalName.getText()).toString().isEmpty();
 
+        // Auto Save validation
+        if (switchAutoView.isChecked()) {
+            enabled &= autoSaveAmount > 0;
+            enabled &= autoSaveStartDate > 0;
+        }
+
         tvSave.setEnabled(enabled);
         enabledSaveOption(enabled);
     }
@@ -417,6 +546,8 @@ public class CreateGoalActivity extends BaseActivity {
     }
 
     private void animateAutoSaveFields(boolean show) {
+
+        hideKeyboard(this);
 
         if (show) {
 
@@ -456,54 +587,6 @@ public class CreateGoalActivity extends BaseActivity {
                         layoutAutoSaveFields.setTranslationY(0f);
                     })
                     .start();
-        }
-    }
-
-    private void selectWallets() {
-        try {
-
-            BottomSheetDialog dialog = new BottomSheetDialog(this);
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
-            RecyclerView rvWallets = bottomView.findViewById(R.id.rvWallets);
-            View viewLine = bottomView.findViewById(R.id.viewLine);
-            LinearLayout layoutAddWallet = bottomView.findViewById(R.id.layoutAddWallet);
-            viewLine.setVisibility(View.GONE);
-            layoutAddWallet.setVisibility(View.GONE);
-
-            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletLists, R.layout.item_switch_accounts) {
-                @Override
-                public void onPostBindViewHolder(ViewHolder holder, WalletEntity walletEntity) {
-
-                    holder.setViewText(R.id.tvAccountName, walletEntity.name);
-
-                    holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
-                            CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.amount)));
-
-                    if (selectedWallet != null) {
-                        holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
-                    }
-
-                    holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
-                        selectedWallet = walletEntity;
-
-                        tvGoalWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
-                        tvTargetAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, targetAmount));
-                        tvGoalInitial.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, goalInitialAmount));
-                        tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, autoSaveAmount));
-
-                        updateSaveButtonState();
-                        dialog.dismiss();
-                    });
-                }
-            };
-
-            rvWallets.setAdapter(adapter);
-            rvWallets.setHasFixedSize(true);
-            dialog.setContentView(bottomView);
-            dialog.show();
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "switchAccounts", e);
         }
     }
 
@@ -606,6 +689,7 @@ public class CreateGoalActivity extends BaseActivity {
                     autoSaveStartDate = selectedDate.getTimeInMillis();
                     tvStartDate.setText(new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(selectedDate.getTime()));
                     prepareAutoSaveSchedule(selectedDate);
+                    updateSaveButtonState();
                 }, year, month, day
         );
 
@@ -628,30 +712,6 @@ public class CreateGoalActivity extends BaseActivity {
         updateFrequencyFields();
     }
 
-    private long calculateFirstAutoSaveDate(GoalEntity goal) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(goal.autoSaveStartDate);
-
-        switch (goal.autoSaveFrequency) {
-
-            case Constants.GOAL_FREQUENCY_DAILY, Constants.GOAL_FREQUENCY_WEEKLY:
-                return calendar.getTimeInMillis();
-
-            case Constants.GOAL_FREQUENCY_MONTHLY:
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDayOfMonth, calendar.getActualMaximum(Calendar.DAY_OF_MONTH)));
-                return calendar.getTimeInMillis();
-
-            case Constants.GOAL_FREQUENCY_YEARLY:
-                calendar.set(Calendar.MONTH, goal.autoSaveMonth);
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDay, calendar.getActualMaximum(Calendar.DAY_OF_MONTH)));
-                return calendar.getTimeInMillis();
-
-            default:
-                return goal.autoSaveStartDate;
-        }
-    }
-
     private void saveGoal() {
         try {
             if (!validateGoal()) {
@@ -663,17 +723,15 @@ public class CreateGoalActivity extends BaseActivity {
             // ------------------------------------------------
             // BASIC GOAL
             // ------------------------------------------------
+            goal.id = goalId;
             goal.name = Objects.requireNonNull(etGoalName.getText()).toString().trim();
             goal.targetAmount = targetAmount;
-            goal.savedAmount = 0;
+            goal.initialAmount = goalInitialAmount;
             goal.targetDate = targetDate;
             goal.category = goalCategory.id;
-
-            // ------------------------------------------------
-            // GOAL WALLET & ACCOUNT
-            // ------------------------------------------------
-            goal.walletId = selectedWallet.id;
-            goal.accountId = account.id;
+            goal.currencyId = currency.id;
+            goal.accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+            goal.notes = Objects.requireNonNull(etDescription.getText()).toString().trim();
 
             // ------------------------------------------------
             // AUTO SAVE
@@ -681,7 +739,6 @@ public class CreateGoalActivity extends BaseActivity {
             goal.autoSaveEnabled = switchAutoView.isChecked();
 
             if (goal.autoSaveEnabled) {
-                goal.autoSaveWalletId = selectedWallet.id;
                 goal.autoSaveAmount = autoSaveAmount;
                 goal.autoSaveFrequency = selectedFrequency;
                 goal.autoSaveStartDate = autoSaveStartDate;
@@ -689,37 +746,59 @@ public class CreateGoalActivity extends BaseActivity {
                 goal.autoSaveDayOfMonth = autoSaveDayOfMonth;
                 goal.autoSaveMonth = autoSaveMonth;
                 goal.autoSaveDay = autoSaveDay;
-                goal.nextAutoSaveDate = calculateFirstAutoSaveDate(goal);
+                goal.nextAutoSaveDate = autoSaveStartDate;
             } else {
-                goal.autoSaveWalletId = 0;
                 goal.autoSaveAmount = 0;
                 goal.autoSaveFrequency = 0;
                 goal.autoSaveStartDate = 0;
+                goal.autoSaveWeekDay = 0;
+                goal.autoSaveDayOfMonth = 0;
+                goal.autoSaveMonth = 0;
+                goal.autoSaveDay = 0;
                 goal.nextAutoSaveDate = 0;
             }
 
-            goal.isSynced = false;
-            goal.isDeleted = false;
-            goal.isCompleted = false;
-
             long now = System.currentTimeMillis();
-            goal.startedDate = now;
             goal.updatedAt = now;
 
             // ------------------------------------------------
-            // INSERT
+            // EDIT
             // ------------------------------------------------
-            long goalId = goalViewModel.insertGoal(goal);
+            if (isEdit) {
 
-            // ------------------------------------------------
-            // INITIAL SAVING
-            // ------------------------------------------------
-            if (goalInitialAmount > 0) {
-                goalViewModel.saveGoalMoney((int) goalId, selectedWallet.id, goalInitialAmount, false);
+                long result = goalViewModel.updateGoal(goal, this);
+
+                if (result > 0) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.goal_updated_successfully), Toast.LENGTH_SHORT).show();
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_update), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+
+                // ------------------------------------------------
+                // NEW GOAL
+                // ------------------------------------------------
+                goal.savedAmount = 0;
+                goal.isSynced = false;
+                goal.isDeleted = false;
+                goal.isCompleted = false;
+                goal.completedOn = 0;
+                goal.isArchived = false;
+                goal.archivedOn = 0;
+                goal.startedDate = now;
+
+                long newGoalId = goalViewModel.createGoal(goal, goalInitialAmount, this);
+
+                if (newGoalId > 0) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.goal_added_successfully), Toast.LENGTH_SHORT).show();
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_add), Toast.LENGTH_SHORT).show();
+                }
             }
-
-            finish();
-            ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
         } catch (Exception e) {
             AppLogger.e(getClass(), "saveGoal", e);
         }
@@ -744,10 +823,6 @@ public class CreateGoalActivity extends BaseActivity {
             return false;
         }
 
-        if (selectedWallet == null) {
-            return false;
-        }
-
         if (switchAutoView.isChecked()) {
 
             if (autoSaveAmount <= 0) {
@@ -757,5 +832,12 @@ public class CreateGoalActivity extends BaseActivity {
             return autoSaveStartDate > 0;
         }
         return true;
+    }
+
+    private void updateCurrencyFields() {
+        tvTargetCurrency.setText(getString(R.string.currency_display, currency.code, currency.name));
+        tvTargetAmount.setText(CommonUtils.getBeautifyAmount(currency.symbol, targetAmount));
+        tvGoalInitial.setText(CommonUtils.getBeautifyAmount(currency.symbol, goalInitialAmount));
+        tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(currency.symbol, autoSaveAmount));
     }
 }

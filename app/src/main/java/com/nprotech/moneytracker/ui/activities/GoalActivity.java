@@ -91,9 +91,11 @@ public class GoalActivity extends BaseActivity {
 
             new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
                 if (position == 0) {
-                    tab.setText(getString(R.string.my_goals));
-                } else {
+                    tab.setText(getString(R.string.in_progress));
+                } else if (position == 1) {
                     tab.setText(getString(R.string.achieved));
+                } else if (position == 2) {
+                    tab.setText(getString(R.string.archived));
                 }
             }).attach();
 
@@ -146,7 +148,8 @@ public class GoalActivity extends BaseActivity {
 
             fabAddGoal.setOnClickListener(view -> {
                 startActivity(new Intent(GoalActivity.this, CreateGoalActivity.class)
-                        .putExtra("isEdit", false));
+                        .putExtra("isEdit", false)
+                        .putExtra("goalId", 0));
                 ActivityUtils.overrideOpenTransition(GoalActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 

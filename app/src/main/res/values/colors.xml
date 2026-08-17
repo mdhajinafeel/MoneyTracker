@@ -6,6 +6,7 @@
     <color name="primary_light">#FF8E24AA</color>
     <color name="app_background">#E6D9FC</color>
     <color name="light_lavender">#8CE2A8F2</color>
+    <color name="very_light_lavender">#33E2A8F2</color>
     <color name="view_grey">#F1F3F4</color>
     <color name="app_light_background">#8CE6D9FC</color>
     <color name="text_field">#212121</color>
@@ -14,15 +15,20 @@
     <color name="light_white">#8CFFFFFF</color>
 
     <color name="income">#15803D</color>
+    <color name="very_light_income">#0D15803D</color>
     <color name="dark_income">#0E592A</color>
     <color name="light_income">#6615803D</color>
     <color name="dim_income">#3315803D</color>
     <color name="expense">#f73242</color>
+    <color name="very_light_expense">#0Df73242</color>
     <color name="light_expense">#66f73242</color>
     <color name="dim_expense">#33f73242</color>
     <color name="transfer">#2196F3</color>
     <color name="light_transfer">#662196F3</color>
     <color name="dim_transfer">#332196F3</color>
+    <color name="very_light_orange">#0DF28C28</color>
+    <color name="light_orange">#66F28C28</color>
+    <color name="orange">#F28C28</color>
 
     <color name="account_dark">#6D28D9</color>
     <color name="wallet_dark">#2563EB</color>
@@ -79,8 +85,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <color name="very_light_grey">#0DBDBDBD</color>
     <color name="grey">#BDBDBD</color>
     <color name="dark_grey">#565656</color>
+    <color name="very_dark_grey">#0E0E0E</color>
     <color name="ghost_white">#F8FAFC</color>
     <color name="midnight_blue">#0F172A</color>
     <color name="ashy">#64748B</color>

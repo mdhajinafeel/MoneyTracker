@@ -2,8 +2,8 @@ package com.nprotech.moneytracker.helper;
 
 import android.content.Context;
 
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.PeriodicWorkRequest;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.nprotech.moneytracker.worker.GoalAutoSaveWorker;
@@ -18,8 +18,13 @@ public class GoalWorkManagerHelper {
         // Utility class
     }
 
-    public static void scheduleAutoSave(Context context) {
-        PeriodicWorkRequest request = new PeriodicWorkRequest.Builder(GoalAutoSaveWorker.class, 1, TimeUnit.DAYS).build();
-        WorkManager.getInstance(context.getApplicationContext()).enqueueUniquePeriodicWork(WORK_NAME, ExistingPeriodicWorkPolicy.KEEP, request);
+    public static void scheduleAutoSave(Context context, long delay) {
+
+        if (delay < 0) {
+            delay = 0;
+        }
+
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(GoalAutoSaveWorker.class).setInitialDelay(delay, TimeUnit.MILLISECONDS).build();
+        WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request);
     }
 }

@@ -248,7 +248,14 @@
 
         <!-- Goal View Screen -->
         <activity
-            android:name=".ui.activities.GoalViewActivity"
+            android:name=".ui.activities.GoalDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Auto Save Screen -->
+        <activity
+            android:name=".ui.activities.CreateAutoSaveActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -275,6 +282,18 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+        </provider>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                tools:node="remove" />
+
         </provider>
     </application>
 </manifest>

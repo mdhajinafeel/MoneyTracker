@@ -6,9 +6,11 @@
     android:layout_marginStart="@dimen/margin_6"
     android:layout_marginEnd="@dimen/margin_6"
     android:clipToPadding="false"
-    app:cardUseCompatPadding="true"
-    app:cardCornerRadius="@dimen/corner_radius_4"
-    app:cardMaxElevation="@dimen/corner_elevation_4">
+    app:cardCornerRadius="@dimen/corner_radius_8"
+    app:cardMaxElevation="@dimen/corner_elevation_4"
+    app:strokeColor="@color/card_shadow"
+    app:strokeWidth="0.6dp"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemView"
@@ -51,7 +53,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_6"
-            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_marginEnd="@dimen/margin_2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
             app:layout_constraintStart_toEndOf="@id/guideline1"
@@ -92,8 +94,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/padding_4"
                     android:fontFamily="@font/exo2_medium"
-                    android:includeFontPadding="false"
                     android:gravity="center_vertical"
+                    android:includeFontPadding="false"
                     android:textColor="@color/dark_grey"
                     android:textSize="@dimen/text_12" />
 
@@ -135,6 +137,28 @@
                 android:progressDrawable="@drawable/progress_goal"
                 app:layout_constraintStart_toStartOf="@id/tvGoalName"
                 app:layout_constraintTop_toBottomOf="@id/tvSavedAmount" />
+
+            <!-- Target Amount -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAutoSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/padding_6"
+                android:paddingTop="@dimen/padding_2"
+                android:visibility="gone"
+                android:paddingBottom="@dimen/padding_2"
+                android:paddingEnd="@dimen/padding_6"
+                android:layout_marginTop="@dimen/margin_6"
+                android:background="@drawable/bg_box_rectangle"
+                android:backgroundTint="@color/app_background"
+                android:fontFamily="@font/exo2_semibold"
+                android:drawableStart="@drawable/ic_refresh"
+                android:drawableTint="@color/primary_dark"
+                android:drawablePadding="@dimen/padding_2"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/text_8"
+                app:layout_constraintStart_toStartOf="@id/progressGoal"
+                app:layout_constraintTop_toBottomOf="@id/progressGoal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -192,7 +216,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_6"
                 android:background="@drawable/bg_goal_progress"
-                android:drawableStart="@drawable/ic_calendar_small"
                 android:drawablePadding="@dimen/padding_4"
                 android:fontFamily="@font/exo2_medium"
                 android:padding="@dimen/padding_4"

@@ -30,6 +30,9 @@ public interface CurrencyDao {
     @Query("SELECT * FROM currencies WHERE id NOT IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId AND isActive = 1) LIMIT 1")
     CurrencyEntity getFirstCurrencyForWallet(int accountId);
 
+    @Query("SELECT * FROM currencies WHERE id IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId AND isActive = 1) LIMIT 1")
+    CurrencyEntity getFirstCurrencyForAccount(int accountId);
+
     @Query("SELECT * FROM currencies WHERE id NOT IN (SELECT currencyId FROM account_currency_mapping WHERE accountId = :accountId AND isActive = 1)")
     List<CurrencyEntity> getCurrenciesForWallet(int accountId);
 }

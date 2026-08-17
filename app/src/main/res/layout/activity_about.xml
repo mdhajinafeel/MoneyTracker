@@ -423,7 +423,7 @@
                         app:layout_constraintStart_toStartOf="@id/guideline2"
                         app:layout_constraintTop_toTopOf="@id/insightImage" />
 
-                    <!-- Divider 2 -->
+                    <!-- Divider 3 -->
                     <View
                         android:layout_width="1dp"
                         android:layout_height="0dp"
