@@ -98,7 +98,6 @@ public class CategoryTransactionActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
-
     }
 
     private void bindData() {

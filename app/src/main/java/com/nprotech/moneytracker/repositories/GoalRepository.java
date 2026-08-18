@@ -6,14 +6,15 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.constants.GoalContributionType;
 import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
+import com.nprotech.moneytracker.helper.DateHelper;
+import com.nprotech.moneytracker.models.GoalContributionSummary;
+import com.nprotech.moneytracker.models.GoalContributionWithCurrency;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class GoalRepository {
@@ -28,7 +29,7 @@ public class GoalRepository {
         return goalDao.getGoals(accountId, isArchived, isCompleted);
     }
 
-     public LiveData<List<GoalWithDetails>> getArchivedGoals(int accountId) {
+    public LiveData<List<GoalWithDetails>> getArchivedGoals(int accountId) {
         return goalDao.getArchivedGoals(accountId);
     }
 
@@ -44,10 +45,8 @@ public class GoalRepository {
         return goalDao.disableAutoSave(goalId, System.currentTimeMillis()) > 0;
     }
 
-
-
     public boolean archiveRestoreGoal(int goalId, boolean isArchive) {
-        if(goalDao.archiveRestoreGoal(goalId, System.currentTimeMillis(), isArchive, isArchive ? System.currentTimeMillis() : 0) > 0) {
+        if (goalDao.archiveRestoreGoal(goalId, System.currentTimeMillis(), isArchive, isArchive ? System.currentTimeMillis() : 0) > 0) {
             updateGoalCompletion(goalId);
         }
 
@@ -74,7 +73,7 @@ public class GoalRepository {
         goal.updatedAt = now;
 
         if (goal.autoSaveEnabled) {
-            goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal, now);
+            goal.nextAutoSaveDate = DateHelper.calculateNextAutoSaveDate(goal, goal.autoSaveStartDate);
         } else {
             goal.nextAutoSaveDate = 0;
         }
@@ -84,7 +83,7 @@ public class GoalRepository {
         if (goalId > 0 && initialAmount > 0) {
 
             GoalContributionEntity contribution = new GoalContributionEntity((int) goalId, initialAmount, GoalContributionType.INITIAL,
-                    now, context.getString(R.string.initial_savings), now, now);
+                    now, context.getString(R.string.initial_savings), now, now, false);
             long contributeId = goalDao.insertContribution(contribution);
             if (contributeId > 0) {
                 goalDao.updateSavedAmount((int) goalId, initialAmount, now);
@@ -105,7 +104,7 @@ public class GoalRepository {
 
         long now = System.currentTimeMillis();
 
-        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.ADD, date, note, now, now);
+        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.ADD, date, note, now, now, false);
         long contributeId = goalDao.insertContribution(contribution);
         if (contributeId > 0) {
             goalDao.updateSavedAmount(goalId, savedAmount, now);
@@ -122,7 +121,7 @@ public class GoalRepository {
 
         long now = System.currentTimeMillis();
 
-        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.WITHDRAW, date, note, now, now);
+        GoalContributionEntity contribution = new GoalContributionEntity(goalId, amount, GoalContributionType.WITHDRAW, date, note, now, now, false);
         long contributeId = goalDao.insertContribution(contribution);
         if (contributeId > 0) {
             goalDao.updateSavedAmount(goalId, savedAmount, now);
@@ -215,7 +214,7 @@ public class GoalRepository {
         }
 
         // Calculate NEXT auto-save date
-        goal.nextAutoSaveDate = calculateNextAutoSaveDate(goal, goal.nextAutoSaveDate);
+        goal.nextAutoSaveDate = DateHelper.calculateNextAutoSaveDate(goal, goal.nextAutoSaveDate);
 
         // Check if target was reached
         double newAmount = getCurrentAmount(goal.id);
@@ -229,38 +228,6 @@ public class GoalRepository {
 
         goal.updatedAt = now;
         goalDao.updateGoal(goal);
-    }
-
-    private long calculateNextAutoSaveDate(GoalEntity goal, long currentDate) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(currentDate);
-
-        switch (goal.autoSaveFrequency) {
-
-            case Constants.GOAL_FREQUENCY_DAILY:
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-                break;
-
-            case Constants.GOAL_FREQUENCY_WEEKLY:
-                calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                break;
-
-            case Constants.GOAL_FREQUENCY_MONTHLY:
-                calendar.add(Calendar.MONTH, 1);
-                int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDayOfMonth, maxDay));
-                break;
-
-            case Constants.GOAL_FREQUENCY_YEARLY:
-                calendar.add(Calendar.YEAR, 1);
-                calendar.set(Calendar.MONTH, goal.autoSaveMonth);
-                int maxYearDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDay, maxYearDay));
-                break;
-        }
-
-        return calendar.getTimeInMillis();
     }
 
     public LiveData<Integer> getActiveGoalCount(int accountId) {
@@ -332,8 +299,7 @@ public class GoalRepository {
         // ---------------------------------------------
 
         if (goal.autoSaveEnabled) {
-            goal.nextAutoSaveDate = goal.autoSaveStartDate;
-
+            goal.nextAutoSaveDate = DateHelper.calculateNextAutoSaveDate(goal, goal.autoSaveStartDate);
         } else {
             goal.autoSaveAmount = 0;
             goal.autoSaveFrequency = 0;
@@ -354,14 +320,11 @@ public class GoalRepository {
         if (initialContribution != null) {
             initialContribution.setAmount(newInitialAmount);
             initialContribution.setUpdatedAt(now);
-
             goalDao.updateContribution(initialContribution);
-
         } else if (newInitialAmount > 0) {
             GoalContributionEntity contribution =
                     new GoalContributionEntity(goal.id, newInitialAmount, GoalContributionType.INITIAL, existingGoal.startedDate,
-                            context.getString(R.string.initial_savings), now, now);
-
+                            context.getString(R.string.initial_savings), now, now, false);
             goalDao.insertContribution(contribution);
         }
 
@@ -376,5 +339,22 @@ public class GoalRepository {
         }
 
         return result;
+    }
+
+    public GoalEntity getGoal(int goalId) {
+        return goalDao.getGoal(goalId);
+    }
+
+    public LiveData<GoalContributionSummary> getContributionSummary(int goalId, int autoSaveType, int manualType, int initialType, int withdrawalType) {
+        return goalDao.getContributionSummary(goalId, autoSaveType, manualType, initialType, withdrawalType);
+    }
+
+    public LiveData<List<GoalContributionWithCurrency>> getRecentContributions(int goalId) {
+        return goalDao.getRecentContributions(goalId);
+    }
+
+    public List<GoalContributionWithCurrency> getContributions(int goalId, int page, int pageSize) {
+        int offset = page * pageSize;
+        return goalDao.getContributions(goalId, pageSize, offset);
     }
 }

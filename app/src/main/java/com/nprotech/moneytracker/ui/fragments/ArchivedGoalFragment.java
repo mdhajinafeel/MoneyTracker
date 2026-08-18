@@ -117,7 +117,15 @@ public class ArchivedGoalFragment extends Fragment {
                     holder.setViewText(R.id.tvTargetAmount, " / " + CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.targetAmount));
                     holder.setViewText(R.id.tvTargetDate, DateHelper.getFormattedDate(goalWithDetail.targetDate, "dd MMM yyyy"));
                     tvProgress.setText(getResources().getString(R.string.progress_percentage, progress));
-                    holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+
+                    if (daysLeft == 0) {
+                        holder.setViewText(R.id.tvDaysLeft, getString(R.string.due_today));
+                    } else if (daysLeft < 0) {
+                        long overdueDays = Math.abs(daysLeft);
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_overdue, (int) overdueDays, overdueDays));
+                    } else {
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+                    }
 
                     AppCompatImageView ivGoalIcon = holder.getView(R.id.ivGoalIcon);
 
@@ -177,7 +185,15 @@ public class ArchivedGoalFragment extends Fragment {
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
 
-
+            // RESTORE
+            optionRestore.setOnClickListener(view -> {
+                dialog.dismiss();
+                if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
+                    Toast.makeText(requireActivity(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
+                }
+            });
 
             // DELETE
             optionDelete.setOnClickListener(view -> {

@@ -35,7 +35,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
-import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
@@ -53,7 +52,6 @@ import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
-import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
 import com.nprotech.moneytracker.viewmodel.MasterViewModel;
@@ -80,8 +78,6 @@ public class CreateGoalActivity extends BaseActivity {
     private ConstraintLayout layoutYearly;
     private double targetAmount = 0, goalInitialAmount = 0, autoSaveAmount = 0;
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher, currencyLauncher;
-    private AccountEntity account;
-    private AccountViewModel accountViewModel;
     private CategoryViewModel categoryViewModel;
     private MasterViewModel masterViewModel;
     private GoalViewModel goalViewModel;
@@ -143,7 +139,6 @@ public class CreateGoalActivity extends BaseActivity {
             tvMonth = findViewById(R.id.tvMonth);
             tvDay = findViewById(R.id.tvDay);
 
-            accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
             categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
             masterViewModel = new ViewModelProvider(this).get(MasterViewModel.class);
             goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
@@ -188,8 +183,6 @@ public class CreateGoalActivity extends BaseActivity {
 
     private void bindData() {
         try {
-
-            account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
 
             if (isEdit) {
 
@@ -746,7 +739,7 @@ public class CreateGoalActivity extends BaseActivity {
                 goal.autoSaveDayOfMonth = autoSaveDayOfMonth;
                 goal.autoSaveMonth = autoSaveMonth;
                 goal.autoSaveDay = autoSaveDay;
-                goal.nextAutoSaveDate = autoSaveStartDate;
+                goal.nextAutoSaveDate = DateHelper.calculateNextAutoSaveDate(goal, autoSaveStartDate);
             } else {
                 goal.autoSaveAmount = 0;
                 goal.autoSaveFrequency = 0;
@@ -773,7 +766,7 @@ public class CreateGoalActivity extends BaseActivity {
                     finish();
                     ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                 } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_update), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_update_goal), Toast.LENGTH_SHORT).show();
                 }
             } else {
 
@@ -796,7 +789,7 @@ public class CreateGoalActivity extends BaseActivity {
                     finish();
                     ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                 } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_add), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_add_goal), Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (Exception e) {

@@ -32,7 +32,6 @@ public class GoalActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private FloatingActionButton fabAddGoal;
-    private int selectedAccountId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +68,7 @@ public class GoalActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
-                bindData(bundle);
+                bindData();
                 setupListeners();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
@@ -81,9 +80,8 @@ public class GoalActivity extends BaseActivity {
         }
     }
 
-    private void bindData(Bundle bundle) {
+    private void bindData() {
         try {
-            selectedAccountId = bundle.getInt("accountId", 0);
 
             GoalTabAdapter adapter = new GoalTabAdapter(this);
             viewPager.setAdapter(adapter);

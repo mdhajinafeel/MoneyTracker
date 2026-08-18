@@ -87,6 +87,7 @@
 
     <color name="very_light_grey">#0DBDBDBD</color>
     <color name="grey">#BDBDBD</color>
+    <color name="text_hint">#757575</color>
     <color name="dark_grey">#565656</color>
     <color name="very_dark_grey">#0E0E0E</color>
     <color name="ghost_white">#F8FAFC</color>

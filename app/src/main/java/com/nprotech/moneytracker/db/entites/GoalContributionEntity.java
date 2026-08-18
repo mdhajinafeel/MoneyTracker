@@ -23,6 +23,7 @@ public class GoalContributionEntity {
     private String note;
     private long createdAt;
     private long updatedAt;
+    private boolean isDeleted;
 
     public int getId() {
         return id;
@@ -89,8 +90,16 @@ public class GoalContributionEntity {
         this.updatedAt = updatedAt;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Ignore
-    public GoalContributionEntity(int goalId, double amount, int type, long date, @Nullable String note, long createdAt, long updatedAt) {
+    public GoalContributionEntity(int goalId, double amount, int type, long date, @Nullable String note, long createdAt, long updatedAt, boolean isDeleted) {
         this.goalId = goalId;
         this.amount = amount;
         this.type = type;
@@ -98,6 +107,7 @@ public class GoalContributionEntity {
         this.note = note;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.isDeleted = isDeleted;
     }
 
     public GoalContributionEntity() {

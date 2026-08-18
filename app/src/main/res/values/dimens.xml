@@ -76,7 +76,7 @@
     <dimen name="box_stroke">1.5dp</dimen>
 
     <!-- HEIGHT -->
-    <dimen name="edit_text_height_40">40dp</dimen>
+    <dimen name="edit_text_height_40">48dp</dimen>
     <dimen name="keyboard_number_height">50dp</dimen>
     <dimen name="bottom_navigation_height">0dp</dimen>
     <dimen name="graph_height">175dp</dimen>

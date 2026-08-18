@@ -200,19 +200,9 @@ public class CommonUtils {
     }
 
     public static Drawable createGoalRingDrawable(Context context, int progressColor) {
-        // Background ring
-        GradientDrawable backgroundRing = new GradientDrawable();
-        backgroundRing.setShape(GradientDrawable.OVAL);
-        backgroundRing.setColor(Color.TRANSPARENT);
-        backgroundRing.setStroke(dpToPx(context, 6), Color.parseColor("#E5E5E5"));
-
-        // Progress ring
-        GradientDrawable progressRing = new GradientDrawable();
-        progressRing.setShape(GradientDrawable.OVAL);
-        progressRing.setColor(Color.TRANSPARENT);
-        progressRing.setStroke(dpToPx(context, 6), progressColor);
-
-        return new LayerDrawable(new Drawable[]{backgroundRing, progressRing});
+        int strokeWidth = dpToPx(context, 6);
+        int dimProgressColor = ColorUtils.setAlphaComponent(progressColor, 60);
+        return new GoalRingDrawable(dimProgressColor, progressColor, strokeWidth);
     }
 
     private static int adjustAlpha(int color) {
@@ -231,6 +221,7 @@ public class CommonUtils {
     }
 
     public static long calculateDaysLeft(long targetDate) {
+
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         today.set(Calendar.MINUTE, 0);
@@ -246,7 +237,7 @@ public class CommonUtils {
 
         long difference = target.getTimeInMillis() - today.getTimeInMillis();
 
-        return Math.max(0, TimeUnit.MILLISECONDS.toDays(difference));
+        return TimeUnit.MILLISECONDS.toDays(difference);
     }
 
     public static String getDisplayId(int goalId, String type) {

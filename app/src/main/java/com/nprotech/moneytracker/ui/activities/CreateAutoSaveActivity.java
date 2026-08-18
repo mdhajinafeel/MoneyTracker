@@ -19,20 +19,24 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
+import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
+import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.models.GoalFrequencyModel;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
+import com.nprotech.moneytracker.viewmodel.GoalViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,7 +51,8 @@ public class CreateAutoSaveActivity extends BaseActivity {
 
     private AppCompatImageView icBack;
     private AppCompatTextView tvSave, tvAutoSaveAmount, tvStartOn, tvFrequency, tvDayMonth, tvWeekDay, tvYearMonth, tvYearDay;
-    private MaterialCardView cardAutoSaveAmount, cardAutoSaveFrequency, cardAutoSaveStartOn, cardAutoSaveDayMonth, cardAutoSaveWeekDay, cardAutoSaveYear, cardAutoSaveYearDay;
+    private MaterialCardView cardAutoSaveAmount, cardAutoSaveFrequency, cardAutoSaveStartOn, cardAutoSaveDayMonth, cardAutoSaveWeekDay,
+            cardAutoSaveYear, cardAutoSaveYearDay;
     private ActivityResultLauncher<Intent> calculatorLauncher;
     private double autoSaveAmount = 0;
     private long autoSaveStartDate = 0;
@@ -57,6 +62,8 @@ public class CreateAutoSaveActivity extends BaseActivity {
     private int autoSaveMonth = Calendar.JANUARY;
     private int autoSaveDay = 1;
     private int selectedFrequency = Constants.GOAL_FREQUENCY_MONTHLY;
+    private int goalId;
+    private GoalViewModel goalViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -107,6 +114,9 @@ public class CreateAutoSaveActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
+
+                goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
+
                 bindData(bundle);
                 setupListeners();
                 setupLauncher();
@@ -123,11 +133,29 @@ public class CreateAutoSaveActivity extends BaseActivity {
 
     private void bindData(Bundle bundle) {
         try {
-            int goalId = bundle.getInt("goalId", 0);
+            goalId = bundle.getInt("goalId", 0);
             currencySymbol = bundle.getString("currencySymbol", "");
+
+            initializeAutoSaveFields();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
+    }
+
+    private void initializeAutoSaveFields() {
+
+        // Default frequency
+        selectedFrequency = Constants.GOAL_FREQUENCY_MONTHLY;
+        tvFrequency.setText(getString(R.string.calendar_monthly));
+
+        // Default schedule values
+        autoSaveWeekDay = Calendar.MONDAY;
+        autoSaveDayOfMonth = 1;
+        autoSaveMonth = Calendar.JANUARY;
+        autoSaveDay = 1;
+
+        // Prepare the fields
+        updateFrequencyFields();
     }
 
     private void updateSaveButtonState() {
@@ -178,8 +206,7 @@ public class CreateAutoSaveActivity extends BaseActivity {
             cardAutoSaveFrequency.setOnClickListener(v -> showFrequencyPicker());
 
             // SAVE
-            tvSave.setOnClickListener(view -> {
-            });
+            tvSave.setOnClickListener(view -> saveAutoSave());
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
@@ -325,6 +352,69 @@ public class CreateAutoSaveActivity extends BaseActivity {
                 tvYearDay.setText(String.valueOf(autoSaveDay));
 
                 break;
+        }
+    }
+
+    private void saveAutoSave() {
+        try {
+            if (autoSaveAmount <= 0 || autoSaveStartDate <= 0 || goalId <= 0) {
+                return;
+            }
+
+            GoalEntity goal = goalViewModel.getGoal(goalId);
+
+            if (goal == null) {
+                Toast.makeText(this, getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Enable auto save
+            goal.autoSaveEnabled = true;
+
+            // Common auto-save values
+            goal.autoSaveAmount = autoSaveAmount;
+            goal.autoSaveFrequency = selectedFrequency;
+            goal.autoSaveStartDate = autoSaveStartDate;
+
+            // Reset schedule-specific values
+            goal.autoSaveWeekDay = 0;
+            goal.autoSaveDayOfMonth = 0;
+            goal.autoSaveMonth = 0;
+            goal.autoSaveDay = 0;
+
+            // Set frequency-specific values
+            switch (selectedFrequency) {
+
+                case Constants.GOAL_FREQUENCY_DAILY:
+                    break;
+
+                case Constants.GOAL_FREQUENCY_WEEKLY:
+                    goal.autoSaveWeekDay = autoSaveWeekDay;
+                    break;
+
+                case Constants.GOAL_FREQUENCY_MONTHLY:
+                    goal.autoSaveDayOfMonth = autoSaveDayOfMonth;
+                    break;
+
+                case Constants.GOAL_FREQUENCY_YEARLY:
+                    goal.autoSaveMonth = autoSaveMonth;
+                    goal.autoSaveDay = autoSaveDay;
+                    break;
+            }
+
+            // Calculate first auto-save date
+            goal.nextAutoSaveDate = DateHelper.calculateNextAutoSaveDate(goal, goal.autoSaveStartDate);
+            goal.updatedAt = System.currentTimeMillis();
+
+            if (goalViewModel.updateGoal(goal, this) > 0) {
+                finish();
+                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+            } else {
+                Toast.makeText(this, getString(R.string.error_delete_goal), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "saveAutoSave", e);
+            Toast.makeText(this, getString(R.string.error_autosave), Toast.LENGTH_SHORT).show();
         }
     }
 }

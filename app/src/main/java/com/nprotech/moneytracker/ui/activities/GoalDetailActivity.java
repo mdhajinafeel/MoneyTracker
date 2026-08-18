@@ -1,8 +1,10 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -15,25 +17,35 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
+import com.nprotech.moneytracker.constants.GoalContributionType;
+import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
+import com.nprotech.moneytracker.models.GoalContributionWithCurrency;
 import com.nprotech.moneytracker.models.GoalWithDetails;
+import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
+import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
+
+import java.util.ArrayList;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -54,6 +66,7 @@ public class GoalDetailActivity extends BaseActivity {
     private boolean isGoalCompleted = false, isGoalArchived = false;
     private double remainingAmount = 0;
     private String currencySymbol = "";
+    private RecyclerViewAdapter<GoalContributionWithCurrency> contributionRecyclerViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +146,7 @@ public class GoalDetailActivity extends BaseActivity {
                 goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
 
                 bindData(bundle);
+                initializeAdapter();
                 setupListeners();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
@@ -175,12 +189,38 @@ public class GoalDetailActivity extends BaseActivity {
                         if (isGoalArchived) {
                             tvTargetDays.setText(DateHelper.getFormattedDate(goalWithDetail.archivedOn, "dd MMM yyyy"));
                             tvGoalStatus.setText(getString(R.string.archived));
+                            tvGoalStatus.setTextColor(ContextCompat.getColor(this, R.color.primary_dark));
+                            setGoalStatusStyle(R.color.primary_dark, R.color.light_lavender, R.color.primary_dark);
                         } else if (isGoalCompleted) {
                             tvTargetDays.setText(DateHelper.getFormattedDate(goalWithDetail.completedOn, "dd MMM yyyy"));
                             tvGoalStatus.setText(getString(R.string.achieved));
+                            tvGoalStatus.setTextColor(ContextCompat.getColor(this, R.color.income));
+                            setGoalStatusStyle(R.color.income, R.color.light_income, R.color.income);
+                        } else if (daysLeft == 0) {
+
+                            // Due today
+                            tvTargetDays.setText(getString(R.string.due_today));
+                            tvGoalStatus.setText(getString(R.string.in_progress));
+
+                            tvGoalStatus.setTextColor(ContextCompat.getColor(this, R.color.orange));
+                            setGoalStatusStyle(R.color.orange, R.color.light_orange, R.color.orange);
+
+                        } else if (daysLeft < 0) {
+
+                            // Overdue
+                            long overdueDays = Math.abs(daysLeft);
+
+                            tvTargetDays.setText(getResources().getQuantityString(R.plurals.days_overdue, (int) overdueDays, overdueDays));
+                            tvGoalStatus.setText(getString(R.string.overdue));
+                            tvGoalStatus.setTextColor(ContextCompat.getColor(this, R.color.expense));
+                            setGoalStatusStyle(R.color.expense, R.color.light_expense, R.color.expense);
                         } else {
+
+                            // In Progress
                             tvTargetDays.setText(getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
                             tvGoalStatus.setText(getString(R.string.in_progress));
+                            tvGoalStatus.setTextColor(ContextCompat.getColor(this, R.color.orange));
+                            setGoalStatusStyle(R.color.orange, R.color.light_orange, R.color.orange);
                         }
 
                         tvGoalSavedAmount.setText(CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.savedAmount));
@@ -267,6 +307,7 @@ public class GoalDetailActivity extends BaseActivity {
                     }
 
                     updateFields();
+                    loadContribution(goalId);
                 });
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
@@ -278,24 +319,158 @@ public class GoalDetailActivity extends BaseActivity {
         }
     }
 
+    private void loadContribution(int goalId) {
+
+        goalViewModel.getContributionSummary(goalId, GoalContributionType.AUTO_SAVE, GoalContributionType.ADD,
+                GoalContributionType.INITIAL, GoalContributionType.WITHDRAW).observe(this, goalContributionSummary -> {
+            if (goalContributionSummary != null) {
+                tvAutoSaveSummaryAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, goalContributionSummary.autoSaveAmount));
+                tvManualSummaryAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, goalContributionSummary.manualAmount));
+                tvInitialSummaryAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, goalContributionSummary.initialAmount));
+                tvWithdrawalSummaryAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, goalContributionSummary.withdrawalAmount));
+
+                tvAutoSaveSummaryCount.setText(getResources().getQuantityString(R.plurals.contribution_count, goalContributionSummary.autoSaveCount, goalContributionSummary.autoSaveCount));
+                tvManualSummaryCount.setText(getResources().getQuantityString(R.plurals.contribution_count, goalContributionSummary.manualCount, goalContributionSummary.manualCount));
+                tvInitialSummaryCount.setText(getResources().getQuantityString(R.plurals.contribution_count, goalContributionSummary.initialCount, goalContributionSummary.initialCount));
+                tvWithdrawalSummaryCount.setText(getResources().getQuantityString(R.plurals.contribution_count, goalContributionSummary.withdrawalCount, goalContributionSummary.withdrawalCount));
+            }
+        });
+
+        goalViewModel.getRecentContributions(goalId).observe(this, goalContributions -> {
+            if(goalContributions !=null && !goalContributions.isEmpty()) {
+                contributionRecyclerViewAdapter.setItems(goalContributions);
+                lblNoContributions.setVisibility(View.GONE);
+                rvTransactions.setVisibility(View.VISIBLE);
+                lblViewAllContribution.setVisibility(View.VISIBLE);
+            } else {
+                rvTransactions.setVisibility(View.GONE);
+                lblNoContributions.setVisibility(View.VISIBLE);
+                lblViewAllContribution.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void initializeAdapter() {
+
+        contributionRecyclerViewAdapter = new RecyclerViewAdapter<>(this, new ArrayList<>(), R.layout.item_goal_contributions) {
+            @Override
+            public void onPostBindViewHolder(ViewHolder holder, GoalContributionWithCurrency goalContribution) {
+
+                GoalContributionEntity contribution = goalContribution.getContribution();
+
+                AppCompatImageView ivContributionIcon = holder.getView(R.id.ivContributionIcon);
+                AppCompatTextView tvContributionType = holder.getView(R.id.tvContributionType);
+                AppCompatTextView tvContributionDate = holder.getView(R.id.tvContributionDate);
+                AppCompatTextView tvContributionAmount = holder.getView(R.id.tvContributionAmount);
+
+                boolean withdrawal = contribution.getType() == GoalContributionType.WITHDRAW;
+
+                // --------------------------------
+                // Type
+                // --------------------------------
+                if (contribution.getType() == GoalContributionType.AUTO_SAVE) {
+                    tvContributionType.setText(R.string.auto_save);
+                    ivContributionIcon.setImageResource(R.drawable.ic_refresh);
+
+                    ivContributionIcon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.light_income));
+                    ivContributionIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.income));
+                } else if (contribution.getType() == GoalContributionType.ADD) {
+                    tvContributionType.setText(R.string.manual);
+                    ivContributionIcon.setImageResource(R.drawable.ic_wallet);
+
+                    ivContributionIcon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.light_lavender));
+                    ivContributionIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));
+                } else if (contribution.getType() == GoalContributionType.INITIAL) {
+                    tvContributionType.setText(R.string.initial_amount);
+                    ivContributionIcon.setImageResource(R.drawable.ic_money_bag);
+
+                    ivContributionIcon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.light_orange));
+                    ivContributionIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.orange));
+                } else if (contribution.getType() == GoalContributionType.WITHDRAW) {
+                    tvContributionType.setText(R.string.withdrawal);
+                    ivContributionIcon.setImageResource(R.drawable.ic_withdraw);
+
+                    ivContributionIcon.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.light_expense));
+                    ivContributionIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.expense));
+                }
+
+                // --------------------------------
+                // Date
+                // --------------------------------
+                tvContributionDate.setText(DateHelper.getFormattedDate(contribution.getDate(), "dd MMM yyyy, hh:mm a"));
+
+                // --------------------------------
+                // Amount
+                // --------------------------------
+
+                String amount = CommonUtils.getBeautifyAmount(goalContribution.getCurrencySymbol(), contribution.getAmount());
+                if (withdrawal) {
+                    tvContributionAmount.setText(getString(R.string.minus_amount, amount));
+                    tvContributionAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.expense));
+                } else {
+                    tvContributionAmount.setText(getString(R.string.plus_amount, amount));
+                    tvContributionAmount.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.income));
+                }
+
+                int position = holder.getBindingAdapterPosition();
+
+                if (position == getItemCount() - 1) {
+                    holder.getView(R.id.divider).setAlpha(0f);
+                } else {
+                    holder.getView(R.id.divider).setAlpha(1f);
+                }
+
+                holder.getView(R.id.layoutView).setOnClickListener(v -> {
+
+                });
+            }
+        };
+
+        rvTransactions.setHasFixedSize(true);
+        rvTransactions.setLayoutManager(new LinearLayoutManager(this));
+        rvTransactions.setItemAnimator(null);
+        rvTransactions.setNestedScrollingEnabled(false);
+        rvTransactions.setAdapter(contributionRecyclerViewAdapter);
+    }
+
     private void updateFields() {
         try {
+            long daysLeft = CommonUtils.calculateDaysLeft(goal.targetDate);
+
             if (isGoalArchived) {
                 Drawable statusDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_archive);
                 if (statusDrawable != null) {
                     int size = getResources().getDimensionPixelSize(R.dimen.icon_10);
                     statusDrawable.setBounds(0, 0, size, size);
                     tvGoalStatus.setCompoundDrawablesRelative(null, null, statusDrawable, null);
+                    TextViewCompat.setCompoundDrawableTintList(tvGoalStatus, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary_dark)));
                 }
+            } else if (daysLeft < 0) {
+                // Overdue
+                Drawable statusDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_overdue);
+                if (statusDrawable != null) {
+                    int size = getResources().getDimensionPixelSize(R.dimen.icon_10);
+                    statusDrawable.setBounds(0, 0, size, size);
+                    tvGoalStatus.setCompoundDrawablesRelative(null, null, statusDrawable, null);
+                    TextViewCompat.setCompoundDrawableTintList(tvGoalStatus, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.expense)));
+                }
+
             } else if (isGoalCompleted) {
                 Drawable statusDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_complete);
                 if (statusDrawable != null) {
                     int size = getResources().getDimensionPixelSize(R.dimen.icon_10);
                     statusDrawable.setBounds(0, 0, size, size);
                     tvGoalStatus.setCompoundDrawablesRelative(null, null, statusDrawable, null);
+                    TextViewCompat.setCompoundDrawableTintList(tvGoalStatus, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.income)));
                 }
             } else {
-                tvGoalStatus.setCompoundDrawablesRelative(null, null, null, null);
+                Drawable statusDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_time_solid);
+                if (statusDrawable != null) {
+                    int size = getResources().getDimensionPixelSize(R.dimen.icon_10);
+                    statusDrawable.setBounds(0, 0, size, size);
+                    tvGoalStatus.setCompoundDrawablesRelative(statusDrawable, null, null, null);
+                    TextViewCompat.setCompoundDrawableTintList(tvGoalStatus, ColorStateList.valueOf(ContextCompat.getColor(this, R.color.orange)));
+                }
             }
 
             Drawable categoryDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_category);
@@ -320,7 +495,18 @@ public class GoalDetailActivity extends BaseActivity {
                     tvTargetDays.setCompoundDrawablesRelative(calendarDaysDrawable, null, null, null);
                 }
             } else {
-                Drawable calendarDaysDrawable = AppCompatResources.getDrawable(this, R.drawable.ic_calendar_days);
+
+                int iconRes;
+                if (daysLeft < 0) {
+                    // Overdue
+                    iconRes = R.drawable.ic_calendar_overdue;
+                } else {
+                    // In progress / Due today
+                    iconRes = R.drawable.ic_calendar_days;
+                }
+
+                Drawable calendarDaysDrawable = AppCompatResources.getDrawable(this, iconRes);
+
                 if (calendarDaysDrawable != null) {
                     int size = getResources().getDimensionPixelSize(R.dimen.icon_12);
                     calendarDaysDrawable.setBounds(0, 0, size, size);
@@ -393,18 +579,21 @@ public class GoalDetailActivity extends BaseActivity {
                 }
             });
 
-            tvAutoSaveDisabled.setOnClickListener(v -> {
-                showDisabledDialog(goal);
-            });
+            tvAutoSaveDisabled.setOnClickListener(v -> showDisabledDialog(goal));
 
-            ivMore.setOnClickListener(v -> {
-                showOptionDialog(goal);
-            });
+            ivMore.setOnClickListener(v -> showOptionDialog(goal));
 
             btnEnableAutoSave.setOnClickListener(v -> {
                 startActivity(new Intent(this, CreateAutoSaveActivity.class)
                         .putExtra("type", "goal")
                         .putExtra("currencySymbol", goal.currencySymbol)
+                        .putExtra("goalId", goal.id));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            lblViewAllContribution.setOnClickListener(v -> {
+                startActivity(new Intent(GoalDetailActivity.this, ContributionsListActivity.class)
+                        .putExtra("type", "goal")
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -533,7 +722,7 @@ public class GoalDetailActivity extends BaseActivity {
                 if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
                     Toast.makeText(getApplicationContext(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -621,6 +810,23 @@ public class GoalDetailActivity extends BaseActivity {
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);
+        }
+    }
+
+    private void setGoalStatusStyle(int textColor, int backgroundColor, int strokeColor) {
+
+        tvGoalStatus.setTextColor(ContextCompat.getColor(this, textColor));
+
+        Drawable background = AppCompatResources.getDrawable(this, R.drawable.bg_badge_income);
+
+        if (background != null) {
+            background = background.mutate();
+            if (background instanceof GradientDrawable drawable) {
+                drawable.setColor(ContextCompat.getColor(this, backgroundColor));
+                drawable.setStroke(CommonUtils.dpToPx(this, 1), ContextCompat.getColor(this, strokeColor));
+            }
+
+            tvGoalStatus.setBackground(background);
         }
     }
 }

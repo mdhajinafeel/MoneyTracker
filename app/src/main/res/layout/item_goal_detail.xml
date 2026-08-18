@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_6"
-    android:layout_marginEnd="@dimen/margin_6"
+    android:layout_marginStart="@dimen/margin_10"
+    android:layout_marginEnd="@dimen/margin_10"
+    android:background="@color/white"
     android:clipToPadding="false"
-    app:cardCornerRadius="@dimen/corner_radius_8"
-    app:cardMaxElevation="@dimen/corner_elevation_4"
-    app:strokeColor="@color/card_shadow"
-    app:strokeWidth="0.6dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/corner_radius_10"
+    app:cardElevation="@dimen/corner_elevation_4">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/itemView"

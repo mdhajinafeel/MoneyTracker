@@ -119,7 +119,15 @@ public class AchievedGoalFragment extends Fragment {
                     holder.setViewText(R.id.tvTargetAmount, " / " + CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.targetAmount));
                     holder.setViewText(R.id.tvTargetDate, DateHelper.getFormattedDate(goalWithDetail.targetDate, "dd MMM yyyy"));
                     tvProgress.setText(getResources().getString(R.string.progress_percentage, progress));
-                    holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+
+                    if (daysLeft == 0) {
+                        holder.setViewText(R.id.tvDaysLeft, getString(R.string.due_today));
+                    } else if (daysLeft < 0) {
+                        long overdueDays = Math.abs(daysLeft);
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_overdue, (int) overdueDays, overdueDays));
+                    } else {
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+                    }
 
                     AppCompatImageView ivGoalIcon = holder.getView(R.id.ivGoalIcon);
 

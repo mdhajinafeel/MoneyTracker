@@ -75,7 +75,7 @@
     <string name="mark_achieved">Mark as Achieved</string>
     <string name="move_progress">Move to In Progress</string>
     <string name="delete_goal">Delete Goal</string>
-    <string name="goal_contribution">Goal contribution</string>
+    <string name="goal_contribution">Goal contributions</string>
     <string name="goal_withdrawal">Goal withdrawal</string>
     <string name="money_added">Money added successfully to the goal</string>
     <string name="money_withdraw">Money withdraw successfully from the goal</string>
@@ -115,6 +115,9 @@
     <string name="goal_reached">You reached your target</string>
     <string name="restore_goal">Restore Goal</string>
     <string name="error_archive">Error when archiving the goal</string>
+    <string name="error_add_goal">Error when adding the goal</string>
+    <string name="error_update_goal">Error when updating the goal</string>
+    <string name="error_autosave">Error when auto save the goal</string>
     <string name="error_restore">Error when restore the goal</string>
     <string name="error_delete_goal">Error when delete the goal</string>
     <string name="error_disable">Error when disable the auto save</string>
@@ -122,9 +125,24 @@
     <string name="error_completing">Error when achieving the goal</string>
     <string name="disable_message">Are you sure you want to disable?</string>
     <string name="auto_save_disabled">Auto save disabled successfully</string>
+    <string name="minus_amount">-%1$s</string>
+    <string name="plus_amount">+%1$s</string>
+    <string name="no_contributions">No contributions yet</string>
+    <string name="due_today">Due today</string>
+    <string name="overdue">Overdue</string>
 
     <plurals name="days_count">
         <item quantity="one">%d day left</item>
         <item quantity="other">%d days left</item>
+    </plurals>
+
+    <plurals name="contribution_count">
+        <item quantity="one">%d contribution</item>
+        <item quantity="other">%d contributions</item>
+    </plurals>
+
+    <plurals name="days_overdue">
+        <item quantity="one">%d day overdue</item>
+        <item quantity="other">%d days overdue</item>
     </plurals>
 </resources>

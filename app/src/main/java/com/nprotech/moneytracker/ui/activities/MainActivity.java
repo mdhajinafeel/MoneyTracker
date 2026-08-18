@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
@@ -114,6 +115,8 @@ public class MainActivity extends BaseActivity {
 
             observeData();
 
+            restoreOrCreateFragments(savedInstanceState);
+
             bottomNav.setOnItemSelectedListener(item -> {
 
                 View itemView = bottomNav.findViewById(item.getItemId());
@@ -138,21 +141,6 @@ public class MainActivity extends BaseActivity {
                 }
 
                 return false;
-            });
-
-            restoreOrCreateFragments(savedInstanceState);
-
-            getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainer);
-                if (fragment instanceof TransactionFragment) {
-                    bottomNav.setSelectedItemId(R.id.nav_transaction);
-                } else if (fragment instanceof CalendarFragment) {
-                    bottomNav.setSelectedItemId(R.id.nav_calendar);
-                } else if (fragment instanceof StatisticsFragment) {
-                    bottomNav.setSelectedItemId(R.id.nav_statistic);
-                } else if (fragment instanceof MoreFragment) {
-                    bottomNav.setSelectedItemId(R.id.nav_more);
-                }
             });
 
             getOnBackPressedDispatcher().addCallback(
@@ -280,17 +268,35 @@ public class MainActivity extends BaseActivity {
 
     private void loadFragment(Fragment fragment) {
 
-        if (fragment == null || fragment == activeFragment)
+        if (fragment == null)
             return;
 
         if (isFinishing() || isDestroyed())
             return;
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setReorderingAllowed(true)
-                .hide(activeFragment)
-                .show(fragment).commitNow();
+        FragmentManager fm = getSupportFragmentManager();
+
+        FragmentTransaction transaction = fm.beginTransaction()
+                .setReorderingAllowed(true);
+
+        if (transactionFragment != null && transactionFragment != fragment) {
+            transaction.hide(transactionFragment);
+        }
+
+        if (calendarFragment != null && calendarFragment != fragment) {
+            transaction.hide(calendarFragment);
+        }
+
+        if (statisticsFragment != null && statisticsFragment != fragment) {
+            transaction.hide(statisticsFragment);
+        }
+
+        if (moreFragment != null && moreFragment != fragment) {
+            transaction.hide(moreFragment);
+        }
+
+        transaction.show(fragment);
+        transaction.commitNow();
 
         activeFragment = fragment;
 
@@ -347,105 +353,164 @@ public class MainActivity extends BaseActivity {
         transactionFragment = (TransactionFragment) fm.findFragmentByTag("transaction");
         calendarFragment = (CalendarFragment) fm.findFragmentByTag("calendar");
         statisticsFragment = (StatisticsFragment) fm.findFragmentByTag("statistics");
-        moreFragment = (MoreFragment) fm.findFragmentByTag("wallet");
+        moreFragment = (MoreFragment) fm.findFragmentByTag("more");
 
+        // Create fragments if they don't exist
+        if (transactionFragment == null) {
+            transactionFragment = new TransactionFragment();
+        }
+
+        if (calendarFragment == null) {
+            calendarFragment = new CalendarFragment();
+        }
+
+        if (statisticsFragment == null) {
+            statisticsFragment = new StatisticsFragment();
+        }
+
+        if (moreFragment == null) {
+            moreFragment = new MoreFragment();
+        }
+
+        /*
+         * First creation:
+         * Add all fragments but keep them hidden initially.
+         */
         if (savedInstanceState == null) {
 
-            // Create fragments
-            if (transactionFragment == null) {
-                transactionFragment = new TransactionFragment();
-            }
-
-            if (calendarFragment == null) {
-                calendarFragment = new CalendarFragment();
-            }
-
-            if (statisticsFragment == null) {
-                statisticsFragment = new StatisticsFragment();
-            }
-
-            if (moreFragment == null) {
-                moreFragment = new MoreFragment();
-            }
-
-            // Add fragments only once
             fm.beginTransaction()
-                    .add(R.id.fragmentContainer, transactionFragment, "transaction")
-                    .hide(transactionFragment)
-                    .add(R.id.fragmentContainer, calendarFragment, "calendar")
-                    .hide(calendarFragment)
-                    .add(R.id.fragmentContainer, statisticsFragment, "statistics")
-                    .hide(statisticsFragment)
-                    .add(R.id.fragmentContainer, moreFragment, "wallet")
-                    .hide(moreFragment)
-                    .commitNow();
+                    .setReorderingAllowed(true)
 
-            int startUpScreen = PreferenceManager.INSTANCE.getStartUpScreen();
+                    .add(R.id.fragmentContainer,
+                            transactionFragment, "transaction")
+
+                    .add(R.id.fragmentContainer,
+                            calendarFragment, "calendar")
+
+                    .add(R.id.fragmentContainer,
+                            statisticsFragment, "statistics")
+
+                    .add(R.id.fragmentContainer,
+                            moreFragment, "more")
+
+                    .hide(transactionFragment)
+                    .hide(calendarFragment)
+                    .hide(statisticsFragment)
+                    .hide(moreFragment)
+
+                    .commitNow();
+        }
+
+        /*
+         * Determine which fragment should be active.
+         */
+        if (savedInstanceState == null) {
+
+            int startUpScreen =
+                    PreferenceManager.INSTANCE.getStartUpScreen();
 
             switch (startUpScreen) {
 
                 case Constants.STARTUP_CALENDAR:
                     activeFragment = calendarFragment;
-                    bottomNav.setSelectedItemId(R.id.nav_calendar);
                     break;
 
                 case Constants.STARTUP_STATISTICS:
                     activeFragment = statisticsFragment;
-                    bottomNav.setSelectedItemId(R.id.nav_statistic);
                     break;
 
                 case Constants.STARTUP_MORE:
                     activeFragment = moreFragment;
-                    bottomNav.setSelectedItemId(R.id.nav_more);
                     break;
 
                 case Constants.STARTUP_TRANSACTION:
                 default:
                     activeFragment = transactionFragment;
-                    bottomNav.setSelectedItemId(R.id.nav_transaction);
                     break;
             }
 
-            fm.beginTransaction()
-                    .show(activeFragment)
-                    .commitNow();
-
         } else {
 
-            // Android restored fragments after process death
+            /*
+             * Android restored the fragments.
+             * Make sure only the selected tab is visible.
+             */
+            int selectedItem = bottomNav.getSelectedItemId();
 
-            if (transactionFragment != null && transactionFragment.isVisible()) {
-                activeFragment = transactionFragment;
-                bottomNav.setSelectedItemId(R.id.nav_transaction);
+            if (selectedItem == R.id.nav_calendar) {
 
-            } else if (calendarFragment != null && calendarFragment.isVisible()) {
                 activeFragment = calendarFragment;
-                bottomNav.setSelectedItemId(R.id.nav_calendar);
 
-            } else if (statisticsFragment != null && statisticsFragment.isVisible()) {
+            } else if (selectedItem == R.id.nav_statistic) {
+
                 activeFragment = statisticsFragment;
-                bottomNav.setSelectedItemId(R.id.nav_statistic);
 
-            } else if (moreFragment != null && moreFragment.isVisible()) {
+            } else if (selectedItem == R.id.nav_more) {
+
                 activeFragment = moreFragment;
-                bottomNav.setSelectedItemId(R.id.nav_more);
 
             } else {
-                // Fallback
+
                 activeFragment = transactionFragment;
-
-                if (transactionFragment != null && transactionFragment.isAdded()) {
-                    fm.beginTransaction()
-                            .show(transactionFragment)
-                            .commitNow();
-                }
-
-                bottomNav.setSelectedItemId(R.id.nav_transaction);
             }
         }
 
+        /*
+         * IMPORTANT:
+         * Hide ALL fragments first.
+         * Then show ONLY the active fragment.
+         */
+        FragmentTransaction transaction = fm.beginTransaction()
+                .setReorderingAllowed(true);
+
+        if (transactionFragment != null) {
+            transaction.hide(transactionFragment);
+        }
+
+        if (calendarFragment != null) {
+            transaction.hide(calendarFragment);
+        }
+
+        if (statisticsFragment != null) {
+            transaction.hide(statisticsFragment);
+        }
+
+        if (moreFragment != null) {
+            transaction.hide(moreFragment);
+        }
+
+        if (activeFragment != null) {
+            transaction.show(activeFragment);
+        }
+
+        transaction.commitNow();
+
+        /*
+         * Update BottomNavigation selection.
+         */
+        if (activeFragment == transactionFragment) {
+
+            bottomNav.setSelectedItemId(R.id.nav_transaction);
+
+        } else if (activeFragment == calendarFragment) {
+
+            bottomNav.setSelectedItemId(R.id.nav_calendar);
+
+        } else if (activeFragment == statisticsFragment) {
+
+            bottomNav.setSelectedItemId(R.id.nav_statistic);
+
+        } else if (activeFragment == moreFragment) {
+
+            bottomNav.setSelectedItemId(R.id.nav_more);
+        }
+
+        /*
+         * Toolbar
+         */
         if (activeFragment instanceof ToolbarActionListener) {
-            toolbarActionListener = (ToolbarActionListener) activeFragment;
+            toolbarActionListener =
+                    (ToolbarActionListener) activeFragment;
         } else {
             toolbarActionListener = null;
         }

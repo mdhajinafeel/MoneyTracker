@@ -9,10 +9,15 @@ import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
+import com.nprotech.moneytracker.models.GoalContributionSummary;
+import com.nprotech.moneytracker.models.GoalContributionWithCurrency;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.repositories.GoalRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
@@ -24,6 +29,11 @@ public class GoalViewModel extends ViewModel {
     private final GoalRepository goalRepository;
     private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
     private final LiveData<Integer> goalCount;
+    private boolean loading = false, hasMore = true;
+    private static final int PAGE_SIZE = 100;
+    private int currentPage = 0, goalId;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final MutableLiveData<List<GoalContributionWithCurrency>> goalContributionList = new MutableLiveData<>(new ArrayList<>());
 
     @Inject
     public GoalViewModel(GoalRepository goalRepository) {
@@ -109,5 +119,49 @@ public class GoalViewModel extends ViewModel {
 
     public int updateGoal(GoalEntity goal, Context context) {
         return goalRepository.updateGoal(goal, context);
+    }
+
+    public GoalEntity getGoal(int goalId) {
+        return goalRepository.getGoal(goalId);
+    }
+
+    public LiveData<GoalContributionSummary> getContributionSummary(int goalId, int autoSaveType, int manualType, int initialType, int withdrawalType) {
+        return goalRepository.getContributionSummary(goalId, autoSaveType, manualType, initialType, withdrawalType);
+    }
+
+    public LiveData<List<GoalContributionWithCurrency>> getRecentContributions(int goalId) {
+        return goalRepository.getRecentContributions(goalId);
+    }
+
+    public void loadNextPage() {
+
+        if (loading || !hasMore)
+            return;
+
+        loading = true;
+
+        executor.execute(() -> {
+            List<GoalContributionWithCurrency> page = goalRepository.getContributions(goalId, currentPage, PAGE_SIZE);
+
+            if (page.size() < PAGE_SIZE) {
+                hasMore = false;
+            }
+
+            goalContributionList.postValue(page);
+            currentPage++;
+            loading = false;
+        });
+    }
+
+    public void loadGoalContributions(int goalId) {
+        this.goalId = goalId;
+        currentPage = 0;
+        hasMore = true;
+        goalContributionList.setValue(new ArrayList<>());
+        loadNextPage();
+    }
+
+    public LiveData<List<GoalContributionWithCurrency>> getGoalContributionList() {
+        return goalContributionList;
     }
 }

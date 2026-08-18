@@ -152,7 +152,7 @@
                 android:background="@drawable/bg_edit_text_underline"
                 android:ems="10"
                 android:hint="@string/enter_the_reason"
-                android:textColorHint="@color/grey"
+                android:textColorHint="@color/text_hint"
                 android:fontFamily="@font/exo2_medium"
                 android:inputType="textCapWords"
                 android:textColor="@color/black"

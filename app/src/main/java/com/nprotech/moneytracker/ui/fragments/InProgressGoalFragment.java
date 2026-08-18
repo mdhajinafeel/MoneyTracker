@@ -19,6 +19,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -125,7 +126,15 @@ public class InProgressGoalFragment extends Fragment {
                     holder.setViewText(R.id.tvTargetAmount, " / " + CommonUtils.getBeautifyAmount(goalWithDetail.currencySymbol, goalWithDetail.targetAmount));
                     tvTargetDate.setText(DateHelper.getFormattedDate(goalWithDetail.targetDate, "dd MMM yyyy"));
                     tvProgress.setText(getResources().getString(R.string.progress_percentage, progress));
-                    holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+
+                    if (daysLeft == 0) {
+                        holder.setViewText(R.id.tvDaysLeft, getString(R.string.due_today));
+                    } else if (daysLeft < 0) {
+                        long overdueDays = Math.abs(daysLeft);
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_overdue, (int) overdueDays, overdueDays));
+                    } else {
+                        holder.setViewText(R.id.tvDaysLeft, getResources().getQuantityString(R.plurals.days_count, (int) daysLeft, daysLeft));
+                    }
 
                     AppCompatImageView ivGoalIcon = holder.getView(R.id.ivGoalIcon);
 

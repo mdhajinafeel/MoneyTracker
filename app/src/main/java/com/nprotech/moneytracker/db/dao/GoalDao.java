@@ -10,6 +10,8 @@ import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
+import com.nprotech.moneytracker.models.GoalContributionSummary;
+import com.nprotech.moneytracker.models.GoalContributionWithCurrency;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 
 import java.util.List;
@@ -117,7 +119,7 @@ public interface GoalDao {
     int markAsInProgressGoal(int goalId, long updatedAt);
 
     @Query("SELECT * FROM goals WHERE id = :goalId LIMIT 1")
-    GoalEntity getGoal(long goalId);
+    GoalEntity getGoal(int goalId);
 
     @Query("""
             SELECT COALESCE(
@@ -135,21 +137,26 @@ public interface GoalDao {
     double getCurrentAmount(long goalId);
 
     @Query("""
-            SELECT *
-            FROM goal_contributions
-            WHERE goalId = :goalId
-            ORDER BY date DESC, id DESC
-            """)
-    List<GoalContributionEntity> getContributions(long goalId);
+        SELECT gc.*, c.symbol AS currencySymbol
+        FROM goal_contributions gc
+        INNER JOIN goals g ON g.id = gc.goalId
+        INNER JOIN currencies c ON c.id = g.currencyId
+        WHERE gc.goalId = :goalId
+        ORDER BY gc.date DESC
+        LIMIT 5
+        """)
+    LiveData<List<GoalContributionWithCurrency>> getRecentContributions(int goalId);
 
     @Query("""
-            SELECT *
-            FROM goal_contributions
-            WHERE goalId = :goalId
-            ORDER BY date DESC, id DESC
-            LIMIT 1
-            """)
-    GoalContributionEntity getLatestContribution(long goalId);
+        SELECT gc.*, c.symbol AS currencySymbol
+        FROM goal_contributions gc
+        INNER JOIN goals g ON g.id = gc.goalId
+        INNER JOIN currencies c ON c.id = g.currencyId
+        WHERE gc.goalId = :goalId
+        ORDER BY gc.date DESC
+        LIMIT :limit OFFSET :offset
+        """)
+    List<GoalContributionWithCurrency> getContributions(int goalId, int limit, int offset);
 
     @Insert
     long insertContribution(GoalContributionEntity contribution);
@@ -172,4 +179,18 @@ public interface GoalDao {
 
     @Update
     void updateContribution(GoalContributionEntity contribution);
+
+    @Query("SELECT COALESCE(SUM( CASE WHEN type = :autoSaveType THEN amount ELSE 0 END ), 0) AS autoSaveAmount, " +
+            "COALESCE(SUM( CASE WHEN type = :autoSaveType THEN 1 ELSE 0 END ), 0) AS autoSaveCount, " +
+            "COALESCE(SUM( CASE WHEN type = :manualType THEN amount ELSE 0 END ), 0) AS manualAmount, " +
+            "COALESCE(SUM( CASE WHEN type = :manualType THEN 1 ELSE 0 END ), 0) AS manualCount, " +
+            "COALESCE(SUM( CASE WHEN type = :initialType THEN amount ELSE 0 END ), 0) AS initialAmount, " +
+            "COALESCE(SUM( CASE WHEN type = :initialType THEN 1 ELSE 0 END ), 0) AS initialCount, " +
+            "COALESCE(SUM( CASE WHEN type = :withdrawalType THEN amount ELSE 0 END ), 0) AS withdrawalAmount, " +
+            "COALESCE(SUM( CASE WHEN type = :withdrawalType THEN 1 ELSE 0 END ), 0) AS withdrawalCount, " +
+            "c.symbol AS currencySymbol " +
+            "FROM goal_contributions gc " +
+            "INNER JOIN goals g ON g.id = gc.goalId " +
+            "INNER JOIN currencies c ON c.id = g.currencyId WHERE goalId = :goalId AND gc.isDeleted = 0")
+    LiveData<GoalContributionSummary> getContributionSummary(int goalId, int autoSaveType, int manualType, int initialType, int withdrawalType);
 }

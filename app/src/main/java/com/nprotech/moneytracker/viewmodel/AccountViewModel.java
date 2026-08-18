@@ -92,7 +92,6 @@ public class AccountViewModel extends ViewModel {
         loadNextPage();
     }
 
-
     public void loadNextPage() {
 
         if (loading || !hasMore)

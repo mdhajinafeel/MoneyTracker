@@ -3,6 +3,9 @@ package com.nprotech.moneytracker.helper;
 import android.content.Context;
 import android.text.format.DateFormat;
 
+import com.nprotech.moneytracker.constants.Constants;
+import com.nprotech.moneytracker.db.entites.GoalEntity;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
@@ -197,5 +200,37 @@ public class DateHelper {
             case 3 -> number + "rd";
             default -> number + "th";
         };
+    }
+
+    public static long calculateNextAutoSaveDate(GoalEntity goal, long currentDate) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(currentDate);
+
+        switch (goal.autoSaveFrequency) {
+
+            case Constants.GOAL_FREQUENCY_DAILY:
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+                break;
+
+            case Constants.GOAL_FREQUENCY_WEEKLY:
+                calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                break;
+
+            case Constants.GOAL_FREQUENCY_MONTHLY:
+                calendar.add(Calendar.MONTH, 1);
+                int maxDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDayOfMonth, maxDay));
+                break;
+
+            case Constants.GOAL_FREQUENCY_YEARLY:
+                calendar.add(Calendar.YEAR, 1);
+                calendar.set(Calendar.MONTH, goal.autoSaveMonth);
+                int maxYearDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                calendar.set(Calendar.DAY_OF_MONTH, Math.min(goal.autoSaveDay, maxYearDay));
+                break;
+        }
+
+        return calendar.getTimeInMillis();
     }
 }
