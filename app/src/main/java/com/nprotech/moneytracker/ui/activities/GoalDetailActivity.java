@@ -605,7 +605,7 @@ public class GoalDetailActivity extends BaseActivity {
     private void showOptionDialog(GoalWithDetails goal) {
         try {
             BottomSheetDialog dialog = new BottomSheetDialog(this);
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_sheet_goal_options, findViewById(android.R.id.content), false);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_goal_options, findViewById(android.R.id.content), false);
             AppCompatTextView tvGoalName = bottomView.findViewById(R.id.tvGoalName);
             AppCompatTextView tvGoalAmount = bottomView.findViewById(R.id.tvGoalAmount);
 

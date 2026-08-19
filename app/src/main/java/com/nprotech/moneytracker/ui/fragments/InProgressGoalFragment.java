@@ -19,7 +19,6 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -179,7 +178,7 @@ public class InProgressGoalFragment extends Fragment {
     private void showOptionDialog(GoalWithDetails goal) {
         try {
             BottomSheetDialog dialog = new BottomSheetDialog(requireActivity());
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_sheet_goal_options, requireActivity().findViewById(android.R.id.content), false);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_goal_options, requireActivity().findViewById(android.R.id.content), false);
             AppCompatTextView tvGoalName = bottomView.findViewById(R.id.tvGoalName);
             AppCompatTextView tvGoalAmount = bottomView.findViewById(R.id.tvGoalAmount);
             LinearLayout optionViewDetails = bottomView.findViewById(R.id.optionViewDetails);

@@ -157,7 +157,7 @@ public class AchievedGoalFragment extends Fragment {
     private void showOptionDialog(GoalWithDetails goal) {
         try {
             BottomSheetDialog dialog = new BottomSheetDialog(requireActivity());
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_sheet_goal_options, requireActivity().findViewById(android.R.id.content), false);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_goal_options, requireActivity().findViewById(android.R.id.content), false);
             AppCompatTextView tvGoalName = bottomView.findViewById(R.id.tvGoalName);
             AppCompatTextView tvGoalAmount = bottomView.findViewById(R.id.tvGoalAmount);
             LinearLayout optionViewDetails = bottomView.findViewById(R.id.optionViewDetails);
