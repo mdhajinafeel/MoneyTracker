@@ -26,9 +26,11 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
+import com.nprotech.moneytracker.models.GoalContributionWithCurrency;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -58,6 +60,9 @@ public class GoalMoneyActivity extends BaseActivity {
     private long targetDate = 0;
     private boolean isAddMoney;
     private GoalWithDetails goal;
+    private boolean isEdit = false;
+    private GoalContributionEntity editingContribution;
+    private double originalContributionAmount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +127,9 @@ public class GoalMoneyActivity extends BaseActivity {
     private void bindData(Bundle bundle) {
         try {
             int goalId = bundle.getInt("goalId", 0);
+            int contributionId = bundle.getInt("contributionId", 0);
             isAddMoney = bundle.getBoolean("addMoney", false);
+            isEdit = contributionId > 0;
 
             if (goalId > 0) {
 
@@ -155,8 +162,33 @@ public class GoalMoneyActivity extends BaseActivity {
                     }
                 });
 
-                targetDate = System.currentTimeMillis();
-                tvTargetDate.setText(DateHelper.getFormattedDate(DateHelper.getCurrentDateTime()));
+                if(contributionId > 0) {
+
+                    GoalContributionWithCurrency goalContribution = goalViewModel.getContribution(goalId, contributionId);
+                    if (goalContribution != null) {
+
+                        editingContribution = goalContribution.getContribution();
+
+                        targetDate = editingContribution.getDate();
+                        tvTargetDate.setText(DateHelper.getFormattedDate(targetDate));
+
+                        goalAmount = editingContribution.getAmount();
+                        originalContributionAmount = editingContribution.getAmount();
+
+                        tvTargetAmount.setText(CommonUtils.getBeautifyAmount(goalContribution.getCurrencySymbol(), goalAmount));
+                        etMemo.setText(editingContribution.getNote());
+
+                        updateSaveButtonState();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                        finish();
+                        ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                    }
+                } else {
+                    targetDate = System.currentTimeMillis();
+                    tvTargetDate.setText(DateHelper.getFormattedDate(DateHelper.getCurrentDateTime()));
+                }
 
                 updateActionMode();
             } else {
@@ -172,12 +204,24 @@ public class GoalMoneyActivity extends BaseActivity {
     private void updateActionMode() {
         if (isAddMoney) {
             btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_selector));
-            tvTitle.setText(getString(R.string.add_money_goal));
-            btnAddMoney.setText(getString(R.string.add_money));
+
+            if(isEdit) {
+                tvTitle.setText(getString(R.string.update_contribution, getString(R.string.manual)));
+                btnAddMoney.setText(getString(R.string.update));
+            } else {
+                tvTitle.setText(getString(R.string.add_money_goal));
+                btnAddMoney.setText(getString(R.string.add_money));
+            }
         } else {
             btnAddMoney.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.btn_withdraw_selector));
-            tvTitle.setText(getString(R.string.withdraw_money_goal));
-            btnAddMoney.setText(getString(R.string.withdraw_money));
+
+            if(isEdit) {
+                tvTitle.setText(getString(R.string.update_contribution, getString(R.string.withdrawal)));
+                btnAddMoney.setText(getString(R.string.update));
+            } else {
+                tvTitle.setText(getString(R.string.withdraw_money_goal));
+                btnAddMoney.setText(getString(R.string.withdraw_money));
+            }
         }
     }
 
@@ -229,32 +273,93 @@ public class GoalMoneyActivity extends BaseActivity {
 
                 goal.goalAmount = goalAmount;
 
+                // =========================================================
+                // EDIT EXISTING CONTRIBUTION
+                // =========================================================
+                if (isEdit) {
+
+                    if (editingContribution == null) {
+                        Toast.makeText(getApplicationContext(), R.string.parsing_error, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    double oldAmount = originalContributionAmount;
+
+                    // -----------------------------------------------------
+                    // EDIT ADD MONEY
+                    // -----------------------------------------------------
+                    double difference = goalAmount - oldAmount;
+                    double newSavedAmount;
+                    if (isAddMoney) {
+
+                        newSavedAmount = goal.savedAmount + difference;
+
+                        // New amount cannot exceed target
+                        if (newSavedAmount > goal.targetAmount) {
+                            Toast.makeText(getApplicationContext(), R.string.amount_exceeds, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
+                    // -----------------------------------------------------
+                    // EDIT WITHDRAW MONEY
+                    // -----------------------------------------------------
+                    else {
+
+                        newSavedAmount = goal.savedAmount - difference;
+
+                        // Cannot withdraw more than available goal amount
+                        if (newSavedAmount < 0) {
+                            Toast.makeText(getApplicationContext(), R.string.no_money_withdraw, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                    }
+                    editingContribution.setAmount(goalAmount);
+                    editingContribution.setDate(goal.moneyDate);
+                    editingContribution.setNote(etMemo.getText().toString().trim());
+                    goal.savedAmount = newSavedAmount;
+                    goalViewModel.updateContribution(goal, editingContribution);
+                    Toast.makeText(getApplicationContext(), R.string.money_updated, Toast.LENGTH_SHORT).show();
+
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+
+                    return;
+                }
+
+                // =========================================================
+                // ADD NEW CONTRIBUTION
+                // =========================================================
+
                 double currentAmount = goalViewModel.getCurrentAmount(goal.id);
 
                 if (isAddMoney) {
+
                     // Add Money
                     if (currentAmount + goalAmount > goal.targetAmount) {
                         Toast.makeText(getApplicationContext(), R.string.amount_exceeds, Toast.LENGTH_SHORT).show();
                     } else {
 
                         goal.savedAmount = goal.savedAmount + goalAmount;
-
                         goalViewModel.addMoney(goal);
+
                         Toast.makeText(getApplicationContext(), R.string.money_added, Toast.LENGTH_SHORT).show();
                         finish();
                         ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
                     }
+
                 } else {
+
                     // Withdraw Money
                     if (currentAmount <= 0) {
                         Toast.makeText(getApplicationContext(), R.string.no_money_withdraw, Toast.LENGTH_SHORT).show();
                     } else if (goalAmount > currentAmount) {
                         Toast.makeText(getApplicationContext(), R.string.withdrawal_exceeds_amount, Toast.LENGTH_SHORT).show();
                     } else {
-
                         goal.savedAmount = goal.savedAmount - goalAmount;
-
                         goalViewModel.withdrawMoney(goal);
+
                         Toast.makeText(getApplicationContext(), R.string.money_withdraw, Toast.LENGTH_SHORT).show();
                         finish();
                         ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
@@ -304,7 +409,8 @@ public class GoalMoneyActivity extends BaseActivity {
         DatePickerDialog dialog = new DatePickerDialog(this, R.style.CustomDateTimePickerDialog,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
                     Calendar selectedDate = Calendar.getInstance();
-                    selectedDate.set(selectedYear, selectedMonth, selectedDay, 0, 0, 0);
+                    selectedDate.set(selectedYear, selectedMonth, selectedDay, selectedDate.get(Calendar.HOUR_OF_DAY), selectedDate.get(Calendar.MINUTE),
+                            selectedDate.get(Calendar.SECOND));
                     selectedDate.set(Calendar.MILLISECOND, 0);
                     targetDate = selectedDate.getTimeInMillis();
                     String date = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(selectedDate.getTime());

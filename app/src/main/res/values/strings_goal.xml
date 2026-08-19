@@ -75,11 +75,14 @@
     <string name="mark_achieved">Mark as Achieved</string>
     <string name="move_progress">Move to In Progress</string>
     <string name="delete_goal">Delete Goal</string>
+    <string name="delete_contribution">Delete contributions</string>
     <string name="goal_contribution">Goal contributions</string>
     <string name="goal_withdrawal">Goal withdrawal</string>
     <string name="money_added">Money added successfully to the goal</string>
+    <string name="money_updated">Money updated successfully to the goal</string>
     <string name="money_withdraw">Money withdraw successfully from the goal</string>
     <string name="goal_deleted_successfully">Goal deleted successfully</string>
+    <string name="contribution_deleted_successfully">Contribution deleted successfully</string>
     <string name="goal_added_successfully">Goal added successfully</string>
     <string name="goal_archived_successfully">Goal archived successfully</string>
     <string name="goal_moved_successfully">Goal moved successfully</string>
@@ -120,6 +123,7 @@
     <string name="error_autosave">Error when auto save the goal</string>
     <string name="error_restore">Error when restore the goal</string>
     <string name="error_delete_goal">Error when delete the goal</string>
+    <string name="error_delete_contribution">Error when delete the contribution</string>
     <string name="error_disable">Error when disable the auto save</string>
     <string name="error_move">Error when moving the goal</string>
     <string name="error_completing">Error when achieving the goal</string>
@@ -130,6 +134,9 @@
     <string name="no_contributions">No contributions yet</string>
     <string name="due_today">Due today</string>
     <string name="overdue">Overdue</string>
+    <string name="manual_contribution">Manual Contribution</string>
+    <string name="auto_save_contribution">Auto Save Contribution</string>
+    <string name="update_contribution">Update Contribution - %1$s</string>
 
     <plurals name="days_count">
         <item quantity="one">%d day left</item>

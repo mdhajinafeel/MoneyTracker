@@ -41,6 +41,31 @@ public class GoalRepository {
         return goalDao.deleteGoal(goalId, System.currentTimeMillis()) > 0;
     }
 
+    public boolean deleteContribution(int type, int goalId, int contributionId) {
+
+        if(type == GoalContributionType.INITIAL) {
+            goalDao.updateInitialAmount(goalId, System.currentTimeMillis());
+        }
+
+        boolean deleted = goalDao.deleteContribution(goalId, contributionId) > 0;
+
+        GoalEntity goal = goalDao.getGoal(goalId);
+        double current = goalDao.getCurrentAmount(goalId);
+
+        goal.savedAmount = current;
+        goal.isCompleted = current >= goal.targetAmount;
+        if (goal.isCompleted) {
+            goal.completedOn = System.currentTimeMillis();
+        } else {
+            goal.completedOn = 0;
+        }
+        goal.updatedAt = System.currentTimeMillis();
+        goalDao.updateGoal(goal);
+
+        return deleted;
+
+    }
+
     public boolean disableAutoSave(int goalId) {
         return goalDao.disableAutoSave(goalId, System.currentTimeMillis()) > 0;
     }
@@ -128,10 +153,6 @@ public class GoalRepository {
         }
         updateGoalCompletion(goalId);
     }
-
-    // --------------------------------------------------
-    // DISABLE AUTO SAVE
-    // --------------------------------------------------
 
     // --------------------------------------------------
     // CURRENT AMOUNT
@@ -351,6 +372,15 @@ public class GoalRepository {
 
     public LiveData<List<GoalContributionWithCurrency>> getRecentContributions(int goalId) {
         return goalDao.getRecentContributions(goalId);
+    }
+
+    public GoalContributionWithCurrency getContribution(int goalId, int contributionId) {
+        return goalDao.getContribution(goalId, contributionId);
+    }
+
+    public void updateContribution(GoalWithDetails goal, GoalContributionEntity contribution) {
+        goalDao.updateSavedAmount(goal.id, goal.savedAmount, System.currentTimeMillis());
+        goalDao.updateContribution(contribution);
     }
 
     public List<GoalContributionWithCurrency> getContributions(int goalId, int page, int pageSize) {

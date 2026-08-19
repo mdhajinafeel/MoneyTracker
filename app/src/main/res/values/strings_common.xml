@@ -177,4 +177,8 @@
     <string name="error_delete">Error when deleting the data</string>
     <string name="error_update">Error when updating the data</string>
     <string name="error_add">Error when adding the data</string>
+    <string name="text_edit">Edit</string>
+    <string name="text_delete">delete</string>
+    <string name="text_close">Close</string>
+    <string name="text_remove">Remove</string>
 </resources>

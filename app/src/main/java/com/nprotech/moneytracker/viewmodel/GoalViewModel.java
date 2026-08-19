@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
+import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.helper.GoalWorkManagerHelper;
 import com.nprotech.moneytracker.models.GoalContributionSummary;
@@ -83,6 +84,10 @@ public class GoalViewModel extends ViewModel {
 
     public boolean deleteGoal(int goalId) {
         return goalRepository.deleteGoal(goalId);
+    }
+
+    public boolean deleteContribution(int type, int goalId, int contributionId) {
+        return goalRepository.deleteContribution(type, goalId, contributionId);
     }
 
     public boolean disableAutoSave(int goalId) {
@@ -163,5 +168,13 @@ public class GoalViewModel extends ViewModel {
 
     public LiveData<List<GoalContributionWithCurrency>> getGoalContributionList() {
         return goalContributionList;
+    }
+
+    public GoalContributionWithCurrency getContribution(int goalId, int contributionId) {
+        return goalRepository.getContribution(goalId, contributionId);
+    }
+
+    public void updateContribution(GoalWithDetails goal, GoalContributionEntity contribution) {
+        goalRepository.updateContribution(goal, contribution);
     }
 }

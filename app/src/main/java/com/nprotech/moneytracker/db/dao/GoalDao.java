@@ -2,7 +2,6 @@ package com.nprotech.moneytracker.db.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -118,6 +117,9 @@ public interface GoalDao {
     @Query("UPDATE goals SET isCompleted = 0, updatedAt = :updatedAt WHERE id = :goalId")
     int markAsInProgressGoal(int goalId, long updatedAt);
 
+    @Query("UPDATE goals SET initialAmount = 0, updatedAt = :updatedAt WHERE id = :goalId")
+    void updateInitialAmount(int goalId, long updatedAt);
+
     @Query("SELECT * FROM goals WHERE id = :goalId LIMIT 1")
     GoalEntity getGoal(int goalId);
 
@@ -132,7 +134,7 @@ public interface GoalDao {
                 ), 0
             )
             FROM goal_contributions
-            WHERE goalId = :goalId
+            WHERE goalId = :goalId AND isDeleted = 0
             """)
     double getCurrentAmount(long goalId);
 
@@ -141,7 +143,7 @@ public interface GoalDao {
         FROM goal_contributions gc
         INNER JOIN goals g ON g.id = gc.goalId
         INNER JOIN currencies c ON c.id = g.currencyId
-        WHERE gc.goalId = :goalId
+        WHERE gc.goalId = :goalId AND gc.isDeleted = 0
         ORDER BY gc.date DESC
         LIMIT 5
         """)
@@ -152,7 +154,7 @@ public interface GoalDao {
         FROM goal_contributions gc
         INNER JOIN goals g ON g.id = gc.goalId
         INNER JOIN currencies c ON c.id = g.currencyId
-        WHERE gc.goalId = :goalId
+        WHERE gc.goalId = :goalId AND gc.isDeleted = 0
         ORDER BY gc.date DESC
         LIMIT :limit OFFSET :offset
         """)
@@ -161,8 +163,8 @@ public interface GoalDao {
     @Insert
     long insertContribution(GoalContributionEntity contribution);
 
-    @Delete
-    void deleteContribution(GoalContributionEntity contribution);
+    @Query("UPDATE goal_contributions SET isDeleted = 1 WHERE goalId = :goalId AND id = :contributionId")
+    int deleteContribution(int goalId, int contributionId);
 
     @Query("""
         SELECT COUNT(*)
@@ -174,8 +176,15 @@ public interface GoalDao {
         """)
     LiveData<Integer> getActiveGoalCount(int accountId);
 
-    @Query("SELECT * FROM goal_contributions WHERE goalId = :goalId AND type = :type LIMIT 1")
+    @Query("SELECT * FROM goal_contributions WHERE goalId = :goalId AND isDeleted = 0 AND type = :type LIMIT 1")
     GoalContributionEntity getInitialContribution(int goalId, int type);
+
+    @Query("SELECT gc.*, c.symbol AS currencySymbol " +
+            "FROM goal_contributions gc " +
+            "INNER JOIN goals g ON g.id = gc.goalId " +
+            "INNER JOIN currencies c ON c.id = g.currencyId " +
+            "WHERE gc.goalId = :goalId AND gc.isDeleted = 0 AND gc.id = :contributionId")
+    GoalContributionWithCurrency getContribution(int goalId, int contributionId);
 
     @Update
     void updateContribution(GoalContributionEntity contribution);
@@ -191,6 +200,7 @@ public interface GoalDao {
             "c.symbol AS currencySymbol " +
             "FROM goal_contributions gc " +
             "INNER JOIN goals g ON g.id = gc.goalId " +
-            "INNER JOIN currencies c ON c.id = g.currencyId WHERE goalId = :goalId AND gc.isDeleted = 0")
+            "INNER JOIN currencies c ON c.id = g.currencyId " +
+            "WHERE goalId = :goalId AND gc.isDeleted = 0")
     LiveData<GoalContributionSummary> getContributionSummary(int goalId, int autoSaveType, int manualType, int initialType, int withdrawalType);
 }

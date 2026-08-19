@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!-- Goal Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_10"
+        android:paddingVertical="@dimen/padding_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Contribution icon -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivContributionIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/margin_10"
+            android:background="@drawable/bg_circle_theme"
+            android:padding="@dimen/padding_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContributionType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:fontFamily="@font/exo2_bold"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintBottom_toBottomOf="@id/ivContributionIcon"
+            app:layout_constraintEnd_toStartOf="@id/tvAmount"
+            app:layout_constraintStart_toEndOf="@id/ivContributionIcon"
+            app:layout_constraintTop_toTopOf="@id/ivContributionIcon" />
+
+        <!-- Amount -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_bold"
+            android:textColor="@color/income"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintBottom_toBottomOf="@id/ivContributionIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivContributionIcon" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/viewHeader"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_10"
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerContainer" />
+
+    <!-- Date & Time -->
+    <LinearLayout
+        android:id="@+id/layoutDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_20"
+        android:paddingVertical="@dimen/padding_10"
+        app:layout_constraintTop_toBottomOf="@+id/viewHeader">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_calendar"
+            app:tint="@color/primary_dark" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:fontFamily="@font/exo2_medium"
+            android:text="@string/date_amp_time"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:fontFamily="@font/exo2_semibold"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_14" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewDateTime"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/layoutDateTime" />
+
+    <!-- Notes -->
+    <LinearLayout
+        android:id="@+id/layoutNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/padding_20"
+        android:paddingVertical="@dimen/padding_10"
+        app:layout_constraintTop_toBottomOf="@+id/viewDateTime">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="@dimen/margin_12"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_desc"
+            app:tint="@color/primary_dark" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:fontFamily="@font/exo2_medium"
+            android:text="@string/notes"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNotes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:fontFamily="@font/exo2_semibold"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_14" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewNotes"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/layoutNotes" />
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_10"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewNotes">
+
+        <!-- Primary / Edit / View -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrimary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_lavender"
+            android:text="@string/text_edit"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_12"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:icon="@drawable/ic_edit"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconTint="@color/primary"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="1dp" />
+
+        <!-- Delete / Remove -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecondary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_expense"
+            android:text="@string/text_delete"
+            android:textAllCaps="true"
+            android:textColor="@color/bright_red"
+            android:textSize="@dimen/text_12"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:icon="@drawable/ic_delete"
+            app:iconGravity="textStart"
+            app:iconSize="20dp"
+            app:iconTint="@color/bright_red"
+            app:strokeColor="@color/bright_red"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:text="@string/text_close"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_14"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/margin_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutActions"
+        app:fontFamily="@font/exo2_semibold" />
+</androidx.constraintlayout.widget.ConstraintLayout>

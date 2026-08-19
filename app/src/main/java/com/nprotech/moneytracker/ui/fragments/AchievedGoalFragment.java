@@ -197,6 +197,7 @@ public class AchievedGoalFragment extends Fragment {
             optionAddMoney.setOnClickListener(view -> {
                 dialog.dismiss();
                 startActivity(new Intent(requireActivity(), GoalMoneyActivity.class)
+                        .putExtra("contributionId", 0)
                         .putExtra("addMoney", true)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
@@ -206,6 +207,7 @@ public class AchievedGoalFragment extends Fragment {
             optionWithdrawal.setOnClickListener(view -> {
                 dialog.dismiss();
                 startActivity(new Intent(requireActivity(), GoalMoneyActivity.class)
+                        .putExtra("contributionId", 0)
                         .putExtra("addMoney", false)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
