@@ -386,10 +386,9 @@
                             android:layout_height="wrap_content"
                             android:background="@color/very_light_income"
                             android:padding="@dimen/padding_12"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:visibility="gone">
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivAutoSaveIcon"
@@ -416,6 +415,22 @@
                                 app:layout_constraintBottom_toBottomOf="@+id/ivAutoSaveIcon"
                                 app:layout_constraintStart_toEndOf="@id/ivAutoSaveIcon"
                                 app:layout_constraintTop_toTopOf="@+id/ivAutoSaveIcon" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivEditAutoSaveImage"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:layout_marginEnd="@dimen/margin_12"
+                                android:background="@drawable/bg_circle_stroke"
+                                android:backgroundTint="@color/income"
+                                android:padding="@dimen/padding_4"
+                                android:scaleType="centerInside"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivAutoSaveIcon"
+                                app:layout_constraintEnd_toStartOf="@id/lblBadgeEnabled"
+                                app:layout_constraintTop_toTopOf="@+id/ivAutoSaveIcon"
+                                app:srcCompat="@drawable/ic_edit"
+                                app:tint="@color/dark_income" />
 
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/lblBadgeEnabled"

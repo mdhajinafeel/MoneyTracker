@@ -52,7 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GoalDetailActivity extends BaseActivity {
 
-    private AppCompatImageView icBack, ivGoalIcon, ivMore;
+    private AppCompatImageView icBack, ivGoalIcon, ivMore, ivEditAutoSaveImage;
     private AppCompatTextView tvTargetDate, tvTargetDays, tvGoalCategory, tvGoalName, tvGoalSavedAmount, tvGoalTargetAmount, lblGoalRemainingAmount, tvGoalRemainingAmount,
             tvAutoSaveAmount, tvFrequency, tvNextSave, tvStartDate, tvGoalProgress, tvAutoSaveHint, tvAutoSaveDisabled, lblViewAllContribution, tvGoalStatus, tvGoalReachHint,
             tvCategory, tvCreatedOn, tvNotes, tvGoalId, lblNoContributions, tvAutoSaveSummaryAmount, tvAutoSaveSummaryCount, tvManualSummaryAmount, tvManualSummaryCount,
@@ -125,6 +125,7 @@ public class GoalDetailActivity extends BaseActivity {
             autoSaveDisabledContainer = findViewById(R.id.autoSaveDisabledContainer);
             disableContainer = findViewById(R.id.disableContainer);
             btnEnableAutoSave = findViewById(R.id.btnEnableAutoSave);
+            ivEditAutoSaveImage = findViewById(R.id.ivEditAutoSaveImage);
 
             tvTitle.setText(getString(R.string.goal_details));
 
@@ -584,6 +585,7 @@ public class GoalDetailActivity extends BaseActivity {
             btnEnableAutoSave.setOnClickListener(v -> {
                 startActivity(new Intent(this, CreateAutoSaveActivity.class)
                         .putExtra("type", "goal")
+                        .putExtra("isEdit", false)
                         .putExtra("currencySymbol", goal.currencySymbol)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
@@ -592,6 +594,15 @@ public class GoalDetailActivity extends BaseActivity {
             lblViewAllContribution.setOnClickListener(v -> {
                 startActivity(new Intent(GoalDetailActivity.this, ContributionsListActivity.class)
                         .putExtra("type", "goal")
+                        .putExtra("goalId", goal.id));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            ivEditAutoSaveImage.setOnClickListener(v -> {
+                startActivity(new Intent(this, CreateAutoSaveActivity.class)
+                        .putExtra("type", "goal")
+                        .putExtra("isEdit", true)
+                        .putExtra("currencySymbol", goal.currencySymbol)
                         .putExtra("goalId", goal.id));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -707,11 +718,7 @@ public class GoalDetailActivity extends BaseActivity {
             // ARCHIVE
             optionArchive.setOnClickListener(view -> {
                 dialog.dismiss();
-                if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
-                }
+                showArchiveDialog(goal);
             });
 
             // RESTORE
@@ -742,7 +749,12 @@ public class GoalDetailActivity extends BaseActivity {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
         tvTitle.setText(R.string.delete_goal);
+        tvMessage.setText(R.string.delete_goal_message);
+        tvSubMessage.setText(R.string.delete_goal_sub_message);
+        tvSubMessage.setVisibility(View.VISIBLE);
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
@@ -805,6 +817,47 @@ public class GoalDetailActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(), getString(R.string.auto_save_disabled), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.error_disable), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteGoal", e);
+        }
+    }
+
+    private void showArchiveDialog(GoalWithDetails goal) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        tvTitle.setText(R.string.archive_goal);
+        tvMessage.setText(R.string.delete_archive_message);
+        tvSubMessage.setText(R.string.delete_archive_sub_message);
+        tvSubMessage.setVisibility(View.VISIBLE);
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            archiveGoal(goal);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void archiveGoal(GoalWithDetails goal) {
+        try {
+            if (goal == null) {
+                return;
+            }
+
+            if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);
@@ -914,6 +967,7 @@ public class GoalDetailActivity extends BaseActivity {
                     dialog.dismiss();
                     startActivity(new Intent(this, CreateAutoSaveActivity.class)
                             .putExtra("type", "goal")
+                            .putExtra("isEdit", true)
                             .putExtra("currencySymbol", goal.getCurrencySymbol())
                             .putExtra("goalId", contribution.getGoalId()));
                     ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
@@ -939,7 +993,22 @@ public class GoalDetailActivity extends BaseActivity {
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
-        tvTitle.setText(R.string.delete_contribution);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+
+        if (goal.getContribution().getType() == GoalContributionType.INITIAL) {
+            tvTitle.setText(R.string.remove_initial_amount);
+            tvMessage.setText(R.string.remove_initial_message);
+            tvSubMessage.setText(R.string.remove_initial_sub_message);
+            tvSubMessage.setVisibility(View.VISIBLE);
+        } else if (goal.getContribution().getType() == GoalContributionType.ADD) {
+            tvTitle.setText(R.string.delete_contribution);
+            tvMessage.setText(R.string.delete_contribution_message);
+        } else if (goal.getContribution().getType() == GoalContributionType.WITHDRAW) {
+            tvTitle.setText(R.string.delete_withdrawal);
+            tvMessage.setText(R.string.delete_withdrawal_message);
+        }
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {

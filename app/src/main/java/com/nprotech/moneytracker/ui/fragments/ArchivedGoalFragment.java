@@ -213,7 +213,12 @@ public class ArchivedGoalFragment extends Fragment {
         AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
         tvTitle.setText(R.string.delete_goal);
+        tvMessage.setText(R.string.delete_goal_message);
+        tvSubMessage.setText(R.string.delete_goal_sub_message);
+        tvSubMessage.setVisibility(View.VISIBLE);
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {

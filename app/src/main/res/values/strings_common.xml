@@ -20,6 +20,16 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
 
+    <string-array name="week_days">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
     <string-array name="week_days_short">
         <item>Sun</item>
         <item>Mon</item>

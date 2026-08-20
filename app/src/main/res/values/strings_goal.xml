@@ -75,7 +75,15 @@
     <string name="mark_achieved">Mark as Achieved</string>
     <string name="move_progress">Move to In Progress</string>
     <string name="delete_goal">Delete Goal</string>
+    <string name="delete_goal_message">Are you sure you want to delete this goal?</string>
+    <string name="delete_goal_sub_message">All contributions and related data will be permanently deleted.</string>
     <string name="delete_contribution">Delete contributions</string>
+    <string name="delete_contribution_message">Are you sure you want to delete this contribution?</string>
+    <string name="remove_initial_amount">Remove initial amount</string>
+    <string name="remove_initial_message">Are you sure you want to remove the initial amount?</string>
+    <string name="remove_initial_sub_message">This will update the saved amount accordingly.</string>
+    <string name="delete_withdrawal">Delete withdrawal</string>
+    <string name="delete_withdrawal_message">Are you sure you want to delete this withdrawal?</string>
     <string name="goal_contribution">Goal contributions</string>
     <string name="goal_withdrawal">Goal withdrawal</string>
     <string name="money_added">Money added successfully to the goal</string>
@@ -92,6 +100,9 @@
     <string name="withdrawal_exceeds_amount">Withdrawal exceeds saved amount</string>
     <string name="amount_exceeds">Amount exceeds goal target</string>
     <string name="archived">Archived</string>
+    <string name="archive_goal">Archive Goal</string>
+    <string name="delete_archive_message">Are you sure you want to archive this goal?</string>
+    <string name="delete_archive_sub_message">You can restore it anytime from the archived goals.</string>
     <string name="no_money_withdraw">No money available to withdraw</string>
     <string name="auto_save_on_date">%1$s: %2$s on %3$s</string>
     <string name="track_your_progress">Track your progress</string>

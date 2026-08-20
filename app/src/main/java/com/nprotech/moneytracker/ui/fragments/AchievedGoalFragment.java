@@ -233,11 +233,7 @@ public class AchievedGoalFragment extends Fragment {
             // ARCHIVE
             optionArchive.setOnClickListener(view -> {
                 dialog.dismiss();
-                if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
-                    Toast.makeText(requireActivity(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireActivity(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
-                }
+                showArchiveDialog(goal);
             });
 
             // PROGRESS
@@ -268,7 +264,12 @@ public class AchievedGoalFragment extends Fragment {
         AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
         tvTitle.setText(R.string.delete_goal);
+        tvMessage.setText(R.string.delete_goal_message);
+        tvSubMessage.setText(R.string.delete_goal_sub_message);
+        tvSubMessage.setVisibility(View.VISIBLE);
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
@@ -293,6 +294,47 @@ public class AchievedGoalFragment extends Fragment {
                 Toast.makeText(requireActivity(), getString(R.string.goal_deleted_successfully), Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(requireActivity(), getString(R.string.error_delete_goal), Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteGoal", e);
+        }
+    }
+
+    private void showArchiveDialog(GoalWithDetails goal) {
+
+        AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        tvTitle.setText(R.string.archive_goal);
+        tvMessage.setText(R.string.delete_archive_message);
+        tvSubMessage.setText(R.string.delete_archive_sub_message);
+        tvSubMessage.setVisibility(View.VISIBLE);
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            archiveGoal(goal);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void archiveGoal(GoalWithDetails goal) {
+        try {
+            if (goal == null) {
+                return;
+            }
+
+            if (goalViewModel.archiveRestoreGoal(goal.id, true)) {
+                Toast.makeText(requireActivity(), getString(R.string.goal_archived_successfully), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.error_archive), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);

@@ -754,19 +754,16 @@ public class CalendarHelper {
         return calendar.getTimeInMillis();
     }
 
-    public static String getWeekDayName(int day, Context context) {
+    public static String getWeekDayName(int dayOfWeek, Context context) {
 
-        String[] days = {
-                context.getString(R.string.sunday),
-                context.getString(R.string.monday),
-                context.getString(R.string.tuesday),
-                context.getString(R.string.wednesday),
-                context.getString(R.string.thursday),
-                context.getString(R.string.friday),
-                context.getString(R.string.saturday)
-        };
+        String[] weekDays = context.getResources()
+                .getStringArray(R.array.week_days);
 
-        return days[day - Calendar.SUNDAY];
+        if (dayOfWeek < Calendar.SUNDAY || dayOfWeek > Calendar.SATURDAY) {
+            return "";
+        }
+
+        return weekDays[dayOfWeek - Calendar.SUNDAY];
     }
 
     public static String getMonthName(int month, Context context) {

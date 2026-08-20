@@ -31,6 +31,7 @@ import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.models.GoalFrequencyModel;
+import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -134,9 +135,54 @@ public class CreateAutoSaveActivity extends BaseActivity {
     private void bindData(Bundle bundle) {
         try {
             goalId = bundle.getInt("goalId", 0);
+            boolean isEdit = bundle.getBoolean("isEdit", false);
             currencySymbol = bundle.getString("currencySymbol", "");
 
-            initializeAutoSaveFields();
+            if(isEdit) {
+
+                tvSave.setText(getString(R.string.update));
+
+                GoalWithDetails goal = goalViewModel.fetchGoalDetails(goalId);
+
+                if(goal == null) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                } else {
+
+                    // Default frequency
+                    selectedFrequency = goal.autoSaveFrequency;
+
+                    if(selectedFrequency == Constants.GOAL_FREQUENCY_DAILY) {
+                        tvFrequency.setText(getString(R.string.calendar_daily));
+                    } else if(selectedFrequency == Constants.GOAL_FREQUENCY_MONTHLY) {
+                        tvFrequency.setText(getString(R.string.calendar_monthly));
+                    } else if(selectedFrequency == Constants.GOAL_FREQUENCY_WEEKLY) {
+                        tvFrequency.setText(getString(R.string.calendar_weekly));
+                    } else if(selectedFrequency == Constants.GOAL_FREQUENCY_YEARLY) {
+                        tvFrequency.setText(getString(R.string.calendar_yearly));
+                    }
+
+                    autoSaveAmount = goal.autoSaveAmount;
+                    autoSaveStartDate = goal.autoSaveStartDate;
+
+                    tvAutoSaveAmount.setText(CommonUtils.getBeautifyAmount(goal.currencySymbol, autoSaveAmount));
+                    tvStartOn.setText(DateHelper.getFormattedDate(autoSaveStartDate));
+
+                    // Default schedule values
+                    autoSaveWeekDay = goal.autoSaveWeekDay == 0 ? Calendar.MONDAY : goal.autoSaveWeekDay;
+                    autoSaveDayOfMonth = goal.autoSaveDayOfMonth == 0 ? 1 : goal.autoSaveDayOfMonth;
+                    autoSaveMonth = goal.autoSaveMonth == 0 ? Calendar.JANUARY : goal.autoSaveMonth;
+                    autoSaveDay = goal.autoSaveDay == 0 ? 1 : goal.autoSaveDay;
+
+                    // Prepare the fields
+                    updateFrequencyFields();
+                    updateSaveButtonState();
+                }
+            } else {
+                tvSave.setText(getString(R.string.save));
+                initializeAutoSaveFields();
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
