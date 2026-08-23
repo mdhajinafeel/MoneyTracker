@@ -386,7 +386,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/very_light_income"
                             android:padding="@dimen/padding_12"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 

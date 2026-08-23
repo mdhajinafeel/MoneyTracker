@@ -78,16 +78,16 @@
             </intent-filter>
         </activity>
 
-        <!-- Add Account Screen -->
+        <!-- Onboarding Screen -->
         <activity
-            android:name=".ui.activities.AddAccountActivity"
+            android:name=".ui.activities.OnboardingActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Onboarding Screen -->
+        <!-- Add Account Screen -->
         <activity
-            android:name=".ui.activities.OnboardingActivity"
+            android:name=".ui.activities.AddAccountActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -263,6 +263,20 @@
         <!-- Contributions Screen -->
         <activity
             android:name=".ui.activities.ContributionsListActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Create Backup Screen -->
+        <activity
+            android:name=".ui.activities.BackupNowActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Backup Success Screen -->
+        <activity
+            android:name=".ui.activities.BackupSuccessActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

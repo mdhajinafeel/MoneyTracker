@@ -29,17 +29,19 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
     private final List<SettingItemModel> items;
     private final OnSettingActionListener listener;
     private final Context context;
+    private final int layout;
 
-    public SettingsAdapter(Context context, List<SettingItemModel> items, OnSettingActionListener listener) {
+    public SettingsAdapter(Context context, List<SettingItemModel> items, int layout, OnSettingActionListener listener) {
         this.items = items;
         this.listener = listener;
         this.context = context;
+        this.layout = layout;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_setting, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         return new ViewHolder(view);
     }
 

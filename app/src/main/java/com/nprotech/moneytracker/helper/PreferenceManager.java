@@ -18,6 +18,7 @@ public enum PreferenceManager {
     private static final String KEY_SMART_REMINDER = "smartReminder";
     private static final String KEY_STARTUP_SCREEN = "startUpScreen";
     private static final String KEY_STATISTICS_FILTER = "statisticFilter";
+    private static final String KEY_BACKUP_LOCATION = "backupLocation";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -118,5 +119,14 @@ public enum PreferenceManager {
 
     public int getStatisticsFilter() {
         return prefStore.getInt(KEY_STATISTICS_FILTER, 0);
+    }
+
+    // ===== BACKUP LOCATION =====
+    public void setBackupLocation(String backupLocation) {
+        prefStore.edit().putString(KEY_BACKUP_LOCATION, backupLocation).apply();
+    }
+
+    public String getBackupLocation() {
+        return prefStore.getString(KEY_BACKUP_LOCATION, "");
     }
 }

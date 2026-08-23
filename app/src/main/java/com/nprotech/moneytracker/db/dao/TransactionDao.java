@@ -39,7 +39,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +
@@ -57,7 +57,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id=t.categoryId AND c1.type=t.type " +
             "WHERE t.isDeleted=0 " +
             "AND t.transactionDate BETWEEN :startDate AND :endDate " +
@@ -75,7 +75,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.tempTransactionServerId = :tempTransactionServerId AND t.type IN (1, 2, 3) " +
             "ORDER BY t.transactionDate DESC")
@@ -87,7 +87,7 @@ public interface TransactionDao {
     @Query("SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
             "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END AS type, " +
             "t.categoryId, c1.name AS categoryName, t.walletId FROM transactions t " +
-            "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "WHERE (t.walletId = :walletId OR t.fromWalletId = :walletId) " +
@@ -136,7 +136,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.accountId = :accountId AND t.transactionDate BETWEEN :start AND :end " +
             "AND t.isDeleted = 0 " +
@@ -291,7 +291,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +
@@ -310,7 +310,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +

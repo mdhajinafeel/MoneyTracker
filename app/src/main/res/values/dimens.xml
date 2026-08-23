@@ -92,4 +92,5 @@
     <dimen name="icon_8">8dp</dimen>
     <dimen name="icon_10">10dp</dimen>
     <dimen name="icon_12">12dp</dimen>
+    <dimen name="icon_18">18dp</dimen>
 </resources>

@@ -154,7 +154,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             managementList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, R.drawable.ic_category, R.color.category_dark, R.color.category_light,
                     getString(R.string.manage_category), true, true, getString(R.string.manage_categories), true, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(this, managementList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, managementList, R.layout.item_setting, this);
 
             rvManagement.setLayoutManager(new LinearLayoutManager(this));
             rvManagement.setAdapter(adapter);
@@ -177,7 +177,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, R.drawable.ic_reminder, R.color.reminder_dark, R.color.reminder_light,
                     getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true));
 
-            configurationAdapter = new SettingsAdapter(this, configurationList, this);
+            configurationAdapter = new SettingsAdapter(this, configurationList, R.layout.item_setting, this);
 
             rvConfigurations.setLayoutManager(new LinearLayoutManager(this));
             rvConfigurations.setAdapter(configurationAdapter);
@@ -192,7 +192,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, R.drawable.ic_settings_backup, R.color.backup_dark, R.color.backup_light,
                     getString(R.string.manage_backup), true, true, getString(R.string.backup_restore_data), true, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, R.layout.item_setting, this);
 
             rvBackup.setLayoutManager(new LinearLayoutManager(this));
             rvBackup.setAdapter(adapter);
@@ -212,7 +212,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             settingItemModelList.add(new SettingItemModel(SettingType.ABOUT, R.drawable.ic_about, R.color.about_dark, R.color.about_light, getString(R.string.about) + " " + getString(R.string.app_name), true, true, getString(R.string.learn_more) + getString(R.string.app_name), true, false));
             settingItemModelList.add(new SettingItemModel(SettingType.VERSION, R.drawable.ic_version, R.color.version_dark, R.color.version_light, getString(R.string.version), false, true, getAppVersion(), false, false));
 
-            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, this);
+            SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, R.layout.item_setting, this);
 
             rvOthers.setLayoutManager(new LinearLayoutManager(this));
             rvOthers.setAdapter(adapter);

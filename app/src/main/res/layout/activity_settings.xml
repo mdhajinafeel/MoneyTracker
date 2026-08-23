@@ -42,9 +42,9 @@
                 android:id="@+id/rlUpgrade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_6">
+                android:layout_marginEnd="@dimen/margin_10">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardUpgrade"
@@ -55,7 +55,7 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:cardBackgroundColor="@android:color/white"
                     app:cardCornerRadius="@dimen/corner_radius_8"
-                    app:cardElevation="6dp"
+                    app:cardElevation="@dimen/corner_elevation_2"
                     app:strokeColor="@color/light_lavender"
                     app:strokeWidth="1dp">
 
@@ -271,9 +271,9 @@
                 android:id="@+id/rlManagement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginStart="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_4"
-                android:layout_marginEnd="@dimen/margin_6">
+                android:layout_marginEnd="@dimen/margin_10">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/managementCard"
@@ -285,8 +285,8 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/corner_radius_8"
-                    app:cardElevation="@dimen/corner_elevation_6"
-                    app:strokeColor="@color/grey_88"
+                    app:cardElevation="@dimen/corner_elevation_2"
+                    app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -339,8 +339,8 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/corner_radius_8"
-                    app:cardElevation="@dimen/corner_elevation_6"
-                    app:strokeColor="@color/grey_88"
+                    app:cardElevation="@dimen/corner_elevation_2"
+                    app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -393,8 +393,8 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/corner_radius_8"
-                    app:cardElevation="@dimen/corner_elevation_6"
-                    app:strokeColor="@color/grey_88"
+                    app:cardElevation="@dimen/corner_elevation_2"
+                    app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
                     <LinearLayout
@@ -447,8 +447,8 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/corner_radius_8"
-                    app:cardElevation="@dimen/corner_elevation_6"
-                    app:strokeColor="@color/grey_88"
+                    app:cardElevation="@dimen/corner_elevation_2"
+                    app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
                     <LinearLayout

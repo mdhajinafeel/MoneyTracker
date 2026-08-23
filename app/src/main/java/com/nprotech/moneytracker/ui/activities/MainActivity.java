@@ -34,8 +34,8 @@ import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.ui.fragments.CalendarFragment;
+import com.nprotech.moneytracker.ui.fragments.InsightsFragment;
 import com.nprotech.moneytracker.ui.fragments.MoreFragment;
-import com.nprotech.moneytracker.ui.fragments.StatisticsFragment;
 import com.nprotech.moneytracker.ui.fragments.TransactionFragment;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
     private final List<AccountEntity> accountList = new ArrayList<>();
     private TransactionFragment transactionFragment;
     private CalendarFragment calendarFragment;
-    private StatisticsFragment statisticsFragment;
+    private InsightsFragment insightsFragment;
     private MoreFragment moreFragment;
     private Fragment activeFragment;
     private long lastBackPressedTime = 0;
@@ -133,7 +133,7 @@ public class MainActivity extends BaseActivity {
                     loadFragment(calendarFragment);
                     return true;
                 } else if (item.getItemId() == R.id.nav_statistic) {
-                    loadFragment(statisticsFragment);
+                    loadFragment(insightsFragment);
                     return true;
                 } else if (item.getItemId() == R.id.nav_more) {
                     loadFragment(moreFragment);
@@ -287,8 +287,8 @@ public class MainActivity extends BaseActivity {
             transaction.hide(calendarFragment);
         }
 
-        if (statisticsFragment != null && statisticsFragment != fragment) {
-            transaction.hide(statisticsFragment);
+        if (insightsFragment != null && insightsFragment != fragment) {
+            transaction.hide(insightsFragment);
         }
 
         if (moreFragment != null && moreFragment != fragment) {
@@ -327,7 +327,7 @@ public class MainActivity extends BaseActivity {
 
             incomeWrapper.setVisibility(View.GONE);
             expenseWrapper.setVisibility(View.GONE);
-        } else if (fragment instanceof StatisticsFragment) {
+        } else if (fragment instanceof InsightsFragment) {
             balanceWrapper.setVisibility(View.GONE);
             ivSettings.setVisibility(View.GONE);
             ivChart.setVisibility(View.VISIBLE);
@@ -352,7 +352,7 @@ public class MainActivity extends BaseActivity {
 
         transactionFragment = (TransactionFragment) fm.findFragmentByTag("transaction");
         calendarFragment = (CalendarFragment) fm.findFragmentByTag("calendar");
-        statisticsFragment = (StatisticsFragment) fm.findFragmentByTag("statistics");
+        insightsFragment = (InsightsFragment) fm.findFragmentByTag("statistics");
         moreFragment = (MoreFragment) fm.findFragmentByTag("more");
 
         // Create fragments if they don't exist
@@ -364,8 +364,8 @@ public class MainActivity extends BaseActivity {
             calendarFragment = new CalendarFragment();
         }
 
-        if (statisticsFragment == null) {
-            statisticsFragment = new StatisticsFragment();
+        if (insightsFragment == null) {
+            insightsFragment = new InsightsFragment();
         }
 
         if (moreFragment == null) {
@@ -388,14 +388,14 @@ public class MainActivity extends BaseActivity {
                             calendarFragment, "calendar")
 
                     .add(R.id.fragmentContainer,
-                            statisticsFragment, "statistics")
+                            insightsFragment, "statistics")
 
                     .add(R.id.fragmentContainer,
                             moreFragment, "more")
 
                     .hide(transactionFragment)
                     .hide(calendarFragment)
-                    .hide(statisticsFragment)
+                    .hide(insightsFragment)
                     .hide(moreFragment)
 
                     .commitNow();
@@ -416,7 +416,7 @@ public class MainActivity extends BaseActivity {
                     break;
 
                 case Constants.STARTUP_STATISTICS:
-                    activeFragment = statisticsFragment;
+                    activeFragment = insightsFragment;
                     break;
 
                 case Constants.STARTUP_MORE:
@@ -443,7 +443,7 @@ public class MainActivity extends BaseActivity {
 
             } else if (selectedItem == R.id.nav_statistic) {
 
-                activeFragment = statisticsFragment;
+                activeFragment = insightsFragment;
 
             } else if (selectedItem == R.id.nav_more) {
 
@@ -471,8 +471,8 @@ public class MainActivity extends BaseActivity {
             transaction.hide(calendarFragment);
         }
 
-        if (statisticsFragment != null) {
-            transaction.hide(statisticsFragment);
+        if (insightsFragment != null) {
+            transaction.hide(insightsFragment);
         }
 
         if (moreFragment != null) {
@@ -496,7 +496,7 @@ public class MainActivity extends BaseActivity {
 
             bottomNav.setSelectedItemId(R.id.nav_calendar);
 
-        } else if (activeFragment == statisticsFragment) {
+        } else if (activeFragment == insightsFragment) {
 
             bottomNav.setSelectedItemId(R.id.nav_statistic);
 

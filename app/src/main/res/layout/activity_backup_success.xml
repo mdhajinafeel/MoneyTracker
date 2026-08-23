@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar_back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <LinearLayout
+            android:id="@+id/topWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_6"
+            android:orientation="vertical">
+
+            <!-- ================================================= -->
+            <!-- Success Icon -->
+            <!-- ================================================= -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="150dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_10"
+                android:padding="@dimen/padding_10"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_backup_success" />
+
+            <!-- ================================================= -->
+            <!-- Success Title -->
+            <!-- ================================================= -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSuccessTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:fontFamily="@font/exo2_bold"
+                android:gravity="center"
+                android:text="@string/backup_completed_successfully"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/text_18" />
+
+            <!-- ================================================= -->
+            <!-- Success Description -->
+            <!-- ================================================= -->
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSuccessDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_semibold"
+                android:gravity="center"
+                android:text="@string/backup_success_description"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_12" />
+
+            <!-- ================================================= -->
+            <!-- Backup Details Card -->
+            <!-- ================================================= -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/backupDetailsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_16"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="@dimen/corner_radius_16"
+                app:cardElevation="@dimen/corner_elevation_8">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/margin_16">
+
+                    <!-- ========================================= -->
+                    <!-- Location -->
+                    <!-- ========================================= -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_circle_equal"
+                            android:backgroundTint="@color/light_lavender">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_folder"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/backup_location"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBackupLocation"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:ellipsize="middle"
+                                android:fontFamily="@font/exo2_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/light_grey" />
+
+                    <!-- ========================================= -->
+                    <!-- Backup File -->
+                    <!-- ========================================= -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_equal"
+                            android:backgroundTint="@color/light_lavender">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_file_zip"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/backup_file"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBackupFileName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:ellipsize="middle"
+                                android:fontFamily="@font/exo2_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/light_grey" />
+
+                    <!-- ========================================= -->
+                    <!-- Date -->
+                    <!-- ========================================= -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_circle_equal"
+                            android:backgroundTint="@color/light_lavender">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="16dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_calendar"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/backup_file"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBackupDateTime"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:ellipsize="middle"
+                                android:fontFamily="@font/exo2_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/light_grey" />
+
+                    <!-- ========================================= -->
+                    <!-- Size -->
+                    <!-- ========================================= -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_circle_equal"
+                            android:backgroundTint="@color/light_lavender">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_database"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/size"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBackupSize"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:ellipsize="middle"
+                                android:fontFamily="@font/exo2_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@color/light_grey" />
+
+                    <!-- ========================================= -->
+                    <!-- Attachments -->
+                    <!-- ========================================= -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:background="@drawable/bg_circle_equal"
+                            android:backgroundTint="@color/light_lavender">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_attach"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:text="@string/attachments"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvBackupAttachments"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin_4"
+                                android:ellipsize="middle"
+                                android:fontFamily="@font/exo2_bold"
+                                android:maxLines="2"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_16" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ================================================= -->
+            <!-- Safety Message -->
+            <!-- ================================================= -->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/safetyCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:cardBackgroundColor="@color/very_light_lavender"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/primary"
+                app:strokeWidth="0.4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_16">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_privacy"
+                        app:tint="@color/primary_dark" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_12"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:text="@string/your_data_is_safe"
+                            android:textColor="@color/primary"
+                            android:textSize="@dimen/text_16" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/backup_can_be_restored_anytime"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ================================================= -->
+            <!-- Bottom Actions -->
+            <!-- ================================================= -->
+            <LinearLayout
+                android:id="@+id/actionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_16"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/safetyCard">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBackToHome"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/very_light_lavender"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/done"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/text_12"
+                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:icon="@drawable/ic_done"
+                    app:iconGravity="textStart"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/primary"
+                    app:strokeColor="@color/primary"
+                    app:strokeWidth="1dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGoToRestore"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/very_light_income"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/go_to_restore"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_income"
+                    android:textSize="@dimen/text_12"
+                    app:cornerRadius="@dimen/corner_radius_4"
+                    app:icon="@drawable/ic_restore"
+                    app:iconGravity="textStart"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/dark_income"
+                    app:strokeColor="@color/dark_income"
+                    app:strokeWidth="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

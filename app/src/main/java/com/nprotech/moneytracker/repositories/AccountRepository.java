@@ -6,7 +6,6 @@ import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
-import com.nprotech.moneytracker.models.TransactionWithDetails;
 
 import java.util.List;
 

@@ -36,7 +36,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
 
-
         <LinearLayout
             android:id="@+id/topWrapper"
             android:layout_width="match_parent"

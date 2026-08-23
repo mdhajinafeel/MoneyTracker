@@ -1,123 +1,145 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
-import android.net.Uri;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.button.MaterialButton;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
+import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
-import com.nprotech.moneytracker.models.BackupModel;
+import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
-import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
+import java.util.Objects;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class ManageBackupActivity extends BaseActivity {
 
     private AppCompatImageView icBack;
-    private MaterialButton btnCreateBackup;
-    private RecyclerView rvBackup;
-    private RecyclerViewAdapter<BackupModel> backupAdapter;
+    private RecyclerView rvBackupOptions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_backup);
-        statusBarDarkSetting();
+        statusBarSetting();
         hideKeyboard(this);
-
         initComponents();
     }
 
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
+            View root = findViewById(R.id.rootView);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
-            AppCompatImageView ivAttach = toolbarWrapper.findViewById(R.id.ivAttach);
-
-            btnCreateBackup = findViewById(R.id.btnCreateBackup);
-            rvBackup = findViewById(R.id.rvBackup);
+            rvBackupOptions = findViewById(R.id.rvBackupOptions);
 
             tvTitle.setText(getString(R.string.manage_backup));
-            ivAttach.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-                v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
+                v.setPadding(v.getPaddingLeft(), top,
+                        v.getPaddingRight(), v.getPaddingBottom());
                 return insets;
             });
 
-            initializeAdapters();
-            loadBackupData();
-            setUpListeners();
+            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
+                return insets;
+            });
+
+            rvBackupOptions.post(this::fetchManageBackupOptions);
+            setupListeners();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void initializeAdapters() {
+    private void fetchManageBackupOptions() {
         try {
-            rvBackup.setLayoutManager(new LinearLayoutManager(this));
+            List<SettingItemModel> backupList = new ArrayList<>();
 
-            backupAdapter = new RecyclerViewAdapter<>(this, new ArrayList<>(), R.layout.item_account_currency) {
+            backupList.add(new SettingItemModel(SettingType.BACKUP_NOW, R.drawable.ic_backup, R.color.backup_dark, R.color.backup_light,
+                    getString(R.string.backup_now), true, true, getString(R.string.create_new_backup), true, false));
+            backupList.add(new SettingItemModel(SettingType.LAST_BACKUP, R.drawable.ic_privacy, R.color.currency_dark, R.color.currency_light,
+                    getString(R.string.last_backup), true, true, "", true, false));
+            backupList.add(new SettingItemModel(SettingType.RESTORE_BACKUP, R.drawable.ic_restore_backup, R.color.account_dark, R.color.account_light,
+                    getString(R.string.restore_backup), true, true, getString(R.string.restore_data), true, false));
+            backupList.add(new SettingItemModel(SettingType.BACKUP_HISTORY, R.drawable.ic_backup_history, R.color.category_dark, R.color.category_light,
+                    getString(R.string.backup_history), true, true, getString(R.string.view_manage_backups), true, false));
+            backupList.add(new SettingItemModel(SettingType.BACKUP_SETTINGS, R.drawable.ic_settings_configuration, R.color.startup_dark, R.color.startup_light,
+                    getString(R.string.backup_settings), true, true, getString(R.string.settings_preferences), true, false));
+
+            RecyclerViewAdapter<SettingItemModel> backupRecyclerViewAdapter = new RecyclerViewAdapter<>(this, backupList, R.layout.item_manage_backup_option) {
                 @Override
-                public void onPostBindViewHolder(ViewHolder holder, BackupModel backupModel) {
-                    holder.setViewText(R.id.tvCurrencyName, backupModel.fileName);
+                public void onPostBindViewHolder(ViewHolder holder, SettingItemModel settingItemModel) {
+
+                    AppCompatImageView ivIcon = holder.getView(R.id.ivIcon);
+
+                    holder.setViewText(R.id.tvTitle, settingItemModel.title);
+                    holder.setViewText(R.id.tvTitleDesc, settingItemModel.subTitle);
+
+                    Drawable background = ivIcon.getBackground().mutate();
+                    DrawableCompat.setTint(background, ContextCompat.getColor(getApplicationContext(), settingItemModel.bgColor));
+                    ivIcon.setBackground(background);
+                    ivIcon.setImageResource(settingItemModel.icon);
+                    ivIcon.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), settingItemModel.fgColor)));
+
+                    holder.getView(R.id.itemView).setOnClickListener(v -> {
+                        if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_NOW) {
+                            startActivity(new Intent(ManageBackupActivity.this, BackupNowActivity.class));
+                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.LAST_BACKUP) {
+                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.RESTORE_BACKUP) {
+                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_HISTORY) {
+                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        }  else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_SETTINGS) {
+                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        }
+                    });
                 }
             };
-            rvBackup.setAdapter(backupAdapter);
-            rvBackup.setHasFixedSize(true);
-            rvBackup.setItemAnimator(null);
-            rvBackup.addItemDecoration(new SimpleDividerItemDecoration(this));
+
+            rvBackupOptions.setLayoutManager(new LinearLayoutManager(this));
+            rvBackupOptions.setAdapter(backupRecyclerViewAdapter);
         } catch (Exception e) {
-            AppLogger.e(getClass(), "initializeAdapters", e);
+            AppLogger.e(getClass(), "fetchManageBackupOptions", e);
         }
     }
 
-    private void setUpListeners() {
+    private void setupListeners() {
         try {
             icBack.setOnClickListener(view -> {
                 finish();
                 ActivityUtils.overrideCloseTransition(ManageBackupActivity.this, R.anim.scale_in, R.anim.right_to_left);
-            });
-
-            btnCreateBackup.setOnClickListener(view -> {
-                String fileName = getString(R.string.app_name).toLowerCase() + "_db_" + new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date()) + ".mtbackup";
-                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("application/octet-stream");
-                intent.putExtra(Intent.EXTRA_TITLE, fileName);
-                createBackupLauncher.launch(intent);
             });
 
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -128,132 +150,7 @@ public class ManageBackupActivity extends BaseActivity {
                 }
             });
         } catch (Exception e) {
-            AppLogger.e(getClass(), "setUpListeners", e);
+            AppLogger.e(getClass(), "setupListeners", e);
         }
     }
-
-    private void loadBackupData() {
-
-        try {
-
-            String uriString = getSharedPreferences("backup", MODE_PRIVATE).getString("backup_folder_uri", null);
-
-            if (uriString == null) {
-                backupAdapter.setItems(new ArrayList<>());
-                return;
-            }
-
-            Uri folderUri = Uri.parse(uriString);
-            DocumentFile folder = DocumentFile.fromTreeUri(this, folderUri);
-
-            if (folder == null || !folder.exists()) {
-                backupAdapter.setItems(new ArrayList<>());
-                return;
-            }
-
-            List<BackupModel> backupList = new ArrayList<>();
-
-            for (DocumentFile file : folder.listFiles()) {
-
-                if (!file.isFile())
-                    continue;
-
-                String name = file.getName();
-
-                if (name == null || !name.toLowerCase().endsWith(".mtbackup"))
-                    continue;
-
-                BackupModel model = new BackupModel();
-                model.fileName = name;
-                model.filePath = file.getUri().toString(); // Store Uri
-                model.fileSize = file.length();
-                model.lastModified = file.lastModified();
-
-                backupList.add(model);
-            }
-
-            Collections.sort(backupList, (o1, o2) -> Long.compare(o2.lastModified, o1.lastModified));
-            backupAdapter.setItems(backupList);
-
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "loadBackupData", e);
-        }
-    }
-
-    private void exportBackup(Uri backupUri) {
-
-        Executors.newSingleThreadExecutor().execute(() -> {
-
-            try {
-
-                MoneyTrackerDatabase.getInstance(getApplicationContext()).close();
-
-                // Use your actual Room database name here
-                File db = getDatabasePath(getString(R.string.app_name) + "_db".toLowerCase());
-
-                if (!db.exists()) {
-                    runOnUiThread(() -> Toast.makeText(this, R.string.database_not_found, Toast.LENGTH_SHORT).show());
-                    return;
-                }
-
-                try (OutputStream outputStream = getContentResolver().openOutputStream(backupUri);
-                     ZipOutputStream zos = new ZipOutputStream(outputStream)) {
-
-                    addFileToZip(db, zos, "database/" + db.getName());
-
-                    File wal = new File(db.getAbsolutePath() + "-wal");
-                    if (wal.exists()) {
-                        addFileToZip(wal, zos, "database/" + wal.getName());
-                    }
-
-                    File shm = new File(db.getAbsolutePath() + "-shm");
-                    if (shm.exists()) {
-                        addFileToZip(shm, zos, "database/" + shm.getName());
-                    }
-                }
-                runOnUiThread(() -> Toast.makeText(this, R.string.database_exported_successfully, Toast.LENGTH_SHORT).show());
-            } catch (Exception e) {
-                AppLogger.e(getClass(), "exportBackup", e);
-                runOnUiThread(() -> Toast.makeText(this, R.string.backup_failed, Toast.LENGTH_SHORT).show());
-            }
-        });
-    }
-
-    private void addFileToZip(File file, ZipOutputStream zos, String zipEntryName) {
-        if (!file.exists()) return;
-
-        try (FileInputStream fis = new FileInputStream(file)) {
-
-            ZipEntry zipEntry = new ZipEntry(zipEntryName);
-            zos.putNextEntry(zipEntry);
-
-            byte[] buffer = new byte[8192];
-            int length;
-            while ((length = fis.read(buffer)) > 0) {
-                zos.write(buffer, 0, length);
-            }
-
-            zos.closeEntry();
-
-            AppLogger.d(getClass(), "Backup Exists = " + file.exists());
-            AppLogger.d(getClass(), "Backup Size = " + file.length());
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "addFileToZip", e);
-        }
-    }
-
-    private final ActivityResultLauncher<Intent> createBackupLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), result -> {
-
-                if (result.getResultCode() != RESULT_OK)
-                    return;
-
-                Intent data = result.getData();
-
-                if (data == null || data.getData() == null)
-                    return;
-
-                exportBackup(data.getData());
-
-            });
 }

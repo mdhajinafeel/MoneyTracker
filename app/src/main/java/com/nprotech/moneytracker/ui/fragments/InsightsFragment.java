@@ -69,7 +69,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import me.grantland.widget.AutofitTextView;
 
 @AndroidEntryPoint
-public class StatisticsFragment extends Fragment implements MainActivity.ToolbarActionListener {
+public class InsightsFragment extends Fragment implements MainActivity.ToolbarActionListener {
 
     private AppCompatTextView tvDate, tvStartDate, tvEndDate, tvOpeningBalance, tvEndingBalance, overviewMoreWrapper;
     private AutofitTextView tvIncome, tvExpense, tvTotal;
@@ -93,7 +93,7 @@ public class StatisticsFragment extends Fragment implements MainActivity.Toolbar
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_statistics, container, false);
+        View view = inflater.inflate(R.layout.fragment_insights, container, false);
         try {
 
             ivPrevious = view.findViewById(R.id.ivPrevious);

@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ClipDrawable;
@@ -12,10 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorRes;
+import androidx.annotation.DimenRes;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
+import androidx.core.widget.TextViewCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.helper.AppLogger;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -243,4 +252,26 @@ public class CommonUtils {
     public static String getDisplayId(int goalId, String type) {
         return String.format(Locale.US,  "#" + type + "%05d", goalId);
     }
+
+    // =========================================================
+    // DRAWABLE
+    // =========================================================
+    public static void setDrawable(Context context, AppCompatTextView textView, @DrawableRes int resId, @DimenRes int dimen, @ColorRes int colorId, int gravity) {
+        try {
+            Drawable drawable = AppCompatResources.getDrawable(context, resId);
+            if (drawable != null) {
+                int size = context.getResources().getDimensionPixelSize(dimen);
+                drawable.setBounds(0, 0, size, size);
+                if (gravity == Gravity.START) {
+                    textView.setCompoundDrawablesRelative(drawable, null, null, null);
+                } else if (gravity == Gravity.END) {
+                    textView.setCompoundDrawablesRelative(null, null, drawable, null);
+                }
+                TextViewCompat.setCompoundDrawableTintList(textView, ColorStateList.valueOf(ContextCompat.getColor(context, colorId)));
+            }
+        } catch (Exception e) {
+            AppLogger.e(context.getClass(), "setDrawable", e);
+        }
+    }
+
 }

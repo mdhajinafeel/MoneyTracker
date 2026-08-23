@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "9ff160a876fb3b504c33bf9583e58827",
+    "identityHash": "8ffc2f9a68a47f2848ecd8f5f8748ca8",
     "entities": [
       {
         "tableName": "currencies",
@@ -953,11 +953,74 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "backup_history",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `backupUri` TEXT, `fileName` TEXT, `backupSize` INTEGER NOT NULL, `databaseSize` INTEGER NOT NULL, `attachmentSize` INTEGER NOT NULL, `includeAttachments` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `location` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "backupUri",
+            "columnName": "backupUri",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "fileName",
+            "columnName": "fileName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "backupSize",
+            "columnName": "backupSize",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "databaseSize",
+            "columnName": "databaseSize",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attachmentSize",
+            "columnName": "attachmentSize",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "includeAttachments",
+            "columnName": "includeAttachments",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "location",
+            "columnName": "location",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9ff160a876fb3b504c33bf9583e58827')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8ffc2f9a68a47f2848ecd8f5f8748ca8')"
     ]
   }
 }
