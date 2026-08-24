@@ -78,4 +78,23 @@
     <string name="backup_file_not_found">Backup file not found</string>
     <string name="share_backup">Share backup</string>
     <string name="unable_to_share_backup">Unable to share backup</string>
+    <string name="no_backups_yet">No backups yet</string>
+    <string name="all_backups">All Backups</string>
+    <string name="backup_restore_desc">Backup helps you restore your important data anytime you need.</string>
+    <string name="data_safe_restore">Your data is safe</string>
+    <string name="newest_first">Newest first</string>
+    <string name="oldest_first">Oldest first</string>
+    <string name="app_backup">%1$s Backup</string>
+    <string name="attachments_included">Attachments included</string>
+    <string name="no_attachments">No attachments</string>
+
+    <plurals name="backup_count">
+        <item quantity="one">%d backup</item>
+        <item quantity="other">%d backups</item>
+    </plurals>
+
+    <plurals name="total_backup_count">
+        <item quantity="one">Total Backup</item>
+        <item quantity="other">Total Backups</item>
+    </plurals>
 </resources>

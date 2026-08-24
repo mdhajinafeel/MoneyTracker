@@ -29,7 +29,6 @@ public enum SettingType {
 
     // MANAGE BACKUP
     BACKUP_NOW,
-    LAST_BACKUP,
     RESTORE_BACKUP,
     BACKUP_HISTORY,
     BACKUP_SETTINGS

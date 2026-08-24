@@ -250,7 +250,7 @@ public class CommonUtils {
     }
 
     public static String getDisplayId(int goalId, String type) {
-        return String.format(Locale.US,  "#" + type + "%05d", goalId);
+        return String.format(Locale.US, "#" + type + "%05d", goalId);
     }
 
     // =========================================================
@@ -274,4 +274,24 @@ public class CommonUtils {
         }
     }
 
+    public static void setDrawables(Context context, TextView textView, int startDrawable, int endDrawable, int sizeRes, int tintColor) {
+        Drawable start = ContextCompat.getDrawable(context, startDrawable);
+        Drawable end = ContextCompat.getDrawable(context, endDrawable);
+
+        int size = context.getResources().getDimensionPixelSize(sizeRes);
+
+        if (start != null) {
+            start = start.mutate();
+            start.setTint(ContextCompat.getColor(context, tintColor));
+            start.setBounds(0, 0, size, size);
+        }
+
+        if (end != null) {
+            end = end.mutate();
+            end.setTint(ContextCompat.getColor(context, tintColor));
+            end.setBounds(0, 0, size, size);
+        }
+
+        textView.setCompoundDrawables(start, null, end, null);
+    }
 }

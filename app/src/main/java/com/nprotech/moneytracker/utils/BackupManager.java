@@ -224,7 +224,7 @@ public class BackupManager {
     private String generateBackupFileName() {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
         String date = format.format(new Date());
-        return context.getString(R.string.app_name) + "_Backup_" + date + ".zip";
+        return context.getString(R.string.app_name).toLowerCase() + "_Backup_" + date + ".zip";
     }
 
     /**

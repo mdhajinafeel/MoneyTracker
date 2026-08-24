@@ -188,7 +188,7 @@ public class BackupSuccessActivity extends BaseActivity {
             finish();
             ActivityUtils.overrideCloseTransition(BackupSuccessActivity.this, R.anim.scale_in, R.anim.right_to_left);
         } catch (Exception e) {
-            AppLogger.e(getClass(), "goBackToManageBackup", e);
+            AppLogger.e(getClass(), "finishWithTransition", e);
             finish();
         }
     }

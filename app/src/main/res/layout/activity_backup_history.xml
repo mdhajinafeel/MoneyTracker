@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <LinearLayout
+            android:id="@+id/topWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_6"
+            android:orientation="vertical">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/backupOptionsCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:cardBackgroundColor="@color/app_light_background"
+                app:cardCornerRadius="@dimen/corner_radius_6"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/primary_light"
+                app:strokeWidth="0.4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_8"
+                    android:paddingBottom="@dimen/padding_8">
+
+                    <!-- Left illustration -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBackupRestore"
+                        android:layout_width="100dp"
+                        android:layout_height="60dp"
+                        android:padding="@dimen/padding_10"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_backup_restore"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <!-- Text -->
+                    <LinearLayout
+                        android:id="@+id/textContainer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_2"
+                        android:layout_marginEnd="@dimen/margin_12"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="@id/ivBackupRestore"
+                        app:layout_constraintEnd_toStartOf="@id/viewLine1"
+                        app:layout_constraintStart_toEndOf="@id/ivBackupRestore"
+                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/data_safe_restore"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_14"
+                            app:fontFamily="@font/exo2_bold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblDesc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:text="@string/backup_restore_desc"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_10"
+                            app:fontFamily="@font/exo2_medium" />
+
+                    </LinearLayout>
+
+                    <!-- Vertical separator -->
+                    <View
+                        android:id="@+id/viewLine1"
+                        android:layout_width="1dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="@dimen/margin_28"
+                        android:background="@color/light_lavender"
+                        app:layout_constraintBottom_toBottomOf="@id/ivBackupRestore"
+                        app:layout_constraintEnd_toStartOf="@id/ivBackupLock"
+                        app:layout_constraintStart_toEndOf="@id/textContainer"
+                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore" />
+
+                    <!-- Lock icon -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBackupLock"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="@dimen/margin_26"
+                        android:background="@drawable/bg_circle_stroke"
+                        android:backgroundTint="@color/light_transfer"
+                        android:padding="@dimen/padding_8"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_db_lock"
+                        android:tint="@color/backup_dark"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore" />
+
+                    <!-- Backup count -->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTotalBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_14"
+                        app:fontFamily="@font/exo2_semibold"
+                        app:layout_constraintEnd_toEndOf="@id/ivBackupLock"
+                        app:layout_constraintStart_toStartOf="@id/ivBackupLock"
+                        app:layout_constraintTop_toBottomOf="@id/ivBackupLock" />
+
+                    <!-- Label -->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblTotalBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:fontFamily="@font/exo2_medium"
+                        app:layout_constraintEnd_toEndOf="@id/ivBackupLock"
+                        app:layout_constraintStart_toStartOf="@id/ivBackupLock"
+                        app:layout_constraintTop_toBottomOf="@id/tvTotalBackup" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBackupTime"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_stroke"
+                    android:backgroundTint="@color/light_transfer"
+                    android:padding="@dimen/padding_8"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_refresh_time"
+                    android:tint="@color/backup_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/allBackupContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivBackupTime">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblAllBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/all_backups"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAllBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:fontFamily="@font/exo2_semibold" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/sortingContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="@dimen/margin_4"
+                    app:cardBackgroundColor="@color/light_lavender"
+                    app:cardCornerRadius="@dimen/corner_radius_6"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSorting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="@dimen/padding_6"
+                        android:drawableTint="@color/primary_dark"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:text="@string/newest_first"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="@dimen/text_12"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvBackupHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingBottom="@dimen/padding_16"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emptyWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivEmpty"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:src="?attr/emptyRecord"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/emptyTitleLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:fontFamily="@font/exo2_bold"
+                    android:text="@string/no_backups_yet"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ivEmpty" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -34,8 +34,9 @@ public class BackupHistoryRepository {
     // Get all
     // ---------------------------------------------------------
 
-    public LiveData<List<BackupHistoryEntity>> getAllBackups() {
-        return backupHistoryDao.getAllBackups();
+    public List<BackupHistoryEntity> getAllBackups(boolean isNewest, int page, int pageSize) {
+        int offset = page * pageSize;
+        return backupHistoryDao.getAllBackups(isNewest, pageSize, offset);
     }
 
     // ---------------------------------------------------------
@@ -44,5 +45,9 @@ public class BackupHistoryRepository {
 
     public void delete(BackupHistoryEntity backupHistory) {
         executorService.execute(() -> backupHistoryDao.delete(backupHistory));
+    }
+
+    public LiveData<Integer> getActiveBackup() {
+        return backupHistoryDao.getActiveBackup();
     }
 }

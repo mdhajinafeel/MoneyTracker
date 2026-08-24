@@ -83,8 +83,6 @@ public class ManageBackupActivity extends BaseActivity {
 
             backupList.add(new SettingItemModel(SettingType.BACKUP_NOW, R.drawable.ic_backup, R.color.backup_dark, R.color.backup_light,
                     getString(R.string.backup_now), true, true, getString(R.string.create_new_backup), true, false));
-            backupList.add(new SettingItemModel(SettingType.LAST_BACKUP, R.drawable.ic_privacy, R.color.currency_dark, R.color.currency_light,
-                    getString(R.string.last_backup), true, true, "", true, false));
             backupList.add(new SettingItemModel(SettingType.RESTORE_BACKUP, R.drawable.ic_restore_backup, R.color.account_dark, R.color.account_light,
                     getString(R.string.restore_backup), true, true, getString(R.string.restore_data), true, false));
             backupList.add(new SettingItemModel(SettingType.BACKUP_HISTORY, R.drawable.ic_backup_history, R.color.category_dark, R.color.category_light,
@@ -111,14 +109,11 @@ public class ManageBackupActivity extends BaseActivity {
                         if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_NOW) {
                             startActivity(new Intent(ManageBackupActivity.this, BackupNowActivity.class));
                             ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
-                        } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.LAST_BACKUP) {
-                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
-                            ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.RESTORE_BACKUP) {
                             startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
                             ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_HISTORY) {
-                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            startActivity(new Intent(ManageBackupActivity.this, BackupHistoryActivity.class));
                             ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                         }  else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_SETTINGS) {
                             startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
