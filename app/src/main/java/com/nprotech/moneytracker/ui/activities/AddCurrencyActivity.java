@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -47,6 +48,8 @@ public class AddCurrencyActivity extends BaseActivity {
     private AccountViewModel accountViewModel;
     private String currencyCode = "";
     private double exchangeRate = 1;
+    private boolean isEdit = false;
+    private int currencyMapId = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,7 +71,6 @@ public class AddCurrencyActivity extends BaseActivity {
             etRate = findViewById(R.id.etRate);
             tvRate = findViewById(R.id.tvRate);
 
-            tvTitle.setText(getString(R.string.add_currency));
             tvSave.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
@@ -86,10 +88,27 @@ public class AddCurrencyActivity extends BaseActivity {
             masterViewModel = new ViewModelProvider(this).get(MasterViewModel.class);
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-            bindData();
-            backPressed();
-            setupListeners();
-            setupLauncher();
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+
+                isEdit = bundle.getBoolean("isEdit", false);
+                currencyMapId = bundle.getInt("currencyMapId", 0);
+
+                if (isEdit) {
+                    tvTitle.setText(getString(R.string.edit_currency));
+                    tvSave.setText(getString(R.string.update));
+                } else {
+                    tvTitle.setText(getString(R.string.add_currency));
+                    tvSave.setText(getString(R.string.save));
+                }
+
+                bindData();
+                backPressed();
+                setupListeners();
+                setupLauncher();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
@@ -101,17 +120,32 @@ public class AddCurrencyActivity extends BaseActivity {
             AccountEntity account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
             if (account != null) {
                 currencyCode = account.currencyCode;
-
                 mainCurrency = masterViewModel.getCurrencyByCode(currencyCode);
             }
 
-            currency = masterViewModel.getFirstCurrencyForWallet((int) PreferenceManager.INSTANCE.getAccountId());
+            if (isEdit) {
 
-            etRate.setText(R.string.exchange_rate_default_value);
+                AccountCurrencyMappingEntity currencyMapping = accountViewModel.fetchAccountCurrencyByMappingId(currencyMapId,
+                        (int) PreferenceManager.INSTANCE.getAccountId());
 
-            if (currency != null) {
-                tvCurrencyName.setText(getString(R.string.currency_display, currency.code, currency.name));
-                updateExchangeRate();
+                if (currencyMapping != null) {
+                    currency = masterViewModel.getCurrencyByCode(currencyMapping.currencyCode);
+                    etRate.setText(String.valueOf(currencyMapping.conversionRate));
+
+                    if (currency != null) {
+                        tvCurrencyName.setText(getString(R.string.currency_display, currency.code, currency.name));
+                        updateExchangeRate();
+                    }
+                }
+            } else {
+                currency = masterViewModel.getFirstCurrencyForWallet((int) PreferenceManager.INSTANCE.getAccountId());
+
+                etRate.setText(R.string.exchange_rate_default_value);
+
+                if (currency != null) {
+                    tvCurrencyName.setText(getString(R.string.currency_display, currency.code, currency.name));
+                    updateExchangeRate();
+                }
             }
 
             updateSaveButton();
@@ -179,6 +213,11 @@ public class AddCurrencyActivity extends BaseActivity {
 
             tvSave.setOnClickListener(view -> {
                 AccountCurrencyMappingEntity accountCurrencyMappingEntity = new AccountCurrencyMappingEntity();
+
+                if (isEdit) {
+                    accountCurrencyMappingEntity.id = currencyMapId;
+                }
+
                 accountCurrencyMappingEntity.accountId = PreferenceManager.INSTANCE.getAccountId();
                 accountCurrencyMappingEntity.currencyId = currency.id;
                 accountCurrencyMappingEntity.currencyCode = currency.code;
@@ -196,7 +235,11 @@ public class AddCurrencyActivity extends BaseActivity {
 
                 accountCurrencyMappingEntity.conversionRate = Double.parseDouble(Objects.requireNonNull(etRate.getText()).toString());
 
-                accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
+                if (currencyMapId > 0) {
+                    accountViewModel.updateMapping(accountCurrencyMappingEntity);
+                } else {
+                    accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
+                }
 
                 runOnUiThread(() -> {
                     Intent intent = new Intent();

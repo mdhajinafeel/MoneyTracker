@@ -1,7 +1,11 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -15,6 +19,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -22,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -31,6 +38,7 @@ import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.CustomTypefaceSpan;
 import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
@@ -46,7 +54,8 @@ public class ManageCurrencyActivity extends BaseActivity {
     private AppCompatImageView icBack, ivAdd;
     private RelativeLayout rlAccountCurrency;
     private RecyclerView rvAccountCurrency;
-    private AppCompatTextView tvBaseCurrencyName;
+    private AppCompatTextView tvBaseSymbol, tvCurrencyCode, tvCurrencyName, tvExchangeHint;
+    private FloatingActionButton fabAdd;
     private AccountViewModel accountViewModel;
     private WalletViewModel walletViewModel;
     private ConstraintLayout emptyWrapper;
@@ -58,7 +67,7 @@ public class ManageCurrencyActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_currency_mapping);
-        statusBarDarkSetting();
+        statusBarSetting();
         hideKeyboard(this);
 
         initComponents();
@@ -66,6 +75,7 @@ public class ManageCurrencyActivity extends BaseActivity {
 
     private void initComponents() {
         try {
+            View rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -74,10 +84,14 @@ public class ManageCurrencyActivity extends BaseActivity {
             tvTitle.setText(getString(R.string.currency));
             ivAdd.setVisibility(View.VISIBLE);
 
-            tvBaseCurrencyName = findViewById(R.id.tvBaseCurrencyName);
+            tvBaseSymbol = findViewById(R.id.tvBaseSymbol);
+            tvCurrencyCode = findViewById(R.id.tvCurrencyCode);
+            tvCurrencyName = findViewById(R.id.tvCurrencyName);
+            tvExchangeHint = findViewById(R.id.tvExchangeHint);
             rlAccountCurrency = findViewById(R.id.rlAccountCurrency);
             rvAccountCurrency = findViewById(R.id.rvAccountCurrency);
             emptyWrapper = findViewById(R.id.emptyWrapper);
+            fabAdd = findViewById(R.id.fabAdd);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -86,9 +100,9 @@ public class ManageCurrencyActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rlAccountCurrency), (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(0, 0, 0, systemBars.bottom);
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -115,7 +129,12 @@ public class ManageCurrencyActivity extends BaseActivity {
                 AccountCurrencyMappingEntity baseCurrencyMapping = accountViewModel.fetchAccountBaseCurrencyByAccountId(accountId);
 
                 if (baseCurrencyMapping != null) {
-                    tvBaseCurrencyName.setText(getString(R.string.currency_name_format, baseCurrencyMapping.mainCurrencyCode, baseCurrencyMapping.mainCurrencyName));
+
+                    tvBaseSymbol.setText(baseCurrencyMapping.currencySymbol);
+                    tvCurrencyCode.setText(baseCurrencyMapping.mainCurrencyCode);
+                    tvCurrencyName.setText(baseCurrencyMapping.mainCurrencyName);
+
+                    tvExchangeHint.setText(getString(R.string.exchange_currency_hint, baseCurrencyMapping.currencyCode));
                 }
             }
         } catch (Exception e) {
@@ -130,16 +149,19 @@ public class ManageCurrencyActivity extends BaseActivity {
             accountCurrencyRecyclerViewAdapter = new RecyclerViewAdapter<>(this, new ArrayList<>(), R.layout.item_account_currency) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, AccountCurrencyMappingEntity currency) {
-                    holder.setViewText(R.id.tvCurrencyName, currency.currencyCode + getString(R.string.dash)
-                            + currency.currencyName);
-                    holder.setViewText(R.id.tvCurrencyRate, getString(R.string.exchange_rate_format, "1.00", currency.currencyCode,
-                            getFormattedRate(currency.conversionRate), currency.mainCurrencyCode));
+                    holder.setViewText(R.id.tvCurrencySymbol, currency.currencySymbol);
+                    holder.setViewText(R.id.tvCurrencyCode, currency.currencyCode);
+                    holder.setViewText(R.id.tvCurrencyName, currency.currencyName);
+
+                    AppCompatTextView tvExchangeRate = holder.getView(R.id.tvExchangeRate);
+                    setExchangeRateText(tvExchangeRate, currency.conversionRate, currency.currencyCode, currency.mainCurrencyCode);
 
                     holder.getView(R.id.ivEdit).setOnClickListener(view -> {
                         Intent intent = new Intent(ManageCurrencyActivity.this, AddCurrencyActivity.class)
                                 .putExtra("currencyMapId", currency.id)
                                 .putExtra("isEdit", true);
-                        ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(ManageCurrencyActivity.this, R.anim.left_to_right, R.anim.scale_out);
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(ManageCurrencyActivity.this,
+                                R.anim.left_to_right, R.anim.scale_out);
                         currencyLauncher.launch(intent, options);
                     });
 
@@ -197,6 +219,13 @@ public class ManageCurrencyActivity extends BaseActivity {
             });
 
             ivAdd.setOnClickListener(view -> {
+                Intent intent = new Intent(ManageCurrencyActivity.this, AddCurrencyActivity.class)
+                        .putExtra("isEdit", false);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(ManageCurrencyActivity.this, R.anim.left_to_right, R.anim.scale_out);
+                currencyLauncher.launch(intent, options);
+            });
+
+            fabAdd.setOnClickListener(v -> {
                 Intent intent = new Intent(ManageCurrencyActivity.this, AddCurrencyActivity.class)
                         .putExtra("isEdit", false);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(ManageCurrencyActivity.this, R.anim.left_to_right, R.anim.scale_out);
@@ -301,5 +330,20 @@ public class ManageCurrencyActivity extends BaseActivity {
         }
 
         return rate;
+    }
+
+    private void setExchangeRateText(AppCompatTextView textView, double conversionRate, String currencyCode, String baseCurrencyCode) {
+        String formattedRate = getFormattedRate(conversionRate);
+        String highlightedText = formattedRate + " " + baseCurrencyCode;
+        String fullText =
+                "1.00 " + currencyCode + " = " + highlightedText;
+        SpannableString spannable = new SpannableString(fullText);
+        int start = fullText.indexOf(highlightedText);
+        int end = start + highlightedText.length();
+        spannable.setSpan(new ForegroundColorSpan(ContextCompat.getColor(textView.getContext(), R.color.primary_dark)),
+                start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        Typeface typeface = ResourcesCompat.getFont(textView.getContext(), R.font.exo2_semibold);
+        spannable.setSpan(new CustomTypefaceSpan(typeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
     }
 }

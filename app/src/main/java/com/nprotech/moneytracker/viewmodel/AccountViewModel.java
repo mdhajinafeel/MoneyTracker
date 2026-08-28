@@ -56,6 +56,10 @@ public class AccountViewModel extends ViewModel {
         accountRepository.saveAccountCurrencyMapping(accountCurrencyMapping);
     }
 
+    public void updateMapping(AccountCurrencyMappingEntity accountCurrencyMapping) {
+        accountRepository.updateMapping(accountCurrencyMapping);
+    }
+
     public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyByAccountId(int accountId) {
         return accountRepository.getAccountCurrencyByAccountId(accountId);
     }
@@ -132,5 +136,9 @@ public class AccountViewModel extends ViewModel {
 
     public AccountCurrencyMappingEntity fetchAccountBaseCurrencyByAccountId(int accountId) {
         return accountRepository.fetchAccountBaseCurrencyByAccountId(accountId);
+    }
+
+    public AccountCurrencyMappingEntity fetchAccountCurrencyByMappingId(int currencyId, int accountId) {
+        return accountRepository.fetchAccountCurrencyByMappingId(currencyId, accountId);
     }
 }

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/rootView"
     android:layout_height="match_parent"
     android:background="@color/app_light_background">
 
@@ -22,84 +23,246 @@
         android:id="@+id/rlBaseCurrency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
+        android:layout_margin="@dimen/margin_16"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBaseCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_12"
-            android:text="@string/base_currency"
-            android:textAllCaps="true"
-            android:textColor="@color/vibrant_orange"
-            android:textSize="@dimen/text_16"
-            app:drawableTint="@color/vibrant_orange"
-            app:fontFamily="@font/exo2_bold" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/labelWrapper"
+        <LinearLayout
+            android:id="@+id/layoutBase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBaseCurrency"
-            android:layout_marginStart="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_12"
-            android:layout_marginEnd="@dimen/margin_8"
-            android:layout_marginBottom="@dimen/margin_12">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBase"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_corner_theme"
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/ic_base"
+                app:tint="@color/primary_dark" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvBaseCurrencyName"
+                android:id="@+id/tvBaseCurrency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/base_currency"
+                android:textAllCaps="true"
+                android:textColor="@color/vibrant_orange"
                 android:textSize="@dimen/text_16"
-                app:fontFamily="@font/exo2_semibold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:drawableTint="@color/vibrant_orange"
+                app:fontFamily="@font/exo2_bold" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBaseCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutBase"
+            android:layout_marginHorizontal="@dimen/margin_2"
+            android:layout_marginVertical="@dimen/margin_10"
+            app:cardCornerRadius="@dimen/corner_radius_12"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/card_shadow"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/padding_12">
+
+                    <!-- Currency Symbol -->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBaseSymbol"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:background="@drawable/bg_box_white"
+                        android:backgroundTint="@color/primary_dark"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_18" />
+
+                    <!-- Currency Information -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <!-- Currency Code -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCurrencyCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold" />
+
+                        <!-- Currency Name -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCurrencyName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_14"
+                            app:fontFamily="@font/exo2_medium" />
+
+                        <!-- Status -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:background="@drawable/bg_badge_future"
+                            android:drawablePadding="@dimen/padding_4"
+                            android:drawableTint="@color/income"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/padding_8"
+                            android:paddingVertical="@dimen/padding_2"
+                            android:text="@string/text_default"
+                            android:textAllCaps="true"
+                            android:textColor="@color/primary_dark"
+                            android:textSize="@dimen/text_10"
+                            app:fontFamily="@font/exo2_semibold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/margin_20"
+                    android:layout_marginVertical="@dimen/margin_4"
+                    android:background="@color/grey_88" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblDefaultHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_20"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:layout_marginBottom="@dimen/margin_12"
+                    android:drawableStart="@drawable/ic_privacy_outline"
+                    android:drawablePadding="@dimen/padding_4"
+                    android:drawableTint="@color/primary_dark"
+                    android:gravity="center"
+                    android:text="@string/default_base_currency"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_10"
+                    app:fontFamily="@font/exo2_medium" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rlAccountCurrency"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/padding_6"
+        android:layout_margin="@dimen/margin_16"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rlBaseCurrency">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvAdditionalCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_12"
-            android:layout_marginTop="@dimen/margin_12"
-            android:text="@string/additional_currency"
-            android:textAllCaps="true"
-            android:textColor="@color/vibrant_orange"
-            android:textSize="@dimen/text_16"
-            app:drawableTint="@color/vibrant_orange"
-            app:fontFamily="@font/exo2_bold" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAccountCurrency"
+        <LinearLayout
+            android:id="@+id/layoutAdditional"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvAdditionalCurrency"
-            android:layout_marginTop="@dimen/margin_10"
-            android:background="@color/white"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivAdditional"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_corner_theme"
+                android:padding="@dimen/padding_8"
+                android:src="@drawable/ic_world"
+                app:tint="@color/primary_dark" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAdditionalCurrency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_8"
+                android:text="@string/additional_currency"
+                android:textAllCaps="true"
+                android:textColor="@color/vibrant_orange"
+                android:textSize="@dimen/text_16"
+                app:drawableTint="@color/vibrant_orange"
+                app:fontFamily="@font/exo2_bold" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAdditionalCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutAdditional"
+            android:layout_marginHorizontal="@dimen/margin_2"
+            android:layout_marginVertical="@dimen/margin_10"
+            app:cardCornerRadius="@dimen/corner_radius_12"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/card_shadow"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAccountCurrency"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/padding_10"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layoutAdditional"
+                    android:background="@color/white"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvExchangeHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_2"
+            android:layout_below="@+id/cardAdditionalCurrency"
+            android:layout_marginTop="@dimen/margin_4"
+            android:background="@drawable/bg_box_purple_stroke"
+            android:backgroundTint="@color/light_lavender"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="@dimen/padding_6"
+            android:drawableTint="@color/primary_dark"
+            android:fontFamily="@font/exo2_medium"
+            android:paddingStart="@dimen/padding_10"
+            android:paddingTop="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_10"
+            android:paddingBottom="@dimen/padding_6"
+            android:text="@string/exchange_currency_hint"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_10" />
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emptyWrapper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +285,42 @@
             android:layout_marginTop="@dimen/margin_8"
             android:fontFamily="@font/exo2_bold"
             android:text="@string/no_currency"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_24"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivEmpty" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:text="@string/empty_currency_hint"
+            android:textAlignment="center"
+            android:textColor="@color/medium_grey"
+            android:textSize="@dimen/text_16"
+            app:fontFamily="@font/exo2_medium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emptyTitleLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/vibrant_orange"
+        app:fabCustomSize="50dp"
+        android:layout_marginEnd="@dimen/margin_6"
+        app:layout_anchorGravity="top|center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="25dp"
+        app:shapeAppearanceOverlay="@style/FabCircleShape"
+        app:tint="@color/white"
+        app:useCompatPadding="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>

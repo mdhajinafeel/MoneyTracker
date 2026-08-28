@@ -39,6 +39,10 @@ public class AccountRepository {
         accountCurrencyMappingDao.insert(accountCurrencyMapping);
     }
 
+    public void updateMapping(AccountCurrencyMappingEntity accountCurrencyMapping) {
+        accountCurrencyMappingDao.update(accountCurrencyMapping);
+    }
+
     public LiveData<List<AccountCurrencyMappingEntity>> getAccountCurrencyByAccountId(int accountId) {
         return accountCurrencyMappingDao.getAccountCurrencyByAccountId(accountId);
     }
@@ -58,6 +62,10 @@ public class AccountRepository {
 
     public AccountCurrencyMappingEntity fetchAccountBaseCurrencyByAccountId(int accountId) {
         return accountCurrencyMappingDao.fetchAccountBaseCurrencyByAccountId(accountId);
+    }
+
+    public AccountCurrencyMappingEntity fetchAccountCurrencyByMappingId(int currencyId, int accountId) {
+        return accountCurrencyMappingDao.fetchAccountCurrencyByMappingId(currencyId, accountId);
     }
 
     public boolean updateAccountCurrencyMapping(int accountId, int currencyId, String currencyCode) {

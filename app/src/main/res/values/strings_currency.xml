@@ -7,18 +7,22 @@
     <string name="search_currency">Search Currency</string>
     <string name="select_currency">Select Currency</string>
     <string name="add_currency">Add Currency</string>
+    <string name="edit_currency">Edit Currency</string>
     <string name="currency_display">%1$s (%2$s)</string>
     <string name="rate">Rate</string>
     <string name="currency_name_format">%1$s - %2$s</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
     <string name="manage_currency">Manage Currency</string>
-    <string name="no_currency">No currency</string>
+    <string name="no_currency">No additional currencies</string>
+    <string name="empty_currency_hint">Tap the + button to add the currency.</string>
     <string name="delete_currency">Remove Currency</string>
     <string name="delete_message_currency">Are you sure you want to remove this currency?</string>
     <string name="message_currency">Wallets using this currency will be changed to the base currency.</string>
     <string name="currency_has_been_removed_successfully">Currency has been removed successfully</string>
     <string name="base_currency">Base Currency</string>
-    <string name="additional_currency">Additional Currency</string>
+    <string name="additional_currency">Additional Currencies</string>
     <string name="currency_subtext">Choose the currency you want to use</string>
     <string name="enter_the_rate">Enter the rate</string>
+    <string name="default_base_currency">This is your default/base currency</string>
+    <string name="exchange_currency_hint">Exchange rates are relative to your base currency (%1$s).\nYou can update rates in each currency.</string>
 </resources>

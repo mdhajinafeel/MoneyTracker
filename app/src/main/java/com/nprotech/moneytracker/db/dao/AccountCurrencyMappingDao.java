@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;
 
@@ -27,4 +28,10 @@ public interface AccountCurrencyMappingDao {
 
     @Query("SELECT * FROM account_currency_mapping WHERE accountId = :accountId AND isActive = 1 AND isBase = 1")
     AccountCurrencyMappingEntity fetchAccountBaseCurrencyByAccountId(int accountId);
+
+    @Query("SELECT * FROM account_currency_mapping WHERE id = :currencyId AND accountId = :accountId AND isActive = 1 AND isBase = 0")
+    AccountCurrencyMappingEntity fetchAccountCurrencyByMappingId(int currencyId, int accountId);
+
+    @Update
+    void update(AccountCurrencyMappingEntity entity);
 }

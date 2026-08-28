@@ -194,4 +194,5 @@
     <string name="apply">Apply</string>
     <string name="reset">Reset</string>
     <string name="select_option">Select option</string>
+    <string name="text_default">Default</string>
 </resources>
