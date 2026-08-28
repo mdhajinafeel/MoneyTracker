@@ -117,7 +117,7 @@
                             android:id="@+id/tvCurrencyName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_4"
+                            android:layout_marginTop="@dimen/margin_2"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/text_14"
                             app:fontFamily="@font/exo2_medium" />
@@ -127,7 +127,7 @@
                             android:id="@+id/lblStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_4"
                             android:background="@drawable/bg_badge_future"
                             android:drawablePadding="@dimen/padding_4"
                             android:drawableTint="@color/income"
