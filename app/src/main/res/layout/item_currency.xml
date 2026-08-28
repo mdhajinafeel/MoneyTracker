@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/padding_18"
-        android:paddingTop="@dimen/padding_10"
-        android:paddingEnd="@dimen/padding_18"
-        android:paddingBottom="@dimen/padding_10">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingStart="@dimen/padding_18"
+    android:paddingTop="@dimen/padding_10"
+    android:paddingEnd="@dimen/padding_18"
+    android:paddingBottom="@dimen/padding_10"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCurrencySymbol"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_centerVertical="true"
+            android:backgroundTint="@color/light_lavender"
             android:background="@drawable/bg_circle_white"
             android:fontFamily="@font/exo2_semibold"
             android:gravity="center"
@@ -67,4 +61,3 @@
             android:visibility="gone"
             app:tint="@color/vibrant_orange" />
     </RelativeLayout>
-</LinearLayout>

@@ -50,12 +50,11 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_16"
                 android:background="@drawable/bg_box_hint"
-                android:paddingVertical="@dimen/padding_10"
-                android:paddingHorizontal="@dimen/padding_20">
+                android:paddingVertical="@dimen/padding_10">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivHintIcon"
@@ -63,6 +62,7 @@
                     android:layout_height="32dp"
                     android:background="@drawable/bg_circle_theme"
                     android:padding="@dimen/padding_4"
+                    android:layout_marginStart="@dimen/margin_10"
                     android:src="@drawable/ic_privacy_outline"
                     android:tint="@color/primary_light"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -74,12 +74,12 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
+                    android:text="@string/data_safe"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_16"
-                    android:text="@string/data_safe"
                     app:fontFamily="@font/exo2_bold"
                     app:layout_constraintBottom_toTopOf="@id/tvHintTitleDesc"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivManage"
                     app:layout_constraintStart_toEndOf="@id/ivHintIcon"
                     app:layout_constraintTop_toTopOf="@id/ivHintIcon"
                     app:layout_constraintVertical_chainStyle="packed" />
@@ -89,15 +89,27 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_6"
                     android:layout_marginTop="@dimen/margin_4"
-                    android:textColor="@color/very_dark_grey"
-                    android:textSize="@dimen/text_14"
                     android:text="@string/data_safe_hint"
+                    android:textColor="@color/very_dark_grey"
+                    android:textSize="@dimen/text_12"
                     app:fontFamily="@font/exo2_medium"
                     app:layout_constraintBottom_toBottomOf="@id/ivHintIcon"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/ivManage"
                     app:layout_constraintStart_toEndOf="@id/ivHintIcon"
                     app:layout_constraintTop_toBottomOf="@id/tvHintTitle" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivManage"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginEnd="@dimen/margin_10"
+                    android:src="@drawable/ic_backup_manage"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

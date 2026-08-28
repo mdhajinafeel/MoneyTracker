@@ -622,7 +622,8 @@ public class BackupRestoreActivity extends BaseActivity {
                 tvSorting.setVisibility(View.VISIBLE);
                 rvBackupHistory.setVisibility(View.VISIBLE);
                 attachFileWrapper.setVisibility(View.GONE);
-
+                selectedFileContainer.setVisibility(View.GONE);
+                noFileContainer.setVisibility(View.GONE);
                 loadingWrapper.setVisibility(View.GONE);
 
                 updateRestoreButtonState();
@@ -649,6 +650,7 @@ public class BackupRestoreActivity extends BaseActivity {
                 emptyWrapper.setVisibility(View.GONE);
                 attachFileWrapper.setVisibility(View.VISIBLE);
                 noFileContainer.setVisibility(View.VISIBLE);
+                selectedFileContainer.setVisibility(View.GONE);
 
                 btnRestoreBackup.setEnabled(false);
                 btnRestoreBackup.setAlpha(0.5f);
@@ -696,13 +698,13 @@ public class BackupRestoreActivity extends BaseActivity {
             // ---------------------------------------------------------
             List<SettingItemModel> sortByList = new ArrayList<>();
             sortByList.add(new SettingItemModel(SettingType.NEWEST_FIRST, 0, 0, 0,
-                    getString(R.string.newest_first), true, false, null, true, false));
+                    getString(R.string.newest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.OLDEST_FIRST, 0, 0, 0,
-                    getString(R.string.oldest_first), true, false, null, true, false));
+                    getString(R.string.oldest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.LARGEST_FIRST, 0, 0, 0,
-                    getString(R.string.largest_first), true, false, null, true, false));
+                    getString(R.string.largest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.SMALLEST_FIRST, 0, 0, 0,
-                    getString(R.string.smallest_first), true, false, null, true, false));
+                    getString(R.string.smallest_first), true, false, null, true, false, 0));
 
             RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
                 @Override
@@ -726,11 +728,11 @@ public class BackupRestoreActivity extends BaseActivity {
             // ---------------------------------------------------------
             List<SettingItemModel> filterList = new ArrayList<>();
             filterList.add(new SettingItemModel(SettingType.ALL_BACKUP, 0, 0, 0,
-                    getString(R.string.all_backups), true, false, null, true, false));
+                    getString(R.string.all_backups), true, false, null, true, false, 0));
             filterList.add(new SettingItemModel(SettingType.WITH_ATTACHMENTS, 0, 0, 0,
-                    getString(R.string.with_attachments), true, false, null, true, false));
+                    getString(R.string.with_attachments), true, false, null, true, false, 0));
             filterList.add(new SettingItemModel(SettingType.WITHOUT_ATTACHMENTS, 0, 0, 0,
-                    getString(R.string.without_attachments), true, false, null, true, false));
+                    getString(R.string.without_attachments), true, false, null, true, false, 0));
 
             RecyclerViewAdapter<SettingItemModel> filterAdapter = new RecyclerViewAdapter<>(this, filterList, R.layout.item_backup_filter_option) {
                 @Override
@@ -886,14 +888,14 @@ public class BackupRestoreActivity extends BaseActivity {
             }
 
             // Expected:
-            // Expenixo_Backup_2026-08-26_15-27-30
-            int backupIndex = name.indexOf("_Backup_");
+            // expenixo_backup_2026-08-26_15-27-30
+            int backupIndex = name.indexOf("_backup_");
 
             if (backupIndex < 0) {
                 return 0;
             }
 
-            String datePart = name.substring(backupIndex + "_Backup_".length());
+            String datePart = name.substring(backupIndex + "_backup_".length());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.getDefault());
             format.setLenient(false);
             Date date = format.parse(datePart);

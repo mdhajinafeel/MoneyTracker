@@ -308,13 +308,13 @@ public class BackupHistoryActivity extends BaseActivity {
             // ---------------------------------------------------------
             List<SettingItemModel> sortByList = new ArrayList<>();
             sortByList.add(new SettingItemModel(SettingType.NEWEST_FIRST, 0, 0, 0,
-                    getString(R.string.newest_first), true, false, null, true, false));
+                    getString(R.string.newest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.OLDEST_FIRST, 0, 0, 0,
-                    getString(R.string.oldest_first), true, false, null, true, false));
+                    getString(R.string.oldest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.LARGEST_FIRST, 0, 0, 0,
-                    getString(R.string.largest_first), true, false, null, true, false));
+                    getString(R.string.largest_first), true, false, null, true, false, 0));
             sortByList.add(new SettingItemModel(SettingType.SMALLEST_FIRST, 0, 0, 0,
-                    getString(R.string.smallest_first), true, false, null, true, false));
+                    getString(R.string.smallest_first), true, false, null, true, false, 0));
 
             RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
                 @Override
@@ -338,11 +338,11 @@ public class BackupHistoryActivity extends BaseActivity {
             // ---------------------------------------------------------
             List<SettingItemModel> filterList = new ArrayList<>();
             filterList.add(new SettingItemModel(SettingType.ALL_BACKUP, 0, 0, 0,
-                    getString(R.string.all_backups), true, false, null, true, false));
+                    getString(R.string.all_backups), true, false, null, true, false, 0));
             filterList.add(new SettingItemModel(SettingType.WITH_ATTACHMENTS, 0, 0, 0,
-                    getString(R.string.with_attachments), true, false, null, true, false));
+                    getString(R.string.with_attachments), true, false, null, true, false, 0));
             filterList.add(new SettingItemModel(SettingType.WITHOUT_ATTACHMENTS, 0, 0, 0,
-                    getString(R.string.without_attachments), true, false, null, true, false));
+                    getString(R.string.without_attachments), true, false, null, true, false, 0));
 
             RecyclerViewAdapter<SettingItemModel> filterAdapter = new RecyclerViewAdapter<>(this, filterList, R.layout.item_backup_filter_option) {
                 @Override

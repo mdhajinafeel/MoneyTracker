@@ -146,13 +146,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             List<SettingItemModel> managementList = new ArrayList<>();
             managementList.add(new SettingItemModel(SettingType.ACCOUNT, R.drawable.ic_account, R.color.account_dark, R.color.account_light,
-                    getString(R.string.account), true, true, getString(R.string.manage_account_details), true, false));
+                    getString(R.string.account), true, true, getString(R.string.manage_account_details), true, false, 0));
             managementList.add(new SettingItemModel(SettingType.WALLET, R.drawable.ic_account_wallet, R.color.wallet_dark, R.color.wallet_light,
-                    getString(R.string.wallet), true, true, getString(R.string.manage_wallets), true, false));
+                    getString(R.string.wallet), true, true, getString(R.string.manage_wallets), true, false, 0));
             managementList.add(new SettingItemModel(SettingType.CURRENCY, R.drawable.ic_exchange, R.color.currency_dark, R.color.currency_light,
-                    getString(R.string.currency), true, true, getString(R.string.manage_currencies), true, false));
+                    getString(R.string.currency), true, true, getString(R.string.manage_currencies), true, false, 0));
             managementList.add(new SettingItemModel(SettingType.MANAGE_CATEGORY, R.drawable.ic_category, R.color.category_dark, R.color.category_light,
-                    getString(R.string.manage_category), true, true, getString(R.string.manage_categories), true, false));
+                    getString(R.string.manage_category), true, true, getString(R.string.manage_categories), true, false, 0));
 
             SettingsAdapter adapter = new SettingsAdapter(this, managementList, R.layout.item_setting, this);
 
@@ -167,15 +167,15 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             configurationList = new ArrayList<>();
             configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, R.drawable.ic_calendar, R.color.week_dark, R.color.week_light,
-                    getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true));
+                    getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true, 0));
             configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, R.drawable.ic_startup, R.color.startup_dark, R.color.startup_light,
-                    getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true));
+                    getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true, 0));
             configurationList.add(new SettingItemModel(SettingType.LANGUAGE, R.drawable.ic_language, R.color.language_dark, R.color.language_light,
-                    getString(R.string.language), true, true, getLanguageSubtitle(), true, false));
+                    getString(R.string.language), true, true, getLanguageSubtitle(), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.PASSWORD, R.drawable.ic_password, R.color.password_dark, R.color.password_light,
-                    getString(R.string.password), true, true, getString(R.string.not_set), true, false));
+                    getString(R.string.password), true, true, getString(R.string.not_set), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, R.drawable.ic_reminder, R.color.reminder_dark, R.color.reminder_light,
-                    getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true));
+                    getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true, 0));
 
             configurationAdapter = new SettingsAdapter(this, configurationList, R.layout.item_setting, this);
 
@@ -190,7 +190,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
             settingItemModelList.add(new SettingItemModel(SettingType.MANAGE_BACKUP, R.drawable.ic_settings_backup, R.color.backup_dark, R.color.backup_light,
-                    getString(R.string.manage_backup), true, true, getString(R.string.backup_restore_data), true, false));
+                    getString(R.string.manage_backup), true, true, getString(R.string.backup_restore_data), true, false, 0));
 
             SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, R.layout.item_setting, this);
 
@@ -204,13 +204,22 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private void fetchOtherSettings() {
         try {
             List<SettingItemModel> settingItemModelList = new ArrayList<>();
-            settingItemModelList.add(new SettingItemModel(SettingType.RATE_APP, R.drawable.ic_rating, R.color.rate_dark, R.color.rate_light, getString(R.string.rate_app) + " " + getString(R.string.app_name), true, true, getString(R.string.rate_app_desc, getString(R.string.app_name)), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.SHARE_APP, R.drawable.ic_share, R.color.rate_dark, R.color.share_light, getString(R.string.share_app) + " " + getString(R.string.app_name), true, true, getString(R.string.share_app) + " " + getString(R.string.app_name) + " " + getString(R.string.with_your_friends), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.SEND_FEEDBACK, R.drawable.ic_feedback, R.color.feedback_dark, R.color.feedback_light, getString(R.string.send_feedback), true, true, getString(R.string.help_us_improve) + getString(R.string.app_name), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.PRIVACY_POLICY, R.drawable.ic_privacy, R.color.privacy_dark, R.color.privacy_light, getString(R.string.privacy_policy), true, true, getString(R.string.read_privacy_policy), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.TERMS_CONDITIONS, R.drawable.ic_terms, R.color.terms_dark, R.color.terms_light, getString(R.string.terms_conditions), true, true, getString(R.string.read_our_terms_and_conditions), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.ABOUT, R.drawable.ic_about, R.color.about_dark, R.color.about_light, getString(R.string.about) + " " + getString(R.string.app_name), true, true, getString(R.string.learn_more) + getString(R.string.app_name), true, false));
-            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, R.drawable.ic_version, R.color.version_dark, R.color.version_light, getString(R.string.version), false, true, getAppVersion(), false, false));
+            settingItemModelList.add(new SettingItemModel(SettingType.RATE_APP, R.drawable.ic_rating, R.color.rate_dark, R.color.rate_light,
+                    getString(R.string.rate_app) + " " + getString(R.string.app_name), true, true,
+                    getString(R.string.rate_app_desc, getString(R.string.app_name)), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.SHARE_APP, R.drawable.ic_share, R.color.rate_dark, R.color.share_light,
+                    getString(R.string.share_app) + " " + getString(R.string.app_name), true, true, getString(R.string.share_app) + " " +
+                    getString(R.string.app_name) + " " + getString(R.string.with_your_friends), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.SEND_FEEDBACK, R.drawable.ic_feedback, R.color.feedback_dark, R.color.feedback_light,
+                    getString(R.string.send_feedback), true, true, getString(R.string.help_us_improve) + getString(R.string.app_name), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.PRIVACY_POLICY, R.drawable.ic_privacy, R.color.privacy_dark, R.color.privacy_light,
+                    getString(R.string.privacy_policy), true, true, getString(R.string.read_privacy_policy), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.TERMS_CONDITIONS, R.drawable.ic_terms, R.color.terms_dark, R.color.terms_light,
+                    getString(R.string.terms_conditions), true, true, getString(R.string.read_our_terms_and_conditions), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.ABOUT, R.drawable.ic_about, R.color.about_dark, R.color.about_light,
+                    getString(R.string.about) + " " + getString(R.string.app_name), true, true, getString(R.string.learn_more) + getString(R.string.app_name), true, false, 0));
+            settingItemModelList.add(new SettingItemModel(SettingType.VERSION, R.drawable.ic_version, R.color.version_dark, R.color.version_light,
+                    getString(R.string.version), false, true, getAppVersion(), false, false, 0));
 
             SettingsAdapter adapter = new SettingsAdapter(this, settingItemModelList, R.layout.item_setting, this);
 

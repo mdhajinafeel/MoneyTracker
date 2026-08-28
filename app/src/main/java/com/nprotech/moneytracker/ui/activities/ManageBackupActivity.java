@@ -82,22 +82,29 @@ public class ManageBackupActivity extends BaseActivity {
             List<SettingItemModel> backupList = new ArrayList<>();
 
             backupList.add(new SettingItemModel(SettingType.BACKUP_NOW, R.drawable.ic_backup, R.color.backup_dark, R.color.backup_light,
-                    getString(R.string.backup_now), true, true, getString(R.string.create_new_backup), true, false));
+                    getString(R.string.backup_now), true, true, getString(R.string.create_new_backup), true, false, R.color.backup_navigation));
             backupList.add(new SettingItemModel(SettingType.BACKUP_HISTORY, R.drawable.ic_backup_history, R.color.category_dark, R.color.category_light,
-                    getString(R.string.backup_history), true, true, getString(R.string.view_manage_backups), true, false));
+                    getString(R.string.backup_history), true, true, getString(R.string.view_manage_backups), true, false, R.color.history_navigation));
             backupList.add(new SettingItemModel(SettingType.RESTORE_BACKUP, R.drawable.ic_restore_backup, R.color.account_dark, R.color.account_light,
-                    getString(R.string.restore_backup), true, true, getString(R.string.restore_data), true, false));
+                    getString(R.string.restore_backup), true, true, getString(R.string.restore_data), true, false, R.color.restore_navigation));
             backupList.add(new SettingItemModel(SettingType.BACKUP_SETTINGS, R.drawable.ic_settings_configuration, R.color.startup_dark, R.color.startup_light,
-                    getString(R.string.backup_settings), true, true, getString(R.string.settings_preferences), true, false));
+                    getString(R.string.backup_settings), true, true, getString(R.string.settings_preferences), true, false, R.color.settings_navigation));
 
             RecyclerViewAdapter<SettingItemModel> backupRecyclerViewAdapter = new RecyclerViewAdapter<>(this, backupList, R.layout.item_manage_backup_option) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, SettingItemModel settingItemModel) {
 
                     AppCompatImageView ivIcon = holder.getView(R.id.ivIcon);
+                    AppCompatImageView ivNavigationRound = holder.getView(R.id.ivNavigationRound);
 
                     holder.setViewText(R.id.tvTitle, settingItemModel.title);
                     holder.setViewText(R.id.tvTitleDesc, settingItemModel.subTitle);
+                    ivNavigationRound.setVisibility(View.VISIBLE);
+
+                    Drawable navigationBackground = ivNavigationRound.getBackground().mutate();
+                    DrawableCompat.setTint(navigationBackground, ContextCompat.getColor(getApplicationContext(), settingItemModel.fgColor));
+                    ivNavigationRound.setBackground(navigationBackground);
+                    ivNavigationRound.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.white)));
 
                     Drawable background = ivIcon.getBackground().mutate();
                     DrawableCompat.setTint(background, ContextCompat.getColor(getApplicationContext(), settingItemModel.bgColor));

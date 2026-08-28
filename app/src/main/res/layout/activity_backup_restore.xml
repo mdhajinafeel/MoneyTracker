@@ -460,7 +460,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/margin_16"
                         android:background="@drawable/bg_circle_theme"
-                        android:padding="@dimen/padding_8"
+                        android:padding="@dimen/padding_10"
                         android:src="@drawable/ic_zip"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -567,10 +567,10 @@
                         android:layout_height="26dp"
                         android:background="@drawable/bg_circle_white"
                         android:backgroundTint="@color/primary_light"
-                        android:padding="@dimen/padding_4"
+                        android:padding="@dimen/padding_6"
                         android:layout_marginEnd="@dimen/margin_6"
                         android:src="@drawable/ic_delete"
-                        android:tint="@color/primary_dark"
+                        android:tint="@color/white"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
 

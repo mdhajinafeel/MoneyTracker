@@ -47,6 +47,10 @@
     <color name="terms_dark">#F97316</color>
     <color name="about_dark">#6D28D9</color>
     <color name="version_dark">#6B7280</color>
+    <color name="backup_navigation">#7B1FA2</color>
+    <color name="history_navigation">#F57C00</color>
+    <color name="restore_navigation">#6A1B9A</color>
+    <color name="settings_navigation">#1565C0</color>
 
     <color name="account_light">#EAD5FF</color>
     <color name="wallet_light">#DCEBFF</color>
