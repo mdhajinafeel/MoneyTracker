@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:fontFamily="@font/exo2_bold"
+        android:text="@string/sort_by"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSortBy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSortBy" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAttachments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:fontFamily="@font/exo2_bold"
+        android:text="@string/attachments"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvSortBy" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAttachments"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/white"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAttachments" />
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_12"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvAttachments">
+
+        <!-- Primary / Edit / View -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrimary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_lavender"
+            android:text="@string/apply"
+            android:letterSpacing="0.01"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_12"
+            android:fontFamily="@font/exo2_semibold"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="1dp" />
+
+        <!-- Delete / Remove -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecondary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:backgroundTint="@color/very_light_expense"
+            android:text="@string/reset"
+            android:textAllCaps="true"
+            android:letterSpacing="0.01"
+            android:textColor="@color/bright_red"
+            android:textSize="@dimen/text_12"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/bright_red"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:text="@string/text_close"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_12"
+        android:fontFamily="@font/exo2_semibold"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutActions"
+        app:fontFamily="@font/exo2_semibold" />
+</androidx.constraintlayout.widget.ConstraintLayout>

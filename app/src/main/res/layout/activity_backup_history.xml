@@ -40,7 +40,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/backupOptionsCard"
+                android:id="@+id/backupCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
@@ -60,12 +60,11 @@
 
                     <!-- Left illustration -->
                     <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivBackupRestore"
+                        android:id="@+id/ivBackupHistory"
                         android:layout_width="100dp"
                         android:layout_height="60dp"
-                        android:padding="@dimen/padding_10"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_backup_restore"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_backup_history_img"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -75,13 +74,13 @@
                         android:id="@+id/textContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_2"
+                        android:layout_marginStart="@dimen/margin_6"
                         android:layout_marginEnd="@dimen/margin_12"
                         android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@id/ivBackupRestore"
+                        app:layout_constraintBottom_toBottomOf="@id/ivBackupHistory"
                         app:layout_constraintEnd_toStartOf="@id/viewLine1"
-                        app:layout_constraintStart_toEndOf="@id/ivBackupRestore"
-                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore">
+                        app:layout_constraintStart_toEndOf="@id/ivBackupHistory"
+                        app:layout_constraintTop_toTopOf="@id/ivBackupHistory">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/lblTitle"
@@ -111,10 +110,10 @@
                         android:layout_height="0dp"
                         android:layout_marginEnd="@dimen/margin_28"
                         android:background="@color/light_lavender"
-                        app:layout_constraintBottom_toBottomOf="@id/ivBackupRestore"
+                        app:layout_constraintBottom_toBottomOf="@id/ivBackupHistory"
                         app:layout_constraintEnd_toStartOf="@id/ivBackupLock"
                         app:layout_constraintStart_toEndOf="@id/textContainer"
-                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore" />
+                        app:layout_constraintTop_toTopOf="@id/ivBackupHistory" />
 
                     <!-- Lock icon -->
                     <androidx.appcompat.widget.AppCompatImageView
@@ -129,7 +128,7 @@
                         android:src="@drawable/ic_db_lock"
                         android:tint="@color/backup_dark"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/ivBackupRestore" />
+                        app:layout_constraintTop_toTopOf="@id/ivBackupHistory" />
 
                     <!-- Backup count -->
                     <androidx.appcompat.widget.AppCompatTextView
@@ -241,15 +240,51 @@
                 </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Backup scanning loader -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loadingWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_10"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressScanning"
+                    android:layout_width="36dp"
+                    android:indeterminateTint="@color/primary_dark"
+                    android:progressTint="@color/primary_dark"
+                    android:layout_height="36dp"
+                    app:layout_constraintBottom_toTopOf="@id/tvScanning"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvScanning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:text="@string/scanning_backups"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/progressScanning" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvBackupHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_6"
+                android:layout_marginTop="@dimen/margin_12"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:paddingBottom="@dimen/padding_16"
+                android:paddingBottom="@dimen/padding_4"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 

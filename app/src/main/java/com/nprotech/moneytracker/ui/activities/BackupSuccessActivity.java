@@ -10,19 +10,19 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.BackupHistoryEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
-import com.nprotech.moneytracker.viewmodel.BackupHistoryViewModel;
+
+import java.io.File;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -32,9 +32,10 @@ public class BackupSuccessActivity extends BaseActivity {
     private AppCompatImageView icBack, ivShare;
     private AppCompatTextView tvBackupLocation, tvBackupFileName, tvBackupDateTime, tvBackupSize, tvBackupAttachments;
     private MaterialButton btnBackToHome, btnGoToRestore;
-    private BackupHistoryViewModel backupHistoryViewModel;
-    private long backupHistoryId = 0;
-    private BackupHistoryEntity backupHistory;
+    private Uri backupUri;
+    private String backupFileName, backupLocation;
+    private long backupSize, backupCreatedAt;
+    private boolean includeAttachments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,54 +76,90 @@ public class BackupSuccessActivity extends BaseActivity {
                 return insets;
             });
 
-            backupHistoryViewModel = new ViewModelProvider(this).get(BackupHistoryViewModel.class);
-
-            if (!readBackupHistoryId()) {
+            if (!readBackupResult()) {
                 return;
             }
 
-            observeBackupHistory();
+            bindBackupDetails();
             setupListeners();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void bindBackupHistory(BackupHistoryEntity history) {
+    private boolean readBackupResult() {
+        Intent intent = getIntent();
+
+        if (intent == null) {
+            goBackToHome();
+            return false;
+        }
+
+        String uriString = intent.getStringExtra("backupUri");
+
+        if (uriString == null || uriString.trim().isEmpty()) {
+            goBackToHome();
+            return false;
+        }
+
         try {
+            backupUri = Uri.parse(uriString);
+            backupFileName = intent.getStringExtra("fileName");
+            backupLocation = intent.getStringExtra("location");
+            backupSize = intent.getLongExtra("backupSize", 0);
+            backupCreatedAt = intent.getLongExtra("createdAt", 0);
+            includeAttachments = intent.getBooleanExtra("includeAttachments", false);
+
+            if (backupFileName == null || backupFileName.trim().isEmpty()) {
+                backupFileName = getString(R.string.app_backup, getString(R.string.app_name));
+            }
+
+            return true;
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "readBackupResult", e);
+            goBackToHome();
+            return false;
+        }
+    }
+
+    private void bindBackupDetails() {
+
+        try {
+
             // -------------------------------------------------
             // Location
             // -------------------------------------------------
-
-            tvBackupLocation.setText(
-                    history.location
-            );
+            if (backupLocation != null && !backupLocation.trim().isEmpty()) {
+                tvBackupLocation.setText(backupLocation);
+            } else {
+                tvBackupLocation.setText(R.string.selected_location);
+            }
 
             // -------------------------------------------------
             // File name
             // -------------------------------------------------
-            tvBackupFileName.setText(history.fileName);
+            tvBackupFileName.setText(backupFileName);
 
             // -------------------------------------------------
             // Date / Time
             // -------------------------------------------------
-            tvBackupDateTime.setText(DateHelper.getFormattedDate(history.createdAt, "dd MMM yyyy • hh:mm a"));
+            tvBackupDateTime.setText(DateHelper.getFormattedDate(backupCreatedAt, "dd MMM yyyy • hh:mm a"));
 
             // -------------------------------------------------
             // Backup Size
             // -------------------------------------------------
-            tvBackupSize.setText(Formatter.formatFileSize(this, history.backupSize));
+            tvBackupSize.setText(Formatter.formatFileSize(this, backupSize));
 
             // -------------------------------------------------
             // Attachments
             // -------------------------------------------------
-            if (history.includeAttachments) {
+            if (includeAttachments) {
                 tvBackupAttachments.setText(R.string.included);
             } else {
                 tvBackupAttachments.setText(R.string.not_included);
             }
         } catch (Exception e) {
-            AppLogger.e(getClass(), "bindBackupHistory", e);
+            AppLogger.e(getClass(), "bindBackupDetails", e);
         }
     }
 
@@ -139,45 +176,12 @@ public class BackupSuccessActivity extends BaseActivity {
 
             ivShare.setOnClickListener(v -> shareBackup());
 
-            btnGoToRestore.setOnClickListener(v -> {
-
-            });
+            btnGoToRestore.setOnClickListener(v -> openRestoreScreen());
 
             btnBackToHome.setOnClickListener(v -> finishWithTransition());
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
-    }
-
-    private boolean readBackupHistoryId() {
-
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle == null) {
-            goBackToHome();
-            return false;
-        }
-
-        backupHistoryId = bundle.getLong("backHistoryId", 0);
-        if (backupHistoryId <= 0) {
-            goBackToHome();
-            return false;
-        }
-
-        return true;
-    }
-
-    private void observeBackupHistory() {
-
-        backupHistoryViewModel.getBackupById(backupHistoryId).observe(this, history -> {
-                    if (history == null) {
-                        goBackToHome();
-                        return;
-                    }
-                    backupHistory = history;
-                    bindBackupHistory(history);
-                }
-        );
     }
 
     private void finishWithTransition() {
@@ -193,21 +197,40 @@ public class BackupSuccessActivity extends BaseActivity {
         }
     }
 
-    // =========================================================
-    // SHARE BACKUP
-    // =========================================================
-
     private void shareBackup() {
-        if (backupHistory == null) {
-            Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
+
+        if (backupUri == null) {Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
             return;
         }
 
         try {
-            Uri backupUri = Uri.parse(backupHistory.backupUri);
+            Uri shareUri = backupUri;
+
+            if ("file".equalsIgnoreCase(backupUri.getScheme())) {
+                String path = backupUri.getPath();
+                if (path == null || path.trim().isEmpty()) {
+                    Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                File backupFile = new File(path);
+
+                if (!backupFile.exists() || !backupFile.isFile()) {
+                    Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                shareUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", backupFile);
+            }
+
+            if (!"content".equalsIgnoreCase(shareUri.getScheme())) {
+                Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("application/zip");
-            shareIntent.putExtra(Intent.EXTRA_STREAM, backupUri);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, shareUri);
             shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(Intent.createChooser(shareIntent, getString(R.string.share_backup)));
         } catch (Exception e) {
@@ -231,9 +254,10 @@ public class BackupSuccessActivity extends BaseActivity {
 
     private void openRestoreScreen() {
         try {
-//            Intent intent = new Intent(BackupSuccessActivity.this, RestoreBackupActivity.class);
-//            startActivity(intent);
-//            ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            Intent intent = new Intent(BackupSuccessActivity.this, BackupRestoreActivity.class);
+            startActivity(intent);
+            finish();
+            ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
         } catch (Exception e) {
             AppLogger.e(getClass(), "openRestoreScreen", e);
         }

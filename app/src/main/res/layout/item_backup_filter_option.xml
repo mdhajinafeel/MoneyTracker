@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlFilterView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/padding_18"
+    android:paddingTop="@dimen/padding_8"
+    android:paddingEnd="@dimen/padding_10"
+    android:paddingBottom="@dimen/padding_8">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFilterName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/ivSelected"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_16"
+        app:fontFamily="@font/exo2_medium" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_done"
+        android:visibility="gone"
+        app:tint="@color/vibrant_orange" />
+</RelativeLayout>

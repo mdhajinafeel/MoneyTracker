@@ -59,7 +59,7 @@
         android:paddingTop="@dimen/padding_12"
         android:paddingEnd="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_12"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/viewDivider">
 
         <androidx.appcompat.widget.AppCompatImageView

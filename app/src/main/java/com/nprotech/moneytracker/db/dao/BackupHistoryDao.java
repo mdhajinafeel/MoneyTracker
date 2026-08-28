@@ -1,9 +1,8 @@
 package com.nprotech.moneytracker.db.dao;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.nprotech.moneytracker.db.entites.BackupHistoryEntity;
@@ -13,19 +12,25 @@ import java.util.List;
 @Dao
 public interface BackupHistoryDao {
 
-    @Insert
-    long insert(BackupHistoryEntity backupHistory);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertOrUpdate(BackupHistoryEntity entity);
 
-    @Query("SELECT * FROM backup_history ORDER BY CASE WHEN :isNewest = 1 THEN createdAt END DESC, " +
-            "CASE WHEN :isNewest = 0 THEN createdAt END ASC LIMIT :limit OFFSET :offset")
-    List<BackupHistoryEntity> getAllBackups(boolean isNewest, int limit, int offset);
+    // =========================================================
+    // LIVE DATA
+    // =========================================================
 
-    @Query("SELECT * FROM backup_history WHERE id = :id LIMIT 1")
-    LiveData<BackupHistoryEntity> getBackupById(long id);
+    @Query("""
+        SELECT * FROM backup_history
+        WHERE  (:attachmentType = 1  OR (:attachmentType = 2 AND includeAttachments = 1) OR (:attachmentType = 3 AND includeAttachments = 0))
+        ORDER BY
+            CASE WHEN :sortType = 1 THEN createdAt END DESC,
+            CASE WHEN :sortType = 2 THEN createdAt END ASC,
+            CASE WHEN :sortType = 3 THEN backupSize END DESC,
+            CASE WHEN :sortType = 4 THEN backupSize END ASC
+        LIMIT :limit OFFSET :offset
+        """)
+    List<BackupHistoryEntity> getAllBackups(int sortType, int attachmentType, int limit, int offset);
 
-    @Query("SELECT COUNT(*) FROM backup_history")
-    LiveData<Integer> getActiveBackup();
-
-    @Delete
-    void delete(BackupHistoryEntity backupHistory);
+    @Query("DELETE FROM backup_history " + "WHERE backupId = :backupId")
+    void deleteByBackupId(String backupId);
 }

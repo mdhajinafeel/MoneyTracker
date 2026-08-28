@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase;
 
 import com.nprotech.moneytracker.BuildConfig;
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.BackupHistoryDao;
@@ -32,7 +33,7 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 @Database(entities = {CurrencyEntity.class, CategoryEntity.class, CommonDataEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
         TransactionAttachmentEntity.class, GoalEntity.class, GoalContributionEntity.class, BackupHistoryEntity.class},
-        version = 1)
+        version = Constants.DATABASE_VERSION)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
     private static volatile MoneyTrackerDatabase INSTANCE;
@@ -76,5 +77,14 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
             }
         }
         return INSTANCE;
+    }
+
+    public static void closeDatabase() {
+        if (INSTANCE != null) {
+            if (INSTANCE.isOpen()) {
+                INSTANCE.close();
+            }
+            INSTANCE = null;
+        }
     }
 }

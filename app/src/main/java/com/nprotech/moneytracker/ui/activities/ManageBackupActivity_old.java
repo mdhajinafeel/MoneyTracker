@@ -1,45 +1,6 @@
 package com.nprotech.moneytracker.ui.activities;
 
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
-
-import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.documentfile.provider.DocumentFile;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.button.MaterialButton;
-import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
-import com.nprotech.moneytracker.helper.AppLogger;
-import com.nprotech.moneytracker.models.BackupModel;
-import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
-import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
-import com.nprotech.moneytracker.utils.ActivityUtils;
-import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.Executors;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public class ManageBackupActivity_old extends BaseActivity {
 

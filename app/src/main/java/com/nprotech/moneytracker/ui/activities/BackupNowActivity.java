@@ -22,20 +22,17 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.nprotech.moneytracker.R;
-import com.nprotech.moneytracker.db.entites.BackupHistoryEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.BackupManager;
 import com.nprotech.moneytracker.utils.CommonUtils;
-import com.nprotech.moneytracker.viewmodel.BackupHistoryViewModel;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -46,7 +43,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BackupNowActivity extends BaseActivity {
 
     private AppCompatImageView icBack;
-    private AppCompatTextView lblDesc, lblSecure, lblPrivate, lblLocalOnly, lblIncluded, lblDatabaseDesc, lblBackupHint, tvBackupSize, tvAttachmentSize, tvEstimatedSize, tvSaveLocation, tvBackupPercentage, tvBackupTitle, tvBackupProgress;
+    private AppCompatTextView lblDesc, lblSecure, lblPrivate, lblLocalOnly, lblIncluded, lblDatabaseDesc, lblBackupHint,
+            tvBackupSize, tvAttachmentSize, tvEstimatedSize, tvSaveLocation, tvBackupPercentage, tvBackupTitle, tvBackupProgress;
     private SwitchCompat switchAttachInclude;
     private MaterialButton btnChangeLocation, btnStartBackup;
     private MaterialCardView backupProgressContainer;
@@ -54,7 +52,6 @@ public class BackupNowActivity extends BaseActivity {
     private ProgressBar backupLinearProgress;
     private ExecutorService backupExecutor;
     private ActivityResultLauncher<Intent> folderPickerLauncher;
-    private BackupHistoryViewModel backupHistoryViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +108,6 @@ public class BackupNowActivity extends BaseActivity {
                 return insets;
             });
 
-            backupHistoryViewModel = new ViewModelProvider(this).get(BackupHistoryViewModel.class);
-
             bindData();
             setupListeners();
             setupLauncher();
@@ -156,7 +151,22 @@ public class BackupNowActivity extends BaseActivity {
                 }
             });
 
-            switchAttachInclude.setOnCheckedChangeListener((buttonView, isChecked) -> updateBackupDetails());
+            switchAttachInclude.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                if (isChecked) {
+                    BackupManager backupManager = new BackupManager(BackupNowActivity.this);
+                    long attachmentSize = backupManager.getAttachmentSize();
+                    // No attachment files available
+                    if (attachmentSize <= 0) {
+                        // Turn the switch back OFF
+                        buttonView.setChecked(false);
+                        Toast.makeText(BackupNowActivity.this, R.string.no_attachment_files, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+
+                updateBackupDetails();
+            });
 
             btnChangeLocation.setOnClickListener(v -> openBackupLocationPicker());
 
@@ -215,7 +225,7 @@ public class BackupNowActivity extends BaseActivity {
                         return;
                     }
 
-                    saveBackupHistory(backupResult);
+                    runOnUiThread(() -> openSuccessScreen(backupResult));
                 } catch (Exception e) {
                     AppLogger.e(getClass(), "startBackup", e);
                     runOnUiThread(() -> {
@@ -247,12 +257,11 @@ public class BackupNowActivity extends BaseActivity {
     private void updateBackupDetails() {
         try {
             BackupManager backupManager = new BackupManager(BackupNowActivity.this);
-            long databaseSize = backupManager.getDatabaseSize();
-            long attachmentSize = 0;
 
-            if (switchAttachInclude.isChecked()) {
-                attachmentSize = backupManager.getAttachmentSize();
-            }
+            long databaseSize = backupManager.getDatabaseSize();
+            long attachmentSize = switchAttachInclude.isChecked()
+                    ? backupManager.getAttachmentSize()
+                    : 0;
 
             long estimatedSize = databaseSize + attachmentSize;
 
@@ -319,7 +328,6 @@ public class BackupNowActivity extends BaseActivity {
     }
 
     private Uri getCurrentBackupFolderUri() {
-
         try {
             return DocumentsContract.buildTreeDocumentUri("com.android.externalstorage.documents", "primary:" + getString(R.string.app_name) + "/Backups");
         } catch (Exception e) {
@@ -423,33 +431,17 @@ public class BackupNowActivity extends BaseActivity {
         });
     }
 
-    private void saveBackupHistory(BackupManager.BackupResult result) {
-        if (result == null || result.uri() == null) {
-            return;
-        }
-
-        String location = getBackupLocationDisplayPath(result.uri());
-        BackupHistoryEntity backupHistory = new BackupHistoryEntity();
-        backupHistory.backupUri = result.uri().toString();
-        backupHistory.fileName = result.fileName();
-        backupHistory.backupSize = result.backupSize();
-        backupHistory.databaseSize = result.databaseSize();
-        backupHistory.includeAttachments = result.isAttachmentIncluded();
-        backupHistory.attachmentSize = result.attachmentSize();
-        backupHistory.createdAt = System.currentTimeMillis();
-        backupHistory.location = location;
-
-        long backHistoryId = backupHistoryViewModel.insertBackupHistory(backupHistory);
-        if(backHistoryId > 0) {
-            runOnUiThread(() -> openSuccessScreen(backHistoryId));
-        } else {
-            finishWithTransition();
-        }
-    }
-
-    private void openSuccessScreen(long backHistoryId) {
+    private void openSuccessScreen(BackupManager.BackupResult backupResult) {
         Intent intent = new Intent(BackupNowActivity.this, BackupSuccessActivity.class);
-        intent.putExtra("backHistoryId", backHistoryId);
+        intent.putExtra("backupUri", backupResult.uri().toString());
+        intent.putExtra("backupSize", backupResult.backupSize());
+        intent.putExtra("databaseSize", backupResult.databaseSize());
+        intent.putExtra("attachmentSize", backupResult.attachmentSize());
+        intent.putExtra("includeAttachments", backupResult.isAttachmentIncluded());
+        intent.putExtra("createdAt", backupResult.createdAt());
+        intent.putExtra("fileName", backupResult.fileName());
+        intent.putExtra("location", backupResult.location());
+        intent.putExtra("backupId", backupResult.backupId());
         startActivity(intent);
         ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
     }
@@ -479,16 +471,31 @@ public class BackupNowActivity extends BaseActivity {
 
     private void prepareBackupDirectory() {
         try {
-            // If user already selected a custom location,
-            // don't touch the default directory.
+            // If user has already selected a location through SAF,
+            // keep using that location.
             if (getSavedBackupLocation() != null) {
                 return;
             }
 
+            // First-time default location.
+            // Create Expenixo/Backups using normal File API because
+            // MANAGE_EXTERNAL_STORAGE permission has already been granted.
             BackupManager backupManager = new BackupManager(BackupNowActivity.this);
+
             if (!backupManager.ensureBackupDirectoryExists()) {
-                Toast.makeText(this, R.string.unable_backup_directory, Toast.LENGTH_SHORT).show();
+                Toast.makeText(
+                        this,
+                        R.string.unable_backup_directory,
+                        Toast.LENGTH_SHORT
+                ).show();
             }
+
+            // IMPORTANT:
+            // Do NOT save the default folder as a SAF URI here.
+            //
+            // The default location is handled directly by BackupManager
+            // until the user explicitly chooses another location.
+
         } catch (Exception e) {
             AppLogger.e(getClass(), "prepareBackupDirectory", e);
         }

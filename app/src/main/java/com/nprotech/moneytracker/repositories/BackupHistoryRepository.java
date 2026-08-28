@@ -18,36 +18,16 @@ public class BackupHistoryRepository {
         this.backupHistoryDao = backupHistoryDao;
     }
 
-    public long insertBackupHistory(BackupHistoryEntity backupHistory) {
-        return backupHistoryDao.insert(backupHistory);
+    public void insertBackupHistory(BackupHistoryEntity backupHistory) {
+        backupHistoryDao.insertOrUpdate(backupHistory);
     }
 
-    // ---------------------------------------------------------
-    // Get single backup
-    // ---------------------------------------------------------
-
-    public LiveData<BackupHistoryEntity> getBackupById(long id) {
-        return backupHistoryDao.getBackupById(id);
-    }
-
-    // ---------------------------------------------------------
-    // Get all
-    // ---------------------------------------------------------
-
-    public List<BackupHistoryEntity> getAllBackups(boolean isNewest, int page, int pageSize) {
+    public List<BackupHistoryEntity> getAllBackups(int currentSortType, int currentAttachmentType, int page, int pageSize) {
         int offset = page * pageSize;
-        return backupHistoryDao.getAllBackups(isNewest, pageSize, offset);
+        return backupHistoryDao.getAllBackups(currentSortType, currentAttachmentType, pageSize, offset);
     }
 
-    // ---------------------------------------------------------
-    // Delete
-    // ---------------------------------------------------------
-
-    public void delete(BackupHistoryEntity backupHistory) {
-        executorService.execute(() -> backupHistoryDao.delete(backupHistory));
-    }
-
-    public LiveData<Integer> getActiveBackup() {
-        return backupHistoryDao.getActiveBackup();
+    public void deleteByBackupId(String backupId) {
+        executorService.execute(() -> backupHistoryDao.deleteByBackupId(backupId));
     }
 }

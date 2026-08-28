@@ -73,6 +73,8 @@
     <dimen name="corner_radius_50">50dp</dimen>
 
     <!-- STROKE WIDTH -->
+    <dimen name="stroke_width_0_5">0.5dp</dimen>
+    <dimen name="stroke_width_1">1dp</dimen>
     <dimen name="box_stroke">1.5dp</dimen>
 
     <!-- HEIGHT -->

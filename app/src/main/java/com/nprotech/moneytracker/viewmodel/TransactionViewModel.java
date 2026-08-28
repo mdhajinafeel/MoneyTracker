@@ -299,4 +299,10 @@ public class TransactionViewModel extends ViewModel {
     public LiveData<BalanceSummaryModel> accountSummaryById(int accountId) {
         return transactionRepository.accountSummaryById(accountId);
     }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        executor.shutdownNow();
+    }
 }

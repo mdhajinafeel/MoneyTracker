@@ -1,8 +1,9 @@
 package com.nprotech.moneytracker.constants;
 
-import java.util.Calendar;
-
 public class Constants {
+
+    // DATABASE VERSION
+    public static final int DATABASE_VERSION = 1;
 
     // SETTINGS
     public static final int DAY = 1;
