@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -111,7 +112,21 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             tvBadgeDetail.setText(context.getString(R.string.transfer));
             tvBadgeDetail.setTextColor(ContextCompat.getColor(context, R.color.transfer));
         } else {
-            holder.setViewText(R.id.detailLabel, transaction.description == null || transaction.description.isEmpty() ? "—" : transaction.description);
+
+            if (transaction.description == null || transaction.description.isEmpty()) {
+                holder.setViewVisibility(R.id.detailLabel, View.GONE);
+
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tvBadgeDetail.getLayoutParams();
+                params.setMarginStart(0);
+                tvBadgeDetail.setLayoutParams(params);
+            } else {
+                holder.setViewVisibility(R.id.detailLabel, View.VISIBLE);
+                holder.setViewText(R.id.detailLabel, transaction.description);
+
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tvBadgeDetail.getLayoutParams();
+                params.setMarginStart(context.getResources().getDimensionPixelSize(R.dimen.margin_8));
+                tvBadgeDetail.setLayoutParams(params);
+            }
 
             tvBadgeDetail.setBackgroundDrawable(badge);
             tvBadgeDetail.setText(badgeText);
@@ -152,7 +167,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             }
         });
 
-        if(dividerVisible) {
+        if (dividerVisible) {
             int position = holder.getBindingAdapterPosition();
 
             if (position == getItemCount() - 1) {

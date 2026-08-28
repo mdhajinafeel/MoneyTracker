@@ -101,30 +101,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBaseline_toBaselineOf="@id/feeLabel" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/detailLabel"
+        <LinearLayout
+            android:id="@+id/detailWrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_6"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_14"
-            app:fontFamily="@font/exo2_medium"
+            android:layout_marginTop="@dimen/margin_4"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/feeLabel" />
+            app:layout_constraintTop_toBottomOf="@id/feeLabel">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvBadgeDetail"
-            android:layout_width="wrap_content"
-            android:layout_height="18dp"
-            android:layout_marginStart="@dimen/margin_8"
-            android:gravity="center"
-            android:paddingStart="@dimen/padding_6"
-            android:paddingEnd="@dimen/padding_6"
-            android:textSize="@dimen/text_10"
-            app:fontFamily="@font/exo2_semibold"
-            app:layout_constraintStart_toEndOf="@id/detailLabel"
-            app:layout_constraintTop_toTopOf="@id/detailLabel"
-            app:layout_constraintBottom_toBottomOf="@id/detailLabel" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/detailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_14"
+                android:textColor="@color/dark_grey"
+                app:fontFamily="@font/exo2_medium" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBadgeDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="@dimen/margin_8"
+                android:gravity="center"
+                android:paddingStart="@dimen/padding_6"
+                android:paddingEnd="@dimen/padding_6"
+                android:textSize="@dimen/text_10"
+                app:fontFamily="@font/exo2_semibold" />
+        </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/timeLabel"
