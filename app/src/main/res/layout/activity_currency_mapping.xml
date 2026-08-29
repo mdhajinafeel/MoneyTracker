@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
     android:id="@+id/rootView"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_light_background">
 
@@ -228,10 +228,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvAccountCurrency"
                     android:layout_width="match_parent"
-                    android:padding="@dimen/padding_10"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/layoutAdditional"
                     android:background="@color/white"
+                    android:padding="@dimen/padding_10"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -240,8 +240,8 @@
             android:id="@+id/tvExchangeHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_2"
             android:layout_below="@+id/cardAdditionalCurrency"
+            android:layout_marginHorizontal="@dimen/margin_2"
             android:layout_marginTop="@dimen/margin_4"
             android:background="@drawable/bg_box_purple_stroke"
             android:backgroundTint="@color/light_lavender"
@@ -311,11 +311,11 @@
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_6"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/vibrant_orange"
         app:fabCustomSize="50dp"
-        android:layout_marginEnd="@dimen/margin_6"
         app:layout_anchorGravity="top|center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

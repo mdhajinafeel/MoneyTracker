@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/rootView"
     android:background="@color/app_light_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,9 +132,9 @@
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/breakdownCard"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_12"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_12"
             android:layout_marginEnd="@dimen/margin_12"
             android:layout_marginBottom="@dimen/margin_12"
             android:visibility="gone"
@@ -143,20 +143,18 @@
             app:cardElevation="@dimen/corner_elevation_6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/chartContainer"
             app:strokeColor="@color/grey_88"
             app:strokeWidth="1dp">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView
                 android:id="@+id/rvTransactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
-                android:paddingTop="@dimen/margin_4"
-                android:paddingBottom="@dimen/margin_4"
+                android:padding="@dimen/padding_10"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </com.google.android.material.card.MaterialCardView>

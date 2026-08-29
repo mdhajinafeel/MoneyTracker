@@ -52,6 +52,7 @@ import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.TransactionAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.ChartMarkerView;
 import com.nprotech.moneytracker.utils.CommonUtils;
@@ -71,12 +72,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class TransactionPeriodActivity extends BaseActivity {
 
+    private View rootView;
     private AppCompatImageView icBack, ivCalendar, ivPrevious, ivNext;
     private AppCompatTextView tvDate, tvStartDate, tvEndDate, amountLabel;
     private BarChart barChartSpending;
     private LineChart lineChartSpending;
     private Date date;
-    private RecyclerView rvTransactions;
+    private MaxHeightRecyclerView rvTransactions;
     private MaterialCardView breakdownCard;
     private ConstraintLayout emptyWrapper;
     private FrameLayout chartContainer;
@@ -101,7 +103,7 @@ public class TransactionPeriodActivity extends BaseActivity {
 
     private void initComponents() {
         try {
-            View root = findViewById(R.id.rootView);
+            rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
@@ -127,7 +129,7 @@ public class TransactionPeriodActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
@@ -283,6 +285,25 @@ public class TransactionPeriodActivity extends BaseActivity {
                     if (last >= transactionAdapter.getItemCount() - 5) {
                         statisticsViewModel.loadNextPage();
                     }
+                }
+            });
+
+            updateRecyclerViewMaxHeight();
+
+            transactionAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
                 }
             });
         } catch (Exception e) {
@@ -1447,6 +1468,17 @@ public class TransactionPeriodActivity extends BaseActivity {
         }
 
         amountLabel.setText(CommonUtils.getBeautifyAmount(currencySymbol, total));
+    }
+
+    private void updateRecyclerViewMaxHeight() {
+        rootView.post(() -> {
+            int availableHeight = rootView.getHeight();
+            int cardMargins = CommonUtils.dpToPx(this, 20);
+            int maxHeight = availableHeight - cardMargins;
+            if (maxHeight > 0) {
+                rvTransactions.setMaxHeight(maxHeight);
+            }
+        });
     }
 
     @Override

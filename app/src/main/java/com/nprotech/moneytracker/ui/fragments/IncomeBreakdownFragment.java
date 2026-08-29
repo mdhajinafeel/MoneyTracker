@@ -17,9 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +38,7 @@ import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
 import com.nprotech.moneytracker.ui.adapters.TransactionBreakdownAdapter;
+import com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.CustomPieChartRenderer;
 import com.nprotech.moneytracker.utils.SimpleDividerItemDecoration;
@@ -57,8 +55,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class IncomeBreakdownFragment extends Fragment {
 
+    private View categoryRoot;
     private ConstraintLayout emptyWrapper;
-    private RecyclerView rvIncomeBreakdown;
+    private MaxHeightRecyclerView rvIncomeBreakdown;
     private MaterialCardView incomeBreakdownCard;
     private PieChart pieChartIncome;
     private AccountViewModel accountViewModel;
@@ -74,17 +73,11 @@ public class IncomeBreakdownFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_income_breakdown, container, false);
         try {
-            View root = view.findViewById(R.id.rootView);
+            categoryRoot = view.findViewById(R.id.categoryRoot);
             rvIncomeBreakdown = view.findViewById(R.id.rvIncomeBreakdown);
             emptyWrapper = view.findViewById(R.id.emptyWrapper);
             incomeBreakdownCard = view.findViewById(R.id.incomeBreakdownCard);
             pieChartIncome = view.findViewById(R.id.pieChartIncome);
-
-            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
-                return insets;
-            });
 
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
             statisticsViewModel = new ViewModelProvider(requireActivity()).get(StatisticsViewModel.class);
@@ -147,6 +140,25 @@ public class IncomeBreakdownFragment extends Fragment {
             rvIncomeBreakdown.setHasFixedSize(true);
             rvIncomeBreakdown.setItemAnimator(null);
             rvIncomeBreakdown.addItemDecoration(new SimpleDividerItemDecoration(requireContext()));
+
+            updateRecyclerViewMaxHeight();
+
+            transactionBreakdownAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
         }
@@ -321,5 +333,16 @@ public class IncomeBreakdownFragment extends Fragment {
             }
         }
         return total;
+    }
+
+    private void updateRecyclerViewMaxHeight() {
+        categoryRoot.post(() -> {
+            int availableHeight = categoryRoot.getHeight();
+            int cardMargins = CommonUtils.dpToPx(requireActivity(), 20);
+            int maxHeight = availableHeight - cardMargins;
+            if (maxHeight > 0) {
+                rvIncomeBreakdown.setMaxHeight(maxHeight);
+            }
+        });
     }
 }

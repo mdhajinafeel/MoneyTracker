@@ -119,6 +119,13 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
             Intent intent = new Intent(context, CategoryTransactionActivity.class);
             intent.putExtra("type", item.type);
             intent.putExtra("categoryId", item.categoryId);
+
+            String catName = item.getCategoryName(context);
+            if (Objects.equals(catName, "")) {
+                catName = item.categoryName;
+            }
+
+            intent.putExtra("categoryName", catName);
             intent.putExtra("walletId", item.walletId);
             context.startActivity(intent);
 

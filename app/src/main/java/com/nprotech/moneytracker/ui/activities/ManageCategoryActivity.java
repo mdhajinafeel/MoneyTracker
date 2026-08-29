@@ -25,116 +25,238 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ManageCategoryActivity extends BaseActivity {
 
-    private AppCompatImageView icBack, ivAdd;
+    private AppCompatImageView icBack;
+    private AppCompatImageView ivAdd;
     private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_manage_category);
+
         statusBarSetting();
         hideKeyboard(this);
+
         initComponents();
     }
 
     private void initComponents() {
+
         try {
 
+            View rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
-            icBack = toolbarWrapper.findViewById(R.id.icBack);
-            ivAdd = toolbarWrapper.findViewById(R.id.ivAdd);
-            tabLayout = findViewById(R.id.tabLayout);
-            ViewPager2 viewPager = findViewById(R.id.viewPager);
 
+            AppCompatTextView tvTitle =
+                    toolbarWrapper.findViewById(R.id.tvTitle);
+
+            icBack =
+                    toolbarWrapper.findViewById(R.id.icBack);
+
+            ivAdd =
+                    toolbarWrapper.findViewById(R.id.ivAdd);
+
+            tabLayout =
+                    findViewById(R.id.tabLayout);
+
+            ViewPager2 viewPager =
+                    findViewById(R.id.viewPager);
+
+
+            // Toolbar
             tvTitle.setText(R.string.manage_category);
             ivAdd.setVisibility(View.VISIBLE);
 
-            ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
-                int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-                v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
-                return insets;
-            });
 
-            ViewCompat.setOnApplyWindowInsetsListener(viewPager, (view, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
-                return insets;
-            });
+            // Status bar inset
+            ViewCompat.setOnApplyWindowInsetsListener(
+                    toolbarWrapper,
+                    (v, insets) -> {
 
-            CategoryPageAdapter adapter = new CategoryPageAdapter(this);
+                        int top = insets.getInsets(
+                                WindowInsetsCompat.Type.statusBars()
+                        ).top;
+
+                        v.setPadding(
+                                v.getPaddingLeft(),
+                                top,
+                                v.getPaddingRight(),
+                                v.getPaddingBottom()
+                        );
+
+                        return insets;
+                    }
+            );
+
+
+            // Navigation bar inset
+            ViewCompat.setOnApplyWindowInsetsListener(
+                    rootView,
+                    (v, insets) -> {
+
+                        Insets systemBars =
+                                insets.getInsets(
+                                        WindowInsetsCompat.Type.systemBars()
+                                );
+
+                        v.setPadding(
+                                v.getPaddingLeft(),
+                                v.getPaddingTop(),
+                                v.getPaddingRight(),
+                                systemBars.bottom
+                        );
+
+                        return insets;
+                    }
+            );
+
+
+            // ViewPager
+            CategoryPageAdapter adapter =
+                    new CategoryPageAdapter(this);
+
             viewPager.setAdapter(adapter);
-            viewPager.setOffscreenPageLimit(1);
 
-            new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-                if (position == 0) {
-                    tab.setText(getString(R.string.income));
-                } else {
-                    tab.setText(getString(R.string.expense));
-                }
-            }).attach();
-
-            viewPager.setPageTransformer(null);
             viewPager.setOffscreenPageLimit(1);
             viewPager.setUserInputEnabled(true);
+            viewPager.setPageTransformer(null);
+
+
+            // Tabs
+            new TabLayoutMediator(
+                    tabLayout,
+                    viewPager,
+                    (tab, position) -> {
+
+                        if (position == 0) {
+                            tab.setText(
+                                    getString(R.string.income)
+                            );
+                        } else {
+                            tab.setText(
+                                    getString(R.string.expense)
+                            );
+                        }
+                    }
+            ).attach();
+
 
             setUpListeners();
+
         } catch (Exception e) {
-            AppLogger.e(getClass(), "initComponents", e);
+
+            AppLogger.e(
+                    getClass(),
+                    "initComponents",
+                    e
+            );
         }
     }
 
+
     private void setUpListeners() {
+
         try {
+
             icBack.setOnClickListener(view -> {
+
                 finish();
-                ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.right_to_left);
+
+                ActivityUtils.overrideCloseTransition(
+                        ManageCategoryActivity.this,
+                        R.anim.scale_in,
+                        R.anim.right_to_left
+                );
             });
+
 
             ivAdd.setOnClickListener(view -> {
 
+                // Add category
             });
 
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
+            tabLayout.addOnTabSelectedListener(
+                    new TabLayout.OnTabSelectedListener() {
 
-                    // 🔥 Animation
-                    View tabView = ((ViewGroup) tabLayout.getChildAt(0))
-                            .getChildAt(tab.getPosition());
+                        @Override
+                        public void onTabSelected(
+                                TabLayout.Tab tab
+                        ) {
 
-                    tabView.animate()
-                            .scaleX(1.1f)
-                            .scaleY(1.1f)
-                            .setDuration(150)
-                            .withEndAction(() -> tabView.animate()
-                                    .scaleX(1f)
-                                    .scaleY(1f)
+                            ViewGroup tabParent =
+                                    (ViewGroup) tabLayout.getChildAt(0);
+
+                            if (tabParent == null) {
+                                return;
+                            }
+
+                            View tabView =
+                                    tabParent.getChildAt(
+                                            tab.getPosition()
+                                    );
+
+                            if (tabView == null) {
+                                return;
+                            }
+
+                            tabView.animate()
+                                    .scaleX(1.1f)
+                                    .scaleY(1.1f)
                                     .setDuration(150)
-                                    .start())
-                            .start();
-                }
+                                    .withEndAction(() ->
+                                            tabView.animate()
+                                                    .scaleX(1f)
+                                                    .scaleY(1f)
+                                                    .setDuration(150)
+                                                    .start()
+                                    )
+                                    .start();
+                        }
 
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-                }
 
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-                }
-            });
+                        @Override
+                        public void onTabUnselected(
+                                TabLayout.Tab tab
+                        ) {
+                        }
 
-            getOnBackPressedDispatcher().addCallback(this,
+
+                        @Override
+                        public void onTabReselected(
+                                TabLayout.Tab tab
+                        ) {
+                        }
+                    }
+            );
+
+
+            getOnBackPressedDispatcher().addCallback(
+                    this,
                     new OnBackPressedCallback(true) {
+
                         @Override
                         public void handleOnBackPressed() {
+
                             finish();
-                            ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.right_to_left);
+
+                            ActivityUtils.overrideCloseTransition(
+                                    ManageCategoryActivity.this,
+                                    R.anim.scale_in,
+                                    R.anim.right_to_left
+                            );
                         }
-                    });
-        }catch (Exception e) {
-            AppLogger.e(getClass(), "setUpListeners", e);
+                    }
+            );
+
+        } catch (Exception e) {
+
+            AppLogger.e(
+                    getClass(),
+                    "setUpListeners",
+                    e
+            );
         }
     }
 }

@@ -93,4 +93,15 @@
         app:layout_constraintTop_toTopOf="@+id/labelWrapper"
         app:srcCompat="@drawable/ic_delete" />
 
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginHorizontal="@dimen/padding_10"
+        android:background="@color/view_grey"
+        app:layout_constraintTop_toBottomOf="@id/colorView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

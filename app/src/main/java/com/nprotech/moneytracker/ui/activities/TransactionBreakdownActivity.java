@@ -110,6 +110,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
         try {
             selectedAccountId = bundle.getInt("accountId", 0);
 
+            int selectedTransType = bundle.getInt("selectedTransType");
             int filterId = bundle.getInt("selectedFilter", CalendarFilterType.MONTHLY.getId());
 
             selectedFilter = CalendarFilterType.fromId(filterId);
@@ -169,7 +170,7 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 }
             });
 
-            viewPager.setCurrentItem(1, false);
+            viewPager.setCurrentItem(selectedTransType, false);
             viewPager.setPageTransformer(null);
             viewPager.setOffscreenPageLimit(1);
             viewPager.setUserInputEnabled(true);

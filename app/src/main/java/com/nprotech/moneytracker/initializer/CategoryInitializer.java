@@ -47,31 +47,31 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 15));
+            categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 16));
         }
 
-        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 25));
-        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 28));
-        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 29));
+        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 26));
+        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 29));
+        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 30));
 
         return categories;
     }
 
     private static List<CategoryEntity> getCategoryExpenseData() {
-        String[] strArr = {"#34BFFF", "#0077C5", "#00A6A4", "#00C1BF", "#7FD000", "#FFCA00", "#FFAD00", "#EE4036", "#9C005E", "#652D90", "#9457FA", "#E31C9E", "#8B4513", "#5E4138"};
-        int[] iArr = {1, 2, 144, 28, 66, 111, 11, 57, 80, 78, 10, 39, 100, 146};
+        String[] strArr = {"#34BFFF", "#0077C5", "#00A6A4", "#00C1BF", "#7FD000", "#FFCA00", "#43A047", "#FFAD00", "#EE4036", "#9C005E", "#652D90", "#9457FA", "#E31C9E", "#8B4513", "#5E4138"};
+        int[] iArr = {1, 2, 144, 28, 66, 111, 175, 11, 57, 80, 78, 10, 39, 100, 146};
 
         List<CategoryEntity> categories = new ArrayList<>();
         int i = 0;
-        while (i < 14) {
+        while (i < 15) {
             int i2 = i + 1;
             categories.add(new CategoryEntity("", strArr[i], iArr[i], 2, true, i, i2));
             i = i2;
         }
 
-        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 25));
-        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 26));
-        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 27));
+        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 26));
+        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 27));
+        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 28));
 
         return categories;
     }
@@ -80,8 +80,8 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
 
-        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 30));
-        categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 31));
+        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 31));
+        categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 32));
 
         return categories;
     }

@@ -19,9 +19,9 @@ public class Constants {
     public static final int STARTUP_MORE = 4;
 
     // DEFAULT CATEGORY ID
-    public static final int DEFAULT_CATEGORY_ADJUST_ID = 25;
-    public static final int DEFAULT_CATEGORY_FEE_ID = 30;
-    public static final int DEFAULT_CATEGORY_TRANSFER_ID = 31;
+    public static final int DEFAULT_CATEGORY_ADJUST_ID = 26;
+    public static final int DEFAULT_CATEGORY_FEE_ID = 31;
+    public static final int DEFAULT_CATEGORY_TRANSFER_ID = 32;
 
     // SUBSCRIPTION ID
     public static final String SUBSCRIPTION_MONTHLY = "premium_monthly";

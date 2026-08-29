@@ -83,7 +83,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
     private Date date;
     private String currencySymbol = "";
     private long loadedStart = -1, loadedEnd = -1;
-    private int selectedAccountId = -1;
+    private int selectedAccountId = -1, selectedTransType = 1;
     private ChartLegendAdapter chartLegendAdapter;
     private List<CategoryExpenseModel> expenseList = new ArrayList<>();
     private List<CategoryExpenseModel> incomeList = new ArrayList<>();
@@ -386,6 +386,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
 
             chartMoreWrapper.setOnClickListener(view -> {
                 startActivity(new Intent(requireContext(), TransactionBreakdownActivity.class)
+                        .putExtra("selectedTransType", selectedTransType)
                         .putExtra("accountId", selectedAccountId)
                         .putExtra("selectedFilter", selectedFilter.getId())
                         .putExtra("customStartDate", customStartDate)
@@ -418,8 +419,10 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
 
                 if (checkedId == R.id.btnExpense) {
                     setupPieBreakdownChart(expenseList, getString(R.string.expense));
+                    selectedTransType = 1;
                 } else if (checkedId == R.id.btnIncome) {
                     setupPieBreakdownChart(incomeList, getString(R.string.income));
+                    selectedTransType = 0;
                 }
             });
         } catch (Exception e) {

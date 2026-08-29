@@ -19,12 +19,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
+import com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView;
+import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 
 import java.util.List;
@@ -35,14 +38,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class IncomeCategoryFragment extends Fragment {
 
     private ConstraintLayout emptyWrapper;
-    private RecyclerView rvIncomeCategory;
+    private MaxHeightRecyclerView rvIncomeCategory;
+    private MaterialCardView cardCategory;
     private CategoryViewModel categoryViewModel;
+    private View categoryRoot;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_income_category, container, false);
         try {
+            categoryRoot = view.findViewById(R.id.categoryRoot);
+            cardCategory = view.findViewById(R.id.cardCategory);
             rvIncomeCategory = view.findViewById(R.id.rvIncomeCategory);
             emptyWrapper = view.findViewById(R.id.emptyWrapper);
 
@@ -53,10 +60,10 @@ public class IncomeCategoryFragment extends Fragment {
             categoryViewModel.getIncomeCategories().observe(requireActivity(), categoryEntities -> {
                 if (!categoryEntities.isEmpty()) {
                     bindIncomeCategories(categoryEntities);
-                    rvIncomeCategory.setVisibility(View.VISIBLE);
+                    cardCategory.setVisibility(View.VISIBLE);
                     emptyWrapper.setVisibility(View.GONE);
                 } else {
-                    rvIncomeCategory.setVisibility(View.GONE);
+                    cardCategory.setVisibility(View.GONE);
                     emptyWrapper.setVisibility(View.VISIBLE);
                 }
             });
@@ -73,6 +80,7 @@ public class IncomeCategoryFragment extends Fragment {
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
                     holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
                     holder.setViewText(R.id.tvCategory, categoryEntity.getName(requireContext()));
+                    View divider = holder.getView(R.id.divider);
 
                     if (Build.VERSION.SDK_INT >= 29) {
                         holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
@@ -88,13 +96,50 @@ public class IncomeCategoryFragment extends Fragment {
                     } else {
                         holder.setViewVisibility(R.id.ivDelete, View.VISIBLE);
                     }
+
+                    int position = holder.getBindingAdapterPosition();
+                    if (position == getItemCount() - 1) {
+                        divider.setAlpha(0f);
+                    } else {
+                        divider.setAlpha(1f);
+                    }
                 }
             };
 
             rvIncomeCategory.setAdapter(incomeCategoryAdapter);
             rvIncomeCategory.setHasFixedSize(true);
+
+            updateRecyclerViewMaxHeight();
+
+            incomeCategoryAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+            });
         }catch (Exception e){
             AppLogger.e(getClass(), "bindIncomeCategories", e);
         }
+    }
+
+    private void updateRecyclerViewMaxHeight() {
+        categoryRoot.post(() -> {
+            int availableHeight = categoryRoot.getHeight();
+            int cardMargins = CommonUtils.dpToPx(requireActivity(), 20);
+            int maxHeight = availableHeight - cardMargins;
+            if (maxHeight > 0) {
+                rvIncomeCategory.setMaxHeight(maxHeight);
+            }
+        });
     }
 }

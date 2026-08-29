@@ -234,7 +234,7 @@
                     android:layout_marginEnd="@dimen/margin_4"
                     android:gravity="center"
                     android:text="@string/select_currency_subtext"
-                    android:textColor="@color/funky_grey"
+                    android:textColor="@color/dark_grey"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_medium" />
 
@@ -334,7 +334,7 @@
                     android:layout_marginEnd="@dimen/margin_4"
                     android:gravity="center"
                     android:text="@string/opening_balance_subtext"
-                    android:textColor="@color/funky_grey"
+                    android:textColor="@color/dark_grey"
                     android:textSize="@dimen/text_16"
                     app:fontFamily="@font/exo2_medium" />
 

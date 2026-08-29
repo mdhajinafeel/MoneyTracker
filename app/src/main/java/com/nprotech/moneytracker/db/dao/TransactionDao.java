@@ -195,7 +195,7 @@ public interface TransactionDao {
     LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long startDate, long endDate);
 
     @Query("SELECT CASE WHEN :transactionType = 1 THEN SUM(t.amount * w.exchangeRate) ELSE SUM((t.amount * w.exchangeRate) * -1) END AS amount, COUNT(*) AS transactionCount, c.name AS categoryName, t.categoryId, t.defaultCategoryId, c.color, c.icon, 0 AS percentage, " +
-            "c.icon AS icon, 0 AS walletId, 0 AS type " +
+            "c.icon AS icon, t.walletId AS walletId, 0 AS type " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
@@ -266,7 +266,7 @@ public interface TransactionDao {
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId " +
+            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId AND c.type = t.type " +
             "LEFT JOIN categories c1 ON c1.id=t.categoryId AND c1.type=t.type " +
             "WHERE t.isDeleted=0 AND t.type = :transactionType " +
             "AND t.transactionDate BETWEEN :startDate AND :endDate " +

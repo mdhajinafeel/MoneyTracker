@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="category_bills">Bills</string>
+    <string name="category_bills">Bills &amp; Utilities</string>
     <string name="category_bonus">Bonus</string>
     <string name="category_clothing">Clothing</string>
     <string name="category_dividend">Dividend</string>
@@ -8,8 +8,9 @@
     <string name="category_entertainment">Entertainment</string>
     <string name="category_expense_delete_message">Do you really want to remove this expense category?</string>
     <string name="category_fitness">Fitness</string>
-    <string name="category_food_and_beverages">Food</string>
-    <string name="category_furniture">Furniture</string>
+    <string name="category_food">Food</string>
+    <string name="category_grocery">Grocery</string>
+    <string name="category_furniture">Home &amp; Furniture</string>
     <string name="category_gifts">Gifts</string>
     <string name="category_health_and_beauty">Health</string>
     <string name="category_help_hint">Tips: Pick different color for each category allow you to easily identify the category by the color.</string>
@@ -22,7 +23,7 @@
     <string name="category_salary">Salary</string>
     <string name="category_shopping">Shopping</string>
     <string name="category_tips">Tips</string>
-    <string name="category_cashback">Cashback</string>
+    <string name="category_cashback">Rewards</string>
     <string name="category_transportation">Transportation</string>
     <string name="category_travel">Travel</string>
     <string name="adjustment">Adjustment</string>
