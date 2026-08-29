@@ -132,6 +132,9 @@
     <string name="scanning_backups">Scanning backups…</string>
     <string name="restore_backup_dialog">Restore Backup?</string>
     <string name="restore_backup_message">Are you sure you want to restore this backup? Your current %1$s data will be replaced.</string>
+    <string name="storage_access_required_message">Allow %1$s to access your device storage to find and manage your backup files.</string>
+    <string name="storage_access_required">Storage Access Required</string>
+    <string name="allow_access">Allow Access</string>
 
     <plurals name="backup_count">
         <item quantity="one">%d backup</item>

@@ -116,11 +116,10 @@ public class BackupNowActivity extends BaseActivity {
 
             if (hasStorageAccess()) {
                 prepareBackupDirectory();
+                updateBackupDetails();
             } else {
                 requestStorageAccess();
             }
-
-            updateBackupDetails();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
@@ -178,64 +177,70 @@ public class BackupNowActivity extends BaseActivity {
 
     private void startBackup() {
         try {
-            // -----------------------------------------
-            // Prevent duplicate clicks
-            // -----------------------------------------
-            btnStartBackup.setClickable(false);
 
-            // -----------------------------------------
-            // Disable attachment switch
-            // -----------------------------------------
-            switchAttachInclude.setEnabled(false);
+            if(!hasStorageAccess()) {
+                requestStorageAccess();
+            }else {
 
-            // -----------------------------------------
-            // Get attachment preference
-            // -----------------------------------------
-            boolean includeAttachments = switchAttachInclude.isChecked();
+                // -----------------------------------------
+                // Prevent duplicate clicks
+                // -----------------------------------------
+                btnStartBackup.setClickable(false);
 
-            // -----------------------------------------
-            // Show progress UI
-            // -----------------------------------------
-            showBackupProgress();
+                // -----------------------------------------
+                // Disable attachment switch
+                // -----------------------------------------
+                switchAttachInclude.setEnabled(false);
 
-            // -----------------------------------------
-            // Reset progress
-            // -----------------------------------------
-            updateBackupProgress(0, "Preparing backup...");
+                // -----------------------------------------
+                // Get attachment preference
+                // -----------------------------------------
+                boolean includeAttachments = switchAttachInclude.isChecked();
 
-            // -----------------------------------------
-            // Run backup in background
-            // -----------------------------------------
-            backupExecutor.execute(() -> {
-                try {
-                    BackupManager backupManager = new BackupManager(BackupNowActivity.this);
-                    BackupManager.BackupResult backupResult = backupManager.createBackup(includeAttachments, this::updateBackupProgress);
+                // -----------------------------------------
+                // Show progress UI
+                // -----------------------------------------
+                showBackupProgress();
 
-                    // ---------------------------------
-                    // Verify backup
-                    // ---------------------------------
-                    if (backupResult == null || backupResult.uri() == null || backupResult.databaseSize() <= 0) {
+                // -----------------------------------------
+                // Reset progress
+                // -----------------------------------------
+                updateBackupProgress(0, getString(R.string.preparing_database));
+
+                // -----------------------------------------
+                // Run backup in background
+                // -----------------------------------------
+                backupExecutor.execute(() -> {
+                    try {
+                        BackupManager backupManager = new BackupManager(BackupNowActivity.this);
+                        BackupManager.BackupResult backupResult = backupManager.createBackup(includeAttachments, this::updateBackupProgress);
+
+                        // ---------------------------------
+                        // Verify backup
+                        // ---------------------------------
+                        if (backupResult == null || backupResult.uri() == null || backupResult.databaseSize() <= 0) {
+                            runOnUiThread(() -> {
+                                hideBackupProgress();
+                                btnStartBackup.setClickable(true);
+                                switchAttachInclude.setEnabled(true);
+                                Toast.makeText(BackupNowActivity.this, R.string.backup_not_created, Toast.LENGTH_SHORT).show();
+                            });
+
+                            return;
+                        }
+
+                        runOnUiThread(() -> openSuccessScreen(backupResult));
+                    } catch (Exception e) {
+                        AppLogger.e(getClass(), "startBackup", e);
                         runOnUiThread(() -> {
                             hideBackupProgress();
                             btnStartBackup.setClickable(true);
                             switchAttachInclude.setEnabled(true);
-                            Toast.makeText(BackupNowActivity.this, R.string.backup_not_created, Toast.LENGTH_SHORT).show();
+                            showBackupError(e);
                         });
-
-                        return;
                     }
-
-                    runOnUiThread(() -> openSuccessScreen(backupResult));
-                } catch (Exception e) {
-                    AppLogger.e(getClass(), "startBackup", e);
-                    runOnUiThread(() -> {
-                        hideBackupProgress();
-                        btnStartBackup.setClickable(true);
-                        switchAttachInclude.setEnabled(true);
-                        showBackupError(e);
-                    });
-                }
-            });
+                });
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "startBackup", e);
         }

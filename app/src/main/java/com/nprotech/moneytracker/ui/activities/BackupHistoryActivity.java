@@ -19,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -61,6 +62,7 @@ public class BackupHistoryActivity extends BaseActivity {
     private BackupHistoryViewModel backupHistoryViewModel;
     private SettingType selectedSortType = SettingType.NEWEST_FIRST;
     private SettingType selectedAttachmentType = SettingType.ALL_BACKUP;
+    private boolean storageSettingsOpened = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,10 +107,6 @@ public class BackupHistoryActivity extends BaseActivity {
             observeData();
             setupListeners();
             bindData();
-
-            if (!hasStorageAccess()) {
-                requestStorageAccess();
-            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
@@ -123,14 +121,25 @@ public class BackupHistoryActivity extends BaseActivity {
 
             CommonUtils.setDrawable(this, tvSorting, R.drawable.ic_filter, R.dimen.icon_12, R.color.primary_dark, Gravity.START);
 
-            backupHistoryViewModel.loadBackupHistory(getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
+            if (!hasStorageAccess()) {
+                hideScanning();
+                requestStorageAccess();
+                return;
+            }
 
-            showScanning();
-
-            backupHistoryViewModel.scanBackups(this, getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
+            loadBackupHistory();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
+    }
+
+    private void loadBackupHistory() {
+
+        backupHistoryViewModel.loadBackupHistory(getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
+
+        showScanning();
+
+        backupHistoryViewModel.scanBackups(this, getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
     }
 
     private void observeData() {
@@ -460,6 +469,10 @@ public class BackupHistoryActivity extends BaseActivity {
         emptyWrapper.setVisibility(View.GONE);
     }
 
+    private void hideScanning() {
+        loadingWrapper.setVisibility(View.GONE);
+    }
+
     private void showOptionDialog(BackupFileModel backup) {
         try {
             BottomSheetDialog dialog = new BottomSheetDialog(this);
@@ -510,6 +523,7 @@ public class BackupHistoryActivity extends BaseActivity {
         tvSubMessage.setText(getString(R.string.action_undone));
         tvSubMessage.setVisibility(View.VISIBLE);
         tvDelete.setText(getString(R.string.restore));
+        tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
 
         dialog.setView(view);
 
@@ -676,9 +690,54 @@ public class BackupHistoryActivity extends BaseActivity {
 
     private void requestStorageAccess() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            storageSettingsOpened = true;
             Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
             intent.setData(Uri.parse("package:" + getPackageName()));
             startActivity(intent);
+        }
+    }
+
+    private void showAccessDialog() {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
+        tvTitle.setText(R.string.storage_access_required);
+        tvMessage.setText(getString(R.string.storage_access_required_message, getString(R.string.app_name)));
+        tvDelete.setText(R.string.allow_access);
+        tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        view.findViewById(R.id.tvCancel).setVisibility(View.GONE);
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            requestStorageAccess();
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!storageSettingsOpened) {
+            return;
+        }
+
+        storageSettingsOpened = false;
+
+        if (hasStorageAccess()) {
+            loadBackupHistory();
+        } else {
+            hideScanning();
+            showAccessDialog();
         }
     }
 }
