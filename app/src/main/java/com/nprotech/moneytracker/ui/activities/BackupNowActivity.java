@@ -178,9 +178,9 @@ public class BackupNowActivity extends BaseActivity {
     private void startBackup() {
         try {
 
-            if(!hasStorageAccess()) {
+            if (!hasStorageAccess()) {
                 requestStorageAccess();
-            }else {
+            } else {
 
                 // -----------------------------------------
                 // Prevent duplicate clicks
@@ -264,9 +264,7 @@ public class BackupNowActivity extends BaseActivity {
             BackupManager backupManager = new BackupManager(BackupNowActivity.this);
 
             long databaseSize = backupManager.getDatabaseSize();
-            long attachmentSize = switchAttachInclude.isChecked()
-                    ? backupManager.getAttachmentSize()
-                    : 0;
+            long attachmentSize = switchAttachInclude.isChecked() ? backupManager.getAttachmentSize() : 0;
 
             long estimatedSize = databaseSize + attachmentSize;
 
@@ -313,20 +311,24 @@ public class BackupNowActivity extends BaseActivity {
 
     private void openBackupLocationPicker() {
         try {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
-                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
+            if (!hasStorageAccess()) {
+                requestStorageAccess();
+            } else {
+                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION |
+                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION | Intent.FLAG_GRANT_PREFIX_URI_PERMISSION);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Uri initialUri = getSavedBackupLocation();
-                if (initialUri == null) {
-                    initialUri = getCurrentBackupFolderUri();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    Uri initialUri = getSavedBackupLocation();
+                    if (initialUri == null) {
+                        initialUri = getCurrentBackupFolderUri();
+                    }
+                    if (initialUri != null) {
+                        intent.putExtra("android.provider.extra.INITIAL_URI", initialUri);
+                    }
                 }
-                if (initialUri != null) {
-                    intent.putExtra("android.provider.extra.INITIAL_URI", initialUri);
-                }
+                folderPickerLauncher.launch(intent);
             }
-            folderPickerLauncher.launch(intent);
         } catch (Exception e) {
             AppLogger.e(getClass(), "openBackupLocationPicker", e);
         }
@@ -359,57 +361,37 @@ public class BackupNowActivity extends BaseActivity {
 
     private Uri getSavedBackupLocation() {
 
-        String location =
-                PreferenceManager.INSTANCE
-                        .getBackupLocation();
-
+        String location = PreferenceManager.INSTANCE.getBackupLocation();
         if (location.trim().isEmpty()) {
-
             return null;
         }
 
         try {
-
             return Uri.parse(location);
-
         } catch (Exception e) {
-
-            AppLogger.e(
-                    getClass(),
-                    "getSavedBackupLocation",
-                    e
-            );
-
+            AppLogger.e(getClass(), "getSavedBackupLocation", e);
             return null;
         }
     }
 
     private String getBackupLocationDisplayPath(Uri uri) {
-
         try {
-
             String documentId = DocumentsContract.getTreeDocumentId(uri);
-
             if (documentId == null) {
                 return getString(R.string.selected_location);
             }
-
             int separator = documentId.indexOf(':');
-
             if (separator >= 0) {
                 String path = documentId.substring(separator + 1);
 
                 if (path.startsWith("/")) {
                     path = path.substring(1);
                 }
-
                 return "Internal Storage/" + path;
             }
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "getBackupLocationDisplayPath", e);
         }
-
         return getString(R.string.selected_location);
     }
 
@@ -476,31 +458,15 @@ public class BackupNowActivity extends BaseActivity {
 
     private void prepareBackupDirectory() {
         try {
-            // If user has already selected a location through SAF,
-            // keep using that location.
             if (getSavedBackupLocation() != null) {
                 return;
             }
 
-            // First-time default location.
-            // Create Expenixo/Backups using normal File API because
-            // MANAGE_EXTERNAL_STORAGE permission has already been granted.
             BackupManager backupManager = new BackupManager(BackupNowActivity.this);
 
             if (!backupManager.ensureBackupDirectoryExists()) {
-                Toast.makeText(
-                        this,
-                        R.string.unable_backup_directory,
-                        Toast.LENGTH_SHORT
-                ).show();
+                Toast.makeText(this, R.string.unable_backup_directory, Toast.LENGTH_SHORT).show();
             }
-
-            // IMPORTANT:
-            // Do NOT save the default folder as a SAF URI here.
-            //
-            // The default location is handled directly by BackupManager
-            // until the user explicitly chooses another location.
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "prepareBackupDirectory", e);
         }

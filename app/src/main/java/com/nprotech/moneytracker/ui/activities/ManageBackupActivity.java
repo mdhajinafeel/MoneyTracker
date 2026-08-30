@@ -123,7 +123,7 @@ public class ManageBackupActivity extends BaseActivity {
                             startActivity(new Intent(ManageBackupActivity.this, BackupRestoreActivity.class));
                             ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (Objects.requireNonNull(settingItemModel.settingType) == SettingType.BACKUP_SETTINGS) {
-                            startActivity(new Intent(ManageBackupActivity.this, ManageCurrencyActivity.class));
+                            startActivity(new Intent(ManageBackupActivity.this, BackupSettingActivity.class));
                             ActivityUtils.overrideOpenTransition(ManageBackupActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                         }
                     });

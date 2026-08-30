@@ -757,6 +757,8 @@ public class BackupRestoreActivity extends BaseActivity {
             });
 
             btnSecondary.setOnClickListener(v -> {
+                selectedSortType = SettingType.NEWEST_FIRST;
+                selectedAttachmentType = SettingType.ALL_BACKUP;
                 applyBackupFilters();
                 dialog.dismiss();
             });
@@ -771,25 +773,11 @@ public class BackupRestoreActivity extends BaseActivity {
     }
 
     private void applyBackupFilters() {
-
         try {
-
-            backupHistoryViewModel.loadBackupHistory(
-                    getSortValue(selectedSortType),
-                    getAttachmentFilterValue(
-                            selectedAttachmentType
-                    )
-            );
-
+            backupHistoryViewModel.loadBackupHistory(getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
             updateSortingLabel();
-
         } catch (Exception e) {
-
-            AppLogger.e(
-                    getClass(),
-                    "applyBackupFilters",
-                    e
-            );
+            AppLogger.e(getClass(), "applyBackupFilters", e);
         }
     }
 

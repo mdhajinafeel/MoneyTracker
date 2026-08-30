@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.helper;
 
+import com.nprotech.moneytracker.constants.Constants;
+
 import devliving.online.securedpreferencestore.SecuredPreferenceStore;
 
 @SuppressWarnings("unused")
@@ -19,6 +21,8 @@ public enum PreferenceManager {
     private static final String KEY_STARTUP_SCREEN = "startUpScreen";
     private static final String KEY_STATISTICS_FILTER = "statisticFilter";
     private static final String KEY_BACKUP_LOCATION = "backupLocation";
+    private static final String KEY_AUTO_BACKUP = "autoBackup";
+    private static final String KEY_BACKUP_FREQUENCY = "backupFrequency";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -128,5 +132,23 @@ public enum PreferenceManager {
 
     public String getBackupLocation() {
         return prefStore.getString(KEY_BACKUP_LOCATION, "");
+    }
+
+    // ===== AUTO BACKUP =====
+    public void setAutoBackupEnabled(boolean enabled) {
+        prefStore.edit().putBoolean(KEY_AUTO_BACKUP, enabled).apply();
+    }
+
+    public boolean isAutoBackupEnabled() {
+        return prefStore.getBoolean(KEY_AUTO_BACKUP, false);
+    }
+
+    // ===== BACKUP FREQUENCY =====
+    public void setBackupFrequency(int frequency) {
+        prefStore.edit().putInt(KEY_BACKUP_FREQUENCY, frequency).apply();
+    }
+
+    public int getBackupFrequency() {
+        return prefStore.getInt(KEY_BACKUP_FREQUENCY, Constants.BACKUP_FREQUENCY_DAILY);
     }
 }

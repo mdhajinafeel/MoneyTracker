@@ -30,7 +30,7 @@ import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.CalendarHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
-import com.nprotech.moneytracker.models.GoalFrequencyModel;
+import com.nprotech.moneytracker.models.FrequencyModel;
 import com.nprotech.moneytracker.models.GoalWithDetails;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
@@ -279,11 +279,11 @@ public class CreateAutoSaveActivity extends BaseActivity {
 
     private void showFrequencyPicker() {
         try {
-            List<GoalFrequencyModel> frequencyList = new ArrayList<>();
-            frequencyList.add(new GoalFrequencyModel(Constants.GOAL_FREQUENCY_DAILY, R.drawable.ic_calendar_daily, getString(R.string.calendar_daily)));
-            frequencyList.add(new GoalFrequencyModel(Constants.GOAL_FREQUENCY_WEEKLY, R.drawable.ic_calendar_weekly, getString(R.string.calendar_weekly)));
-            frequencyList.add(new GoalFrequencyModel(Constants.GOAL_FREQUENCY_MONTHLY, R.drawable.ic_calendar_monthly, getString(R.string.calendar_monthly)));
-            frequencyList.add(new GoalFrequencyModel(Constants.GOAL_FREQUENCY_YEARLY, R.drawable.ic_yearly, getString(R.string.calendar_yearly)));
+            List<FrequencyModel> frequencyList = new ArrayList<>();
+            frequencyList.add(new FrequencyModel(Constants.GOAL_FREQUENCY_DAILY, R.drawable.ic_calendar_daily, getString(R.string.calendar_daily)));
+            frequencyList.add(new FrequencyModel(Constants.GOAL_FREQUENCY_WEEKLY, R.drawable.ic_calendar_weekly, getString(R.string.calendar_weekly)));
+            frequencyList.add(new FrequencyModel(Constants.GOAL_FREQUENCY_MONTHLY, R.drawable.ic_calendar_monthly, getString(R.string.calendar_monthly)));
+            frequencyList.add(new FrequencyModel(Constants.GOAL_FREQUENCY_YEARLY, R.drawable.ic_yearly, getString(R.string.calendar_yearly)));
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_calendar_filter_layout, findViewById(android.R.id.content), false);
@@ -293,9 +293,9 @@ public class CreateAutoSaveActivity extends BaseActivity {
 
             tvSelectRange.setText(R.string.select_frequency);
 
-            RecyclerViewAdapter<GoalFrequencyModel> adapter = new RecyclerViewAdapter<>(this, frequencyList, R.layout.item_calendar_filter) {
+            RecyclerViewAdapter<FrequencyModel> adapter = new RecyclerViewAdapter<>(this, frequencyList, R.layout.item_calendar_filter) {
                 @Override
-                public void onPostBindViewHolder(ViewHolder holder, GoalFrequencyModel frequency) {
+                public void onPostBindViewHolder(ViewHolder holder, FrequencyModel frequency) {
                     Typeface medium = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_medium);
                     Typeface semiBold = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_semibold);
 

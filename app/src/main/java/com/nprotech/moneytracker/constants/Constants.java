@@ -32,4 +32,9 @@ public class Constants {
     public static final int GOAL_FREQUENCY_WEEKLY = 1;
     public static final int GOAL_FREQUENCY_MONTHLY = 2;
     public static final int GOAL_FREQUENCY_YEARLY = 3;
+
+    // BACKUP FREQUENCY
+    public static final int BACKUP_FREQUENCY_DAILY = 0;
+    public static final int BACKUP_FREQUENCY_WEEKLY = 1;
+    public static final int BACKUP_FREQUENCY_MONTHLY = 2;
 }

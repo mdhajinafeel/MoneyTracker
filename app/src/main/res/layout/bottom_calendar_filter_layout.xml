@@ -18,14 +18,102 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSelectRangeDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_6"
+        android:fontFamily="@font/exo2_bold"
+        android:text="@string/select_range"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/text_14"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectRange" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvSelectRange"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_12"
         android:background="@color/white"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSelectRange" />
+        app:layout_constraintTop_toBottomOf="@id/tvSelectRangeDesc" />
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_12"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvSelectRange">
+
+        <!-- Primary / Edit / View -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPrimary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_lavender"
+            android:text="@string/apply"
+            android:letterSpacing="0.01"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_12"
+            android:fontFamily="@font/exo2_semibold"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="1dp" />
+
+        <!-- Delete / Remove -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSecondary"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:backgroundTint="@color/very_light_expense"
+            android:text="@string/reset"
+            android:textAllCaps="true"
+            android:letterSpacing="0.01"
+            android:textColor="@color/bright_red"
+            android:textSize="@dimen/text_12"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/bright_red"
+            app:strokeWidth="1dp" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:text="@string/text_close"
+        android:visibility="gone"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_12"
+        android:fontFamily="@font/exo2_semibold"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/margin_8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutActions"
+        app:fontFamily="@font/exo2_semibold" />
 </androidx.constraintlayout.widget.ConstraintLayout>

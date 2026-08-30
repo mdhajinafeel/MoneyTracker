@@ -135,6 +135,16 @@
     <string name="storage_access_required_message">Allow %1$s to access your device storage to find and manage your backup files.</string>
     <string name="storage_access_required">Storage Access Required</string>
     <string name="allow_access">Allow Access</string>
+    <string name="automatic_backup">Automatic Backup</string>
+    <string name="auto_backup_desc">Automatically creates backups on a schedule</string>
+    <string name="backup_frequency">Backup Frequency</string>
+    <string name="autobackup_hint">Automatic backups will run in the background when the app is idle and the device is charging.</string>
+    <string name="backup_settings_desc">Manage your backup storage and preferences</string>
+    <string name="backup_schedule">Backup Schedule</string>
+    <string name="every_day">Every day</string>
+    <string name="every_week">Every week</string>
+    <string name="every_month">Every month</string>
+    <string name="frequency_desc">How often should %1$s create a backup?</string>
 
     <plurals name="backup_count">
         <item quantity="one">%d backup</item>
