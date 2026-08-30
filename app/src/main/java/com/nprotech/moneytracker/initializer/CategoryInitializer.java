@@ -47,12 +47,12 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 16));
+            categories.add(new CategoryEntity("", strArr[i], iArr[i], 1, true, i, i + 16, true));
         }
 
-        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 26));
-        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 29));
-        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 30));
+        categories.add(new CategoryEntity("", "#3485FF", 165, 1, true, 0, 26, true));
+        categories.add(new CategoryEntity("", "#0D8EFF", 168, 1, true, 0, 29, true));
+        categories.add(new CategoryEntity("", "#69B9FF", 169, 1, true, 0, 30, true));
 
         return categories;
     }
@@ -65,13 +65,13 @@ public class CategoryInitializer {
         int i = 0;
         while (i < 15) {
             int i2 = i + 1;
-            categories.add(new CategoryEntity("", strArr[i], iArr[i], 2, true, i, i2));
+            categories.add(new CategoryEntity("", strArr[i], iArr[i], 2, true, i, i2, true));
             i = i2;
         }
 
-        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 26));
-        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 27));
-        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 28));
+        categories.add(new CategoryEntity("", "#FF250B", 165, 2, true, 0, 26, true));
+        categories.add(new CategoryEntity("", "#FF2861", 166, 2, true, 0, 27, true));
+        categories.add(new CategoryEntity("", "#FF5877", 167, 2, true, 0, 28, true));
 
         return categories;
     }
@@ -80,8 +80,8 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
 
-        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 31));
-        categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 32));
+        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 0, 31, true));
+        categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 0, 32, true));
 
         return categories;
     }
@@ -90,31 +90,31 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
 
-        categories.add(new CategoryEntity(context.getString(R.string.emergency_fund), "#F66F77", 5, 5, true, 0, 1));
-        categories.add(new CategoryEntity(context.getString(R.string.travel), "#AED8F4", 0, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.home), "#DBA877", 1, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.vehicle), "#F8D732", 2, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.education), "#424242", 3, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.medical), "#D75640", 4, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.gift), "#A04C8D", 6, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.investment), "#CA9D4E", 7, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.wedding), "#EDCF54", 8, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.gadgets), "#373535", 9, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.business), "#E6A13F", 10, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.baby_family), "#D95F45", 11, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.festival), "#141212", 12, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.laptop), "#5C81D5", 13, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.gaming), "#46609E", 14, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.shopping), "#D13434", 15, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.restaurant), "#472E11", 16, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.fitness), "#BE8EEF", 17, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.pets), "#9E8759", 18, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.religious), "#FF6F52", 19, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.charity), "#84C688", 20, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.visa), "#5158C3", 21, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.vacation), "#6A6B6B", 22, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.startup), "#943F42", 23, 5, true, 0, 0));
-        categories.add(new CategoryEntity(context.getString(R.string.others), "#F1ED7B", 24, 5, true, 0, 0));
+        categories.add(new CategoryEntity(context.getString(R.string.emergency_fund), "#F66F77", 5, 5, true, 0, 1, true));
+        categories.add(new CategoryEntity(context.getString(R.string.travel), "#AED8F4", 0, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.home), "#DBA877", 1, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.vehicle), "#F8D732", 2, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.education), "#424242", 3, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.medical), "#D75640", 4, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.gift), "#A04C8D", 6, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.investment), "#CA9D4E", 7, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.wedding), "#EDCF54", 8, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.gadgets), "#373535", 9, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.business), "#E6A13F", 10, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.baby_family), "#D95F45", 11, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.festival), "#141212", 12, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.laptop), "#5C81D5", 13, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.gaming), "#46609E", 14, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.shopping), "#D13434", 15, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.restaurant), "#472E11", 16, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.fitness), "#BE8EEF", 17, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.pets), "#9E8759", 18, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.religious), "#FF6F52", 19, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.charity), "#84C688", 20, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.visa), "#5158C3", 21, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.vacation), "#6A6B6B", 22, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.startup), "#943F42", 23, 5, true, 0, 0, true));
+        categories.add(new CategoryEntity(context.getString(R.string.others), "#F1ED7B", 24, 5, true, 0, 0, true));
 
         return categories;
     }

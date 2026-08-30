@@ -68,7 +68,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivGoalIcon"
@@ -180,7 +181,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivTargetAmount"
@@ -209,7 +211,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTargetAmount"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
@@ -219,7 +221,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_10"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -255,7 +257,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivTargetDate"
@@ -284,14 +287,15 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTargetDate"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
+                            android:hint="@string/target_date"
                             android:inputType="numberDecimal"
                             android:layoutDirection="ltr"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -327,7 +331,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivNote"
@@ -365,7 +370,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/noteTitleLabel"
@@ -410,12 +415,13 @@
                         android:layout_marginEnd="@dimen/margin_16"
                         android:layout_marginBottom="@dimen/margin_24"
                         android:layout_weight="0.5"
+                        android:contentDescription="@string/add_money"
+                        android:enabled="false"
                         android:fontFamily="@font/exo2_semibold"
                         android:letterSpacing="0"
                         android:textAllCaps="false"
-                        android:enabled="false"
-                        android:textSize="@dimen/text_16"
                         android:textColor="@color/btn_action_text"
+                        android:textSize="@dimen/text_16"
                         app:cornerRadius="@dimen/corner_radius_4"
                         app:elevation="@dimen/corner_elevation_8" />
 

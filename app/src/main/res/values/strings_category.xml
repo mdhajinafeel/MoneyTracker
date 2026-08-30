@@ -42,4 +42,7 @@
     <string name="empty_sub_category_hint">Tap the + button to add subcategories.</string>
     <string name="select_category">Select Category</string>
     <string name="category">Category</string>
+    <string name="category_name">Category Name</string>
+    <string name="include_category_hint">Show this category in reports and charts</string>
+    <string name="include_reports">Include in Reports</string>
 </resources>

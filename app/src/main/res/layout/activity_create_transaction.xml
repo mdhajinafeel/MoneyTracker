@@ -102,7 +102,7 @@
                     android:id="@+id/topWrapper"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/padding_16"
+                    android:layout_marginTop="@dimen/margin_10"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -124,7 +124,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivDate"
@@ -201,7 +202,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivFromWallet"
@@ -233,7 +235,7 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:hint="@string/select_wallet"
                                 android:textColor="@color/text_field"
-                                android:textColorHint="@color/text_hint"
+                                android:textColorHint="@color/dark_grey"
                                 android:textSize="@dimen/text_16"
                                 app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/fromWalletTitleLabel"
@@ -268,7 +270,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivWallet"
@@ -334,7 +337,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivAmount"
@@ -401,7 +405,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivFee"
@@ -466,7 +471,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivCategory"
@@ -475,7 +481,7 @@
                                 android:background="@drawable/bg_circle_theme"
                                 android:padding="@dimen/padding_6"
                                 app:tint="@color/primary"
-                                android:src="@drawable/ic_category"
+                                android:src="@drawable/ic_category_outline"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -499,7 +505,7 @@
                                 android:layout_marginTop="@dimen/margin_8"
                                 android:hint="@string/select_category"
                                 android:textColor="@color/text_field"
-                                android:textColorHint="@color/text_hint"
+                                android:textColorHint="@color/dark_grey"
                                 android:textSize="@dimen/text_16"
                                 app:fontFamily="@font/exo2_medium"
                                 app:layout_constraintStart_toStartOf="@id/categoryTitleLabel"
@@ -534,7 +540,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivDescription"
@@ -563,7 +570,7 @@
                             <androidx.appcompat.widget.AppCompatEditText
                                 android:id="@+id/etDescription"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/edit_text_height_40"
+                                android:layout_height="@dimen/edit_text_height_48"
                                 android:background="@drawable/bg_edit_text_underline"
                                 android:ems="10"
                                 android:fontFamily="@font/exo2_medium"
@@ -572,7 +579,7 @@
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
                                 android:textColor="@color/black"
-                                android:textColorHint="@color/text_hint"
+                                android:textColorHint="@color/dark_grey"
                                 android:textSize="@dimen/text_16"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/descTitleLabel"
@@ -600,7 +607,8 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="@dimen/padding_16">
+                            android:paddingVertical="@dimen/padding_10"
+                            android:paddingHorizontal="@dimen/padding_16">
 
                             <androidx.appcompat.widget.AppCompatImageView
                                 android:id="@+id/ivNote"
@@ -629,7 +637,7 @@
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/constraintLayout2"
                                 android:layout_width="0dp"
-                                android:layout_height="@dimen/edit_text_height_40"
+                                android:layout_height="@dimen/edit_text_height_48"
                                 android:background="@drawable/bg_edit_text_underline"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/noteTitleLabel"
@@ -647,7 +655,7 @@
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textSize="@dimen/text_16"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -659,11 +667,12 @@
                                     android:layout_width="30dp"
                                     android:layout_height="30dp"
                                     android:layout_marginEnd="8dp"
+                                    android:contentDescription="@string/image_alt_text"
                                     android:background="?attr/selectableItemBackgroundBorderless"
                                     android:clickable="true"
                                     android:focusable="true"
                                     android:padding="4dp"
-                                    android:src="@drawable/ic_camera"
+                                    android:src="@drawable/ic_camera_outline"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"

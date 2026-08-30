@@ -51,7 +51,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletName"
+                    android:id="@+id/cardCategoryName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_6"
@@ -71,12 +71,12 @@
                         android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivWallet"
+                            android:id="@+id/ivCategory"
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:background="@drawable/bg_circle_theme"
                             android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_account_wallet"
+                            android:src="@drawable/ic_category_outline"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -87,21 +87,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/wallet"
+                            android:text="@string/category_name"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_16"
                             app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivWallet"
+                            app:layout_constraintStart_toEndOf="@id/ivCategory"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/etWalletName"
+                            android:id="@+id/etCategoryName"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/edit_text_height_48"
                             android:background="@drawable/bg_edit_text_underline"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
-                            android:hint="@string/wallet_name"
+                            android:hint="@string/category_name"
                             android:inputType="textCapWords"
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
@@ -111,12 +111,11 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/nameLabel"
                             app:layout_constraintTop_toBottomOf="@id/nameLabel" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletType"
+                    android:id="@+id/cardCategoryType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_16"
@@ -125,7 +124,7 @@
                     app:cardElevation="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardWalletName"
+                    app:layout_constraintTop_toBottomOf="@+id/cardCategoryName"
                     app:strokeColor="@color/card_shadow"
                     app:strokeWidth="1dp">
 
@@ -189,165 +188,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletInitial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_marginVertical="@dimen/margin_10"
-                    app:cardCornerRadius="@dimen/corner_radius_12"
-                    app:cardElevation="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardWalletType"
-                    app:strokeColor="@color/card_shadow"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:paddingHorizontal="@dimen/padding_16">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivAmount"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_circle_theme"
-                            android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_amount"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/primary" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/amountLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/initial_amount"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_16"
-                            app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivAmount"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvAmount"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_48"
-                            android:background="@drawable/bg_edit_text_underline"
-                            android:drawableEnd="@drawable/ic_account_caret"
-                            android:drawableTint="@color/primary"
-                            android:ems="10"
-                            android:layoutDirection="ltr"
-                            android:textDirection="ltr"
-                            android:gravity="start|center_vertical"
-                            android:fontFamily="@font/exo2_medium"
-                            android:hint="@string/enter_amount"
-                            android:inputType="numberDecimal"
-                            android:paddingStart="@dimen/padding_0"
-                            android:paddingEnd="@dimen/padding_16"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/dark_grey"
-                            android:textSize="@dimen/text_16"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/amountLabel"
-                            app:layout_constraintTop_toBottomOf="@id/amountLabel" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletCurrency"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_marginVertical="@dimen/margin_10"
-                    app:cardCornerRadius="@dimen/corner_radius_12"
-                    app:cardElevation="2dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardWalletInitial"
-                    app:strokeColor="@color/card_shadow"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:paddingHorizontal="@dimen/padding_16">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivCurrency"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_circle_theme"
-                            android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_currency"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/primary" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/currencyLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/currency"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_16"
-                            app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivCurrency"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <FrameLayout
-                            android:id="@+id/frameCurrencySpinner"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_48"
-                            android:background="@drawable/bg_edit_text_underline"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/currencyLabel"
-                            app:layout_constraintTop_toBottomOf="@id/currencyLabel">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/currencySpinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="-8dp"
-                                android:clickable="false"
-                                android:background="@android:color/transparent"
-                                android:spinnerMode="dropdown" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="end|center_vertical"
-                                android:layout_marginEnd="12dp"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:src="@drawable/ic_account_caret"
-                                app:tint="@color/primary" />
-
-                        </FrameLayout>
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/rateLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_6"
-                            android:fontFamily="@font/exo2_medium"
-                            android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/text_14"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="@+id/frameCurrencySpinner"
-                            app:layout_constraintTop_toBottomOf="@+id/frameCurrencySpinner" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/colorIconWrapper"
                     android:layout_width="0dp"
@@ -358,7 +198,7 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardWalletCurrency">
+                    app:layout_constraintTop_toBottomOf="@id/cardCategoryType">
 
                     <!-- 75% Guideline -->
                     <androidx.constraintlayout.widget.Guideline
@@ -374,7 +214,7 @@
                         android:layout_width="0dp"
                         app:cardUseCompatPadding="true"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/margin_6"
+                        android:layout_marginEnd="@dimen/margin_4"
                         app:cardCornerRadius="@dimen/corner_radius_12"
                         app:cardElevation="2dp"
                         app:layout_constraintEnd_toStartOf="@id/guideline55"
@@ -469,7 +309,7 @@
                                 android:layout_height="32dp"
                                 android:background="@drawable/bg_circle_theme"
                                 android:padding="@dimen/padding_6"
-                                android:src="@drawable/ic_wallet"
+                                android:src="@drawable/ic_smiley"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -496,13 +336,13 @@
                                 app:layout_constraintTop_toBottomOf="@+id/iconLabel">
 
                                 <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/ivWalletIcon"
+                                    android:id="@+id/ivCategoryIcon"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/wallet_0"
+                                    app:srcCompat="@drawable/category_28"
                                     app:tint="@color/primary_dark" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -510,7 +350,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletExclude"
+                    android:id="@+id/cardCategoryInclude"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/margin_10"
@@ -544,12 +384,12 @@
                             app:tint="@color/primary" />
 
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/excludeLabel"
+                            android:id="@+id/includeLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_16"
                             android:fontFamily="@font/exo2_bold"
-                            android:text="@string/exclude"
+                            android:text="@string/include_reports"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintStart_toEndOf="@id/ivHide"
@@ -561,15 +401,15 @@
                             android:layout_marginEnd="@dimen/margin_16"
                             android:layout_marginBottom="@dimen/margin_16"
                             android:fontFamily="@font/exo2_semibold"
-                            android:text="@string/wallet_exclude_hint"
+                            android:text="@string/include_category_hint"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/text_12"
-                            app:layout_constraintEnd_toStartOf="@+id/switchExcludeView"
-                            app:layout_constraintStart_toStartOf="@id/excludeLabel"
-                            app:layout_constraintTop_toBottomOf="@id/excludeLabel" />
+                            app:layout_constraintEnd_toStartOf="@+id/switchIncludeView"
+                            app:layout_constraintStart_toStartOf="@id/includeLabel"
+                            app:layout_constraintTop_toBottomOf="@id/includeLabel" />
 
                         <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/switchExcludeView"
+                            android:id="@+id/switchIncludeView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -581,153 +421,6 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletStatement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_marginVertical="@dimen/margin_10"
-                    app:cardCornerRadius="@dimen/corner_radius_12"
-                    app:cardElevation="2dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/colorIconWrapper"
-                    app:strokeColor="@color/card_shadow"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:paddingHorizontal="@dimen/padding_16">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivStartDate"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_circle_theme"
-                            android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_calendar"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/primary" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/statementDateLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/statement_day"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_16"
-                            app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivStartDate"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <FrameLayout
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_48"
-                            android:background="@drawable/bg_edit_text_underline"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/statementDateLabel"
-                            app:layout_constraintTop_toBottomOf="@id/statementDateLabel">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/statementDateSpinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@android:color/transparent"
-                                android:spinnerMode="dropdown" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="end|center_vertical"
-                                android:layout_marginEnd="12dp"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:src="@drawable/ic_account_caret"
-                                app:tint="@color/primary" />
-
-                        </FrameLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardWalletPayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_marginVertical="@dimen/margin_10"
-                    app:cardCornerRadius="@dimen/corner_radius_12"
-                    app:cardElevation="2dp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cardWalletStatement"
-                    app:strokeColor="@color/card_shadow"
-                    app:strokeWidth="1dp">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:paddingHorizontal="@dimen/padding_16">
-
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/ivPaymentDate"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@drawable/bg_circle_theme"
-                            android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_calendar"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/primary" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/paymentDateLabel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_16"
-                            android:text="@string/due_day"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/text_16"
-                            app:fontFamily="@font/exo2_bold"
-                            app:layout_constraintStart_toEndOf="@id/ivPaymentDate"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <FrameLayout
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_48"
-                            android:background="@drawable/bg_edit_text_underline"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="@id/paymentDateLabel"
-                            app:layout_constraintTop_toBottomOf="@id/paymentDateLabel">
-
-                            <androidx.appcompat.widget.AppCompatSpinner
-                                android:id="@+id/paymentDateSpinner"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@android:color/transparent"
-                                android:spinnerMode="dropdown" />
-
-                            <androidx.appcompat.widget.AppCompatImageView
-                                android:layout_width="12dp"
-                                android:layout_height="12dp"
-                                android:layout_gravity="end|center_vertical"
-                                android:layout_marginEnd="12dp"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:src="@drawable/ic_account_caret"
-                                app:tint="@color/primary" />
-
-                        </FrameLayout>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

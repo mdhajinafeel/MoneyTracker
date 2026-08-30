@@ -68,7 +68,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivGoal"
@@ -97,7 +98,7 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etGoalName"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:background="@drawable/bg_edit_text_underline"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
@@ -107,7 +108,7 @@
                             android:maxLength="40"
                             android:paddingEnd="@dimen/padding_16"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/nameLabel"
@@ -143,7 +144,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivGoalCategory"
@@ -151,7 +153,7 @@
                             android:layout_height="32dp"
                             android:background="@drawable/bg_circle_theme"
                             android:padding="@dimen/padding_6"
-                            android:src="@drawable/ic_category"
+                            android:src="@drawable/ic_category_outline"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -172,7 +174,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvCategory"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:layout_marginEnd="@dimen/margin_12"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
@@ -181,7 +183,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_8"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -200,7 +202,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/tvCategory"
                             app:layout_constraintTop_toTopOf="parent" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -221,7 +222,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivCurrency"
@@ -250,7 +252,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTargetCurrency"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
@@ -260,7 +262,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_10"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -296,7 +298,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivTargetAmount"
@@ -325,7 +328,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTargetAmount"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
@@ -335,7 +338,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_10"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -371,7 +374,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivTargetDate"
@@ -400,14 +404,15 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvTargetDate"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:ems="10"
+                            android:hint="@string/target_date"
                             android:fontFamily="@font/exo2_medium"
                             android:gravity="start|center_vertical"
                             android:inputType="numberDecimal"
                             android:layoutDirection="ltr"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -443,7 +448,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivGoalInitial"
@@ -472,7 +478,7 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvGoalInitial"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:drawableTint="@color/primary"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
@@ -483,7 +489,7 @@
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textDirection="ltr"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -519,7 +525,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivDescription"
@@ -548,7 +555,7 @@
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etDescription"
                             android:layout_width="0dp"
-                            android:layout_height="@dimen/edit_text_height_40"
+                            android:layout_height="@dimen/edit_text_height_48"
                             android:background="@drawable/bg_edit_text_underline"
                             android:ems="10"
                             android:fontFamily="@font/exo2_medium"
@@ -558,7 +565,7 @@
                             android:paddingEnd="@dimen/padding_16"
                             android:maxLength="40"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/text_hint"
+                            android:textColorHint="@color/dark_grey"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/descTitleLabel"
@@ -585,7 +592,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/padding_16">
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivAutoSave"
@@ -619,7 +627,7 @@
                             android:layout_marginBottom="@dimen/margin_16"
                             android:fontFamily="@font/exo2_semibold"
                             android:text="@string/goal_autosave_hint"
-                            android:textColor="@color/funky_grey"
+                            android:textColor="@color/dark_grey"
                             android:textSize="@dimen/text_12"
                             app:layout_constraintEnd_toStartOf="@+id/switchAutoView"
                             app:layout_constraintStart_toStartOf="@id/autoSaveLabel"
@@ -660,7 +668,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvAutoSaveAmount"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/edit_text_height_40"
+                                android:layout_height="@dimen/edit_text_height_48"
                                 android:background="@drawable/bg_edit_text_underline"
                                 android:drawableEnd="@drawable/ic_account_caret"
                                 android:drawableTint="@color/primary"
@@ -673,7 +681,7 @@
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
                                 android:textColor="@color/black"
-                                android:textColorHint="@color/text_hint"
+                                android:textColorHint="@color/dark_grey"
                                 android:textDirection="ltr"
                                 android:textSize="@dimen/text_14" />
 
@@ -691,7 +699,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:id="@+id/tvFrequency"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/edit_text_height_40"
+                                android:layout_height="@dimen/edit_text_height_48"
                                 android:background="@drawable/bg_edit_text_underline"
                                 android:drawableEnd="@drawable/ic_account_caret"
                                 android:drawableTint="@color/primary"
@@ -703,7 +711,7 @@
                                 android:paddingStart="@dimen/padding_0"
                                 android:paddingEnd="@dimen/padding_16"
                                 android:textColor="@color/black"
-                                android:textColorHint="@color/text_hint"
+                                android:textColorHint="@color/dark_grey"
                                 android:textDirection="ltr"
                                 android:textSize="@dimen/text_14" />
 
@@ -727,7 +735,7 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/tvStartDate"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_height="@dimen/edit_text_height_48"
                                     android:background="@drawable/bg_edit_text_underline"
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
@@ -737,7 +745,7 @@
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textDirection="ltr"
                                     android:textSize="@dimen/text_14" />
                             </LinearLayout>
@@ -762,7 +770,7 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/tvWeekDay"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_height="@dimen/edit_text_height_48"
                                     android:background="@drawable/bg_edit_text_underline"
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
@@ -772,7 +780,7 @@
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textDirection="ltr"
                                     android:textSize="@dimen/text_14" />
                             </LinearLayout>
@@ -797,7 +805,7 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/tvDayOfMonth"
                                     android:layout_width="match_parent"
-                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_height="@dimen/edit_text_height_48"
                                     android:background="@drawable/bg_edit_text_underline"
                                     android:ems="10"
                                     android:fontFamily="@font/exo2_medium"
@@ -807,7 +815,7 @@
                                     android:paddingStart="@dimen/padding_0"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textDirection="ltr"
                                     android:textSize="@dimen/text_14" />
                             </LinearLayout>
@@ -851,14 +859,14 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/tvMonth"
                                     android:layout_width="0dp"
-                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_height="@dimen/edit_text_height_48"
                                     android:layout_marginTop="@dimen/margin_4"
                                     android:background="@drawable/bg_edit_text_underline"
                                     android:gravity="center_vertical"
                                     android:paddingEnd="@dimen/padding_16"
                                     android:paddingStart="@dimen/padding_0"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textSize="@dimen/text_14"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toStartOf="@id/tvDay"
@@ -868,7 +876,7 @@
                                 <androidx.appcompat.widget.AppCompatTextView
                                     android:id="@+id/tvDay"
                                     android:layout_width="0dp"
-                                    android:layout_height="@dimen/edit_text_height_40"
+                                    android:layout_height="@dimen/edit_text_height_48"
                                     android:layout_marginStart="@dimen/margin_8"
                                     android:layout_marginTop="@dimen/margin_4"
                                     android:background="@drawable/bg_edit_text_underline"
@@ -876,7 +884,7 @@
                                     android:paddingEnd="@dimen/padding_16"
                                     android:paddingStart="@dimen/padding_0"
                                     android:textColor="@color/black"
-                                    android:textColorHint="@color/text_hint"
+                                    android:textColorHint="@color/dark_grey"
                                     android:textSize="@dimen/text_14"
                                     app:layout_constraintStart_toEndOf="@id/tvMonth"
                                     app:layout_constraintEnd_toEndOf="parent"

@@ -44,7 +44,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvStartDate"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height_40"
+                android:layout_height="@dimen/edit_text_height_48"
                 android:layout_marginTop="@dimen/margin_4"
                 android:background="@drawable/bg_edit_text_underline"
                 android:drawableEnd="@drawable/ic_account_caret"
@@ -81,7 +81,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvEndDate"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/edit_text_height_40"
+                android:layout_height="@dimen/edit_text_height_48"
                 android:layout_marginTop="@dimen/margin_4"
                 android:background="@drawable/bg_edit_text_underline"
                 android:drawableEnd="@drawable/ic_account_caret"

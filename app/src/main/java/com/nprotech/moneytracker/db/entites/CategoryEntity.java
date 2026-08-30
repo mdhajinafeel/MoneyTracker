@@ -21,8 +21,9 @@ public class CategoryEntity implements Serializable {
     public int ordering;
     public int icon;
     public int defaultCategory;
+    public boolean isIncludeReport;
 
-    public CategoryEntity(String name, String color, int icon, int type, boolean active, int ordering, int defaultCategory) {
+    public CategoryEntity(String name, String color, int icon, int type, boolean active, int ordering, int defaultCategory, boolean isIncludeReport) {
         this.name = name;
         this.color = color;
         this.type = type;
@@ -30,6 +31,8 @@ public class CategoryEntity implements Serializable {
         this.icon = icon;
         this.ordering = ordering;
         this.defaultCategory = defaultCategory;
+        this.isIncludeReport = isIncludeReport;
+
     }
 
     public String getName(Context context) {
