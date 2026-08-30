@@ -7,7 +7,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -52,13 +51,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ManageCurrencyActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivAdd;
-    private RelativeLayout rlAccountCurrency;
     private RecyclerView rvAccountCurrency;
     private AppCompatTextView tvBaseSymbol, tvCurrencyCode, tvCurrencyName, tvExchangeHint;
     private FloatingActionButton fabAdd;
     private AccountViewModel accountViewModel;
     private WalletViewModel walletViewModel;
-    private ConstraintLayout emptyWrapper;
+    private ConstraintLayout rlAccountCurrency, emptyWrapper;
     private RecyclerViewAdapter<AccountCurrencyMappingEntity> accountCurrencyRecyclerViewAdapter;
     private ActivityResultLauncher<Intent> currencyLauncher;
     private int accountId = 0;
