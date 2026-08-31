@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "14e2965102a519a2f4ead1368bf00865",
+    "identityHash": "f90fd9328acbf9eaf7b94dfee50fdad2",
     "entities": [
       {
         "tableName": "currencies",
@@ -46,7 +46,7 @@
       },
       {
         "tableName": "categories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `color` TEXT, `type` INTEGER NOT NULL, `active` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `icon` INTEGER NOT NULL, `defaultCategory` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `color` TEXT, `type` INTEGER NOT NULL, `active` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `icon` INTEGER NOT NULL, `defaultCategory` INTEGER NOT NULL, `isIncludeReport` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -91,6 +91,12 @@
           {
             "fieldPath": "defaultCategory",
             "columnName": "defaultCategory",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isIncludeReport",
+            "columnName": "isIncludeReport",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -1052,7 +1058,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '14e2965102a519a2f4ead1368bf00865')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f90fd9328acbf9eaf7b94dfee50fdad2')"
     ]
   }
 }
