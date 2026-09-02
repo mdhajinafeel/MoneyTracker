@@ -14,39 +14,64 @@
         android:orientation="vertical"
         android:padding="@dimen/margin_20">
 
+        <!-- Delete Icon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHeader"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            app:cardBackgroundColor="@color/dim_expense"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/headerImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_delete"
+                app:tint="@color/delete_red" />
+        </com.google.android.material.card.MaterialCardView>
+
         <!-- Message -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_12"
             android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
             android:textColor="@color/text_primary"
             android:textSize="@dimen/text_18" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
             android:fontFamily="@font/exo2_medium"
+            android:gravity="center"
             android:text="@string/delete_message"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_16" />
+            android:textSize="@dimen/text_14" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSubMessage"
-            android:layout_marginTop="@dimen/margin_10"
-            android:layout_width="wrap_content"
-            android:visibility="gone"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
             android:fontFamily="@font/exo2_regular"
+            android:gravity="center"
             android:textColor="@color/funky_grey"
-            android:textSize="@dimen/text_14" />
+            android:textSize="@dimen/text_12"
+            android:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginTop="@dimen/margin_20"
             android:gravity="end"
             android:orientation="horizontal">
 
@@ -54,6 +79,7 @@
                 android:id="@+id/tvCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_4"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/exo2_bold"
@@ -64,20 +90,21 @@
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/text_16" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/tvDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_10"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/exo2_bold"
-                android:paddingHorizontal="@dimen/margin_16"
-                android:paddingVertical="@dimen/margin_8"
+                android:layout_marginStart="@dimen/margin_6"
+                android:fontFamily="@font/exo2_semibold"
+                android:letterSpacing="0.01"
                 android:text="@string/delete"
                 android:textAllCaps="true"
-                android:textColor="@color/bright_red"
-                android:textSize="@dimen/text_16" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_16"
+                app:backgroundTint="@color/bright_red"
+                app:cornerRadius="@dimen/corner_radius_6"
+                app:elevation="@dimen/corner_elevation_8" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

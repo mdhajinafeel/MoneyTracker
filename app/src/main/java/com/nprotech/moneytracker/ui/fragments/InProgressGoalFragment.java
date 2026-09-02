@@ -19,6 +19,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -29,6 +30,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
@@ -325,6 +327,9 @@ public class InProgressGoalFragment extends Fragment {
 
         AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
@@ -332,6 +337,11 @@ public class InProgressGoalFragment extends Fragment {
         tvMessage.setText(R.string.delete_archive_message);
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {

@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -1023,6 +1024,9 @@ public class BackupRestoreActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
@@ -1032,6 +1036,11 @@ public class BackupRestoreActivity extends BaseActivity {
         tvSubMessage.setText(R.string.action_undone);
         tvDelete.setText(getString(R.string.restore));
         tvSubMessage.setVisibility(View.VISIBLE);
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.backup_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_refresh_time));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.backup_dark)));
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {

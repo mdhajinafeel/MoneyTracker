@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -27,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountCurrencyMappingEntity;

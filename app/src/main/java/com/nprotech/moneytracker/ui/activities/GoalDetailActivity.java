@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.constants.GoalContributionType;
@@ -789,10 +790,18 @@ public class GoalDetailActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         tvTitle.setText(R.string.disable_auto_save);
         tvMessage.setText(R.string.disable_message);
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_remove));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
@@ -827,6 +836,9 @@ public class GoalDetailActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
@@ -834,6 +846,11 @@ public class GoalDetailActivity extends BaseActivity {
         tvMessage.setText(R.string.delete_archive_message);
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_archive_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
@@ -992,6 +1009,9 @@ public class GoalDetailActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
@@ -1001,12 +1021,24 @@ public class GoalDetailActivity extends BaseActivity {
             tvMessage.setText(R.string.remove_initial_message);
             tvSubMessage.setText(R.string.remove_initial_sub_message);
             tvSubMessage.setVisibility(View.VISIBLE);
+
+            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_remove));
+            headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         } else if (goal.getContribution().getType() == GoalContributionType.ADD) {
             tvTitle.setText(R.string.delete_contribution);
             tvMessage.setText(R.string.delete_contribution_message);
+
+            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_delete));
+            headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         } else if (goal.getContribution().getType() == GoalContributionType.WITHDRAW) {
             tvTitle.setText(R.string.delete_withdrawal);
             tvMessage.setText(R.string.delete_withdrawal_message);
+
+            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_delete));
+            headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         }
 
         dialog.setView(view);

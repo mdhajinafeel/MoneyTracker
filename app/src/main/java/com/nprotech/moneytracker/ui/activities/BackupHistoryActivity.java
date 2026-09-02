@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.ui.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.BackupHistoryEntity;
 import com.nprotech.moneytracker.enums.SettingType;
@@ -503,6 +505,9 @@ public class BackupHistoryActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
@@ -513,6 +518,10 @@ public class BackupHistoryActivity extends BaseActivity {
         tvSubMessage.setVisibility(View.VISIBLE);
         tvDelete.setText(getString(R.string.restore));
         tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.backup_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_refresh_time));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.backup_dark)));
 
         dialog.setView(view);
 
@@ -690,6 +699,9 @@ public class BackupHistoryActivity extends BaseActivity {
 
         AlertDialog dialog = new AlertDialog.Builder(this).create();
         View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
@@ -697,6 +709,11 @@ public class BackupHistoryActivity extends BaseActivity {
         tvMessage.setText(getString(R.string.storage_access_required_message, getString(R.string.app_name)));
         tvDelete.setText(R.string.allow_access);
         tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
+
+        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_folder_access));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
+
         dialog.setView(view);
 
         if (dialog.getWindow() != null) {
