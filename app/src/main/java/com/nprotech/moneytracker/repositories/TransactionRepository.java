@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountDao;
+import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
@@ -27,15 +28,17 @@ public class TransactionRepository {
     private final WalletDao walletDao;
     private final TransactionDao transactionDao;
     private final TransactionAttachmentDao transactionAttachmentDao;
+    private final CategoryDao categoryDao;
     private final MoneyTrackerDatabase database;
 
     public TransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao, TransactionDao transactionDao,
-                                 TransactionAttachmentDao transactionAttachmentDao) {
+                                 TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao) {
         this.database = database;
         this.accountDao = accountDao;
         this.walletDao = walletDao;
         this.transactionDao = transactionDao;
         this.transactionAttachmentDao = transactionAttachmentDao;
+        this.categoryDao = categoryDao;
     }
 
     public List<TransactionWithDetails> getTransactionsPaged(int accountId, long startDate, long endDate, int page, int pageSize) {
@@ -237,5 +240,18 @@ public class TransactionRepository {
             return transactionDao.getTransactionsByCategory(accountId, walletId, categoryId, pageSize, offset);
         }
         return transactionDao.getTransactionsByWallet(accountId, walletId, pageSize, offset);
+    }
+
+    public int getTransactionCountByCategory(int categoryId) {
+        return transactionDao.getTransactionCountByCategory(categoryId);
+    }
+
+    public boolean moveTransactionsAndDeleteCategory(int oldCategoryId, int newCategoryId, int defaultCategoryId) {
+        database.runInTransaction(() -> {
+            transactionDao.moveTransactionsToCategory(oldCategoryId, newCategoryId, defaultCategoryId, System.currentTimeMillis());
+            categoryDao.deleteCategory(oldCategoryId, System.currentTimeMillis());
+        });
+
+        return true;
     }
 }

@@ -56,6 +56,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCategoryStatus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:visibility="gone"
+            android:maxLines="1"
+            app:fontFamily="@font/exo2_medium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSubCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -72,10 +86,14 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:contentDescription="@string/delete"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_circle_stroke"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:backgroundTint="@color/light_income"
+        app:tint="@color/dark_income"
+        android:contentDescription="@string/edit_category"
+        android:padding="@dimen/padding_4"
         app:layout_constraintBottom_toBottomOf="@+id/labelWrapper"
         app:layout_constraintEnd_toStartOf="@+id/ivDelete"
         app:layout_constraintTop_toTopOf="@+id/labelWrapper"
@@ -83,11 +101,15 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/bg_circle_stroke"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:backgroundTint="@color/light_expense"
         android:visibility="gone"
+        app:tint="@color/delete_red"
         android:contentDescription="@string/delete"
+        android:padding="@dimen/padding_4"
         app:layout_constraintBottom_toBottomOf="@+id/labelWrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/labelWrapper"
@@ -103,5 +125,4 @@
         app:layout_constraintTop_toBottomOf="@id/colorView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

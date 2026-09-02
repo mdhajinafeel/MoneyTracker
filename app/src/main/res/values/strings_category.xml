@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="add_category">Add Category</string>
+    <string name="edit_category">Edit Category</string>
+    <string name="category_created">Category created successfully</string>
+    <string name="category_updated">Category updated successfully</string>
+    <string name="category_deleted">Category deleted successfully</string>
+    <string name="category_moved">Category moved successfully</string>
+    <string name="error_delete_category">Error when delete the category</string>
+    <string name="error_moved_category">Error when move the category</string>
     <string name="category_bills">Bills &amp; Utilities</string>
     <string name="category_bonus">Bonus</string>
     <string name="category_clothing">Clothing</string>
@@ -44,5 +52,31 @@
     <string name="category">Category</string>
     <string name="category_name">Category Name</string>
     <string name="include_category_hint">Show this category in reports and charts</string>
+    <string name="status_active_hint">Category is available for use</string>
+    <string name="status_inactive_hint">Category is hidden and won\'t appear when adding transactions.</string>
     <string name="include_reports">Include in Reports</string>
+    <string name="delete_category_message">Are you sure you want to delete \'%1$s\' category?</string>
+    <string name="delete_category">Delete Category?</string>
+    <string name="no_transactions_found">No transactions found</string>
+    <string name="category_permanently_delete">This category can be permanently deleted.</string>
+    <string name="category_in_use">Category in Use</string>
+    <string name="move_delete">Move &amp; Delete</string>
+    <string name="text_continue">Continue</string>
+    <string name="move_transaction_to">Move Transaction To</string>
+    <string name="status">Status</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Move %1$d transaction from &quot;%2$s&quot; to another category.</item>
+        <item quantity="other">Move %1$d transactions from &quot;%2$s&quot; to another category.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">&quot;%1$s&quot; is used by 1 transaction and cannot be deleted.\n\nYou can make this category inactive from Edit Category.</item>
+        <item quantity="other">&quot;%1$s&quot; is used by %2$d transactions and cannot be deleted.\n\nYou can make this category inactive from Edit Category.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">The transaction from &quot;%2$s&quot; will be moved to &quot;%3$s&quot;.\n\n&quot;%4$s&quot; will be permanently deleted.</item>
+        <item quantity="other">All %1$d transactions from &quot;%2$s&quot; will be moved to &quot;%3$s&quot;.\n\n&quot;%4$s&quot; will be permanently deleted.</item>
+    </plurals>
 </resources>

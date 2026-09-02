@@ -86,7 +86,7 @@ public class GoalCategoryPickerActivity extends BaseActivity {
 
                 CategoryViewModel categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
 
-                categoryViewModel.incomeCategory(bundle.getInt("transactionType"));
+                categoryViewModel.incomeCategory(bundle.getInt("transactionType"), true);
 
                 categoryViewModel.getIncomeCategories().observe(this, categoryEntities -> {
                     if (!categoryEntities.isEmpty()) {

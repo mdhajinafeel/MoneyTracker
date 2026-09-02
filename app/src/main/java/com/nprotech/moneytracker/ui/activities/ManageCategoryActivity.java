@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,174 +29,90 @@ public class ManageCategoryActivity extends BaseActivity {
     private AppCompatImageView icBack;
     private AppCompatImageView ivAdd;
     private TabLayout tabLayout;
+    private int selectedType = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_manage_category);
-
         statusBarSetting();
         hideKeyboard(this);
-
         initComponents();
     }
 
     private void initComponents() {
-
         try {
-
             View rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-
-            AppCompatTextView tvTitle =
-                    toolbarWrapper.findViewById(R.id.tvTitle);
-
-            icBack =
-                    toolbarWrapper.findViewById(R.id.icBack);
-
-            ivAdd =
-                    toolbarWrapper.findViewById(R.id.ivAdd);
-
-            tabLayout =
-                    findViewById(R.id.tabLayout);
-
-            ViewPager2 viewPager =
-                    findViewById(R.id.viewPager);
-
-
-            // Toolbar
+            AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
+            icBack = toolbarWrapper.findViewById(R.id.icBack);
+            ivAdd = toolbarWrapper.findViewById(R.id.ivAdd);
+            tabLayout = findViewById(R.id.tabLayout);
+            ViewPager2 viewPager = findViewById(R.id.viewPager);
             tvTitle.setText(R.string.manage_category);
             ivAdd.setVisibility(View.VISIBLE);
 
-
-            // Status bar inset
-            ViewCompat.setOnApplyWindowInsetsListener(
-                    toolbarWrapper,
-                    (v, insets) -> {
-
-                        int top = insets.getInsets(
-                                WindowInsetsCompat.Type.statusBars()
-                        ).top;
-
-                        v.setPadding(
-                                v.getPaddingLeft(),
-                                top,
-                                v.getPaddingRight(),
-                                v.getPaddingBottom()
-                        );
-
+            ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
+                        int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+                        v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
                         return insets;
                     }
             );
 
-
-            // Navigation bar inset
-            ViewCompat.setOnApplyWindowInsetsListener(
-                    rootView,
-                    (v, insets) -> {
-
-                        Insets systemBars =
-                                insets.getInsets(
-                                        WindowInsetsCompat.Type.systemBars()
-                                );
-
-                        v.setPadding(
-                                v.getPaddingLeft(),
-                                v.getPaddingTop(),
-                                v.getPaddingRight(),
-                                systemBars.bottom
-                        );
-
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+                        Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                        v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                         return insets;
                     }
             );
 
-
-            // ViewPager
-            CategoryPageAdapter adapter =
-                    new CategoryPageAdapter(this);
-
+            CategoryPageAdapter adapter = new CategoryPageAdapter(this);
             viewPager.setAdapter(adapter);
-
             viewPager.setOffscreenPageLimit(1);
             viewPager.setUserInputEnabled(true);
             viewPager.setPageTransformer(null);
 
-
-            // Tabs
-            new TabLayoutMediator(
-                    tabLayout,
-                    viewPager,
-                    (tab, position) -> {
-
-                        if (position == 0) {
-                            tab.setText(
-                                    getString(R.string.income)
-                            );
-                        } else {
-                            tab.setText(
-                                    getString(R.string.expense)
-                            );
-                        }
-                    }
-            ).attach();
-
+            new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
+                if (position == 0) {
+                    tab.setText(getString(R.string.income));
+                } else {
+                    tab.setText(getString(R.string.expense));
+                }
+            }).attach();
 
             setUpListeners();
-
         } catch (Exception e) {
-
-            AppLogger.e(
-                    getClass(),
-                    "initComponents",
-                    e
-            );
+            AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-
     private void setUpListeners() {
-
         try {
-
             icBack.setOnClickListener(view -> {
-
                 finish();
-
-                ActivityUtils.overrideCloseTransition(
-                        ManageCategoryActivity.this,
-                        R.anim.scale_in,
-                        R.anim.right_to_left
-                );
+                ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.right_to_left);
             });
-
 
             ivAdd.setOnClickListener(view -> {
-
-                // Add category
+                startActivity(new Intent(ManageCategoryActivity.this, CreateCategoryActivity.class)
+                        .putExtra("selectedType", selectedType)
+                        .putExtra("isEdit", false));
+                ActivityUtils.overrideOpenTransition(ManageCategoryActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
             });
-
 
             tabLayout.addOnTabSelectedListener(
                     new TabLayout.OnTabSelectedListener() {
-
                         @Override
-                        public void onTabSelected(
-                                TabLayout.Tab tab
-                        ) {
+                        public void onTabSelected(TabLayout.Tab tab) {
+                            ViewGroup tabParent = (ViewGroup) tabLayout.getChildAt(0);
 
-                            ViewGroup tabParent =
-                                    (ViewGroup) tabLayout.getChildAt(0);
+                            selectedType = tab.getPosition() + 1;
 
                             if (tabParent == null) {
                                 return;
                             }
 
-                            View tabView =
-                                    tabParent.getChildAt(
-                                            tab.getPosition()
-                                    );
+                            View tabView = tabParent.getChildAt(tab.getPosition());
 
                             if (tabView == null) {
                                 return;
@@ -215,48 +132,26 @@ public class ManageCategoryActivity extends BaseActivity {
                                     .start();
                         }
 
-
                         @Override
-                        public void onTabUnselected(
-                                TabLayout.Tab tab
-                        ) {
+                        public void onTabUnselected(TabLayout.Tab tab) {
                         }
 
-
                         @Override
-                        public void onTabReselected(
-                                TabLayout.Tab tab
-                        ) {
+                        public void onTabReselected(TabLayout.Tab tab) {
                         }
                     }
             );
 
-
-            getOnBackPressedDispatcher().addCallback(
-                    this,
-                    new OnBackPressedCallback(true) {
-
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                         @Override
                         public void handleOnBackPressed() {
-
                             finish();
-
-                            ActivityUtils.overrideCloseTransition(
-                                    ManageCategoryActivity.this,
-                                    R.anim.scale_in,
-                                    R.anim.right_to_left
-                            );
+                            ActivityUtils.overrideCloseTransition(ManageCategoryActivity.this, R.anim.scale_in, R.anim.right_to_left);
                         }
                     }
             );
-
         } catch (Exception e) {
-
-            AppLogger.e(
-                    getClass(),
-                    "setUpListeners",
-                    e
-            );
+            AppLogger.e(getClass(), "setUpListeners", e);
         }
     }
 }

@@ -63,9 +63,9 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    TransactionRepository provideTransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao,
-                                                       TransactionDao transactionDao, TransactionAttachmentDao transactionAttachmentDao) {
-        return new TransactionRepository(database, accountDao, walletDao, transactionDao, transactionAttachmentDao);
+    TransactionRepository provideTransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao,TransactionDao transactionDao,
+                                                       TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao) {
+        return new TransactionRepository(database, accountDao, walletDao, transactionDao, transactionAttachmentDao, categoryDao);
     }
 
     @Provides

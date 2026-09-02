@@ -126,4 +126,5 @@
 
     <color name="success">#198754</color>
     <color name="success_light">#E8F5E9</color>
+    <color name="color_matte_black">#171717</color>
 </resources>

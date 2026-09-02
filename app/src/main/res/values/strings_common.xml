@@ -196,4 +196,6 @@
     <string name="select_option">Select option</string>
     <string name="text_default">Default</string>
     <string name="image_alt_text">Image Alt Text</string>
+    <string name="active">Active</string>
+    <string name="inactive">Inactive</string>
 </resources>

@@ -1,6 +1,9 @@
 package com.nprotech.moneytracker.repositories;
 
+import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
+import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 
 import java.util.List;

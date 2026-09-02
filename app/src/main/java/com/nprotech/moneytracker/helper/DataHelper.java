@@ -163,7 +163,7 @@ public class DataHelper {
     }
 
     //----------------------
-    //--- CATEGORY ICONS ---
+    //------ CATEGORY ------
     //----------------------
     public static List<Integer> getCategoryIcons() {
         List<Integer> arrayList = new ArrayList<>();
@@ -346,8 +346,90 @@ public class DataHelper {
         return arrayList;
     }
 
+    public static ArrayList<String> getCategoryColorList() {
+        ArrayList<String> colors = new ArrayList<>();
+
+        // Blues
+        colors.add("#34BFFF");
+        colors.add("#3485FF");
+        colors.add("#0D8EFF");
+        colors.add("#0077C5");
+        colors.add("#1565C0");
+        colors.add("#1976D2");
+        colors.add("#3949AB");
+        colors.add("#3F51B5");
+
+        // Teal / Cyan
+        colors.add("#00C1BF");
+        colors.add("#00A6A4");
+        colors.add("#00897B");
+        colors.add("#00796B");
+        colors.add("#016165");
+        colors.add("#00BCD4");
+        colors.add("#0097A7");
+        colors.add("#26A69A");
+
+        // Green
+        colors.add("#10B981");
+        colors.add("#43A047");
+        colors.add("#2E7D32");
+        colors.add("#388E3C");
+        colors.add("#66BB6A");
+        colors.add("#7FD000");
+        colors.add("#8BC34A");
+        colors.add("#689F38");
+
+        // Lime / Yellow
+        colors.add("#CDDC39");
+        colors.add("#AFB42B");
+        colors.add("#FFCA00");
+        colors.add("#FDD835");
+        colors.add("#FFC107");
+        colors.add("#FFB300");
+
+        // Orange
+        colors.add("#FFAD00");
+        colors.add("#FF9800");
+        colors.add("#FB8C00");
+        colors.add("#F57C00");
+        colors.add("#FF7043");
+        colors.add("#FF5722");
+
+        // Red
+        colors.add("#EE4036");
+        colors.add("#FF250B");
+        colors.add("#E53935");
+        colors.add("#D32F2F");
+        colors.add("#C62828");
+        colors.add("#EF5350");
+
+        // Pink / Magenta
+        colors.add("#FF2861");
+        colors.add("#FF5877");
+        colors.add("#E31C9E");
+        colors.add("#D81B60");
+        colors.add("#C2185B");
+        colors.add("#9C005E");
+
+        // Purple
+        colors.add("#652D90");
+        colors.add("#7B1FA2");
+        colors.add("#8E24AA");
+        colors.add("#9457FA");
+        colors.add("#673AB7");
+        colors.add("#512DA8");
+
+        // Brown / Earth
+        colors.add("#8B4513");
+        colors.add("#795548");
+        colors.add("#5E4138");
+        colors.add("#6D4C41");
+
+        return colors;
+    }
+
     //----------------------
-    //--- WALLET ICONS ---
+    //------- WALLET -------
     //----------------------
     public static List<Integer> getWalletIcons() {
         List<Integer> arrayList = new ArrayList<>();

@@ -150,7 +150,7 @@
 
         <!-- Wallet Icon Picker Screen -->
         <activity
-            android:name=".ui.activities.WalletPickerActivity"
+            android:name=".ui.activities.IconPickerActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -176,6 +176,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Manage Currency Screen -->
+        <activity
+            android:name=".ui.activities.ManageCurrencyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Manage Category Screen -->
         <activity
             android:name=".ui.activities.ManageCategoryActivity"
@@ -183,9 +190,9 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Manage Currency Screen -->
+        <!-- Create Category Screen -->
         <activity
-            android:name=".ui.activities.ManageCurrencyActivity"
+            android:name=".ui.activities.CreateCategoryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

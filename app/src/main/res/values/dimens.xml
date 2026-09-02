@@ -90,6 +90,7 @@
     <dimen name="wrapper_big_size">48dp</dimen>
     <dimen name="wrapper_size">40dp</dimen>
     <dimen name="spinner_dropdown_max_height">240dp</dimen>
+    <dimen name="selection_max_height">240dp</dimen>
 
     <!-- ICON SIZE -->
     <dimen name="icon_8">8dp</dimen>

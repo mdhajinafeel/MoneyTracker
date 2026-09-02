@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.db.entites;
 import android.content.Context;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.nprotech.moneytracker.helper.DataHelper;
@@ -18,12 +19,16 @@ public class CategoryEntity implements Serializable {
     public String color;
     public int type;
     public boolean active;
+    public boolean isDeleted;
     public int ordering;
     public int icon;
     public int defaultCategory;
     public boolean isIncludeReport;
+    public long updatedAt = System.currentTimeMillis();
 
-    public CategoryEntity(String name, String color, int icon, int type, boolean active, int ordering, int defaultCategory, boolean isIncludeReport) {
+    @Ignore
+    public CategoryEntity(String name, String color, int icon, int type, boolean active, int ordering, int defaultCategory,
+                          boolean isIncludeReport, boolean isDeleted, long updatedAt) {
         this.name = name;
         this.color = color;
         this.type = type;
@@ -32,6 +37,11 @@ public class CategoryEntity implements Serializable {
         this.ordering = ordering;
         this.defaultCategory = defaultCategory;
         this.isIncludeReport = isIncludeReport;
+        this.isDeleted = isDeleted;
+        this.updatedAt = updatedAt;
+    }
+
+    public CategoryEntity() {
 
     }
 

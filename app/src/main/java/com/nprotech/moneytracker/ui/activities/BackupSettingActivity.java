@@ -314,7 +314,7 @@ public class BackupSettingActivity extends BaseActivity {
             LinearLayout layoutActions = bottomView.findViewById(R.id.layoutActions);
 
             tvSelectRange.setText(getString(R.string.backup_frequency));
-            tvSelectRangeDesc.setText(getString(R.string.frequency_desc));
+            tvSelectRangeDesc.setText(getString(R.string.frequency_desc, getString(R.string.app_name)));
             tvSelectRangeDesc.setVisibility(View.VISIBLE);
             layoutActions.setVisibility(View.VISIBLE);
             tvClose.setVisibility(View.VISIBLE);

@@ -33,14 +33,13 @@ public interface TransactionDao {
     TransactionEntity getTransactionById(String tempTransactionServerId);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
-            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +
             "AND w.accountId = :accountId " +
@@ -51,14 +50,13 @@ public interface TransactionDao {
     List<TransactionWithDetails> getTransactionsPaged(int accountId, int limit, int offset);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
-            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id=t.categoryId AND c1.type=t.type " +
+            "JOIN categories c ON c.id=t.categoryId AND c.type = t.type " +
             "WHERE t.isDeleted=0 " +
             "AND t.transactionDate BETWEEN :startDate AND :endDate " +
             "AND t.accountId=:accountId " +
@@ -70,13 +68,12 @@ public interface TransactionDao {
     List<TransactionWithDetails> getTransactionsPaged(int accountId, long startDate, long endDate, int limit, int offset);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "WHERE t.tempTransactionServerId = :tempTransactionServerId AND t.type IN (1, 2, 3) " +
             "ORDER BY t.transactionDate DESC")
     TransactionWithDetails getTransactions(String tempTransactionServerId);
@@ -86,15 +83,14 @@ public interface TransactionDao {
 
     @Query("SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
             "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END AS type, " +
-            "t.categoryId, c1.name AS categoryName, t.walletId FROM transactions t " +
-            "LEFT JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "t.categoryId, c.name AS categoryName, t.walletId FROM transactions t " +
+            "LEFT JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "WHERE (t.walletId = :walletId OR t.fromWalletId = :walletId) " +
             "AND t.isDeleted = 0 GROUP BY t.defaultCategoryId, t.categoryId, " +
             "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END, " +
-            "c.color, c.icon, w.currencySymbol, c1.name " +
-            "ORDER BY t.defaultCategoryId, c1.name")
+            "c.color, c.icon, w.currencySymbol, c.name " +
+            "ORDER BY t.defaultCategoryId, c.name")
     LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId);
 
     @Query("UPDATE transactions SET isDeleted = 1, updatedAt = :updatedAt, isSynced = 0 WHERE tempTransactionServerId = :tempTransactionServerId")
@@ -131,13 +127,12 @@ public interface TransactionDao {
     LiveData<CalendarSummaryModel> getCalendarHeader(int accountId, long startDate, long endDate);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "WHERE t.accountId = :accountId AND t.transactionDate BETWEEN :start AND :end " +
             "AND t.isDeleted = 0 " +
             "ORDER BY t.transactionDate DESC")
@@ -260,14 +255,13 @@ public interface TransactionDao {
     LiveData<List<BreakdownChartModel>> getYearlyBreakdown(int accountId, int transactionType);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
-            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id=t.walletId " +
             "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory=t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id=t.categoryId AND c1.type=t.type " +
+            "JOIN categories c ON c.id=t.categoryId AND c.type = t.type " +
             "WHERE t.isDeleted=0 AND t.type = :transactionType " +
             "AND t.transactionDate BETWEEN :startDate AND :endDate " +
             "AND t.accountId=:accountId " +
@@ -285,14 +279,13 @@ public interface TransactionDao {
     LiveData<BalanceSummaryModel> accountSummaryById(int accountId);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
-            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
-            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +
             "AND w.accountId = :accountId " +
@@ -304,14 +297,13 @@ public interface TransactionDao {
     List<TransactionWithDetails> getTransactionsByCategory(int accountId, int walletId, int categoryId, int limit, int offset);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c1.name AS categoryName, " +
-            "CASE WHEN c.icon IS NULL THEN c1.icon ELSE c.icon END AS icon, " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
             "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
             "JOIN wallets w ON w.id = t.walletId " +
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
             "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
-            "LEFT JOIN categories c1 ON c1.id = t.categoryId AND c1.type = t.type " +
             "WHERE t.isDeleted = 0 " +
             "AND t.accountId = :accountId " +
             "AND w.accountId = :accountId " +
@@ -321,4 +313,10 @@ public interface TransactionDao {
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
     List<TransactionWithDetails> getTransactionsByWallet(int accountId, int walletId, int limit, int offset);
+
+    @Query("SELECT COUNT(*) FROM transactions WHERE categoryId = :categoryId AND isDeleted = 0")
+    int getTransactionCountByCategory(int categoryId);
+
+    @Query("UPDATE transactions SET defaultCategoryId = :defaultCategoryId, categoryId = :newCategoryId, updatedAt = :updatedAt WHERE categoryId = :oldCategoryId")
+    void moveTransactionsToCategory(int oldCategoryId, int newCategoryId, int defaultCategoryId, long updatedAt);
 }

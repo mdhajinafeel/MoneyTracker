@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/padding_10"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSelectCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:fontFamily="@font/exo2_bold"
+        android:text="@string/move_transaction_to"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSelectCategoryDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_22"
+        android:layout_marginTop="@dimen/margin_10"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="@dimen/margin_22"
+        android:background="@drawable/bg_box_purple_stroke"
+        android:backgroundTint="@color/light_lavender"
+        android:drawableStart="@drawable/ic_info"
+        android:drawablePadding="@dimen/padding_6"
+        android:drawableTint="@color/primary_dark"
+        android:fontFamily="@font/exo2_medium"
+        android:paddingStart="@dimen/padding_10"
+        android:paddingTop="@dimen/padding_6"
+        android:paddingEnd="@dimen/padding_10"
+        android:paddingBottom="@dimen/padding_6"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_12"
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectCategory" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCategory"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/selection_max_height"
+        android:layout_marginTop="@dimen/margin_12"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:overScrollMode="ifContentScrolls"
+        android:paddingTop="@dimen/padding_4"
+        android:paddingBottom="@dimen/padding_4"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectCategoryDesc" />
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_12"
+        android:visibility="visible"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvCategory">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvClose"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:text="@string/text_close"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_14"
+            app:fontFamily="@font/exo2_semibold" />
+
+        <!-- Delete / Remove -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContinue"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:letterSpacing="0.01"
+            android:text="@string/text_continue"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_12"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/corner_radius_6"
+            app:elevation="@dimen/corner_elevation_8" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -187,6 +187,90 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardCategoryStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_10"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardCategoryType"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/padding_10"
+                        android:paddingHorizontal="@dimen/padding_16">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivStatus"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            android:src="@drawable/ic_status"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/statusLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:fontFamily="@font/exo2_bold"
+                            android:text="@string/status"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:layout_constraintStart_toEndOf="@id/ivStatus"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textSize="@dimen/text_12"
+                            app:layout_constraintEnd_toStartOf="@+id/switchStatus"
+                            app:layout_constraintStart_toStartOf="@id/statusLabel"
+                            app:layout_constraintTop_toBottomOf="@id/statusLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/statusDescLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_16"
+                            android:layout_marginBottom="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_12"
+                            app:layout_constraintEnd_toStartOf="@+id/switchStatus"
+                            app:layout_constraintStart_toStartOf="@id/statusLabel"
+                            app:layout_constraintTop_toBottomOf="@id/tvStatus" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchStatus"
+                            android:layout_width="wrap_content"
+                            android:checked="true"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:thumbTint="@color/switch_thumb_selector"
+                            app:trackTint="@color/switch_track_selector" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/colorIconWrapper"
                     android:layout_width="0dp"
@@ -197,7 +281,7 @@
                     android:layout_marginBottom="@dimen/margin_6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cardCategoryType">
+                    app:layout_constraintTop_toBottomOf="@id/cardCategoryStatus">
 
                     <!-- 75% Guideline -->
                     <androidx.constraintlayout.widget.Guideline
@@ -341,7 +425,7 @@
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/category_28"
+                                    app:srcCompat="@drawable/category_102"
                                     app:tint="@color/primary_dark" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
                         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -410,16 +494,15 @@
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/switchIncludeView"
                             android:layout_width="wrap_content"
+                            android:checked="true"
                             android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:thumbTint="@color/switch_thumb_selector"
                             app:trackTint="@color/switch_track_selector" />
-
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

@@ -15,7 +15,10 @@ public class CategoryRepository {
         this.categoryDao = categoryDao;
     }
 
-    public LiveData<List<CategoryEntity>> fetchCategoriesByType(int type) {
+    public LiveData<List<CategoryEntity>> fetchCategoriesByType(int type, boolean activeCategory) {
+        if(activeCategory) {
+            return categoryDao.fetchCategoriesByType(type, true);
+        }
         return categoryDao.fetchCategoriesByType(type);
     }
 
@@ -28,5 +31,25 @@ public class CategoryRepository {
 
     public CategoryEntity getDefaultCategoryByType(int categoryId, int type) {
         return categoryDao.getDefaultCategoryByType(categoryId, type);
+    }
+
+    public void saveCategory(CategoryEntity category) {
+        categoryDao.insert(category);
+    }
+
+    public void updateCategory(CategoryEntity category) {
+        categoryDao.updateCategory(category);
+    }
+
+    public int getMaxOrder(int type) {
+        return categoryDao.getMaxOrder(type);
+    }
+
+    public boolean deleteCategory(int categoryId) {
+        return categoryDao.deleteCategory(categoryId, System.currentTimeMillis()) > 0;
+    }
+
+    public List<CategoryEntity> getCategoriesForMove(int type, int excludeCategoryId) {
+        return categoryDao.getCategoriesForMove(type, excludeCategoryId);
     }
 }

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_16"
+    app:cardElevation="@dimen/corner_elevation_8"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_20">
+
+        <!-- Delete Icon -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHeader"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="32dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/headerImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Title -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDeleteTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
+            android:textColor="@color/color_matte_black"
+            android:textSize="@dimen/text_18" />
+
+        <!-- Description -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDeleteMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:gravity="center"
+            android:fontFamily="@font/exo2_semibold"
+            android:lineSpacingExtra="1dp"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_12" />
+
+        <!-- Information Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardDeleteInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            app:cardBackgroundColor="@color/dim_income"
+            app:cardCornerRadius="@dimen/corner_radius_8"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/padding_12">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivDeleteInfo"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_complete"
+                    android:tint="@color/income" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDeleteInfoTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/no_transactions_found"
+                        android:textColor="@color/dark_income"
+                        android:textSize="@dimen/text_12" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDeleteInfoMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:text="@string/category_permanently_delete"
+                        android:textColor="@color/income"
+                        android:fontFamily="@font/exo2_medium"
+                        android:textSize="@dimen/text_12" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Buttons -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvClose"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_6"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/exo2_semibold"
+                android:gravity="center"
+                android:text="@string/text_close"
+                android:textAllCaps="true"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_semibold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDelete"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/margin_6"
+                android:layout_weight="0.5"
+                android:fontFamily="@font/exo2_semibold"
+                android:letterSpacing="0.01"
+                android:text="@string/move_delete"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_12"
+                app:backgroundTint="@color/primary"
+                app:cornerRadius="@dimen/corner_radius_6"
+                app:elevation="@dimen/corner_elevation_8" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

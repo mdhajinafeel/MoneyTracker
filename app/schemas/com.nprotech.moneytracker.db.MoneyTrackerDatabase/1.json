@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f90fd9328acbf9eaf7b94dfee50fdad2",
+    "identityHash": "37cbaa79345f17ae56cef170075cbfc2",
     "entities": [
       {
         "tableName": "currencies",
@@ -46,7 +46,7 @@
       },
       {
         "tableName": "categories",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `color` TEXT, `type` INTEGER NOT NULL, `active` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `icon` INTEGER NOT NULL, `defaultCategory` INTEGER NOT NULL, `isIncludeReport` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `color` TEXT, `type` INTEGER NOT NULL, `active` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `icon` INTEGER NOT NULL, `defaultCategory` INTEGER NOT NULL, `isIncludeReport` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -77,6 +77,12 @@
             "notNull": true
           },
           {
+            "fieldPath": "isDeleted",
+            "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
             "fieldPath": "ordering",
             "columnName": "ordering",
             "affinity": "INTEGER",
@@ -97,6 +103,12 @@
           {
             "fieldPath": "isIncludeReport",
             "columnName": "isIncludeReport",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -1058,7 +1070,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f90fd9328acbf9eaf7b94dfee50fdad2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '37cbaa79345f17ae56cef170075cbfc2')"
     ]
   }
 }

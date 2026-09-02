@@ -442,6 +442,7 @@
                 android:background="@drawable/bg_box_purple_stroke"
                 android:backgroundTint="@color/light_lavender"
                 android:drawableStart="@drawable/ic_info"
+                android:gravity="center_vertical"
                 android:drawablePadding="@dimen/padding_6"
                 android:drawableTint="@color/primary_dark"
                 android:fontFamily="@font/exo2_medium"

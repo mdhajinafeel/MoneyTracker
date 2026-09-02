@@ -130,13 +130,6 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
         notifyDataSetChanged();
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    public void resetFilter() {
-        mDataList.clear();
-        mDataList.addAll(mFullList);
-        notifyDataSetChanged();
-    }
-
     public void setHeaderLayout(int headerLayoutId) {
         this.mHeaderLayoutId = headerLayoutId;
     }
@@ -190,6 +183,11 @@ public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHo
         mDataList.remove(item);
         mFullList.remove(item);
         notifyDataSetChanged();
+    }
+
+    public void removeItem(int position) {
+        mDataList.remove(position);
+        notifyItemRemoved(position);
     }
 
     public void setFooterLayout(int footerLayoutId) {

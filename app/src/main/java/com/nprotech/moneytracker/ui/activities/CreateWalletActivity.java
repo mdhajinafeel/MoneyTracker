@@ -294,9 +294,10 @@ public class CreateWalletActivity extends BaseActivity {
 
             ivWalletIcon.setOnClickListener(view -> {
                 hideKeyboard(this);
-                Intent intent = new Intent(this, WalletPickerActivity.class);
+                Intent intent = new Intent(this, IconPickerActivity.class);
                 intent.putExtra("selectedColor", walletColorLists.get(colorSpinner.getSelectedItemPosition()));
-                intent.putExtra("selectedWalletIcon", walletIcon);
+                intent.putExtra("iconType", "wallet");
+                intent.putExtra("selectedIcon", walletIcon);
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
                 walletIconLauncher.launch(intent, options);
             });
