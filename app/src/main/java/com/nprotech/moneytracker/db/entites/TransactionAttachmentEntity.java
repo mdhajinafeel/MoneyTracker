@@ -27,5 +27,10 @@ public class TransactionAttachmentEntity implements Serializable {
     public String tempTransactionServerId;
     public long serverId;
     public String attachmentPath;
+    public String attachmentName;
+    public String attachmentExtension;
+    public long attachmentSize;
+    public long createdAt;
+    public long updatedAt;
     public int syncStatus = SYNC_PENDING;
 }

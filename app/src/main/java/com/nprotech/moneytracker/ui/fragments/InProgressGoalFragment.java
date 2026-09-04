@@ -338,7 +338,7 @@ public class InProgressGoalFragment extends Fragment {
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.category_light));
+        cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
 

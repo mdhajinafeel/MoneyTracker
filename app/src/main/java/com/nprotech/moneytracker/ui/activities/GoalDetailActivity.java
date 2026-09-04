@@ -798,7 +798,7 @@ public class GoalDetailActivity extends BaseActivity {
         tvTitle.setText(R.string.disable_auto_save);
         tvMessage.setText(R.string.disable_message);
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+        cardHeader.setCardBackgroundColor(getColor(R.color.dim_expense));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_remove));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
 
@@ -847,7 +847,7 @@ public class GoalDetailActivity extends BaseActivity {
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.category_light));
+        cardHeader.setCardBackgroundColor(getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_archive_outline));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
 
@@ -1022,21 +1022,21 @@ public class GoalDetailActivity extends BaseActivity {
             tvSubMessage.setText(R.string.remove_initial_sub_message);
             tvSubMessage.setVisibility(View.VISIBLE);
 
-            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            cardHeader.setCardBackgroundColor(getColor(R.color.dim_expense));
             headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_remove));
             headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         } else if (goal.getContribution().getType() == GoalContributionType.ADD) {
             tvTitle.setText(R.string.delete_contribution);
             tvMessage.setText(R.string.delete_contribution_message);
 
-            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            cardHeader.setCardBackgroundColor(getColor(R.color.dim_expense));
             headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_delete));
             headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         } else if (goal.getContribution().getType() == GoalContributionType.WITHDRAW) {
             tvTitle.setText(R.string.delete_withdrawal);
             tvMessage.setText(R.string.delete_withdrawal_message);
 
-            cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.dim_expense));
+            cardHeader.setCardBackgroundColor(getColor(R.color.dim_expense));
             headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_delete));
             headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.delete_red)));
         }

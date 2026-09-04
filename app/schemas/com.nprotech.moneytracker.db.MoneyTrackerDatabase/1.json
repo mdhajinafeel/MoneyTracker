@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "37cbaa79345f17ae56cef170075cbfc2",
+    "identityHash": "8bd865129c5cf3e337561b2b92ef0da3",
     "entities": [
       {
         "tableName": "currencies",
@@ -638,7 +638,7 @@
       },
       {
         "tableName": "transactions_attachment",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `attachmentPath` TEXT, `syncStatus` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `attachmentPath` TEXT, `attachmentName` TEXT, `attachmentExtension` TEXT, `attachmentSize` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `syncStatus` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -661,6 +661,34 @@
             "fieldPath": "attachmentPath",
             "columnName": "attachmentPath",
             "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "attachmentName",
+            "columnName": "attachmentName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "attachmentExtension",
+            "columnName": "attachmentExtension",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "attachmentSize",
+            "columnName": "attachmentSize",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "syncStatus",
@@ -1070,7 +1098,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '37cbaa79345f17ae56cef170075cbfc2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8bd865129c5cf3e337561b2b92ef0da3')"
     ]
   }
 }

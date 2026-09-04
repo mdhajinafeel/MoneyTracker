@@ -6,18 +6,18 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -82,22 +83,25 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CreateTransactionActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
-    private AppCompatImageView icBack, noteImage;
-    private AppCompatTextView tvSave, tvTitle, tvAmount, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletTitleLabel;
+    private AppCompatImageView icBack;
+    private AppCompatTextView tvSave, tvTitle, tvAmount, tvDay, tvHour, tvCategory, tvFee, tvFromWallet, tvWallet, walletTitleLabel, attachmentTitleLabel;
     private AppCompatEditText etDescription, etMemo;
+    private ConstraintLayout attachFileContainer;
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher;
     private MaterialCardView cardAmount, cardFromWallet, cardWallet, cardFee, cardCategory;
     private MaterialButton btnIncome, btnExpense, btnTransfer;
     private MaterialButtonToggleGroup toggleTransactionType;
     private NestedScrollView scrollView;
-    private RecyclerView rvNoteImage;
+    private RecyclerView rvAttachmentImage;
     private RecyclerViewAdapter<Uri> uriRecyclerViewAdapter;
     private Date date;
     private long transactionDate;
@@ -113,9 +117,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private double transactionAmount = 0, transactionFee = 0, existingAmount = 0;
     private Uri cameraTempUri;
     private final List<Uri> selectedFileUri = new ArrayList<>();
+    private final List<String> existingAttachmentPaths = new ArrayList<>();
     private String tempTransactionServerId;
     private TransactionWithDetails transactionWithDetails;
     private Typeface medium, semiBold;
+    private static final String ADD_MORE_URI = "expenixo://add_more";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,6 +135,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
+            View rootView = findViewById(R.id.rootView);
             scrollView = findViewById(R.id.scrollView);
             tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             tvSave = toolbarWrapper.findViewById(R.id.tvSave);
@@ -150,8 +157,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             cardAmount = findViewById(R.id.cardAmount);
             cardFee = findViewById(R.id.cardFee);
             cardCategory = findViewById(R.id.cardCategory);
-            noteImage = findViewById(R.id.noteImage);
-            rvNoteImage = findViewById(R.id.rvNoteImage);
+            attachmentTitleLabel = findViewById(R.id.attachmentTitleLabel);
+            attachFileContainer = findViewById(R.id.attachFileContainer);
+            rvAttachmentImage = findViewById(R.id.rvAttachmentImage);
             toggleTransactionType = findViewById(R.id.toggleTransactionType);
             btnExpense = findViewById(R.id.btnExpense);
             btnIncome = findViewById(R.id.btnIncome);
@@ -163,9 +171,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(scrollView, (view, insets) -> {
-                Insets imeInsets = insets.getInsets(WindowInsetsCompat.Type.ime());
-                view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), imeInsets.bottom);
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -185,11 +193,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 btnTransfer.setTypeface(medium);
 
                 if (Objects.equals(action, "add")) {
-                    toggleTransactionType.check(R.id.btnExpense);
+                    toggleTransactionType.setVisibility(View.VISIBLE);
                     switchTransMode(2);
                 } else if (Objects.equals(action, "edit")) {
                     toggleTransactionType.setVisibility(View.GONE);
-
                     if (transactionType == 1) {
                         tvTitle.setText(getString(R.string.income));
                     } else if (transactionType == 2) {
@@ -197,8 +204,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     } else {
                         tvTitle.setText(getString(R.string.transfer));
                     }
-
-                    transactionWithDetails = IntentUtils.getSerializableExtra(getIntent(), "transactionDetail", TransactionWithDetails.class);
+                    tempTransactionServerId = bundle.getString("transactionId", "");
                 }
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
@@ -208,7 +214,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 transactionDate = bundle.getLong("transactionDate", System.currentTimeMillis());
 
-                backPressed();
                 makeReadOnly();
                 setupListeners();
                 setupLauncher();
@@ -227,6 +232,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private void bindData(boolean isEdit) {
         try {
             if (isEdit) {
+
+                transactionWithDetails = transactionViewModel.getTransactions(tempTransactionServerId);
 
                 account = accountViewModel.getAccountDetailById((int) transactionWithDetails.transaction.accountId);
                 walletLists = accountViewModel.getWalletsByAccountId((int) transactionWithDetails.transaction.accountId);
@@ -287,13 +294,20 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 List<TransactionAttachmentEntity> attachments = transactionViewModel.getTransactionAttachments(transactionWithDetails.transaction.tempTransactionServerId);
 
                 if (attachments != null && !attachments.isEmpty()) {
+                    selectedFileUri.clear();
+                    existingAttachmentPaths.clear();
                     for (TransactionAttachmentEntity attachment : attachments) {
                         File file = new File(attachment.attachmentPath);
                         if (file.exists()) {
                             selectedFileUri.add(Uri.fromFile(file));
+                            existingAttachmentPaths.add(file.getAbsolutePath());
                         }
                     }
-                    showPreviewFromUri(selectedFileUri);
+                    refreshAttachmentList();
+                } else {
+                    selectedFileUri.clear();
+                    existingAttachmentPaths.clear();
+                    attachmentTitleLabel.setText(getString(R.string.attachment_title, 0));
                 }
             } else {
 
@@ -318,11 +332,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 }
 
                 updateAmountText();
+                selectedFileUri.clear();
+                attachmentTitleLabel.setText(getString(R.string.attachment_title, 0));
             }
 
             tvDay.setText(DateHelper.getFormattedDate(date));
             tvHour.setText(DateHelper.getFormattedTime(getApplicationContext(), date));
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -347,6 +362,15 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 finish();
                 ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
+
+            getOnBackPressedDispatcher().addCallback(this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(CreateTransactionActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                        }
+                    });
 
             tvDay.setOnClickListener(view -> {
                 hideKeyboard(this);
@@ -436,7 +460,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 }
             });
 
-            noteImage.setOnClickListener(view -> {
+            attachFileContainer.setOnClickListener(view -> {
                 hideKeyboard(this);
                 showPicker();
             });
@@ -444,8 +468,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             tvSave.setOnClickListener(view -> saveTransaction());
 
             transactionViewModel.getDataSavedStatus().observe(this, aBoolean -> {
-                if (Boolean.TRUE.equals(aBoolean)) {
 
+                tvSave.setEnabled(true);
+
+                if (Boolean.TRUE.equals(aBoolean)) {
                     List<TransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
                     if (!selectedFileUri.isEmpty()) {
                         for (Uri uri : selectedFileUri) {
@@ -456,6 +482,11 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                                 transactionAttachment.tempTransactionServerId = tempTransactionServerId;
                                 transactionAttachment.serverId = 0;
                                 transactionAttachment.attachmentPath = file.getAbsolutePath();
+                                transactionAttachment.attachmentName = CommonUtils.getFileName(uri, this);
+                                transactionAttachment.attachmentExtension = CommonUtils.getFileExtension(transactionAttachment.attachmentName);
+                                transactionAttachment.attachmentSize = file.length();
+                                transactionAttachment.createdAt = System.currentTimeMillis();
+                                transactionAttachment.updatedAt = System.currentTimeMillis();
 
                                 attachmentEntities.add(transactionAttachment);
                             } catch (Exception e) {
@@ -479,11 +510,16 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             transactionViewModel.getDataUpdatedStatus().observe(this, aBoolean -> {
 
+                if (!Boolean.TRUE.equals(aBoolean)) {
+                    return;
+                }
+                tvSave.setEnabled(true);
+                saveNewAttachments();
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("isSaved", false);
                 resultIntent.putExtra("isUpdated", true);
                 resultIntent.putExtra("tempTransactionServerId", transactionWithDetails.transaction.tempTransactionServerId);
-                setResult(Activity.RESULT_OK, resultIntent);
+                setResult(RESULT_OK, resultIntent);
                 finish();
             });
         } catch (Exception e) {
@@ -727,49 +763,178 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private void initializeAdapter() {
         try {
-            uriRecyclerViewAdapter = new RecyclerViewAdapter<>(this, selectedFileUri, R.layout.item_transaction_images) {
-                @SuppressLint("NotifyDataSetChanged")
+            uriRecyclerViewAdapter = new RecyclerViewAdapter<>(this, selectedFileUri, R.layout.item_transaction_attachment) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, Uri uri) {
+                    if (uri != null) {
+                        View addMoreContainer = holder.getView(R.id.addMoreContainer);
+                        View attachmentPreview = holder.getView(R.id.cardAttachmentPreview);
+                        View deleteButton = holder.getView(R.id.cardDelete);
 
-                    AppCompatImageView ivImage = holder.getView(R.id.ivNotePhoto);
+                        AppCompatImageView ivAttachmentPreview = holder.getView(R.id.ivAttachmentPreview);
+                        AppCompatImageView ivAttachmentFileType = holder.getView(R.id.ivAttachmentFileType);
+                        AppCompatTextView tvAttachmentName = holder.getView(R.id.tvAttachmentName);
+                        AppCompatTextView tvAttachmentSize = holder.getView(R.id.tvAttachmentSize);
 
-                    String mime = getContentResolver().getType(uri);
-
-                    if (mime == null) {
-                        String path = uri.getPath();
-                        String extension = MimeTypeMap.getFileExtensionFromUrl(path);
-
-                        if (!TextUtils.isEmpty(extension)) {
-                            mime = MimeTypeMap.getSingleton()
-                                    .getMimeTypeFromExtension(extension.toLowerCase());
+                        // =====================================
+                        // ADD MORE ITEM
+                        // =====================================
+                        if (ADD_MORE_URI.equals(uri.toString())) {
+                            addMoreContainer.setVisibility(View.VISIBLE);
+                            attachmentPreview.setVisibility(View.GONE);
+                            deleteButton.setVisibility(View.GONE);
+                            tvAttachmentName.setVisibility(View.GONE);
+                            tvAttachmentSize.setVisibility(View.GONE);
+                            addMoreContainer.setOnClickListener(v -> {
+                                hideKeyboard(CreateTransactionActivity.this);
+                                if (selectedFileUri.size() < 5) {
+                                    showPicker();
+                                }
+                            });
+                            return;
                         }
-                    }
 
-                    if (mime != null && mime.startsWith("image")) {
-                        Glide.with(ivImage.getContext())
-                                .load(uri)
-                                .into(ivImage);
-                    } else {
-                        ivImage.setImageResource(getFileIconFromUri(uri));
-                    }
+                        // =========================================
+                        // NORMAL ATTACHMENT ITEM
+                        // =========================================
+                        addMoreContainer.setVisibility(View.GONE);
+                        attachmentPreview.setVisibility(View.VISIBLE);
+                        deleteButton.setVisibility(View.VISIBLE);
+                        tvAttachmentName.setVisibility(View.VISIBLE);
+                        tvAttachmentSize.setVisibility(View.VISIBLE);
 
-                    holder.getView(R.id.cardDelete).setOnClickListener(v -> {
-                        selectedFileUri.remove(uri);
-                        uriRecyclerViewAdapter.remove(uri);
-                        deleteAttachment(uri, transactionWithDetails != null);
-                        rvNoteImage.setVisibility(selectedFileUri.isEmpty() ? View.GONE : View.VISIBLE);
-                        noteImage.setVisibility(selectedFileUri.size() == 5 ? View.GONE : View.VISIBLE);
-                    });
+                        // =========================================
+                        // FILE TYPE
+                        // =========================================
+                        String mime = getContentResolver().getType(uri);
+                        if (mime == null) {
+                            String extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString());
+                            if (!TextUtils.isEmpty(extension)) {
+                                mime = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
+                            }
+                        }
+
+                        // =========================================
+                        // IMAGE & FILE
+                        // =========================================
+                        if (mime != null && mime.startsWith("image/")) {
+                            Glide.with(ivAttachmentPreview.getContext())
+                                    .load(uri)
+                                    .into(ivAttachmentPreview);
+                            ivAttachmentPreview.setVisibility(View.VISIBLE);
+                            ivAttachmentFileType.setVisibility(View.GONE);
+                        } else {
+                            ivAttachmentPreview.setVisibility(View.GONE);
+                            ivAttachmentFileType.setVisibility(View.VISIBLE);
+                            ivAttachmentFileType.setImageResource(getFileIconFromUri(uri));
+                        }
+
+                        // =========================================
+                        // FILE NAME
+                        // =========================================
+                        String fileName = CommonUtils.getFileName(uri, CreateTransactionActivity.this);
+                        if (TextUtils.isEmpty(fileName)) {
+                            fileName = "attachment";
+                        }
+                        tvAttachmentName.setText(fileName);
+                        tvAttachmentName.setSelected(true);
+
+                        // =========================================
+                        // FILE SIZE
+                        // =========================================
+                        long fileSize = CommonUtils.getFileSize(uri, CreateTransactionActivity.this);
+                        tvAttachmentSize.setText(Formatter.formatFileSize(CreateTransactionActivity.this, fileSize));
+
+                        // =========================================
+                        // DELETE
+                        // =========================================
+                        deleteButton.setOnClickListener(v -> {
+                            int position = selectedFileUri.indexOf(uri);
+                            if (position != -1) {
+                                boolean isExistingAttachment = "file".equalsIgnoreCase(uri.getScheme()) && existingAttachmentPaths.contains(uri.getPath());
+                                selectedFileUri.remove(position);
+                                if (isExistingAttachment) {
+                                    transactionViewModel.deleteAttachment(uri.getPath(), transactionWithDetails.transaction.tempTransactionServerId);
+                                    deleteLocalFile(uri.getPath());
+                                } else {
+                                    deleteTemporaryUri(uri);
+                                }
+                                refreshAttachmentList();
+                            }
+                        });
+                    }
                 }
             };
 
-            rvNoteImage.setAdapter(uriRecyclerViewAdapter);
-            rvNoteImage.setHasFixedSize(true);
-            rvNoteImage.setItemAnimator(null);
-            rvNoteImage.setLayoutManager(new GridLayoutManager(this, 3));
+            rvAttachmentImage.setAdapter(uriRecyclerViewAdapter);
+            rvAttachmentImage.setHasFixedSize(true);
+            rvAttachmentImage.setItemAnimator(null);
+            rvAttachmentImage.setLayoutManager(new GridLayoutManager(this, 3));
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapter", e);
+        }
+    }
+
+    private void deleteTemporaryUri(Uri uri) {
+        try {
+            if (uri == null) {
+                return;
+            }
+
+            if ("content".equalsIgnoreCase(uri.getScheme())) {
+                return;
+            }
+
+            if ("file".equalsIgnoreCase(uri.getScheme())) {
+                File file = new File(Objects.requireNonNull(uri.getPath()));
+
+                if (file.exists() && !file.delete()) {
+                    AppLogger.d(getClass(), "Failed to delete file: " + file.getAbsolutePath());
+                }
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteTemporaryUri", e);
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshAttachmentList() {
+        try {
+            int count = selectedFileUri.size();
+            // =========================================
+            // UPDATE TITLE
+            // =========================================
+            attachmentTitleLabel.setText(getString(R.string.attachment_title, count));
+
+            // =========================================
+            // NO ATTACHMENTS
+            // =========================================
+            if (count == 0) {
+                attachFileContainer.setVisibility(View.VISIBLE);
+                rvAttachmentImage.setVisibility(View.GONE);
+                return;
+            }
+
+            // =========================================
+            // HAS ATTACHMENTS
+            // =========================================
+
+            // Hide original large dashed container
+            attachFileContainer.setVisibility(View.GONE);
+
+            // Show RecyclerView
+            rvAttachmentImage.setVisibility(View.VISIBLE);
+
+            // =========================================
+            // BUILD GRID ITEMS
+            // =========================================
+            List<Uri> items = new ArrayList<>(selectedFileUri);
+            if (count < 5) {
+                items.add(Uri.parse(ADD_MORE_URI));
+            }
+            uriRecyclerViewAdapter.setItems(items);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "refreshAttachmentList", e);
         }
     }
 
@@ -823,6 +988,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         galleryLauncher.launch(intent);
     }
 
@@ -833,25 +999,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         fileLauncher.launch(intent);
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private void showPreviewFromUri(List<Uri> fileUris) {
-
-        if (fileUris == null || fileUris.isEmpty()) {
-            rvNoteImage.setVisibility(View.GONE);
-            return;
-        }
-
-        rvNoteImage.setVisibility(View.VISIBLE);
-
-        // Update adapter data
-        uriRecyclerViewAdapter.setItems(fileUris);
-
-        noteImage.setVisibility(fileUris.size() == 5 ? View.GONE : View.VISIBLE);
-    }
-
     private int getFileIconFromUri(Uri uri) {
 
-        String name = getFileNameFromUri(uri).toLowerCase();
+        String name = CommonUtils.getFileName(uri, this).toLowerCase();
 
         if (name.endsWith(".pdf")) return R.drawable.ic_file_pdf;
         if (name.endsWith(".doc") || name.endsWith(".docx")) return R.drawable.ic_file_doc;
@@ -863,70 +1013,6 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         if (name.endsWith(".xml")) return R.drawable.ic_file_xml;
 
         return R.drawable.ic_file_generic;
-    }
-
-    private String getFileNameFromUri(Uri uri) {
-        String result = null;
-
-        if ("content".equals(uri.getScheme())) {
-            try (Cursor cursor = getContentResolver()
-                    .query(uri, null, null, null, null)) {
-
-                if (cursor != null && cursor.moveToFirst()) {
-                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                    if (index != -1) {
-                        result = cursor.getString(index);
-                    }
-                }
-            } catch (Exception e) {
-                AppLogger.e(getClass(), "getFileNameFromUri", e);
-            }
-        }
-
-        if (result == null) {
-            result = uri.getLastPathSegment();
-        }
-
-        return result;
-    }
-
-    private void deleteCameraTempFile(Uri uri) {
-        try {
-
-            if (uri != null) {
-                File tempFile = new File(Objects.requireNonNull(uri.getPath()));
-                if (tempFile.exists()) {
-                    if (tempFile.delete()) {
-                        AppLogger.d(getClass(), "Camera temp file deleted");
-                    }
-                }
-            } else {
-                if (cameraTempUri != null) {
-                    File tempFile = new File(Objects.requireNonNull(cameraTempUri.getPath()));
-                    if (tempFile.exists()) {
-                        if (tempFile.delete()) {
-                            AppLogger.d(getClass(), "Camera temp file deleted");
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "deleteCameraTempFile", e);
-        }
-    }
-
-    private void deleteAttachment(Uri uri, boolean isEdit) {
-
-        if (isEdit) {
-            // 1. Delete from database
-            transactionViewModel.deleteAttachment(uri.getPath(), transactionWithDetails.transaction.tempTransactionServerId);
-
-            // 2. Delete local file
-            deleteLocalFile(uri.getPath());
-        } else {
-            // Temporary camera/gallery file
-            deleteCameraTempFile(uri);
-        }
     }
 
     private void deleteLocalFile(String filePath) {
@@ -970,25 +1056,33 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private File saveFinalFile(Uri uri, String transactionId) throws Exception {
 
-        // uploads/{transactionId}/
         File dir = new File(getFilesDir(), "uploads" + File.separator + transactionId);
 
         if (!dir.exists() && !dir.mkdirs()) {
             AppLogger.w(getClass(), "Failed to create transaction folder");
         }
 
-        String name = getFileNameFromUri(uri);
-        String extension = name.contains(".") ? name.substring(name.lastIndexOf(".")) : ".bin";
+        String name = CommonUtils.getFileName(uri, this);
+        String extension = "";
 
-        File outFile = new File(dir, "FILE_" + System.currentTimeMillis() + extension);
+        int dotIndex = name.lastIndexOf('.');
+        if (dotIndex > 0 && dotIndex < name.length() - 1) {
+            extension = name.substring(dotIndex).toLowerCase(Locale.ROOT);
+        }
+
+        if (extension.isEmpty()) {
+            extension = ".bin";
+        }
+
+        File outFile = new File(dir, "FILE_" + UUID.randomUUID() + extension);
 
         String mime = getContentResolver().getType(uri);
 
-        if (mime != null && mime.startsWith("image")) {
+        if (mime != null && mime.startsWith("image/")) {
             return compressImageKeepResolution(uri, outFile);
-        } else {
-            return copyUriToFile(uri, outFile);
         }
+
+        return copyUriToFile(uri, outFile);
     }
 
     private File copyUriToFile(Uri uri, File outFile) throws Exception {
@@ -1053,30 +1147,67 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         startActivity(intent);
     }
 
-    ActivityResultLauncher<Intent> cameraLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK) {
-
+    ActivityResultLauncher<Intent> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK && cameraTempUri != null && selectedFileUri.size() < 5) {
                     selectedFileUri.add(cameraTempUri);
-                    showPreviewFromUri(selectedFileUri);
+                    refreshAttachmentList();
                 }
-            });
+            }
+    );
 
-    ActivityResultLauncher<Intent> galleryLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    selectedFileUri.add(result.getData().getData());
-                    showPreviewFromUri(selectedFileUri);
-                }
-            });
+    ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
 
-    ActivityResultLauncher<Intent> fileLauncher =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    selectedFileUri.add(result.getData().getData());
-                    showPreviewFromUri(selectedFileUri);
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
                 }
-            });
+
+                Intent data = result.getData();
+
+                if (data == null) {
+                    return;
+                }
+
+                ClipData clipData = data.getClipData();
+                if (clipData != null) {
+                    int remaining = 5 - selectedFileUri.size();
+                    for (int i = 0; i < clipData.getItemCount() && remaining > 0; i++) {
+                        Uri uri = clipData.getItemAt(i).getUri();
+                        if (uri != null && !selectedFileUri.contains(uri)) {
+                            selectedFileUri.add(uri);
+                            remaining--;
+                        }
+                    }
+                } else {
+                    Uri uri = data.getData();
+                    if (uri != null && selectedFileUri.size() < 5 && !selectedFileUri.contains(uri)) {
+                        selectedFileUri.add(uri);
+                    }
+                }
+                refreshAttachmentList();
+            }
+    );
+
+    ActivityResultLauncher<Intent> fileLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() != RESULT_OK) {
+                    return;
+                }
+
+                Intent data = result.getData();
+
+                if (data == null) {
+                    return;
+                }
+
+                Uri uri = data.getData();
+                if (uri != null && selectedFileUri.size() < 5 && !selectedFileUri.contains(uri)) {
+                    selectedFileUri.add(uri);
+                    refreshAttachmentList();
+                }
+            }
+    );
 
     private final ActivityResultLauncher<String> cameraPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -1089,6 +1220,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private void saveTransaction() {
         try {
+            tvSave.setEnabled(false);
             switch (transactionType) {
                 case 1:
                     saveIncomeTransaction();
@@ -1432,15 +1564,39 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         tvAmount.setText(CommonUtils.getBeautifyAmount(symbol, transactionAmount));
     }
 
-    private void backPressed() {
-        getOnBackPressedDispatcher().addCallback(this,
-                new OnBackPressedCallback(true) {
-                    @Override
-                    public void handleOnBackPressed() {
-                        finish();
-                        ActivityUtils.overrideCloseTransition(CreateTransactionActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                    }
-                });
+    private void saveNewAttachments() {
+        try {
+
+            if (selectedFileUri.isEmpty()) {
+                return;
+            }
+
+            List<TransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
+
+            for (Uri uri : selectedFileUri) {
+                if ("file".equalsIgnoreCase(uri.getScheme()) && existingAttachmentPaths.contains(uri.getPath())) {
+                    continue;
+                }
+
+                File file = saveFinalFile(uri, tempTransactionServerId);
+                TransactionAttachmentEntity attachment = new TransactionAttachmentEntity();
+                attachment.tempTransactionServerId = tempTransactionServerId;
+                attachment.serverId = 0;
+                attachment.attachmentPath = file.getAbsolutePath();
+                attachment.attachmentName = CommonUtils.getFileName(uri, this);
+                attachment.attachmentExtension = CommonUtils.getFileExtension(attachment.attachmentName);
+                attachment.attachmentSize = file.length();
+                attachment.createdAt = System.currentTimeMillis();
+                attachment.updatedAt = System.currentTimeMillis();
+                attachmentEntities.add(attachment);
+            }
+
+            if (!attachmentEntities.isEmpty()) {
+                transactionViewModel.saveTransactionAttachment(attachmentEntities);
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "saveNewAttachments", e);
+        }
     }
 
     @Override

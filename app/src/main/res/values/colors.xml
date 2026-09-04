@@ -127,4 +127,11 @@
     <color name="success">#198754</color>
     <color name="success_light">#E8F5E9</color>
     <color name="color_matte_black">#171717</color>
+
+    <color name="color_income_card">#F2FBF3</color>
+    <color name="color_income_circle">#B7E8C0</color>
+    <color name="color_expense_card">#FFF3F3</color>
+    <color name="color_expense_circle">#F8B4B4</color>
+    <color name="color_transfer_card">#F2F6FF</color>
+    <color name="color_transfer_circle">#B8CDF8</color>
 </resources>

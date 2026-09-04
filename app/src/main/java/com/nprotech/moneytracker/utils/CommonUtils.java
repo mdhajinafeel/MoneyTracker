@@ -2,12 +2,15 @@ package com.nprotech.moneytracker.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ClipDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
+import android.provider.OpenableColumns;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +31,7 @@ import com.nprotech.moneytracker.helper.AppLogger;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -293,5 +297,74 @@ public class CommonUtils {
         }
 
         textView.setCompoundDrawables(start, null, end, null);
+    }
+
+    // =========================================================
+    // FILE NAME & EXTENSION
+    // =========================================================
+
+    public static String getFileName(Uri uri, Context context) {
+        String fileName = null;
+
+        if ("content".equalsIgnoreCase(uri.getScheme())) {
+            try (Cursor cursor = context.getContentResolver().query(uri, new String[]{OpenableColumns.DISPLAY_NAME},
+                    null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (index >= 0) {
+                        fileName = cursor.getString(index);
+                    }
+                }
+            }
+        }
+
+        if (fileName == null) {
+            fileName = uri.getLastPathSegment();
+        }
+
+        return fileName != null ? fileName : "attachment";
+    }
+
+    public static String getFileExtension(String fileName) {
+        if (fileName == null) {
+            return "";
+        }
+
+        int dotIndex = fileName.lastIndexOf('.');
+
+        if (dotIndex <= 0 || dotIndex == fileName.length() - 1) {
+            return "";
+        }
+
+        return fileName.substring(dotIndex + 1).toLowerCase(Locale.ROOT);
+    }
+
+    public static long getFileSize(Uri uri, Context context) {
+        try {
+            if ("file".equalsIgnoreCase(uri.getScheme())) {
+                String path = uri.getPath();
+                if (path != null) {
+                    File file = new File(path);
+                    if (file.exists()) {
+                        return file.length();
+                    }
+                }
+            }
+
+            if ("content".equalsIgnoreCase(uri.getScheme())) {
+                try (Cursor cursor = context.getContentResolver().query(uri, new String[]{OpenableColumns.SIZE}, null, null, null)) {
+
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int sizeIndex = cursor.getColumnIndex(OpenableColumns.SIZE);
+                        if (sizeIndex != -1 && !cursor.isNull(sizeIndex)) {
+                            return cursor.getLong(sizeIndex);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            AppLogger.e(context.getClass(), "getFileSize", e);
+        }
+        return 0;
     }
 }

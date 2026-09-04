@@ -519,7 +519,7 @@ public class BackupHistoryActivity extends BaseActivity {
         tvDelete.setText(getString(R.string.restore));
         tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.backup_light));
+        cardHeader.setCardBackgroundColor(getColor(R.color.backup_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_refresh_time));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.backup_dark)));
 
@@ -710,7 +710,7 @@ public class BackupHistoryActivity extends BaseActivity {
         tvDelete.setText(R.string.allow_access);
         tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.category_light));
+        cardHeader.setCardBackgroundColor(getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_folder_access));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
 

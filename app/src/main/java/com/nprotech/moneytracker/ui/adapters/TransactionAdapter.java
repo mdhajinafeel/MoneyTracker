@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -153,13 +154,14 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             feeAmountLabel.setVisibility(View.GONE);
         }
 
+        CommonUtils.setDrawable(context, holder.getView(R.id.timeLabel), R.drawable.ic_time, R.dimen.icon_14, R.color.color_matte_black, Gravity.START);
         holder.setViewText(R.id.timeLabel, new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date(transaction.transactionDate)));
         amountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, amount));
         amountLabel.setTextColor(color);
 
         itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, TransactionDetailActivity.class);
-            intent.putExtra("transactionDetail", item);
+            intent.putExtra("transactionId", item.transaction.tempTransactionServerId);
             context.startActivity(intent);
 
             if (context instanceof Activity) {

@@ -32,9 +32,21 @@
     <string name="date_compare">End Date must be greater than Start Date</string>
     <string name="date_amp_time"><![CDATA[Date & Time]]></string>
     <string name="future">Future</string>
+    <string name="add_files">Add photos or files (Max 5 files)</string>
+    <string name="attachment_title">Attachments (%1$d/5)</string>
+    <string name="tap_add_attach">Tap to add attachment</string>
+    <string name="attachment_extension">Images, PDF, Docs, Excel, Zip etc.</string>
+    <string name="add_more">Add More</string>
+    <string name="file_not_found">File not found</string>
+    <string name="unable_to_open_attachment">Unable to open attachment</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>
         <item quantity="other">%d transactions</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Attachment (%d)</item>
+        <item quantity="other">Attachments (%d)</item>
     </plurals>
 </resources>

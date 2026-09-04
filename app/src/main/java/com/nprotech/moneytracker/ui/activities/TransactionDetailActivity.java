@@ -1,14 +1,13 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
-import android.graphics.BlendMode;
-import android.graphics.BlendModeColorFilter;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -18,39 +17,56 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
+import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
-import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class TransactionDetailActivity extends BaseActivity {
 
-    private ConstraintLayout colorView;
-    private AppCompatImageView imageView;
-    private AppCompatTextView nameLabel, categoryLabel, amountLabel, dateLabel, fromWalletLabel, walletLabel, typeLabel, feeTitleLabel, feeLabel, memoTitleLabel,
-            memoLabel, categoryTitleLabel, fromWalletTitleLabel, walletTitleLabel;
+    private MaterialCardView cardTransactionSummary, cardTransactionIcon, cardTransactionAttachments;
+    private AppCompatImageView ivTransactionIcon, ivType;
+    private View decorCircleLarge, decorCircleSmall;
+    private AppCompatTextView tvTransactionStatus, tvTransactionAmount, tvTransactionDescription, tvCategory, tvAmount, tvFee, tvDateTime, tvWallet, tvType,
+            tvFromWallet, tvToWallet, tvDesc, tvNote, tvAttachmentTitle;
+    private LinearLayout layoutFee, layoutWallet, layoutFromWallet, layoutToWallet, layoutDescription, layoutNotes;
     private AppCompatImageView icBack, ivDelete, ivEdit;
+    private RecyclerView rvAttachments;
+    private RecyclerViewAdapter<TransactionAttachmentEntity> attachmentAdapter;
     private TransactionWithDetails transactionWithDetails;
     private ActivityResultLauncher<Intent> transactionEditLauncher;
     private TransactionViewModel transactionViewModel;
@@ -68,36 +84,56 @@ public class TransactionDetailActivity extends BaseActivity {
 
     private void initComponents() {
         try {
+            View rootView = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             ivDelete = toolbarWrapper.findViewById(R.id.ivDelete);
             ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
+            cardTransactionSummary = findViewById(R.id.cardTransactionSummary);
+            cardTransactionIcon = findViewById(R.id.cardTransactionIcon);
+            cardTransactionAttachments = findViewById(R.id.cardTransactionAttachments);
+            ivTransactionIcon = findViewById(R.id.ivTransactionIcon);
+            decorCircleLarge = findViewById(R.id.decorCircleLarge);
+            decorCircleSmall = findViewById(R.id.decorCircleSmall);
+            tvTransactionStatus = findViewById(R.id.tvTransactionStatus);
+            tvTransactionAmount = findViewById(R.id.tvTransactionAmount);
+            tvTransactionDescription = findViewById(R.id.tvTransactionDescription);
+
+            tvCategory = findViewById(R.id.tvCategory);
+            tvFee = findViewById(R.id.tvFee);
+            tvAmount = findViewById(R.id.tvAmount);
+            tvDateTime = findViewById(R.id.tvDateTime);
+            tvWallet = findViewById(R.id.tvWallet);
+            tvType = findViewById(R.id.tvType);
+            ivType = findViewById(R.id.ivType);
+            tvFromWallet = findViewById(R.id.tvFromWallet);
+            tvToWallet = findViewById(R.id.tvToWallet);
+            tvDesc = findViewById(R.id.tvDesc);
+            tvNote = findViewById(R.id.tvNote);
+            tvAttachmentTitle = findViewById(R.id.tvAttachmentTitle);
+            layoutFee = findViewById(R.id.layoutFee);
+            layoutWallet = findViewById(R.id.layoutWallet);
+            layoutFromWallet = findViewById(R.id.layoutFromWallet);
+            layoutToWallet = findViewById(R.id.layoutToWallet);
+            layoutDescription = findViewById(R.id.layoutDescription);
+            layoutNotes = findViewById(R.id.layoutNotes);
+            rvAttachments = findViewById(R.id.rvAttachments);
 
             ivEdit.setVisibility(View.VISIBLE);
             ivDelete.setVisibility(View.VISIBLE);
 
             tvTitle.setText(R.string.detail);
-            colorView = findViewById(R.id.colorView);
-            imageView = findViewById(R.id.imageView);
-            nameLabel = findViewById(R.id.nameLabel);
-            categoryTitleLabel = findViewById(R.id.categoryTitleLabel);
-            categoryLabel = findViewById(R.id.categoryLabel);
-            amountLabel = findViewById(R.id.amountLabel);
-            dateLabel = findViewById(R.id.dateLabel);
-            fromWalletTitleLabel = findViewById(R.id.fromWalletTitleLabel);
-            walletTitleLabel = findViewById(R.id.walletTitleLabel);
-            fromWalletLabel = findViewById(R.id.fromWalletLabel);
-            walletLabel = findViewById(R.id.walletLabel);
-            typeLabel = findViewById(R.id.typeLabel);
-            feeTitleLabel = findViewById(R.id.feeTitleLabel);
-            feeLabel = findViewById(R.id.feeLabel);
-            memoTitleLabel = findViewById(R.id.memoTitleLabel);
-            memoLabel = findViewById(R.id.memoLabel);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
                 v.setPadding(v.getPaddingLeft(), top, v.getPaddingRight(), v.getPaddingBottom());
+                return insets;
+            });
+
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
 
@@ -108,8 +144,10 @@ public class TransactionDetailActivity extends BaseActivity {
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
 
-                transactionWithDetails = IntentUtils.getSerializableExtra(getIntent(), "transactionDetail", TransactionWithDetails.class);
+                String transactionId = bundle.getString("transactionId", "");
+                transactionWithDetails = transactionViewModel.getTransactions(transactionId);
 
+                initializeAttachmentAdapter();
                 bindData(transactionWithDetails);
                 setupListeners();
                 setupLauncher();
@@ -125,84 +163,264 @@ public class TransactionDetailActivity extends BaseActivity {
 
     private void bindData(TransactionWithDetails transactionWithDetail) {
         try {
-            TransactionEntity transaction = transactionWithDetail.transaction;
 
-            if (Build.VERSION.SDK_INT >= 29) {
-                colorView.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(transactionWithDetail.color), BlendMode.SRC_OVER));
-            } else {
-                Drawable drawable = colorView.getBackground().mutate();
-                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-                DrawableCompat.setTint(drawable, Color.parseColor(transactionWithDetail.color));
-                colorView.setBackground(drawable);
+            TransactionEntity transaction = transactionWithDetail.transaction;
+            List<TransactionAttachmentEntity> attachments = transactionViewModel.getTransactionAttachments(transaction.tempTransactionServerId);
+
+            if (transaction.type == TransactionEntity.TYPE_INCOME) {
+                cardTransactionSummary.setCardBackgroundColor(getColor(R.color.color_income_card));
+                cardTransactionSummary.setStrokeColor(getColor(R.color.income));
+                cardTransactionIcon.setCardBackgroundColor(Color.parseColor(transactionWithDetail.color));
+
+                decorCircleLarge.setBackgroundTintList(getColorStateList(R.color.color_income_circle));
+                decorCircleSmall.setBackgroundTintList(getColorStateList(R.color.color_income_circle));
+
+                tvTransactionStatus.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_income));
+                tvTransactionStatus.setText(getString(R.string.income));
+                tvTransactionStatus.setTextColor(getColor(R.color.income));
+                tvType.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_income));
+                tvType.setText(getString(R.string.income));
+                tvType.setTextColor(getColor(R.color.income));
+                ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_income));
+
+                tvWallet.setText(transactionWithDetail.walletName);
+
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutFromWallet.setVisibility(View.GONE);
+                layoutToWallet.setVisibility(View.GONE);
+                layoutFee.setVisibility(View.GONE);
+            } else if (transaction.type == TransactionEntity.TYPE_EXPENSE) {
+                cardTransactionSummary.setCardBackgroundColor(getColor(R.color.color_expense_card));
+                cardTransactionSummary.setStrokeColor(getColor(R.color.expense));
+                cardTransactionIcon.setCardBackgroundColor(Color.parseColor(transactionWithDetail.color));
+
+                decorCircleLarge.setBackgroundTintList(getColorStateList(R.color.color_expense_circle));
+                decorCircleSmall.setBackgroundTintList(getColorStateList(R.color.color_expense_circle));
+
+                tvTransactionStatus.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_expense));
+                tvTransactionStatus.setText(getString(R.string.expense));
+                tvTransactionStatus.setTextColor(getColor(R.color.expense));
+                tvType.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_expense));
+                tvType.setText(getString(R.string.expense));
+                tvType.setTextColor(getColor(R.color.expense));
+                ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_expense));
+
+                tvWallet.setText(transactionWithDetail.walletName);
+
+                layoutWallet.setVisibility(View.VISIBLE);
+                layoutFromWallet.setVisibility(View.GONE);
+                layoutToWallet.setVisibility(View.GONE);
+                layoutFee.setVisibility(View.GONE);
+            } else if (transaction.type == TransactionEntity.TYPE_TRANSFER) {
+                cardTransactionSummary.setCardBackgroundColor(getColor(R.color.color_transfer_card));
+                cardTransactionSummary.setStrokeColor(getColor(R.color.transfer));
+                cardTransactionIcon.setCardBackgroundColor(getColor(R.color.transfer));
+
+                decorCircleLarge.setBackgroundTintList(getColorStateList(R.color.color_transfer_circle));
+                decorCircleSmall.setBackgroundTintList(getColorStateList(R.color.color_transfer_circle));
+
+                tvTransactionStatus.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_transfer));
+                tvTransactionStatus.setText(getString(R.string.transfer));
+                tvTransactionStatus.setTextColor(getColor(R.color.transfer));
+                tvType.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_transfer));
+                tvType.setText(getString(R.string.transfer));
+                tvType.setTextColor(getColor(R.color.transfer));
+                ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_transfer_trans));
+
+                tvFromWallet.setText(transactionWithDetail.fromWalletName);
+                tvToWallet.setText(transactionWithDetail.walletName);
+                tvFee.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.fee));
+
+                layoutWallet.setVisibility(View.GONE);
+                layoutFromWallet.setVisibility(View.VISIBLE);
+                layoutToWallet.setVisibility(View.VISIBLE);
+                layoutFee.setVisibility(View.VISIBLE);
             }
 
-            if (transaction.type == 3) {
-                imageView.setImageResource(R.drawable.ic_transfer);
+            if (transaction.type == TransactionEntity.TYPE_TRANSFER) {
+                ivTransactionIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_transfer));
             } else {
                 if (transactionWithDetail.icon == null || transactionWithDetail.icon == 0) {
-                    imageView.setImageResource(R.drawable.category_0);
+                    ivTransactionIcon.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.category_0));
                 } else {
-                    imageView.setImageResource(DataHelper.getCategoryIcons().get(transactionWithDetail.icon));
+                    ivTransactionIcon.setImageDrawable(ContextCompat.getDrawable(this, DataHelper.getCategoryIcons().get(transactionWithDetail.icon)));
                 }
             }
 
-            nameLabel.setText(transaction.description == null || transaction.description.isEmpty() ? "—" : transaction.description);
-            categoryLabel.setText(transaction.getCategoryName(getApplicationContext()));
-            amountLabel.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
-            dateLabel.setText(DateHelper.getFormattedDateTime(getApplicationContext(), transaction.transactionDate));
+            tvTransactionAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
 
-            String wallet = transactionWithDetail.walletName;
-            walletLabel.setText(wallet);
-
-            String type = getString(R.string.transfer);
-            if (transaction.type == 1) {
-                type = getString(R.string.income);
-            } else if (transaction.type == 2) {
-                type = getString(R.string.expense);
-            }
-            typeLabel.setText(type);
-
-            if (transaction.type == 3) {
-
-                categoryTitleLabel.setVisibility(View.GONE);
-                categoryLabel.setVisibility(View.GONE);
-
-                fromWalletTitleLabel.setVisibility(View.VISIBLE);
-                fromWalletLabel.setVisibility(View.VISIBLE);
-
-                walletTitleLabel.setText(getString(R.string.to_wallet));
-
-                feeTitleLabel.setVisibility(View.VISIBLE);
-                feeLabel.setVisibility(View.VISIBLE);
-                feeLabel.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.fee));
-
-                String fromWalletName = transactionWithDetail.fromWalletName;
-                fromWalletLabel.setText(fromWalletName);
-
-                if (transaction.memo != null && !transaction.memo.isEmpty()) {
-                    memoTitleLabel.setVisibility(View.VISIBLE);
-                    memoLabel.setVisibility(View.VISIBLE);
-
-                    memoLabel.setText(transaction.memo);
-                }
+            if (transaction.description != null && !transaction.description.isEmpty()) {
+                tvTransactionDescription.setText(transaction.description);
+                tvTransactionDescription.setVisibility(View.VISIBLE);
             } else {
-
-                categoryTitleLabel.setVisibility(View.VISIBLE);
-                categoryLabel.setVisibility(View.VISIBLE);
-
-                fromWalletTitleLabel.setVisibility(View.GONE);
-                fromWalletLabel.setVisibility(View.GONE);
-
-                walletTitleLabel.setText(getString(R.string.wallet));
-
-                feeTitleLabel.setVisibility(View.GONE);
-                feeLabel.setVisibility(View.GONE);
-                memoTitleLabel.setVisibility(View.GONE);
-                memoLabel.setVisibility(View.GONE);
+                tvTransactionDescription.setVisibility(View.GONE);
             }
 
+            // DETAIL
+
+            String categoryName = transaction.getCategoryName(this);
+            if (Objects.equals(categoryName, "")) {
+                categoryName = transactionWithDetail.categoryName;
+            }
+
+            tvCategory.setText(categoryName);
+            tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
+            tvDateTime.setText(DateHelper.getFormattedDateTime(this, transaction.transactionDate));
+
+            boolean hasDescription = transaction.description != null && !transaction.description.trim().isEmpty();
+            boolean hasNote = transaction.memo != null && !transaction.memo.trim().isEmpty();
+
+            if (hasDescription) {
+                tvDesc.setText(transaction.description);
+                layoutDescription.setVisibility(View.VISIBLE);
+            } else {
+                layoutDescription.setVisibility(View.GONE);
+            }
+
+            if (hasNote) {
+                tvNote.setText(transaction.memo);
+                layoutNotes.setVisibility(View.VISIBLE);
+            } else {
+                layoutNotes.setVisibility(View.GONE);
+            }
+
+            if (attachments != null && !attachments.isEmpty()) {
+                int attachmentCount = attachments.size();
+                tvAttachmentTitle.setText(getResources().getQuantityString(R.plurals.attachments_count, attachmentCount, attachmentCount));
+                attachmentAdapter.setItems(attachments);
+                cardTransactionAttachments.setVisibility(View.VISIBLE);
+            } else {
+                cardTransactionAttachments.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void initializeAttachmentAdapter() {
+        try {
+            attachmentAdapter = new RecyclerViewAdapter<>(this, new ArrayList<>(), R.layout.item_transaction_attachment) {
+                @Override
+                public void onPostBindViewHolder(ViewHolder holder, TransactionAttachmentEntity attachment) {
+                    AppCompatImageView ivAttachmentPreview = holder.getView(R.id.ivAttachmentPreview);
+                    AppCompatImageView ivAttachmentFileType = holder.getView(R.id.ivAttachmentFileType);
+                    AppCompatTextView tvAttachmentName = holder.getView(R.id.tvAttachmentName);
+                    AppCompatTextView tvAttachmentSize = holder.getView(R.id.tvAttachmentSize);
+                    View cardDelete = holder.getView(R.id.cardDelete);
+                    View addMoreContainer = holder.getView(R.id.addMoreContainer);
+                    addMoreContainer.setVisibility(View.GONE);
+                    cardDelete.setVisibility(View.GONE);
+
+                    String fileName = attachment.attachmentName;
+                    if (fileName == null || fileName.trim().isEmpty()) {
+                        fileName = "Attachment";
+                    }
+                    tvAttachmentName.setText(fileName);
+                    tvAttachmentName.setSelected(true);
+
+                    tvAttachmentSize.setText(Formatter.formatFileSize(TransactionDetailActivity.this, attachment.attachmentSize));
+
+                    File file = new File(attachment.attachmentPath);
+                    Uri uri = Uri.fromFile(file);
+                    String extension = attachment.attachmentExtension;
+                    if (extension == null) {
+                        extension = "";
+                    }
+                    extension = extension.toLowerCase(Locale.ROOT);
+
+                    boolean isImage = extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")
+                            || extension.equals("webp") || extension.equals("heic");
+
+                    if (isImage && file.exists()) {
+                        ivAttachmentPreview.setVisibility(View.VISIBLE);
+                        ivAttachmentFileType.setVisibility(View.GONE);
+                        Glide.with(TransactionDetailActivity.this).load(uri).centerCrop().into(ivAttachmentPreview);
+                    } else {
+                        ivAttachmentPreview.setVisibility(View.GONE);
+                        ivAttachmentFileType.setVisibility(View.VISIBLE);
+                        ivAttachmentFileType.setImageResource(getFileIcon(attachment.attachmentName));
+                    }
+
+                    holder.getView(R.id.cardAttachmentPreview).setOnClickListener(v -> openAttachment(attachment));
+                }
+            };
+
+            rvAttachments.setAdapter(attachmentAdapter);
+            rvAttachments.setLayoutManager(new GridLayoutManager(this, 3));
+            rvAttachments.setHasFixedSize(false);
+            rvAttachments.setItemAnimator(null);
+            rvAttachments.setNestedScrollingEnabled(false);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAttachmentAdapter", e);
+        }
+    }
+
+    private int getFileIcon(String fileName) {
+
+        if (fileName == null) {
+            return R.drawable.ic_file_generic;
+        }
+
+        String name = fileName.toLowerCase(Locale.ROOT);
+
+        if (name.endsWith(".pdf")) {
+            return R.drawable.ic_file_pdf;
+        }
+
+        if (name.endsWith(".doc") || name.endsWith(".docx")) {
+            return R.drawable.ic_file_doc;
+        }
+
+        if (name.endsWith(".ppt") || name.endsWith(".pptx")) {
+            return R.drawable.ic_file_ppt;
+        }
+
+        if (name.endsWith(".xls") || name.endsWith(".xlsx") || name.endsWith(".csv")) {
+            return R.drawable.ic_file_excel;
+        }
+
+        if (name.endsWith(".zip")) {
+            return R.drawable.ic_file_zip;
+        }
+
+        if (name.endsWith(".rar")) {
+            return R.drawable.ic_file_rar;
+        }
+
+        if (name.endsWith(".xml")) {
+            return R.drawable.ic_file_xml;
+        }
+
+        return R.drawable.ic_file_generic;
+    }
+
+    private void openAttachment(TransactionAttachmentEntity attachment) {
+        try {
+            File file = new File(attachment.attachmentPath);
+
+            if (!file.exists()) {
+                Toast.makeText(this, "Attachment not found", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            Uri uri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", file);
+            String extension = MimeTypeMap.getFileExtensionFromUrl(attachment.attachmentName);
+
+            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase(Locale.ROOT));
+
+            if (mimeType == null) {
+                mimeType = "*/*";
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, mimeType);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+            startActivity(intent);
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "openAttachment", e);
+            Toast.makeText(this, getString(R.string.unable_to_open_attachment), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -213,9 +431,19 @@ public class TransactionDetailActivity extends BaseActivity {
                 ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
+            getOnBackPressedDispatcher().addCallback(
+                    this,
+                    new OnBackPressedCallback(true) {
+                        @Override
+                        public void handleOnBackPressed() {
+                            finish();
+                            ActivityUtils.overrideCloseTransition(TransactionDetailActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                        }
+                    });
+
             ivEdit.setOnClickListener(view -> {
                 Intent intent = new Intent(this, CreateTransactionActivity.class);
-                intent.putExtra("transactionDetail", transactionWithDetails);
+                intent.putExtra("transactionId", transactionWithDetails.transaction.tempTransactionServerId);
                 intent.putExtra("type", transactionWithDetails.transaction.type);
                 intent.putExtra("action", "edit");
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.top_to_bottom, R.anim.scale_out);
@@ -236,16 +464,6 @@ public class TransactionDetailActivity extends BaseActivity {
                     Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
             });
-
-            getOnBackPressedDispatcher().addCallback(
-                    this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(TransactionDetailActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }

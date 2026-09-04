@@ -557,7 +557,7 @@ public class BackupRestoreActivity extends BaseActivity {
             // ---------------------------------------------
             // File size
             // ---------------------------------------------
-            long fileSize = getFileSize(uri);
+            long fileSize = CommonUtils.getFileSize(uri, this);
             tvFileSize.setText(Formatter.formatFileSize(this, fileSize));
 
             // ---------------------------------------------
@@ -850,20 +850,6 @@ public class BackupRestoreActivity extends BaseActivity {
         return null;
     }
 
-    private long getFileSize(Uri uri) {
-        try (Cursor cursor = getContentResolver().query(uri, new String[]{OpenableColumns.SIZE}, null, null, null)) {
-            if (cursor != null && cursor.moveToFirst()) {
-                int index = cursor.getColumnIndex(OpenableColumns.SIZE);
-                if (index >= 0 && !cursor.isNull(index)) {
-                    return cursor.getLong(index);
-                }
-            }
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "getFileSize", e);
-        }
-        return 0;
-    }
-
     private long getBackupDateFromFileName(String fileName) {
         try {
             if (fileName == null || fileName.isEmpty()) {
@@ -1037,7 +1023,7 @@ public class BackupRestoreActivity extends BaseActivity {
         tvDelete.setText(getString(R.string.restore));
         tvSubMessage.setVisibility(View.VISIBLE);
 
-        cardHeader.setCardBackgroundColor(ContextCompat.getColor(this, R.color.backup_light));
+        cardHeader.setCardBackgroundColor(getColor(R.color.backup_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_refresh_time));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.backup_dark)));
 

@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/vibrant_orange"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/toolbar_back" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/colorView"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:background="@drawable/bg_circle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:contentDescription="@string/app_name"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/ic_wallet"
+                            app:tint="@color/white" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/nameLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_26"
+                        app:fontFamily="@font/exo2_semibold"
+                        app:layout_constraintBottom_toBottomOf="@id/colorView"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/colorView"
+                        app:layout_constraintTop_toTopOf="@id/colorView" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/contentWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_24"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameLabel">
+
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/valueGuide"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_begin="150dp" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/categoryTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/category"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintBottom_toBottomOf="@id/categoryLabel"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/amountTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/amount"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/categoryTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/dateTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/amountTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/fromWalletTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/from_wallet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/dateTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/walletTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/wallet"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/fromWalletTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/typeTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/type"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/walletTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/feeTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/fee"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/typeTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/memoTitleLabel"
+                            android:layout_width="130dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:layout_marginTop="@dimen/margin_16"
+                            android:text="@string/memo"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/feeTitleLabel" />
+
+                        <!-- LABEL TEXT -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/categoryLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/categoryTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/categoryTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/categoryTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/amountLabel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/amountTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/amountTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/amountTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/dateLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/dateTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/dateTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/dateTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/fromWalletLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/fromWalletTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/fromWalletTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/fromWalletTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/walletLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/walletTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/walletTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/walletTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/typeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/typeTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/typeTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/typeTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/feeLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/feeTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/feeTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/valueGuide"
+                            app:layout_constraintTop_toTopOf="@id/feeTitleLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/memoLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_4"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintBottom_toBottomOf="@id/memoTitleLabel"
+                            app:layout_constraintStart_toEndOf="@id/memoTitleLabel"
+                            app:layout_constraintStart_toStartOf="@id/memoTitleLabel"
+                            app:layout_constraintTop_toTopOf="@id/memoTitleLabel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/imageWrapper1"
+                        android:layout_width="0dp"
+                        android:layout_height="140dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="0dp">
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

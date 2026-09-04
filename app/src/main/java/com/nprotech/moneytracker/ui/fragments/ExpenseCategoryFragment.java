@@ -223,7 +223,7 @@ public class ExpenseCategoryFragment extends Fragment {
         if (count == 0) {
             tvDeleteTitle.setText(getString(R.string.delete_category));
             tvDeleteMessage.setText(getString(R.string.delete_category_message, selectedCategoryName));
-            cardHeader.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.dim_expense));
+            cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.dim_expense));
             headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_delete));
             headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.bright_red)));
             cardDeleteInfo.setVisibility(View.VISIBLE);
@@ -233,13 +233,13 @@ public class ExpenseCategoryFragment extends Fragment {
                 tvDeleteTitle.setText(getString(R.string.move_delete));
                 tvDeleteMessage.setText(getResources().getQuantityString(R.plurals.move_category_desc, count, count, selectedCategoryName,
                         selectedMoveCategoryName, selectedCategoryName));
-                cardHeader.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.light_lavender));
+                cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.light_lavender));
                 headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_transfer_trans));
                 headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.primary_dark)));
             } else {
                 tvDeleteTitle.setText(getString(R.string.category_in_use));
                 tvDeleteMessage.setText(getResources().getQuantityString(R.plurals.category_in_use_message, count, selectedCategoryName, count));
-                cardHeader.setCardBackgroundColor(ContextCompat.getColor(requireActivity(), R.color.category_light));
+                cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
                 headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_warning));
                 headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
             }
