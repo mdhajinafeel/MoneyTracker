@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.format.Formatter;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
@@ -28,6 +30,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -48,10 +51,16 @@ import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -64,7 +73,7 @@ public class TransactionDetailActivity extends BaseActivity {
     private AppCompatTextView tvTransactionStatus, tvTransactionAmount, tvReceivedAmount, tvFromWalletSummary, tvToWalletSummary, tvTransactionDescription,
             tvCategory, tvAmount, tvReceived, tvFee, tvDateTime, tvWallet, tvType, tvFromWallet, tvToWallet, tvDesc, tvNote, tvAttachmentTitle, lblAmount, lblFee;
     private LinearLayout layoutReceived, layoutFee, layoutWallet, layoutFromWallet, layoutToWallet, layoutDescription, layoutNotes;
-    private AppCompatImageView icBack, ivDelete, ivEdit;
+    private AppCompatImageView icBack, ivMore;
     private RecyclerView rvAttachments;
     private RecyclerViewAdapter<TransactionAttachmentEntity> attachmentAdapter;
     private TransactionWithDetails transactionWithDetails;
@@ -88,8 +97,7 @@ public class TransactionDetailActivity extends BaseActivity {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
-            ivDelete = toolbarWrapper.findViewById(R.id.ivDelete);
-            ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
+            ivMore = toolbarWrapper.findViewById(R.id.ivMore);
             cardTransactionSummary = findViewById(R.id.cardTransactionSummary);
             cardTransactionIcon = findViewById(R.id.cardTransactionIcon);
             cardTransactionAttachments = findViewById(R.id.cardTransactionAttachments);
@@ -128,8 +136,7 @@ public class TransactionDetailActivity extends BaseActivity {
             layoutNotes = findViewById(R.id.layoutNotes);
             rvAttachments = findViewById(R.id.rvAttachments);
 
-            ivEdit.setVisibility(View.VISIBLE);
-            ivDelete.setVisibility(View.VISIBLE);
+            ivMore.setVisibility(View.VISIBLE);
 
             tvTitle.setText(R.string.detail);
 
@@ -498,16 +505,25 @@ public class TransactionDetailActivity extends BaseActivity {
                         }
                     });
 
-            ivEdit.setOnClickListener(view -> {
-                Intent intent = new Intent(this, CreateTransactionActivity.class);
-                intent.putExtra("transactionId", transactionWithDetails.transaction.tempTransactionServerId);
-                intent.putExtra("type", transactionWithDetails.transaction.type);
-                intent.putExtra("action", "edit");
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.top_to_bottom, R.anim.scale_out);
-                transactionEditLauncher.launch(intent, options);
-            });
+            ivMore.setOnClickListener(v -> showTransactionActions(transactionWithDetails,
+                    // View Details
+                    null,
 
-            ivDelete.setOnClickListener(view -> showDeleteDialog());
+                    // Edit
+                    () -> {
+                        Intent intent = new Intent(this, CreateTransactionActivity.class);
+                        intent.putExtra("transactionId", transactionWithDetails.transaction.tempTransactionServerId);
+                        intent.putExtra("type", transactionWithDetails.transaction.type);
+                        intent.putExtra("action", "edit");
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.top_to_bottom, R.anim.scale_out);
+                        transactionEditLauncher.launch(intent, options);
+                    },
+
+                    // Duplicate
+                    () -> showDuplicateDialog(transactionWithDetails),
+
+                    // Delete
+                    this::showDeleteDialog, true));
 
             transactionViewModel.getDeleteStatus().observe(this, success -> {
                 if (Boolean.TRUE.equals(success)) {
@@ -646,5 +662,273 @@ public class TransactionDetailActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteTransaction", e);
         }
+    }
+
+    private void showDuplicateDialog(TransactionWithDetails item) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        MaterialButton tvDuplicate = view.findViewById(R.id.tvDelete);
+
+        tvTitle.setText(R.string.duplicate_transaction);
+        tvMessage.setText(R.string.duplicate_transaction_desc);
+        tvDuplicate.setText(R.string.duplicate);
+        tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
+
+        cardHeader.setCardBackgroundColor(this.getColor(R.color.light_lavender));
+        headerImage.setImageDrawable(this.getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageTintList(ContextCompat.getColorStateList(this, R.color.primary));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+
+        tvDuplicate.setOnClickListener(v -> {
+            duplicateTransaction(item);
+            Toast.makeText(getApplicationContext(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void duplicateTransaction(TransactionWithDetails item) {
+        try {
+
+            if (item == null || item.transaction == null) {
+                return;
+            }
+
+            TransactionEntity source = item.transaction;
+            long currentTime = System.currentTimeMillis();
+
+            String duplicateTransactionId = "T_" + currentTime;
+
+            // ============================================================
+            // INCOME / EXPENSE
+            // ============================================================
+            if (source.type == TransactionEntity.TYPE_INCOME || source.type == TransactionEntity.TYPE_EXPENSE) {
+
+                WalletEntity wallet = walletViewModel.getWalletByWalletId(source.walletId);
+                AccountEntity account = accountViewModel.getAccountDetailById((int) source.accountId);
+
+                TransactionEntity duplicate = new TransactionEntity(source, currentTime);
+                duplicate.id = 0;
+                duplicate.serverId = 0;
+                duplicate.tempTransactionServerId = duplicateTransactionId;
+                duplicate.transactionDate = currentTime;
+                duplicate.createdAt = currentTime;
+                duplicate.updatedAt = currentTime;
+                duplicate.isDeleted = false;
+                duplicate.isSynced = false;
+                duplicate.parentTransactionId = "";
+                duplicate.isFee = false;
+
+                double exchangeRate = 1;
+
+                if (source.type == TransactionEntity.TYPE_INCOME) {
+
+                    if (wallet != null) {
+                        wallet.amount += duplicate.amount;
+                        exchangeRate = wallet.exchangeRate;
+                    }
+
+                    if (account != null) {
+                        account.balance += duplicate.amount * exchangeRate;
+                    }
+                } else {
+
+                    if (wallet != null) {
+                        wallet.amount -= duplicate.amount;
+                        exchangeRate = wallet.exchangeRate;
+                    }
+
+                    if (account != null) {
+                        account.balance -= duplicate.amount * exchangeRate;
+                    }
+                }
+
+                transactionViewModel.saveTransaction(duplicate, wallet, account);
+
+                // ============================================================
+                // TRANSFER
+                // ============================================================
+            } else if (source.type == TransactionEntity.TYPE_TRANSFER) {
+
+                WalletEntity fromWallet = walletViewModel.getWalletByWalletId(source.fromWalletId);
+                WalletEntity toWallet = walletViewModel.getWalletByWalletId(source.walletId);
+                AccountEntity account = accountViewModel.getAccountDetailById((int) source.accountId);
+
+                TransactionEntity duplicate = new TransactionEntity(source, currentTime);
+                duplicate.id = 0;
+                duplicate.serverId = 0;
+                duplicate.tempTransactionServerId = duplicateTransactionId;
+                duplicate.transactionDate = currentTime;
+                duplicate.createdAt = currentTime;
+                duplicate.updatedAt = currentTime;
+                duplicate.isDeleted = false;
+                duplicate.isSynced = false;
+                duplicate.parentTransactionId = "";
+                duplicate.isFee = false;
+
+                // ========================================================
+                // DUPLICATE TRANSFER BALANCE EFFECT
+                // ========================================================
+                if (fromWallet != null) {
+                    fromWallet.amount -= duplicate.amount;
+                }
+
+                if (toWallet != null) {
+                    toWallet.amount += duplicate.convertedAmount;
+                }
+
+                // ========================================================
+                // ACCOUNT BALANCE EFFECT
+                // ========================================================
+                if (account != null && fromWallet != null && toWallet != null) {
+                    if (!fromWallet.isExclude && toWallet.isExclude) {
+                        account.balance -= duplicate.accountAmount;
+                    } else if (fromWallet.isExclude && !toWallet.isExclude) {
+                        account.balance += duplicate.accountAmount;
+                    }
+                }
+
+                // ========================================================
+                // DUPLICATE FEE
+                // ========================================================
+                TransactionEntity sourceFee = transactionViewModel.getFeeTransaction(source.tempTransactionServerId);
+
+                TransactionEntity duplicateFee = null;
+
+                if (sourceFee != null) {
+                    long feeTime = currentTime + 1;
+                    duplicateFee = new TransactionEntity(sourceFee, feeTime);
+                    duplicateFee.id = 0;
+                    duplicateFee.serverId = 0;
+                    duplicateFee.tempTransactionServerId = "T_FEE_" + feeTime;
+                    duplicateFee.parentTransactionId = duplicateTransactionId;
+                    duplicateFee.isFee = true;
+                    duplicateFee.isDeleted = false;
+                    duplicateFee.isSynced = false;
+                    duplicateFee.transactionDate = currentTime;
+                    duplicateFee.createdAt = currentTime;
+                    duplicateFee.updatedAt = currentTime;
+
+                    if (fromWallet != null) {
+                        fromWallet.amount -= duplicateFee.amount;
+                    }
+
+                    if (account != null && fromWallet != null && !fromWallet.isExclude) {
+                        account.balance -= duplicateFee.accountAmount;
+                    }
+                }
+
+                transactionViewModel.saveTransferTransaction(duplicate, duplicateFee, fromWallet, toWallet, account);
+            }
+
+            // ============================================================
+            // COPY ATTACHMENTS
+            // ============================================================
+
+            duplicateTransactionAttachments(source.tempTransactionServerId, duplicateTransactionId);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "duplicateTransaction", e);
+        }
+    }
+
+    private void duplicateTransactionAttachments(String sourceTransactionId, String duplicateTransactionId) {
+        try {
+            List<TransactionAttachmentEntity> sourceAttachments = transactionViewModel.getTransactionAttachments(sourceTransactionId);
+
+            if (sourceAttachments == null || sourceAttachments.isEmpty()) {
+                return;
+            }
+
+            List<TransactionAttachmentEntity> duplicateAttachments = new ArrayList<>();
+
+            long currentTime = System.currentTimeMillis();
+            for (TransactionAttachmentEntity sourceAttachment : sourceAttachments) {
+                if (TextUtils.isEmpty(sourceAttachment.attachmentPath)) {
+                    continue;
+                }
+
+                File sourceFile = new File(sourceAttachment.attachmentPath);
+                if (!sourceFile.exists() || !sourceFile.isFile()) {
+                    continue;
+                }
+
+                // --------------------------------------------------------
+                // Create new physical file
+                // --------------------------------------------------------
+
+                String extension = sourceAttachment.attachmentExtension;
+                String fileName = "ATT_" + UUID.randomUUID();
+                if (!TextUtils.isEmpty(extension)) {
+                    fileName += "." + extension;
+                }
+
+                File attachmentDirectory = new File(getFilesDir(), "uploads" + File.separator + duplicateTransactionId);
+                if (!attachmentDirectory.exists() && !attachmentDirectory.mkdirs()) {
+                    AppLogger.d(getClass(), "Unable to create attachment directory");
+                    continue;
+                }
+
+                File destinationFile = getDestinationFile(attachmentDirectory, fileName, sourceFile);
+
+                // --------------------------------------------------------
+                // Create new DB attachment
+                // --------------------------------------------------------
+
+                TransactionAttachmentEntity duplicateAttachment = new TransactionAttachmentEntity();
+                duplicateAttachment.tempTransactionServerId = duplicateTransactionId;
+                duplicateAttachment.serverId = 0;
+                duplicateAttachment.attachmentPath = destinationFile.getAbsolutePath();
+                duplicateAttachment.attachmentName = sourceAttachment.attachmentName;
+                duplicateAttachment.attachmentExtension = sourceAttachment.attachmentExtension;
+                duplicateAttachment.attachmentSize = destinationFile.length();
+                duplicateAttachment.createdAt = currentTime;
+                duplicateAttachment.updatedAt = currentTime;
+                duplicateAttachments.add(duplicateAttachment);
+            }
+
+            // ------------------------------------------------------------
+            // Save attachment records
+            // ------------------------------------------------------------
+            if (!duplicateAttachments.isEmpty()) {
+                transactionViewModel.saveTransactionAttachment(duplicateAttachments);
+            }
+
+        } catch (Exception e) {
+
+            AppLogger.e(getClass(), "duplicateTransactionAttachments", e);
+        }
+    }
+
+    @NonNull
+    private static File getDestinationFile(File attachmentDirectory, String fileName, File sourceFile) throws IOException {
+        File destinationFile = new File(attachmentDirectory, fileName);
+
+        // --------------------------------------------------------
+        // Copy physical file
+        // --------------------------------------------------------
+
+        try (InputStream input = new FileInputStream(sourceFile);
+             OutputStream output = new FileOutputStream(destinationFile)) {
+            byte[] buffer = new byte[8192];
+            int length;
+            while ((length = input.read(buffer)) != -1) {
+                output.write(buffer, 0, length);
+            }
+            output.flush();
+        }
+        return destinationFile;
     }
 }

@@ -8,8 +8,8 @@
     <string name="add_wallet">Add Wallet</string>
     <string name="edit_wallet">Edit Wallet</string>
     <string name="exchange_rate_default_value">1.00</string>
-    <string name="wallet_created_successfully">Wallet created successfully</string>
-    <string name="wallet_updated_successfully">Wallet updated successfully</string>
+    <string name="wallet_created_successfully">Wallet created</string>
+    <string name="wallet_updated_successfully">Wallet updated</string>
     <string name="credit_limit">Credit Limit</string>
     <string name="adjust_balance">Adjust Balance</string>
     <string name="available_balance">Available Balance</string>

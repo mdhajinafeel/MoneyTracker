@@ -52,6 +52,8 @@
     <string name="duplicate">Duplicate</string>
     <string name="duplicate_transaction">Duplicate Transaction</string>
     <string name="duplicate_transaction_desc">Create a copy of this transaction?</string>
+    <string name="transaction_duplicated">Transaction duplicated</string>
+    <string name="transaction_deleted">Transaction deleted</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

@@ -201,8 +201,7 @@ public class TransactionOverviewActivity extends BaseActivity {
             }
 
             statisticsViewModel.getCalendarHeader().observe(this, header -> {
-                if (header == null)
-                    return;
+                if (header == null) return;
                 tvIncome.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.income));
                 tvExpense.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.expense));
                 tvTotal.setText(CommonUtils.getBeautifyAmount(currencySymbol, header.total));
@@ -217,6 +216,14 @@ public class TransactionOverviewActivity extends BaseActivity {
                     emptyWrapper.setVisibility(View.GONE);
                     rvTransactions.setVisibility(View.VISIBLE);
                     dailyTransactionAdapter.setItems(dailyTransModels);
+                }
+            });
+
+            transactionViewModel.getDeleteStatus().observe(this, success -> {
+                if (Boolean.TRUE.equals(success)) {
+                    Toast.makeText(this, getString(R.string.transaction_deleted), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
@@ -252,29 +259,24 @@ public class TransactionOverviewActivity extends BaseActivity {
     private void initializeAdapters() {
         try {
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
-            dailyTransactionAdapter = new DailyTransactionAdapter(this, new ArrayList<>(), currencySymbol,
-                    item -> showTransactionActions(item,
-                            // View Details
-                            () -> {
-                                startActivity(new Intent(TransactionOverviewActivity.this, TransactionDetailActivity.class)
-                                        .putExtra("transactionId", item.transaction.tempTransactionServerId));
-                                ActivityUtils.overrideOpenTransition(TransactionOverviewActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
-                            },
+            dailyTransactionAdapter = new DailyTransactionAdapter(this, new ArrayList<>(), currencySymbol, item -> showTransactionActions(item,
+                    // View Details
+                    () -> {
+                        startActivity(new Intent(TransactionOverviewActivity.this, TransactionDetailActivity.class).putExtra("transactionId", item.transaction.tempTransactionServerId));
+                        ActivityUtils.overrideOpenTransition(TransactionOverviewActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                    },
 
-                            // Edit
-                            () -> {
-                                startActivity(new Intent(TransactionOverviewActivity.this, CreateTransactionActivity.class)
-                                        .putExtra("transactionId", item.transaction.tempTransactionServerId)
-                                        .putExtra("type", item.transaction.type)
-                                        .putExtra("action", "edit"));
-                                ActivityUtils.overrideOpenTransition(TransactionOverviewActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
-                            },
+                    // Edit
+                    () -> {
+                        startActivity(new Intent(TransactionOverviewActivity.this, CreateTransactionActivity.class).putExtra("transactionId", item.transaction.tempTransactionServerId).putExtra("type", item.transaction.type).putExtra("action", "edit"));
+                        ActivityUtils.overrideOpenTransition(TransactionOverviewActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                    },
 
-                            // Duplicate
-                            () -> showDuplicateDialog(item),
+                    // Duplicate
+                    () -> showDuplicateDialog(item),
 
-                            // Delete
-                            () -> showDeleteDialog(item)));
+                    // Delete
+                    () -> showDeleteDialog(item), false));
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);
@@ -284,8 +286,7 @@ public class TransactionOverviewActivity extends BaseActivity {
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
                     LinearLayoutManager lm = (LinearLayoutManager) recyclerView.getLayoutManager();
-                    if (lm == null)
-                        return;
+                    if (lm == null) return;
                     int last = lm.findLastVisibleItemPosition();
                     if (last >= dailyTransactionAdapter.getItemCount() - 5) {
                         transactionViewModel.loadNextPage();
@@ -309,32 +310,19 @@ public class TransactionOverviewActivity extends BaseActivity {
             ivNext.setOnClickListener(v -> moveDate(1));
 
             fabAddTransaction.setOnClickListener(v -> {
-                v.animate()
-                        .scaleX(1.1f)
-                        .scaleY(1.1f)
-                        .setDuration(120)
-                        .withEndAction(() ->
-                                v.animate()
-                                        .scaleX(1f)
-                                        .scaleY(1f)
-                                        .setDuration(120)
-                                        .start())
-                        .start();
+                v.animate().scaleX(1.1f).scaleY(1.1f).setDuration(120).withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
 
-                startActivity(new Intent(TransactionOverviewActivity.this, CreateTransactionActivity.class)
-                        .putExtra("action", "add")
-                        .putExtra("type", TransactionEntity.TYPE_EXPENSE));
+                startActivity(new Intent(TransactionOverviewActivity.this, CreateTransactionActivity.class).putExtra("action", "add").putExtra("type", TransactionEntity.TYPE_EXPENSE));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(TransactionOverviewActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    ActivityUtils.overrideCloseTransition(TransactionOverviewActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                }
+            });
 
             ivCalendar.setOnClickListener(view -> {
                 List<CalendarFilterModel> calendarFilterModelList = new ArrayList<>();
@@ -533,8 +521,7 @@ public class TransactionOverviewActivity extends BaseActivity {
 
     private void updateNavigationButtons() {
 
-        boolean enabled = selectedFilter != CalendarFilterType.ALL
-                && selectedFilter != CalendarFilterType.CUSTOM;
+        boolean enabled = selectedFilter != CalendarFilterType.ALL && selectedFilter != CalendarFilterType.CUSTOM;
 
         ivPrevious.setEnabled(enabled);
         ivNext.setEnabled(enabled);
@@ -558,10 +545,10 @@ public class TransactionOverviewActivity extends BaseActivity {
         tvMessage.setText(R.string.duplicate_transaction_desc);
         tvDuplicate.setText(R.string.duplicate);
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
-        headerImage.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         cardHeader.setCardBackgroundColor(this.getColor(R.color.light_lavender));
         headerImage.setImageDrawable(this.getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         dialog.setView(view);
 
@@ -573,6 +560,7 @@ public class TransactionOverviewActivity extends BaseActivity {
 
         tvDuplicate.setOnClickListener(v -> {
             duplicateTransaction(item);
+            Toast.makeText(getApplicationContext(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 
@@ -799,8 +787,7 @@ public class TransactionOverviewActivity extends BaseActivity {
         // Copy physical file
         // --------------------------------------------------------
 
-        try (InputStream input = new FileInputStream(sourceFile);
-             OutputStream output = new FileOutputStream(destinationFile)) {
+        try (InputStream input = new FileInputStream(sourceFile); OutputStream output = new FileOutputStream(destinationFile)) {
             byte[] buffer = new byte[8192];
             int length;
             while ((length = input.read(buffer)) != -1) {

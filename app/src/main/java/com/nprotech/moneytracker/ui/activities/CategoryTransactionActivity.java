@@ -144,6 +144,13 @@ public class CategoryTransactionActivity extends BaseActivity {
                 }
             });
 
+            transactionViewModel.getDeleteStatus().observe(this, success -> {
+                if (Boolean.TRUE.equals(success)) {
+                    Toast.makeText(this, getString(R.string.transaction_deleted), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -173,7 +180,7 @@ public class CategoryTransactionActivity extends BaseActivity {
                             () -> showDuplicateDialog(item),
 
                             // Delete
-                            () -> showDeleteDialog(item)));
+                            () -> showDeleteDialog(item), false));
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
             rvTransactions.setNestedScrollingEnabled(false);
@@ -218,10 +225,10 @@ public class CategoryTransactionActivity extends BaseActivity {
         tvMessage.setText(R.string.duplicate_transaction_desc);
         tvDuplicate.setText(R.string.duplicate);
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
-        headerImage.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         cardHeader.setCardBackgroundColor(getColor(R.color.light_lavender));
         headerImage.setImageDrawable(getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         dialog.setView(view);
 
@@ -233,6 +240,7 @@ public class CategoryTransactionActivity extends BaseActivity {
 
         tvDuplicate.setOnClickListener(v -> {
             duplicateTransaction(item);
+            Toast.makeText(getApplicationContext(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 

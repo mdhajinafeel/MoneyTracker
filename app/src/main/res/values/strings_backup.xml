@@ -2,12 +2,12 @@
 <resources>
     <string name="create_backup">Create Backup</string>
     <string name="backup_list">Backup List</string>
-    <string name="backup_deleted">Backup deleted successfully</string>
+    <string name="backup_deleted">Backup deleted</string>
     <string name="error_delete_backup">Error when delete the backup</string>
     <string name="failed_to_delete_backup">Failed to delete backup</string>
     <string name="delete_backup">Delete backup</string>
     <string name="delete_backup_confirmation">Are you sure you want to delete the backup?</string>
-    <string name="database_exported_successfully">Backup generated successfully</string>
+    <string name="database_exported_successfully">Backup generated</string>
     <string name="backup_folder_failed">Unable to create backup folder</string>
     <string name="database_not_found">Database not found</string>
     <string name="backup_failed">Unable to create backup</string>
@@ -66,7 +66,7 @@
     <string name="backup_location_changed">Backup location changed.</string>
     <string name="copying_database">Copying database…</string>
     <string name="backup_successful">Backup Successful</string>
-    <string name="backup_completed_successfully">Backup Completed Successfully!</string>
+    <string name="backup_completed_successfully">Backup Completed</string>
     <string name="backup_success_description">Your data has been safely backed up.</string>
     <string name="backup_location">Backup Location</string>
     <string name="backup_file">Backup File</string>
@@ -117,7 +117,7 @@
     <string name="only_zip_files_supported">Please select a ZIP backup file.</string>
     <string name="invalid_backup_file">This file is not a valid backup file.</string>
     <string name="no_attachment_files">No attachment files available</string>
-    <string name="backup_restored_successfully">Backup restored successfully</string>
+    <string name="backup_restored_successfully">Backup restored</string>
     <string name="preparing_restore">Preparing restore…</string>
     <string name="reading_backup_file">Reading backup file…</string>
     <string name="restoring_database">Restoring database…</string>

@@ -109,7 +109,8 @@ public class BaseActivity extends AppCompatActivity {
         inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
-    public void showTransactionActions(TransactionWithDetails item, Runnable onViewDetails, Runnable onEdit, Runnable onDuplicate, Runnable onDelete) {
+    public void showTransactionActions(TransactionWithDetails item, Runnable onViewDetails, Runnable onEdit, Runnable onDuplicate,
+                                       Runnable onDelete, boolean isDetails) {
         try {
 
             TransactionEntity transaction = item.transaction;
@@ -228,10 +229,20 @@ public class BaseActivity extends AppCompatActivity {
                 onDuplicate.run();
             });
 
-            bottomView.findViewById(R.id.optionViewDetails).setOnClickListener(v -> {
-                dialog.dismiss();
-                onViewDetails.run();
-            });
+            if(isDetails) {
+                bottomView.findViewById(R.id.optionViewDetails).setVisibility(View.GONE);
+                bottomView.findViewById(R.id.viewViewDetails).setVisibility(View.GONE);
+            } else {
+                bottomView.findViewById(R.id.optionViewDetails).setVisibility(View.VISIBLE);
+                bottomView.findViewById(R.id.viewViewDetails).setVisibility(View.VISIBLE);
+
+                bottomView.findViewById(R.id.optionViewDetails).setOnClickListener(v -> {
+                    dialog.dismiss();
+                    onViewDetails.run();
+                });
+            }
+
+
 
             bottomView.findViewById(R.id.optionDelete).setOnClickListener(v -> {
                 dialog.dismiss();

@@ -2,10 +2,10 @@
 <resources>
     <string name="add_category">Add Category</string>
     <string name="edit_category">Edit Category</string>
-    <string name="category_created">Category created successfully</string>
-    <string name="category_updated">Category updated successfully</string>
-    <string name="category_deleted">Category deleted successfully</string>
-    <string name="category_moved">Category moved successfully</string>
+    <string name="category_created">Category created</string>
+    <string name="category_updated">Category updated</string>
+    <string name="category_deleted">Category deleted</string>
+    <string name="category_moved">Category moved</string>
     <string name="error_delete_category">Error when delete the category</string>
     <string name="error_moved_category">Error when move the category</string>
     <string name="category_bills">Bills &amp; Utilities</string>

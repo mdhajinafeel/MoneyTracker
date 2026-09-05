@@ -18,7 +18,7 @@
     <string name="delete_currency">Remove Currency</string>
     <string name="delete_message_currency">Are you sure you want to remove this currency?</string>
     <string name="message_currency">Wallets using this currency will be changed to the base currency.</string>
-    <string name="currency_has_been_removed_successfully">Currency has been removed successfully</string>
+    <string name="currency_has_been_removed_successfully">Currency removed</string>
     <string name="base_currency">Base Currency</string>
     <string name="additional_currency">Additional Currencies</string>
     <string name="currency_subtext">Choose the currency you want to use</string>

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -201,6 +202,14 @@ public class CalendarFragment extends Fragment {
             setupSummaryCard(expenseCard, R.drawable.ic_expense, getString(R.string.expense), header.expense, R.color.expense, R.drawable.bg_circle_expense);
             setupSummaryCard(totalCard, R.drawable.ic_equal, getString(R.string.total), header.total, R.color.dark_grey, R.drawable.bg_circle_equal);
         });
+
+        transactionViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), success -> {
+            if (Boolean.TRUE.equals(success)) {
+                Toast.makeText(requireActivity(), getString(R.string.transaction_deleted), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadCalendarData() {
@@ -366,7 +375,7 @@ public class CalendarFragment extends Fragment {
                             () -> showDuplicateDialog(item),
 
                             // Delete
-                            () -> showDeleteDialog(item))));
+                            () -> showDeleteDialog(item), false)));
                     updateRecyclerViewHeight(rvTransactions, transactions.size());
                 }
 
@@ -466,10 +475,10 @@ public class CalendarFragment extends Fragment {
         tvMessage.setText(R.string.duplicate_transaction_desc);
         tvDuplicate.setText(R.string.duplicate);
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
-        headerImage.setBackgroundTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.light_lavender));
         headerImage.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         dialog.setView(view);
 
@@ -481,6 +490,7 @@ public class CalendarFragment extends Fragment {
 
         tvDuplicate.setOnClickListener(v -> {
             duplicateTransaction(item);
+            Toast.makeText(requireActivity(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 

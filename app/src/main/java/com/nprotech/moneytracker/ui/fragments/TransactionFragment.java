@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -139,6 +140,14 @@ public class TransactionFragment extends Fragment {
                     dailyTransactionAdapter.setItems(dailyTransModels);
                 }
             });
+
+            transactionViewModel.getDeleteStatus().observe(getViewLifecycleOwner(), success -> {
+                if (Boolean.TRUE.equals(success)) {
+                    Toast.makeText(requireActivity(), getString(R.string.transaction_deleted), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(requireActivity(), getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
@@ -169,7 +178,7 @@ public class TransactionFragment extends Fragment {
                             () -> showDuplicateDialog(item),
 
                             // Delete
-                            () -> showDeleteDialog(item)));
+                            () -> showDeleteDialog(item), false));
 
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
@@ -207,10 +216,10 @@ public class TransactionFragment extends Fragment {
         tvMessage.setText(R.string.duplicate_transaction_desc);
         tvDuplicate.setText(R.string.duplicate);
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
-        headerImage.setBackgroundTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.light_lavender));
         headerImage.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         dialog.setView(view);
 
@@ -222,6 +231,7 @@ public class TransactionFragment extends Fragment {
 
         tvDuplicate.setOnClickListener(v -> {
             duplicateTransaction(item);
+            Toast.makeText(requireActivity(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 
