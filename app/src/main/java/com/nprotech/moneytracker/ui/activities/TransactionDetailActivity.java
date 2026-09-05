@@ -59,11 +59,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class TransactionDetailActivity extends BaseActivity {
 
     private MaterialCardView cardTransactionSummary, cardTransactionIcon, cardTransactionAttachments;
-    private AppCompatImageView ivTransactionIcon, ivType;
+    private AppCompatImageView ivTransactionIcon, ivType, ivTransferArrow;
     private View decorCircleLarge, decorCircleSmall;
-    private AppCompatTextView tvTransactionStatus, tvTransactionAmount, tvTransactionDescription, tvCategory, tvAmount, tvFee, tvDateTime, tvWallet, tvType,
-            tvFromWallet, tvToWallet, tvDesc, tvNote, tvAttachmentTitle;
-    private LinearLayout layoutFee, layoutWallet, layoutFromWallet, layoutToWallet, layoutDescription, layoutNotes;
+    private AppCompatTextView tvTransactionStatus, tvTransactionAmount, tvReceivedAmount, tvFromWalletSummary, tvToWalletSummary, tvTransactionDescription,
+            tvCategory, tvAmount, tvReceived, tvFee, tvDateTime, tvWallet, tvType, tvFromWallet, tvToWallet, tvDesc, tvNote, tvAttachmentTitle, lblAmount, lblFee;
+    private LinearLayout layoutReceived, layoutFee, layoutWallet, layoutFromWallet, layoutToWallet, layoutDescription, layoutNotes;
     private AppCompatImageView icBack, ivDelete, ivEdit;
     private RecyclerView rvAttachments;
     private RecyclerViewAdapter<TransactionAttachmentEntity> attachmentAdapter;
@@ -102,16 +102,24 @@ public class TransactionDetailActivity extends BaseActivity {
 
             tvCategory = findViewById(R.id.tvCategory);
             tvFee = findViewById(R.id.tvFee);
+            tvReceived = findViewById(R.id.tvReceived);
             tvAmount = findViewById(R.id.tvAmount);
+            lblAmount = findViewById(R.id.lblAmount);
+            tvReceivedAmount = findViewById(R.id.tvReceivedAmount);
+            tvFromWalletSummary = findViewById(R.id.tvFromWalletSummary);
+            tvToWalletSummary = findViewById(R.id.tvToWalletSummary);
+            lblFee = findViewById(R.id.lblFee);
             tvDateTime = findViewById(R.id.tvDateTime);
             tvWallet = findViewById(R.id.tvWallet);
             tvType = findViewById(R.id.tvType);
             ivType = findViewById(R.id.ivType);
+            ivTransferArrow = findViewById(R.id.ivTransferArrow);
             tvFromWallet = findViewById(R.id.tvFromWallet);
             tvToWallet = findViewById(R.id.tvToWallet);
             tvDesc = findViewById(R.id.tvDesc);
             tvNote = findViewById(R.id.tvNote);
             tvAttachmentTitle = findViewById(R.id.tvAttachmentTitle);
+            layoutReceived = findViewById(R.id.layoutReceived);
             layoutFee = findViewById(R.id.layoutFee);
             layoutWallet = findViewById(R.id.layoutWallet);
             layoutFromWallet = findViewById(R.id.layoutFromWallet);
@@ -183,8 +191,17 @@ public class TransactionDetailActivity extends BaseActivity {
                 tvType.setTextColor(getColor(R.color.income));
                 ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_income));
 
-                tvWallet.setText(transactionWithDetail.walletName);
+                tvWallet.setText(getString(R.string.wallet_currency, transactionWithDetail.walletName, transactionWithDetail.currencySymbol));
+                tvFromWalletSummary.setText(transactionWithDetail.walletName);
 
+                tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
+                tvTransactionAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
+
+                lblAmount.setText(getString(R.string.amount));
+                lblFee.setText(getString(R.string.fee));
+
+                tvFromWalletSummary.setVisibility(View.VISIBLE);
+                layoutReceived.setVisibility(View.GONE);
                 layoutWallet.setVisibility(View.VISIBLE);
                 layoutFromWallet.setVisibility(View.GONE);
                 layoutToWallet.setVisibility(View.GONE);
@@ -205,8 +222,17 @@ public class TransactionDetailActivity extends BaseActivity {
                 tvType.setTextColor(getColor(R.color.expense));
                 ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_expense));
 
-                tvWallet.setText(transactionWithDetail.walletName);
+                tvWallet.setText(getString(R.string.wallet_currency, transactionWithDetail.walletName, transactionWithDetail.currencySymbol));
+                tvFromWalletSummary.setText(transactionWithDetail.walletName);
 
+                tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
+                tvTransactionAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
+
+                lblAmount.setText(getString(R.string.amount));
+                lblFee.setText(getString(R.string.fee));
+
+                tvFromWalletSummary.setVisibility(View.VISIBLE);
+                layoutReceived.setVisibility(View.GONE);
                 layoutWallet.setVisibility(View.VISIBLE);
                 layoutFromWallet.setVisibility(View.GONE);
                 layoutToWallet.setVisibility(View.GONE);
@@ -222,15 +248,49 @@ public class TransactionDetailActivity extends BaseActivity {
                 tvTransactionStatus.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_transfer));
                 tvTransactionStatus.setText(getString(R.string.transfer));
                 tvTransactionStatus.setTextColor(getColor(R.color.transfer));
+
                 tvType.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.bg_badge_transfer));
                 tvType.setText(getString(R.string.transfer));
                 tvType.setTextColor(getColor(R.color.transfer));
                 ivType.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_transfer_trans));
 
-                tvFromWallet.setText(transactionWithDetail.fromWalletName);
-                tvToWallet.setText(transactionWithDetail.walletName);
-                tvFee.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.fee));
+                // Get both wallets
+                WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
+                WalletEntity toWallet = walletViewModel.getWalletByWalletId(transaction.walletId);
 
+                String fromCurrencySymbol = "", fromCurrencyCode = "";
+                String toCurrencySymbol = "", toCurrencyCode = "";
+
+                if (fromWallet != null) {
+                    fromCurrencySymbol = fromWallet.currencySymbol;
+                    fromCurrencyCode = fromWallet.currencyCode;
+                }
+
+                if (toWallet != null) {
+                    toCurrencySymbol = toWallet.currencySymbol;
+                    toCurrencyCode = toWallet.currencyCode;
+                }
+
+                ivTransferArrow.setVisibility(View.VISIBLE);
+                tvReceivedAmount.setVisibility(View.VISIBLE);
+                tvFromWalletSummary.setVisibility(View.VISIBLE);
+                tvToWalletSummary.setVisibility(View.VISIBLE);
+
+                tvReceivedAmount.setText(CommonUtils.getBeautifyAmount(toCurrencySymbol, transaction.convertedAmount));
+                tvToWalletSummary.setText(transactionWithDetail.walletName);
+                tvFromWalletSummary.setText(transactionWithDetail.fromWalletName);
+
+                lblAmount.setText(getString(R.string.amount_from_wallet));
+                lblFee.setText(getString(R.string.fee_from_wallet));
+
+                tvReceived.setText(CommonUtils.getBeautifyAmount(toCurrencySymbol, transaction.convertedAmount));
+                tvFromWallet.setText(getString(R.string.wallet_currency, transactionWithDetail.fromWalletName, fromCurrencyCode));
+                tvToWallet.setText(getString(R.string.wallet_currency, transactionWithDetail.walletName, toCurrencyCode));
+                tvAmount.setText(CommonUtils.getBeautifyAmount(fromCurrencySymbol, transaction.amount));
+                tvTransactionAmount.setText(CommonUtils.getBeautifyAmount(fromCurrencySymbol, transaction.amount));
+                tvFee.setText(CommonUtils.getBeautifyAmount(fromCurrencySymbol, transaction.fee));
+
+                layoutReceived.setVisibility(View.VISIBLE);
                 layoutWallet.setVisibility(View.GONE);
                 layoutFromWallet.setVisibility(View.VISIBLE);
                 layoutToWallet.setVisibility(View.VISIBLE);
@@ -247,8 +307,6 @@ public class TransactionDetailActivity extends BaseActivity {
                 }
             }
 
-            tvTransactionAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
-
             if (transaction.description != null && !transaction.description.isEmpty()) {
                 tvTransactionDescription.setText(transaction.description);
                 tvTransactionDescription.setVisibility(View.VISIBLE);
@@ -264,7 +322,6 @@ public class TransactionDetailActivity extends BaseActivity {
             }
 
             tvCategory.setText(categoryName);
-            tvAmount.setText(CommonUtils.getBeautifyAmount(transactionWithDetail.currencySymbol, transaction.amount));
             tvDateTime.setText(DateHelper.getFormattedDateTime(this, transaction.transactionDate));
 
             boolean hasDescription = transaction.description != null && !transaction.description.trim().isEmpty();
@@ -526,6 +583,8 @@ public class TransactionDetailActivity extends BaseActivity {
                     if (account != null) {
                         account.balance -= (transaction.amount * exchangeRate);
                     }
+
+                    transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
                 case TransactionEntity.TYPE_EXPENSE:
@@ -536,26 +595,29 @@ public class TransactionDetailActivity extends BaseActivity {
                     if (account != null) {
                         account.balance += (transaction.amount * exchangeRate);
                     }
+
+                    transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
                 case TransactionEntity.TYPE_TRANSFER:
                     WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
+                    WalletEntity toWallet = walletViewModel.getWalletByWalletId(transaction.walletId);
 
                     // Reverse transfer
                     if (fromWallet != null) {
                         fromWallet.amount += transaction.amount;
                     }
 
-                    if (wallet != null) {
-                        wallet.amount -= transaction.amount;
+                    if (toWallet != null) {
+                        toWallet.amount -= transaction.convertedAmount;
                     }
 
                     // Reverse account effect for excluded wallets
-                    if (account != null && fromWallet != null && wallet != null) {
-                        if (!fromWallet.isExclude && wallet.isExclude) {
-                            account.balance += (transaction.amount * fromWallet.exchangeRate);
-                        } else if (fromWallet.isExclude && !wallet.isExclude) {
-                            account.balance -= (transaction.amount * wallet.exchangeRate);
+                    if (account != null && fromWallet != null && toWallet != null) {
+                        if (!fromWallet.isExclude && toWallet.isExclude) {
+                            account.balance += transaction.accountAmount;
+                        } else if (fromWallet.isExclude && !toWallet.isExclude) {
+                            account.balance -= transaction.accountAmount;
                         }
                     }
 
@@ -564,21 +626,23 @@ public class TransactionDetailActivity extends BaseActivity {
 
                     if (feeTransaction != null) {
 
+                        // Restore fee to From Wallet
                         if (fromWallet != null) {
                             fromWallet.amount += feeTransaction.amount;
                         }
 
+                        // Restore exact account amount used by fee
                         if (account != null && fromWallet != null && !fromWallet.isExclude) {
-                            account.balance += (feeTransaction.amount * fromWallet.exchangeRate);
+                            account.balance += feeTransaction.accountAmount;
                         }
-
-                        // Delete only fee transaction
-                        transactionViewModel.deleteFeeTransaction(feeTransaction);
                     }
+
+                    // --------------------------------
+                    // Delete everything together
+                    // --------------------------------
+                    transactionViewModel.deleteTransferTransaction(transaction, fromWallet, toWallet, account, feeTransaction);
                     break;
             }
-
-            transactionViewModel.deleteTransaction(transaction, wallet, account);
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteTransaction", e);
         }

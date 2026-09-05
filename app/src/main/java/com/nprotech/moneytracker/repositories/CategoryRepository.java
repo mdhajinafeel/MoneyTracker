@@ -29,7 +29,7 @@ public class CategoryRepository {
         return categoryDao.getCategoryById(categoryId);
     }
 
-    public CategoryEntity getDefaultCategoryByType(int categoryId, int type) {
+    public CategoryEntity getDefaultCategoryByType(int categoryId, List<Integer> type) {
         return categoryDao.getDefaultCategoryByType(categoryId, type);
     }
 

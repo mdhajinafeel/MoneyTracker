@@ -9,6 +9,7 @@ public class CategoryExpenseModel {
     public int categoryId, defaultCategoryId, transactionCount, icon, walletId, type;
     public String categoryName, color;
     public double amount, percentage;
+    public boolean isFee;
 
     public CategoryExpenseModel(int categoryId, int defaultCategoryId, String categoryName, String color, double amount) {
         this.categoryId = categoryId;

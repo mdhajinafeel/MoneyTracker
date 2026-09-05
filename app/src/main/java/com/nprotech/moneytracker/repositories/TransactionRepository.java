@@ -100,6 +100,42 @@ public class TransactionRepository {
         return rows > 0;
     }
 
+    public boolean deleteTransferTransaction(TransactionEntity transaction, WalletEntity fromWallet, WalletEntity toWallet,
+            AccountEntity account, TransactionEntity feeTransaction) {
+
+        final boolean[] success = {false};
+        database.runInTransaction(() -> {
+
+            // Update From Wallet
+            if (fromWallet != null) {
+                walletDao.updateWallet(fromWallet);
+            }
+
+            // Update To Wallet
+            if (toWallet != null) {
+                walletDao.updateWallet(toWallet);
+            }
+
+            // Update Account
+            if (account != null) {
+                accountDao.updateAccount(account);
+            }
+
+            // Delete fee transaction
+            if (feeTransaction != null) {
+                feeTransaction.isDeleted = true;
+                feeTransaction.updatedAt = System.currentTimeMillis();
+                transactionDao.update(feeTransaction);
+            }
+
+            // Delete main transfer
+            int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
+            success[0] = rows > 0;
+        });
+
+        return success[0];
+    }
+
     public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity, WalletEntity fromWallet, WalletEntity toWallet, AccountEntity account) {
 
         database.runInTransaction(() -> {

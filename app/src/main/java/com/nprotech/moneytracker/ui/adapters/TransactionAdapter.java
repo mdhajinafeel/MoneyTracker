@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
@@ -35,13 +36,21 @@ import java.util.Objects;
 
 public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetails> {
 
+    public interface OnMoreClickListener {
+        void onMoreClick(TransactionWithDetails item);
+    }
+
     private final Context context;
     private final boolean dividerVisible;
+    private final String type;
+    private final OnMoreClickListener moreClickListener;
 
-    public TransactionAdapter(Context context, List<TransactionWithDetails> list, int layoutId, boolean dividerVisible) {
+    public TransactionAdapter(Context context, List<TransactionWithDetails> list, int layoutId, boolean dividerVisible, String type, OnMoreClickListener moreClickListener) {
         super(context, list, layoutId);
         this.context = context;
         this.dividerVisible = dividerVisible;
+        this.type = type;
+        this.moreClickListener = moreClickListener;
     }
 
     @Override
@@ -58,6 +67,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         AppCompatTextView feeLabel = holder.getView(R.id.feeLabel);
         AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
         AppCompatTextView tvBadgeFee = holder.getView(R.id.tvBadgeFee);
+        AppCompatImageView ivMore = holder.getView(R.id.ivMore);
         View divider = holder.getView(R.id.divider);
 
         if (Build.VERSION.SDK_INT >= 29) {
@@ -159,9 +169,29 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         amountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, amount));
         amountLabel.setTextColor(color);
 
+        if(type.equalsIgnoreCase("calendar") || type.equalsIgnoreCase("daily")) {
+
+            ivMore.setVisibility(View.VISIBLE);
+
+            ivMore.setOnClickListener(v -> {
+                if (moreClickListener != null) {
+                    moreClickListener.onMoreClick(item);
+                }
+            });
+        } else {
+            ivMore.setVisibility(View.GONE);
+        }
+
         itemView.setOnClickListener(view -> {
+
             Intent intent = new Intent(context, TransactionDetailActivity.class);
-            intent.putExtra("transactionId", item.transaction.tempTransactionServerId);
+            if(type.equalsIgnoreCase("period") && item.transaction.type == TransactionEntity.TYPE_EXPENSE
+                    && item.transaction.defaultCategoryId == Constants.DEFAULT_CATEGORY_FEE_ID) {
+                intent.putExtra("transactionId", item.transaction.parentTransactionId);
+            } else {
+                intent.putExtra("transactionId", item.transaction.tempTransactionServerId);
+            }
+
             context.startActivity(intent);
 
             if (context instanceof Activity) {

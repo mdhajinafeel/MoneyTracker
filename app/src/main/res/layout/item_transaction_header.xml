@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_10"
-    android:layout_marginEnd="@dimen/margin_10"
     android:background="@color/white"
     android:clipToPadding="false"
-    app:cardUseCompatPadding="true"
+    android:layout_marginTop="@dimen/margin_6"
+    android:layout_marginBottom="@dimen/margin_8"
+    app:strokeColor="@color/card_shadow"
+    app:strokeWidth="0.4dp"
+    android:layout_marginHorizontal="@dimen/margin_16"
+    app:cardUseCompatPadding="false"
     app:cardCornerRadius="@dimen/corner_radius_10"
     app:cardElevation="@dimen/corner_elevation_4">
 
@@ -56,9 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_10"
             android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/llDate"
             app:layout_constraintTop_toTopOf="@id/llDate"
+            app:layout_constraintBottom_toBottomOf="@+id/llDate"
             app:layout_constraintEnd_toEndOf="parent">
 
             <!-- Header -->
@@ -84,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_2"
                     android:textColor="@color/funky_grey"
-                    android:textSize="@dimen/text_12"
+                    android:textSize="@dimen/text_14"
                     app:fontFamily="@font/exo2_medium"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvDay"
@@ -139,19 +142,19 @@
                 android:layout_height="1dp"
                 android:layout_marginTop="@dimen/margin_12"
                 android:background="@color/view_grey" />
-
-            <!-- Transactions -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvDetailedTransactions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/divider"
-                android:layout_marginTop="@dimen/margin_8"
-                android:clipToPadding="false"
-                android:visibility="gone"
-                android:nestedScrollingEnabled="false"
-                android:paddingBottom="@dimen/padding_10" />
-
         </RelativeLayout>
+
+        <!-- Transactions -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDetailedTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:clipToPadding="false"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llDate"
+            android:nestedScrollingEnabled="false" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

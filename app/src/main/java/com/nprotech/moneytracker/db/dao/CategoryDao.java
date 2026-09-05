@@ -38,8 +38,8 @@ public interface CategoryDao {
     @Query("SELECT * FROM categories WHERE defaultCategory = :categoryId LIMIT 1")
     CategoryEntity getDefaultCategoryById(int categoryId);
 
-    @Query("SELECT * FROM categories WHERE defaultCategory = :categoryId AND type = :type LIMIT 1")
-    CategoryEntity getDefaultCategoryByType(int categoryId, int type);
+    @Query("SELECT * FROM categories WHERE defaultCategory = :categoryId AND type IN (:type) LIMIT 1")
+    CategoryEntity getDefaultCategoryByType(int categoryId, List<Integer> type);
 
     @Query("SELECT MAX(ordering) FROM categories WHERE type = :type")
     int getMaxOrder(int type);

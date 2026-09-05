@@ -12,6 +12,7 @@ public class TransactionCategoryModel implements Serializable {
     private int defaultCategoryId, categoryId, icon, transactionCount, type, walletId;
     private double amount;
     private String color, currencySymbol, categoryName;
+    private boolean isFee;
 
     public int getCategoryId() {
         return categoryId;
@@ -91,6 +92,14 @@ public class TransactionCategoryModel implements Serializable {
 
     public void setWalletId(int walletId) {
         this.walletId = walletId;
+    }
+
+    public boolean isFee() {
+        return isFee;
+    }
+
+    public void setFee(boolean fee) {
+        isFee = fee;
     }
 
     public String getCategory(Context context) {

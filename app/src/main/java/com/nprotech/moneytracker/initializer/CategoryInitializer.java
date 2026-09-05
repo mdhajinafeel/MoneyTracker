@@ -94,7 +94,7 @@ public class CategoryInitializer {
 
         List<CategoryEntity> categories = new ArrayList<>();
 
-        categories.add(new CategoryEntity("", "#FF9800", 170, 3, true, 1, 31, true, false, System.currentTimeMillis()));
+        categories.add(new CategoryEntity("", "#FF9800", 170, 2, true, 1, 31, true, false, System.currentTimeMillis()));
         categories.add(new CategoryEntity("", "#00BCD4", 171, 3, true, 2, 32, true, false, System.currentTimeMillis()));
 
         return categories;

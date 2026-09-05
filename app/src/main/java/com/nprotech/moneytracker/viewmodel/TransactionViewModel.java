@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.viewmodel;
 
+import android.annotation.SuppressLint;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -199,6 +201,16 @@ public class TransactionViewModel extends ViewModel {
         });
     }
 
+    public void deleteTransferTransaction(TransactionEntity transaction, WalletEntity fromWallet, WalletEntity toWallet,
+                                          AccountEntity account, TransactionEntity feeTransaction) {
+        executor.execute(() -> {
+            boolean success =
+                    transactionRepository.deleteTransferTransaction(transaction, fromWallet, toWallet,
+                            account, feeTransaction);
+            dataDeletedStatus.postValue(success);
+        });
+    }
+
     public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity,
                                         WalletEntity fromWallet, WalletEntity toWallet, AccountEntity account) {
         executor.execute(() -> {
@@ -300,6 +312,7 @@ public class TransactionViewModel extends ViewModel {
         return transactionRepository.accountSummaryById(accountId);
     }
 
+    @SuppressLint("EmptySuperCall")
     @Override
     protected void onCleared() {
         super.onCleared();

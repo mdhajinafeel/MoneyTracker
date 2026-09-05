@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.models.DailyTransModel;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.text.SimpleDateFormat;
@@ -21,15 +22,21 @@ import java.util.Locale;
 
 public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel> {
 
+    public interface OnMoreClickListener {
+        void onMoreClick(TransactionWithDetails item);
+    }
+
     private String accountCurrencySymbol;
     private final Context context;
+    private final OnMoreClickListener moreClickListener;
 
     private final RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public DailyTransactionAdapter(Context context, List<DailyTransModel> list, String accountCurrencySymbol) {
+    public DailyTransactionAdapter(Context context, List<DailyTransModel> list, String accountCurrencySymbol, OnMoreClickListener moreClickListener) {
         super(context, list, R.layout.item_transaction_header);
         this.accountCurrencySymbol = accountCurrencySymbol;
         this.context = context;
+        this.moreClickListener = moreClickListener;
     }
 
     @Override
@@ -67,10 +74,10 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
 
         int totalColor = ContextCompat.getColor(context, R.color.expense);
         String totalAmount = CommonUtils.getBeautifyAmount(getAccountCurrencySymbol(), item.getAmount());
-        if(item.getAmount() > 0) {
+        if (item.getAmount() > 0) {
             totalAmount = "+" + totalAmount;
             totalColor = ContextCompat.getColor(context, R.color.income);
-        } else if(item.getAmount() == 0) {
+        } else if (item.getAmount() == 0) {
             totalColor = ContextCompat.getColor(context, R.color.transfer);
         }
 
@@ -98,7 +105,12 @@ public class DailyTransactionAdapter extends RecyclerViewAdapter<DailyTransModel
         TransactionAdapter adapter = (TransactionAdapter) rvTransactions.getAdapter();
 
         if (adapter == null) {
-            adapter = new TransactionAdapter(context, item.getTransactions(), R.layout.item_transaction_detail, true);
+            adapter = new TransactionAdapter(context, item.getTransactions(), R.layout.item_transaction_detail,
+                    true, "daily", transaction -> {
+                if (moreClickListener != null) {
+                    moreClickListener.onMoreClick(transaction);
+                }
+            });
             rvTransactions.setAdapter(adapter);
         } else {
             adapter.setItems(item.getTransactions());

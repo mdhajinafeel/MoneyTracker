@@ -525,7 +525,11 @@ public class CreateGoalActivity extends BaseActivity {
     }
 
     private CategoryEntity getGoalCategoryId() {
-        return categoryViewModel.getDefaultCategoryByType(1, TransactionEntity.TYPE_GOAL);
+
+        List<Integer> goalIds = new ArrayList<>();
+        goalIds.add(TransactionEntity.TYPE_GOAL);
+
+        return categoryViewModel.getDefaultCategoryByType(1, goalIds);
     }
 
     private void updateCategory() {

@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
@@ -80,15 +81,24 @@ public class WalletTransactionAdapter extends RecyclerViewAdapter<TransactionCat
 
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, CategoryTransactionActivity.class);
-                intent.putExtra("type", item.getType());
-                intent.putExtra("categoryId", item.getCategoryId());
-                intent.putExtra("walletId", item.getWalletId());
 
-                if (item.getCategoryName() != null && !item.getCategoryName().isEmpty()) {
-                    intent.putExtra("categoryName", item.getCategoryName());
+                String catName;
+                if(item.getDefaultCategoryId() == Constants.DEFAULT_CATEGORY_TRANSFER_ID) {
+                    intent.putExtra("type", TransactionEntity.TYPE_TRANSFER);
+                    intent.putExtra("categoryId", Constants.DEFAULT_CATEGORY_TRANSFER_ID);
+                    catName = context.getString(R.string.transfer);
                 } else {
-                    intent.putExtra("categoryName", item.getCategory(context));
+                    intent.putExtra("type", item.getType());
+                    intent.putExtra("categoryId", item.getCategoryId());
+
+                    catName = item.getDefaultCategory(context);
+                    if (Objects.equals(catName, "")) {
+                        catName = item.getCategoryName();
+                    }
                 }
+
+                intent.putExtra("walletId", item.getWalletId());
+                intent.putExtra("categoryName", catName);
                 context.startActivity(intent);
 
                 if (context instanceof Activity) {

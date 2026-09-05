@@ -53,7 +53,7 @@
             android:fontFamily="@font/exo2_semibold"
             android:lineSpacingExtra="1dp"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_14" />
+            android:textSize="@dimen/text_16" />
 
         <!-- Information Card -->
         <com.google.android.material.card.MaterialCardView
@@ -115,20 +115,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_marginTop="@dimen/margin_16"
+            android:gravity="end"
+            android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvClose"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginEnd="@dimen/margin_6"
-                android:layout_weight="0.5"
                 android:fontFamily="@font/exo2_semibold"
                 android:gravity="center"
+                android:paddingHorizontal="@dimen/margin_16"
+                android:paddingVertical="@dimen/margin_8"
                 android:text="@string/text_close"
                 android:textAllCaps="true"
                 android:textColor="@color/primary_dark"
@@ -138,10 +138,9 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDelete"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_6"
-                android:layout_weight="0.5"
                 android:fontFamily="@font/exo2_semibold"
                 android:letterSpacing="0.01"
                 android:text="@string/move_delete"

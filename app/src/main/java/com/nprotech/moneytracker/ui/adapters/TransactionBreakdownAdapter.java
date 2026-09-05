@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.models.CategoryExpenseModel;
@@ -117,12 +118,20 @@ public class TransactionBreakdownAdapter extends RecyclerViewAdapter<CategoryExp
 
         itemView.setOnClickListener(view -> {
             Intent intent = new Intent(context, CategoryTransactionActivity.class);
-            intent.putExtra("type", item.type);
-            intent.putExtra("categoryId", item.categoryId);
 
-            String catName = item.getCategoryName(context);
-            if (Objects.equals(catName, "")) {
-                catName = item.categoryName;
+            String catName;
+            if(item.isFee) {
+                intent.putExtra("type", TransactionEntity.TYPE_TRANSFER);
+                intent.putExtra("categoryId", Constants.DEFAULT_CATEGORY_TRANSFER_ID);
+                catName = context.getString(R.string.transfer);
+            } else {
+                intent.putExtra("type", item.type);
+                intent.putExtra("categoryId", item.categoryId);
+
+                catName = item.getCategoryName(context);
+                if (Objects.equals(catName, "")) {
+                    catName = item.categoryName;
+                }
             }
 
             intent.putExtra("categoryName", catName);

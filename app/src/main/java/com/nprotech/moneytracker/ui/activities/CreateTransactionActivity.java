@@ -204,6 +204,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     } else {
                         tvTitle.setText(getString(R.string.transfer));
                     }
+                    switchTransMode(transactionType);
                     tempTransactionServerId = bundle.getString("transactionId", "");
                 }
 
@@ -235,6 +236,13 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 transactionWithDetails = transactionViewModel.getTransactions(tempTransactionServerId);
 
+                if (transactionWithDetails == null) {
+                    Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                    finish();
+                    ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                    return;
+                }
+
                 account = accountViewModel.getAccountDetailById((int) transactionWithDetails.transaction.accountId);
                 walletLists = accountViewModel.getWalletsByAccountId((int) transactionWithDetails.transaction.accountId);
 
@@ -257,16 +265,65 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 if (!walletLists.isEmpty()) {
                     selectedWallet = null;
-                    for (WalletEntity wallet : walletLists) {
-                        if (wallet.id == transactionWithDetails.transaction.walletId) {
-                            selectedWallet = wallet;
-                            break;
-                        }
-                    }
+                    selectedFromWallet = null;
 
-                    if (selectedWallet != null) {
-                        tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
-                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+                    if (transactionType == TransactionEntity.TYPE_TRANSFER) {
+
+                        // --------------------------------
+                        // FROM WALLET
+                        // --------------------------------
+                        if (transactionWithDetails.transaction.fromWalletId != null) {
+
+                            for (WalletEntity wallet : walletLists) {
+                                if (wallet.id == transactionWithDetails.transaction.fromWalletId) {
+                                    selectedFromWallet = wallet;
+                                    break;
+                                }
+                            }
+                        }
+
+                        // --------------------------------
+                        // TO WALLET
+                        // --------------------------------
+                        for (WalletEntity wallet : walletLists) {
+                            if (wallet.id == transactionWithDetails.transaction.walletId) {
+                                selectedWallet = wallet;
+                                break;
+                            }
+                        }
+
+                        // --------------------------------
+                        // DISPLAY FROM WALLET
+                        // --------------------------------
+                        if (selectedFromWallet != null) {
+                            tvFromWallet.setText(getString(R.string.wallet_info, selectedFromWallet.name,
+                                            CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
+                        }
+
+                        // --------------------------------
+                        // DISPLAY TO WALLET
+                        // --------------------------------
+                        if (selectedWallet != null) {
+                            tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                                    CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+                        }
+
+                        // Fee uses FROM wallet currency
+                        tvFee.setText(CommonUtils.getBeautifyAmount(selectedFromWallet != null ? selectedFromWallet.currencySymbol
+                                : account.currencySymbol, transactionWithDetails.transaction.fee));
+                    } else {
+
+                        for (WalletEntity wallet : walletLists) {
+                            if (wallet.id == transactionWithDetails.transaction.walletId) {
+                                selectedWallet = wallet;
+                                break;
+                            }
+                        }
+
+                        if (selectedWallet != null) {
+                            tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                                    CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+                        }
                     }
 
                     // Initialize selected category
@@ -551,77 +608,130 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private void switchTransMode(int mode) {
         try {
-            if (mode == 1) {
+            boolean isIncome = mode == TransactionEntity.TYPE_INCOME;
+            boolean isExpense = mode == TransactionEntity.TYPE_EXPENSE;
+            boolean isTransfer = mode == TransactionEntity.TYPE_TRANSFER;
+
+            // -----------------------------
+            // Common visibility
+            // -----------------------------
+            cardFromWallet.setVisibility(isTransfer ? View.VISIBLE : View.GONE);
+            cardFee.setVisibility(isTransfer ? View.VISIBLE : View.GONE);
+            cardCategory.setVisibility(isTransfer ? View.GONE : View.VISIBLE);
+
+            // Wallet label
+            walletTitleLabel.setText(
+                    isTransfer
+                            ? getString(R.string.to_wallet)
+                            : getString(R.string.wallet)
+            );
+
+            // -----------------------------
+            // Income
+            // -----------------------------
+            if (isIncome) {
 
                 tvTitle.setText(getString(R.string.income));
 
-                btnIncome.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_income));
-                btnIncome.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.income));
+                btnIncome.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.light_income)
+                );
+                btnIncome.setTextColor(
+                        ContextCompat.getColor(this, R.color.income)
+                );
                 btnIncome.setTypeface(semiBold);
 
-                btnExpense.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnExpense.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
+                btnExpense.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnExpense.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
                 btnExpense.setTypeface(medium);
-                btnTransfer.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnTransfer.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
+
+                btnTransfer.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnTransfer.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
                 btnTransfer.setTypeface(medium);
 
-                cardFee.setVisibility(View.GONE);
-                cardFromWallet.setVisibility(View.GONE);
-                cardCategory.setVisibility(View.VISIBLE);
+                tvCategory.setText(
+                        incomeCategory != null
+                                ? incomeCategory.getName(getApplicationContext())
+                                : ""
+                );
 
-                walletTitleLabel.setText(getString(R.string.wallet));
-                if (incomeCategory != null) {
-                    tvCategory.setText(incomeCategory.getName(getApplicationContext()));
-                } else {
-                    tvCategory.setText("");
-                }
-            } else if (mode == 2) {
+                // -----------------------------
+                // Expense
+                // -----------------------------
+            } else if (isExpense) {
 
                 tvTitle.setText(getString(R.string.expense));
 
-                btnExpense.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_expense));
-                btnExpense.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.expense));
+                btnExpense.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.light_expense)
+                );
+                btnExpense.setTextColor(
+                        ContextCompat.getColor(this, R.color.expense)
+                );
                 btnExpense.setTypeface(semiBold);
 
-                btnIncome.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnIncome.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
+                btnIncome.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnIncome.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
                 btnIncome.setTypeface(medium);
-                btnTransfer.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnTransfer.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
+
+                btnTransfer.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnTransfer.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
                 btnTransfer.setTypeface(medium);
 
-                cardFee.setVisibility(View.GONE);
-                cardFromWallet.setVisibility(View.GONE);
-                cardCategory.setVisibility(View.VISIBLE);
+                tvCategory.setText(
+                        expenseCategory != null
+                                ? expenseCategory.getName(getApplicationContext())
+                                : ""
+                );
 
-                walletTitleLabel.setText(getString(R.string.wallet));
-                if (expenseCategory != null) {
-                    tvCategory.setText(expenseCategory.getName(getApplicationContext()));
-                } else {
-                    tvCategory.setText("");
-                }
-            } else if (mode == 3) {
+                // -----------------------------
+                // Transfer
+                // -----------------------------
+            } else if (isTransfer) {
 
                 tvTitle.setText(getString(R.string.transfer));
 
-                btnTransfer.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.light_transfer));
-                btnTransfer.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.transfer));
+                btnTransfer.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.light_transfer)
+                );
+                btnTransfer.setTextColor(
+                        ContextCompat.getColor(this, R.color.transfer)
+                );
                 btnTransfer.setTypeface(semiBold);
 
-                btnExpense.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnExpense.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
-                btnExpense.setTypeface(medium);
-                btnIncome.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
-                btnIncome.setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.text_grey));
+                btnIncome.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnIncome.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
                 btnIncome.setTypeface(medium);
 
-                cardFee.setVisibility(View.VISIBLE);
-                cardFromWallet.setVisibility(View.VISIBLE);
-                cardCategory.setVisibility(View.GONE);
-
-                walletTitleLabel.setText(getString(R.string.to_wallet));
+                btnExpense.setBackgroundColor(
+                        ContextCompat.getColor(this, R.color.white)
+                );
+                btnExpense.setTextColor(
+                        ContextCompat.getColor(this, R.color.text_grey)
+                );
+                btnExpense.setTypeface(medium);
             }
+
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchTransMode", e);
         }
@@ -641,7 +751,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                                 updateAmountText();
                             } else if (type != null && type.equalsIgnoreCase("fee")) {
                                 transactionFee = amount;
-                                tvFee.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, amount));
+                                String symbol;
+
+                                if (transactionType == TransactionEntity.TYPE_TRANSFER && selectedFromWallet != null) {
+                                    symbol = selectedFromWallet.currencySymbol;
+                                } else {
+                                    symbol = account.currencySymbol;
+                                }
+                                tvFee.setText(CommonUtils.getBeautifyAmount(symbol, amount));
                             }
                             updateSaveButtonState();
                         }
@@ -713,6 +830,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                             selectedFromWallet = walletEntity;
                             tvFromWallet.setText(getString(R.string.wallet_info, selectedFromWallet.name,
                                     CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
+                            updateAmountText();
+                            tvFee.setText(CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, transactionFee));
                             updateSaveButtonState();
                             dialog.dismiss();
                         });
@@ -744,8 +863,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 break;
 
             case TransactionEntity.TYPE_TRANSFER:
-                enabled &= selectedFromWallet != null
-                        && Objects.requireNonNull(selectedWallet).id != selectedFromWallet.id;
+                enabled &= selectedFromWallet != null && selectedWallet != null && selectedWallet.id != selectedFromWallet.id;
                 break;
         }
 
@@ -1074,7 +1192,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             extension = ".bin";
         }
 
-        File outFile = new File(dir, "FILE_" + UUID.randomUUID() + extension);
+        File outFile = new File(dir, "ATT_" + UUID.randomUUID() + extension);
 
         String mime = getContentResolver().getType(uri);
 
@@ -1375,41 +1493,49 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             // EDIT TRANSFER
             // ------------------------
 
-            WalletEntity oldFromWallet =
-                    walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.fromWalletId);
-
-            WalletEntity oldToWallet =
-                    walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.walletId);
+            WalletEntity oldFromWallet = walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.fromWalletId);
+            WalletEntity oldToWallet = walletViewModel.getWalletByWalletId(transactionWithDetails.transaction.walletId);
 
             // Undo old transfer
+            double oldAccountAmount = transactionWithDetails.transaction.accountAmount;
+            double oldConvertedAmount = transactionWithDetails.transaction.convertedAmount;
 
-            double oldAccountAmount = existingAmount * oldFromWallet.exchangeRate;
-            double oldConvertedAmount = oldAccountAmount / oldToWallet.exchangeRate;
+            // Legacy fallback for old transactions
+            if (oldAccountAmount <= 0) {
+                oldAccountAmount = existingAmount * oldFromWallet.exchangeRate;
+            }
+
+            if (oldConvertedAmount <= 0) {
+                oldConvertedAmount = oldAccountAmount / oldToWallet.exchangeRate;
+            }
 
             oldFromWallet.amount += existingAmount;
             oldToWallet.amount -= oldConvertedAmount;
 
             if (!oldFromWallet.isExclude && oldToWallet.isExclude) {
-                account.balance += existingAmount;
+                account.balance += oldAccountAmount;
             } else if (oldFromWallet.isExclude && !oldToWallet.isExclude) {
-                account.balance -= existingAmount;
+                account.balance -= oldAccountAmount;
             }
 
             // Undo old fee
             oldFeeTransaction = transactionViewModel.getFeeTransaction(transactionWithDetails.transaction.tempTransactionServerId);
 
             if (oldFeeTransaction != null) {
-
                 oldFromWallet.amount += oldFeeTransaction.amount;
 
                 if (!oldFromWallet.isExclude) {
-                    account.balance += (oldFeeTransaction.amount * oldFromWallet.exchangeRate);
+                    account.balance += oldFeeTransaction.accountAmount;
                 }
             }
 
             // Apply new transfer
             double accountAmount = transactionAmount * fromWallet.exchangeRate;
             double convertedAmount = accountAmount / toWallet.exchangeRate;
+
+            // Store the new transfer values
+            transferTransaction.accountAmount = accountAmount;
+            transferTransaction.convertedAmount = convertedAmount;
 
             fromWallet.amount -= transactionAmount;
             toWallet.amount += convertedAmount;
@@ -1425,10 +1551,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 long currentTime = System.currentTimeMillis();
 
+                double feeAccountAmount = transactionFee * fromWallet.exchangeRate;
+
                 fromWallet.amount -= transactionFee;
 
                 if (!fromWallet.isExclude) {
-                    account.balance -= (transactionFee * fromWallet.exchangeRate);
+                    account.balance -= feeAccountAmount;
                 }
 
                 if (oldFeeTransaction != null) {
@@ -1438,6 +1566,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     feeTransaction.walletId = fromWallet.id;
                     feeTransaction.fromWalletId = fromWallet.id;
                     feeTransaction.amount = transactionFee;
+                    feeTransaction.accountAmount = feeAccountAmount;
                     feeTransaction.transactionDate = transferTransaction.transactionDate;
 
                 } else {
@@ -1453,17 +1582,18 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     feeTransaction.fromWalletId = fromWallet.id;
                     feeTransaction.type = TransactionEntity.TYPE_EXPENSE;
                     feeTransaction.amount = transactionFee;
+                    feeTransaction.accountAmount = feeAccountAmount;
                     feeTransaction.fee = 0;
                     feeTransaction.categoryId = category.id;
                     feeTransaction.defaultCategoryId = category.defaultCategory;
                     feeTransaction.transactionDate = transferTransaction.transactionDate;
                     feeTransaction.description = getString(R.string.fee);
                     feeTransaction.memo = "";
-                    feeTransaction.parentTransactionId =
-                            transferTransaction.tempTransactionServerId;
+                    feeTransaction.parentTransactionId = transferTransaction.tempTransactionServerId;
                     feeTransaction.createdAt = currentTime;
                 }
                 feeTransaction.updatedAt = currentTime;
+                feeTransaction.isFee = true;
             }
 
             transactionViewModel.updateTransferTransaction(transferTransaction, feeTransaction, oldFeeTransaction, oldFromWallet, oldToWallet, fromWallet,
@@ -1478,6 +1608,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             double accountAmount = transactionAmount * fromWallet.exchangeRate;
             double convertedAmount = accountAmount / toWallet.exchangeRate;
 
+            transferTransaction.accountAmount = accountAmount;
+            transferTransaction.convertedAmount = convertedAmount;
+
             fromWallet.amount -= transactionAmount;
             toWallet.amount += convertedAmount;
 
@@ -1491,10 +1624,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 long currentTime = System.currentTimeMillis();
                 CategoryEntity category = getTransferCategoryId(Constants.DEFAULT_CATEGORY_FEE_ID);
 
+                double feeAccountAmount = transactionFee * fromWallet.exchangeRate;
+
                 fromWallet.amount -= transactionFee;
 
                 if (!fromWallet.isExclude) {
-                    account.balance -= (transactionFee * fromWallet.exchangeRate);
+                    account.balance -= feeAccountAmount;
                 }
 
                 feeTransaction = new TransactionEntity();
@@ -1506,6 +1641,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 feeTransaction.fromWalletId = fromWallet.id;
                 feeTransaction.type = TransactionEntity.TYPE_EXPENSE;
                 feeTransaction.amount = transactionFee;
+                feeTransaction.accountAmount = feeAccountAmount;
                 feeTransaction.categoryId = category.id;
                 feeTransaction.defaultCategoryId = category.defaultCategory;
                 feeTransaction.transactionDate = transferTransaction.transactionDate;
@@ -1513,6 +1649,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 feeTransaction.parentTransactionId = transferTransaction.tempTransactionServerId;
                 feeTransaction.createdAt = currentTime;
                 feeTransaction.updatedAt = currentTime;
+                feeTransaction.isFee = true;
             }
 
             transactionViewModel.saveTransferTransaction(transferTransaction, feeTransaction, fromWallet, toWallet, account);
@@ -1520,7 +1657,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     }
 
     private CategoryEntity getTransferCategoryId(int categoryId) {
-        return categoryViewModel.getDefaultCategoryByType(categoryId, TransactionEntity.TYPE_TRANSFER);
+
+        List<Integer> transferIds = new ArrayList<>();
+        transferIds.add(TransactionEntity.TYPE_EXPENSE);
+        transferIds.add(TransactionEntity.TYPE_TRANSFER);
+
+        return categoryViewModel.getDefaultCategoryByType(categoryId, transferIds);
     }
 
     @NonNull
@@ -1560,7 +1702,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     }
 
     private void updateAmountText() {
-        String symbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
+        String symbol;
+        if (transactionType == TransactionEntity.TYPE_TRANSFER) {
+            symbol = selectedFromWallet != null ? selectedFromWallet.currencySymbol : account.currencySymbol;
+        } else {
+            symbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
+        }
         tvAmount.setText(CommonUtils.getBeautifyAmount(symbol, transactionAmount));
     }
 

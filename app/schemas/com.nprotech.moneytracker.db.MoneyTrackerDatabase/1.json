@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8bd865129c5cf3e337561b2b92ef0da3",
+    "identityHash": "e88d393936e67623dca49e84c63c088a",
     "entities": [
       {
         "tableName": "currencies",
@@ -448,7 +448,7 @@
       },
       {
         "tableName": "transactions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `parentTransactionId` TEXT, `goalId` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tempTransactionServerId` TEXT, `serverId` INTEGER NOT NULL, `accountId` INTEGER NOT NULL, `type` INTEGER NOT NULL, `amount` REAL NOT NULL, `fee` REAL NOT NULL, `walletId` INTEGER NOT NULL, `convertedAmount` REAL NOT NULL, `accountAmount` REAL NOT NULL, `fromWalletId` INTEGER, `categoryId` INTEGER, `defaultCategoryId` INTEGER, `description` TEXT, `memo` TEXT, `transactionDate` INTEGER NOT NULL, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `parentTransactionId` TEXT, `goalId` INTEGER NOT NULL, `isFee` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -495,6 +495,18 @@
             "fieldPath": "walletId",
             "columnName": "walletId",
             "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "convertedAmount",
+            "columnName": "convertedAmount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountAmount",
+            "columnName": "accountAmount",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -560,6 +572,12 @@
           {
             "fieldPath": "goalId",
             "columnName": "goalId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFee",
+            "columnName": "isFee",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -1098,7 +1116,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8bd865129c5cf3e337561b2b92ef0da3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e88d393936e67623dca49e84c63c088a')"
     ]
   }
 }

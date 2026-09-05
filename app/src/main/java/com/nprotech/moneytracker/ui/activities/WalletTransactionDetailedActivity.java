@@ -456,14 +456,20 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         if (difference > 0) {
             transaction.type = TransactionEntity.TYPE_INCOME;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_INCOME);
+            List<Integer> incomeIds = new ArrayList<>();
+            incomeIds.add(TransactionEntity.TYPE_INCOME);
+
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, incomeIds);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
 
         } else {
             transaction.type = TransactionEntity.TYPE_EXPENSE;
 
-            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, TransactionEntity.TYPE_EXPENSE);
+            List<Integer> expenseIds = new ArrayList<>();
+            expenseIds.add(TransactionEntity.TYPE_EXPENSE);
+
+            CategoryEntity category = categoryViewModel.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_ADJUST_ID, expenseIds);
             transaction.categoryId = category.id;
             transaction.defaultCategoryId = category.defaultCategory;
         }

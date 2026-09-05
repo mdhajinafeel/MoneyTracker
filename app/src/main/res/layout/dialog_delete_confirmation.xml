@@ -40,7 +40,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_8"
             android:fontFamily="@font/exo2_bold"
             android:gravity="center"
             android:textColor="@color/text_primary"
@@ -55,7 +55,7 @@
             android:gravity="center"
             android:text="@string/delete_message"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_14" />
+            android:textSize="@dimen/text_16" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvSubMessage"
@@ -65,13 +65,13 @@
             android:fontFamily="@font/exo2_regular"
             android:gravity="center"
             android:textColor="@color/funky_grey"
-            android:textSize="@dimen/text_12"
-            android:visibility="visible" />
+            android:textSize="@dimen/text_14"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_16"
             android:gravity="end"
             android:orientation="horizontal">
 
@@ -79,7 +79,7 @@
                 android:id="@+id/tvCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_6"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/exo2_bold"

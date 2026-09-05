@@ -81,16 +81,23 @@ public interface TransactionDao {
     @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE walletId = :walletId AND isDeleted = 0 GROUP BY type")
     List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId);
 
-    @Query("SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
-            "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END AS type, " +
-            "t.categoryId, c.name AS categoryName, t.walletId FROM transactions t " +
-            "LEFT JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
+    @Query("SELECT x.defaultCategoryId, x.transactionCount, SUM(x.amount + x.feeAmount) AS amount, x.color, x.icon, x.currencySymbol, x.type, " +
+            "x.categoryId, x.categoryName, x.walletId, x.isFee " +
+            "FROM (SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
+            "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 " +
+            "WHEN t.type = 3 AND t.walletId = :walletId THEN 1 " +
+            "ELSE t.type END AS type, t.categoryId, c.name AS categoryName, CASE WHEN t.type = 3 THEN t.fromWalletId ELSE t.walletId END AS walletId, " +
+            "SUM(CASE WHEN t.type = 3 THEN COALESCE(( " +
+            "SELECT SUM(f.amount) FROM transactions f WHERE f.parentTransactionId = t.tempTransactionServerId AND f.isDeleted = 0 ), 0) ELSE 0 END) AS feeAmount, " +
+            "t.isFee " +
+            "FROM transactions t LEFT JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "WHERE (t.walletId = :walletId OR t.fromWalletId = :walletId) " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
             "AND t.isDeleted = 0 GROUP BY t.defaultCategoryId, t.categoryId, " +
-            "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN 1 ELSE t.type END, " +
-            "c.color, c.icon, w.currencySymbol, c.name " +
-            "ORDER BY t.defaultCategoryId, c.name")
+            "CASE WHEN t.type = 3 AND t.fromWalletId = :walletId THEN 2 WHEN t.type = 3 AND t.walletId = :walletId THEN :walletId ELSE t.type END, " +
+            "c.color, c.icon, w.currencySymbol, c.name, t.walletId " +
+            "ORDER BY t.defaultCategoryId, c.name) x GROUP BY x.defaultCategoryId, x.categoryName")
     LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId);
 
     @Query("UPDATE transactions SET isDeleted = 1, updatedAt = :updatedAt, isSynced = 0 WHERE tempTransactionServerId = :tempTransactionServerId")
@@ -134,6 +141,7 @@ public interface TransactionDao {
             "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
             "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
             "WHERE t.accountId = :accountId AND t.transactionDate BETWEEN :start AND :end " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
             "AND t.isDeleted = 0 " +
             "ORDER BY t.transactionDate DESC")
     LiveData<List<TransactionWithDetails>> getTransactionsForDay(int accountId, long start, long end);
@@ -171,7 +179,7 @@ public interface TransactionDao {
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
             "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon, " +
-            "t.type, t.walletId " +
+            "t.type, t.walletId, t.isFee " +
             "FROM transactions t " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
@@ -181,7 +189,7 @@ public interface TransactionDao {
 
     @Query("SELECT c.id AS categoryId, c.name AS categoryName, c.defaultCategory AS defaultCategoryId, " +
             "c.color AS color, SUM(t.amount * w.exchangeRate) AS amount, 0 AS percentage, 0 AS transactionCount, 0 AS icon, " +
-            "t.type, t.walletId " +
+            "t.type, t.walletId, t.isFee " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
@@ -190,7 +198,7 @@ public interface TransactionDao {
     LiveData<List<CategoryExpenseModel>> getIncomeByCategory(int accountId, long startDate, long endDate);
 
     @Query("SELECT CASE WHEN :transactionType = 1 THEN SUM(t.amount * w.exchangeRate) ELSE SUM((t.amount * w.exchangeRate) * -1) END AS amount, COUNT(*) AS transactionCount, c.name AS categoryName, t.categoryId, t.defaultCategoryId, c.color, c.icon, 0 AS percentage, " +
-            "c.icon AS icon, t.walletId AS walletId, 0 AS type " +
+            "c.icon AS icon, t.walletId AS walletId, 0 AS type, t.isFee " +
             "FROM transactions t " +
             "INNER JOIN categories c ON c.id = t.categoryId " +
             "INNER JOIN wallets w ON w.id = t.walletId " +
@@ -255,18 +263,18 @@ public interface TransactionDao {
     LiveData<List<BreakdownChartModel>> getYearlyBreakdown(int accountId, int transactionType);
 
     @Transaction
-    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
-            "c.icon AS icon, " +
-            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, c.icon AS icon, " +
+            "w.name AS walletName, pw.name AS fromWalletName, w.exchangeRate " +
             "FROM transactions t " +
-            "JOIN wallets w ON w.id=t.walletId " +
-            "LEFT JOIN wallets fw ON fw.id=t.fromWalletId " +
-            "JOIN categories c ON c.id=t.categoryId AND c.type = t.type " +
-            "WHERE t.isDeleted=0 AND t.type = :transactionType " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
+            "LEFT JOIN transactions pt ON pt.tempTransactionServerId = t.parentTransactionId AND pt.isDeleted = 0 " +
+            "LEFT JOIN wallets pw ON pw.id = pt.walletId " +
+            "LEFT JOIN wallets pfw ON pfw.id = pt.fromWalletId " +
+            "WHERE t.isDeleted = 0 AND t.type = :transactionType " +
             "AND t.transactionDate BETWEEN :startDate AND :endDate " +
-            "AND t.accountId=:accountId " +
-            "AND w.accountId=:accountId " +
-            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId='') " +
+            "AND t.accountId = :accountId AND w.accountId = :accountId " +
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
     List<TransactionWithDetails> getTransactionsForPeriod(int accountId, int transactionType, long startDate, long endDate, int limit, int offset);
@@ -290,7 +298,8 @@ public interface TransactionDao {
             "AND t.accountId = :accountId " +
             "AND w.accountId = :accountId " +
             "AND t.type IN (1,2,3) " +
-            "AND w.id = :walletId AND t.categoryId = :categoryId " +
+            "AND CASE WHEN t.type = 3 THEN t.fromWalletId = :walletId ELSE w.id = :walletId END AND " +
+            "CASE WHEN t.type = 3 THEN t.defaultCategoryId = :categoryId ELSE t.categoryId = :categoryId END " +
             "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
@@ -308,7 +317,7 @@ public interface TransactionDao {
             "AND t.accountId = :accountId " +
             "AND w.accountId = :accountId " +
             "AND t.type IN (1,2,3) " +
-            "AND w.id = :walletId " +
+            "AND CASE WHEN t.type = 3 THEN t.fromWalletId = :walletId ELSE w.id = :walletId END " +
             "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
             "ORDER BY t.transactionDate DESC " +
             "LIMIT :limit OFFSET :offset")
