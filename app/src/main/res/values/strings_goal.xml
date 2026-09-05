@@ -48,7 +48,6 @@
     <string name="goal_month">Month</string>
     <string name="day">Day</string>
     <string name="character_limit">%1$d/40</string>
-    <string name="character_limit_wallet">%1$d/20</string>
     <string name="select_frequency">Select Frequency</string>
     <string name="no_goals_yet">No goals yet</string>
     <string name="empty_goal_hint">Tap the + button to add goal.</string>
