@@ -56,7 +56,7 @@ public class CreateWalletActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivWalletIcon;
     private AppCompatEditText etWalletName;
-    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount, rateLabel;
+    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount, rateLabel, maxLimitLabel;
     private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner, statementDateSpinner, paymentDateSpinner;
     private FrameLayout frameColor;
     private MaterialCardView cardWalletExclude, cardWalletStatement, cardWalletPayment;
@@ -92,6 +92,7 @@ public class CreateWalletActivity extends BaseActivity {
             tvSave.setVisibility(View.VISIBLE);
 
             etWalletName = findViewById(R.id.etWalletName);
+            maxLimitLabel = findViewById(R.id.maxLimitLabel);
             typeSpinner = findViewById(R.id.typeSpinner);
             frameColor = findViewById(R.id.frameColor);
             colorSpinner = findViewById(R.id.colorSpinner);
@@ -196,6 +197,7 @@ public class CreateWalletActivity extends BaseActivity {
                     walletIcon = walletEntity.categoryIcon;
                     ivWalletIcon.setImageResource(DataHelper.getWalletIcons().get(walletIcon));
                     tvAmount.setText(CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletAmount));
+                    maxLimitLabel.setText(getString(R.string.character_limit_wallet, Objects.requireNonNull(etWalletName.getText()).toString().length()));
 
                     //Color
                     int colorPosition = walletColorLists.indexOf(walletEntity.walletColor);
@@ -224,6 +226,7 @@ public class CreateWalletActivity extends BaseActivity {
                 tvTitle.setText(getString(R.string.add_wallet));
                 walletIcon = 0;
                 tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, walletAmount));
+                maxLimitLabel.setText(getString(R.string.character_limit_wallet, 0));
             }
 
             updateSaveButtonState();
@@ -248,6 +251,7 @@ public class CreateWalletActivity extends BaseActivity {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    maxLimitLabel.setText(getString(R.string.character_limit_wallet, charSequence.length()));
                     updateSaveButtonState();
                 }
             });

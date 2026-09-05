@@ -105,12 +105,23 @@
                             android:inputType="textCapWords"
                             android:paddingStart="@dimen/padding_0"
                             android:paddingEnd="@dimen/padding_16"
+                            android:maxLength="20"
                             android:textColor="@color/black"
                             android:textColorHint="@color/dark_grey"
                             android:textSize="@dimen/text_16"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@id/nameLabel"
                             app:layout_constraintTop_toBottomOf="@id/nameLabel" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/maxLimitLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/funky_grey"
+                            android:textSize="@dimen/text_8"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintTop_toBottomOf="@+id/etWalletName"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
