@@ -89,6 +89,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
     private List<CategoryExpenseModel> incomeList = new ArrayList<>();
     private CalendarFilterType selectedFilter;
     private long customStartDate = -1, customEndDate = -1;
+    private boolean viewInitialized = false;
 
     @Nullable
     @Override
@@ -121,6 +122,9 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
         } catch (Exception e) {
             AppLogger.e(getClass(), "onCreateView", e);
         }
+
+        viewInitialized = true;
+
         return view;
     }
 
@@ -216,7 +220,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
 
     private void loadCalendarData() {
 
-        if (selectedAccountId <= 0 || date == null) return;
+        if (selectedAccountId <= 0 || date == null || selectedFilter == null) return;
 
         CalendarRangeModel range = switch (selectedFilter) {
             case DAILY -> CalendarHelper.getDailyRange(date);
@@ -438,7 +442,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
-        if (!hidden) {
+        if (!hidden && viewInitialized) {
             resetStatistics();
         }
     }
@@ -645,6 +649,10 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
     }
 
     private void updateNavigationButtons() {
+
+        if (ivPrevious == null || ivNext == null || selectedFilter == null) {
+            return;
+        }
 
         boolean enabled = selectedFilter != CalendarFilterType.ALL && selectedFilter != CalendarFilterType.CUSTOM;
 
