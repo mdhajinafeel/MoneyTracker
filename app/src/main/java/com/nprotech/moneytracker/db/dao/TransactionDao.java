@@ -328,4 +328,10 @@ public interface TransactionDao {
 
     @Query("UPDATE transactions SET defaultCategoryId = :defaultCategoryId, categoryId = :newCategoryId, updatedAt = :updatedAt WHERE categoryId = :oldCategoryId")
     void moveTransactionsToCategory(int oldCategoryId, int newCategoryId, int defaultCategoryId, long updatedAt);
+
+    @Query("SELECT * FROM transactions WHERE isDeleted = 0 AND accountId = :accountId AND (walletId = :walletId OR fromWalletId = :walletId)")
+    List<TransactionEntity> getTransactionsForWallet(int walletId, int accountId);
+
+    @Query("SELECT * FROM transactions WHERE parentTransactionId = :transactionId AND isFee = 1 AND isDeleted = 0")
+    List<TransactionEntity> getFeesForTransaction(String transactionId);
 }

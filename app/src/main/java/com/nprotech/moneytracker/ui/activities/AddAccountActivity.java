@@ -318,7 +318,7 @@ public class AddAccountActivity extends BaseActivity {
 
             WalletEntity wallet = new WalletEntity();
             wallet.accountId = (int) accountId;
-            wallet.name = getString(R.string.cash);
+            wallet.name = getString(R.string.cash_wallet);
             wallet.walletType = 0;
             wallet.walletColor = "#6A1B9A";
             wallet.currencyName = currency.name;
@@ -336,6 +336,9 @@ public class AddAccountActivity extends BaseActivity {
             wallet.isActive = true;
             wallet.isSynced = false;
             wallet.isDeleted = false;
+            wallet.isDefault = true;
+            wallet.isArchived = false;
+            wallet.archivedAt = 0;
             long walletId = walletViewModel.saveWallet(wallet);
 
             PreferenceManager.INSTANCE.setWalletId(walletId);

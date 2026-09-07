@@ -259,7 +259,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     @Override
     public void onSettingClick(SettingItemModel item) {
-        if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {
+        if (Objects.requireNonNull(item.settingType) == SettingType.WALLET) {
+            startActivity(new Intent(SettingsActivity.this, ManageWalletActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+        } else if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {
             startActivity(new Intent(SettingsActivity.this, ManageCurrencyActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.MANAGE_CATEGORY) {

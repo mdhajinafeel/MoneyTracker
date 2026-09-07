@@ -148,60 +148,59 @@ public class BackupHistoryActivity extends BaseActivity {
         try {
             backupHistoryViewModel.getBackupHistoryList().observe(this, entities -> {
 
-                        if (entities == null || entities.isEmpty()) {
+                if (entities == null || entities.isEmpty()) {
 
-                            if (loadingWrapper.getVisibility() != View.VISIBLE) {
-                                rvBackupHistory.setVisibility(View.GONE);
-                                emptyWrapper.setVisibility(View.VISIBLE);
-                            }
-
-                            tvTotalBackup.setText("0");
-                            lblTotalBackup.setText(getResources().getQuantityString(R.plurals.total_backup_count, 0, 0));
-                            tvAllBackup.setText(getResources().getQuantityString(R.plurals.backup_count, 0, 0));
-
-                            return;
-                        }
-
-                        List<BackupFileModel> list = new ArrayList<>();
-
-                        for (BackupHistoryEntity entity : entities) {
-                            if (entity == null) {
-                                continue;
-                            }
-
-                            BackupFileModel model = convertToBackupFileModel(entity);
-                            list.add(model);
-                        }
-
-                        if (list.isEmpty()) {
-                            loadingWrapper.setVisibility(View.GONE);
-                            rvBackupHistory.setVisibility(View.GONE);
-                            emptyWrapper.setVisibility(View.VISIBLE);
-                            return;
-                        }
-
-                        loadingWrapper.setVisibility(View.GONE);
-                        emptyWrapper.setVisibility(View.GONE);
-                        rvBackupHistory.setVisibility(View.VISIBLE);
-                        backupHistoryRecyclerViewAdapter.replaceItems(list);
-
-                        int count = list.size();
-
-                        tvTotalBackup.setText(String.valueOf(count));
-                        lblTotalBackup.setText(getResources()
-                                .getQuantityString(
-                                        R.plurals.total_backup_count,
-                                        count,
-                                        count
-                                ));
-                        tvAllBackup.setText(getResources()
-                                .getQuantityString(
-                                        R.plurals.backup_count,
-                                        count,
-                                        count
-                                ));
+                    if (loadingWrapper.getVisibility() != View.VISIBLE) {
+                        rvBackupHistory.setVisibility(View.GONE);
+                        emptyWrapper.setVisibility(View.VISIBLE);
                     }
-            );
+
+                    tvTotalBackup.setText("0");
+                    lblTotalBackup.setText(getResources().getQuantityString(R.plurals.total_backup_count, 0, 0));
+                    tvAllBackup.setText(getResources().getQuantityString(R.plurals.backup_count, 0, 0));
+
+                    return;
+                }
+
+                List<BackupFileModel> list = new ArrayList<>();
+
+                for (BackupHistoryEntity entity : entities) {
+                    if (entity == null) {
+                        continue;
+                    }
+
+                    BackupFileModel model = convertToBackupFileModel(entity);
+                    list.add(model);
+                }
+
+                if (list.isEmpty()) {
+                    loadingWrapper.setVisibility(View.GONE);
+                    rvBackupHistory.setVisibility(View.GONE);
+                    emptyWrapper.setVisibility(View.VISIBLE);
+                    return;
+                }
+
+                loadingWrapper.setVisibility(View.GONE);
+                emptyWrapper.setVisibility(View.GONE);
+                rvBackupHistory.setVisibility(View.VISIBLE);
+                backupHistoryRecyclerViewAdapter.replaceItems(list);
+
+                int count = list.size();
+
+                tvTotalBackup.setText(String.valueOf(count));
+                lblTotalBackup.setText(getResources()
+                        .getQuantityString(
+                                R.plurals.total_backup_count,
+                                count,
+                                count
+                        ));
+                tvAllBackup.setText(getResources()
+                        .getQuantityString(
+                                R.plurals.backup_count,
+                                count,
+                                count
+                        ));
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "observeData", e);
         }

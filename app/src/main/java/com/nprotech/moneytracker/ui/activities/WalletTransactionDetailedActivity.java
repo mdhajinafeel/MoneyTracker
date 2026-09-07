@@ -1,8 +1,11 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -19,6 +22,7 @@ import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -39,6 +43,7 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
@@ -66,8 +71,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private ConstraintLayout walletContainer;
     private MaterialCardView walletTransactionCard;
-    private AppCompatImageView icBack, ivEdit, imageView;
-    private AppCompatTextView tvWalletName, tvWalletType, tvAvailableBalance, transactionAllLabel;
+    private AppCompatImageView icBack, ivMore, imageView;
+    private AppCompatTextView tvWalletName, tvWalletType, tvWalletBadge, tvAvailableBalance, transactionAllLabel;
     private MaterialButton btnAdjustBalance;
     private AutofitTextView tvInitial, tvIncome, tvExpense, tvTransfer;
     private LinearLayout layoutEmpty;
@@ -82,6 +87,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private LiveData<List<TransactionCategoryModel>> transactionCategoryLiveData;
     private ActivityResultLauncher<Intent> calculatorLauncher;
     private WalletEntity wallet;
+    private boolean isFromManageWallet = false;
+    private double incomeAmount = 0, expenseAmount = 0, transferAmount = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,11 +105,12 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             View root = findViewById(R.id.rootView);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
-            ivEdit = toolbarWrapper.findViewById(R.id.ivEdit);
+            ivMore = toolbarWrapper.findViewById(R.id.ivMore);
             walletContainer = findViewById(R.id.walletContainer);
             imageView = findViewById(R.id.imageView);
             tvWalletName = findViewById(R.id.tvWalletName);
             tvWalletType = findViewById(R.id.tvWalletType);
+            tvWalletBadge = findViewById(R.id.tvWalletBadge);
             tvAvailableBalance = findViewById(R.id.tvAvailableBalance);
             tvInitial = findViewById(R.id.tvInitial);
             tvIncome = findViewById(R.id.tvIncome);
@@ -116,7 +124,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             fabAddTransaction = findViewById(R.id.fabAddTransaction);
 
             tvTitle.setText(R.string.wallet_details);
-            ivEdit.setVisibility(View.VISIBLE);
+            ivMore.setVisibility(View.VISIBLE);
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -139,6 +147,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
                 walletId = bundle.getInt("walletId");
+                isFromManageWallet = bundle.getBoolean("isFromManageWallet", false);
 
                 if (walletId > 0) {
                     initializeAdapters();
@@ -174,15 +183,48 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private void bindData(int walletId) {
         try {
-
-            double incomeAmount = 0, expenseAmount = 0, transferAmount = 0;
-
             walletViewModel.selectAccount((int) PreferenceManager.INSTANCE.getAccountId());
 
-            wallet = walletViewModel.getWalletByWalletId(walletId);
-            if (wallet == null) {
-                return;
-            }
+            walletViewModel.loadWallet(walletId);
+
+            walletViewModel.getWalletLiveData().observe(this, walletData -> {
+                if (walletData == null) {
+                    return;
+                }
+
+                wallet = walletData;
+
+                int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
+
+                walletContainer.setBackground(CommonUtils.createGradient(getApplicationContext(), wallet.walletColor, 12));
+
+                imageView.setBackground(CommonUtils.createIconBackground(getApplicationContext(), wallet.walletColor, GradientDrawable.RECTANGLE, 10));
+                imageView.setImageResource(walletIcon);
+
+                tvWalletName.setText(wallet.name);
+                tvWalletType.setText(DataHelper.getWalletTypeName(getApplicationContext(), wallet.walletType));
+
+                if (wallet.isDefault) {
+                    tvWalletBadge.setText(getString(R.string.text_default));
+                    tvWalletBadge.setVisibility(View.VISIBLE);
+                } else {
+                    if (wallet.isArchived) {
+                        CommonUtils.setDrawable(WalletTransactionDetailedActivity.this, tvWalletBadge, R.drawable.ic_calendar_archive, R.dimen.icon_10, R.color.dark_grey, Gravity.START);
+                        tvWalletBadge.setText(getString(R.string.archived_on, DateHelper.getFormattedDate(wallet.archivedAt, "dd MMM yy")));
+                        tvWalletBadge.setVisibility(View.VISIBLE);
+                    } else {
+                        tvWalletBadge.setVisibility(View.GONE);
+                    }
+                }
+
+                tvAvailableBalance.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
+                tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.initialAmount));
+                tvIncome.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, incomeAmount));
+                tvExpense.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, expenseAmount));
+                tvTransfer.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, transferAmount));
+            });
+
+
 
             List<TransactionTypeAmountModel> transactionTypeAmountModelList = transactionViewModel.getTransactionAmountByType(walletId);
 
@@ -222,20 +264,13 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 }
             });
 
-            int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
 
-            walletContainer.setBackground(CommonUtils.createGradient(getApplicationContext(), wallet.walletColor, 12));
 
-            imageView.setBackground(CommonUtils.createIconBackground(getApplicationContext(), wallet.walletColor, GradientDrawable.RECTANGLE, 10));
-            imageView.setImageResource(walletIcon);
-
-            tvWalletName.setText(wallet.name);
-            tvWalletType.setText(DataHelper.getWalletTypeName(getApplicationContext(), wallet.walletType));
-            tvAvailableBalance.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
-            tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.initialAmount));
-            tvIncome.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, incomeAmount));
-            tvExpense.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, expenseAmount));
-            tvTransfer.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, transferAmount));
+            if (isFromManageWallet) {
+                fabAddTransaction.setVisibility(View.GONE);
+            } else {
+                fabAddTransaction.setVisibility(View.VISIBLE);
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
@@ -243,17 +278,16 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private void setupListeners() {
         try {
-            icBack.setOnClickListener(view -> {
-                finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+            icBack.setOnClickListener(view -> finishWithTransitions());
+
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finishWithTransitions();
+                }
             });
 
-            ivEdit.setOnClickListener(view -> {
-                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateWalletActivity.class)
-                        .putExtra("isEdit", true)
-                        .putExtra("walletId", walletId));
-                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
-            });
+            ivMore.setOnClickListener(view -> showOptionDialog(wallet));
 
             btnAdjustBalance.setOnClickListener(view -> {
                 hideKeyboard(this);
@@ -278,54 +312,37 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             });
 
             fabAddTransaction.setOnClickListener(v -> {
-                v.animate()
-                        .scaleX(1.1f)
-                        .scaleY(1.1f)
-                        .setDuration(120)
-                        .withEndAction(() ->
-                                v.animate()
-                                        .scaleX(1f)
-                                        .scaleY(1f)
-                                        .setDuration(120)
-                                        .start())
-                        .start();
+                v.animate().scaleX(1.1f).scaleY(1.1f).setDuration(120).withEndAction(() -> v.animate().scaleX(1f).scaleY(1f).setDuration(120).start()).start();
 
-                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateTransactionActivity.class)
-                        .putExtra("action", "add")
-                        .putExtra("type", TransactionEntity.TYPE_EXPENSE));
+                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateTransactionActivity.class).putExtra("action", "add").putExtra("type", TransactionEntity.TYPE_EXPENSE));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
-
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(WalletTransactionDetailedActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
     }
 
+    private void finishWithTransitions() {
+        finish();
+        ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+    }
+
     private void setupLauncher() {
         try {
-            calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == RESULT_OK) {
-                            Intent data = result.getData();
-                            if (data != null) {
-                                double amount = data.getDoubleExtra("amount", 0);
-                                String type = data.getStringExtra("type");
-                                if (type != null && type.equalsIgnoreCase("amount")) {
-                                    if (amount != wallet.amount) {
-                                        showAdjustBalanceDialog(amount);
-                                    }
-                                }
+            calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        double amount = data.getDoubleExtra("amount", 0);
+                        String type = data.getStringExtra("type");
+                        if (type != null && type.equalsIgnoreCase("amount")) {
+                            if (amount != wallet.amount) {
+                                showAdjustBalanceDialog(amount);
                             }
                         }
-                    });
+                    }
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupLauncher", e);
         }
@@ -343,14 +360,9 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletEntities, R.layout.item_switch_accounts) {
                     @Override
                     public void onPostBindViewHolder(ViewHolder holder, WalletEntity wallet) {
-
                         holder.setViewText(R.id.tvAccountName, wallet.name);
-
-                        holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format,
-                                CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount)));
-
+                        holder.setViewText(R.id.tvAccountBalance, getString(R.string.account_balance_format, CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount)));
                         holder.getView(R.id.ivSelected).setVisibility(walletId == wallet.id ? View.VISIBLE : View.GONE);
-
                         holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                             walletId = wallet.id;
                             bindData(walletId);
@@ -364,8 +376,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             });
 
             layoutAddWallet.setOnClickListener(v -> {
-                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateWalletActivity.class)
-                        .putExtra("isEdit", false));
+                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateWalletActivity.class).putExtra("isEdit", false));
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
@@ -503,6 +514,273 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         AccountEntity account = accountViewModel.getAccountDetailById(wallet.accountId);
         account.balance = (account.balance + difference);
         accountViewModel.updateAccount(account);
+    }
+
+    private void showOptionDialog(WalletEntity wallet) {
+        try {
+            BottomSheetDialog dialog = new BottomSheetDialog(WalletTransactionDetailedActivity.this);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_options, findViewById(android.R.id.content), false);
+
+            MaterialCardView colorView = bottomView.findViewById(R.id.colorView);
+            AppCompatImageView ivTransactionIcon = bottomView.findViewById(R.id.ivTransactionIcon);
+            AppCompatTextView walletName = bottomView.findViewById(R.id.walletName);
+            AppCompatTextView walletCurrency = bottomView.findViewById(R.id.walletCurrency);
+
+            LinearLayout optionEdit = bottomView.findViewById(R.id.optionEdit);
+            LinearLayout optionDefault = bottomView.findViewById(R.id.optionDefault);
+            View viewDefault = bottomView.findViewById(R.id.viewDefault);
+            LinearLayout optionViewDetails = bottomView.findViewById(R.id.optionViewDetails);
+            View viewViewDetails = bottomView.findViewById(R.id.viewViewDetails);
+            LinearLayout optionArchive = bottomView.findViewById(R.id.optionArchive);
+            View viewArchive = bottomView.findViewById(R.id.viewArchive);
+            LinearLayout optionRestore = bottomView.findViewById(R.id.optionRestore);
+            View viewRestore = bottomView.findViewById(R.id.viewRestore);
+            LinearLayout optionDeleteTransaction = bottomView.findViewById(R.id.optionDeleteTransaction);
+            LinearLayout optionDelete = bottomView.findViewById(R.id.optionDelete);
+
+            colorView.setCardBackgroundColor(Color.parseColor(wallet.walletColor));
+
+            int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
+
+            ivTransactionIcon.setImageDrawable(ContextCompat.getDrawable(WalletTransactionDetailedActivity.this, walletIcon));
+            walletName.setText(wallet.name);
+            walletCurrency.setText(getString(R.string.wallet_currency, wallet.currencyName, wallet.currencyCode));
+
+            optionViewDetails.setVisibility(View.GONE);
+            viewViewDetails.setVisibility(View.GONE);
+
+            if (wallet.isDefault) {
+                optionDefault.setVisibility(View.GONE);
+                viewDefault.setVisibility(View.GONE);
+
+                optionArchive.setVisibility(View.GONE);
+                viewArchive.setVisibility(View.GONE);
+
+                optionDelete.setVisibility(View.GONE);
+            } else {
+
+                if(wallet.isArchived) {
+                    optionRestore.setVisibility(View.VISIBLE);
+                    viewRestore.setVisibility(View.VISIBLE);
+
+                    optionDefault.setVisibility(View.GONE);
+                    viewDefault.setVisibility(View.GONE);
+
+                    optionArchive.setVisibility(View.GONE);
+                    viewArchive.setVisibility(View.GONE);
+
+                    // RESTORE
+                    optionRestore.setOnClickListener(v -> {
+                        dialog.dismiss();
+                        showRestoreDialog(wallet);
+                    });
+                } else {
+                    optionRestore.setVisibility(View.GONE);
+                    viewRestore.setVisibility(View.GONE);
+
+                    optionDefault.setVisibility(View.VISIBLE);
+                    viewDefault.setVisibility(View.VISIBLE);
+
+                    optionArchive.setVisibility(View.VISIBLE);
+                    viewArchive.setVisibility(View.VISIBLE);
+                }
+
+                optionDelete.setVisibility(View.VISIBLE);
+
+                // DEFAULT
+                optionDefault.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    walletViewModel.setDefaultWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId());
+                    Toast.makeText(WalletTransactionDetailedActivity.this, R.string.wallet_set_as_default, Toast.LENGTH_SHORT).show();
+                    walletViewModel.loadWallet(wallet.id);
+                });
+
+                // ARCHIVE
+                optionArchive.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    showArchiveDialog(wallet);
+                });
+
+                // DELETE
+                optionDelete.setOnClickListener(v -> {
+                    dialog.dismiss();
+                    showDeleteDialog(wallet);
+                });
+            }
+
+            // EDIT
+            optionEdit.setOnClickListener(v -> {
+                dialog.dismiss();
+                startActivity(new Intent(WalletTransactionDetailedActivity.this, CreateWalletActivity.class).putExtra("isEdit", true).putExtra("walletId", wallet.id));
+                ActivityUtils.overrideOpenTransition(WalletTransactionDetailedActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            // DELETE TRANSACTION
+            optionDeleteTransaction.setOnClickListener(v -> {
+                dialog.dismiss();
+                showDeleteTransactionDialog(wallet);
+            });
+
+            dialog.setContentView(bottomView);
+            dialog.show();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "showOptionDialog", e);
+        }
+    }
+
+    private void showRestoreDialog(WalletEntity wallet) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        AppCompatTextView tvCancel = view.findViewById(R.id.tvCancel);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        tvTitle.setText(R.string.restore_wallet);
+        tvMessage.setText(R.string.restore_wallet_message);
+        tvSubMessage.setVisibility(View.GONE);
+
+        cardHeader.setCardBackgroundColor(getColor(R.color.light_lavender));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(WalletTransactionDetailedActivity.this, R.drawable.ic_refresh));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+        tvDelete.setText(getString(R.string.restore));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        tvCancel.setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            walletViewModel.archiveWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId(), false);
+            Toast.makeText(WalletTransactionDetailedActivity.this, R.string.wallet_restore, Toast.LENGTH_SHORT).show();
+            walletViewModel.loadWallet(wallet.id);
+        });
+
+        dialog.show();
+    }
+
+    private void showArchiveDialog(WalletEntity wallet) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        AppCompatTextView tvCancel = view.findViewById(R.id.tvCancel);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        tvTitle.setText(R.string.archive_wallet);
+        tvMessage.setText(R.string.archive_wallet_message);
+        tvSubMessage.setVisibility(View.GONE);
+
+        cardHeader.setCardBackgroundColor(getColor(R.color.light_lavender));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(WalletTransactionDetailedActivity.this, R.drawable.ic_archive_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+        tvDelete.setText(getString(R.string.archive));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        tvCancel.setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            walletViewModel.archiveWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId(), true);
+            Toast.makeText(WalletTransactionDetailedActivity.this, R.string.wallet_archived, Toast.LENGTH_SHORT).show();
+            walletViewModel.loadWallet(wallet.id);
+        });
+
+        dialog.show();
+    }
+
+    private void showDeleteTransactionDialog(WalletEntity wallet) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        AppCompatTextView tvCancel = view.findViewById(R.id.tvCancel);
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        tvTitle.setText(R.string.delete_wallet_transactions);
+        tvMessage.setText(R.string.delete_wallet_transactions_desc);
+        tvSubMessage.setVisibility(View.GONE);
+
+        cardHeader.setCardBackgroundColor(getColor(R.color.light_lavender));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(WalletTransactionDetailedActivity.this, R.drawable.ic_data_delete_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+        tvCancel.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(WalletTransactionDetailedActivity.this, R.color.primary_dark)));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        tvCancel.setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            deleteWalletTransaction(wallet.id);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void deleteWalletTransaction(int walletId) {
+        try {
+            walletViewModel.deleteWalletTransactions(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            Toast.makeText(WalletTransactionDetailedActivity.this, R.string.wallet_trans_deleted, Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteWallet", e);
+            Toast.makeText(this, R.string.error_delete_wallet_trans, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showDeleteDialog(WalletEntity wallet) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        tvTitle.setText(R.string.delete_wallet);
+        tvMessage.setText(R.string.delete_wallet_confirmation);
+        tvSubMessage.setVisibility(View.GONE);
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            deleteWallet(wallet.id);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void deleteWallet(int walletId) {
+        try {
+            walletViewModel.deleteWallet(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            Toast.makeText(WalletTransactionDetailedActivity.this, R.string.wallet_deleted, Toast.LENGTH_SHORT).show();
+            finishWithTransitions();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "deleteWallet", e);
+            Toast.makeText(this, R.string.error_delete_wallet, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

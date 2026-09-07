@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
@@ -28,6 +29,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
@@ -188,11 +191,7 @@ public class ArchivedGoalFragment extends Fragment {
             // RESTORE
             optionRestore.setOnClickListener(view -> {
                 dialog.dismiss();
-                if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
-                    Toast.makeText(requireActivity(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireActivity(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
-                }
+                showRestore(goal);
             });
 
             // DELETE
@@ -247,5 +246,45 @@ public class ArchivedGoalFragment extends Fragment {
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);
         }
+    }
+
+    private void showRestore(GoalWithDetails goal) {
+
+        AlertDialog dialog = new AlertDialog.Builder(requireActivity()).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
+        tvTitle.setText(R.string.restore_goal);
+        tvMessage.setText(R.string.delete_restore_message);
+        tvSubMessage.setVisibility(View.GONE);
+        tvDelete.setText(getString(R.string.restore));
+
+        cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.primary_dark)));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
+                Toast.makeText(requireActivity(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(requireActivity(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        dialog.show();
     }
 }

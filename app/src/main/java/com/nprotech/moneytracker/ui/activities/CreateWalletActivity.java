@@ -282,6 +282,7 @@ public class CreateWalletActivity extends BaseActivity {
             });
 
             tvAmount.setOnClickListener(view -> {
+                etWalletName.clearFocus();
                 hideKeyboard(this);
                 Intent intent = new Intent(this, CalculatorActivity.class);
                 intent.putExtra("amount", walletAmount);
@@ -291,12 +292,14 @@ public class CreateWalletActivity extends BaseActivity {
             });
 
             frameColor.setOnClickListener(view -> {
+                etWalletName.clearFocus();
                 hideKeyboard(this);
                 colorSpinner.requestFocus();
                 colorSpinner.performClick();
             });
 
             ivWalletIcon.setOnClickListener(view -> {
+                etWalletName.clearFocus();
                 hideKeyboard(this);
                 Intent intent = new Intent(this, IconPickerActivity.class);
                 intent.putExtra("selectedColor", walletColorLists.get(colorSpinner.getSelectedItemPosition()));
@@ -349,6 +352,7 @@ public class CreateWalletActivity extends BaseActivity {
                                     int previousPosition = Math.max(0, parent.getSelectedItemPosition() - 1);
                                     currencySpinner.setSelection(previousPosition, false);
 
+                                    etWalletName.clearFocus();
                                     hideKeyboard(CreateWalletActivity.this);
 
                                     currencySpinner.post(() -> {
@@ -482,7 +486,10 @@ public class CreateWalletActivity extends BaseActivity {
                     walletEntity.dueDate = 0;
                 }
 
+                walletEntity.isHidden = false;
                 walletEntity.isSynced = false;
+                walletEntity.archivedAt = 0;
+                walletEntity.isDefault = false;
 
                 // Update wallet
                 walletViewModel.updateWallet(walletEntity);
@@ -531,6 +538,9 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.isActive = true;
                 wallet.isDeleted = false;
                 wallet.isSynced = false;
+                wallet.archivedAt = 0;
+                wallet.isDefault = false;
+                wallet.isArchived = false;
 
                 // Save wallet
                 walletViewModel.saveWallet(wallet);

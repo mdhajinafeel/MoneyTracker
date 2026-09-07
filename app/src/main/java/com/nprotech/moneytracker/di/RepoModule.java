@@ -51,8 +51,8 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    WalletRepository provideWalletRepository(WalletDao walletDao) {
-        return new WalletRepository(walletDao);
+    WalletRepository provideWalletRepository(MoneyTrackerDatabase database, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
+        return new WalletRepository(database, walletDao, transactionDao, accountDao);
     }
 
     @Provides

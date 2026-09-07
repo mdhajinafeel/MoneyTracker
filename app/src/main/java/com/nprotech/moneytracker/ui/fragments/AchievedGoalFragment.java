@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
@@ -312,14 +313,17 @@ public class AchievedGoalFragment extends Fragment {
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.archive_goal);
         tvMessage.setText(R.string.delete_archive_message);
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
+        tvDelete.setText(getString(R.string.archive));
 
         cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.primary_dark)));
 
         dialog.setView(view);
 

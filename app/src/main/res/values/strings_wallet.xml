@@ -34,4 +34,44 @@
     <string name="enter_the_reason">Enter the reason</string>
     <string name="wallet_transactions">Wallet Transactions</string>
     <string name="character_limit_wallet">%1$d/20</string>
+    <string name="your_wallets">Your Wallets</string>
+    <string name="manage_wallets_desc">Manage all your wallets in one place.</string>
+    <string name="all_wallets">All Wallets</string>
+    <string name="wallet_action">Wallet Action</string>
+    <string name="update_wallet_detail">Update wallet detail</string>
+    <string name="set_as_default">Set as Default</string>
+    <string name="use_default_wallet">Use as your default wallet</string>
+    <string name="see_wallet_detail">See wallet detail</string>
+    <string name="remove_wallet">Remove wallet</string>
+    <string name="archive">Archive</string>
+    <string name="hide_from_active_wallets">Hide from active wallets</string>
+    <string name="remove_all_transactions">Remove all transactions</string>
+    <string name="delete_transactions">Delete Transactions</string>
+    <string name="wallet_set_as_default">Wallet set as default</string>
+    <string name="wallet_archived">Wallet archived</string>
+    <string name="wallet_restore">Wallet restored</string>
+    <string name="delete_wallet">Delete wallet?</string>
+    <string name="archive_wallet">Archive wallet?</string>
+    <string name="restore_wallet">Restore wallet?</string>
+    <string name="restore_wallet_message">This wallet will be moved back to your active wallets. Your balance and transactions will remain unchanged.</string>
+    <string name="archive_wallet_message">This wallet will be hidden from active wallets. Your balance and transactions will be preserved.</string>
+    <string name="delete_wallet_transactions">Delete wallet transactions?</string>
+    <string name="delete_wallet_confirmation">This will permanently remove the wallet and all its transactions. This action cannot be undone.</string>
+    <string name="delete_wallet_transactions_desc">All transactions in this wallet will be deleted. Your wallet and initial amount will remain unchanged. This action cannot be undone.</string>
+    <string name="wallet_deleted">Wallet deleted</string>
+    <string name="wallet_trans_deleted">Wallet transactions deleted</string>
+    <string name="error_delete_wallet">Error when delete the wallet</string>
+    <string name="error_delete_wallet_trans">Error when delete the wallet transaction</string>
+    <string name="add_new_wallet">Add New Wallet</string>
+    <string name="add_wallet_desc">Create a new wallet to track your money</string>
+    <string name="archived_wallets">Archived Wallets</string>
+    <string name="wallet_archive_desc">View and restore your archived wallets</string>
+    <string name="archived_wallet_desc">These wallets are archived and hidden from your active wallet list. All transactions and data are kept and can be restored anytime.</string>
+    <string name="no_archive_found">No archive found</string>
+    <string name="archived_on">Archived on %1$s</string>
+
+    <plurals name="wallet_count">
+        <item quantity="one">%d wallet</item>
+        <item quantity="other">%d wallets</item>
+    </plurals>
 </resources>

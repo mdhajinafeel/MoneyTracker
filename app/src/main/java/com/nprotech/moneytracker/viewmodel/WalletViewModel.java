@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.nprotech.moneytracker.db.entites.AccountEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.models.DailyTransModel;
@@ -31,18 +30,20 @@ public class WalletViewModel extends ViewModel {
     private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
     private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
-    private final LiveData<List<WalletEntity>> wallets;
+    private final LiveData<List<WalletEntity>> wallets, archivedWallets;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private static final int PAGE_SIZE = 100;
     private int currentPage = 0, categoryId, selectAccountId, walletId;
     private boolean loading = false, hasMore = true;
     private final MutableLiveData<List<DailyTransModel>> categoryTransactions = new MutableLiveData<>(new ArrayList<>());
+    private final MutableLiveData<WalletEntity> walletLiveData = new MutableLiveData<>();
 
     @Inject
     public WalletViewModel(WalletRepository walletRepository, TransactionRepository transactionRepository) {
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
         wallets = Transformations.switchMap(accountId, walletRepository::getAllWallets);
+        archivedWallets = Transformations.switchMap(accountId, walletRepository::getArchivedWallets);
     }
 
     public void selectAccount(int id) {
@@ -53,6 +54,10 @@ public class WalletViewModel extends ViewModel {
         return wallets;
     }
 
+    public LiveData<List<WalletEntity>> getArchivedWallets() {
+        return archivedWallets;
+    }
+
     public long saveWallet(WalletEntity wallet) {
         return walletRepository.saveWallet(wallet);
     }
@@ -61,17 +66,23 @@ public class WalletViewModel extends ViewModel {
         walletRepository.updateWallet(wallet);
     }
 
-    public void updateWalletAndAccount(WalletEntity wallet, AccountEntity account) {
-        walletRepository.updateWallet(wallet);
-        transactionRepository.updateAccount(account);
-    }
-
     public int getMaxWalletOrdering(int accountId) {
         return walletRepository.getMaxWalletOrdering(accountId);
     }
 
     public WalletEntity getWalletByWalletId(int walletId) {
         return walletRepository.getWalletByWalletId(walletId);
+    }
+
+    public LiveData<WalletEntity> getWalletLiveData() {
+        return walletLiveData;
+    }
+
+    public void loadWallet(int walletId) {
+        executor.execute(() -> {
+            WalletEntity wallet = walletRepository.getWalletByWalletId(walletId);
+            walletLiveData.postValue(wallet);
+        });
     }
 
     public List<WalletEntity> getWalletsByAccountAndCurrency(int accountId, String currencyCode) {
@@ -206,5 +217,21 @@ public class WalletViewModel extends ViewModel {
         }
 
         current.addAll(newItems);
+    }
+
+    public void setDefaultWallet(int walletId, int accountId) {
+        walletRepository.setDefaultWallet(walletId, accountId);
+    }
+
+    public void archiveWallet(int walletId, int accountId, boolean isArchived) {
+        walletRepository.archiveWallet(walletId, accountId, isArchived);
+    }
+
+    public void deleteWallet(int walletId, int accountId) {
+        walletRepository.deleteWallet(walletId, accountId);
+    }
+
+    public void deleteWalletTransactions(int walletId, int accountId) {
+        walletRepository.deleteWalletTransactions(walletId, accountId);
     }
 }

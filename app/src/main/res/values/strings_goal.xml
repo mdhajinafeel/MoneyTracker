@@ -102,6 +102,7 @@
     <string name="archived">Archived</string>
     <string name="archive_goal">Archive Goal</string>
     <string name="delete_archive_message">Are you sure you want to archive this goal?</string>
+    <string name="delete_restore_message">Are you sure you want to restore this goal?</string>
     <string name="delete_archive_sub_message">You can restore it anytime from the archived goals.</string>
     <string name="no_money_withdraw">No money available to withdraw</string>
     <string name="auto_save_on_date">%1$s: %2$s on %3$s</string>

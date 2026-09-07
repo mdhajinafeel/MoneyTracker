@@ -725,11 +725,7 @@ public class GoalDetailActivity extends BaseActivity {
             // RESTORE
             optionRestore.setOnClickListener(view -> {
                 dialog.dismiss();
-                if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
-                    Toast.makeText(getApplicationContext(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
-                }
+                showRestore(goal);
             });
 
             // DELETE
@@ -842,10 +838,12 @@ public class GoalDetailActivity extends BaseActivity {
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.archive_goal);
         tvMessage.setText(R.string.delete_archive_message);
         tvSubMessage.setText(R.string.delete_archive_sub_message);
         tvSubMessage.setVisibility(View.VISIBLE);
+        tvDelete.setText(getString(R.string.archive));
 
         cardHeader.setCardBackgroundColor(getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_archive_outline));
@@ -1069,5 +1067,45 @@ public class GoalDetailActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteGoal", e);
         }
+    }
+
+    private void showRestore(GoalWithDetails goal) {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
+        tvTitle.setText(R.string.restore_goal);
+        tvMessage.setText(R.string.delete_restore_message);
+        tvSubMessage.setVisibility(View.GONE);
+        tvDelete.setText(getString(R.string.restore));
+
+        cardHeader.setCardBackgroundColor(getColor(R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_archive_outline));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary_dark)));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+        view.findViewById(R.id.tvCancel).setOnClickListener(v -> dialog.dismiss());
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            if (goalViewModel.archiveRestoreGoal(goal.id, false)) {
+                Toast.makeText(getApplicationContext(), getString(R.string.goal_restored_successfully), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), getString(R.string.error_restore), Toast.LENGTH_SHORT).show();
+            }
+
+        });
+
+        dialog.show();
     }
 }

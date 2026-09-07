@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e88d393936e67623dca49e84c63c088a",
+    "identityHash": "9d831863dec70b16e07b6e535539f901",
     "entities": [
       {
         "tableName": "currencies",
@@ -321,7 +321,7 @@
       },
       {
         "tableName": "wallets",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `name` TEXT, `walletColor` TEXT, `walletType` INTEGER NOT NULL, `currencyName` TEXT, `currencyCode` TEXT, `currencySymbol` TEXT, `categoryIcon` INTEGER NOT NULL, `initialAmount` REAL NOT NULL, `amount` REAL NOT NULL, `exchangeRate` REAL NOT NULL, `dueDate` INTEGER NOT NULL, `statementDate` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isExclude` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `accountId` INTEGER NOT NULL, `name` TEXT, `walletColor` TEXT, `walletType` INTEGER NOT NULL, `currencyName` TEXT, `currencyCode` TEXT, `currencySymbol` TEXT, `categoryIcon` INTEGER NOT NULL, `initialAmount` REAL NOT NULL, `amount` REAL NOT NULL, `exchangeRate` REAL NOT NULL, `dueDate` INTEGER NOT NULL, `statementDate` INTEGER NOT NULL, `ordering` INTEGER NOT NULL, `isHidden` INTEGER NOT NULL, `isExclude` INTEGER NOT NULL, `isActive` INTEGER NOT NULL, `isSynced` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `isDefault` INTEGER NOT NULL, `isArchived` INTEGER NOT NULL, `archivedAt` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -435,6 +435,24 @@
           {
             "fieldPath": "isDeleted",
             "columnName": "isDeleted",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isDefault",
+            "columnName": "isDefault",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isArchived",
+            "columnName": "isArchived",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "archivedAt",
+            "columnName": "archivedAt",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -1116,7 +1134,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e88d393936e67623dca49e84c63c088a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9d831863dec70b16e07b6e535539f901')"
     ]
   }
 }

@@ -176,6 +176,20 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Manage Wallet Screen -->
+        <activity
+            android:name=".ui.activities.ManageWalletActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Archived Wallet Screen -->
+        <activity
+            android:name=".ui.activities.WalletArchivedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Manage Currency Screen -->
         <activity
             android:name=".ui.activities.ManageCurrencyActivity"

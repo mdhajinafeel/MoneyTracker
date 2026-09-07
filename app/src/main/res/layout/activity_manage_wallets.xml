@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:contentDescription="@string/app_name"
+        android:fillViewport="true"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <LinearLayout
+            android:id="@+id/topWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_6"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/margin_24">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardWallets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginEnd="@dimen/margin_16"
+                app:cardCornerRadius="@dimen/corner_radius_8"
+                app:cardElevation="@dimen/corner_elevation_2">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_banner">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/padding_8"
+                        android:paddingBottom="@dimen/padding_8">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ivManageWallets"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_12"
+                                android:text="@string/your_wallets"
+                                android:textColor="@color/text_primary"
+                                android:textSize="@dimen/text_14"
+                                app:fontFamily="@font/exo2_bold" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/lblDesc"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_10"
+                                android:layout_marginTop="@dimen/margin_6"
+                                android:layout_marginEnd="@dimen/margin_6"
+                                android:text="@string/manage_wallets_desc"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_12"
+                                app:fontFamily="@font/exo2_medium" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivManageWallets"
+                            android:layout_width="100dp"
+                            android:layout_height="80dp"
+                            android:layout_marginEnd="@dimen/margin_10"
+                            android:src="@drawable/ic_wallet_manage"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_16"
+                android:layout_marginEnd="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBackupTime"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_circle_stroke"
+                    android:backgroundTint="@color/light_transfer"
+                    android:padding="@dimen/padding_8"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_wallet"
+                    android:tint="@color/backup_dark"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/allBackupContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivBackupTime">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblAllWallets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/all_wallets"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAllWallets"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:fontFamily="@font/exo2_semibold" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/sortingContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="@dimen/margin_4"
+                    app:cardBackgroundColor="@color/light_lavender"
+                    app:cardCornerRadius="@dimen/corner_radius_6"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSorting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawablePadding="@dimen/padding_6"
+                        android:drawableTint="@color/primary_dark"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:text="@string/newest_first"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="@dimen/text_12"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                </com.google.android.material.card.MaterialCardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvWallets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                android:paddingBottom="@dimen/padding_4"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/createWalletContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_12"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:background="@drawable/bg_dotted_border_color"
+                android:padding="@dimen/padding_12"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/ivAttachment"
+                app:layout_constraintTop_toBottomOf="@id/layoutAttachContainer">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivCreateWallet"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_add_wallet"
+                    app:tint="@color/primary_dark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tapCreateWalletDesc" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tapCreateWallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:text="@string/add_new_wallet"
+                    android:textColor="@color/primary_dark"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_semibold"
+                    app:layout_constraintStart_toEndOf="@id/ivCreateWallet"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tapCreateWalletDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/add_wallet_desc"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium"
+                    app:layout_constraintStart_toStartOf="@id/tapCreateWallet"
+                    app:layout_constraintTop_toBottomOf="@id/tapCreateWallet" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardArchivedWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/white"
+                android:clipToPadding="false"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_10"
+                app:cardElevation="@dimen/corner_elevation_4"
+                app:cardUseCompatPadding="false"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="0.4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/padding_8"
+                    android:paddingTop="@dimen/padding_14"
+                    android:paddingEnd="@dimen/padding_8"
+                    android:paddingBottom="@dimen/padding_14">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardArchiveIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:cardBackgroundColor="@color/light_lavender"
+                        android:layout_marginStart="@dimen/margin_6"
+                        app:cardCornerRadius="@dimen/corner_radius_10"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivArchiveIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:src="@drawable/ic_archive"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:tint="@color/primary" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <LinearLayout
+                        android:id="@+id/layoutArchiveDetails"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/ivNavigation"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cardArchiveIcon"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWalletArchive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/archived_wallets"
+                            android:paddingVertical="@dimen/padding_2"
+                            android:textColor="@color/text_primary"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWalletArchiveDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:ellipsize="end"
+                            android:text="@string/wallet_archive_desc"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:maxLines="1"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/text_12" />
+                    </LinearLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivNavigation"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:tint="@color/primary"
+                        android:src="@drawable/ic_right_arrow"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddWallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/wallet"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/vibrant_orange"
+        app:fabCustomSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:maxImageSize="25dp"
+        app:shapeAppearanceOverlay="@style/FabCircleShape"
+        app:tint="@color/white"
+        app:useCompatPadding="true" />
+</androidx.constraintlayout.widget.ConstraintLayout>

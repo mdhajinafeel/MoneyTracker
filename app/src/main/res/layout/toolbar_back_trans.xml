@@ -25,7 +25,7 @@
             android:layout_height="32dp"
             android:layout_marginStart="@dimen/margin_12"
             android:background="@drawable/bg_circle_white"
-            android:elevation="@dimen/corner_elevation_8"
+            android:elevation="@dimen/corner_elevation_2"
             android:padding="@dimen/padding_8"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="parent"

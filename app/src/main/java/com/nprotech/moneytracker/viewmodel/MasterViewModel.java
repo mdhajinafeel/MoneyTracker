@@ -2,8 +2,6 @@ package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
-import com.nprotech.moneytracker.db.entites.AccountEntity;
-import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 

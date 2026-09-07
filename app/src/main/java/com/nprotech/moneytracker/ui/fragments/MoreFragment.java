@@ -88,7 +88,8 @@ public class MoreFragment extends Fragment {
 
             walletsAdapter.setOnWalletClickListener(wallet -> {
                 startActivity(new Intent(requireContext(), WalletTransactionDetailedActivity.class)
-                        .putExtra("walletId", wallet.id));
+                        .putExtra("walletId", wallet.id)
+                        .putExtra("isFromManageWallet", false));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
             });
 
