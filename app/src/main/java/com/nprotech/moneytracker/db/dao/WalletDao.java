@@ -17,13 +17,26 @@ public interface WalletDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(WalletEntity walletAccount);
 
+    @Query(" SELECT * FROM wallets WHERE accountId = :accountId AND isDeleted = 0 AND isArchived = 0 ORDER BY " +
+            "CASE WHEN :sortType = 1 THEN isDefault END DESC, " +
+            "CASE WHEN :sortType = 2 THEN ordering END DESC, " +
+            "CASE WHEN :sortType = 3 THEN ordering END ASC, " +
+            "CASE WHEN :sortType = 4 THEN name END COLLATE NOCASE ASC, " +
+            "CASE WHEN :sortType = 5 THEN name END COLLATE NOCASE DESC, " +
+            "CASE WHEN :sortType = 6 THEN amount END DESC, " +
+            "CASE WHEN :sortType = 7 THEN amount END ASC")
+    LiveData<List<WalletEntity>> getFilteredWallets(int accountId, int sortType);
+
+    @Query(" SELECT * FROM wallets WHERE accountId = :accountId AND isDeleted = 0 AND isArchived = 1 ORDER BY " +
+            "CASE WHEN :sortType = 2 THEN archivedAt END DESC, " +
+            "CASE WHEN :sortType = 3 THEN archivedAt END ASC, " +
+            "CASE WHEN :sortType = 4 THEN name END COLLATE NOCASE ASC, " +
+            "CASE WHEN :sortType = 5 THEN name END COLLATE NOCASE DESC, " +
+            "CASE WHEN :sortType = 6 THEN amount END DESC, " +
+            "CASE WHEN :sortType = 7 THEN amount END ASC")
+    LiveData<List<WalletEntity>> getFilteredArchivedWallets(int accountId, int sortType);
+
     @Query("SELECT * FROM wallets WHERE accountId = :accountId AND isDeleted = 0 AND isArchived = 0 ORDER BY isDefault DESC")
-    LiveData<List<WalletEntity>> getAllWallets(int accountId);
-
-    @Query("SELECT * FROM wallets WHERE accountId = :accountId AND isDeleted = 0 AND isArchived = 1 ORDER BY archivedAt DESC")
-    LiveData<List<WalletEntity>> getArchivedWallets(int accountId);
-
-    @Query("SELECT * FROM wallets WHERE accountId = :accountId AND isDeleted = 0 ORDER BY ordering")
     List<WalletEntity> getWalletsByAccountId(int accountId);
 
     @Query("SELECT * FROM wallets WHERE id = :walletId")

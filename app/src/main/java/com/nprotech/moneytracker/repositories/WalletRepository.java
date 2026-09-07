@@ -28,12 +28,12 @@ public class WalletRepository {
         this.accountDao = accountDao;
     }
 
-    public LiveData<List<WalletEntity>> getAllWallets(int accountId) {
-        return walletDao.getAllWallets(accountId);
+    public LiveData<List<WalletEntity>> getFilteredWallets(int accountId, int sortType) {
+        return walletDao.getFilteredWallets(accountId, sortType);
     }
 
-    public LiveData<List<WalletEntity>> getArchivedWallets(int accountId) {
-        return walletDao.getArchivedWallets(accountId);
+    public LiveData<List<WalletEntity>> getFilteredArchivedWallets(int accountId, int sortType) {
+        return walletDao.getFilteredArchivedWallets(accountId, sortType);
     }
 
     public long saveWallet(WalletEntity wallet) {

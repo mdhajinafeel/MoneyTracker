@@ -1,8 +1,8 @@
 package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
@@ -30,20 +30,29 @@ public class WalletViewModel extends ViewModel {
     private final WalletRepository walletRepository;
     private final TransactionRepository transactionRepository;
     private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
-    private final LiveData<List<WalletEntity>> wallets, archivedWallets;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private static final int PAGE_SIZE = 100;
     private int currentPage = 0, categoryId, selectAccountId, walletId;
     private boolean loading = false, hasMore = true;
     private final MutableLiveData<List<DailyTransModel>> categoryTransactions = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<WalletEntity> walletLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Integer> walletSortType =  new MutableLiveData<>(1);
+    private final MutableLiveData<Integer> walletArchivedSortType =  new MutableLiveData<>(1);
+    private final MediatorLiveData<List<WalletEntity>> wallets = new MediatorLiveData<>();
+    private final MediatorLiveData<List<WalletEntity>> archivedWallets = new MediatorLiveData<>();
+    private LiveData<List<WalletEntity>> walletSource;
+    private LiveData<List<WalletEntity>> walletArchivedSource;
 
     @Inject
     public WalletViewModel(WalletRepository walletRepository, TransactionRepository transactionRepository) {
         this.walletRepository = walletRepository;
         this.transactionRepository = transactionRepository;
-        wallets = Transformations.switchMap(accountId, walletRepository::getAllWallets);
-        archivedWallets = Transformations.switchMap(accountId, walletRepository::getArchivedWallets);
+
+        wallets.addSource(accountId, id -> loadWallets());
+        wallets.addSource(walletSortType, sortType -> loadWallets());
+
+        archivedWallets.addSource(accountId, id -> loadArchivedWallets());
+        archivedWallets.addSource(walletArchivedSortType, sortType -> loadArchivedWallets());
     }
 
     public void selectAccount(int id) {
@@ -233,5 +242,49 @@ public class WalletViewModel extends ViewModel {
 
     public void deleteWalletTransactions(int walletId, int accountId) {
         walletRepository.deleteWalletTransactions(walletId, accountId);
+    }
+
+    private void loadWallets() {
+
+        Integer id = accountId.getValue();
+        Integer sortType = walletSortType.getValue();
+
+        if (id == null || sortType == null) {
+            return;
+        }
+
+        if (walletSource != null) {
+            wallets.removeSource(walletSource);
+        }
+
+        walletSource = walletRepository.getFilteredWallets(id, sortType);
+
+        wallets.addSource(walletSource, wallets::setValue);
+    }
+
+    private void loadArchivedWallets() {
+
+        Integer id = accountId.getValue();
+        Integer sortType = walletArchivedSortType.getValue();
+
+        if (id == null || sortType == null) {
+            return;
+        }
+
+        if (walletArchivedSource != null) {
+            archivedWallets.removeSource(walletArchivedSource);
+        }
+
+        walletArchivedSource = walletRepository.getFilteredArchivedWallets(id, sortType);
+
+        archivedWallets.addSource(walletArchivedSource, archivedWallets::setValue);
+    }
+
+    public void setWalletSort(int sortType) {
+        walletSortType.setValue(sortType);
+    }
+
+    public void setWalletArchivedSort(int sortType) {
+        walletArchivedSortType.setValue(sortType);
     }
 }

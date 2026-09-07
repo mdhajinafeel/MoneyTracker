@@ -69,6 +69,11 @@
     <string name="archived_wallet_desc">These wallets are archived and hidden from your active wallet list. All transactions and data are kept and can be restored anytime.</string>
     <string name="no_archive_found">No archive found</string>
     <string name="archived_on">Archived on %1$s</string>
+    <string name="name_a_z">Name A-Z</string>
+    <string name="name_z_a">Name Z-A</string>
+    <string name="highest_balance_first">Highest balance first</string>
+    <string name="lowest_balance_first">Lowest balance first</string>
+    <string name="default_first">Default first</string>
 
     <plurals name="wallet_count">
         <item quantity="one">%d wallet</item>

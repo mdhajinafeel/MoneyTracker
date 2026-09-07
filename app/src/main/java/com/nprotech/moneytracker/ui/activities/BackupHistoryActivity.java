@@ -305,7 +305,7 @@ public class BackupHistoryActivity extends BaseActivity {
     private void showBackupFilterDialog() {
         try {
             BottomSheetDialog dialog = new BottomSheetDialog(this);
-            View bottomView = getLayoutInflater().inflate(R.layout.bottom_backup_filter_option, findViewById(android.R.id.content), false);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_filter_option, findViewById(android.R.id.content), false);
 
             RecyclerView rvSortBy = bottomView.findViewById(R.id.rvSortBy);
             RecyclerView rvAttachments = bottomView.findViewById(R.id.rvAttachments);

@@ -620,11 +620,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             cardCategory.setVisibility(isTransfer ? View.GONE : View.VISIBLE);
 
             // Wallet label
-            walletTitleLabel.setText(
-                    isTransfer
-                            ? getString(R.string.to_wallet)
-                            : getString(R.string.wallet)
-            );
+            walletTitleLabel.setText(isTransfer ? getString(R.string.to_wallet) : getString(R.string.wallet));
 
             // -----------------------------
             // Income
@@ -633,35 +629,17 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 tvTitle.setText(getString(R.string.income));
 
-                btnIncome.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.light_income)
-                );
-                btnIncome.setTextColor(
-                        ContextCompat.getColor(this, R.color.income)
-                );
+                btnIncome.setBackgroundColor(ContextCompat.getColor(this, R.color.light_income));
+                btnIncome.setTextColor(ContextCompat.getColor(this, R.color.income));
                 btnIncome.setTypeface(semiBold);
-
-                btnExpense.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnExpense.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnExpense.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnExpense.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnExpense.setTypeface(medium);
-
-                btnTransfer.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnTransfer.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnTransfer.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnTransfer.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnTransfer.setTypeface(medium);
 
-                tvCategory.setText(
-                        incomeCategory != null
-                                ? incomeCategory.getName(getApplicationContext())
-                                : ""
-                );
+                tvCategory.setText(incomeCategory != null ? incomeCategory.getName(getApplicationContext()) : "");
 
                 // -----------------------------
                 // Expense
@@ -670,68 +648,65 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 tvTitle.setText(getString(R.string.expense));
 
-                btnExpense.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.light_expense)
-                );
-                btnExpense.setTextColor(
-                        ContextCompat.getColor(this, R.color.expense)
-                );
+                btnExpense.setBackgroundColor(ContextCompat.getColor(this, R.color.light_expense));
+                btnExpense.setTextColor(ContextCompat.getColor(this, R.color.expense));
                 btnExpense.setTypeface(semiBold);
-
-                btnIncome.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnIncome.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnIncome.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnIncome.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnIncome.setTypeface(medium);
-
-                btnTransfer.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnTransfer.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnTransfer.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnTransfer.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnTransfer.setTypeface(medium);
-
-                tvCategory.setText(
-                        expenseCategory != null
-                                ? expenseCategory.getName(getApplicationContext())
-                                : ""
-                );
+                tvCategory.setText(expenseCategory != null ? expenseCategory.getName(getApplicationContext()) : "");
 
                 // -----------------------------
                 // Transfer
                 // -----------------------------
             } else if (isTransfer) {
 
+                // Set first wallet as From Wallet
+                selectedFromWallet = null;
+                selectedWallet = null;
+
+                if (walletLists != null && !walletLists.isEmpty()) {
+
+                    // First wallet → From Wallet
+                    selectedFromWallet = walletLists.get(0);
+                    tvFromWallet.setText(getString(R.string.wallet_info, selectedFromWallet.name,
+                            CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
+
+                    // Second wallet → To Wallet
+                    if (walletLists.size() > 1) {
+                        selectedWallet = walletLists.get(1);
+                        tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                                CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)
+                        ));
+                    } else {
+                        tvWallet.setText("");
+                    }
+                } else {
+                    tvFromWallet.setText("");
+                    tvWallet.setText("");
+                }
+
+                // Amount uses From Wallet currency
+                updateAmountText();
+
+                // Fee uses From Wallet currency
+                tvFee.setText(CommonUtils.getBeautifyAmount(selectedFromWallet != null ? selectedFromWallet.currencySymbol : account.currencySymbol, transactionFee));
+
                 tvTitle.setText(getString(R.string.transfer));
 
-                btnTransfer.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.light_transfer)
-                );
-                btnTransfer.setTextColor(
-                        ContextCompat.getColor(this, R.color.transfer)
-                );
+                btnTransfer.setBackgroundColor(ContextCompat.getColor(this, R.color.light_transfer));
+                btnTransfer.setTextColor(ContextCompat.getColor(this, R.color.transfer));
                 btnTransfer.setTypeface(semiBold);
-
-                btnIncome.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnIncome.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnIncome.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnIncome.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnIncome.setTypeface(medium);
-
-                btnExpense.setBackgroundColor(
-                        ContextCompat.getColor(this, R.color.white)
-                );
-                btnExpense.setTextColor(
-                        ContextCompat.getColor(this, R.color.text_grey)
-                );
+                btnExpense.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
+                btnExpense.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnExpense.setTypeface(medium);
             }
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchTransMode", e);
         }
@@ -808,11 +783,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                             CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletEntity.amount)));
 
                     if (type.equalsIgnoreCase("to")) {
-                        holder.getView(R.id.ivSelected).setVisibility(selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
-
+                        holder.getView(R.id.ivSelected).setVisibility(selectedWallet != null && selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
                         holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                             selectedWallet = walletEntity;
-
                             tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
                                     CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
 

@@ -44,7 +44,7 @@
                     app:fontFamily="@font/exo2_bold" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvGoalViewAll"
+                    android:id="@+id/tvWalletViewAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableEnd="@drawable/ic_right_arrow_small"

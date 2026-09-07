@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -23,6 +24,7 @@ import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.MoreOptionsModel;
 import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
 import com.nprotech.moneytracker.ui.activities.GoalActivity;
+import com.nprotech.moneytracker.ui.activities.ManageWalletActivity;
 import com.nprotech.moneytracker.ui.activities.WalletTransactionDetailedActivity;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
@@ -40,6 +42,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class MoreFragment extends Fragment {
 
+    private AppCompatTextView tvWalletViewAll;
     private RecyclerView rvWallets, rvMoreOptions;
     private WalletsAdapter walletsAdapter;
     private WalletViewModel walletViewModel;
@@ -54,6 +57,7 @@ public class MoreFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_more, container, false);
         try {
 
+            tvWalletViewAll = view.findViewById(R.id.tvWalletViewAll);
             rvWallets = view.findViewById(R.id.rvWallets);
             rvMoreOptions = view.findViewById(R.id.rvMoreOptions);
 
@@ -71,6 +75,12 @@ public class MoreFragment extends Fragment {
 
     private void setupListeners() {
         try {
+
+            tvWalletViewAll.setOnClickListener(v -> {
+                startActivity(new Intent(requireActivity(), ManageWalletActivity.class));
+                ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
             accountViewModel.getSelectedAccount().observe(getViewLifecycleOwner(), account -> {
                 if (account != null) {
                     walletViewModel.selectAccount(account.id);

@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -27,10 +28,12 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
+import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -39,6 +42,7 @@ import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -51,6 +55,7 @@ public class WalletArchivedActivity extends BaseActivity {
     private RecyclerView rvWallets;
     private ConstraintLayout emptyWrapper;
     private RecyclerViewAdapter<WalletEntity> walletAdapter;
+    private SettingType selectedSortType = SettingType.NEWEST_WALLET_FIRST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,6 +196,8 @@ public class WalletArchivedActivity extends BaseActivity {
                     finishWithTransitions();
                 }
             });
+
+            tvSorting.setOnClickListener(v -> showWalletFilterDialog());
         } catch (Exception e) {
             AppLogger.e(getClass(), "setUpListeners", e);
         }
@@ -393,5 +400,136 @@ public class WalletArchivedActivity extends BaseActivity {
     private void finishWithTransitions() {
         finish();
         ActivityUtils.overrideCloseTransition(WalletArchivedActivity.this, R.anim.scale_in, R.anim.right_to_left);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void showWalletFilterDialog() {
+        try {
+            BottomSheetDialog dialog = new BottomSheetDialog(this);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_filter_option, findViewById(android.R.id.content), false);
+
+            RecyclerView rvSortBy = bottomView.findViewById(R.id.rvSortBy);
+            AppCompatTextView tvAttachments = bottomView.findViewById(R.id.tvAttachments);
+            RecyclerView rvAttachments = bottomView.findViewById(R.id.rvAttachments);
+            MaterialButton btnPrimary = bottomView.findViewById(R.id.btnPrimary);
+            MaterialButton btnSecondary = bottomView.findViewById(R.id.btnSecondary);
+            AppCompatTextView tvClose = bottomView.findViewById(R.id.tvClose);
+
+            tvAttachments.setVisibility(View.GONE);
+            rvAttachments.setVisibility(View.GONE);
+
+            // ---------------------------------------------------------
+            // Sort options
+            // ---------------------------------------------------------
+            List<SettingItemModel> sortByList = new ArrayList<>();
+            sortByList.add(new SettingItemModel(SettingType.NEWEST_WALLET_FIRST, 0, 0, 0,
+                    getString(R.string.newest_first), true, false, null, true, false, 0));
+            sortByList.add(new SettingItemModel(SettingType.OLDEST_WALLET_FIRST, 0, 0, 0,
+                    getString(R.string.oldest_first), true, false, null, true, false, 0));
+            sortByList.add(new SettingItemModel(SettingType.NAME_A_Z, 0, 0, 0,
+                    getString(R.string.name_a_z), true, false, null, true, false, 0));
+            sortByList.add(new SettingItemModel(SettingType.NAME_Z_A, 0, 0, 0,
+                    getString(R.string.name_z_a), true, false, null, true, false, 0));
+            sortByList.add(new SettingItemModel(SettingType.LARGEST_WALLET_FIRST, 0, 0, 0,
+                    getString(R.string.highest_balance_first), true, false, null, true, false, 0));
+            sortByList.add(new SettingItemModel(SettingType.SMALLEST_WALLET_FIRST, 0, 0, 0,
+                    getString(R.string.lowest_balance_first), true, false, null, true, false, 0));
+
+            RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
+                @Override
+                public void onPostBindViewHolder(ViewHolder holder, SettingItemModel item) {
+                    holder.setViewText(R.id.tvFilterName, item.title);
+                    AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
+                    boolean selected = item.settingType == selectedSortType;
+                    ivSelected.setVisibility(selected ? View.VISIBLE : View.GONE);
+                    holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
+                        selectedSortType = item.settingType;
+                        notifyDataSetChanged();
+                    });
+                }
+            };
+            rvSortBy.setAdapter(sortByAdapter);
+            rvSortBy.setHasFixedSize(true);
+            rvSortBy.setItemAnimator(null);
+
+            btnPrimary.setOnClickListener(v -> {
+                applyWalletFilters();
+                dialog.dismiss();
+            });
+
+            btnSecondary.setOnClickListener(v -> {
+                selectedSortType = SettingType.NEWEST_WALLET_FIRST;
+                applyWalletFilters();
+                dialog.dismiss();
+            });
+
+            tvClose.setOnClickListener(v -> dialog.dismiss());
+
+            dialog.setContentView(bottomView);
+            dialog.show();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "showBackupFilterDialog", e);
+        }
+    }
+
+    private void applyWalletFilters() {
+        try {
+            walletViewModel.setWalletArchivedSort(getSortValue(selectedSortType));
+            updateSortingLabel();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "applyBackupFilters", e);
+        }
+    }
+
+    private void updateSortingLabel() {
+        try {
+            switch (selectedSortType) {
+                case NEWEST_WALLET_FIRST:
+                    tvSorting.setText(getString(R.string.newest_first));
+                    break;
+
+                case OLDEST_WALLET_FIRST:
+                    tvSorting.setText(getString(R.string.oldest_first));
+                    break;
+
+                case NAME_A_Z:
+                    tvSorting.setText(getString(R.string.name_a_z));
+                    break;
+
+                case NAME_Z_A:
+                    tvSorting.setText(getString(R.string.name_z_a));
+                    break;
+
+                case LARGEST_WALLET_FIRST:
+                    tvSorting.setText(getString(R.string.highest_balance_first));
+                    break;
+
+                case SMALLEST_WALLET_FIRST:
+                    tvSorting.setText(getString(R.string.lowest_balance_first));
+                    break;
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "updateSortingLabel", e);
+        }
+    }
+
+    private int getSortValue(SettingType type) {
+        if (type == SettingType.DEFAULT_WALLET_FIRST) {
+            return 1;
+        } else if (type == SettingType.NEWEST_WALLET_FIRST) {
+            return 2;
+        } else if (type == SettingType.OLDEST_WALLET_FIRST) {
+            return 3;
+        } else if (type == SettingType.NAME_A_Z) {
+            return 4;
+        } else if (type == SettingType.NAME_Z_A) {
+            return 5;
+        } else if (type == SettingType.LARGEST_WALLET_FIRST) {
+            return 6;
+        } else if (type == SettingType.SMALLEST_WALLET_FIRST) {
+            return 7;
+        }
+
+        return 1;
     }
 }
