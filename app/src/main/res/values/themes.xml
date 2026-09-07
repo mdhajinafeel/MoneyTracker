@@ -28,6 +28,7 @@
         <item name="emptyRecord">@drawable/empty_record</item>
         <item name="emptyRecurring">@drawable/empty_recurring</item>
         <item name="emptySearch">@drawable/empty_search</item>
+        <item name="emptyTransaction">@drawable/empty_transaction</item>
     </style>
 
     <style name="CurrencyPrefixStyle">

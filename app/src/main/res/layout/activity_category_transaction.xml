@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <include layout="@layout/toolbar_back" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -56,7 +55,7 @@
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginEnd="@dimen/margin_8"
-                android:src="?attr/emptyRecord"
+                android:src="?attr/emptyTransaction"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

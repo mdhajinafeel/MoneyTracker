@@ -9,4 +9,5 @@
     <attr name="emptyRecord" format="reference" />
     <attr name="emptyRecurring" format="reference" />
     <attr name="emptySearch" format="reference" />
+    <attr name="emptyTransaction" format="reference" />
 </resources>

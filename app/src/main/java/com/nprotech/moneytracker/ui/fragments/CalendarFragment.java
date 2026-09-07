@@ -477,7 +477,7 @@ public class CalendarFragment extends Fragment {
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.light_lavender));
-        headerImage.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_copy_outline));
         headerImage.setImageTintList(ContextCompat.getColorStateList(requireActivity(), R.color.primary));
 
         dialog.setView(view);

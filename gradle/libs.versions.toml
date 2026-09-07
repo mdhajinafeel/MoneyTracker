@@ -10,7 +10,6 @@ hiltAndroid = "2.60.1"
 lifecycleViewmodel = "2.11.0"
 sqlite = "2.7.0"
 androidsvg = "1.4"
-lottie = "6.7.1"
 securedpreferencestore = "0.7.4"
 okhttp = "5.5.0"
 retrofit = "3.0.0"
@@ -51,7 +50,6 @@ hilt-worker-complier = { module = "androidx.hilt:hilt-compiler", version.ref = "
 lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycleViewmodel" }
 lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 sqlite = { module = "androidx.sqlite:sqlite", version.ref = "sqlite" }
-lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 androidsvg = { module = "com.caverock:androidsvg", version.ref = "androidsvg" }
 securedpreferencestore = { module = "online.devliving:securedpreferencestore", version.ref = "securedpreferencestore" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }

@@ -321,7 +321,7 @@
             android:id="@+id/ivEmpty"
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:src="?attr/emptyRecord"
+            android:src="?attr/emptyTransaction"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

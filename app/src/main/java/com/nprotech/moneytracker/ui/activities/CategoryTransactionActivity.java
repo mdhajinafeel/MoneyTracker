@@ -227,7 +227,7 @@ public class CategoryTransactionActivity extends BaseActivity {
         tvDuplicate.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         cardHeader.setCardBackgroundColor(getColor(R.color.light_lavender));
-        headerImage.setImageDrawable(getDrawable(R.drawable.ic_copy_outline));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_copy_outline));
         headerImage.setImageTintList(ContextCompat.getColorStateList(this, R.color.primary));
 
         dialog.setView(view);

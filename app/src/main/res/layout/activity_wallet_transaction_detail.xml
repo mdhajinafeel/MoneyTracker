@@ -531,7 +531,7 @@
                     android:id="@+id/ivEmpty"
                     android:layout_width="160dp"
                     android:layout_height="160dp"
-                    android:src="?attr/emptyRecord" />
+                    android:src="?attr/emptyTransaction" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"

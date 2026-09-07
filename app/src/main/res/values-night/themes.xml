@@ -30,5 +30,6 @@
         <item name="emptyRecord">@drawable/empty_record_night</item>
         <item name="emptyRecurring">@drawable/empty_recurring_night</item>
         <item name="emptySearch">@drawable/empty_search_night</item>
+        <item name="emptyTransaction">@drawable/empty_transaction_night</item>
     </style>
 </resources>

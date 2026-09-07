@@ -131,7 +131,6 @@ dependencies {
     // ---------------------------
     // Utilities
     // ---------------------------
-    implementation libs.lottie
     implementation libs.androidsvg
     implementation libs.securedpreferencestore
     implementation libs.stetho
