@@ -10,8 +10,8 @@
     <!-- Icon -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/colorView"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="@dimen/margin_12"
         android:background="@drawable/bg_circle_theme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,8 +20,8 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView"
-            android:layout_width="26dp"
-            android:layout_height="26dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:padding="@dimen/padding_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,6 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_10"
         android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_6"
         android:fontFamily="@font/exo2_semibold"
         android:includeFontPadding="false"
         android:textColor="@color/funky_grey"

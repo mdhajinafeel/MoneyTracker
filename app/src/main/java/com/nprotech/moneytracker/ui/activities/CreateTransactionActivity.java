@@ -297,7 +297,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                         // --------------------------------
                         if (selectedFromWallet != null) {
                             tvFromWallet.setText(getString(R.string.wallet_info, selectedFromWallet.name,
-                                            CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
+                                    CommonUtils.getBeautifyAmount(selectedFromWallet.currencySymbol, selectedFromWallet.amount)));
                         }
 
                         // --------------------------------
@@ -491,6 +491,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 Intent intent = new Intent(this, CategoryPickerActivity.class);
                 intent.putExtra("transactionType", transactionType);
+                intent.putExtra("isFromScreen", "transaction");
+
+                if (transactionType == 1) {
+                    intent.putExtra("categoryId", incomeCategory != null ? incomeCategory.id : 0);
+                } else {
+                    intent.putExtra("categoryId", expenseCategory != null ? expenseCategory.id : 0);
+                }
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(getApplicationContext(), R.anim.left_to_right, R.anim.scale_out);
                 categoryLauncher.launch(intent, options);
             });
@@ -773,7 +781,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             viewLine.setVisibility(View.GONE);
             layoutAddWallet.setVisibility(View.GONE);
 
-            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletLists, R.layout.item_switch_accounts) {
+            RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(this, walletLists, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, WalletEntity walletEntity) {
 

@@ -1,0 +1,834 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <!-- Toolbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_back" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="false"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_4"
+            android:paddingBottom="@dimen/margin_10">
+
+            <!-- Budget Name -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudget"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_budget_outline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/nameLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/budget_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudget"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/etBudgetName"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:background="@drawable/bg_edit_text_underline"
+                        android:ems="10"
+                        android:fontFamily="@font/exo2_medium"
+                        android:hint="@string/example_budget_name"
+                        android:inputType="textCapWords"
+                        android:maxLength="25"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_16"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/nameLabel"
+                        app:layout_constraintTop_toBottomOf="@id/nameLabel" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/maxLimitLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/funky_grey"
+                        android:textSize="@dimen/text_8"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/etBudgetName" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget Period -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetName"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivPeriod"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_calendar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/periodLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/budget_period"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivPeriod"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetPeriod"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/select_budget_period"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/periodLabel"
+                        app:layout_constraintTop_toBottomOf="@id/periodLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Selected Period -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSelectedPeriod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetPeriod"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivSelectedPeriod"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_calendar_monthly"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/selectedPeriodLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/select_budget_period"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivSelectedPeriod"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSelectBudgetPeriod"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/select_period"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/selectedPeriodLabel"
+                        app:layout_constraintTop_toBottomOf="@id/selectedPeriodLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Wallet -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetWallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardSelectedPeriod"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudgetWallet"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_wallet"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/budgetWalletLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/wallet"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudgetWallet"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetWallet"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/select_wallet"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/budgetWalletLabel"
+                        app:layout_constraintTop_toBottomOf="@id/budgetWalletLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Category -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetWallet"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudgetCategory"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_category_outline"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/budgetCategoryLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/category"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudgetCategory"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetCategory"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/select_category"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/budgetCategoryLabel"
+                        app:layout_constraintTop_toBottomOf="@id/budgetCategoryLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget Method -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetCategory"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudgetMethod"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_insights"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/budgetMethodLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/budget_method"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudgetMethod"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetMethod"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:layout_marginTop="@dimen/margin_6"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/choose_budget_method"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/budgetMethodLabel"
+                        app:layout_constraintTop_toBottomOf="@id/budgetMethodLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget Amount -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginVertical="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardBudgetMethod"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="@dimen/padding_10"
+                    android:paddingHorizontal="@dimen/padding_16">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudgetAmount"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_amount"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/budgetAmountLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/budget_amount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudgetAmount"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/edit_text_height_48"
+                        android:ems="10"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:gravity="start|center_vertical"
+                        android:hint="@string/enter_amount"
+                        android:inputType="numberDecimal"
+                        android:layoutDirection="ltr"
+                        android:paddingStart="@dimen/padding_0"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/dark_grey"
+                        android:textDirection="ltr"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/budgetAmountLabel"
+                        app:layout_constraintTop_toBottomOf="@id/budgetAmountLabel" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblBudgetAmountTips"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_14"
+                        android:visibility="gone"
+                        android:background="@drawable/bg_box_purple_stroke"
+                        android:backgroundTint="@color/light_lavender"
+                        android:drawableStart="@drawable/ic_info"
+                        android:drawablePadding="@dimen/padding_6"
+                        android:drawableTint="@color/primary_dark"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingTop="@dimen/padding_6"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:paddingBottom="@dimen/padding_6"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="@dimen/text_10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tvBudgetAmount"
+                        app:layout_constraintTop_toBottomOf="@id/tvBudgetAmount" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:tint="@color/primary"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvBudgetAmount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/budgetAmountLabel" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget Alert -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetAlert"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetAmount"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivBudgetAlert"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_6"
+                        android:src="@drawable/ic_alert"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/budgetAlertLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:text="@string/budget_alert"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:fontFamily="@font/exo2_bold"
+                        app:layout_constraintStart_toEndOf="@id/ivBudgetAlert"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvBudgetAlert"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_6"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_16"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/notify_budget"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintEnd_toStartOf="@id/ivAlertNavigation"
+                        app:layout_constraintStart_toStartOf="@id/budgetAlertLabel"
+                        app:layout_constraintTop_toBottomOf="@id/budgetAlertLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivAlertNavigation"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_account_caret"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Budget Repeat -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetRepeat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginBottom="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardBudgetAlert"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_10">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivRepeatBudget"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_circle_theme"
+                        android:padding="@dimen/padding_4"
+                        android:src="@drawable/ic_refresh_time2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/primary" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/repeatBudgetLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:fontFamily="@font/exo2_bold"
+                        android:text="@string/budget_repeat"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintStart_toEndOf="@id/ivRepeatBudget"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchAutoView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/repeatBudgetLabel"
+                        app:thumbTint="@color/switch_thumb_selector"
+                        app:trackTint="@color/switch_track_selector" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/labelRepeatBudgetHint"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_14"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/repeat_budget_desc"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintEnd_toStartOf="@id/switchAutoView"
+                        app:layout_constraintStart_toStartOf="@id/repeatBudgetLabel"
+                        app:layout_constraintTop_toBottomOf="@id/repeatBudgetLabel" />
+
+                    <!-- Repeat tips -->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblRepeatBudgetTips"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_14"
+                        android:background="@drawable/bg_box_purple_stroke"
+                        android:backgroundTint="@color/light_lavender"
+                        android:drawableStart="@drawable/ic_info"
+                        android:drawablePadding="@dimen/padding_6"
+                        android:drawableTint="@color/primary_dark"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingTop="@dimen/padding_6"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:paddingBottom="@dimen/padding_6"
+                        android:text="@string/repeat_budget_tips"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="@dimen/text_10"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/labelRepeatBudgetHint"
+                        app:layout_constraintTop_toBottomOf="@id/labelRepeatBudgetHint" />
+
+                    <!-- Repeat details -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_6"
+                        android:background="@drawable/bg_box_purple_stroke"
+                        android:backgroundTint="@color/light_lavender"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingTop="@dimen/padding_6"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:paddingBottom="@dimen/padding_6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/labelRepeatBudgetHint"
+                        app:layout_constraintTop_toBottomOf="@id/lblRepeatBudgetTips">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivBudgetRepeatDetail"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:src="@drawable/ic_calendar_empty"
+                            android:tint="@color/primary"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblRepeatBudgetDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="center_vertical"
+                            android:text="@string/budget_period_detail"
+                            android:textColor="@color/primary_dark"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivBudgetRepeatDetail"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/lblRepeatBudgetDesc"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_6"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_regular"
+                            android:gravity="center_vertical"
+                            android:text="@string/budget_period_detail_desc"
+                            android:textColor="@color/primary_dark"
+                            android:textSize="@dimen/text_10"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/ivBudgetRepeatDetail"
+                            app:layout_constraintTop_toBottomOf="@id/lblRepeatBudgetDate" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

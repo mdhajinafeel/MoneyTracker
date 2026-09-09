@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivPrevious"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:contentDescription="@string/previous"
+        android:padding="@dimen/padding_4"
+        android:src="@drawable/ic_previous"
+        app:tint="@color/primary_dark" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/exo2_semibold"
+        android:gravity="center"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_18" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNext"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:contentDescription="@string/previous"
+        android:padding="@dimen/padding_4"
+        android:src="@drawable/ic_next"
+        app:tint="@color/primary_dark" />
+
+</LinearLayout>

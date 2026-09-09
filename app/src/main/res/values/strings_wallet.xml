@@ -74,6 +74,8 @@
     <string name="highest_balance_first">Highest balance first</string>
     <string name="lowest_balance_first">Lowest balance first</string>
     <string name="default_first">Default first</string>
+    <string name="more_wallets_selected">%d wallets selected</string>
+    <string name="more_category_selected">%d wallets selected</string>
 
     <plurals name="wallet_count">
         <item quantity="one">%d wallet</item>

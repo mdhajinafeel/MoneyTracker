@@ -54,6 +54,21 @@
     <string name="november">November</string>
     <string name="december">December</string>
 
+    <string-array name="month_full">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
     <string-array name="month_short">
         <item>Jan</item>
         <item>Feb</item>

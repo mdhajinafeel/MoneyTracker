@@ -37,4 +37,15 @@ public class Constants {
     public static final int BACKUP_FREQUENCY_DAILY = 0;
     public static final int BACKUP_FREQUENCY_WEEKLY = 1;
     public static final int BACKUP_FREQUENCY_MONTHLY = 2;
+
+    // BUDGET PERIOD
+    public static final String PERIOD_WEEKLY = "WEEKLY";
+    public static final String PERIOD_MONTHLY = "MONTHLY";
+    public static final String PERIOD_QUARTERLY = "QUARTERLY";
+    public static final String PERIOD_YEARLY = "YEARLY";
+    public static final String PERIOD_CUSTOM = "CUSTOM";
+
+    // BUDGET METHOD
+    public static final String METHOD_SHARED = "SHARED";
+    public static final String METHOD_SEPARATE = "SEPARATE";
 }

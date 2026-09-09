@@ -2,16 +2,16 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="64dp"
+    android:layout_height="wrap_content"
     android:background="@color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/colorView"
         android:layout_width="@dimen/wrapper_size"
         android:layout_height="@dimen/wrapper_size"
-        android:layout_marginStart="@dimen/margin_16"
-        android:layout_marginTop="@dimen/margin_16"
-        android:layout_marginBottom="@dimen/margin_16"
+        android:layout_marginStart="@dimen/margin_8"
+        android:layout_marginTop="@dimen/margin_12"
+        android:layout_marginBottom="@dimen/margin_12"
         android:background="@drawable/bg_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,18 +33,19 @@
         android:id="@+id/labelWrapper"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
-        android:layout_marginEnd="@dimen/margin_8"
-        android:layout_marginBottom="@dimen/margin_12"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_8"
         app:layout_constraintBottom_toBottomOf="@+id/colorView"
-        app:layout_constraintEnd_toStartOf="@+id/ivSelected"
+        app:layout_constraintEnd_toStartOf="@+id/ivDelete"
         app:layout_constraintStart_toEndOf="@+id/colorView"
         app:layout_constraintTop_toTopOf="@+id/colorView">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvCategory"
             android:layout_width="0dp"
+            android:text="@string/all_wallets"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
@@ -56,40 +57,52 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvSubCategory"
-            android:layout_width="0dp"
+            android:id="@+id/tvCategoryAmount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/medium_grey"
-            android:textSize="@dimen/text_14"
-            android:visibility="gone"
-            app:fontFamily="@font/exo2_regular"
+            android:layout_marginTop="@dimen/margin_6"
+            android:visibility="visible"
+            android:background="@drawable/bg_box_purple_stroke"
+            android:backgroundTint="@color/light_lavender"
+            android:drawableEnd="@drawable/ic_right_arrow_small"
+            android:drawablePadding="@dimen/padding_6"
+            android:drawableTint="@color/primary_dark"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/padding_10"
+            android:paddingVertical="@dimen/padding_14"
+            android:paddingEnd="@dimen/padding_10"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_18"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+            app:layout_constraintStart_toStartOf="@id/tvCategory"
+            app:layout_constraintTop_toBottomOf="@id/tvCategory" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivSelected"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:src="@drawable/ic_done"
-        android:visibility="gone"
+        android:id="@+id/ivDelete"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:src="@drawable/ic_delete"
+        android:background="@drawable/bg_circle_stroke"
+        android:backgroundTint="@color/light_expense"
+        android:visibility="visible"
+        android:padding="@dimen/padding_4"
+        android:tint="@color/delete_red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/ivChecked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_12"
-        android:buttonTint="@color/vibrant_orange"
-        android:checked="false"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/view_grey"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        app:layout_constraintTop_toBottomOf="@id/labelWrapper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

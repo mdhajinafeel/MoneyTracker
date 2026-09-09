@@ -26,10 +26,10 @@ public interface CategoryDao {
     @Query("SELECT COUNT(*) FROM categories")
     int getCategoriesCount();
 
-    @Query("SELECT * FROM categories WHERE type = :type  AND (:type = 5 OR defaultCategory < 26) AND isDeleted = 0 AND active = :activeCategory ORDER BY ordering")
+    @Query("SELECT * FROM categories WHERE type = :type  AND (:type = 5 OR CASE WHEN :type = 1 THEN defaultCategory < 26 ELSE defaultCategory < 26 END) AND isDeleted = 0 AND active = :activeCategory ORDER BY ordering")
     LiveData<List<CategoryEntity>> fetchCategoriesByType(int type, boolean activeCategory);
 
-    @Query("SELECT * FROM categories WHERE type = :type  AND (:type = 5 OR defaultCategory < 26) AND isDeleted = 0 ORDER BY ordering")
+    @Query("SELECT * FROM categories WHERE type = :type  AND (:type = 5 OR CASE WHEN :type = 1 THEN defaultCategory < 26 ELSE defaultCategory < 26 END) AND isDeleted = 0 ORDER BY ordering")
     LiveData<List<CategoryEntity>> fetchCategoriesByType(int type);
 
     @Query("SELECT * FROM categories WHERE id = :categoryId LIMIT 1")

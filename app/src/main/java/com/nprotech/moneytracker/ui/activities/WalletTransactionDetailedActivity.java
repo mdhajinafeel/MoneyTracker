@@ -357,7 +357,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             LinearLayout layoutAddWallet = bottomView.findViewById(R.id.layoutAddWallet);
 
             walletViewModel.getWallets().observe(this, walletEntities -> {
-                RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), walletEntities, R.layout.item_switch_accounts) {
+                RecyclerViewAdapter<WalletEntity> adapter = new RecyclerViewAdapter<>(this, walletEntities, R.layout.item_switch_accounts) {
                     @Override
                     public void onPostBindViewHolder(ViewHolder holder, WalletEntity wallet) {
                         holder.setViewText(R.id.tvAccountName, wallet.name);

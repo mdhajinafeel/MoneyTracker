@@ -22,6 +22,7 @@ import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.MoreOptionsModel;
+import com.nprotech.moneytracker.ui.activities.BudgetActivity;
 import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
 import com.nprotech.moneytracker.ui.activities.GoalActivity;
 import com.nprotech.moneytracker.ui.activities.ManageWalletActivity;
@@ -154,14 +155,18 @@ public class MoreFragment extends Fragment {
                         colorBadgeView.setVisibility(View.GONE);
                     }
 
-                    if(holder.getBindingAdapterPosition() == getItemCount() - 1) {
+                    if (holder.getBindingAdapterPosition() == getItemCount() - 1) {
                         holder.getView(R.id.divider).setAlpha(0f);
                     } else {
                         holder.getView(R.id.divider).setAlpha(1f);
                     }
 
                     holder.getView(R.id.itemView).setOnClickListener(view -> {
-                        if(moreOptionsModel.id == TransactionEntity.TYPE_GOAL) {
+                        if (moreOptionsModel.id == TransactionEntity.TYPE_BUDGET) {
+                            startActivity(new Intent(requireActivity(), BudgetActivity.class)
+                                    .putExtra("accountId", (int) PreferenceManager.INSTANCE.getAccountId()));
+                            ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (moreOptionsModel.id == TransactionEntity.TYPE_GOAL) {
                             startActivity(new Intent(requireActivity(), GoalActivity.class)
                                     .putExtra("accountId", (int) PreferenceManager.INSTANCE.getAccountId()));
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);

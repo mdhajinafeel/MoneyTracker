@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/padding_18"
     android:paddingTop="@dimen/padding_16"
-    android:paddingEnd="@dimen/padding_10"
+    android:paddingEnd="@dimen/padding_18"
     android:paddingBottom="@dimen/padding_12">
 
     <!-- CODE + NAME -->
@@ -45,4 +45,15 @@
         android:src="@drawable/ic_done"
         android:visibility="gone"
         app:tint="@color/vibrant_orange" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/ivChecked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/layoutText"
+        android:visibility="gone"
+        android:buttonTint="@color/vibrant_orange"
+        android:checked="false" />
 </RelativeLayout>

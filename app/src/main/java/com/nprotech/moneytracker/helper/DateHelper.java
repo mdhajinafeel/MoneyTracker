@@ -233,4 +233,90 @@ public class DateHelper {
 
         return calendar.getTimeInMillis();
     }
+
+    public static String formatDateRange(long startDate, long endDate) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.getDefault());
+            return dateFormat.format(startDate) + " - " + dateFormat.format(endDate);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String formatMonthYear(long date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String formatYear(long date) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+            return dateFormat.format(date);
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static String getQuarterText(long date) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(date);
+            int quarter = getQuarterNumber(date);
+            return "Q" + quarter;
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    public static int getQuarterNumber(long date) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(date);
+            return (calendar.get(Calendar.MONTH) / 3) + 1;
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+
+    public static int getWeekOfMonth(Calendar calendar) {
+        try {
+            Calendar firstDay = (Calendar) calendar.clone();
+            firstDay.set(Calendar.DAY_OF_MONTH, 1);
+            int dayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
+            int mondayOffset = (dayOfWeek - Calendar.MONDAY + 7) % 7;
+            return ((calendar.get(Calendar.DAY_OF_MONTH) + mondayOffset - 1) / 7) + 1;
+
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+
+    public static int getFirstMondayDate(int year, int month) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, 1);
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            int offset = (Calendar.MONDAY - dayOfWeek + 7) % 7;
+            return 1 + offset;
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+
+    public static int getWeeksInMonth(int year, int month) {
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, 1);
+            int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            int mondayOffset = (firstDayOfWeek - Calendar.MONDAY + 7) % 7;
+            int daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            return (int) Math.ceil((mondayOffset + daysInMonth) / 7.0);
+        } catch (Exception e) {
+            return 1;
+        }
+    }
 }

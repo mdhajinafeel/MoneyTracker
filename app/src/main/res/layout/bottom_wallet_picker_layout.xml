@@ -18,16 +18,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout
+        android:id="@+id/rlSelectAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/padding_18"
+        android:paddingTop="@dimen/padding_6"
+        android:paddingEnd="@dimen/padding_18"
+        android:paddingBottom="@dimen/padding_6"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSelectWallet">
+
+        <LinearLayout
+            android:id="@+id/layoutText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAccountName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all_wallets"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18"
+                app:fontFamily="@font/exo2_semibold" />
+
+        </LinearLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ivSelectAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/layoutText"
+            android:buttonTint="@color/vibrant_orange"
+            android:checked="false"
+            android:visibility="visible" />
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWallets"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:layout_marginTop="@dimen/margin_10"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSelectWallet" />
+        app:layout_constraintTop_toBottomOf="@id/rlSelectAll" />
 
     <View
         android:id="@+id/viewLine"
@@ -43,12 +85,12 @@
         android:id="@+id/layoutAddWallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:paddingTop="@dimen/padding_20"
         android:paddingBottom="@dimen/padding_20"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/viewLine"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@id/viewLine">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="36dp"
@@ -62,10 +104,59 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/add_wallet"
             android:layout_marginStart="@dimen/margin_14"
+            android:text="@string/add_wallet"
+            android:textColor="@color/text_primary"
             android:textSize="@dimen/text_18"
-            app:fontFamily="@font/exo2_semibold"
-            android:textColor="@color/text_primary" />
+            app:fontFamily="@font/exo2_semibold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginVertical="@dimen/margin_12"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewLine">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvClose"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_weight="1"
+            android:background="@drawable/bg_box_white_stroke"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:text="@string/text_close"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_14"
+            app:fontFamily="@font/exo2_semibold" />
+
+        <!-- Delete / Remove -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bg_white"
+            android:backgroundTint="@color/primary_dark"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:letterSpacing="0.01"
+            android:text="@string/done"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_14"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/corner_radius_6"
+            app:elevation="@dimen/corner_elevation_8" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

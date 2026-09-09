@@ -209,7 +209,7 @@
                 android:padding="@dimen/padding_12"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/ivAttachment"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutAttachContainer">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -321,7 +321,7 @@
                             android:layout_marginTop="@dimen/margin_2"
                             android:ellipsize="end"
                             android:text="@string/wallet_archive_desc"
-                            android:fontFamily="@font/exo2_semibold"
+                            android:fontFamily="@font/exo2_medium"
                             android:maxLines="1"
                             android:textColor="@color/text_grey"
                             android:textSize="@dimen/text_12" />

@@ -141,6 +141,20 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Create Budget Screen -->
+        <activity
+            android:name=".ui.activities.CreateBudgetActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Category Amount Screen -->
+        <activity
+            android:name=".ui.activities.CategoryAmountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Create Goal Screen -->
         <activity
             android:name=".ui.activities.CreateGoalActivity"
@@ -249,6 +263,13 @@
         <!-- Goal Category Picker Screen -->
         <activity
             android:name=".ui.activities.GoalCategoryPickerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Budget Screen -->
+        <activity
+            android:name=".ui.activities.BudgetActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
