@@ -19,11 +19,11 @@
     <string name="select_period">Select Period</string>
     <string name="select_budget_period">Select Budget Period</string>
     <string name="choose_budget_method">Tap to choose method</string>
-    <string name="notify_budget">Notify me when I reach 80% of budget</string>
-    <string name="repeat_budget_desc">Automatically create this budget for future period</string>
-    <string name="repeat_budget_tips">This budget will automatically repeat every month</string>
-    <string name="budget_period_detail">Budget Period: Monthly</string>
-    <string name="budget_period_detail_desc">Repeat on the same dates each month</string>
+    <string name="notify_budget">Notify me when I reach %1$d%% of budget</string>
+    <string name="repeat_budget_desc">Automatically create this budget for future period.</string>
+    <string name="repeat_budget_tips">This budget will automatically repeat %1$s.</string>
+    <string name="budget_period_detail">Budget Period: %1$s (%2$s)</string>
+    <string name="budget_period_detail_desc">Repeat on the same dates %1$s.</string>
     <string name="select_week">Select Week</string>
     <string name="week_number">Week %1$d</string>
     <string name="quarter_number">Q%1$d</string>
@@ -42,6 +42,21 @@
     <string name="set_category_amount">Set Category Amounts</string>
     <string name="total_budget">Total Budget</string>
     <string name="select_category_before_proceeding">Please select at least one category before proceeding.</string>
+    <string name="budget_alert_full">Budget Alert</string>
+    <string name="enable_alert">Enable alert</string>
+    <string name="budget_alert_desc">Get notified when your spending reaches the selected percentage of this budget.</string>
+    <string name="budget_alert_tips">For separate category budgets, the alert will be based on each category\'s individual amount.</string>
+    <string name="alert_percentage">Alert Percentage</string>
+    <string name="alert_percentage_hint">You will be notified when you reach %1$d%% of your budget.</string>
+    <string name="text_10_percentage">10%</string>
+    <string name="text_100_percentage">100%</string>
+    <string name="alert_percentage_value">%1$d%%</string>
+    <string name="every_year">every year</string>
+    <string name="every_quarter">every quarter</string>
+    <string name="each_month">each month</string>
+    <string name="each_week">each week</string>
+    <string name="each_quarter">each quarter</string>
+    <string name="each_year">each year</string>
 
     <plurals name="category_selected_count">
         <item quantity="one">%d category selected</item>
@@ -54,7 +69,22 @@
     </plurals>
 
     <plurals name="budget_amount_tips_count">
-        <item quantity="one">This amount will be shared across all %1$d selected category</item>
-        <item quantity="other">This amount will be shared across all %1$d selected categories</item>
+        <item quantity="one">This amount will be shared across all %d selected category</item>
+        <item quantity="other">This amount will be shared across all %d selected categories</item>
+    </plurals>
+
+    <plurals name="repeat_budget_custom_tips">
+        <item quantity="one">This budget will automatically repeat every %d day.</item>
+        <item quantity="other">This budget will automatically repeat every %d days.</item>
+    </plurals>
+
+    <plurals name="budget_period_detail_desc_count">
+        <item quantity="one">Repeat on the same dates every %d day.</item>
+        <item quantity="other">Repeat on the same dates every %d days.</item>
+    </plurals>
+
+    <plurals name="every_days_count">
+        <item quantity="one">This budget will automatically repeat every %d day</item>
+        <item quantity="other">This budget will automatically repeat every %d days</item>
     </plurals>
 </resources>

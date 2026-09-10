@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/pickerHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_8"
+        android:paddingBottom="@dimen/padding_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
+            android:text="@string/budget_alert_full"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/alertContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pickerHeader">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAlertBudget"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_circle_theme"
+            android:padding="@dimen/padding_8"
+            android:src="@drawable/ic_alert"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alertBudgetLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:fontFamily="@font/exo2_bold"
+            android:text="@string/enable_alert"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintStart_toEndOf="@id/ivAlertBudget"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/labelAlertBudgetHint"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_16"
+            android:layout_marginBottom="@dimen/margin_14"
+            android:fontFamily="@font/exo2_medium"
+            android:text="@string/budget_alert_desc"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintEnd_toStartOf="@id/switchAlertView"
+            app:layout_constraintStart_toStartOf="@id/alertBudgetLabel"
+            app:layout_constraintTop_toBottomOf="@id/alertBudgetLabel" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchAlertView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/alertBudgetLabel"
+            app:thumbTint="@color/switch_thumb_selector"
+            app:trackTint="@color/switch_track_selector" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/alertContainer" />
+
+    <LinearLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:alpha="0.4"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alertPercentageLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:fontFamily="@font/exo2_semibold"
+            android:text="@string/alert_percentage"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAlertPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_8"
+            android:fontFamily="@font/exo2_bold"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/alertPercentageHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_26"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_26"
+            android:fontFamily="@font/exo2_medium"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_12" />
+
+        <!-- Slider -->
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderAlertPercentage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"
+            app:haloRadius="10dp"
+            app:labelBehavior="floating"
+            app:thumbColor="@color/primary"
+            app:thumbHeight="20dp"
+            app:thumbStrokeColor="@color/primary"
+            app:thumbStrokeWidth="2dp"
+            app:thumbWidth="20dp"
+            app:trackColor="@color/primary_dark"
+            app:trackHeight="3dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_14"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/text_10_percentage"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_12" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/exo2_medium"
+                android:gravity="end"
+                android:text="@string/text_100_percentage"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewLine1"
+        android:layout_width="match_parent"
+        android:layout_height="0.6dp"
+        android:layout_marginStart="@dimen/margin_16"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_16"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutContent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/lblBudgetAlertTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_20"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:background="@drawable/bg_box_purple_stroke"
+        android:backgroundTint="@color/light_lavender"
+        android:drawableStart="@drawable/ic_info"
+        android:drawablePadding="@dimen/padding_8"
+        android:drawableTint="@color/primary_dark"
+        android:fontFamily="@font/exo2_medium"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_10"
+        android:paddingTop="@dimen/padding_6"
+        android:paddingEnd="@dimen/padding_10"
+        android:paddingBottom="@dimen/padding_6"
+        android:text="@string/budget_alert_tips"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine1" />
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginVertical="@dimen/margin_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblBudgetAlertTips">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvClose"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_weight="1"
+            android:background="@drawable/bg_box_white_stroke"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:text="@string/text_close"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_14"
+            app:fontFamily="@font/exo2_semibold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApply"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:background="@drawable/btn_bg_white"
+            android:backgroundTint="@color/primary_dark"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:letterSpacing="0.01"
+            android:text="@string/apply"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_14"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/corner_radius_6"
+            app:elevation="@dimen/corner_elevation_8" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

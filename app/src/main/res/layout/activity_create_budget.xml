@@ -530,9 +530,9 @@
                         android:background="@drawable/bg_circle_theme"
                         android:padding="@dimen/padding_6"
                         android:src="@drawable/ic_amount"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvBudgetAmount"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/budgetAmountLabel"
                         app:tint="@color/primary" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -571,7 +571,7 @@
                         android:id="@+id/lblBudgetAmountTips"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_14"
+                        android:layout_marginTop="@dimen/margin_10"
                         android:visibility="gone"
                         android:background="@drawable/bg_box_purple_stroke"
                         android:backgroundTint="@color/light_lavender"
@@ -609,7 +609,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_10"
-                android:visibility="visible"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -759,6 +758,7 @@
                         android:drawablePadding="@dimen/padding_6"
                         android:drawableTint="@color/primary_dark"
                         android:fontFamily="@font/exo2_medium"
+                        android:visibility="gone"
                         android:gravity="center_vertical"
                         android:paddingStart="@dimen/padding_10"
                         android:paddingTop="@dimen/padding_6"
@@ -773,6 +773,7 @@
 
                     <!-- Repeat details -->
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/budgetRepeatDetailContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_6"
@@ -780,6 +781,7 @@
                         android:backgroundTint="@color/light_lavender"
                         android:paddingStart="@dimen/padding_10"
                         android:paddingTop="@dimen/padding_6"
+                        android:visibility="gone"
                         android:paddingEnd="@dimen/padding_10"
                         android:paddingBottom="@dimen/padding_6"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -804,7 +806,6 @@
                             android:layout_marginStart="@dimen/margin_6"
                             android:fontFamily="@font/exo2_semibold"
                             android:gravity="center_vertical"
-                            android:text="@string/budget_period_detail"
                             android:textColor="@color/primary_dark"
                             android:textSize="@dimen/text_10"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -819,7 +820,6 @@
                             android:layout_marginTop="@dimen/margin_4"
                             android:fontFamily="@font/exo2_regular"
                             android:gravity="center_vertical"
-                            android:text="@string/budget_period_detail_desc"
                             android:textColor="@color/primary_dark"
                             android:textSize="@dimen/text_10"
                             app:layout_constraintEnd_toEndOf="parent"

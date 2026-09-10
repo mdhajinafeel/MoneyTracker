@@ -21,6 +21,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -35,6 +36,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.checkbox.MaterialCheckBox;
+import com.google.android.material.slider.Slider;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -61,6 +63,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -68,17 +72,20 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateBudgetActivity extends BaseActivity {
     private AppCompatImageView icBack, ivSelectedPeriod;
     private AppCompatTextView tvSave, tvBudgetPeriod, selectedPeriodLabel, tvSelectBudgetPeriod, tvBudgetWallet, tvBudgetCategory,
-            tvBudgetMethod, tvBudgetAmount, tvBudgetAlert, maxLimitLabel, lblBudgetAmountTips;
+            tvBudgetMethod, tvBudgetAmount, tvBudgetAlert, maxLimitLabel, lblBudgetAmountTips, lblRepeatBudgetTips, lblRepeatBudgetDate,
+            lblRepeatBudgetDesc;
     private AppCompatEditText etBudgetName;
     private MaterialCardView cardBudgetPeriod, cardSelectedPeriod, cardBudgetWallet, cardBudgetCategory, cardBudgetMethod, cardBudgetAlert, cardBudgetAmount;
     private SwitchCompat switchAutoView;
+    private ConstraintLayout budgetRepeatDetailContainer;
     private boolean isEdit = false;
     private int budgetId = 0;
     private String budgetName, tempBudgetPeriod, budgetPeriod, budgetMethod, tempBudgetMethod;
     private long periodStartDate, periodEndDate;
     private final Set<Integer> selectedCategoryIds = new HashSet<>();
     private double budgetAmount = 0.0;
-    private int budgetMethodId = 0, budgetPeriodId = 0, alertPercentage = 80;
+    private int budgetMethodId = 0, budgetPeriodId = 0, tempAlertPercentage = 0, alertPercentage = 80;
+    private boolean alertEnabled = true;
     private Typeface medium, semibold;
     private List<WalletEntity> walletLists;
     private final Set<Integer> selectedWalletIds = new HashSet<>();
@@ -123,6 +130,10 @@ public class CreateBudgetActivity extends BaseActivity {
             cardBudgetAlert = findViewById(R.id.cardBudgetAlert);
             switchAutoView = findViewById(R.id.switchAutoView);
             lblBudgetAmountTips = findViewById(R.id.lblBudgetAmountTips);
+            lblRepeatBudgetTips = findViewById(R.id.lblRepeatBudgetTips);
+            budgetRepeatDetailContainer = findViewById(R.id.budgetRepeatDetailContainer);
+            lblRepeatBudgetDate = findViewById(R.id.lblRepeatBudgetDate);
+            lblRepeatBudgetDesc = findViewById(R.id.lblRepeatBudgetDesc);
 
             tvSave.setVisibility(View.VISIBLE);
 
@@ -187,6 +198,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 selectedCategoryIds.clear();
                 selectedWalletIds.clear();
                 budgetAmount = 0.0;
+                alertEnabled = true;
                 alertPercentage = 80;
                 maxLimitLabel.setText(getString(R.string.character_limit, 0));
 
@@ -202,6 +214,9 @@ public class CreateBudgetActivity extends BaseActivity {
                 updateBudgetPeriod();
                 updateSelectedPeriod();
                 updateBudgetMethod();
+                updateAlertTexts();
+                updateSelectedRepeatText();
+                updateSaveButtonState();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -259,38 +274,148 @@ public class CreateBudgetActivity extends BaseActivity {
 
         String text;
         String label;
+        String repeatBudgetTips;
+        String repeatBudgetDate;
+        String repeatBudgetDesc;
         int icon;
+        String startEndDate = "";
+        long[] nextCustomPeriod;
         switch (budgetPeriod) {
             case Constants.PERIOD_WEEKLY:
                 text = DateHelper.formatDateRange(periodStartDate, periodEndDate);
                 label = getString(R.string.calendar_weekly);
                 icon = R.drawable.ic_calendar_weekly;
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_week);
+                repeatBudgetDate = getString(R.string.calendar_weekly);
+                repeatBudgetDesc = getString(R.string.each_week);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
                 break;
             case Constants.PERIOD_QUARTERLY:
                 text = DateHelper.getQuarterText(periodStartDate) + " (" + DateHelper.getFormattedDate(periodStartDate, "MMM yyyy") +
                         " - " + DateHelper.getFormattedDate(periodEndDate, "MMM yyyy") + ")";
                 label = getString(R.string.calendar_quarterly);
                 icon = R.drawable.ic_quarterly_outline;
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_quarter);
+                repeatBudgetDate = getString(R.string.calendar_quarterly);
+                repeatBudgetDesc = getString(R.string.each_quarter);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
                 break;
             case Constants.PERIOD_YEARLY:
                 text = DateHelper.formatYear(periodStartDate);
                 label = getString(R.string.calendar_yearly);
                 icon = R.drawable.ic_yearly;
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_year);
+                repeatBudgetDate = getString(R.string.calendar_yearly);
+                repeatBudgetDesc = getString(R.string.each_year);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
                 break;
             case Constants.PERIOD_CUSTOM:
                 text = DateHelper.formatDateRange(periodStartDate, periodEndDate);
                 label = getString(R.string.calendar_custom);
+                long customDays = getCustomPeriodDays();
                 icon = R.drawable.ic_calendar_custom;
+                repeatBudgetTips = getResources().getQuantityString(R.plurals.every_days_count, (int) customDays, customDays);
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetDate = getString(R.string.calendar_custom);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+                repeatBudgetDesc = getResources().getQuantityString(R.plurals.budget_period_detail_desc_count, (int) customDays, customDays);
                 break;
             default:
                 text = DateHelper.formatMonthYear(periodStartDate);
                 label = getString(R.string.calendar_monthly);
                 icon = R.drawable.ic_calendar_monthly;
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_month);
+                repeatBudgetDate = getString(R.string.calendar_monthly);
+                repeatBudgetDesc = getString(R.string.each_month);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+        }
+
+        if (switchAutoView.isChecked()) {
+            lblRepeatBudgetTips.setVisibility(View.VISIBLE);
+            budgetRepeatDetailContainer.setVisibility(View.VISIBLE);
+
+            lblRepeatBudgetDate.setText(getString(R.string.budget_period_detail, repeatBudgetDate, startEndDate));
+            if (budgetPeriod.equalsIgnoreCase(Constants.PERIOD_CUSTOM)) {
+                lblRepeatBudgetTips.setText(repeatBudgetTips);
+                lblRepeatBudgetDesc.setText(repeatBudgetDesc);
+            } else {
+                lblRepeatBudgetTips.setText(getString(R.string.repeat_budget_tips, repeatBudgetTips.toLowerCase()));
+                lblRepeatBudgetDesc.setText(getString(R.string.budget_period_detail_desc, repeatBudgetDesc));
+            }
+        } else {
+            lblRepeatBudgetTips.setVisibility(View.GONE);
+            budgetRepeatDetailContainer.setVisibility(View.GONE);
         }
 
         selectedPeriodLabel.setText(label);
         tvSelectBudgetPeriod.setText(text);
         ivSelectedPeriod.setImageDrawable(ContextCompat.getDrawable(this, icon));
+    }
+
+    private void updateSelectedRepeatText() {
+
+        String repeatBudgetTips;
+        String repeatBudgetDate;
+        String repeatBudgetDesc;
+        String startEndDate = "";
+        long[] nextCustomPeriod;
+        switch (budgetPeriod) {
+            case Constants.PERIOD_WEEKLY:
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_week);
+                repeatBudgetDate = getString(R.string.calendar_weekly);
+                repeatBudgetDesc = getString(R.string.each_week);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+                break;
+            case Constants.PERIOD_QUARTERLY:
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_quarter);
+                repeatBudgetDate = getString(R.string.calendar_quarterly);
+                repeatBudgetDesc = getString(R.string.each_quarter);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+                break;
+            case Constants.PERIOD_YEARLY:
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_year);
+                repeatBudgetDate = getString(R.string.calendar_yearly);
+                repeatBudgetDesc = getString(R.string.each_year);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+                break;
+            case Constants.PERIOD_CUSTOM:
+                long customDays = getCustomPeriodDays();
+                repeatBudgetTips = getResources().getQuantityString(R.plurals.every_days_count, (int) customDays, customDays);
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+                repeatBudgetDesc = getResources().getQuantityString(R.plurals.budget_period_detail_desc_count, (int) customDays, customDays);
+                break;
+            default:
+                nextCustomPeriod = getNextRepeatPeriodFromCurrentDate();
+                repeatBudgetTips = getString(R.string.every_month);
+                repeatBudgetDate = getString(R.string.calendar_monthly);
+                repeatBudgetDesc = getString(R.string.each_month);
+                startEndDate = DateHelper.formatDateRange(nextCustomPeriod[0], nextCustomPeriod[1]);
+        }
+
+        if (switchAutoView.isChecked()) {
+            lblRepeatBudgetTips.setVisibility(View.VISIBLE);
+            budgetRepeatDetailContainer.setVisibility(View.VISIBLE);
+
+            lblRepeatBudgetDate.setText(getString(R.string.budget_period_detail, repeatBudgetDate, startEndDate));
+            if (budgetPeriod.equalsIgnoreCase(Constants.PERIOD_CUSTOM)) {
+                lblRepeatBudgetTips.setText(repeatBudgetTips);
+                lblRepeatBudgetDesc.setText(repeatBudgetDesc);
+            } else {
+                lblRepeatBudgetTips.setText(getString(R.string.repeat_budget_tips, repeatBudgetTips.toLowerCase()));
+                lblRepeatBudgetDesc.setText(getString(R.string.budget_period_detail_desc, repeatBudgetDesc));
+            }
+        } else {
+            lblRepeatBudgetTips.setVisibility(View.GONE);
+            budgetRepeatDetailContainer.setVisibility(View.GONE);
+        }
     }
 
     private void updateWalletTexts() {
@@ -349,15 +474,25 @@ public class CreateBudgetActivity extends BaseActivity {
             tvBudgetAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, budgetAmount));
 
             if (budgetMethod.equals(Constants.METHOD_SHARED)) {
-                lblBudgetAmountTips.setVisibility(View.VISIBLE);
                 int count = selectedCategoryIds.size();
-                lblBudgetAmountTips.setText(getResources().getQuantityString(R.plurals.budget_amount_tips_count, count, count));
+                if(count > 0) {
+                    lblBudgetAmountTips.setVisibility(View.VISIBLE);
+                    lblBudgetAmountTips.setText(getResources().getQuantityString(R.plurals.budget_amount_tips_count, count, count));
+                }
             } else {
                 lblBudgetAmountTips.setText("");
                 lblBudgetAmountTips.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "updateAmountTexts", e);
+        }
+    }
+
+    private void updateAlertTexts() {
+        try {
+            tvBudgetAlert.setText(getString(R.string.notify_budget, alertPercentage));
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "updateAlertTexts", e);
         }
     }
 
@@ -445,7 +580,7 @@ public class CreateBudgetActivity extends BaseActivity {
 
                 if (Objects.equals(budgetMethod, Constants.METHOD_SEPARATE)) {
 
-                    if(selectedCategoryIds != null && !selectedCategoryIds.isEmpty()) {
+                    if (selectedCategoryIds != null && !selectedCategoryIds.isEmpty()) {
                         hideKeyboard(this);
                         Intent intent = new Intent(this, CategoryAmountActivity.class);
                         intent.putExtra("currencySymbol", account.currencySymbol);
@@ -469,7 +604,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 hideKeyboard(this);
 
                 if (Objects.equals(budgetMethod, Constants.METHOD_SEPARATE)) {
-                    if(selectedCategoryIds != null && !selectedCategoryIds.isEmpty()) {
+                    if (selectedCategoryIds != null && !selectedCategoryIds.isEmpty()) {
                         hideKeyboard(this);
                         Intent intent = new Intent(this, CategoryAmountActivity.class);
                         intent.putExtra("currencySymbol", account.currencySymbol);
@@ -490,17 +625,23 @@ public class CreateBudgetActivity extends BaseActivity {
             });
 
             // ALERT
-            cardBudgetAlert.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            cardBudgetAlert.setOnClickListener(v -> selectBudgetAlert());
 
-                }
-            });
+            tvBudgetAlert.setOnClickListener(v -> selectBudgetAlert());
 
-            tvBudgetAlert.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+            // REPEAT
+            switchAutoView.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
+                hideKeyboard(this);
+
+                if (isChecked) {
+                    lblRepeatBudgetTips.setVisibility(View.VISIBLE);
+                    budgetRepeatDetailContainer.setVisibility(View.VISIBLE);
+
+                    updateSelectedRepeatText();
+                } else {
+                    lblRepeatBudgetTips.setVisibility(View.GONE);
+                    budgetRepeatDetailContainer.setVisibility(View.GONE);
                 }
             });
 
@@ -528,6 +669,7 @@ public class CreateBudgetActivity extends BaseActivity {
                             if (type != null && type.equalsIgnoreCase("amount")) {
                                 budgetAmount = amount;
                                 updateAmountTexts();
+                                updateSaveButtonState();
                             }
                         }
                     }
@@ -544,6 +686,8 @@ public class CreateBudgetActivity extends BaseActivity {
                                 selectedCategoryIds.addAll(categoryIds);
 
                                 updateCategoryTexts();
+                                updateAmountTexts();
+                                updateSaveButtonState();
                             }
                         }
                     }
@@ -578,6 +722,7 @@ public class CreateBudgetActivity extends BaseActivity {
                             }
 
                             updateCategoryTexts();
+                            updateSaveButtonState();
                         }
                     }
                 });
@@ -585,6 +730,8 @@ public class CreateBudgetActivity extends BaseActivity {
 
     private void showBudgetPeriod() {
         try {
+
+            hideKeyboard(this);
 
             tempBudgetPeriod = budgetPeriod;
 
@@ -656,6 +803,7 @@ public class CreateBudgetActivity extends BaseActivity {
 
     private void showSelectedPeriod() {
         try {
+            hideKeyboard(this);
             switch (tempBudgetPeriod) {
                 case Constants.PERIOD_WEEKLY:
                     showWeekPicker();
@@ -694,14 +842,12 @@ public class CreateBudgetActivity extends BaseActivity {
     }
 
     private void updateSaveButtonState() {
-        boolean enabled = budgetAmount > 0 && budgetPeriodId > 0 && budgetMethodId > 0
-                && selectedWalletIds != null && selectedCategoryIds != null;
+        boolean enabled = budgetAmount > 0
+                && budgetPeriodId > 0 && budgetMethodId > 0 && selectedWalletIds != null
+                && !selectedWalletIds.isEmpty() && selectedCategoryIds != null && !selectedCategoryIds.isEmpty();
 
+        enabled &= !Objects.requireNonNull(etBudgetName.getText()).toString().trim().isEmpty();
         enabled &= !Objects.requireNonNull(etBudgetName.getText()).toString().isEmpty();
-
-        if (switchAutoView.isChecked()) {
-
-        }
 
         tvSave.setEnabled(enabled);
         enabledSaveOption(enabled);
@@ -722,7 +868,7 @@ public class CreateBudgetActivity extends BaseActivity {
         try {
             BottomSheetDialog dialog = createPeriodBottomSheet(getString(R.string.select_week));
             FrameLayout container = dialog.findViewById(R.id.pickerContainer);
-            AppCompatTextView btnDone = dialog.findViewById(R.id.btnDone);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone);
             AppCompatTextView tvStartDate = dialog.findViewById(R.id.tvStartDate);
             AppCompatTextView tvEndDate = dialog.findViewById(R.id.tvEndDate);
 
@@ -858,6 +1004,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 budgetPeriod = tempBudgetPeriod;
                 updateBudgetPeriod();
                 updateSelectedPeriod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -875,7 +1022,7 @@ public class CreateBudgetActivity extends BaseActivity {
         try {
             BottomSheetDialog dialog = createPeriodBottomSheet(getString(R.string.select_month));
             FrameLayout container = dialog.findViewById(R.id.pickerContainer);
-            AppCompatTextView btnDone = dialog.findViewById(R.id.btnDone);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone);
             AppCompatTextView tvStartDate = dialog.findViewById(R.id.tvStartDate);
             AppCompatTextView tvEndDate = dialog.findViewById(R.id.tvEndDate);
 
@@ -919,6 +1066,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 budgetPeriod = tempBudgetPeriod;
                 updateBudgetPeriod();
                 updateSelectedPeriod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -953,7 +1101,7 @@ public class CreateBudgetActivity extends BaseActivity {
         try {
             BottomSheetDialog dialog = createPeriodBottomSheet(getString(R.string.select_quarter));
             FrameLayout container = dialog.findViewById(R.id.pickerContainer);
-            AppCompatTextView btnDone = dialog.findViewById(R.id.btnDone);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone);
             AppCompatTextView tvStartDate = dialog.findViewById(R.id.tvStartDate);
             AppCompatTextView tvEndDate = dialog.findViewById(R.id.tvEndDate);
 
@@ -1053,6 +1201,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 budgetPeriod = tempBudgetPeriod;
                 updateBudgetPeriod();
                 updateSelectedPeriod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -1103,7 +1252,7 @@ public class CreateBudgetActivity extends BaseActivity {
         try {
             BottomSheetDialog dialog = createPeriodBottomSheet(getString(R.string.select_year));
             FrameLayout container = dialog.findViewById(R.id.pickerContainer);
-            AppCompatTextView btnDone = dialog.findViewById(R.id.btnDone);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone);
             AppCompatTextView tvStartDate = dialog.findViewById(R.id.tvStartDate);
             AppCompatTextView tvEndDate = dialog.findViewById(R.id.tvEndDate);
 
@@ -1161,6 +1310,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 budgetPeriod = tempBudgetPeriod;
                 updateBudgetPeriod();
                 updateSelectedPeriod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -1195,7 +1345,7 @@ public class CreateBudgetActivity extends BaseActivity {
             FrameLayout container = dialog.findViewById(R.id.pickerContainer);
             AppCompatTextView tvStartDate = dialog.findViewById(R.id.tvStartDate);
             AppCompatTextView tvEndDate = dialog.findViewById(R.id.tvEndDate);
-            AppCompatTextView btnDone = dialog.findViewById(R.id.btnDone);
+            MaterialButton btnDone = dialog.findViewById(R.id.btnDone);
 
             if (container == null || tvStartDate == null || tvEndDate == null || btnDone == null) {
                 return;
@@ -1213,6 +1363,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 budgetPeriod = tempBudgetPeriod;
                 updateBudgetPeriod();
                 updateSelectedPeriod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -1265,6 +1416,30 @@ public class CreateBudgetActivity extends BaseActivity {
         }
     }
 
+    private long getCustomPeriodDays() {
+        try {
+            Calendar start = Calendar.getInstance();
+            start.setTimeInMillis(periodStartDate);
+
+            Calendar end = Calendar.getInstance();
+            end.setTimeInMillis(periodEndDate);
+
+            // Use UTC so daylight-saving changes cannot affect the day count.
+            Calendar startUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            startUtc.clear();
+            startUtc.set(start.get(Calendar.YEAR), start.get(Calendar.MONTH), start.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+
+            Calendar endUtc = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            endUtc.clear();
+            endUtc.set(end.get(Calendar.YEAR), end.get(Calendar.MONTH), end.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
+            long difference = endUtc.getTimeInMillis() - startUtc.getTimeInMillis();
+            return TimeUnit.MILLISECONDS.toDays(difference) + 1;
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "getCustomPeriodDays", e);
+            return 1;
+        }
+    }
+
     // -------------------------
     // ------- WALLETS ---------
     // -------------------------
@@ -1275,6 +1450,8 @@ public class CreateBudgetActivity extends BaseActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void selectWallets() {
         try {
+
+            hideKeyboard(this);
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
@@ -1374,6 +1551,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 selectedWalletIds.clear();
                 selectedWalletIds.addAll(tempSelectedWalletIds);
                 updateWalletTexts();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -1389,7 +1567,7 @@ public class CreateBudgetActivity extends BaseActivity {
     // -------------------------
     private void selectBudgetMethod() {
         try {
-
+            hideKeyboard(this);
             tempBudgetMethod = "";
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
@@ -1399,7 +1577,7 @@ public class CreateBudgetActivity extends BaseActivity {
             AppCompatImageView ivCheckSeparate = bottomView.findViewById(R.id.ivCheckSeparate);
             AppCompatImageView ivCheckBudget = bottomView.findViewById(R.id.ivCheckBudget);
             AppCompatTextView tvClose = bottomView.findViewById(R.id.tvClose);
-            AppCompatTextView btnApply = bottomView.findViewById(R.id.btnApply);
+            MaterialButton btnApply = bottomView.findViewById(R.id.btnApply);
 
             if (Objects.equals(budgetMethod, Constants.METHOD_SEPARATE)) {
                 separateCard.setCardBackgroundColor(ContextCompat.getColor(this, R.color.app_light_background));
@@ -1445,6 +1623,7 @@ public class CreateBudgetActivity extends BaseActivity {
             btnApply.setOnClickListener(v -> {
                 budgetMethod = tempBudgetMethod;
                 updateBudgetMethod();
+                updateSaveButtonState();
                 dialog.dismiss();
             });
 
@@ -1452,6 +1631,80 @@ public class CreateBudgetActivity extends BaseActivity {
             dialog.show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "selectBudgetMethod", e);
+        }
+    }
+
+    // -------------------------
+    // ----- BUDGET ALERT ------
+    // -------------------------
+    private void selectBudgetAlert() {
+        try {
+
+            hideKeyboard(this);
+
+            tempAlertPercentage = alertPercentage;
+            BottomSheetDialog dialog = new BottomSheetDialog(this);
+            View bottomView = getLayoutInflater().inflate(R.layout.bottom_budget_alert, findViewById(android.R.id.content), false);
+            AppCompatTextView tvAlertPercentage = bottomView.findViewById(R.id.tvAlertPercentage);
+            AppCompatTextView alertPercentageHint = bottomView.findViewById(R.id.alertPercentageHint);
+            AppCompatTextView tvClose = bottomView.findViewById(R.id.tvClose);
+            MaterialButton btnApply = bottomView.findViewById(R.id.btnApply);
+            LinearLayout layoutContent = bottomView.findViewById(R.id.layoutContent);
+            SwitchCompat switchAlertView = bottomView.findViewById(R.id.switchAlertView);
+            Slider sliderAlertPercentage = bottomView.findViewById(R.id.sliderAlertPercentage);
+
+            switchAlertView.setChecked(alertEnabled);
+            sliderAlertPercentage.setValue(Math.max(alertPercentage, 0));
+
+            tvAlertPercentage.setText(getString(R.string.alert_percentage_value, alertPercentage));
+            alertPercentageHint.setText(getString(R.string.alert_percentage_hint, alertPercentage));
+
+            layoutContent.setEnabled(alertEnabled);
+            layoutContent.setAlpha(alertEnabled ? 1f : 0.4f);
+            sliderAlertPercentage.setEnabled(alertEnabled);
+            alertPercentageHint.setVisibility(alertEnabled ? View.VISIBLE : View.GONE);
+
+            switchAlertView.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                layoutContent.setEnabled(isChecked);
+                layoutContent.setAlpha(isChecked ? 1f : 0.4f);
+
+                if (!isChecked) {
+                    tvAlertPercentage.setText(getString(R.string.alert_percentage_value, tempAlertPercentage));
+                    alertPercentageHint.setVisibility(View.GONE);
+                    sliderAlertPercentage.setEnabled(false);
+                } else {
+                    tvAlertPercentage.setText(getString(R.string.alert_percentage_value, 0));
+                    alertPercentageHint.setVisibility(View.VISIBLE);
+                    sliderAlertPercentage.setEnabled(true);
+                }
+            });
+
+            sliderAlertPercentage.addOnChangeListener(
+                    (slider, value, fromUser) -> {
+                        int percentage = Math.round(value);
+                        tempAlertPercentage = percentage;
+                        alertPercentageHint.setVisibility(View.VISIBLE);
+                        alertPercentageHint.setText(getString(R.string.alert_percentage_hint, percentage));
+                        tvAlertPercentage.setText(getString(R.string.alert_percentage_value, percentage));
+                    }
+            );
+
+            tvClose.setOnClickListener(v -> dialog.dismiss());
+            btnApply.setOnClickListener(v -> {
+                alertEnabled = switchAlertView.isChecked();
+                if (alertEnabled) {
+                    alertPercentage = tempAlertPercentage;
+                } else {
+                    alertPercentage = 0;
+                }
+                updateAlertTexts();
+                dialog.dismiss();
+            });
+
+            dialog.setContentView(bottomView);
+            dialog.show();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "selectBudgetAlert", e);
         }
     }
 
@@ -1467,6 +1720,173 @@ public class CreateBudgetActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "getEndOfDay", e);
             return date;
+        }
+    }
+
+    // -------------------------
+    // ----- REPEAT PERIOD -----
+    // -------------------------
+    private long[] getNextRepeatPeriodFromCurrentDate() {
+        try {
+            Calendar today = Calendar.getInstance();
+
+            today.set(Calendar.HOUR_OF_DAY, 0);
+            today.set(Calendar.MINUTE, 0);
+            today.set(Calendar.SECOND, 0);
+            today.set(Calendar.MILLISECOND, 0);
+
+            Calendar start = Calendar.getInstance();
+            start.setTimeInMillis(periodStartDate);
+            start.set(Calendar.HOUR_OF_DAY, 0);
+            start.set(Calendar.MINUTE, 0);
+            start.set(Calendar.SECOND, 0);
+            start.set(Calendar.MILLISECOND, 0);
+
+            Calendar end = Calendar.getInstance();
+            end.setTimeInMillis(periodEndDate);
+            end.set(Calendar.HOUR_OF_DAY, 23);
+            end.set(Calendar.MINUTE, 59);
+            end.set(Calendar.SECOND, 59);
+            end.set(Calendar.MILLISECOND, 999);
+
+            /*
+             * First skip all periods that have already ended.
+             */
+            while (end.before(today)) {
+
+                switch (budgetPeriod) {
+
+                    case Constants.PERIOD_WEEKLY:
+
+                        start.add(Calendar.DAY_OF_MONTH, 7);
+                        end.add(Calendar.DAY_OF_MONTH, 7);
+
+                        break;
+
+                    case Constants.PERIOD_MONTHLY:
+
+                        start.add(Calendar.MONTH, 1);
+                        end.add(Calendar.MONTH, 1);
+
+                        break;
+
+                    case Constants.PERIOD_QUARTERLY:
+
+                        start.add(Calendar.MONTH, 3);
+                        end.add(Calendar.MONTH, 3);
+
+                        break;
+
+                    case Constants.PERIOD_YEARLY:
+
+                        start.add(Calendar.YEAR, 1);
+                        end.add(Calendar.YEAR, 1);
+
+                        break;
+
+                    case Constants.PERIOD_CUSTOM:
+
+                        long customDays = getCustomPeriodDays();
+
+                        start.add(
+                                Calendar.DAY_OF_MONTH,
+                                (int) customDays
+                        );
+
+                        end.add(
+                                Calendar.DAY_OF_MONTH,
+                                (int) customDays
+                        );
+
+                        break;
+
+                    default:
+
+                        return new long[]{
+                                periodStartDate,
+                                periodEndDate
+                        };
+                }
+            }
+
+            /*
+             * The period above is either:
+             * - the current period, or
+             * - a future selected period.
+             *
+             * Move once more to get the NEXT repeat period.
+             */
+            switch (budgetPeriod) {
+
+                case Constants.PERIOD_WEEKLY:
+
+                    start.add(Calendar.DAY_OF_MONTH, 7);
+                    end.add(Calendar.DAY_OF_MONTH, 7);
+
+                    break;
+
+                case Constants.PERIOD_MONTHLY:
+
+                    start.add(Calendar.MONTH, 1);
+                    end.add(Calendar.MONTH, 1);
+
+                    break;
+
+                case Constants.PERIOD_QUARTERLY:
+
+                    start.add(Calendar.MONTH, 3);
+                    end.add(Calendar.MONTH, 3);
+
+                    break;
+
+                case Constants.PERIOD_YEARLY:
+
+                    start.add(Calendar.YEAR, 1);
+                    end.add(Calendar.YEAR, 1);
+
+                    break;
+
+                case Constants.PERIOD_CUSTOM:
+
+                    long customDays = getCustomPeriodDays();
+
+                    start.add(
+                            Calendar.DAY_OF_MONTH,
+                            (int) customDays
+                    );
+
+                    end.add(
+                            Calendar.DAY_OF_MONTH,
+                            (int) customDays
+                    );
+
+                    break;
+
+                default:
+
+                    return new long[]{
+                            periodStartDate,
+                            periodEndDate
+                    };
+            }
+
+            return new long[]{
+                    start.getTimeInMillis(),
+                    end.getTimeInMillis()
+            };
+
+        } catch (Exception e) {
+
+            AppLogger.e(
+                    getClass(),
+                    "getNextRepeatPeriodFromCurrentDate",
+                    e
+            );
+
+            return new long[]{
+                    periodStartDate,
+                    periodEndDate
+            };
         }
     }
 

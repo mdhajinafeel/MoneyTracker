@@ -224,6 +224,7 @@
         android:layout_marginHorizontal="@dimen/margin_20"
         android:layout_marginVertical="@dimen/margin_12"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutContent">
