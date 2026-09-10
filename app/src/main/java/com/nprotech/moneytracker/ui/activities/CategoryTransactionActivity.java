@@ -125,7 +125,7 @@ public class CategoryTransactionActivity extends BaseActivity {
     private void bindData() {
         try {
 
-            AccountEntity account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+            AccountEntity account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
             if (account != null) {
                 accountCurrencySymbol = account.currencySymbol;
                 dailyTransactionAdapter.setAccountCurrencySymbol(accountCurrencySymbol);

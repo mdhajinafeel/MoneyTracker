@@ -86,7 +86,7 @@ public class AchievedGoalFragment extends Fragment {
     private void bindData() {
         try {
 
-            goalViewModel.getGoals((int) PreferenceManager.INSTANCE.getAccountId(), false, true).observe(getViewLifecycleOwner(), goalWithDetails -> {
+            goalViewModel.getGoals(PreferenceManager.INSTANCE.getAccountId(), false, true).observe(getViewLifecycleOwner(), goalWithDetails -> {
                 if (goalWithDetails.isEmpty()) {
                     emptyWrapper.setVisibility(View.VISIBLE);
                     rvGoals.setVisibility(View.GONE);

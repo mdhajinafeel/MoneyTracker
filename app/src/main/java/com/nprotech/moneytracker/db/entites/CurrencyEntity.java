@@ -2,11 +2,18 @@ package com.nprotech.moneytracker.db.entites;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "currencies")
+@Entity(
+        tableName = "currencies",
+        indices = {
+                @Index(value = {"code"}, unique = true),
+                @Index(value = {"isDefault"})
+        }
+)
 public class CurrencyEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

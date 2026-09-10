@@ -368,8 +368,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 }
             } else {
 
-                account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
-                walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
+                account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
+                walletLists = accountViewModel.getWalletsByAccountId(PreferenceManager.INSTANCE.getAccountId());
 
                 tvSave.setEnabled(false);
                 enabledSaveOption(false);

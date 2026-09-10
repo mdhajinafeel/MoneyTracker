@@ -164,11 +164,11 @@ public class MoreFragment extends Fragment {
                     holder.getView(R.id.itemView).setOnClickListener(view -> {
                         if (moreOptionsModel.id == TransactionEntity.TYPE_BUDGET) {
                             startActivity(new Intent(requireActivity(), BudgetActivity.class)
-                                    .putExtra("accountId", (int) PreferenceManager.INSTANCE.getAccountId()));
+                                    .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (moreOptionsModel.id == TransactionEntity.TYPE_GOAL) {
                             startActivity(new Intent(requireActivity(), GoalActivity.class)
-                                    .putExtra("accountId", (int) PreferenceManager.INSTANCE.getAccountId()));
+                                    .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         }
                     });

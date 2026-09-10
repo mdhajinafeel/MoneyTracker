@@ -50,6 +50,7 @@ public class AddCurrencyActivity extends BaseActivity {
     private double exchangeRate = 1;
     private boolean isEdit = false;
     private int currencyMapId = 0;
+    private AccountEntity account;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,7 +118,7 @@ public class AddCurrencyActivity extends BaseActivity {
     private void bindData() {
         try {
 
-            AccountEntity account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+            account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
             if (account != null) {
                 currencyCode = account.currencyCode;
                 mainCurrency = masterViewModel.getCurrencyByCode(currencyCode);
@@ -126,7 +127,7 @@ public class AddCurrencyActivity extends BaseActivity {
             if (isEdit) {
 
                 AccountCurrencyMappingEntity currencyMapping = accountViewModel.fetchAccountCurrencyByMappingId(currencyMapId,
-                        (int) PreferenceManager.INSTANCE.getAccountId());
+                        PreferenceManager.INSTANCE.getAccountId());
 
                 if (currencyMapping != null) {
                     currency = masterViewModel.getCurrencyByCode(currencyMapping.currencyCode);
@@ -138,7 +139,7 @@ public class AddCurrencyActivity extends BaseActivity {
                     }
                 }
             } else {
-                currency = masterViewModel.getFirstCurrencyForWallet((int) PreferenceManager.INSTANCE.getAccountId());
+                currency = masterViewModel.getFirstCurrencyForWallet(PreferenceManager.INSTANCE.getAccountId());
 
                 etRate.setText(R.string.exchange_rate_default_value);
 
@@ -225,6 +226,9 @@ public class AddCurrencyActivity extends BaseActivity {
                 accountCurrencyMappingEntity.currencySymbol = currency.symbol;
                 accountCurrencyMappingEntity.isActive = true;
                 accountCurrencyMappingEntity.isBase = false;
+                accountCurrencyMappingEntity.isSynced = false;
+                accountCurrencyMappingEntity.mappingServerId = 0;
+                accountCurrencyMappingEntity.tempAccountServerId = account.tempAccountServerId;
 
                 if (mainCurrency != null) {
                     accountCurrencyMappingEntity.mainCurrencyId = mainCurrency.id;

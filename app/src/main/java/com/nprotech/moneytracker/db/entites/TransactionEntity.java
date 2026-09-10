@@ -14,13 +14,14 @@ import java.io.Serializable;
 @Entity(
         tableName = "transactions",
         indices = {
-                @Index("accountId"),
-                @Index("walletId"),
-                @Index("categoryId"),
-                @Index("serverId"),
-                @Index("tempTransactionServerId"),
-                @Index("isSynced"),
-                @Index("isDeleted"),
+                @Index(value = {"accountId", "isDeleted", "transactionDate"}),
+                @Index(value = {"walletId", "isDeleted"}),
+                @Index(value = {"fromWalletId", "isDeleted"}),
+                @Index(value = {"categoryId", "isDeleted"}),
+                @Index(value = {"accountId", "type", "isDeleted", "transactionDate"}),
+                @Index(value = {"parentTransactionId"}),
+                @Index(value = {"tempTransactionServerId"}),
+                @Index(value = {"serverId"})
         }
 )
 public class TransactionEntity implements Serializable {

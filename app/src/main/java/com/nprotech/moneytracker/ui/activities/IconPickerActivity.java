@@ -121,6 +121,8 @@ public class IconPickerActivity extends BaseActivity {
                     intent.putExtra("walletIcon", icon);
                 } else if (iconType.equalsIgnoreCase("category")) {
                     intent.putExtra("categoryIcon", icon);
+                } else if (iconType.equalsIgnoreCase("budget")) {
+                    intent.putExtra("budgetIcon", icon);
                 }
                 setResult(-1, intent);
                 finish();
@@ -144,7 +146,6 @@ public class IconPickerActivity extends BaseActivity {
                     emptyWrapper.setVisibility(View.VISIBLE);
 
                 } else {
-
                     iconAdapter = new RecyclerViewAdapter<>(IconPickerActivity.this, walletIcons, R.layout.item_icon_picker) {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
@@ -206,7 +207,7 @@ public class IconPickerActivity extends BaseActivity {
                     rvCategories.setVisibility(View.VISIBLE);
                     emptyWrapper.setVisibility(View.GONE);
                 }
-            } else  if (iconType.equalsIgnoreCase("category")) {
+            } else if (iconType.equalsIgnoreCase("category") || iconType.equalsIgnoreCase("budget")) {
 
                 List<Integer> walletIcons = DataHelper.getCategoryIcons();
                 if (walletIcons.isEmpty()) {

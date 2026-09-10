@@ -121,7 +121,7 @@ public class ManageCurrencyActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+            accountId = PreferenceManager.INSTANCE.getAccountId();
 
             if (accountId != 0) {
                 accountViewModel.loadAccountCurrencies(accountId);

@@ -15,6 +15,7 @@ import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CommonInitializer;
 import com.nprotech.moneytracker.initializer.CurrencyInitializer;
+import com.nprotech.moneytracker.worker.BudgetRepeatScheduler;
 
 import java.nio.charset.StandardCharsets;
 import java.security.KeyStore;
@@ -75,6 +76,9 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
 
         // Firebase crashlytics
         firebaseCrashlytics();
+
+        // Budget Repeat
+        BudgetRepeatScheduler.scheduleBudgetRepeat(this);
     }
 
     private void initSecureSharedPref() {

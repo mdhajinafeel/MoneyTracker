@@ -222,7 +222,7 @@ public class CreateWalletActivity extends BaseActivity {
                     }
                 }
             } else {
-                account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+                account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
                 tvTitle.setText(getString(R.string.add_wallet));
                 walletIcon = 0;
                 tvAmount.setText(CommonUtils.getBeautifyAmount(account.currencySymbol, walletAmount));
@@ -309,7 +309,7 @@ public class CreateWalletActivity extends BaseActivity {
                 walletIconLauncher.launch(intent, options);
             });
 
-            accountViewModel.getAccountCurrencyByAccountId((int) PreferenceManager.INSTANCE.getAccountId()).observe(this,
+            accountViewModel.getAccountCurrencyByAccountId(PreferenceManager.INSTANCE.getAccountId()).observe(this,
                     accountCurrencyMappingEntities -> {
 
                         AccountCurrencyMappingEntity accountCurrencyMapping = new AccountCurrencyMappingEntity();
@@ -474,7 +474,7 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity.initialAmount = walletAmount;
                 walletEntity.exchangeRate = newRate;
 
-                walletEntity.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+                walletEntity.ordering = walletViewModel.getMaxWalletOrdering(PreferenceManager.INSTANCE.getAccountId()) + 1;
 
                 walletEntity.isExclude = switchExcludeView.isChecked();
 
@@ -507,9 +507,11 @@ public class CreateWalletActivity extends BaseActivity {
 
             } else {
 
+                long currentTime = System.currentTimeMillis();
+
                 WalletEntity wallet = new WalletEntity();
 
-                wallet.accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+                wallet.accountId = PreferenceManager.INSTANCE.getAccountId();
                 wallet.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
                 wallet.walletColor = walletColorLists.get(colorSpinner.getSelectedItemPosition());
                 wallet.walletType = typeSpinner.getSelectedItemPosition();
@@ -522,7 +524,7 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.amount = walletAmount;
                 wallet.exchangeRate = currency.conversionRate;
 
-                wallet.ordering = walletViewModel.getMaxWalletOrdering((int) PreferenceManager.INSTANCE.getAccountId()) + 1;
+                wallet.ordering = walletViewModel.getMaxWalletOrdering(PreferenceManager.INSTANCE.getAccountId()) + 1;
 
                 wallet.isExclude = switchExcludeView.isChecked();
 
@@ -541,6 +543,8 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.archivedAt = 0;
                 wallet.isDefault = false;
                 wallet.isArchived = false;
+                wallet.walletServerId = 0;
+                wallet.tempWalletServerId = "W_" + currentTime;
 
                 // Save wallet
                 walletViewModel.saveWallet(wallet);

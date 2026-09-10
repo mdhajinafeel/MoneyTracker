@@ -111,7 +111,7 @@ public class MainActivity extends BaseActivity {
                 return insets;
             });
 
-            accountViewModel.selectAccount((int) PreferenceManager.INSTANCE.getAccountId());
+            accountViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
 
             observeData();
 

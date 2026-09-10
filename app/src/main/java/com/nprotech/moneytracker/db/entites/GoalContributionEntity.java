@@ -7,9 +7,19 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "goal_contributions",
-        foreignKeys = @ForeignKey(entity = GoalEntity.class, parentColumns = "id", childColumns = "goalId", onDelete = ForeignKey.CASCADE),
-        indices = {@Index("goalId")})
+@Entity(
+        tableName = "goal_contributions",
+        foreignKeys = @ForeignKey(
+                entity = GoalEntity.class,
+                parentColumns = "id",
+                childColumns = "goalId",
+                onDelete = ForeignKey.CASCADE
+        ),
+        indices = {
+                @Index(value = {"goalId", "isDeleted", "date"}),
+                @Index(value = {"goalId", "isDeleted", "type"})
+        }
+)
 public class GoalContributionEntity {
 
     @PrimaryKey(autoGenerate = true)

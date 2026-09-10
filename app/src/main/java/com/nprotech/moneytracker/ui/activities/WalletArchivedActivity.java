@@ -105,7 +105,7 @@ public class WalletArchivedActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            walletViewModel.selectAccount((int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
 
             tvArchivedWallets.setText(getResources().getQuantityString(R.plurals.wallet_count, 0, 0));
             CommonUtils.setDrawable(this, tvSorting, R.drawable.ic_filter, R.dimen.icon_12, R.color.primary_dark, Gravity.START);
@@ -311,7 +311,7 @@ public class WalletArchivedActivity extends BaseActivity {
 
         tvCancel.setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
-            walletViewModel.archiveWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId(), false);
+            walletViewModel.archiveWallet(wallet.id, PreferenceManager.INSTANCE.getAccountId(), false);
             Toast.makeText(WalletArchivedActivity.this, R.string.wallet_restore, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
@@ -355,7 +355,7 @@ public class WalletArchivedActivity extends BaseActivity {
 
     private void deleteWalletTransaction(int walletId) {
         try {
-            walletViewModel.deleteWallet(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.deleteWallet(walletId, PreferenceManager.INSTANCE.getAccountId());
             Toast.makeText(WalletArchivedActivity.this, R.string.wallet_trans_deleted, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteWallet", e);
@@ -389,7 +389,7 @@ public class WalletArchivedActivity extends BaseActivity {
 
     private void deleteWallet(int walletId) {
         try {
-            walletViewModel.deleteWallet(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.deleteWallet(walletId, PreferenceManager.INSTANCE.getAccountId());
             Toast.makeText(WalletArchivedActivity.this, R.string.wallet_deleted, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteWallet", e);

@@ -592,7 +592,7 @@ public class TransactionFragment extends Fragment {
         super.onResume();
 
         if (!firstLoad) {
-            transactionViewModel.loadTransactions((int) PreferenceManager.INSTANCE.getAccountId(), 0, 0);
+            transactionViewModel.loadTransactions(PreferenceManager.INSTANCE.getAccountId(), 0, 0);
         }
     }
 }

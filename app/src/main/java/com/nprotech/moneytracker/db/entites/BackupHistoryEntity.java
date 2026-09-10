@@ -6,7 +6,12 @@ import androidx.room.PrimaryKey;
 
 @Entity(
         tableName = "backup_history",
-        indices = {@Index(value = "backupId", unique = true)}
+        indices = {
+                @Index(value = {"backupId"}, unique = true),
+                @Index(value = {"createdAt"}),
+                @Index(value = {"backupSize"}),
+                @Index(value = {"includeAttachments"})
+        }
 )
 public class BackupHistoryEntity {
 

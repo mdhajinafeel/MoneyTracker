@@ -587,7 +587,7 @@ public class CalendarHelper {
 
         String title = new SimpleDateFormat("dd MMM, yyyy", Locale.getDefault()).format(date);
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), start, end, title);
     }
 
     public static CalendarRangeModel getWeeklyRange(Date date) {
@@ -614,7 +614,7 @@ public class CalendarHelper {
         String title = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(new Date(start)) + " - "
                 + new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(end));
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), start, end, title);
     }
 
     public static CalendarRangeModel getMonthlyRange(Date date) {
@@ -637,7 +637,7 @@ public class CalendarHelper {
 
         String title = new SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(date);
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), start, end, title);
     }
 
     public static CalendarRangeModel getQuarterRange(Date date) {
@@ -663,7 +663,7 @@ public class CalendarHelper {
 
         String title = "Q" + (quarter + 1) + " " + calendar.get(Calendar.YEAR);
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), start, end, title);
     }
 
     public static CalendarRangeModel getYearRange(Date date) {
@@ -688,11 +688,11 @@ public class CalendarHelper {
 
         String title = String.valueOf(year);
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), start, end, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), start, end, title);
     }
 
     public static CalendarRangeModel getAllRange(Context context) {
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), 0, Long.MAX_VALUE, context.getString(R.string.all_time));
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), 0, Long.MAX_VALUE, context.getString(R.string.all_time));
     }
 
     public static CalendarRangeModel getCustomRange(long startDate, long endDate) {
@@ -701,7 +701,7 @@ public class CalendarHelper {
                         + " - "
                         + new SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(new Date(endDate));
 
-        return new CalendarRangeModel((int) PreferenceManager.INSTANCE.getAccountId(), startDate, endDate, title);
+        return new CalendarRangeModel(PreferenceManager.INSTANCE.getAccountId(), startDate, endDate, title);
     }
 
     public static String formatDay(long timestamp) {

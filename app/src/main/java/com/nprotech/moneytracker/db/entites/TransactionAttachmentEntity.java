@@ -9,9 +9,9 @@ import java.io.Serializable;
 @Entity(
         tableName = "transactions_attachment",
         indices = {
-                @Index("serverId"),
-                @Index("tempTransactionServerId"),
-                @Index("attachmentPath")
+                @Index(value = {"tempTransactionServerId"}),
+                @Index(value = {"attachmentPath", "tempTransactionServerId"}),
+                @Index(value = {"serverId"})
         }
 )
 public class TransactionAttachmentEntity implements Serializable {

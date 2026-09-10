@@ -273,7 +273,7 @@ public class CreateGoalActivity extends BaseActivity {
 
                 tvSave.setText(getString(R.string.save));
 
-                currency = masterViewModel.getFirstCurrencyForAccount((int) PreferenceManager.INSTANCE.getAccountId());
+                currency = masterViewModel.getFirstCurrencyForAccount(PreferenceManager.INSTANCE.getAccountId());
                 maxLimitLabel.setText(getString(R.string.character_limit, 0));
 
                 goalCategory = getGoalCategoryId();
@@ -727,7 +727,7 @@ public class CreateGoalActivity extends BaseActivity {
             goal.targetDate = targetDate;
             goal.category = goalCategory.id;
             goal.currencyId = currency.id;
-            goal.accountId = (int) PreferenceManager.INSTANCE.getAccountId();
+            goal.accountId = PreferenceManager.INSTANCE.getAccountId();
             goal.notes = Objects.requireNonNull(etDescription.getText()).toString().trim();
 
             // ------------------------------------------------

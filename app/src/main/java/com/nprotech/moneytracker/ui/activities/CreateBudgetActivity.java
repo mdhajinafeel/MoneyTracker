@@ -19,7 +19,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.ListPopupWindow;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
@@ -40,13 +42,19 @@ import com.google.android.material.slider.Slider;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.BudgetCategoryAmountEntity;
+import com.nprotech.moneytracker.db.entites.BudgetCategoryEntity;
+import com.nprotech.moneytracker.db.entites.BudgetEntity;
+import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.enums.CalendarFilterType;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.CalendarFilterModel;
+import com.nprotech.moneytracker.ui.adapters.ColorSpinnerAdapter;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -54,7 +62,9 @@ import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.IntentUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.BudgetViewModel;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -70,29 +80,34 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CreateBudgetActivity extends BaseActivity {
-    private AppCompatImageView icBack, ivSelectedPeriod;
+    private AppCompatImageView icBack, ivSelectedPeriod, ivBudgetIcon;
     private AppCompatTextView tvSave, tvBudgetPeriod, selectedPeriodLabel, tvSelectBudgetPeriod, tvBudgetWallet, tvBudgetCategory,
             tvBudgetMethod, tvBudgetAmount, tvBudgetAlert, maxLimitLabel, lblBudgetAmountTips, lblRepeatBudgetTips, lblRepeatBudgetDate,
             lblRepeatBudgetDesc;
     private AppCompatEditText etBudgetName;
-    private MaterialCardView cardBudgetPeriod, cardSelectedPeriod, cardBudgetWallet, cardBudgetCategory, cardBudgetMethod, cardBudgetAlert, cardBudgetAmount;
+    private MaterialCardView cardBudgetPeriod, cardSelectedPeriod, cardBudgetWallet, cardBudgetCategory, cardBudgetMethod, cardBudgetColor,
+            cardBudgetIcon, cardBudgetAlert, cardBudgetAmount;
+    private FrameLayout frameColor;
+    private AppCompatSpinner colorSpinner;
     private SwitchCompat switchAutoView;
-    private ConstraintLayout budgetRepeatDetailContainer;
+    private ConstraintLayout layoutBudgetIcon, budgetRepeatDetailContainer;
     private boolean isEdit = false;
     private int budgetId = 0;
-    private String budgetName, tempBudgetPeriod, budgetPeriod, budgetMethod, tempBudgetMethod;
+    private String tempBudgetPeriod, budgetPeriod, budgetMethod, tempBudgetMethod;
     private long periodStartDate, periodEndDate;
     private final Set<Integer> selectedCategoryIds = new HashSet<>();
     private double budgetAmount = 0.0;
-    private int budgetMethodId = 0, budgetPeriodId = 0, tempAlertPercentage = 0, alertPercentage = 80;
+    private int budgetMethodId = 0, budgetPeriodId = 0, tempAlertPercentage = 0, alertPercentage = 80, budgetIcon = 0;
     private boolean alertEnabled = true;
     private Typeface medium, semibold;
     private List<WalletEntity> walletLists;
     private final Set<Integer> selectedWalletIds = new HashSet<>();
     private AccountViewModel accountViewModel;
-    private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher, categoryAmountLauncher;
+    private BudgetViewModel budgetViewModel;
+    private ActivityResultLauncher<Intent> calculatorLauncher, categoryLauncher, categoryAmountLauncher, budgetIconLauncher;
     private AccountEntity account;
     private final Map<Integer, Double> categoryAmounts = new HashMap<>();
+    private ArrayList<String> budgetColorLists;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,6 +149,12 @@ public class CreateBudgetActivity extends BaseActivity {
             budgetRepeatDetailContainer = findViewById(R.id.budgetRepeatDetailContainer);
             lblRepeatBudgetDate = findViewById(R.id.lblRepeatBudgetDate);
             lblRepeatBudgetDesc = findViewById(R.id.lblRepeatBudgetDesc);
+            ivBudgetIcon = findViewById(R.id.ivBudgetIcon);
+            cardBudgetIcon = findViewById(R.id.cardBudgetIcon);
+            layoutBudgetIcon = findViewById(R.id.layoutBudgetIcon);
+            colorSpinner = findViewById(R.id.colorSpinner);
+            cardBudgetColor = findViewById(R.id.cardBudgetColor);
+            frameColor = findViewById(R.id.frameColor);
 
             tvSave.setVisibility(View.VISIBLE);
 
@@ -150,6 +171,7 @@ public class CreateBudgetActivity extends BaseActivity {
             });
 
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+            budgetViewModel = new ViewModelProvider(this).get(BudgetViewModel.class);
 
             medium = ResourcesCompat.getFont(this, R.font.exo2_medium);
             semibold = ResourcesCompat.getFont(this, R.font.exo2_semibold);
@@ -182,15 +204,126 @@ public class CreateBudgetActivity extends BaseActivity {
     private void bindData() {
         try {
 
-            walletLists = accountViewModel.getWalletsByAccountId((int) PreferenceManager.INSTANCE.getAccountId());
-            account = accountViewModel.getAccountDetailById((int) PreferenceManager.INSTANCE.getAccountId());
+            walletLists = accountViewModel.getWalletsByAccountId(PreferenceManager.INSTANCE.getAccountId());
+            account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
+
+            budgetColorLists = new ArrayList<>();
+            budgetColorLists = DataHelper.getBudgetColorList();
+            ColorSpinnerAdapter colorSpinnerAdapter = new ColorSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, budgetColorLists);
+            colorSpinner.setAdapter(colorSpinnerAdapter);
+
+            try {
+                Field popupField = AppCompatSpinner.class.getDeclaredField("mPopup");
+                popupField.setAccessible(true);
+
+                ListPopupWindow popup = (ListPopupWindow) popupField.get(colorSpinner);
+                if (popup != null) {
+                    popup.setHeight(getResources().getDimensionPixelSize(R.dimen.spinner_dropdown_max_height));
+                }
+            } catch (Exception e) {
+                AppLogger.e(getClass(), "ListPopupWindow", e);
+            }
 
             if (isEdit) {
                 tvSave.setText(getString(R.string.update));
+
+                BudgetEntity budget = budgetViewModel.getBudgetById(budgetId);
+                if (budget == null) {
+                    Toast.makeText(this, getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                    finishWithTransitions();
+                    return;
+                }
+
+                // Parent
+                etBudgetName.setText(budget.name);
+                budgetPeriodId = budget.periodId;
+                budgetMethodId = budget.methodId;
+                budgetAmount = budget.amount;
+                alertEnabled = budget.alertEnabled;
+                alertPercentage = budget.alertPercentage;
+                periodStartDate = budget.startDate;
+                periodEndDate = budget.endDate;
+                budgetIcon = budget.budgetIcon;
+
+                // Period
+                switch (budget.periodId) {
+                    case 1:
+                        budgetPeriod = Constants.PERIOD_WEEKLY;
+                        break;
+                    case 2:
+                        budgetPeriod = Constants.PERIOD_MONTHLY;
+                        break;
+                    case 3:
+                        budgetPeriod = Constants.PERIOD_QUARTERLY;
+                        break;
+                    case 4:
+                        budgetPeriod = Constants.PERIOD_YEARLY;
+                        break;
+                    case 5:
+                        budgetPeriod = Constants.PERIOD_CUSTOM;
+                        break;
+                    default:
+                        budgetPeriod = Constants.PERIOD_MONTHLY;
+                        budgetPeriodId = 2;
+                        break;
+                }
+
+                // Method
+                if (budget.methodId == 1) {
+                    budgetMethod = Constants.METHOD_SHARED;
+                } else {
+                    budgetMethod = Constants.METHOD_SEPARATE;
+                }
+
+                // Wallets
+                selectedWalletIds.clear();
+                List<BudgetWalletEntity> wallets = budgetViewModel.getWallets(budgetId);
+                for (BudgetWalletEntity wallet : wallets) {
+                    if (!wallet.isDeleted) {
+                        selectedWalletIds.add(wallet.walletId);
+                    }
+                }
+
+                // Categories
+                selectedCategoryIds.clear();
+
+                List<BudgetCategoryEntity> categories = budgetViewModel.getCategories(budgetId);
+                for (BudgetCategoryEntity category : categories) {
+                    if (!category.isDeleted) {
+                        selectedCategoryIds.add(category.categoryId);
+                    }
+                }
+
+                // Color
+                int colorPosition = budgetColorLists.indexOf(budget.budgetColor);
+                if (colorPosition >= 0) colorSpinner.setSelection(colorPosition);
+
+                // Icon
+                ivBudgetIcon.setImageResource(DataHelper.getCategoryIcons().get(budget.budgetIcon));
+
+                // Category amounts
+                categoryAmounts.clear();
+
+                List<BudgetCategoryAmountEntity> amounts = budgetViewModel.getCategoryAmounts(budgetId);
+
+                for (BudgetCategoryAmountEntity categoryAmount : amounts) {
+                    if (!categoryAmount.isDeleted) {
+                        categoryAmounts.put(categoryAmount.categoryId, categoryAmount.amount);
+                    }
+                }
+
+                updateBudgetPeriod();
+                updateSelectedPeriod();
+                updateWalletTexts();
+                updateCategoryTexts();
+                updateBudgetMethod();
+                updateAlertTexts();
+                updateSelectedRepeatText();
+                updateSaveButtonState();
+                maxLimitLabel.setText(getString(R.string.character_limit, Objects.requireNonNull(etBudgetName.getText()).length()));
             } else {
                 tvSave.setText(getString(R.string.save));
 
-                budgetName = "";
                 budgetPeriod = Constants.PERIOD_MONTHLY;
                 budgetPeriodId = 2;
                 budgetMethod = Constants.METHOD_SHARED;
@@ -201,6 +334,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 alertEnabled = true;
                 alertPercentage = 80;
                 maxLimitLabel.setText(getString(R.string.character_limit, 0));
+                budgetIcon = 40;
 
                 if (walletLists != null) {
                     for (WalletEntity wallet : walletLists) {
@@ -278,7 +412,7 @@ public class CreateBudgetActivity extends BaseActivity {
         String repeatBudgetDate;
         String repeatBudgetDesc;
         int icon;
-        String startEndDate = "";
+        String startEndDate;
         long[] nextCustomPeriod;
         switch (budgetPeriod) {
             case Constants.PERIOD_WEEKLY:
@@ -457,6 +591,7 @@ public class CreateBudgetActivity extends BaseActivity {
             if (budgetMethod.equalsIgnoreCase(Constants.METHOD_SHARED)) {
                 budgetMethodId = 1;
                 tvBudgetMethod.setText(getString(R.string.one_amount_budget));
+                categoryAmounts.clear();
             } else {
                 budgetMethodId = 2;
                 tvBudgetMethod.setText(getString(R.string.separate_method));
@@ -475,7 +610,7 @@ public class CreateBudgetActivity extends BaseActivity {
 
             if (budgetMethod.equals(Constants.METHOD_SHARED)) {
                 int count = selectedCategoryIds.size();
-                if(count > 0) {
+                if (count > 0) {
                     lblBudgetAmountTips.setVisibility(View.VISIBLE);
                     lblBudgetAmountTips.setText(getResources().getQuantityString(R.plurals.budget_amount_tips_count, count, count));
                 }
@@ -490,7 +625,12 @@ public class CreateBudgetActivity extends BaseActivity {
 
     private void updateAlertTexts() {
         try {
-            tvBudgetAlert.setText(getString(R.string.notify_budget, alertPercentage));
+            if (alertEnabled) {
+                tvBudgetAlert.setVisibility(View.VISIBLE);
+                tvBudgetAlert.setText(getString(R.string.notify_budget, alertEnabled ? alertPercentage : 0));
+            } else {
+                tvBudgetAlert.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "updateAlertTexts", e);
         }
@@ -498,9 +638,7 @@ public class CreateBudgetActivity extends BaseActivity {
 
     private void setupListeners() {
         try {
-            icBack.setOnClickListener(view -> {
-                finishWithTransitions();
-            });
+            icBack.setOnClickListener(view -> finishWithTransitions());
 
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
@@ -624,6 +762,42 @@ public class CreateBudgetActivity extends BaseActivity {
                 }
             });
 
+            // COLOR
+            cardBudgetColor.setOnClickListener(view -> {
+                etBudgetName.clearFocus();
+                hideKeyboard(this);
+                colorSpinner.requestFocus();
+                colorSpinner.performClick();
+            });
+
+            frameColor.setOnClickListener(view -> {
+                etBudgetName.clearFocus();
+                hideKeyboard(this);
+                colorSpinner.requestFocus();
+                colorSpinner.performClick();
+            });
+
+            // ICON
+            cardBudgetIcon.setOnClickListener(v -> {
+                hideKeyboard(this);
+                Intent intent = new Intent(this, IconPickerActivity.class);
+                intent.putExtra("selectedColor", budgetColorLists.get(colorSpinner.getSelectedItemPosition()));
+                intent.putExtra("iconType", "budget");
+                intent.putExtra("selectedIcon", budgetIcon);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
+                budgetIconLauncher.launch(intent, options);
+            });
+
+            layoutBudgetIcon.setOnClickListener(v -> {
+                hideKeyboard(this);
+                Intent intent = new Intent(this, IconPickerActivity.class);
+                intent.putExtra("selectedColor", budgetColorLists.get(colorSpinner.getSelectedItemPosition()));
+                intent.putExtra("iconType", "budget");
+                intent.putExtra("selectedIcon", budgetIcon);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
+                budgetIconLauncher.launch(intent, options);
+            });
+
             // ALERT
             cardBudgetAlert.setOnClickListener(v -> selectBudgetAlert());
 
@@ -646,11 +820,11 @@ public class CreateBudgetActivity extends BaseActivity {
             });
 
             // SAVE
-            tvSave.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
+            tvSave.setOnClickListener(v -> {
+                if (!tvSave.isEnabled()) {
+                    return;
                 }
+                saveBudget();
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -723,6 +897,18 @@ public class CreateBudgetActivity extends BaseActivity {
 
                             updateCategoryTexts();
                             updateSaveButtonState();
+                        }
+                    }
+                });
+
+        budgetIconLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            int selectedCategoryIcon = data.getIntExtra("budgetIcon", 0);
+                            ivBudgetIcon.setImageResource(DataHelper.getCategoryIcons().get(selectedCategoryIcon));
+                            budgetIcon = selectedCategoryIcon;
                         }
                     }
                 });
@@ -846,8 +1032,9 @@ public class CreateBudgetActivity extends BaseActivity {
                 && budgetPeriodId > 0 && budgetMethodId > 0 && selectedWalletIds != null
                 && !selectedWalletIds.isEmpty() && selectedCategoryIds != null && !selectedCategoryIds.isEmpty();
 
-        enabled &= !Objects.requireNonNull(etBudgetName.getText()).toString().trim().isEmpty();
-        enabled &= !Objects.requireNonNull(etBudgetName.getText()).toString().isEmpty();
+        String name = Objects.requireNonNull(etBudgetName.getText()).toString().trim();
+
+        enabled = enabled && !name.isEmpty();
 
         tvSave.setEnabled(enabled);
         enabledSaveOption(enabled);
@@ -1538,9 +1725,7 @@ public class CreateBudgetActivity extends BaseActivity {
                     }
             );
 
-            rlSelectAll.setOnClickListener(v -> {
-                ivSelectAll.setChecked(!ivSelectAll.isChecked());
-            });
+            rlSelectAll.setOnClickListener(v -> ivSelectAll.setChecked(!ivSelectAll.isChecked()));
 
             rvWallets.setAdapter(adapter);
             rvWallets.setHasFixedSize(true);
@@ -1692,11 +1877,7 @@ public class CreateBudgetActivity extends BaseActivity {
             tvClose.setOnClickListener(v -> dialog.dismiss());
             btnApply.setOnClickListener(v -> {
                 alertEnabled = switchAlertView.isChecked();
-                if (alertEnabled) {
-                    alertPercentage = tempAlertPercentage;
-                } else {
-                    alertPercentage = 0;
-                }
+                alertPercentage = alertEnabled ? tempAlertPercentage : 0;
                 updateAlertTexts();
                 dialog.dismiss();
             });
@@ -1887,6 +2068,69 @@ public class CreateBudgetActivity extends BaseActivity {
                     periodStartDate,
                     periodEndDate
             };
+        }
+    }
+
+    // -------------------------
+    // ------ SAVE BUDGET ------
+    // -------------------------
+    private void saveBudget() {
+        try {
+            String name = Objects.requireNonNull(etBudgetName.getText()).toString().trim();
+
+            if (name.isEmpty()) {
+                return;
+            }
+
+            if (budgetAmount <= 0 || budgetPeriodId <= 0 || budgetMethodId <= 0 || selectedWalletIds.isEmpty() || selectedCategoryIds.isEmpty()) {
+                return;
+            }
+
+            BudgetEntity budget;
+            if (isEdit) {
+                budget = budgetViewModel.getBudgetById(budgetId);
+                if (budget == null) {
+                    return;
+                }
+            } else {
+                budget = new BudgetEntity();
+            }
+
+            // -----------------------------------------------------
+            // Parent values
+            // -----------------------------------------------------
+            budget.name = name;
+            budget.periodId = budgetPeriodId;
+            budget.methodId = budgetMethodId;
+            budget.startDate = periodStartDate;
+            budget.endDate = periodEndDate;
+            budget.amount = budgetAmount;
+            budget.alertEnabled = alertEnabled;
+            budget.alertPercentage = alertEnabled ? alertPercentage : 0;
+            budget.repeatEnabled = switchAutoView.isChecked();
+            budget.budgetColor = budgetColorLists.get(colorSpinner.getSelectedItemPosition());
+            budget.budgetIcon = budgetIcon;
+
+            // -----------------------------------------------------
+            // SAVE / UPDATE
+            // -----------------------------------------------------
+            if (isEdit) {
+                budgetViewModel.updateBudget(budget, selectedWalletIds, selectedCategoryIds, categoryAmounts);
+                Toast.makeText(this, getString(R.string.budget_updated), Toast.LENGTH_SHORT).show();
+            } else {
+                long newBudgetId = budgetViewModel.saveBudget(budget, selectedWalletIds, selectedCategoryIds, categoryAmounts);
+                if (newBudgetId <= 0) {
+                    return;
+                }
+                Toast.makeText(this, getString(R.string.budget_created), Toast.LENGTH_SHORT).show();
+            }
+
+            setResult(RESULT_OK);
+            finishWithTransitions();
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "saveBudget", e);
+            Toast.makeText(getApplicationContext(), getString(R.string.error_budget_create), Toast.LENGTH_SHORT).show();
         }
     }
 

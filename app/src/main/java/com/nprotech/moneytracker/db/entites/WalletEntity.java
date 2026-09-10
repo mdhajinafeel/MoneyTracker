@@ -1,11 +1,22 @@
 package com.nprotech.moneytracker.db.entites;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "wallets")
+@Entity(
+        tableName = "wallets",
+        indices = {
+                @Index(value = {"accountId", "isDeleted", "isArchived"}),
+                @Index(value = {"accountId", "currencyCode", "isActive", "isDeleted"}),
+                @Index(value = {"accountId", "ordering"}),
+                @Index(value = {"accountId", "isDefault"}),
+                @Index(value = {"walletServerId"}),
+                @Index(value = {"tempWalletServerId"})
+        }
+)
 public class WalletEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
@@ -32,4 +43,6 @@ public class WalletEntity implements Serializable {
     public boolean isDefault = false;
     public boolean isArchived = false;
     public long archivedAt;
+    public int walletServerId = 0;
+    public String tempWalletServerId;
 }

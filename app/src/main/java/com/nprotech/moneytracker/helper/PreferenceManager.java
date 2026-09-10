@@ -36,20 +36,20 @@ public enum PreferenceManager {
     }
 
     // ===== ACCOUNT ID =====
-    public void setAccountId(long accountId) {
-        prefStore.edit().putLong(KEY_ACCOUNT_ID, accountId).apply();
+    public void setAccountId(int accountId) {
+        prefStore.edit().putInt(KEY_ACCOUNT_ID, accountId).apply();
     }
 
-    public long getAccountId() {
-        return prefStore.getLong(KEY_ACCOUNT_ID, 0);
+    public int getAccountId() {
+        return prefStore.getInt(KEY_ACCOUNT_ID, 0);
     }
 
     // ===== WALLET ID =====
-    public void setWalletId(long walletId) {
-        prefStore.edit().putLong(KEY_WALLET_ID, walletId).apply();
+    public void setWalletId(int walletId) {
+        prefStore.edit().putInt(KEY_WALLET_ID, walletId).apply();
     }
 
-    public long getWalletId() {
+    public int getWalletId() {
         return prefStore.getInt(KEY_WALLET_ID, 0);
     }
 

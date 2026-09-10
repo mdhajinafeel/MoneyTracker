@@ -28,8 +28,8 @@
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:fillViewport="false"
+        android:clipToPadding="false"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,9 +115,7 @@
                         app:fontFamily="@font/exo2_bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/etBudgetName" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Budget Period -->
@@ -191,9 +189,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/primary" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Selected Period -->
@@ -267,9 +263,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/primary" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Wallet -->
@@ -357,6 +351,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="2dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardBudgetWallet"
@@ -419,9 +414,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/primary" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Budget Method -->
@@ -496,9 +489,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/primary" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Budget Amount -->
@@ -602,18 +593,168 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Budget Color & Icon -->
+            <LinearLayout
+                android:id="@+id/layoutColorIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginHorizontal="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardBudgetAmount">
+
+                <!--- Color -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardBudgetColor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.55"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardUseCompatPadding="true"
+                    android:layout_marginEnd="@dimen/margin_4"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_8">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivBudgetColor"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:src="@drawable/ic_color"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/budgetColorLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/color"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivBudgetColor"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <FrameLayout
+                            android:id="@+id/frameColor"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_48"
+                            android:background="@drawable/bg_edit_text_underline"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/budgetColorLabel"
+                            app:layout_constraintTop_toBottomOf="@id/budgetColorLabel">
+
+                            <androidx.appcompat.widget.AppCompatSpinner
+                                android:id="@+id/colorSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="-8dp"
+                                android:layout_marginEnd="@dimen/margin_32"
+                                android:clickable="false"
+                                android:background="@android:color/transparent" />
+                        </FrameLayout>
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_account_caret"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="@color/primary" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!--- Icon -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardBudgetIcon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    app:cardUseCompatPadding="true"
+                    app:cardCornerRadius="@dimen/corner_radius_12"
+                    app:cardElevation="2dp"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingVertical="@dimen/padding_8">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivIcon"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@drawable/bg_circle_theme"
+                            android:padding="@dimen/padding_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:src="@drawable/ic_smiley"
+                            app:tint="@color/primary" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/budgetIconLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_16"
+                            android:text="@string/icon"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_bold"
+                            app:layout_constraintStart_toEndOf="@id/ivIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutBudgetIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/edit_text_height_48"
+                            android:background="@drawable/bg_edit_text_underline"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/budgetIconLabel"
+                            app:layout_constraintTop_toBottomOf="@+id/budgetIconLabel">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivBudgetIcon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/category_40"
+                                app:tint="@color/primary_dark" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
             <!-- Budget Alert -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardBudgetAlert"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_6"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cardBudgetAmount"
+                app:layout_constraintTop_toBottomOf="@id/layoutColorIcon"
                 app:strokeColor="@color/card_shadow"
                 app:strokeWidth="1dp">
 
@@ -673,7 +814,6 @@
                         app:tint="@color/primary" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </com.google.android.material.card.MaterialCardView>
 
             <!-- Budget Repeat -->

@@ -4,13 +4,20 @@ import android.content.Context;
 
 import androidx.room.Entity;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.nprotech.moneytracker.helper.DataHelper;
 
 import java.io.Serializable;
 
-@Entity(tableName = "categories")
+@Entity(
+        tableName = "categories",
+        indices = {
+                @Index(value = {"type", "isDeleted", "active", "ordering"}),
+                @Index(value = {"defaultCategory", "type"})
+        }
+)
 public class CategoryEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

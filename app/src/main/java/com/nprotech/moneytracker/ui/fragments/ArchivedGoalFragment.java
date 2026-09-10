@@ -84,7 +84,7 @@ public class ArchivedGoalFragment extends Fragment {
     private void bindData() {
         try {
 
-            goalViewModel.getArchivedGoals((int) PreferenceManager.INSTANCE.getAccountId()).observe(getViewLifecycleOwner(), goalWithDetails -> {
+            goalViewModel.getArchivedGoals(PreferenceManager.INSTANCE.getAccountId()).observe(getViewLifecycleOwner(), goalWithDetails -> {
                 if (goalWithDetails.isEmpty()) {
                     emptyWrapper.setVisibility(View.VISIBLE);
                     rvGoals.setVisibility(View.GONE);

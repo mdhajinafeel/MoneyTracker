@@ -1,11 +1,17 @@
 package com.nprotech.moneytracker.db.entites;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "common_data")
+@Entity(
+        tableName = "common_data",
+        indices = {
+                @Index(value = {"type", "active"})
+        }
+)
 public class CommonDataEntity implements Serializable {
 
     @PrimaryKey(autoGenerate = true)

@@ -286,6 +286,8 @@ public class AddAccountActivity extends BaseActivity {
             initialAmount = CommonUtils.parseAmount(Objects.requireNonNull(etInitialAmount.getText()).toString());
         }
 
+        long currentTime = System.currentTimeMillis();
+
         AccountEntity account = new AccountEntity();
         account.name = Objects.requireNonNull(etWalletName.getText()).toString().trim();
         account.currencyCode = currency.code;
@@ -295,14 +297,17 @@ public class AddAccountActivity extends BaseActivity {
         account.isDeleted = false;
         account.isSynced = false;
         account.ordering = accountViewModel.getLastAccountOrder() + 1;
+        account.serverId = 0;
+        account.tempAccountServerId = "A_" + currentTime;
         long accountId = accountViewModel.saveAccount(account);
 
         if (accountId > 0) {
 
-            PreferenceManager.INSTANCE.setAccountId(accountId);
+            PreferenceManager.INSTANCE.setAccountId((int) accountId);
 
             AccountCurrencyMappingEntity accountCurrencyMappingEntity = new AccountCurrencyMappingEntity();
-            accountCurrencyMappingEntity.accountId = accountId;
+            accountCurrencyMappingEntity.accountId = (int) accountId;
+            accountCurrencyMappingEntity.tempAccountServerId = "A_" + currentTime;
             accountCurrencyMappingEntity.currencyId = currency.id;
             accountCurrencyMappingEntity.currencyCode = currency.code;
             accountCurrencyMappingEntity.currencyName = currency.name;
@@ -314,6 +319,8 @@ public class AddAccountActivity extends BaseActivity {
             accountCurrencyMappingEntity.conversionRate = 1;
             accountCurrencyMappingEntity.isActive = true;
             accountCurrencyMappingEntity.isBase = true;
+            accountCurrencyMappingEntity.isSynced = false;
+            accountCurrencyMappingEntity.mappingServerId = 0;
             accountViewModel.saveAccountCurrencyMapping(accountCurrencyMappingEntity);
 
             WalletEntity wallet = new WalletEntity();
@@ -339,9 +346,11 @@ public class AddAccountActivity extends BaseActivity {
             wallet.isDefault = true;
             wallet.isArchived = false;
             wallet.archivedAt = 0;
+            wallet.walletServerId = 0;
+            wallet.tempWalletServerId = "W_" + currentTime;
             long walletId = walletViewModel.saveWallet(wallet);
 
-            PreferenceManager.INSTANCE.setWalletId(walletId);
+            PreferenceManager.INSTANCE.setWalletId((int) walletId);
         }
 
         startActivity(new Intent(AddAccountActivity.this, MainActivity.class).addFlags(INTENT_FLAGS));

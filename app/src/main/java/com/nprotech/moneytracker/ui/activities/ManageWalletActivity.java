@@ -109,7 +109,7 @@ public class ManageWalletActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            walletViewModel.selectAccount((int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
 
             tvAllWallets.setText(getResources().getQuantityString(R.plurals.wallet_count, 0, 0));
             CommonUtils.setDrawable(this, tvSorting, R.drawable.ic_filter, R.dimen.icon_12, R.color.primary_dark, Gravity.START);
@@ -261,7 +261,7 @@ public class ManageWalletActivity extends BaseActivity {
                 // DEFAULT
                 optionDefault.setOnClickListener(v -> {
                     dialog.dismiss();
-                    walletViewModel.setDefaultWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId());
+                    walletViewModel.setDefaultWallet(wallet.id, PreferenceManager.INSTANCE.getAccountId());
                     Toast.makeText(ManageWalletActivity.this, R.string.wallet_set_as_default, Toast.LENGTH_SHORT).show();
                 });
 
@@ -338,7 +338,7 @@ public class ManageWalletActivity extends BaseActivity {
 
         tvCancel.setOnClickListener(v -> dialog.dismiss());
         view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
-            walletViewModel.archiveWallet(wallet.id, (int) PreferenceManager.INSTANCE.getAccountId(), true);
+            walletViewModel.archiveWallet(wallet.id, PreferenceManager.INSTANCE.getAccountId(), true);
             Toast.makeText(ManageWalletActivity.this, R.string.wallet_archived, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
@@ -382,7 +382,7 @@ public class ManageWalletActivity extends BaseActivity {
 
     private void deleteWalletTransaction(int walletId) {
         try {
-            walletViewModel.deleteWalletTransactions(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.deleteWalletTransactions(walletId, PreferenceManager.INSTANCE.getAccountId());
             Toast.makeText(ManageWalletActivity.this, R.string.wallet_trans_deleted, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteWallet", e);
@@ -416,7 +416,7 @@ public class ManageWalletActivity extends BaseActivity {
 
     private void deleteWallet(int walletId) {
         try {
-            walletViewModel.deleteWallet(walletId, (int) PreferenceManager.INSTANCE.getAccountId());
+            walletViewModel.deleteWallet(walletId, PreferenceManager.INSTANCE.getAccountId());
             Toast.makeText(ManageWalletActivity.this, R.string.wallet_deleted, Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteWallet", e);

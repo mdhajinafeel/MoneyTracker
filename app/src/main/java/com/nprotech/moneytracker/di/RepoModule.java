@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.di;
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.BackupHistoryDao;
+import com.nprotech.moneytracker.db.dao.BudgetDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
@@ -12,6 +13,7 @@ import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 import com.nprotech.moneytracker.repositories.BackupHistoryRepository;
+import com.nprotech.moneytracker.repositories.BudgetRepository;
 import com.nprotech.moneytracker.repositories.CategoryRepository;
 import com.nprotech.moneytracker.repositories.CommonDataRepository;
 import com.nprotech.moneytracker.repositories.GoalRepository;
@@ -78,5 +80,11 @@ public class RepoModule {
     @Singleton
     BackupHistoryRepository provideBackupHistoryRepository(BackupHistoryDao backupHistoryDao) {
         return new BackupHistoryRepository(backupHistoryDao);
+    }
+
+    @Provides
+    @Singleton
+    BudgetRepository provideBudgetRepository(BudgetDao budgetDao) {
+        return new BudgetRepository(budgetDao);
     }
 }

@@ -1,9 +1,16 @@
 package com.nprotech.moneytracker.db.entites;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "goals")
+@Entity(
+        tableName = "goals",
+        indices = {
+                @Index(value = {"accountId", "isDeleted", "isArchived", "isCompleted"}),
+                @Index(value = {"autoSaveEnabled", "nextAutoSaveDate", "isDeleted", "isArchived", "isCompleted"})
+        }
+)
 public class GoalEntity {
 
     @PrimaryKey(autoGenerate = true)

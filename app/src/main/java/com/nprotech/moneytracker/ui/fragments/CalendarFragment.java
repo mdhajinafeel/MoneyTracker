@@ -239,7 +239,7 @@ public class CalendarFragment extends Fragment {
         loadedStart = start;
         loadedEnd = end;
 
-        calendarViewModel.loadCalendar((int) PreferenceManager.INSTANCE.getAccountId(), start, end);
+        calendarViewModel.loadCalendar(PreferenceManager.INSTANCE.getAccountId(), start, end);
     }
 
     private void updateCalendar(List<CalendarSummaryModel> summaries) {
@@ -420,7 +420,7 @@ public class CalendarFragment extends Fragment {
         long start = CalendarHelper.getStartOfDay(date.getTime());
         long end = CalendarHelper.getEndOfDay(date.getTime());
 
-        calendarViewModel.loadDayTransactions((int) PreferenceManager.INSTANCE.getAccountId(), start, end);
+        calendarViewModel.loadDayTransactions(PreferenceManager.INSTANCE.getAccountId(), start, end);
     }
 
     private void updateRecyclerViewHeight(RecyclerView recyclerView, int itemCount) {
