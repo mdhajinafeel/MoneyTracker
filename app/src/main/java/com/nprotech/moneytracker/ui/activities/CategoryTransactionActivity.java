@@ -181,6 +181,7 @@ public class CategoryTransactionActivity extends BaseActivity {
 
                             // Delete
                             () -> showDeleteDialog(item), false));
+
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
             rvTransactions.setNestedScrollingEnabled(false);

@@ -112,7 +112,7 @@ public class ArchivedGoalFragment extends Fragment {
 
                     int goalColor = Color.parseColor(goalWithDetail.color);
                     long daysLeft = CommonUtils.calculateDaysLeft(goalWithDetail.targetDate);
-                    int progress = CommonUtils.calculateGoalProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
+                    int progress = CommonUtils.calculateProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
 
                     holder.setViewText(R.id.tvGoalName, goalWithDetail.name);
                     tvGoalCategory.setText(goalWithDetail.categoryName);
@@ -264,9 +264,9 @@ public class ArchivedGoalFragment extends Fragment {
         tvSubMessage.setVisibility(View.GONE);
         tvDelete.setText(getString(R.string.restore));
 
-        cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
-        headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
-        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
+        cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.backup_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_refresh));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.backup_dark)));
         tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.primary_dark)));
 
         dialog.setView(view);

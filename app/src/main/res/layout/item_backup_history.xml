@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardBackup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cardBackup"
     android:layout_marginStart="@dimen/margin_16"
-    android:layout_marginBottom="@dimen/margin_10"
     android:layout_marginEnd="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_10"
     android:background="@color/white"
     android:clipToPadding="false"
     app:cardCornerRadius="@dimen/corner_radius_10"
@@ -159,10 +159,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivMore"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
             android:layout_marginEnd="@dimen/margin_6"
             android:contentDescription="@string/more"
+            android:padding="@dimen/padding_4"
             android:src="@drawable/ic_more_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

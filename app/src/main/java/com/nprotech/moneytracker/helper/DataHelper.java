@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.TypedValue;
 
 import com.nprotech.moneytracker.R;
+import com.nprotech.moneytracker.constants.Constants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -667,5 +668,33 @@ public class DataHelper {
         colors.add("#5D4037");
 
         return colors;
+    }
+
+    public static String getPeriodName(int periodId) {
+        String period = "";
+
+        if(periodId == 1) {
+            period = Constants.PERIOD_WEEKLY;
+        } else if(periodId == 2) {
+            period = Constants.PERIOD_MONTHLY;
+        } else if(periodId == 3) {
+            period = Constants.PERIOD_QUARTERLY;
+        } else if(periodId == 4) {
+            period = Constants.PERIOD_YEARLY;
+        } else if(periodId == 5) {
+            period = Constants.PERIOD_CUSTOM;
+        }
+
+        return capitalizeFirstLetter(period);
+    }
+
+    private static String capitalizeFirstLetter(String text) {
+        if (text == null || text.trim().isEmpty()) {
+            return text;
+        }
+
+        text = text.trim().toLowerCase();
+
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 }

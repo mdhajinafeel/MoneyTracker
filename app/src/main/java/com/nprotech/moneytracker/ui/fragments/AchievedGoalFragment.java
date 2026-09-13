@@ -114,7 +114,7 @@ public class AchievedGoalFragment extends Fragment {
 
                     int goalColor = Color.parseColor(goalWithDetail.color);
                     long daysLeft = CommonUtils.calculateDaysLeft(goalWithDetail.targetDate);
-                    int progress = CommonUtils.calculateGoalProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
+                    int progress = CommonUtils.calculateProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
 
                     holder.setViewText(R.id.tvGoalName, goalWithDetail.name);
                     tvGoalCategory.setText(goalWithDetail.categoryName);

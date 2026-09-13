@@ -223,7 +223,7 @@ public class CommonUtils {
         return ColorUtils.setAlphaComponent(color, alpha);
     }
 
-    public static int calculateGoalProgress(double savedAmount, double targetAmount) {
+    public static int calculateProgress(double savedAmount, double targetAmount) {
         if (targetAmount <= 0) {
             return 0;
         }

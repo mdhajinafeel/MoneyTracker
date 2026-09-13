@@ -23,6 +23,7 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.ui.activities.TransactionDetailActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -67,6 +68,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         AppCompatTextView feeLabel = holder.getView(R.id.feeLabel);
         AppCompatTextView tvBadgeDetail = holder.getView(R.id.tvBadgeDetail);
         AppCompatTextView tvBadgeFee = holder.getView(R.id.tvBadgeFee);
+        AppCompatTextView transactionDate = holder.getView(R.id.transactionDate);
         AppCompatImageView ivMore = holder.getView(R.id.ivMore);
         View divider = holder.getView(R.id.divider);
 
@@ -172,6 +174,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         if(type.equalsIgnoreCase("calendar") || type.equalsIgnoreCase("daily")) {
 
             ivMore.setVisibility(View.VISIBLE);
+            transactionDate.setVisibility(View.GONE);
 
             ivMore.setOnClickListener(v -> {
                 if (moreClickListener != null) {
@@ -180,12 +183,20 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             });
         } else {
             ivMore.setVisibility(View.GONE);
+
+            if(type.equalsIgnoreCase("budget") || type.equalsIgnoreCase("period")) {
+                transactionDate.setVisibility(View.VISIBLE);
+                transactionDate.setText(DateHelper.getFormattedDate(transaction.transactionDate, "dd MMM yyyy"));
+            } else {
+                transactionDate.setVisibility(View.GONE);
+            }
         }
 
         itemView.setOnClickListener(view -> {
 
             Intent intent = new Intent(context, TransactionDetailActivity.class);
-            if(type.equalsIgnoreCase("period") && item.transaction.type == TransactionEntity.TYPE_EXPENSE
+            if((type.equalsIgnoreCase("period") || type.equalsIgnoreCase("budget"))
+                    && item.transaction.type == TransactionEntity.TYPE_EXPENSE
                     && item.transaction.defaultCategoryId == Constants.DEFAULT_CATEGORY_FEE_ID) {
                 intent.putExtra("transactionId", item.transaction.parentTransactionId);
             } else {

@@ -332,6 +332,46 @@ public interface TransactionDao {
     @Query("SELECT * FROM transactions WHERE isDeleted = 0 AND accountId = :accountId AND (walletId = :walletId OR fromWalletId = :walletId)")
     List<TransactionEntity> getTransactionsForWallet(int walletId, int accountId);
 
-    @Query("SELECT * FROM transactions WHERE parentTransactionId = :transactionId AND isFee = 1 AND isDeleted = 0")
-    List<TransactionEntity> getFeesForTransaction(String transactionId);
+    // BUDGET TRANSACTIONS
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "AND t.accountId = :accountId " +
+            "AND w.accountId = :accountId " +
+            "AND t.type = 2 " +
+            "AND (:allCategories = 1 OR t.categoryId IN (:categoryIds)) " +
+            "AND (:allWallets = 1 OR t.walletId IN (:walletIds)) " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT 5")
+    List<TransactionWithDetails> getRecentTransactionsForBudget(int accountId, long startDate, long endDate, List<Integer> categoryIds,
+                                                       List<Integer> walletIds, boolean allCategories, boolean allWallets);
+
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.id = t.categoryId AND c.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.transactionDate BETWEEN :startDate AND :endDate " +
+            "AND t.accountId = :accountId " +
+            "AND w.accountId = :accountId " +
+            "AND t.type = 2 " +
+            "AND (:allCategories = 1 OR t.categoryId IN (:categoryIds)) " +
+            "AND (:allWallets = 1 OR t.walletId IN (:walletIds)) " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT :limit OFFSET :offset")
+    List<TransactionWithDetails> getTransactionsForBudgetPaged(int accountId, long startDate, long endDate, List<Integer> categoryIds,
+                                                                List<Integer> walletIds, boolean allCategories, boolean allWallets, int limit, int offset);
 }

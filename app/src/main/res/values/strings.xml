@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="resume_budget_desc">Continue tracking this budget</string>
+    <string name="delete_budget_sub_message">All data will be permanently deleted.</string>
 </resources>

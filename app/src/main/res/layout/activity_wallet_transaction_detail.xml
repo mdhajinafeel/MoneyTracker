@@ -28,7 +28,7 @@
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
+        android:fillViewport="false"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,6 +36,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -119,8 +120,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_4"
                             android:background="@drawable/bg_badge_white"
-                            android:fontFamily="@font/exo2_medium"
                             android:drawablePadding="@dimen/padding_2"
+                            android:fontFamily="@font/exo2_medium"
                             android:paddingHorizontal="@dimen/padding_6"
                             android:paddingVertical="@dimen/padding_2"
                             android:text="@string/text_default"
@@ -449,99 +450,107 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/llTransactionHeader"
+            <LinearLayout
+                android:id="@+id/layoutTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cardSummary">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/transactionListLabel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_16"
-                    android:layout_marginTop="@dimen/margin_12"
-                    android:layout_marginEnd="@dimen/margin_8"
-                    android:ellipsize="end"
-                    android:fontFamily="@font/exo2_bold"
-                    android:maxLines="1"
-                    android:text="@string/transaction_list"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintEnd_toStartOf="@id/transactionAllLabel"
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/llTransactionHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/transactionAllLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12"
-                    android:layout_marginEnd="@dimen/margin_16"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:text="@string/view_all"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_16"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transactionListLabel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginEnd="@dimen/margin_8"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/exo2_bold"
+                        android:maxLines="1"
+                        android:text="@string/transaction_list"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_16"
+                        app:layout_constraintEnd_toStartOf="@id/transactionAllLabel"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/transactionAllLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginEnd="@dimen/margin_16"
+                        android:gravity="end|center_vertical"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:drawableEnd="@drawable/ic_right_arrow_small"
+                        android:drawablePadding="@dimen/padding_4"
+                        android:text="@string/view_all"
+                        android:textColor="@color/vibrant_orange"
+                        android:textSize="@dimen/text_14"
+                        app:drawableTint="@color/vibrant_orange"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/walletTransactionCard"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_16"
-                android:layout_marginTop="@dimen/margin_10"
-                android:layout_marginEnd="@dimen/margin_16"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/corner_radius_8"
-                app:cardElevation="@dimen/corner_elevation_6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llTransactionHeader"
-                app:strokeColor="@color/grey_88"
-                app:strokeWidth="1dp">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTransactions"
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/walletTransactionCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:nestedScrollingEnabled="false"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-            </com.google.android.material.card.MaterialCardView>
+                    android:layout_marginStart="@dimen/margin_16"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginEnd="@dimen/margin_16"
+                    android:layout_marginBottom="@dimen/margin_20"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/corner_radius_8"
+                    app:cardElevation="@dimen/corner_elevation_6"
+                    app:strokeColor="@color/grey_88"
+                    app:strokeWidth="1dp">
 
-            <LinearLayout
-                android:id="@+id/layoutEmpty"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_16"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/llTransactionHeader">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTransactions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="false"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                </com.google.android.material.card.MaterialCardView>
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivEmpty"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:src="?attr/emptyTransaction" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/layoutEmpty"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_12"
-                    android:fontFamily="@font/exo2_semibold"
-                    android:text="@string/no_transaction"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text_18"
-                    app:fontFamily="@font/exo2_semibold" />
+                    android:layout_marginTop="@dimen/margin_16"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivEmpty"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:src="?attr/emptyTransaction" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:text="@string/no_transaction"
+                        android:textColor="@color/text_primary"
+                        android:textSize="@dimen/text_18"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

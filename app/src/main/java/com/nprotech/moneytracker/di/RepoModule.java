@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.di;
 
+import android.content.Context;
+
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountCurrencyMappingDao;
 import com.nprotech.moneytracker.db.dao.BackupHistoryDao;
@@ -27,6 +29,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import dagger.hilt.components.SingletonComponent;
 
 @Module(includes = {ApiModule.class, DBModule.class})
@@ -53,8 +56,9 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    WalletRepository provideWalletRepository(MoneyTrackerDatabase database, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
-        return new WalletRepository(database, walletDao, transactionDao, accountDao);
+    WalletRepository provideWalletRepository(MoneyTrackerDatabase database, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao,
+                                             BudgetRepository budgetRepository) {
+        return new WalletRepository(database, walletDao, transactionDao, accountDao, budgetRepository);
     }
 
     @Provides
@@ -66,8 +70,8 @@ public class RepoModule {
     @Provides
     @Singleton
     TransactionRepository provideTransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao,TransactionDao transactionDao,
-                                                       TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao) {
-        return new TransactionRepository(database, accountDao, walletDao, transactionDao, transactionAttachmentDao, categoryDao);
+                                                       TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao, BudgetRepository budgetRepository) {
+        return new TransactionRepository(database, accountDao, walletDao, transactionDao, transactionAttachmentDao, categoryDao, budgetRepository);
     }
 
     @Provides
@@ -84,7 +88,7 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    BudgetRepository provideBudgetRepository(BudgetDao budgetDao) {
-        return new BudgetRepository(budgetDao);
+    BudgetRepository provideBudgetRepository(BudgetDao budgetDao, TransactionDao transactionDao, @ApplicationContext Context context) {
+        return new BudgetRepository(budgetDao, transactionDao, context);
     }
 }

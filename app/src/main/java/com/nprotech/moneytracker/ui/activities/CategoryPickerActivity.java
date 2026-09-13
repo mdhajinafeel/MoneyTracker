@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.BlendMode;
 import android.graphics.BlendModeColorFilter;
@@ -16,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -47,6 +49,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CategoryPickerActivity extends BaseActivity {
 
+    private AppCompatImageView icBack;
+    private AppCompatTextView tvSave;
     private MaxHeightRecyclerView rvCategories;
     private ConstraintLayout emptyWrapper;
     private View categoryRoot;
@@ -55,6 +59,8 @@ public class CategoryPickerActivity extends BaseActivity {
     private final Set<Integer> selectedCategoryIds = new HashSet<>();
     private Set<Integer> tempSelectedCategoryIds = new HashSet<>();
     private Typeface medium, semiBold;
+    private RecyclerViewAdapter<CategoryEntity> categoryAdapter;
+    private List<CategoryEntity> allCategories;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,18 +75,14 @@ public class CategoryPickerActivity extends BaseActivity {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
-            AppCompatTextView tvSave = toolbarWrapper.findViewById(R.id.tvSave);
-            AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
-
-            tvTitle.setText(getString(R.string.select_category));
-            icBack.setOnClickListener(view -> {
-                finish();
-                ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
-            });
+            tvSave = toolbarWrapper.findViewById(R.id.tvSave);
+            icBack = toolbarWrapper.findViewById(R.id.icBack);
 
             categoryRoot = findViewById(R.id.categoryRoot);
             emptyWrapper = findViewById(R.id.emptyWrapper);
             rvCategories = findViewById(R.id.rvCategories);
+
+            tvTitle.setText(getString(R.string.select_category));
 
             ViewCompat.setOnApplyWindowInsetsListener(toolbarWrapper, (v, insets) -> {
                 int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
@@ -114,7 +116,6 @@ public class CategoryPickerActivity extends BaseActivity {
                 isFromScreen = bundle.getString("isFromScreen", "");
 
                 if (isFromScreen.equalsIgnoreCase("budget")) {
-
                     tvSave.setVisibility(View.VISIBLE);
                     tvSave.setText(getString(R.string.done));
 
@@ -123,16 +124,6 @@ public class CategoryPickerActivity extends BaseActivity {
                     if (categoryIds != null) {
                         selectedCategoryIds.addAll(categoryIds);
                     }
-
-                    tvSave.setOnClickListener(v -> {
-                        selectedCategoryIds.clear();
-                        selectedCategoryIds.addAll(tempSelectedCategoryIds);
-                        Intent intent = new Intent();
-                        intent.putIntegerArrayListExtra("categoryIds", new ArrayList<>(selectedCategoryIds));
-                        setResult(-1, intent);
-                        finish();
-                        ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
-                    });
                 }
 
                 categoryViewModel.getIncomeCategories().observe(this, categoryEntities -> {
@@ -147,26 +138,55 @@ public class CategoryPickerActivity extends BaseActivity {
                 });
             }
 
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
+            setupListeners();
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
         }
     }
 
-    private void bindCategories(List<CategoryEntity> expenseCategories) {
+    private void setupListeners() {
+        try {
+            icBack.setOnClickListener(view -> finishWithTransitions());
+
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finishWithTransitions();
+                }
+            });
+
+            if (isFromScreen.equalsIgnoreCase("budget")) {
+                tvSave.setOnClickListener(v -> {
+                    selectedCategoryIds.clear();
+                    selectedCategoryIds.addAll(tempSelectedCategoryIds);
+                    Intent intent = new Intent();
+                    intent.putIntegerArrayListExtra("categoryIds", new ArrayList<>(selectedCategoryIds));
+                    intent.putExtra("isAllCategory", selectedCategoryIds.size() == allCategories.size() - 1);
+                    setResult(-1, intent);
+                    finishWithTransitions();
+                });
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "setupListeners", e);
+        }
+    }
+
+    private void bindCategories(List<CategoryEntity> categories) {
         try {
 
             tempSelectedCategoryIds = new HashSet<>(selectedCategoryIds);
 
-            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(this,
-                    expenseCategories, R.layout.item_category_picker) {
+            allCategories = new ArrayList<>(categories);
+
+            if (isFromScreen.equalsIgnoreCase("budget")) {
+                CategoryEntity allCategory = new CategoryEntity();
+                allCategory.id = -1;
+                allCategory.name = getString(R.string.all_categories);
+                allCategories.add(0, allCategory);
+            }
+
+            categoryAdapter = new RecyclerViewAdapter<>(this, allCategories, R.layout.item_category_picker) {
+                @SuppressLint("NotifyDataSetChanged")
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
 
@@ -174,10 +194,12 @@ public class CategoryPickerActivity extends BaseActivity {
                     MaterialCheckBox ivChecked = holder.getView(R.id.ivChecked);
                     AppCompatTextView tvCategory = holder.getView(R.id.tvCategory);
 
-                    holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
                     tvCategory.setText(categoryEntity.getName(getApplicationContext()));
 
                     if (isFromScreen.equalsIgnoreCase("transaction")) {
+
+                        holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
+
                         if (categoryEntity.id == categoryId) {
                             tvCategory.setTypeface(semiBold);
                             ivSelected.setVisibility(View.VISIBLE);
@@ -194,49 +216,107 @@ public class CategoryPickerActivity extends BaseActivity {
                             finish();
                             ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
                         });
-                    } else {
-                        ivSelected.setVisibility(View.GONE);
-                        ivChecked.setVisibility(View.VISIBLE);
 
-                        ivChecked.setOnCheckedChangeListener(null);
-                        if(selectedCategoryIds.contains(categoryEntity.id)) {
-                            tvCategory.setTypeface(semiBold);
-                            ivChecked.setChecked(true);
+                        if (Build.VERSION.SDK_INT >= 29) {
+                            holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color),
+                                    BlendMode.SRC_OVER));
                         } else {
-                            tvCategory.setTypeface(medium);
-                            ivChecked.setChecked(false);
-                        }
 
-                        ivChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                            if (isChecked) {
+                            Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
+                            DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                            DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
+                            holder.getView(R.id.colorView).setBackground(drawable);
+                        }
+                    } else {
+
+                        if (categoryEntity.id == -1) {
+                            tvCategory.setTypeface(medium);
+
+                            ivSelected.setVisibility(View.GONE);
+                            ivChecked.setVisibility(View.VISIBLE);
+
+                            ivChecked.setOnCheckedChangeListener(null);
+
+                            boolean allSelected = !allCategories.isEmpty() && tempSelectedCategoryIds.containsAll(getCategoryIds(categories));
+
+                            ivChecked.setChecked(allSelected);
+
+                            ivChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+                                if (isChecked) {
+                                    tempSelectedCategoryIds.addAll(getCategoryIds(allCategories));
+                                } else {
+                                    tempSelectedCategoryIds.clear();
+                                }
+
+                                categoryAdapter.notifyDataSetChanged();
+                            });
+
+                            holder.itemView.setOnClickListener(v -> ivChecked.setChecked(!ivChecked.isChecked()));
+
+                            holder.setViewImageResource(R.id.ivCategory, R.drawable.ic_calendar_all);
+
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                holder.getView(R.id.colorView).getBackground().setColorFilter(
+                                        new BlendModeColorFilter(ContextCompat.getColor(CategoryPickerActivity.this, R.color.dark_brown),
+                                                BlendMode.SRC_OVER));
+                            } else {
+
+                                Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
+                                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                                DrawableCompat.setTint(drawable, ContextCompat.getColor(CategoryPickerActivity.this, R.color.dark_brown));
+                                holder.getView(R.id.colorView).setBackground(drawable);
+                            }
+                        } else {
+
+                            holder.setViewImageResource(R.id.ivCategory, DataHelper.getCategoryIcons().get(categoryEntity.icon));
+
+                            ivSelected.setVisibility(View.GONE);
+                            ivChecked.setVisibility(View.VISIBLE);
+
+                            ivChecked.setOnCheckedChangeListener(null);
+                            if (tempSelectedCategoryIds.contains(categoryEntity.id)) {
                                 tvCategory.setTypeface(semiBold);
-                                tempSelectedCategoryIds.add(categoryEntity.id);
+                                ivChecked.setChecked(true);
                             } else {
                                 tvCategory.setTypeface(medium);
-                                tempSelectedCategoryIds.remove(categoryEntity.id);
+                                ivChecked.setChecked(false);
                             }
-                        });
 
-                        holder.itemView.setOnClickListener(v -> ivChecked.setChecked(!ivChecked.isChecked()));
-                    }
+                            ivChecked.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                                if (isChecked) {
+                                    tvCategory.setTypeface(semiBold);
+                                    tempSelectedCategoryIds.add(categoryEntity.id);
+                                } else {
+                                    tvCategory.setTypeface(medium);
+                                    tempSelectedCategoryIds.remove(categoryEntity.id);
+                                }
 
-                    if (Build.VERSION.SDK_INT >= 29) {
-                        holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color), BlendMode.SRC_OVER));
-                    } else {
+                                categoryAdapter.notifyItemChanged(0);
+                            });
 
-                        Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
-                        DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
-                        DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
-                        holder.getView(R.id.colorView).setBackground(drawable);
+                            holder.itemView.setOnClickListener(v -> ivChecked.setChecked(!ivChecked.isChecked()));
+
+                            if (Build.VERSION.SDK_INT >= 29) {
+                                holder.getView(R.id.colorView).getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(categoryEntity.color),
+                                        BlendMode.SRC_OVER));
+                            } else {
+
+                                Drawable drawable = holder.getView(R.id.colorView).getBackground().mutate();
+                                DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
+                                DrawableCompat.setTint(drawable, Color.parseColor(categoryEntity.color));
+                                holder.getView(R.id.colorView).setBackground(drawable);
+                            }
+                        }
                     }
                 }
             };
 
-            rvCategories.setAdapter(expenseCategoryAdapter);
+            rvCategories.setAdapter(categoryAdapter);
             rvCategories.setHasFixedSize(true);
             updateRecyclerViewMaxHeight();
 
-            expenseCategoryAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            categoryAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                 @Override
                 public void onChanged() {
                     updateRecyclerViewMaxHeight();
@@ -255,6 +335,16 @@ public class CategoryPickerActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindCategories", e);
         }
+    }
+
+    private Set<Integer> getCategoryIds(List<CategoryEntity> categories) {
+        Set<Integer> categoryIds = new HashSet<>();
+        for (CategoryEntity category : categories) {
+            if (category.id != -1) {
+                categoryIds.add(category.id);
+            }
+        }
+        return categoryIds;
     }
 
     private void updateRecyclerViewMaxHeight() {
@@ -276,5 +366,10 @@ public class CategoryPickerActivity extends BaseActivity {
                 rvCategories.setMaxHeight(availableHeight);
             }
         });
+    }
+
+    private void finishWithTransitions() {
+        finish();
+        ActivityUtils.overrideCloseTransition(CategoryPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
     }
 }

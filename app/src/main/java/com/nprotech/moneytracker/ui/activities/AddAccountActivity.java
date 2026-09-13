@@ -1,7 +1,10 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -58,6 +61,7 @@ public class AddAccountActivity extends BaseActivity {
     private WalletViewModel walletViewModel;
     private CurrencyEntity currency;
     private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
+    private ActivityResultLauncher<String> notificationPermissionLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,21 +106,24 @@ public class AddAccountActivity extends BaseActivity {
     }
 
     private void setupLauncher() {
-        currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            currency = IntentUtils.getSerializableExtra(data, "currency", CurrencyEntity.class);
-                            if (currency != null) {
-                                etCurrency.setText(currency.name);
-                                tilInitialAmount.setPrefixText(currency.symbol);
-                                tilInitialAmount.setPrefixTextAppearance(R.style.CurrencyPrefixStyle);
-                                tilInitialAmount.setPrefixTextColor(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.vibrant_orange)));
-                            }
-                        }
+        currencyLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
+                    currency = IntentUtils.getSerializableExtra(data, "currency", CurrencyEntity.class);
+                    if (currency != null) {
+                        etCurrency.setText(currency.name);
+                        tilInitialAmount.setPrefixText(currency.symbol);
+                        tilInitialAmount.setPrefixTextAppearance(R.style.CurrencyPrefixStyle);
+                        tilInitialAmount.setPrefixTextColor(ColorStateList.valueOf(ContextCompat.getColor(getApplicationContext(), R.color.vibrant_orange)));
                     }
-                });
+                }
+            }
+        });
+
+        notificationPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+                isGranted -> saveAccounts(false)
+        );
     }
 
     private void setupListeners() {
@@ -134,7 +141,7 @@ public class AddAccountActivity extends BaseActivity {
                 return;
             }
 
-            saveAccounts(false);
+            requestNotificationPermission();
         });
 
         tvSkip.setOnClickListener(view -> saveAccounts(true));
@@ -365,6 +372,18 @@ public class AddAccountActivity extends BaseActivity {
         } else {
             finish();
             ActivityUtils.overrideCloseTransition(this, R.anim.slide_in_left, R.anim.slide_out_right);
+        }
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            } else {
+                saveAccounts(false);
+            }
+        } else {
+            saveAccounts(false);
         }
     }
 }

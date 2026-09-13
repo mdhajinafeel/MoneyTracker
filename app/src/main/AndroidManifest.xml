@@ -148,6 +148,20 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Budget Detail Screen -->
+        <activity
+            android:name=".ui.activities.BudgetDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Budget Transaction Screen -->
+        <activity
+            android:name=".ui.activities.BudgetTransactionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Category Amount Screen -->
         <activity
             android:name=".ui.activities.CategoryAmountActivity"

@@ -139,7 +139,7 @@ public class GoalMoneyActivity extends BaseActivity {
                         goal = goalWithDetail;
 
                         int goalColor = Color.parseColor(goalWithDetail.color);
-                        int progress = CommonUtils.calculateGoalProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
+                        int progress = CommonUtils.calculateProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
 
                         Drawable background = ivGoalIcon.getBackground().mutate();
                         DrawableCompat.setTint(background, Color.parseColor(goalWithDetail.color));

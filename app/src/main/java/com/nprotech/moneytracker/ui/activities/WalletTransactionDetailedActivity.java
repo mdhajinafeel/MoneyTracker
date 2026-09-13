@@ -102,7 +102,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private void initComponents() {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
-            View root = findViewById(R.id.rootView);
+            View rootView = findViewById(R.id.rootView);
+            View scrollContent = findViewById(R.id.scrollContent);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             ivMore = toolbarWrapper.findViewById(R.id.ivMore);
@@ -132,11 +133,13 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(rootView, (v, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), systemBars.bottom);
                 return insets;
             });
+
+
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
@@ -174,7 +177,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
             walletTransactionAdapter = new WalletTransactionAdapter(WalletTransactionDetailedActivity.this, new ArrayList<>());
             rvTransactions.setAdapter(walletTransactionAdapter);
-            rvTransactions.setNestedScrollingEnabled(false);
             rvTransactions.addItemDecoration(new SimpleDividerItemDecoration(this));
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);

@@ -268,7 +268,7 @@
                     android:divider="@drawable/view_divider"
                     android:orientation="vertical"
                     android:showDividers="middle"
-                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingHorizontal="@dimen/padding_12"
                     android:paddingVertical="@dimen/padding_4">
 
                     <!-- ================================================= -->

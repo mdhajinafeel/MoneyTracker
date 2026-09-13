@@ -213,4 +213,5 @@
     <string name="image_alt_text">Image Alt Text</string>
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
+    <string name="tab_layout">TabLayout</string>
 </resources>

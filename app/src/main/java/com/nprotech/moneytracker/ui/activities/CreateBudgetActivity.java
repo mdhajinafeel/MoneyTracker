@@ -108,6 +108,7 @@ public class CreateBudgetActivity extends BaseActivity {
     private AccountEntity account;
     private final Map<Integer, Double> categoryAmounts = new HashMap<>();
     private ArrayList<String> budgetColorLists;
+    private boolean isAllCategory = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -244,6 +245,7 @@ public class CreateBudgetActivity extends BaseActivity {
                 periodStartDate = budget.startDate;
                 periodEndDate = budget.endDate;
                 budgetIcon = budget.budgetIcon;
+                isAllCategory = budget.isAllCategory;
 
                 // Period
                 switch (budget.periodId) {
@@ -577,7 +579,12 @@ public class CreateBudgetActivity extends BaseActivity {
         try {
             if (selectedCategoryIds != null) {
                 int count = selectedCategoryIds.size();
-                tvBudgetCategory.setText(getResources().getQuantityString(R.plurals.category_selected_count, count, count));
+
+                if(isAllCategory) {
+                    tvBudgetCategory.setText(getString(R.string.all_categories));
+                } else {
+                    tvBudgetCategory.setText(getResources().getQuantityString(R.plurals.category_selected_count, count, count));
+                }
             }
 
             updateAmountTexts();
@@ -859,6 +866,8 @@ public class CreateBudgetActivity extends BaseActivity {
                                 selectedCategoryIds.clear();
                                 selectedCategoryIds.addAll(categoryIds);
 
+                                isAllCategory = data.getBooleanExtra("isAllCategory", false);
+
                                 updateCategoryTexts();
                                 updateAmountTexts();
                                 updateSaveButtonState();
@@ -873,6 +882,7 @@ public class CreateBudgetActivity extends BaseActivity {
                         Intent data = result.getData();
                         if (data != null) {
                             ArrayList<Integer> categoryIds = data.getIntegerArrayListExtra("categoryIds");
+                            isAllCategory = data.getBooleanExtra("isAllCategory", false);
 
                             @SuppressWarnings("unchecked")
                             HashMap<Integer, Double> amounts = (HashMap<Integer, Double>) IntentUtils.getSerializableExtra(data, "categoryAmounts", HashMap.class);
@@ -2100,16 +2110,30 @@ public class CreateBudgetActivity extends BaseActivity {
             // Parent values
             // -----------------------------------------------------
             budget.name = name;
+            budget.accountId = account.id;
             budget.periodId = budgetPeriodId;
             budget.methodId = budgetMethodId;
             budget.startDate = periodStartDate;
             budget.endDate = periodEndDate;
+            budget.categoryCount = selectedCategoryIds.size();
+            budget.isAllCategory = isAllCategory;
+
+            if(selectedWalletIds.size() == walletLists.size()) {
+                budget.walletCount = -1;
+            } else {
+                budget.walletCount = selectedWalletIds.size();
+            }
+
             budget.amount = budgetAmount;
             budget.alertEnabled = alertEnabled;
             budget.alertPercentage = alertEnabled ? alertPercentage : 0;
+            budget.alertTriggered = false;
             budget.repeatEnabled = switchAutoView.isChecked();
             budget.budgetColor = budgetColorLists.get(colorSpinner.getSelectedItemPosition());
             budget.budgetIcon = budgetIcon;
+            budget.currencyCode = account.currencyCode;
+            budget.currencySymbol = account.currencySymbol;
+            budget.currencyName = account.currencyName;
 
             // -----------------------------------------------------
             // SAVE / UPDATE

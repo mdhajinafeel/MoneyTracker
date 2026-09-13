@@ -277,6 +277,7 @@ public class TransactionOverviewActivity extends BaseActivity {
 
                     // Delete
                     () -> showDeleteDialog(item), false));
+
             rvTransactions.setAdapter(dailyTransactionAdapter);
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);

@@ -510,7 +510,7 @@ public class BackupHistoryActivity extends BaseActivity {
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
-        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.restore_backup_dialog);
         tvMessage.setText(getString(R.string.restore_backup_message, getString(R.string.app_name)));
         tvSubMessage.setText(getString(R.string.action_undone));
@@ -703,7 +703,7 @@ public class BackupHistoryActivity extends BaseActivity {
         AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
-        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.storage_access_required);
         tvMessage.setText(getString(R.string.storage_access_required_message, getString(R.string.app_name)));
         tvDelete.setText(R.string.allow_access);

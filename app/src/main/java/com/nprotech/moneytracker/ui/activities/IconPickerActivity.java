@@ -29,7 +29,9 @@ import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
+import com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView;
 import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.util.List;
 
@@ -39,10 +41,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class IconPickerActivity extends BaseActivity {
 
     private AppCompatTextView tvSave;
-    private RecyclerView rvCategories;
+    private MaxHeightRecyclerView rvCategories;
     private ConstraintLayout emptyWrapper;
+    private View categoryRoot;
     private String color, iconType;
     private int icon, selectedPosition = RecyclerView.NO_POSITION;
+    private RecyclerViewAdapter<Integer> iconAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,6 +72,7 @@ public class IconPickerActivity extends BaseActivity {
             tvSave.setVisibility(View.VISIBLE);
             tvSave.setText(getString(R.string.done));
 
+            categoryRoot = findViewById(R.id.categoryRoot);
             emptyWrapper = findViewById(R.id.emptyWrapper);
             rvCategories = findViewById(R.id.rvCategories);
 
@@ -83,7 +88,7 @@ public class IconPickerActivity extends BaseActivity {
                 return insets;
             });
 
-            ViewCompat.setOnApplyWindowInsetsListener(rvCategories, (view, insets) -> {
+            ViewCompat.setOnApplyWindowInsetsListener(categoryRoot, (view, insets) -> {
                 Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
                 view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), systemBars.bottom);
                 return insets;
@@ -135,8 +140,6 @@ public class IconPickerActivity extends BaseActivity {
 
     private void bindIcons() {
         try {
-
-            RecyclerViewAdapter<Integer> iconAdapter;
 
             if (iconType.equalsIgnoreCase("wallet")) {
                 List<Integer> walletIcons = DataHelper.getWalletIcons();
@@ -277,8 +280,48 @@ public class IconPickerActivity extends BaseActivity {
                     emptyWrapper.setVisibility(View.GONE);
                 }
             }
+
+            updateRecyclerViewMaxHeight();
+
+            iconAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindIcons", e);
         }
+    }
+
+    private void updateRecyclerViewMaxHeight() {
+        categoryRoot.post(() -> {
+
+            View toolbarWrapper = findViewById(R.id.toolbarWrapper);
+            int bottomInset = categoryRoot.getPaddingBottom();
+            int topMargin = CommonUtils.dpToPx(this, 10);
+            int bottomMargin = CommonUtils.dpToPx(this, 16);
+
+            int availableHeight =
+                    categoryRoot.getHeight()
+                            - toolbarWrapper.getHeight()
+                            - topMargin
+                            - bottomMargin
+                            - bottomInset;
+
+            if (availableHeight > 0) {
+                rvCategories.setMaxHeight(availableHeight);
+            }
+        });
     }
 }

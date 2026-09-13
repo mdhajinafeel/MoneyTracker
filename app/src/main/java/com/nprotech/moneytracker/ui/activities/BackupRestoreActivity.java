@@ -1016,7 +1016,7 @@ public class BackupRestoreActivity extends BaseActivity {
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
-        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.restore_backup_dialog);
         tvMessage.setText(getString(R.string.restore_backup_message, getString(R.string.app_name)));
         tvSubMessage.setText(R.string.action_undone);

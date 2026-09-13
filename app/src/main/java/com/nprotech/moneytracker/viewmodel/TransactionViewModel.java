@@ -15,6 +15,7 @@ import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.repositories.BudgetRepository;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.wrapper.SingleLiveEvent;
 
@@ -34,6 +35,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class TransactionViewModel extends ViewModel {
 
     private final TransactionRepository transactionRepository;
+    private final BudgetRepository budgetRepository;
     private final SingleLiveEvent<Boolean> dataSavedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataUpdatedStatus = new SingleLiveEvent<>();
     private final SingleLiveEvent<Boolean> dataDeletedStatus = new SingleLiveEvent<>();
@@ -45,8 +47,9 @@ public class TransactionViewModel extends ViewModel {
     private long startDate, endDate;
 
     @Inject
-    public TransactionViewModel(TransactionRepository transactionRepository) {
+    public TransactionViewModel(TransactionRepository transactionRepository, BudgetRepository budgetRepository) {
         this.transactionRepository = transactionRepository;
+        this.budgetRepository = budgetRepository;
     }
 
     private List<DailyTransModel> groupTransactions(List<TransactionWithDetails> list) {
@@ -122,6 +125,7 @@ public class TransactionViewModel extends ViewModel {
                 transactionRepository.updateAccount(account);
             }
 
+            budgetRepository.checkBudgetAlerts();
             dataSavedStatus.postValue(true);
         } else {
             dataSavedStatus.postValue(false);
@@ -132,6 +136,7 @@ public class TransactionViewModel extends ViewModel {
 
         long transId = transactionRepository.saveTransaction(transaction);
         if (transId > 0) {
+            budgetRepository.checkBudgetAlerts();
             dataSavedStatus.postValue(true);
         } else {
             dataSavedStatus.postValue(false);
@@ -142,6 +147,7 @@ public class TransactionViewModel extends ViewModel {
 
         int rows = transactionRepository.updateTransaction(transaction);
         if (rows > 0) {
+
             // UPDATE WALLET
             if (wallet != null) {
                 transactionRepository.updateWallet(wallet);
@@ -152,6 +158,7 @@ public class TransactionViewModel extends ViewModel {
                 transactionRepository.updateAccount(account);
             }
 
+            budgetRepository.checkBudgetAlerts();
             dataUpdatedStatus.postValue(true);
         } else {
             dataUpdatedStatus.postValue(false);
@@ -230,10 +237,6 @@ public class TransactionViewModel extends ViewModel {
 
     public TransactionEntity getFeeTransaction(String parentTransactionId) {
         return transactionRepository.getFeeTransaction(parentTransactionId);
-    }
-
-    public void deleteFeeTransaction(TransactionEntity transaction) {
-        transactionRepository.deleteFeeTransaction(transaction);
     }
 
     public void loadTransactions(int accountId, long startDate, long endDate) {

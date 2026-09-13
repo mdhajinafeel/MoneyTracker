@@ -29,16 +29,18 @@ public class TransactionRepository {
     private final TransactionDao transactionDao;
     private final TransactionAttachmentDao transactionAttachmentDao;
     private final CategoryDao categoryDao;
+    private final BudgetRepository budgetRepository;
     private final MoneyTrackerDatabase database;
 
     public TransactionRepository(MoneyTrackerDatabase database, AccountDao accountDao, WalletDao walletDao, TransactionDao transactionDao,
-                                 TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao) {
+                                 TransactionAttachmentDao transactionAttachmentDao, CategoryDao categoryDao, BudgetRepository budgetRepository) {
         this.database = database;
         this.accountDao = accountDao;
         this.walletDao = walletDao;
         this.transactionDao = transactionDao;
         this.transactionAttachmentDao = transactionAttachmentDao;
         this.categoryDao = categoryDao;
+        this.budgetRepository = budgetRepository;
     }
 
     public List<TransactionWithDetails> getTransactionsPaged(int accountId, long startDate, long endDate, int page, int pageSize) {
@@ -97,6 +99,9 @@ public class TransactionRepository {
         walletDao.updateWallet(wallet);
         accountDao.updateAccount(account);
         int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
+        if(rows > 0) {
+            budgetRepository.checkBudgetAlerts();
+        }
         return rows > 0;
     }
 
@@ -130,6 +135,11 @@ public class TransactionRepository {
 
             // Delete main transfer
             int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, System.currentTimeMillis());
+
+            if(rows > 0) {
+                budgetRepository.checkBudgetAlerts();
+            }
+
             success[0] = rows > 0;
         });
 
@@ -164,17 +174,12 @@ public class TransactionRepository {
 
             // Fee transaction
             if (oldFeeTransaction == null && feeTransaction != null) {
-
                 // New fee added
                 transactionDao.insert(feeTransaction);
-
             } else if (oldFeeTransaction != null && feeTransaction == null) {
-
                 // Fee removed
                 transactionDao.delete(oldFeeTransaction);
-
             } else if (oldFeeTransaction != null) {
-
                 // Fee updated
                 transactionDao.update(feeTransaction);
             }
@@ -198,14 +203,6 @@ public class TransactionRepository {
 
     public TransactionEntity getFeeTransaction(String parentTransactionId) {
         return transactionDao.getFeeTransaction(parentTransactionId);
-    }
-
-    public void deleteFeeTransaction(TransactionEntity transaction) {
-        database.runInTransaction(() -> {
-            transaction.isDeleted = true;
-            transaction.updatedAt = System.currentTimeMillis();
-            transactionDao.update(transaction);
-        });
     }
 
     public LiveData<List<CalendarSummaryModel>> getCalendarSummary(int accountId, long startDate, long endDate) {

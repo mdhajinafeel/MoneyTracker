@@ -156,7 +156,6 @@
                 android:overScrollMode="never"
                 android:padding="@dimen/padding_10"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
         </com.google.android.material.card.MaterialCardView>
 
         <androidx.constraintlayout.widget.ConstraintLayout

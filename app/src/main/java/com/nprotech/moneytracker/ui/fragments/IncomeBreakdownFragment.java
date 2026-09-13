@@ -158,6 +158,11 @@ public class IncomeBreakdownFragment extends Fragment {
                 public void onItemRangeRemoved(int positionStart, int itemCount) {
                     updateRecyclerViewMaxHeight();
                 }
+
+                @Override
+                public void onItemRangeChanged(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
@@ -337,9 +342,23 @@ public class IncomeBreakdownFragment extends Fragment {
 
     private void updateRecyclerViewMaxHeight() {
         categoryRoot.post(() -> {
-            int availableHeight = categoryRoot.getHeight();
-            int cardMargins = CommonUtils.dpToPx(requireActivity(), 20);
-            int maxHeight = availableHeight - cardMargins;
+
+            if (!isAdded() || categoryRoot.getHeight() <= 0) {
+                return;
+            }
+
+            int rootHeight = categoryRoot.getHeight();
+            int cardTop = incomeBreakdownCard.getTop();
+
+            int bottomMargin = CommonUtils.dpToPx(
+                    requireContext(),
+                    12
+            );
+
+            int maxHeight = rootHeight
+                    - cardTop
+                    - bottomMargin;
+
             if (maxHeight > 0) {
                 rvIncomeBreakdown.setMaxHeight(maxHeight);
             }

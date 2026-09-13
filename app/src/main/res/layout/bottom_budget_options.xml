@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <!-- Transaction Header -->
+    <LinearLayout
+        android:id="@+id/transactionHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/padding_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
+            android:text="@string/budget_action"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_18" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/transactionHeader" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemView"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/margin_2"
+        android:paddingVertical="@dimen/padding_10"
+        android:layout_marginTop="@dimen/margin_4"
+        app:layout_constraintTop_toBottomOf="@id/viewDivider"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/colorView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="@dimen/margin_16"
+            app:cardCornerRadius="@dimen/corner_radius_16"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBudgetIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/labelWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_marginEnd="@dimen/margin_2"
+            app:layout_constraintStart_toEndOf="@id/colorView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nameLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_20"
+                app:fontFamily="@font/exo2_semibold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/detailWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameLabel">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBudgetPeriod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_bold"
+                    android:textSize="@dimen/text_14" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivBudgetPeriodDot"
+                    android:layout_width="4dp"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bg_goal_category_dot"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvBudgetAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/exo2_medium"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_14" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="@dimen/margin_6"
+        android:layout_marginHorizontal="@dimen/margin_6"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/itemView" />
+
+    <!-- Edit -->
+    <LinearLayout
+        android:id="@+id/optionEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/viewLine">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_edit_solid"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/text_edit"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/change_budget_detail"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewEdit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/optionEdit" />
+
+    <!-- View Details -->
+    <LinearLayout
+        android:id="@+id/optionViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/viewEdit">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_view_eye"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/view_details"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/see_budget_detail"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/optionViewDetails" />
+
+    <!-- Paused -->
+    <LinearLayout
+        android:id="@+id/optionPaused"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewViewDetails">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_pause"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/text_pause"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/temporarily_stop_this_budget"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewPaused"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionPaused" />
+
+    <!-- Resumed -->
+    <LinearLayout
+        android:id="@+id/optionResume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewPaused">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_resume"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/text_resume"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/resume_budget_desc"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewResume"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionResume" />
+
+    <!-- Archived -->
+    <LinearLayout
+        android:id="@+id/optionArchive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/viewResume">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_archive"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/archived"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/archive_budget_desc"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewArchive"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionArchive" />
+
+    <!-- Restore -->
+    <LinearLayout
+        android:id="@+id/optionRestore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionArchive">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_restore"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/restore"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/restore_budget_desc"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/viewRestore"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_16"
+        android:background="@color/light_grey"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/optionRestore" />
+
+    <!-- Delete -->
+    <LinearLayout
+        android:id="@+id/optionDelete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/padding_20"
+        android:paddingTop="@dimen/padding_12"
+        android:paddingEnd="@dimen/padding_20"
+        android:paddingBottom="@dimen/padding_12"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/viewRestore">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_delete_solid"
+            app:tint="@color/delete_red" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/delete"
+                android:textColor="@color/delete_red"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/remove_budget"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/text_12" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

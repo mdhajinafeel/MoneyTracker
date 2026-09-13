@@ -306,6 +306,11 @@ public class TransactionPeriodActivity extends BaseActivity {
                 public void onItemRangeRemoved(int positionStart, int itemCount) {
                     updateRecyclerViewMaxHeight();
                 }
+
+                @Override
+                public void onItemRangeChanged(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "initializeAdapters", e);
@@ -1473,9 +1478,23 @@ public class TransactionPeriodActivity extends BaseActivity {
 
     private void updateRecyclerViewMaxHeight() {
         rootView.post(() -> {
-            int availableHeight = rootView.getHeight();
-            int cardMargins = CommonUtils.dpToPx(this, 20);
-            int maxHeight = availableHeight - cardMargins;
+
+            if (rootView.getHeight() <= 0 || breakdownCard.getVisibility() != View.VISIBLE) {
+                return;
+            }
+
+            int rootHeight = rootView.getHeight();
+            int cardTop = breakdownCard.getTop();
+
+            int bottomInset = rootView.getPaddingBottom();
+
+            int bottomMargin = CommonUtils.dpToPx(this, 12);
+
+            int maxHeight = rootHeight
+                    - cardTop
+                    - bottomInset
+                    - bottomMargin;
+
             if (maxHeight > 0) {
                 rvTransactions.setMaxHeight(maxHeight);
             }

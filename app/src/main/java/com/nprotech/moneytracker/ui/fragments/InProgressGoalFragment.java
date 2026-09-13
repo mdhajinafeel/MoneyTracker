@@ -120,7 +120,7 @@ public class InProgressGoalFragment extends Fragment {
 
                     int goalColor = Color.parseColor(goalWithDetail.color);
                     long daysLeft = CommonUtils.calculateDaysLeft(goalWithDetail.targetDate);
-                    int progress = CommonUtils.calculateGoalProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
+                    int progress = CommonUtils.calculateProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
 
                     holder.setViewText(R.id.tvGoalName, goalWithDetail.name);
                     tvGoalCategory.setText(goalWithDetail.categoryName);
@@ -344,7 +344,7 @@ public class InProgressGoalFragment extends Fragment {
         cardHeader.setCardBackgroundColor(requireActivity().getColor(R.color.category_light));
         headerImage.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_archive_outline));
         headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
-        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.primary_dark)));
+        tvDelete.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.category_dark)));
 
         dialog.setView(view);
 

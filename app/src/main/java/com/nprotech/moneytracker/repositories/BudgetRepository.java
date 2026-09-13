@@ -1,11 +1,19 @@
 package com.nprotech.moneytracker.repositories;
 
+import android.content.Context;
+
+import androidx.lifecycle.LiveData;
+
 import com.nprotech.moneytracker.db.dao.BudgetDao;
+import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.entites.BudgetCategoryAmountEntity;
 import com.nprotech.moneytracker.db.entites.BudgetCategoryEntity;
 import com.nprotech.moneytracker.db.entites.BudgetEntity;
 import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.models.BudgetPeriod;
+import com.nprotech.moneytracker.models.BudgetWithDetails;
+import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.notifications.BudgetNotificationHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,12 +24,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+import dagger.hilt.android.qualifiers.ApplicationContext;
+
 public class BudgetRepository {
 
     private final BudgetDao budgetDao;
+    private final TransactionDao transactionDao;
+    private final Context context;
 
-    public BudgetRepository(BudgetDao budgetDao) {
+    public BudgetRepository(BudgetDao budgetDao, TransactionDao transactionDao, @ApplicationContext Context context) {
         this.budgetDao = budgetDao;
+        this.transactionDao = transactionDao;
+        this.context = context;
     }
 
     // -------------------------
@@ -34,6 +48,8 @@ public class BudgetRepository {
 
         budget.isSynced = false;
         budget.isDeleted = false;
+        budget.isArchived = false;
+        budget.isPaused = false;
         budget.createdAt = now;
         budget.updatedAt = now;
         budget.budgetServerId = 0;
@@ -182,10 +198,13 @@ public class BudgetRepository {
             BudgetWalletEntity existing = existingMap.get(walletId);
 
             if (existing != null) {
-                existing.isDeleted = false;
-                existing.isSynced = false;
-                existing.updatedAt = now;
-                budgetDao.updateWallet(existing);
+                // Restore only if it was previously deleted
+                if (existing.isDeleted) {
+                    existing.isDeleted = false;
+                    existing.isSynced = false;
+                    existing.updatedAt = now;
+                    budgetDao.updateWallet(existing);
+                }
             } else {
                 BudgetWalletEntity newWallet = new BudgetWalletEntity();
                 newWallet.budgetId = budgetId;
@@ -235,10 +254,12 @@ public class BudgetRepository {
 
             BudgetCategoryEntity existing = existingMap.get(categoryId);
             if (existing != null) {
-                existing.isDeleted = false;
-                existing.isSynced = false;
-                existing.updatedAt = now;
-                budgetDao.updateCategory(existing);
+                if (existing.isDeleted) {
+                    existing.isDeleted = false;
+                    existing.isSynced = false;
+                    existing.updatedAt = now;
+                    budgetDao.updateCategory(existing);
+                }
             } else {
                 BudgetCategoryEntity newCategory = new BudgetCategoryEntity();
                 newCategory.budgetId = budgetId;
@@ -310,11 +331,13 @@ public class BudgetRepository {
 
             BudgetCategoryAmountEntity existing = existingMap.get(categoryId);
             if (existing != null) {
-                existing.amount = amount;
-                existing.isDeleted = false;
-                existing.isSynced = false;
-                existing.updatedAt = now;
-                budgetDao.updateCategoryAmount(existing);
+                if (existing.isDeleted) {
+                    existing.amount = amount;
+                    existing.isDeleted = false;
+                    existing.isSynced = false;
+                    existing.updatedAt = now;
+                    budgetDao.updateCategoryAmount(existing);
+                }
             } else {
                 BudgetCategoryAmountEntity newAmount = new BudgetCategoryAmountEntity();
                 newAmount.budgetId = budgetId;
@@ -412,7 +435,9 @@ public class BudgetRepository {
         long now = System.currentTimeMillis();
         List<BudgetEntity> budgets = budgetDao.getBudgetsDueForRepeat(now);
         for (BudgetEntity budget : budgets) {
-            createNextBudget(budget);
+            if (budget.repeatEnabled && !budget.isPaused && !budget.isArchived && !budget.isDeleted) {
+                createNextBudget(budget);
+            }
         }
     }
 
@@ -423,23 +448,35 @@ public class BudgetRepository {
         BudgetPeriod nextPeriod = calculateNextPeriod(current.periodId, current.startDate, current.endDate);
         BudgetEntity next = new BudgetEntity();
         next.name = current.name;
+        next.accountId = current.accountId;
         next.periodId = current.periodId;
         next.methodId = current.methodId;
         next.startDate = nextPeriod.startDate;
         next.endDate = nextPeriod.endDate;
+        next.categoryCount = current.categoryCount;
+        next.isAllCategory = current.isAllCategory;
+        next.walletCount = current.walletCount;
         next.amount = current.amount;
         next.alertEnabled = current.alertEnabled;
         next.alertPercentage = current.alertPercentage;
+        next.alertTriggered = false;
         next.repeatEnabled = true;
         next.repeatGroupId = current.repeatGroupId;
+        next.currencyCode = current.currencyCode;
+        next.currencySymbol = current.currencySymbol;
+        next.currencyName = current.currencyName;
 
         BudgetPeriod followingPeriod = calculateNextPeriod(next.periodId, next.startDate, next.endDate);
         next.nextRepeatDate = followingPeriod.startDate;
 
         next.isSynced = false;
         next.isDeleted = false;
+        next.isArchived = false;
+        next.isPaused = false;
         next.createdAt = now;
         next.updatedAt = now;
+        next.pausedOn = 0;
+        next.archivedOn = 0;
         next.budgetServerId = 0;
         next.tempBudgetServerId = "B_" + now;
 
@@ -537,5 +574,91 @@ public class BudgetRepository {
         if (!newAmounts.isEmpty()) {
             budgetDao.insertCategoryAmounts(newAmounts);
         }
+    }
+
+    public LiveData<List<BudgetWithDetails>> getBudgets(int accountId, boolean isArchived, boolean isPaused, boolean isCompleted) {
+        return budgetDao.getBudgets(accountId, isArchived, isPaused, isCompleted);
+    }
+
+    public LiveData<BudgetWithDetails> getBudgetDetailById(int budgetId) {
+        return budgetDao.getBudgetDetailById(budgetId);
+    }
+
+    public boolean deleteBudget(int budgetId) {
+        if(budgetDao.delete(budgetId, System.currentTimeMillis()) > 0) {
+            budgetDao.deleteCategories(budgetId, System.currentTimeMillis());
+            budgetDao.deleteWallets(budgetId, System.currentTimeMillis());
+            budgetDao.deleteCategoryAmounts(budgetId, System.currentTimeMillis());
+        }
+
+        return true;
+    }
+
+    public boolean archiveRestoreBudget(int budgetId, boolean isArchive, boolean isPause) {
+        return budgetDao.archiveRestoreBudget(budgetId, System.currentTimeMillis(), isArchive, isArchive ? System.currentTimeMillis() : 0, isPause) > 0;
+    }
+
+    public boolean pauseBudget(int budgetId, boolean isPause) {
+        return budgetDao.pauseBudget(budgetId, System.currentTimeMillis(), isPause, isPause ? System.currentTimeMillis() : 0) > 0;
+    }
+
+    public void checkBudgetAlerts() {
+
+        List<BudgetEntity> budgets = budgetDao.getActiveAlertBudgets();
+        long now = System.currentTimeMillis();
+
+        for (BudgetEntity budget : budgets) {
+            if (now < budget.startDate || now > budget.endDate) {
+                continue;
+            }
+
+            if (!budget.alertEnabled) {
+                continue;
+            }
+
+            if (budget.alertPercentage <= 0) {
+                continue;
+            }
+
+            if (budget.amount <= 0) {
+                continue;
+            }
+
+            double spentAmount = budgetDao.getBudgetSpentAmount(budget.id, budget.startDate, budget.endDate);
+            double alertAmount = budget.amount * budget.alertPercentage / 100.0;
+
+            if (spentAmount < alertAmount) {
+                if (budget.alertTriggered) {
+                    budgetDao.updateAlertTriggered(budget.id, false, System.currentTimeMillis());
+                }
+                continue;
+            }
+
+            if (budget.alertTriggered) {
+                continue;
+            }
+
+            boolean notificationShown = BudgetNotificationHelper.showBudgetAlert(context, budget.id, budget.name, spentAmount, budget.amount, budget.alertPercentage);
+            if (notificationShown) {
+                budgetDao.updateAlertTriggered(budget.id, true, System.currentTimeMillis());
+            }
+        }
+    }
+
+    public List<TransactionWithDetails> getTransactionsForBudget(int accountId, long startDate, long endDate, List<Integer> categoryIds, List<Integer> walletIds,
+                                                                       boolean allCategories, boolean allWallets, boolean isRecent, int page, int pageSize) {
+        if(isRecent) {
+            return transactionDao.getRecentTransactionsForBudget(accountId, startDate, endDate, categoryIds, walletIds, allCategories, allWallets);
+        }
+        int offset = page * pageSize;
+        return transactionDao.getTransactionsForBudgetPaged(accountId, startDate, endDate, categoryIds, walletIds, allCategories, allWallets, pageSize, offset);
+    }
+
+    public List<Integer> getCategoryIdsByBudgetId(int budgetId) {
+        return budgetDao.getCategoryIdsByBudgetId(budgetId);
+    }
+
+    public List<Integer> getWalletIdsByBudgetId(int budgetId) {
+        return budgetDao.getWalletIdsByBudgetId(budgetId);
     }
 }

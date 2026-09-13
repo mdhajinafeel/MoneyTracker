@@ -19,13 +19,15 @@ public class WalletRepository {
     private final WalletDao walletDao;
     private final TransactionDao transactionDao;
     private final AccountDao accountDao;
+    private final BudgetRepository budgetRepository;
     private final MoneyTrackerDatabase database;
 
-    public WalletRepository(MoneyTrackerDatabase database, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao) {
+    public WalletRepository(MoneyTrackerDatabase database, WalletDao walletDao, TransactionDao transactionDao, AccountDao accountDao, BudgetRepository budgetRepository) {
         this.database = database;
         this.walletDao = walletDao;
         this.transactionDao = transactionDao;
         this.accountDao = accountDao;
+        this.budgetRepository = budgetRepository;
     }
 
     public LiveData<List<WalletEntity>> getFilteredWallets(int accountId, int sortType) {
@@ -96,7 +98,11 @@ public class WalletRepository {
 
         // Delete all transactions
         for (TransactionEntity transaction : transactions) {
-            transactionDao.deleteTransaction(transaction.tempTransactionServerId, updatedAt);
+            int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, updatedAt);
+
+            if(rows > 0) {
+                budgetRepository.checkBudgetAlerts();
+            }
         }
 
         // Recalculate affected wallets

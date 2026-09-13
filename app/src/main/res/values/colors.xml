@@ -88,6 +88,7 @@
     <color name="dark_teal">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_brown">#654321</color>
 
     <color name="very_light_grey">#0DBDBDBD</color>
     <color name="grey">#BDBDBD</color>
@@ -134,4 +135,20 @@
     <color name="color_expense_circle">#F8B4B4</color>
     <color name="color_transfer_card">#F2F6FF</color>
     <color name="color_transfer_circle">#B8CDF8</color>
+
+    <color name="color_pause">#F59E0B</color>
+    <color name="color_pause_light">#FFF7E6</color>
+    <color name="color_pause_dark">#B45309</color>
+
+    <color name="resume_dark">#2E7D32</color>
+    <color name="resume_light">#66BB6A</color>
+    <color name="resume_bg">#9DF2A4</color>
+
+    <color name="overspent_dark">#C62828</color>
+    <color name="overspent_light">#EF5350</color>
+    <color name="overspent_bg">#F8D6D6</color>
+
+    <color name="warning_dark">#EF6C00</color>
+    <color name="warning_light">#FFA726</color>
+    <color name="warning_bg">#FFF8E1</color>
 </resources>

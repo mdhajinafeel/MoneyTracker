@@ -89,6 +89,13 @@ public class TransactionBreakdownActivity extends BaseActivity {
                 return insets;
             });
 
+            ViewCompat.setOnApplyWindowInsetsListener(viewPager, (v, insets) -> {
+
+                int bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+                v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
+                return insets;
+            });
+
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 

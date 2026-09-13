@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/categoryRoot"
     android:layout_width="match_parent"
@@ -9,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/emptyWrapper"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,9 +43,10 @@
             app:fontFamily="@font/exo2_semibold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emptyImage" />
+            app:layout_constraintTop_toBottomOf="@id/emptyImage" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/emptyDescriptionLabel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_24"
@@ -58,28 +60,28 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emptyTitleLabel" />
+            app:layout_constraintTop_toBottomOf="@id/emptyTitleLabel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Expense chart -->
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/pieChartIncome"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        android:layout_marginTop="@dimen/margin_10"
         android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Breakdown card -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/incomeBreakdownCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
-        android:layout_marginTop="@dimen/margin_12"
         android:layout_marginEnd="@dimen/margin_12"
-        android:layout_marginBottom="@dimen/margin_46"
+        android:layout_marginBottom="@dimen/margin_12"
         android:visibility="gone"
         app:cardCornerRadius="@dimen/corner_radius_8"
         app:cardElevation="@dimen/corner_elevation_6"
@@ -94,9 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
-            android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
             android:padding="@dimen/padding_10"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:scrollbars="none"/>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -268,6 +268,7 @@ public class CategoryAmountActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.putIntegerArrayListExtra("categoryIds", new ArrayList<>(selectedCategoryIds));
                 intent.putExtra("categoryAmounts", new HashMap<>(categoryAmounts));
+                intent.putExtra("isAllCategory", selectedCategoryIds.size() == selectedCategory.size());
                 setResult(-1, intent);
                 finish();
                 ActivityUtils.overrideCloseTransition(CategoryAmountActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);

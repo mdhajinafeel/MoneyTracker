@@ -68,6 +68,7 @@
     <string name="finish_goal">Finish this goal</string>
     <string name="move_back_progress">Back to progress</string>
     <string name="archived_move">Move to archived</string>
+    <string name="delete_goal_desc">Remove goal permanently</string>
     <string name="move_back">Move back to active goals</string>
     <string name="edit_goal">Edit Goal</string>
     <string name="edit_goal_detail">Change goal details</string>

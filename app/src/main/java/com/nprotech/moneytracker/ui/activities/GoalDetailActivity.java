@@ -152,8 +152,7 @@ public class GoalDetailActivity extends BaseActivity {
                 setupListeners();
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
-                finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                finishWithTransitions();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "initComponents", e);
@@ -173,7 +172,7 @@ public class GoalDetailActivity extends BaseActivity {
 
                         int goalColor = Color.parseColor(goalWithDetail.color);
                         long daysLeft = CommonUtils.calculateDaysLeft(goalWithDetail.targetDate);
-                        int progress = CommonUtils.calculateGoalProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
+                        int progress = CommonUtils.calculateProgress(goalWithDetail.savedAmount, goalWithDetail.targetAmount);
                         currencySymbol = goalWithDetail.currencySymbol;
 
                         Drawable background = ivGoalIcon.getBackground().mutate();
@@ -313,8 +312,7 @@ public class GoalDetailActivity extends BaseActivity {
                 });
             } else {
                 Toast.makeText(getApplicationContext(), getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
-                finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
+                finishWithTransitions();
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -566,16 +564,12 @@ public class GoalDetailActivity extends BaseActivity {
 
     private void setupListeners() {
         try {
-            icBack.setOnClickListener(view -> {
-                finish();
-                ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
-            });
+            icBack.setOnClickListener(view -> finishWithTransitions());
 
             getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
                 @Override
                 public void handleOnBackPressed() {
-                    finish();
-                    ActivityUtils.overrideCloseTransition(GoalDetailActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                    finishWithTransitions();
                 }
             });
 
@@ -838,7 +832,7 @@ public class GoalDetailActivity extends BaseActivity {
         AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
         AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
         AppCompatTextView tvSubMessage = view.findViewById(R.id.tvSubMessage);
-        AppCompatTextView tvDelete = view.findViewById(R.id.tvDelete);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
         tvTitle.setText(R.string.archive_goal);
         tvMessage.setText(R.string.delete_archive_message);
         tvSubMessage.setText(R.string.delete_archive_sub_message);
@@ -1107,5 +1101,10 @@ public class GoalDetailActivity extends BaseActivity {
         });
 
         dialog.show();
+    }
+
+    private void finishWithTransitions() {
+        finish();
+        ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
     }
 }

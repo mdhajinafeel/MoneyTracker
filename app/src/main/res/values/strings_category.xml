@@ -64,6 +64,8 @@
     <string name="text_continue">Continue</string>
     <string name="move_transaction_to">Move Transaction To</string>
     <string name="status">Status</string>
+    <string name="all_categories">All Categories</string>
+    <string name="categories">Categories</string>
 
     <plurals name="selected_category_desc">
         <item quantity="one">Move %1$d transaction from &quot;%2$s&quot; to another category.</item>

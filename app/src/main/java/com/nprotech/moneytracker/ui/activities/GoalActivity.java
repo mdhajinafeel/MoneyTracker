@@ -131,7 +131,6 @@ public class GoalActivity extends BaseActivity {
             viewPager.setPageTransformer(null);
             viewPager.setOffscreenPageLimit(1);
             viewPager.setUserInputEnabled(true);
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }
