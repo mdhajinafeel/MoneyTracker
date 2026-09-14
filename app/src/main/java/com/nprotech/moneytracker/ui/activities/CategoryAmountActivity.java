@@ -62,6 +62,7 @@ public class CategoryAmountActivity extends BaseActivity {
     private View categoryRoot;
     private final Set<Integer> selectedCategoryIds = new HashSet<>();
     private final List<CategoryEntity> selectedCategory = new ArrayList<>();
+    private final List<CategoryEntity> allCategories = new ArrayList<>();
     private String currencySymbol = "";
     private ActivityResultLauncher<Intent> calculatorLauncher, categoryPickerLauncher;
     private final Map<Integer, Double> categoryAmounts = new HashMap<>();
@@ -133,6 +134,9 @@ public class CategoryAmountActivity extends BaseActivity {
 
                 categoryViewModel.getIncomeCategories().observe(this, categoryEntities -> {
                     if (!categoryEntities.isEmpty()) {
+                        allCategories.clear();
+                        allCategories.addAll(categoryEntities);
+
                         selectedCategory.clear();
                         for (CategoryEntity category : categoryEntities) {
                             if (selectedCategoryIds.contains(category.id)) {
@@ -268,7 +272,7 @@ public class CategoryAmountActivity extends BaseActivity {
                 Intent intent = new Intent();
                 intent.putIntegerArrayListExtra("categoryIds", new ArrayList<>(selectedCategoryIds));
                 intent.putExtra("categoryAmounts", new HashMap<>(categoryAmounts));
-                intent.putExtra("isAllCategory", selectedCategoryIds.size() == selectedCategory.size());
+                intent.putExtra("isAllCategory", selectedCategoryIds.size() == allCategories.size());
                 setResult(-1, intent);
                 finish();
                 ActivityUtils.overrideCloseTransition(CategoryAmountActivity.this, R.anim.slide_in_left, R.anim.slide_out_right);
@@ -288,57 +292,52 @@ public class CategoryAmountActivity extends BaseActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void setupLaunchers() {
-        calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
+        calculatorLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null) {
 
-                            String type = data.getStringExtra("type");
-                            if (!"amount".equalsIgnoreCase(type)) {
-                                return;
-                            }
-
-                            double amount = data.getDoubleExtra("amount", 0);
-                            if (editingCategoryId == -1) {
-                                return;
-                            }
-                            categoryAmounts.put(editingCategoryId, amount);
-                            if (rvCategories.getAdapter() != null) {
-                                rvCategories.getAdapter().notifyDataSetChanged();
-                            }
-
-                            updateTotalBudget();
-                            updateDoneButtonState();
-                            editingCategoryId = -1;
-                        }
+                    String type = data.getStringExtra("type");
+                    if (!"amount".equalsIgnoreCase(type)) {
+                        return;
                     }
-                });
 
-        categoryPickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        ArrayList<Integer> categoryIds = result.getData().getIntegerArrayListExtra("categoryIds");
-
-                        if (categoryIds != null) {
-                            selectedCategoryIds.clear();
-                            selectedCategoryIds.addAll(categoryIds);
-
-                            Iterator<Integer> iterator = categoryAmounts.keySet().iterator();
-                            while (iterator.hasNext()) {
-                                Integer id = iterator.next();
-
-                                if (!selectedCategoryIds.contains(id)) {
-                                    iterator.remove();
-                                }
-                            }
-
-                            categoryViewModel.incomeCategory(TransactionEntity.TYPE_EXPENSE, true);
-                        }
+                    double amount = data.getDoubleExtra("amount", 0);
+                    if (editingCategoryId == -1) {
+                        return;
                     }
+                    categoryAmounts.put(editingCategoryId, amount);
+                    if (rvCategories.getAdapter() != null) {
+                        rvCategories.getAdapter().notifyDataSetChanged();
+                    }
+
+                    updateTotalBudget();
+                    updateDoneButtonState();
+                    editingCategoryId = -1;
                 }
-        );
+            }
+        });
+
+        categoryPickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                ArrayList<Integer> categoryIds = result.getData().getIntegerArrayListExtra("categoryIds");
+
+                if (categoryIds != null) {
+                    selectedCategoryIds.clear();
+                    selectedCategoryIds.addAll(categoryIds);
+
+                    Iterator<Integer> iterator = categoryAmounts.keySet().iterator();
+                    while (iterator.hasNext()) {
+                        Integer id = iterator.next();
+                        if (!selectedCategoryIds.contains(id)) {
+                            iterator.remove();
+                        }
+                    }
+
+                    categoryViewModel.incomeCategory(TransactionEntity.TYPE_EXPENSE, true);
+                }
+            }
+        });
     }
 
     private void updateTotalBudget() {
@@ -354,8 +353,8 @@ public class CategoryAmountActivity extends BaseActivity {
     private void updateDoneButtonState() {
         boolean allAmountsEntered = !selectedCategory.isEmpty();
 
-        for (CategoryEntity category : selectedCategory) {
-            Double amount = categoryAmounts.get(category.id);
+        for (Integer categoryId : selectedCategoryIds) {
+            Double amount = categoryAmounts.get(categoryId);
 
             if (amount == null || amount <= 0) {
                 allAmountsEntered = false;

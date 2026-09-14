@@ -29,6 +29,7 @@ public class WalletEntity implements Serializable {
     public String currencyCode;
     public String currencySymbol;
     public int categoryIcon;
+    public double creditLimit;
     public double initialAmount;
     public double amount;
     public double exchangeRate;

@@ -45,7 +45,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardWallet"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_8"
                 android:layout_marginTop="@dimen/margin_10"
                 android:layout_marginEnd="@dimen/margin_8"
@@ -59,6 +59,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/walletContainer"
+                    android:paddingVertical="@dimen/padding_10"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -163,6 +164,33 @@
                         app:layout_constraintStart_toStartOf="@id/imageWrapper"
                         app:layout_constraintTop_toBottomOf="@id/lblAvailableBalance" />
 
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvAvailableCreditLimit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:visibility="gone"
+                        android:fontFamily="@font/exo2_regular"
+                        android:text="@string/available_credit"
+                        android:textColor="@color/ghost_white"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintStart_toStartOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/tvAvailableBalance" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvCreditLimit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/margin_4"
+                        android:paddingBottom="@dimen/padding_4"
+                        android:fontFamily="@font/exo2_regular"
+                        android:text="@string/credit_limit"
+                        android:textColor="@color/ghost_white"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintStart_toStartOf="@id/imageWrapper"
+                        app:layout_constraintTop_toBottomOf="@id/tvAvailableCreditLimit" />
+
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/ivWallet"
                         android:layout_width="96dp"
@@ -173,6 +201,124 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBilling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_6"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardWallet"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/billingLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_16"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginEnd="@dimen/margin_8"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/exo2_bold"
+                        android:maxLines="1"
+                        android:text="@string/billing"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_14"
+                        app:layout_constraintEnd_toStartOf="@id/transactionAllLabel"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:divider="@drawable/view_divider"
+                        android:orientation="vertical"
+                        android:showDividers="middle"
+                        android:paddingHorizontal="@dimen/padding_16"
+                        android:paddingTop="@dimen/padding_6"
+                        android:paddingBottom="@dimen/padding_10">
+
+                        <LinearLayout
+                            android:id="@+id/layoutStatementDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/padding_10"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/ic_calendar_statement"
+                                android:tint="@color/primary_dark" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/exo2_medium"
+                                android:text="@string/statement_date"
+                                android:textColor="@color/color_matte_black"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvStatementDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:textColor="@color/color_matte_black"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layoutPaymentDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:paddingVertical="@dimen/padding_10"
+                            android:orientation="horizontal">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:src="@drawable/ic_calendar_payment"
+                                android:tint="@color/primary_dark" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin_8"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/exo2_medium"
+                                android:text="@string/payment_date"
+                                android:textColor="@color/color_matte_black"
+                                android:textSize="@dimen/text_14" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPaymentDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/exo2_semibold"
+                                android:textColor="@color/color_matte_black"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton
@@ -197,7 +343,7 @@
                 app:iconTint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardWallet" />
+                app:layout_constraintTop_toBottomOf="@+id/cardBilling" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardSummary"

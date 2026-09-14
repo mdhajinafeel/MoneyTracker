@@ -1356,13 +1356,23 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             double exchangeRate = 1;
 
             if (wallet != null) {
-                // Undo old income
-                wallet.amount -= oldAmount;
-
-                // Apply new income
-                wallet.amount += transactionAmount;
-
                 exchangeRate = wallet.exchangeRate;
+
+                if (isCreditCardWallet(wallet)) {
+                    // Credit Card refund:
+                    // Undo old refund
+                    wallet.amount += oldAmount;
+
+                    // Apply new refund
+                    wallet.amount -= transactionAmount;
+                } else {
+                    // Normal Wallet:
+                    // Undo old income
+                    wallet.amount -= oldAmount;
+
+                    // Apply new income
+                    wallet.amount += transactionAmount;
+                }
             }
 
             if (account != null) {
@@ -1384,8 +1394,15 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             double exchangeRate = 1;
 
             if (wallet != null) {
-                wallet.amount += transactionAmount;
                 exchangeRate = wallet.exchangeRate;
+
+                if (isCreditCardWallet(wallet)) {
+                    // Credit Card refund reduces outstanding
+                    wallet.amount -= transactionAmount;
+                } else {
+                    // Normal Wallet income increases balance
+                    wallet.amount += transactionAmount;
+                }
             }
 
             if (account != null) {
@@ -1415,12 +1432,23 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             double exchangeRate = 1;
 
             if (wallet != null) {
-                // Undo old expense
-                wallet.amount += oldAmount;
-
-                // Apply new expense
-                wallet.amount -= transactionAmount;
                 exchangeRate = wallet.exchangeRate;
+
+                if (isCreditCardWallet(wallet)) {
+                    // Credit Card:
+                    // Undo old expense
+                    wallet.amount -= oldAmount;
+
+                    // Apply new expense
+                    wallet.amount += transactionAmount;
+                } else {
+                    // Normal Wallet:
+                    // Undo old expense
+                    wallet.amount += oldAmount;
+
+                    // Apply new expense
+                    wallet.amount -= transactionAmount;
+                }
             }
 
             if (account != null) {
@@ -1439,8 +1467,15 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
             double exchangeRate = 1;
             if (wallet != null) {
-                wallet.amount -= transactionAmount;
                 exchangeRate = wallet.exchangeRate;
+
+                if (isCreditCardWallet(wallet)) {
+                    // Credit Card expense increases outstanding amount
+                    wallet.amount += transactionAmount;
+                } else {
+                    // Normal wallet expense decreases balance
+                    wallet.amount -= transactionAmount;
+                }
             }
 
             if (account != null) {
@@ -1490,8 +1525,20 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 oldConvertedAmount = oldAccountAmount / oldToWallet.exchangeRate;
             }
 
-            oldFromWallet.amount += existingAmount;
-            oldToWallet.amount -= oldConvertedAmount;
+            // Undo old FROM wallet effect
+            if (isCreditCardWallet(oldFromWallet)) {
+                // Undo previous Credit Card cash advance
+                oldFromWallet.amount -= existingAmount;
+            } else {
+                // Undo previous normal wallet deduction
+                oldFromWallet.amount += existingAmount;
+            }
+
+            if (isCreditCardWallet(oldToWallet)) {
+                oldToWallet.amount += oldConvertedAmount;
+            } else {
+                oldToWallet.amount -= oldConvertedAmount;
+            }
 
             if (!oldFromWallet.isExclude && oldToWallet.isExclude) {
                 account.balance += oldAccountAmount;
@@ -1503,7 +1550,13 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             oldFeeTransaction = transactionViewModel.getFeeTransaction(transactionWithDetails.transaction.tempTransactionServerId);
 
             if (oldFeeTransaction != null) {
-                oldFromWallet.amount += oldFeeTransaction.amount;
+                if (isCreditCardWallet(oldFromWallet)) {
+                    // Undo previous CC fee
+                    oldFromWallet.amount -= oldFeeTransaction.amount;
+                } else {
+                    // Undo previous normal wallet fee
+                    oldFromWallet.amount += oldFeeTransaction.amount;
+                }
 
                 if (!oldFromWallet.isExclude) {
                     account.balance += oldFeeTransaction.accountAmount;
@@ -1518,8 +1571,24 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             transferTransaction.accountAmount = accountAmount;
             transferTransaction.convertedAmount = convertedAmount;
 
-            fromWallet.amount -= transactionAmount;
-            toWallet.amount += convertedAmount;
+            // FROM wallet
+            if (isCreditCardWallet(fromWallet)) {
+                // Credit Card → another wallet:
+                // Cash advance / transfer from Credit Card increases outstanding
+                fromWallet.amount += transactionAmount;
+            } else {
+                // Normal wallet balance decreases
+                fromWallet.amount -= transactionAmount;
+            }
+
+            // TO wallet
+            if (isCreditCardWallet(toWallet)) {
+                // Paying Credit Card reduces outstanding
+                toWallet.amount -= convertedAmount;
+            } else {
+                // Normal wallet balance increases
+                toWallet.amount += convertedAmount;
+            }
 
             if (!fromWallet.isExclude && toWallet.isExclude) {
                 account.balance -= accountAmount;
@@ -1534,7 +1603,13 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 double feeAccountAmount = transactionFee * fromWallet.exchangeRate;
 
-                fromWallet.amount -= transactionFee;
+                if (isCreditCardWallet(fromWallet)) {
+                    // Fee charged to Credit Card increases outstanding
+                    fromWallet.amount += transactionFee;
+                } else {
+                    // Fee from normal wallet decreases balance
+                    fromWallet.amount -= transactionFee;
+                }
 
                 if (!fromWallet.isExclude) {
                     account.balance -= feeAccountAmount;
@@ -1592,8 +1667,24 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             transferTransaction.accountAmount = accountAmount;
             transferTransaction.convertedAmount = convertedAmount;
 
-            fromWallet.amount -= transactionAmount;
-            toWallet.amount += convertedAmount;
+            // FROM wallet
+            if (isCreditCardWallet(fromWallet)) {
+                // Credit Card → another wallet:
+                // Cash advance / transfer from Credit Card increases outstanding
+                fromWallet.amount += transactionAmount;
+            } else {
+                // Normal wallet balance decreases
+                fromWallet.amount -= transactionAmount;
+            }
+
+            // TO wallet
+            if (isCreditCardWallet(toWallet)) {
+                // Paying Credit Card reduces outstanding
+                toWallet.amount -= convertedAmount;
+            } else {
+                // Normal wallet balance increases
+                toWallet.amount += convertedAmount;
+            }
 
             if (!fromWallet.isExclude && toWallet.isExclude) {
                 account.balance -= accountAmount;
@@ -1607,7 +1698,13 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 double feeAccountAmount = transactionFee * fromWallet.exchangeRate;
 
-                fromWallet.amount -= transactionFee;
+                if (isCreditCardWallet(fromWallet)) {
+                    // Fee charged to Credit Card increases outstanding
+                    fromWallet.amount += transactionFee;
+                } else {
+                    // Fee from normal wallet decreases balance
+                    fromWallet.amount -= transactionFee;
+                }
 
                 if (!fromWallet.isExclude) {
                     account.balance -= feeAccountAmount;
@@ -1746,5 +1843,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         calendar.set(11, i);
         calendar.set(12, i1);
         this.date = calendar.getTime();
+    }
+
+    private boolean isCreditCardWallet(WalletEntity wallet) {
+        return wallet != null && wallet.walletType == 3;
     }
 }

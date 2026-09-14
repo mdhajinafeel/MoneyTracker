@@ -477,7 +477,7 @@ public class WalletArchivedActivity extends BaseActivity {
             walletViewModel.setWalletArchivedSort(getSortValue(selectedSortType));
             updateSortingLabel();
         } catch (Exception e) {
-            AppLogger.e(getClass(), "applyBackupFilters", e);
+            AppLogger.e(getClass(), "applyWalletFilters", e);
         }
     }
 

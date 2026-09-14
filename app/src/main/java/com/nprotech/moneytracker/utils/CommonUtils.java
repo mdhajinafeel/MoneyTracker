@@ -11,6 +11,8 @@ import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -297,6 +299,16 @@ public class CommonUtils {
         }
 
         textView.setCompoundDrawables(start, null, end, null);
+    }
+
+    public static void setFormattedText(AppCompatTextView textView, String beforeText, String styledText, Typeface normalTypeface, Typeface styledTypeface) {
+        String fullText = beforeText + styledText;
+        SpannableString spannableString = new SpannableString(fullText);
+        int start = beforeText.length();
+        int end = start + styledText.length();
+        spannableString.setSpan(new CustomTypefaceSpan(styledTypeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setTypeface(normalTypeface);
+        textView.setText(spannableString);
     }
 
     // =========================================================

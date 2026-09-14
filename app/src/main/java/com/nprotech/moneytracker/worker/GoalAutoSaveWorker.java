@@ -31,15 +31,11 @@ public class GoalAutoSaveWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-
         try {
-
             long now = System.currentTimeMillis();
-
             List<GoalEntity> goals = repository.getDueAutoSaveGoals(now);
 
             for (GoalEntity goal : goals) {
-
                 try {
                     repository.executeAutoSave(goal);
                 } catch (Exception e) {
@@ -56,15 +52,11 @@ public class GoalAutoSaveWorker extends Worker {
     }
 
     private void scheduleNext() {
-
         Long nextRunDate = repository.getEarliestAutoSaveDate();
-
         if (nextRunDate == null) {
             return;
         }
-
         long delay = nextRunDate - System.currentTimeMillis();
-
         GoalWorkManagerHelper.scheduleAutoSave(getApplicationContext(), Math.max(delay, 0));
     }
 }

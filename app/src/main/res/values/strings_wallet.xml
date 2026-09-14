@@ -4,6 +4,8 @@
     <string name="bank">Bank</string>
     <string name="credit_card">Credit Card</string>
     <string name="debit_card">Debit Card</string>
+    <string name="e_wallet">E-wallet</string>
+    <string name="prepaid_card">Prepaid Card</string>
     <string name="wallet_name">Wallet Name</string>
     <string name="add_wallet">Add Wallet</string>
     <string name="edit_wallet">Edit Wallet</string>
@@ -11,14 +13,16 @@
     <string name="wallet_created_successfully">Wallet created</string>
     <string name="wallet_updated_successfully">Wallet updated</string>
     <string name="credit_limit">Credit Limit</string>
+    <string name="credit_limit_value">Credit Limit: %1$s</string>
     <string name="adjust_balance">Adjust Balance</string>
     <string name="available_balance">Available Balance</string>
+    <string name="available_credit">Available Credit: %1$s</string>
     <string name="transaction_list">Transaction List</string>
     <string name="wallet_details">Wallet Details</string>
     <string name="adjust_by_transaction_hint">Adjusting your balance will create an adjustment transaction.</string>
     <string name="change_initial_amount_hint">This option will update your initial balance to match your current balance. As a result, your end-of-month balances may change.</string>
     <string name="adjust_by_transaction">Adjust by transaction</string>
-    <string name="change_initial_amount">Change initial amount</string>
+    <string name="change_initial_amount">Change initial balance</string>
     <string name="select_wallet">Select Wallet</string>
     <string name="from_wallet">From Wallet</string>
     <string name="to_wallet">To Wallet</string>
@@ -57,7 +61,7 @@
     <string name="archive_wallet_message">This wallet will be hidden from active wallets. Your balance and transactions will be preserved.</string>
     <string name="delete_wallet_transactions">Delete wallet transactions?</string>
     <string name="delete_wallet_confirmation">This will permanently remove the wallet and all its transactions. This action cannot be undone.</string>
-    <string name="delete_wallet_transactions_desc">All transactions in this wallet will be deleted. Your wallet and initial amount will remain unchanged. This action cannot be undone.</string>
+    <string name="delete_wallet_transactions_desc">All transactions in this wallet will be deleted. Your wallet and initial balance will remain unchanged. This action cannot be undone.</string>
     <string name="wallet_deleted">Wallet deleted</string>
     <string name="wallet_trans_deleted">Wallet transactions deleted</string>
     <string name="error_delete_wallet">Error when delete the wallet</string>
@@ -76,6 +80,18 @@
     <string name="default_first">Default first</string>
     <string name="more_wallets_selected">%d wallets selected</string>
     <string name="more_category_selected">%d wallets selected</string>
+    <string name="enter_credit_limit">Enter credit limit</string>
+    <string name="initial_outstanding">Initial Outstanding</string>
+    <string name="available_outstanding">Outstanding</string>
+    <string name="available_credit_short">Available</string>
+    <string name="text_refunds">Refunds</string>
+    <string name="text_payments">Payments</string>
+    <string name="statement_date">Statement date</string>
+    <string name="payment_date">Payment date</string>
+    <string name="select_statement_date">Select statement date</string>
+    <string name="select_payment_date">Select payment date</string>
+    <string name="billing">Billing</string>
+    <string name="wallet_type_currency">%1$s (%2$s)</string>
 
     <plurals name="wallet_count">
         <item quantity="one">%d wallet</item>

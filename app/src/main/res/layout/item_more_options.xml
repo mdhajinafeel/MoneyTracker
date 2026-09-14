@@ -31,36 +31,42 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Setting Name -->
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSettingName"
+    <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:fontFamily="@font/exo2_semibold"
-        android:includeFontPadding="false"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_18"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/colorView"
         app:layout_constraintEnd_toStartOf="@id/colorBadgeView"
         app:layout_constraintStart_toEndOf="@id/colorView"
-        app:layout_constraintTop_toTopOf="@id/colorView" />
+        app:layout_constraintTop_toTopOf="@id/colorView">
 
-    <!-- Description -->
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvSettingDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_10"
-        android:layout_marginEnd="@dimen/margin_10"
-        android:layout_marginTop="@dimen/margin_6"
-        android:fontFamily="@font/exo2_semibold"
-        android:includeFontPadding="false"
-        android:textColor="@color/funky_grey"
-        android:textSize="@dimen/text_12"
-        app:layout_constraintEnd_toStartOf="@id/colorBadgeView"
-        app:layout_constraintStart_toEndOf="@id/colorView"
-        app:layout_constraintTop_toBottomOf="@id/tvSettingName" />
+        <!-- Setting Name -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSettingName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/payment_date"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_18" />
+
+        <!-- Description -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvSettingDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_semibold"
+            android:includeFontPadding="false"
+            android:text="@string/payment_date"
+            android:textColor="@color/funky_grey"
+            android:textSize="@dimen/text_12" />
+    </LinearLayout>
 
     <!-- Badge -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,9 +74,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_12"
-        android:visibility="gone"
         android:layout_marginEnd="@dimen/margin_12"
         android:background="@drawable/bg_badge_more_options"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ivNavigation"
         app:layout_constraintTop_toTopOf="parent">
@@ -79,14 +85,14 @@
             android:id="@+id/tvBadgeCount"
             android:layout_width="18dp"
             android:layout_height="18dp"
+            android:fontFamily="@font/exo2_semibold"
             android:gravity="center"
             android:paddingStart="@dimen/padding_6"
             android:paddingEnd="@dimen/padding_6"
             android:textSize="@dimen/text_10"
-            android:fontFamily="@font/exo2_semibold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

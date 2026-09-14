@@ -69,6 +69,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -81,9 +82,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CreateBudgetActivity extends BaseActivity {
     private AppCompatImageView icBack, ivSelectedPeriod, ivBudgetIcon;
-    private AppCompatTextView tvSave, tvBudgetPeriod, selectedPeriodLabel, tvSelectBudgetPeriod, tvBudgetWallet, tvBudgetCategory,
-            tvBudgetMethod, tvBudgetAmount, tvBudgetAlert, maxLimitLabel, lblBudgetAmountTips, lblRepeatBudgetTips, lblRepeatBudgetDate,
-            lblRepeatBudgetDesc;
+    private AppCompatTextView tvSave, tvBudgetPeriod, selectedPeriodLabel, tvSelectBudgetPeriod, tvBudgetWallet, tvBudgetCategory, tvBudgetMethod, tvBudgetAmount,
+            tvBudgetAlert, maxLimitLabel, lblBudgetAmountTips, lblRepeatBudgetTips, lblRepeatBudgetDate, lblRepeatBudgetDesc;
     private AppCompatEditText etBudgetName;
     private MaterialCardView cardBudgetPeriod, cardSelectedPeriod, cardBudgetWallet, cardBudgetCategory, cardBudgetMethod, cardBudgetColor,
             cardBudgetIcon, cardBudgetAlert, cardBudgetAmount;
@@ -580,7 +580,7 @@ public class CreateBudgetActivity extends BaseActivity {
             if (selectedCategoryIds != null) {
                 int count = selectedCategoryIds.size();
 
-                if(isAllCategory) {
+                if (isAllCategory) {
                     tvBudgetCategory.setText(getString(R.string.all_categories));
                 } else {
                     tvBudgetCategory.setText(getResources().getQuantityString(R.plurals.category_selected_count, count, count));
@@ -856,25 +856,47 @@ public class CreateBudgetActivity extends BaseActivity {
                     }
                 });
 
-        categoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent data = result.getData();
-                        if (data != null) {
-                            ArrayList<Integer> categoryIds = data.getIntegerArrayListExtra("categoryIds");
-                            if (categoryIds != null) {
-                                selectedCategoryIds.clear();
-                                selectedCategoryIds.addAll(categoryIds);
+        categoryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent data = result.getData();
 
-                                isAllCategory = data.getBooleanExtra("isAllCategory", false);
+                if (data != null) {
+                    ArrayList<Integer> categoryIds =
+                            data.getIntegerArrayListExtra("categoryIds");
 
-                                updateCategoryTexts();
-                                updateAmountTexts();
-                                updateSaveButtonState();
+                    if (categoryIds != null) {
+                        selectedCategoryIds.clear();
+                        selectedCategoryIds.addAll(categoryIds);
+
+                        isAllCategory = data.getBooleanExtra("isAllCategory", false);
+
+                        Iterator<Integer> iterator = categoryAmounts.keySet().iterator();
+                        while (iterator.hasNext()) {
+                            Integer categoryId = iterator.next();
+                            if (!selectedCategoryIds.contains(categoryId)) {
+                                iterator.remove();
                             }
                         }
+
+                        // Recalculate Separate budget total
+                        if (Constants.METHOD_SEPARATE.equals(budgetMethod)) {
+                            budgetAmount = 0.0;
+                            for (Integer categoryId : selectedCategoryIds) {
+                                Double amount = categoryAmounts.get(categoryId);
+
+                                if (amount != null && amount > 0) {
+                                    budgetAmount += amount;
+                                }
+                            }
+                        }
+
+                        updateCategoryTexts();
+                        updateAmountTexts();
+                        updateSaveButtonState();
                     }
-                });
+                }
+            }
+        });
 
         categoryAmountLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -1038,12 +1060,26 @@ public class CreateBudgetActivity extends BaseActivity {
     }
 
     private void updateSaveButtonState() {
-        boolean enabled = budgetAmount > 0
-                && budgetPeriodId > 0 && budgetMethodId > 0 && selectedWalletIds != null
+        boolean enabled = budgetPeriodId > 0 && budgetMethodId > 0 && selectedWalletIds != null
                 && !selectedWalletIds.isEmpty() && selectedCategoryIds != null && !selectedCategoryIds.isEmpty();
 
-        String name = Objects.requireNonNull(etBudgetName.getText()).toString().trim();
+        if (Constants.METHOD_SEPARATE.equals(budgetMethod)) {
+            if (selectedCategoryIds != null && !selectedCategoryIds.isEmpty()) {
+                for (Integer categoryId : selectedCategoryIds) {
+                    Double amount = categoryAmounts.get(categoryId);
 
+                    if (amount == null || amount <= 0) {
+                        enabled = false;
+                        break;
+                    }
+                }
+            }
+        } else {
+            // Shared method requires one overall budget amount.
+            enabled = enabled && budgetAmount > 0;
+        }
+
+        String name = Objects.requireNonNull(etBudgetName.getText()).toString().trim();
         enabled = enabled && !name.isEmpty();
 
         tvSave.setEnabled(enabled);
@@ -1763,7 +1799,16 @@ public class CreateBudgetActivity extends BaseActivity {
     private void selectBudgetMethod() {
         try {
             hideKeyboard(this);
-            tempBudgetMethod = "";
+
+            if (isEdit) {
+                if (budgetMethodId == 1) {
+                    tempBudgetMethod = Constants.METHOD_SHARED;
+                } else {
+                    tempBudgetMethod = Constants.METHOD_SEPARATE;
+                }
+            } else {
+                tempBudgetMethod = Constants.METHOD_SHARED;
+            }
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_budget_method, findViewById(android.R.id.content), false);
@@ -2118,10 +2163,22 @@ public class CreateBudgetActivity extends BaseActivity {
             budget.categoryCount = selectedCategoryIds.size();
             budget.isAllCategory = isAllCategory;
 
-            if(selectedWalletIds.size() == walletLists.size()) {
+            if (selectedWalletIds.size() == walletLists.size()) {
                 budget.walletCount = -1;
             } else {
                 budget.walletCount = selectedWalletIds.size();
+            }
+
+            if (Constants.METHOD_SEPARATE.equals(budgetMethod)) {
+                budgetAmount = 0.0;
+
+                for (Integer categoryId : selectedCategoryIds) {
+                    Double amount = categoryAmounts.get(categoryId);
+
+                    if (amount != null && amount > 0) {
+                        budgetAmount += amount;
+                    }
+                }
             }
 
             budget.amount = budgetAmount;

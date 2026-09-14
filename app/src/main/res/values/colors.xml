@@ -71,14 +71,17 @@
     <color name="version_light">#EBEBEB</color>
     <color name="smart_light">#F3E8FF</color>
 
-    <color name="budget_dark">#6A1B9A</color>
-    <color name="budget_light">#F0E4F7</color>
-    <color name="goal_dark">#7B1FA2</color>
-    <color name="goal_light">#F1E5F8</color>
-    <color name="debt_dark">#E65100</color>
-    <color name="debt_light">#FCE8DD</color>
-    <color name="recurring_dark">#00897B</color>
-    <color name="recurring_light">#E0F3EF</color>
+    <color name="budget_dark">#673AB7</color>
+    <color name="budget_light">#F0EAF8</color>
+
+    <color name="goal_dark">#0288A8</color>
+    <color name="goal_light">#E3F4F7</color>
+
+    <color name="debt_dark">#C62828</color>
+    <color name="debt_light">#FBEAEA</color>
+
+    <color name="recurring_dark">#558B2F</color>
+    <color name="recurring_light">#EEF5E7</color>
 
     <color name="azure_blue">#FF2563EB</color>
     <color name="emerald_green">#FF10B981</color>

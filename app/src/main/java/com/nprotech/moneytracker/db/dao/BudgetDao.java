@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.nprotech.moneytracker.db.entites.BudgetCategoryAmountEntity;
@@ -12,6 +13,7 @@ import com.nprotech.moneytracker.db.entites.BudgetCategoryEntity;
 import com.nprotech.moneytracker.db.entites.BudgetEntity;
 import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.models.BudgetWithDetails;
+import com.nprotech.moneytracker.models.CategoryBudgetProgress;
 
 import java.util.List;
 
@@ -124,6 +126,30 @@ public interface BudgetDao {
             "WHERE b.id = :budgetId " +
             "AND b.isDeleted = 0")
     LiveData<BudgetWithDetails> getBudgetDetailById(int budgetId);
+
+    @Query("SELECT COUNT(*) " +
+            "FROM budget b " +
+            "WHERE b.isDeleted = 0 " +
+            "AND b.accountId = :accountId " +
+            "AND b.isArchived = 0 " +
+            "AND b.isPaused = 0 " +
+            "AND COALESCE(( " +
+            "    SELECT SUM(t.amount) " +
+            "    FROM transactions t " +
+            "    INNER JOIN budget_category bc " +
+            "        ON bc.categoryId = t.categoryId " +
+            "    INNER JOIN budget_wallet bw " +
+            "        ON bw.walletId = t.walletId " +
+            "    WHERE bc.budgetId = b.id " +
+            "    AND bw.budgetId = b.id " +
+            "    AND bc.isDeleted = 0 " +
+            "    AND bw.isDeleted = 0 " +
+            "    AND t.isDeleted = 0 " +
+            "    AND t.type = 2 " +
+            "    AND t.transactionDate >= b.startDate " +
+            "    AND t.transactionDate <= b.endDate " +
+            "), 0) < b.amount")
+    LiveData<Integer> getActiveBudgetCount(int accountId);
 
     @Update
     void update(BudgetEntity budget);
@@ -256,4 +282,65 @@ public interface BudgetDao {
         AND isDeleted = 0
         """)
     List<Integer> getWalletIdsByBudgetId(int budgetId);
+
+    @Transaction
+    @Query("""
+        SELECT
+            bc.categoryId AS categoryId,
+            c.name AS categoryName,
+            c.icon AS icon,
+            c.color AS color,
+            bca.amount AS budgetAmount,
+            COALESCE((
+                SELECT SUM(t.amount)
+                FROM transactions t
+                WHERE t.isDeleted = 0
+                AND t.type = 2
+                AND t.categoryId = bc.categoryId
+                AND t.transactionDate >= :startDate
+                AND t.transactionDate <= :endDate
+                AND EXISTS (
+                    SELECT 1
+                    FROM budget_wallet bw
+                    WHERE bw.budgetId = b.id
+                    AND bw.walletId = t.walletId
+                    AND bw.isDeleted = 0
+                )
+            ), 0) AS spentAmount,
+            b.currencySymbol, c.defaultCategory
+        FROM budget b
+        INNER JOIN budget_category bc
+            ON bc.budgetId = b.id
+            AND bc.isDeleted = 0
+        INNER JOIN categories c
+            ON c.id = bc.categoryId
+            AND c.type = 2
+            AND c.isDeleted = 0
+        INNER JOIN budget_category_amount bca
+            ON bca.budgetId = b.id
+            AND bca.categoryId = bc.categoryId
+            AND bca.isDeleted = 0
+        WHERE b.id = :budgetId AND b.accountId = :accountId
+        AND b.isDeleted = 0
+                    ORDER BY CASE WHEN :sortType = 1
+                                         THEN spentAmount * 1.0 / NULLIF(budgetAmount, 0)
+                                     END DESC,
+                                     CASE WHEN :sortType = 2
+                                         THEN spentAmount * 1.0 / NULLIF(budgetAmount, 0)
+                                     END ASC,
+                                     CASE WHEN :sortType = 3
+                                         THEN spentAmount
+                                     END DESC,
+                                     CASE WHEN :sortType = 4
+                                         THEN spentAmount
+                                     END ASC,
+                                     CASE WHEN :sortType = 5
+                                         THEN budgetAmount
+                                     END DESC,
+                                     CASE WHEN :sortType = 6
+                                         THEN budgetAmount
+                                     END ASC,
+                                     categoryName ASC
+        """)
+    List<CategoryBudgetProgress> getCategoryBudgetProgress(int accountId, int budgetId, long startDate, long endDate, int sortType);
 }

@@ -138,8 +138,8 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         AppCompatImageView ivIcon = featureView.findViewById(R.id.ivIcon);
         AppCompatTextView tvFeature = featureView.findViewById(R.id.tvFeature);
 
-        ivIcon.setImageResource(feature.icon);
-        tvFeature.setText(feature.title);
+        ivIcon.setImageResource(feature.icon());
+        tvFeature.setText(feature.title());
     }
 
     private void fetchManagementSettings() {

@@ -506,7 +506,7 @@ public class ManageWalletActivity extends BaseActivity {
             walletViewModel.setWalletSort(getSortValue(selectedSortType));
             updateSortingLabel();
         } catch (Exception e) {
-            AppLogger.e(getClass(), "applyBackupFilters", e);
+            AppLogger.e(getClass(), "applyWalletFilters", e);
         }
     }
 

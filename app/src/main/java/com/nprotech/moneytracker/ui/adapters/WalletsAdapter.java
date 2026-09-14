@@ -45,7 +45,7 @@ public class WalletsAdapter extends RecyclerViewAdapter<WalletEntity> {
         walletImage.setColorFilter(Color.WHITE);
 
         walletAccountLabel.setText(item.name);
-        walletTypeLabel.setText(DataHelper.getWalletTypeName(context, item.walletType) + " (" + item.currencyCode + ")");
+        walletTypeLabel.setText(context.getString(R.string.wallet_type_currency, DataHelper.getWalletTypeName(context, item.walletType), item.currencyCode));
         walletAmountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, item.amount));
 
         holder.itemView.setOnClickListener(v -> {

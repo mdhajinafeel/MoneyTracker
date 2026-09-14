@@ -38,10 +38,10 @@ public class CategoryViewModel extends ViewModel {
         this.categoryRepository = categoryRepository;
         this.transactionRepository = transactionRepository;
 
-        incomeCategories = Transformations.switchMap(incomeFilter, filter -> categoryRepository.fetchCategoriesByType(filter.getType(),
-                filter.isActive()));
-        expenseCategories = Transformations.switchMap(expenseFilter, filter -> categoryRepository.fetchCategoriesByType(filter.getType(),
-                filter.isActive()));
+        incomeCategories = Transformations.switchMap(incomeFilter, filter -> categoryRepository.fetchCategoriesByType(filter.type(),
+                filter.active()));
+        expenseCategories = Transformations.switchMap(expenseFilter, filter -> categoryRepository.fetchCategoriesByType(filter.type(),
+                filter.active()));
     }
 
     // ---------------------------------------------------------

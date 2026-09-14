@@ -35,6 +35,7 @@ import com.nprotech.moneytracker.ui.adapters.DailyTransactionAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.BudgetViewModel;
 import com.nprotech.moneytracker.viewmodel.TransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
@@ -58,11 +59,15 @@ public class CategoryTransactionActivity extends BaseActivity {
     private RecyclerView rvTransactions;
     private ConstraintLayout emptyWrapper;
     private WalletViewModel walletViewModel;
+    private BudgetViewModel budgetViewModel;
     private AccountViewModel accountViewModel;
     private TransactionViewModel transactionViewModel;
-    private int categoryId = 0, walletId = 0;
+    private int categoryId = 0, walletId = 0, budgetId = 0, budgetWalletCount = 0;
     private DailyTransactionAdapter dailyTransactionAdapter;
     private String accountCurrencySymbol;
+    private long budgetStartDate = 0, budgetEndDate = 0;
+    private AccountEntity account;
+    private boolean isFromBudget = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,18 +101,29 @@ public class CategoryTransactionActivity extends BaseActivity {
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 
+                isFromBudget = bundle.getBoolean("isFromBudget", false);
+
                 if (!Objects.equals(bundle.getString("categoryName"), "")) {
                     tvTitle.setText(bundle.getString("categoryName"));
                 } else {
-                    tvTitle.setText(R.string.wallet_transactions);
+                    if (isFromBudget) {
+                        tvTitle.setText(getString(R.string.category_transactions));
+                    } else {
+                        tvTitle.setText(R.string.wallet_transactions);
+                    }
                 }
 
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+                budgetViewModel = new ViewModelProvider(this).get(BudgetViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
-                categoryId = bundle.getInt("categoryId");
-                walletId = bundle.getInt("walletId");
+                categoryId = bundle.getInt("categoryId", 0);
+                walletId = bundle.getInt("walletId", 0);
+                budgetId = bundle.getInt("budgetId", 0);
+                budgetWalletCount = bundle.getInt("budgetWalletCount", -1);
+                budgetStartDate = bundle.getLong("budgetStartDate", 0);
+                budgetEndDate = bundle.getLong("budgetEndDate", 0);
 
                 initializeAdapters();
                 bindData();
@@ -125,11 +141,11 @@ public class CategoryTransactionActivity extends BaseActivity {
     private void bindData() {
         try {
 
-            AccountEntity account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
+            account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
             if (account != null) {
                 accountCurrencySymbol = account.currencySymbol;
                 dailyTransactionAdapter.setAccountCurrencySymbol(accountCurrencySymbol);
-                walletViewModel.loadTransactions(account.id, walletId, categoryId);
+                loadTransactions();
             }
 
             walletViewModel.getCategoryTransactions().observe(this, dailyTransModels -> {
@@ -150,6 +166,7 @@ public class CategoryTransactionActivity extends BaseActivity {
                 } else {
                     Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
+                loadTransactions();
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -199,14 +216,28 @@ public class CategoryTransactionActivity extends BaseActivity {
                 ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
             });
 
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(CategoryTransactionActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    ActivityUtils.overrideCloseTransition(CategoryTransactionActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                }
+            });
+
+            if (isFromBudget) {
+                budgetViewModel.getDailyTransactions().observe(this, list -> {
+                    if (list != null && !list.isEmpty()) {
+                        emptyWrapper.setVisibility(View.GONE);
+                        dailyTransactionAdapter.setItems(list);
+                        rvTransactions.setVisibility(View.VISIBLE);
+                        rvTransactions.post(() -> rvTransactions.scrollToPosition(0));
+                    } else {
+                        dailyTransactionAdapter.setItems(new ArrayList<>());
+                        emptyWrapper.setVisibility(View.VISIBLE);
+                        rvTransactions.setVisibility(View.GONE);
+                    }
+                });
+            }
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
@@ -243,6 +274,7 @@ public class CategoryTransactionActivity extends BaseActivity {
             duplicateTransaction(item);
             Toast.makeText(getApplicationContext(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
+            loadTransactions();
         });
 
         dialog.show();
@@ -510,45 +542,98 @@ public class CategoryTransactionActivity extends BaseActivity {
 
             double exchangeRate = 1;
             switch (transaction.type) {
-                case TransactionEntity.TYPE_INCOME:
 
+                // ============================================================
+                // INCOME / REFUND
+                // ============================================================
+                case TransactionEntity.TYPE_INCOME:
                     if (wallet != null) {
-                        wallet.amount -= transaction.amount;
                         exchangeRate = wallet.exchangeRate;
+                        if (isCreditCardWallet(wallet)) {
+                            // Credit Card refund reduced outstanding.
+                            // Delete -> restore outstanding.
+                            wallet.amount += transaction.amount;
+                        } else {
+                            // Normal wallet income increased balance.
+                            // Delete -> restore previous balance.
+                            wallet.amount -= transaction.amount;
+                        }
                     }
+
                     if (account != null) {
                         account.balance -= (transaction.amount * exchangeRate);
                     }
-
                     transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
+                // ============================================================
+                // EXPENSE
+                // ============================================================
                 case TransactionEntity.TYPE_EXPENSE:
                     if (wallet != null) {
-                        wallet.amount += transaction.amount;
                         exchangeRate = wallet.exchangeRate;
+                        if (isCreditCardWallet(wallet)) {
+                            // Credit Card expense increased outstanding.
+                            // Delete -> reduce outstanding.
+                            wallet.amount -= transaction.amount;
+                        } else {
+                            // Normal wallet expense reduced balance.
+                            // Delete -> restore previous balance.
+                            wallet.amount += transaction.amount;
+                        }
                     }
+
                     if (account != null) {
                         account.balance += (transaction.amount * exchangeRate);
                     }
-
                     transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
+                // ============================================================
+                // TRANSFER
+                // ============================================================
                 case TransactionEntity.TYPE_TRANSFER:
+
                     WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
                     WalletEntity toWallet = walletViewModel.getWalletByWalletId(transaction.walletId);
 
-                    // Reverse transfer
+                    // --------------------------------------------------------
+                    // Reverse FROM wallet
+                    // --------------------------------------------------------
                     if (fromWallet != null) {
-                        fromWallet.amount += transaction.amount;
+                        if (isCreditCardWallet(fromWallet)) {
+                            // Original CC -> another wallet:
+                            // outstanding increased.
+                            // Delete -> decrease outstanding.
+                            fromWallet.amount -= transaction.amount;
+                        } else {
+                            // Original normal wallet:
+                            // balance decreased.
+                            // Delete -> restore balance.
+                            fromWallet.amount += transaction.amount;
+                        }
                     }
 
+                    // --------------------------------------------------------
+                    // Reverse TO wallet
+                    // --------------------------------------------------------
                     if (toWallet != null) {
-                        toWallet.amount -= transaction.convertedAmount;
+                        if (isCreditCardWallet(toWallet)) {
+                            // Original payment to CC:
+                            // outstanding decreased.
+                            // Delete -> restore outstanding.
+                            toWallet.amount += transaction.convertedAmount;
+                        } else {
+                            // Original normal wallet:
+                            // balance increased.
+                            // Delete -> restore previous balance.
+                            toWallet.amount -= transaction.convertedAmount;
+                        }
                     }
 
-                    // Reverse account effect for excluded wallets
+                    // --------------------------------------------------------
+                    // Reverse account balance effect
+                    // --------------------------------------------------------
                     if (account != null && fromWallet != null && toWallet != null) {
                         if (!fromWallet.isExclude && toWallet.isExclude) {
                             account.balance += transaction.accountAmount;
@@ -557,14 +642,24 @@ public class CategoryTransactionActivity extends BaseActivity {
                         }
                     }
 
-                    // Reverse fee transaction
+                    // --------------------------------------------------------
+                    // Reverse transfer fee
+                    // --------------------------------------------------------
                     TransactionEntity feeTransaction = transactionViewModel.getFeeTransaction(transaction.tempTransactionServerId);
 
                     if (feeTransaction != null) {
-
-                        // Restore fee to From Wallet
                         if (fromWallet != null) {
-                            fromWallet.amount += feeTransaction.amount;
+                            if (isCreditCardWallet(fromWallet)) {
+                                // Original CC transfer fee increased
+                                // outstanding.
+                                // Delete -> decrease outstanding.
+                                fromWallet.amount -= feeTransaction.amount;
+                            } else {
+                                // Original normal wallet fee decreased
+                                // balance.
+                                // Delete -> restore balance.
+                                fromWallet.amount += feeTransaction.amount;
+                            }
                         }
 
                         // Restore exact account amount used by fee
@@ -573,14 +668,35 @@ public class CategoryTransactionActivity extends BaseActivity {
                         }
                     }
 
-                    // --------------------------------
-                    // Delete everything together
-                    // --------------------------------
+                    // --------------------------------------------------------
+                    // Delete transfer + fee together
+                    // --------------------------------------------------------
                     transactionViewModel.deleteTransferTransaction(transaction, fromWallet, toWallet, account, feeTransaction);
                     break;
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteTransaction", e);
         }
+    }
+
+    private boolean isCreditCardWallet(WalletEntity wallet) {
+        return wallet != null && wallet.walletType == 3;
+    }
+
+    private void loadTransactions() {
+        if (isFromBudget) {
+            List<Integer> categoryIds = budgetViewModel.getCategoryIdsByBudgetId(budgetId);
+            List<Integer> walletIds = budgetViewModel.getWalletIdsByBudgetId(budgetId);
+            budgetViewModel.loadAllTransactions(PreferenceManager.INSTANCE.getAccountId(), budgetStartDate, budgetEndDate, categoryIds, walletIds,
+                    false, budgetWalletCount == -1, false);
+        } else {
+            walletViewModel.loadTransactions(account.id, walletId, categoryId);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadTransactions();
     }
 }

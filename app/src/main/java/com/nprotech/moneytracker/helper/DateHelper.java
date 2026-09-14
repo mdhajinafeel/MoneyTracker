@@ -319,4 +319,17 @@ public class DateHelper {
             return 1;
         }
     }
+
+    public static String getDayWithSuffix(long day) {
+        if (day >= 11 && day <= 13) {
+            return day + "th";
+        }
+
+        return switch ((int) (day % 10)) {
+            case 1 -> day + "st";
+            case 2 -> day + "nd";
+            case 3 -> day + "rd";
+            default -> day + "th";
+        };
+    }
 }

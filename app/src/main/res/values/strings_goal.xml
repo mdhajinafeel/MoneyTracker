@@ -4,7 +4,6 @@
     <string name="goals">Goals</string>
     <string name="add_goal">Add Goal</string>
     <string name="goal_name">Goal Name</string>
-    <string name="linked_wallet">Linked Wallet</string>
     <string name="target_amount">Target Amount</string>
     <string name="target_date">Target Date</string>
     <string name="initial_savings">Initial Savings</string>
@@ -80,8 +79,8 @@
     <string name="delete_goal_sub_message">All contributions and related data will be permanently deleted.</string>
     <string name="delete_contribution">Delete contributions</string>
     <string name="delete_contribution_message">Are you sure you want to delete this contribution?</string>
-    <string name="remove_initial_amount">Remove initial amount</string>
-    <string name="remove_initial_message">Are you sure you want to remove the initial amount?</string>
+    <string name="remove_initial_amount">Remove initial balance</string>
+    <string name="remove_initial_message">Are you sure you want to remove the initial balance?</string>
     <string name="remove_initial_sub_message">This will update the saved amount accordingly.</string>
     <string name="delete_withdrawal">Delete withdrawal</string>
     <string name="delete_withdrawal_message">Are you sure you want to delete this withdrawal?</string>

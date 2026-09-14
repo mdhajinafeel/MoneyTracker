@@ -56,13 +56,13 @@ public class CreateWalletActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivWalletIcon;
     private AppCompatEditText etWalletName;
-    private AppCompatTextView tvSave, tvTitle, amountLabel, tvAmount, rateLabel, maxLimitLabel;
+    private AppCompatTextView tvSave, tvTitle, amountLabel, tvCreditLimit, tvAmount, rateLabel, maxLimitLabel;
     private AppCompatSpinner typeSpinner, colorSpinner, currencySpinner, statementDateSpinner, paymentDateSpinner;
     private FrameLayout frameColor;
-    private MaterialCardView cardWalletExclude, cardWalletStatement, cardWalletPayment;
+    private MaterialCardView cardWalletCreditLimit, cardWalletExclude, cardWalletStatement, cardWalletPayment;
     private ActivityResultLauncher<Intent> calculatorLauncher, walletIconLauncher, currencyLauncher;
     private boolean isEdit = false;
-    private double walletAmount = 0;
+    private double creditAmount = 0, walletAmount = 0;
     private AccountEntity account;
     private AccountViewModel accountViewModel;
     private WalletViewModel walletViewModel;
@@ -71,6 +71,7 @@ public class CreateWalletActivity extends BaseActivity {
     private WalletEntity walletEntity;
     private SwitchCompat switchExcludeView;
     private String selectedCurrencyCode;
+    private AccountCurrencyMappingEntity currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +102,11 @@ public class CreateWalletActivity extends BaseActivity {
             paymentDateSpinner = findViewById(R.id.paymentDateSpinner);
             ivWalletIcon = findViewById(R.id.ivWalletIcon);
             amountLabel = findViewById(R.id.amountLabel);
+            tvCreditLimit = findViewById(R.id.tvCreditLimit);
             tvAmount = findViewById(R.id.tvAmount);
             rateLabel = findViewById(R.id.rateLabel);
             cardWalletExclude = findViewById(R.id.cardWalletExclude);
+            cardWalletCreditLimit = findViewById(R.id.cardWalletCreditLimit);
             cardWalletStatement = findViewById(R.id.cardWalletStatement);
             cardWalletPayment = findViewById(R.id.cardWalletPayment);
             switchExcludeView = findViewById(R.id.switchExcludeView);
@@ -144,43 +147,6 @@ public class CreateWalletActivity extends BaseActivity {
         }
     }
 
-    private void initializeAdapters() {
-        try {
-            List<String> walletTypes = Arrays.asList(getString(R.string.general), getString(R.string.cash), getString(R.string.bank), getString(R.string.credit_card), getString(R.string.debit_card));
-
-            FontSpinnerAdapter fontSpinnerAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletTypes);
-            typeSpinner.setAdapter(fontSpinnerAdapter);
-
-            walletColorLists = new ArrayList<>();
-            walletColorLists = DataHelper.getColorList();
-            ColorSpinnerAdapter colorSpinnerAdapter = new ColorSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletColorLists);
-            colorSpinner.setAdapter(colorSpinnerAdapter);
-
-            List<String> dateList = DateHelper.getMonthDates();
-            FontSpinnerAdapter statementAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, dateList);
-            FontSpinnerAdapter paymentAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, dateList);
-
-            statementDateSpinner.setAdapter(statementAdapter);
-            paymentDateSpinner.setAdapter(paymentAdapter);
-
-            // Set max dropdown height
-            try {
-                Field popupField = AppCompatSpinner.class.getDeclaredField("mPopup");
-                popupField.setAccessible(true);
-
-                ListPopupWindow popup = (ListPopupWindow) popupField.get(colorSpinner);
-                if (popup != null) {
-                    popup.setHeight(getResources().getDimensionPixelSize(R.dimen.spinner_dropdown_max_height));
-                }
-            } catch (Exception e) {
-                AppLogger.e(getClass(), "ListPopupWindow", e);
-            }
-
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "initializeAdapters", e);
-        }
-    }
-
     private void bindData(boolean isEdit) {
         try {
             if (isEdit) {
@@ -194,9 +160,11 @@ public class CreateWalletActivity extends BaseActivity {
 
                     etWalletName.setText(walletEntity.name.trim());
                     walletAmount = walletEntity.initialAmount;
+                    creditAmount = walletEntity.creditLimit;
                     walletIcon = walletEntity.categoryIcon;
                     ivWalletIcon.setImageResource(DataHelper.getWalletIcons().get(walletIcon));
                     tvAmount.setText(CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, walletAmount));
+                    tvCreditLimit.setText(CommonUtils.getBeautifyAmount(walletEntity.currencySymbol, creditAmount));
                     maxLimitLabel.setText(getString(R.string.character_limit_wallet, Objects.requireNonNull(etWalletName.getText()).toString().length()));
 
                     //Color
@@ -214,11 +182,11 @@ public class CreateWalletActivity extends BaseActivity {
 
                     // Credit Card Dates
                     if (walletEntity.statementDate > 0) {
-                        statementDateSpinner.setSelection((int) walletEntity.statementDate - 1);
+                        statementDateSpinner.setSelection((int) walletEntity.statementDate);
                     }
 
                     if (walletEntity.dueDate > 0) {
-                        paymentDateSpinner.setSelection((int) walletEntity.dueDate - 1);
+                        paymentDateSpinner.setSelection((int) walletEntity.dueDate);
                     }
                 }
             } else {
@@ -232,6 +200,49 @@ public class CreateWalletActivity extends BaseActivity {
             updateSaveButtonState();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void initializeAdapters() {
+        try {
+            List<String> walletTypes = Arrays.asList(getString(R.string.cash), getString(R.string.bank), getString(R.string.debit_card),
+                    getString(R.string.credit_card), getString(R.string.e_wallet), getString(R.string.prepaid_card), getString(R.string.investment));
+
+            FontSpinnerAdapter fontSpinnerAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletTypes);
+            typeSpinner.setAdapter(fontSpinnerAdapter);
+
+            walletColorLists = new ArrayList<>();
+            walletColorLists = DataHelper.getColorList();
+            ColorSpinnerAdapter colorSpinnerAdapter = new ColorSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, walletColorLists);
+            colorSpinner.setAdapter(colorSpinnerAdapter);
+
+            List<String> statementDateList = new ArrayList<>();
+            statementDateList.add(getString(R.string.select_statement_date));
+            statementDateList.addAll(DateHelper.getMonthDates());
+            FontSpinnerAdapter statementAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, statementDateList);
+            statementDateSpinner.setAdapter(statementAdapter);
+
+            List<String> paymentDateList = new ArrayList<>();
+            paymentDateList.add(getString(R.string.select_payment_date));
+            paymentDateList.addAll(DateHelper.getMonthDates());
+            FontSpinnerAdapter paymentAdapter = new FontSpinnerAdapter(this, R.layout.list_drop_down_color, R.id.label, paymentDateList);
+            paymentDateSpinner.setAdapter(paymentAdapter);
+
+            // Set max dropdown height
+            try {
+                Field popupField = AppCompatSpinner.class.getDeclaredField("mPopup");
+                popupField.setAccessible(true);
+
+                ListPopupWindow popup = (ListPopupWindow) popupField.get(colorSpinner);
+                if (popup != null) {
+                    popup.setHeight(getResources().getDimensionPixelSize(R.dimen.spinner_dropdown_max_height));
+                }
+            } catch (Exception e) {
+                AppLogger.e(getClass(), "ListPopupWindow", e);
+            }
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAdapters", e);
         }
     }
 
@@ -261,16 +272,16 @@ public class CreateWalletActivity extends BaseActivity {
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                     if (position == 3) { // Credit Card
+                        cardWalletCreditLimit.setVisibility(View.VISIBLE);
                         cardWalletStatement.setVisibility(View.VISIBLE);
                         cardWalletPayment.setVisibility(View.VISIBLE);
                         cardWalletExclude.setVisibility(View.GONE);
-
-                        amountLabel.setText(getString(R.string.credit_limit));
+                        amountLabel.setText(getString(R.string.initial_outstanding));
                     } else {
                         cardWalletExclude.setVisibility(View.VISIBLE);
+                        cardWalletCreditLimit.setVisibility(View.GONE);
                         cardWalletStatement.setVisibility(View.GONE);
                         cardWalletPayment.setVisibility(View.GONE);
-
                         amountLabel.setText(getString(R.string.initial_amount));
                     }
                 }
@@ -279,6 +290,16 @@ public class CreateWalletActivity extends BaseActivity {
                 public void onNothingSelected(AdapterView<?> parent) {
 
                 }
+            });
+
+            tvCreditLimit.setOnClickListener(v -> {
+                etWalletName.clearFocus();
+                hideKeyboard(this);
+                Intent intent = new Intent(this, CalculatorActivity.class);
+                intent.putExtra("amount", walletAmount);
+                intent.putExtra("type", "credit_amount");
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeCustomAnimation(this, R.anim.left_to_right, R.anim.scale_out);
+                calculatorLauncher.launch(intent, options);
             });
 
             tvAmount.setOnClickListener(view -> {
@@ -409,6 +430,11 @@ public class CreateWalletActivity extends BaseActivity {
                                 walletAmount = amount;
                                 updateAmountText();
                                 updateSaveButtonState();
+                            } else if (type != null && type.equalsIgnoreCase("credit_amount")) {
+                                creditAmount = amount;
+                                currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
+                                tvCreditLimit.setText(CommonUtils.getBeautifyAmount(currency.currencySymbol, creditAmount));
+                                updateSaveButtonState();
                             }
                         }
                     }
@@ -452,7 +478,7 @@ public class CreateWalletActivity extends BaseActivity {
     private void saveWallet() {
         try {
 
-            AccountCurrencyMappingEntity currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
+            currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
 
             if (isEdit) {
 
@@ -472,6 +498,7 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity.amount = oldBalance - oldInitialAmount + walletAmount;
 
                 walletEntity.initialAmount = walletAmount;
+                walletEntity.creditLimit = creditAmount;
                 walletEntity.exchangeRate = newRate;
 
                 walletEntity.ordering = walletViewModel.getMaxWalletOrdering(PreferenceManager.INSTANCE.getAccountId()) + 1;
@@ -479,8 +506,8 @@ public class CreateWalletActivity extends BaseActivity {
                 walletEntity.isExclude = switchExcludeView.isChecked();
 
                 if (typeSpinner.getSelectedItemPosition() == 3) {
-                    walletEntity.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
-                    walletEntity.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
+                    walletEntity.statementDate = statementDateSpinner.getSelectedItemPosition();
+                    walletEntity.dueDate = paymentDateSpinner.getSelectedItemPosition();
                 } else {
                     walletEntity.statementDate = 0;
                     walletEntity.dueDate = 0;
@@ -521,6 +548,7 @@ public class CreateWalletActivity extends BaseActivity {
 
                 wallet.categoryIcon = walletIcon;
                 wallet.initialAmount = walletAmount;
+                wallet.creditLimit = creditAmount;
                 wallet.amount = walletAmount;
                 wallet.exchangeRate = currency.conversionRate;
 
@@ -529,8 +557,8 @@ public class CreateWalletActivity extends BaseActivity {
                 wallet.isExclude = switchExcludeView.isChecked();
 
                 if (typeSpinner.getSelectedItemPosition() == 3) {
-                    wallet.statementDate = statementDateSpinner.getSelectedItemPosition() + 1;
-                    wallet.dueDate = paymentDateSpinner.getSelectedItemPosition() + 1;
+                    wallet.statementDate = statementDateSpinner.getSelectedItemPosition();
+                    wallet.dueDate = paymentDateSpinner.getSelectedItemPosition();
                 } else {
                     wallet.statementDate = 0;
                     wallet.dueDate = 0;
@@ -567,7 +595,7 @@ public class CreateWalletActivity extends BaseActivity {
     }
 
     private void updateAmountText() {
-        AccountCurrencyMappingEntity currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
+        currency = (AccountCurrencyMappingEntity) currencySpinner.getSelectedItem();
 
         if (currency == null) {
             return;

@@ -32,6 +32,7 @@ import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.adapters.WalletsAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.BudgetViewModel;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
@@ -49,6 +50,7 @@ public class MoreFragment extends Fragment {
     private WalletViewModel walletViewModel;
     private AccountViewModel accountViewModel;
     private GoalViewModel goalViewModel;
+    private BudgetViewModel budgetViewModel;
     private List<MoreOptionsModel> moreOptionsModels;
     private RecyclerViewAdapter<MoreOptionsModel> moreOptionsAdapter;
 
@@ -65,6 +67,7 @@ public class MoreFragment extends Fragment {
             walletViewModel = new ViewModelProvider(requireActivity()).get(WalletViewModel.class);
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
             goalViewModel = new ViewModelProvider(requireActivity()).get(GoalViewModel.class);
+            budgetViewModel = new ViewModelProvider(requireActivity()).get(BudgetViewModel.class);
 
             initializeAdapters();
             setupListeners();
@@ -86,6 +89,7 @@ public class MoreFragment extends Fragment {
                 if (account != null) {
                     walletViewModel.selectAccount(account.id);
                     goalViewModel.selectAccount(account.id);
+                    budgetViewModel.selectAccount(account.id);
                 }
             });
 
@@ -102,6 +106,17 @@ public class MoreFragment extends Fragment {
                         .putExtra("walletId", wallet.id)
                         .putExtra("isFromManageWallet", false));
                 ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            budgetViewModel.budgetCount().observe(getViewLifecycleOwner(), count -> {
+                if (count == null) {
+                    count = 0;
+                }
+
+                MoreOptionsModel budgetModel = moreOptionsModels.get(0);
+                budgetModel.count = count;
+
+                moreOptionsAdapter.notifyItemChanged(0);
             });
 
             goalViewModel.goalCount().observe(getViewLifecycleOwner(), count -> {

@@ -67,9 +67,7 @@ public class CurrencyInitializer {
 
     private static List<CurrencyJsonModel> getCurrencyJsonModels(int bytesRead, int size, byte[] buffer) throws IOException {
         if (bytesRead != size) {
-            throw new IOException(
-                    "Failed to read entire file."
-            );
+            throw new IOException("Failed to read entire file.");
         }
         String json = new String(buffer, StandardCharsets.UTF_8);
         Gson gson = new Gson();

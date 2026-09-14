@@ -110,7 +110,6 @@ public class BackupWorker extends Worker {
                             .build();
 
             WorkManager.getInstance(context.getApplicationContext()).enqueueUniqueWork(UNIQUE_BACKUP_WORK, ExistingWorkPolicy.REPLACE, request);
-
         } catch (Exception e) {
             AppLogger.e(BackupWorker.class, "schedule", e);
         }

@@ -94,7 +94,6 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
                     return super.recover(e, keyStore, keyAliases, preferences);
                 }
             });
-
         } catch (Exception e) {
             AppLogger.e(getClass(), "initSecureSharedPref", e);
         }

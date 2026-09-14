@@ -66,6 +66,7 @@
     <string name="status">Status</string>
     <string name="all_categories">All Categories</string>
     <string name="categories">Categories</string>
+    <string name="category_transactions">Category Transactions</string>
 
     <plurals name="selected_category_desc">
         <item quantity="one">Move %1$d transaction from &quot;%2$s&quot; to another category.</item>

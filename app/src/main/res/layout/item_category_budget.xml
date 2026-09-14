@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/itemView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_4"
+    android:layout_marginBottom="@dimen/margin_2">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/colorView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:cardCornerRadius="@dimen/corner_radius_10"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/labelWrapper"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/labelWrapper"
+        app:layout_constraintVertical_bias="0.5">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:tint="@color/white" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/labelWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_6"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvProgressPercentage"
+        app:layout_constraintStart_toEndOf="@id/colorView"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nameLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_8"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            app:fontFamily="@font/exo2_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/progressBudget" />
+
+        <!-- Saved Amount -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_14"
+            android:textColor="@color/dark_grey"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/progressBudget"
+            app:layout_constraintBottom_toTopOf="@+id/progressBudget" />
+
+        <ProgressBar
+            android:id="@+id/progressBudget"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginEnd="@dimen/margin_4"
+            android:max="100"
+            app:layout_constraintStart_toStartOf="@+id/nameLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameLabel"
+            android:progressDrawable="@drawable/progress_goal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvProgressPercentage"
+        android:layout_width="36dp"
+        android:background="@drawable/bg_box_purple"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_6"
+        android:gravity="center"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:padding="@dimen/padding_4"
+        android:fontFamily="@font/exo2_semibold"
+        android:textColor="@color/dark_grey"
+        android:textSize="@dimen/text_10"
+        app:layout_constraintStart_toEndOf="@+id/labelWrapper"
+        app:layout_constraintBottom_toBottomOf="@id/labelWrapper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/labelWrapper" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_6"
+        android:background="@color/view_grey"
+        app:layout_constraintEnd_toEndOf="@+id/labelWrapper"
+        app:layout_constraintStart_toStartOf="@+id/labelWrapper"
+        app:layout_constraintTop_toBottomOf="@id/labelWrapper" />
+</androidx.constraintlayout.widget.ConstraintLayout>

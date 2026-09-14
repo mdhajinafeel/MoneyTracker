@@ -356,6 +356,7 @@
                 android:layout_marginTop="@dimen/margin_10"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="@dimen/corner_elevation_2"
+                android:visibility="visible"
                 app:cardBackgroundColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -538,6 +539,39 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/layoutBudgetMethod"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="@dimen/padding_10"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_insights"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/budget_method"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvBudgetMethod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/layoutStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -580,6 +614,89 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardBudgetMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginVertical="@dimen/margin_10"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardBudgetDetail"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/view_divider"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_16">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:text="@string/category_budgets"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvViewAllMethod"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end|center_vertical"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:drawableEnd="@drawable/ic_right_arrow_small"
+                            android:drawablePadding="@dimen/padding_4"
+                            android:text="@string/view_all"
+                            android:textColor="@color/vibrant_orange"
+                            android:textSize="@dimen/text_14"
+                            app:drawableTint="@color/vibrant_orange" />
+                    </LinearLayout>
+
+                    <com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView
+                        android:id="@+id/rvCategoryTransactions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_10"
+                        android:clipToPadding="false" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblMoreCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_16"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:background="@drawable/bg_box_purple_stroke"
+                        android:backgroundTint="@color/light_lavender"
+                        android:drawableStart="@drawable/ic_add"
+                        android:drawableEnd="@drawable/ic_right_arrow_small"
+                        android:drawablePadding="@dimen/padding_6"
+                        android:drawableTint="@color/primary_dark"
+                        android:fontFamily="@font/exo2_medium"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/padding_10"
+                        android:paddingTop="@dimen/padding_10"
+                        android:paddingEnd="@dimen/padding_10"
+                        android:paddingBottom="@dimen/padding_10"
+                        android:textColor="@color/primary_dark"
+                        android:textSize="@dimen/text_14" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardBudgetTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -591,7 +708,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardBudgetDetail"
+                app:layout_constraintTop_toBottomOf="@+id/cardBudgetMethod"
                 app:strokeColor="@color/card_shadow"
                 app:strokeWidth="1dp">
 

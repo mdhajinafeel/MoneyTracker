@@ -15,9 +15,7 @@ public class GoalEntity {
 
     @PrimaryKey(autoGenerate = true)
     public int id;
-
     public String name;
-
     public double targetAmount;
     public double savedAmount;
     public double initialAmount;
@@ -37,7 +35,6 @@ public class GoalEntity {
     public int autoSaveMonth;
     public int autoSaveDay;
     public long nextAutoSaveDate;
-
     public boolean isSynced;
     public boolean isDeleted;
     public boolean isCompleted;

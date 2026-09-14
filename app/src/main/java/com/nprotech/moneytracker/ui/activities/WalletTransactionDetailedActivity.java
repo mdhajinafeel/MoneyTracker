@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.ui.activities;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -70,9 +72,10 @@ import me.grantland.widget.AutofitTextView;
 public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private ConstraintLayout walletContainer;
-    private MaterialCardView walletTransactionCard;
+    private MaterialCardView walletTransactionCard, cardBilling;
     private AppCompatImageView icBack, ivMore, imageView;
-    private AppCompatTextView tvWalletName, tvWalletType, tvWalletBadge, tvAvailableBalance, transactionAllLabel;
+    private AppCompatTextView tvWalletName, tvWalletType, tvWalletBadge, lblAvailableBalance, tvAvailableBalance, transactionAllLabel,
+            tvAvailableCreditLimit, tvCreditLimit, tvInitialTitle, tvIncomeTitle, tvTransferTitle, tvStatementDate, tvPaymentDate;
     private MaterialButton btnAdjustBalance;
     private AutofitTextView tvInitial, tvIncome, tvExpense, tvTransfer;
     private LinearLayout layoutEmpty;
@@ -89,6 +92,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
     private WalletEntity wallet;
     private boolean isFromManageWallet = false;
     private double incomeAmount = 0, expenseAmount = 0, transferAmount = 0;
+    private Typeface semiTypeface, regularTypeface;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,7 +107,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         try {
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             View rootView = findViewById(R.id.rootView);
-            View scrollContent = findViewById(R.id.scrollContent);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
             icBack = toolbarWrapper.findViewById(R.id.icBack);
             ivMore = toolbarWrapper.findViewById(R.id.ivMore);
@@ -113,6 +116,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             tvWalletType = findViewById(R.id.tvWalletType);
             tvWalletBadge = findViewById(R.id.tvWalletBadge);
             tvAvailableBalance = findViewById(R.id.tvAvailableBalance);
+            lblAvailableBalance = findViewById(R.id.lblAvailableBalance);
             tvInitial = findViewById(R.id.tvInitial);
             tvIncome = findViewById(R.id.tvIncome);
             tvExpense = findViewById(R.id.tvExpense);
@@ -120,9 +124,17 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             btnAdjustBalance = findViewById(R.id.btnAdjustBalance);
             rvTransactions = findViewById(R.id.rvTransactions);
             transactionAllLabel = findViewById(R.id.transactionAllLabel);
+            tvAvailableCreditLimit = findViewById(R.id.tvAvailableCreditLimit);
+            tvCreditLimit = findViewById(R.id.tvCreditLimit);
             layoutEmpty = findViewById(R.id.layoutEmpty);
             walletTransactionCard = findViewById(R.id.walletTransactionCard);
             fabAddTransaction = findViewById(R.id.fabAddTransaction);
+            tvInitialTitle = findViewById(R.id.tvInitialTitle);
+            tvIncomeTitle = findViewById(R.id.tvIncomeTitle);
+            tvTransferTitle = findViewById(R.id.tvTransferTitle);
+            cardBilling = findViewById(R.id.cardBilling);
+            tvStatementDate = findViewById(R.id.tvStatementDate);
+            tvPaymentDate  = findViewById(R.id.tvPaymentDate);
 
             tvTitle.setText(R.string.wallet_details);
             ivMore.setVisibility(View.VISIBLE);
@@ -139,8 +151,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 return insets;
             });
 
-
-
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
 
@@ -148,6 +158,9 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
                 walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+
+                semiTypeface = ResourcesCompat.getFont(this, R.font.exo2_semibold);
+                regularTypeface = ResourcesCompat.getFont(this, R.font.exo2_regular);
 
                 walletId = bundle.getInt("walletId");
                 isFromManageWallet = bundle.getBoolean("isFromManageWallet", false);
@@ -172,17 +185,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         }
     }
 
-    private void initializeAdapters() {
-        try {
-            rvTransactions.setLayoutManager(new LinearLayoutManager(this));
-            walletTransactionAdapter = new WalletTransactionAdapter(WalletTransactionDetailedActivity.this, new ArrayList<>());
-            rvTransactions.setAdapter(walletTransactionAdapter);
-            rvTransactions.addItemDecoration(new SimpleDividerItemDecoration(this));
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "initializeAdapters", e);
-        }
-    }
-
     private void bindData(int walletId) {
         try {
             walletViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
@@ -197,6 +199,47 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 wallet = walletData;
 
                 int walletIcon = DataHelper.getWalletIcons().get(wallet.categoryIcon);
+                double availableCredit = wallet.creditLimit - wallet.amount;
+
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) btnAdjustBalance.getLayoutParams();
+
+                if (walletData.walletType == 3) {
+                    lblAvailableBalance.setText(getString(R.string.available_outstanding));
+                    tvAvailableCreditLimit.setVisibility(View.VISIBLE);
+                    tvCreditLimit.setVisibility(View.VISIBLE);
+
+                    String availableCreditStr = CommonUtils.getBeautifyAmount(wallet.currencySymbol, availableCredit);
+                    CommonUtils.setFormattedText(tvAvailableCreditLimit, getString(R.string.available_credit, ""), availableCreditStr,
+                            regularTypeface, semiTypeface);
+
+                    String creditLimitStr = CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.creditLimit);
+                    CommonUtils.setFormattedText(tvCreditLimit, getString(R.string.credit_limit_value, ""), creditLimitStr,
+                            regularTypeface, semiTypeface);
+
+                    tvInitialTitle.setText(getString(R.string.available_credit_short));
+                    tvIncomeTitle.setText(getString(R.string.text_refunds));
+                    tvTransferTitle.setText(getString(R.string.text_payments));
+
+                    cardBilling.setVisibility(View.VISIBLE);
+                    params.topMargin = getResources().getDimensionPixelSize(R.dimen.margin_10);
+
+                    tvStatementDate.setText(DateHelper.getDayWithSuffix(wallet.statementDate));
+                    tvPaymentDate.setText(DateHelper.getDayWithSuffix(wallet.dueDate));
+                } else {
+                    lblAvailableBalance.setText(getString(R.string.available_balance));
+
+                    tvAvailableCreditLimit.setVisibility(View.GONE);
+                    tvCreditLimit.setVisibility(View.GONE);
+
+                    tvInitialTitle.setText(getString(R.string.initial));
+                    tvIncomeTitle.setText(getString(R.string.income));
+                    tvTransferTitle.setText(getString(R.string.transfer));
+
+                    cardBilling.setVisibility(View.GONE);
+                    params.topMargin = 0;
+                }
+
+                btnAdjustBalance.setLayoutParams(params);
 
                 walletContainer.setBackground(CommonUtils.createGradient(getApplicationContext(), wallet.walletColor, 12));
 
@@ -220,13 +263,17 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 }
 
                 tvAvailableBalance.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
-                tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.initialAmount));
+
+                if(wallet.walletType == 3) {
+                    tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, availableCredit));
+                } else {
+                    tvInitial.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, wallet.amount));
+                }
+
                 tvIncome.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, incomeAmount));
                 tvExpense.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, expenseAmount));
                 tvTransfer.setText(CommonUtils.getBeautifyAmount(wallet.currencySymbol, transferAmount));
             });
-
-
 
             List<TransactionTypeAmountModel> transactionTypeAmountModelList = transactionViewModel.getTransactionAmountByType(walletId);
 
@@ -267,7 +314,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             });
 
 
-
             if (isFromManageWallet) {
                 fabAddTransaction.setVisibility(View.GONE);
             } else {
@@ -275,6 +321,17 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void initializeAdapters() {
+        try {
+            rvTransactions.setLayoutManager(new LinearLayoutManager(this));
+            walletTransactionAdapter = new WalletTransactionAdapter(WalletTransactionDetailedActivity.this, new ArrayList<>());
+            rvTransactions.setAdapter(walletTransactionAdapter);
+            rvTransactions.addItemDecoration(new SimpleDividerItemDecoration(this));
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initializeAdapters", e);
         }
     }
 
@@ -309,7 +366,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 intent.putExtra("walletId", walletId);
                 intent.putExtra("categoryName", "");
                 startActivity(intent);
-
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
@@ -561,7 +617,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 optionDelete.setVisibility(View.GONE);
             } else {
 
-                if(wallet.isArchived) {
+                if (wallet.isArchived) {
                     optionRestore.setVisibility(View.VISIBLE);
                     viewRestore.setVisibility(View.VISIBLE);
 

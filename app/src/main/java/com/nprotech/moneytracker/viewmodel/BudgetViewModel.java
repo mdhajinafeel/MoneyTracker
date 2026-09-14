@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.BudgetCategoryAmountEntity;
@@ -10,6 +11,7 @@ import com.nprotech.moneytracker.db.entites.BudgetEntity;
 import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.models.BudgetWithDetails;
+import com.nprotech.moneytracker.models.CategoryBudgetProgress;
 import com.nprotech.moneytracker.models.DailyTransModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.repositories.BudgetRepository;
@@ -32,17 +34,25 @@ public class BudgetViewModel extends ViewModel {
 
     private final BudgetRepository budgetRepository;
     private final MutableLiveData<List<TransactionWithDetails>> transactions = new MutableLiveData<>();
+    private final MutableLiveData<List<CategoryBudgetProgress>> categoryBudgets = new MutableLiveData<>();
     private int accountId, currentPage = 0;
+    private final MutableLiveData<Integer> selectedAccountId = new MutableLiveData<>();
     private long startDate, endDate;
     private List<Integer> categoryIds, walletIds;
     private boolean allCategories, allWallets, isRecent, loading = false, hasMore = true;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final MutableLiveData<List<DailyTransModel>> dailyTransactions = new MutableLiveData<>(new ArrayList<>());
     private static final int PAGE_SIZE = 100;
+    private final LiveData<Integer> budgetCount;
 
     @Inject
     public BudgetViewModel(BudgetRepository budgetRepository) {
         this.budgetRepository = budgetRepository;
+        budgetCount = Transformations.switchMap(selectedAccountId, budgetRepository::getActiveBudgetCount);
+    }
+
+    public void selectAccount(int id) {
+        selectedAccountId.setValue(id);
     }
 
     public long saveBudget(BudgetEntity budget, Set<Integer> walletIds, Set<Integer> categoryIds, Map<Integer, Double> categoryAmounts) {
@@ -106,6 +116,7 @@ public class BudgetViewModel extends ViewModel {
         this.walletIds = walletIds;
         this.allCategories = allCategories;
         this.allWallets = allWallets;
+        this.isRecent = isRecent;
         currentPage = 0;
         hasMore = true;
         dailyTransactions.setValue(new ArrayList<>());
@@ -236,5 +247,18 @@ public class BudgetViewModel extends ViewModel {
             model.getTransactions().add(item);
         }
         return new ArrayList<>(map.values());
+    }
+
+    public LiveData<Integer> budgetCount() {
+        return budgetCount;
+    }
+
+    public void loadCategoryBudgetProgress(int accountId, int budgetId, long startDate, long endDate, int sortType) {
+        List<CategoryBudgetProgress> list = budgetRepository.getCategoryBudgetProgress(accountId, budgetId, startDate, endDate, sortType);
+        categoryBudgets.setValue(list);
+    }
+
+    public LiveData<List<CategoryBudgetProgress>> getCategoryBudgets() {
+        return categoryBudgets;
     }
 }

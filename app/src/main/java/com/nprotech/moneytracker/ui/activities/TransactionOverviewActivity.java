@@ -208,7 +208,6 @@ public class TransactionOverviewActivity extends BaseActivity {
             });
 
             transactionViewModel.getDailyTransactions().observe(this, dailyTransModels -> {
-
                 if (dailyTransModels == null || dailyTransModels.isEmpty()) {
                     rvTransactions.setVisibility(View.GONE);
                     emptyWrapper.setVisibility(View.VISIBLE);
@@ -225,6 +224,7 @@ public class TransactionOverviewActivity extends BaseActivity {
                 } else {
                     Toast.makeText(this, getString(R.string.trans_delete_failed), Toast.LENGTH_SHORT).show();
                 }
+                refreshTransactionData();
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "observeData", e);
@@ -254,6 +254,21 @@ public class TransactionOverviewActivity extends BaseActivity {
 
         statisticsViewModel.loadCalendar(selectedAccountId, range.startDate, range.endDate);
         transactionViewModel.loadTransactions(selectedAccountId, range.startDate, range.endDate);
+    }
+
+    private void refreshTransactionData() {
+        CalendarRangeModel range = switch (selectedFilter) {
+            case DAILY -> CalendarHelper.getDailyRange(date);
+            case WEEKLY -> CalendarHelper.getWeeklyRange(date);
+            case QUARTERLY -> CalendarHelper.getQuarterRange(date);
+            case YEARLY -> CalendarHelper.getYearRange(date);
+            case ALL -> CalendarHelper.getAllRange(this);
+            case CUSTOM -> CalendarHelper.getCustomRange(customStartDate, customEndDate);
+            default -> CalendarHelper.getMonthlyRange(date);
+        };
+
+        transactionViewModel.loadTransactions(selectedAccountId, range.startDate, range.endDate);
+        statisticsViewModel.loadCalendar(selectedAccountId, range.startDate, range.endDate);
     }
 
     private void initializeAdapters() {
@@ -563,6 +578,7 @@ public class TransactionOverviewActivity extends BaseActivity {
             duplicateTransaction(item);
             Toast.makeText(getApplicationContext(), R.string.transaction_duplicated, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
+            refreshTransactionData();
         });
 
         dialog.show();
@@ -829,45 +845,98 @@ public class TransactionOverviewActivity extends BaseActivity {
 
             double exchangeRate = 1;
             switch (transaction.type) {
-                case TransactionEntity.TYPE_INCOME:
 
+                // ============================================================
+                // INCOME / REFUND
+                // ============================================================
+                case TransactionEntity.TYPE_INCOME:
                     if (wallet != null) {
-                        wallet.amount -= transaction.amount;
                         exchangeRate = wallet.exchangeRate;
+                        if (isCreditCardWallet(wallet)) {
+                            // Credit Card refund reduced outstanding.
+                            // Delete -> restore outstanding.
+                            wallet.amount += transaction.amount;
+                        } else {
+                            // Normal wallet income increased balance.
+                            // Delete -> restore previous balance.
+                            wallet.amount -= transaction.amount;
+                        }
                     }
+
                     if (account != null) {
                         account.balance -= (transaction.amount * exchangeRate);
                     }
-
                     transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
+                // ============================================================
+                // EXPENSE
+                // ============================================================
                 case TransactionEntity.TYPE_EXPENSE:
                     if (wallet != null) {
-                        wallet.amount += transaction.amount;
                         exchangeRate = wallet.exchangeRate;
+                        if (isCreditCardWallet(wallet)) {
+                            // Credit Card expense increased outstanding.
+                            // Delete -> reduce outstanding.
+                            wallet.amount -= transaction.amount;
+                        } else {
+                            // Normal wallet expense reduced balance.
+                            // Delete -> restore previous balance.
+                            wallet.amount += transaction.amount;
+                        }
                     }
+
                     if (account != null) {
                         account.balance += (transaction.amount * exchangeRate);
                     }
-
                     transactionViewModel.deleteTransaction(transaction, wallet, account);
                     break;
 
+                // ============================================================
+                // TRANSFER
+                // ============================================================
                 case TransactionEntity.TYPE_TRANSFER:
+
                     WalletEntity fromWallet = walletViewModel.getWalletByWalletId(transaction.fromWalletId);
                     WalletEntity toWallet = walletViewModel.getWalletByWalletId(transaction.walletId);
 
-                    // Reverse transfer
+                    // --------------------------------------------------------
+                    // Reverse FROM wallet
+                    // --------------------------------------------------------
                     if (fromWallet != null) {
-                        fromWallet.amount += transaction.amount;
+                        if (isCreditCardWallet(fromWallet)) {
+                            // Original CC -> another wallet:
+                            // outstanding increased.
+                            // Delete -> decrease outstanding.
+                            fromWallet.amount -= transaction.amount;
+                        } else {
+                            // Original normal wallet:
+                            // balance decreased.
+                            // Delete -> restore balance.
+                            fromWallet.amount += transaction.amount;
+                        }
                     }
 
+                    // --------------------------------------------------------
+                    // Reverse TO wallet
+                    // --------------------------------------------------------
                     if (toWallet != null) {
-                        toWallet.amount -= transaction.convertedAmount;
+                        if (isCreditCardWallet(toWallet)) {
+                            // Original payment to CC:
+                            // outstanding decreased.
+                            // Delete -> restore outstanding.
+                            toWallet.amount += transaction.convertedAmount;
+                        } else {
+                            // Original normal wallet:
+                            // balance increased.
+                            // Delete -> restore previous balance.
+                            toWallet.amount -= transaction.convertedAmount;
+                        }
                     }
 
-                    // Reverse account effect for excluded wallets
+                    // --------------------------------------------------------
+                    // Reverse account balance effect
+                    // --------------------------------------------------------
                     if (account != null && fromWallet != null && toWallet != null) {
                         if (!fromWallet.isExclude && toWallet.isExclude) {
                             account.balance += transaction.accountAmount;
@@ -876,14 +945,24 @@ public class TransactionOverviewActivity extends BaseActivity {
                         }
                     }
 
-                    // Reverse fee transaction
+                    // --------------------------------------------------------
+                    // Reverse transfer fee
+                    // --------------------------------------------------------
                     TransactionEntity feeTransaction = transactionViewModel.getFeeTransaction(transaction.tempTransactionServerId);
 
                     if (feeTransaction != null) {
-
-                        // Restore fee to From Wallet
                         if (fromWallet != null) {
-                            fromWallet.amount += feeTransaction.amount;
+                            if (isCreditCardWallet(fromWallet)) {
+                                // Original CC transfer fee increased
+                                // outstanding.
+                                // Delete -> decrease outstanding.
+                                fromWallet.amount -= feeTransaction.amount;
+                            } else {
+                                // Original normal wallet fee decreased
+                                // balance.
+                                // Delete -> restore balance.
+                                fromWallet.amount += feeTransaction.amount;
+                            }
                         }
 
                         // Restore exact account amount used by fee
@@ -892,15 +971,19 @@ public class TransactionOverviewActivity extends BaseActivity {
                         }
                     }
 
-                    // --------------------------------
-                    // Delete everything together
-                    // --------------------------------
+                    // --------------------------------------------------------
+                    // Delete transfer + fee together
+                    // --------------------------------------------------------
                     transactionViewModel.deleteTransferTransaction(transaction, fromWallet, toWallet, account, feeTransaction);
                     break;
             }
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteTransaction", e);
         }
+    }
+
+    private boolean isCreditCardWallet(WalletEntity wallet) {
+        return wallet != null && wallet.walletType == 3;
     }
 
     private void applyFont(View view) {
@@ -913,5 +996,11 @@ public class TransactionOverviewActivity extends BaseActivity {
                 applyFont(group.getChildAt(i));
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshTransactionData();
     }
 }

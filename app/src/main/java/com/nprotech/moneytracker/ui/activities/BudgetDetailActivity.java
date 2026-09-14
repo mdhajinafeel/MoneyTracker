@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.ui.activities;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -37,7 +39,10 @@ import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.BudgetWithDetails;
+import com.nprotech.moneytracker.models.CategoryBudgetProgress;
+import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.TransactionAdapter;
+import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -54,16 +59,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class BudgetDetailActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivMore, ivBudgetIcon, ivBudgetDot, ivBudgetPeriodDot, ivBudgetStatus;
-    private MaterialCardView cardBudgetIcon;
-    private AppCompatTextView tvBudgetName, tvBudgetDate, tvBudgetPeriod, tvBudgetAmount, tvBudgetStatus, tvSpentAmount, tvTargetAmount, tvProgressPercentage,
-            lblStatus, lblAlertBudgetDesc, tvPeriod, tvRepeat, tvAlert, tvWallets, tvCategories, tvStatus, tvViewAll;
+    private MaterialCardView cardBudgetIcon, cardBudgetMethod;
+    private AppCompatTextView tvBudgetName, tvBudgetDate, tvBudgetPeriod, tvBudgetMethod, tvBudgetAmount, tvBudgetStatus, tvSpentAmount, tvTargetAmount, tvProgressPercentage,
+            lblStatus, lblAlertBudgetDesc, tvPeriod, tvRepeat, tvAlert, tvWallets, tvCategories, tvStatus, tvViewAll, lblMoreCategory, tvViewAllMethod;
     private ProgressBar progressBudget;
     private View rootView;
     private ConstraintLayout budgetDetailContainer, emptyWrapper;
-    private MaxHeightRecyclerView rvTransactions;
+    private MaxHeightRecyclerView rvTransactions, rvCategoryTransactions;
     private BudgetViewModel budgetViewModel;
     private BudgetWithDetails budgetDetail;
     private TransactionAdapter transactionAdapter;
+    private RecyclerViewAdapter<CategoryBudgetProgress> categoryBudgetAdapter;
+    private Typeface semiTypeface, mediumTypeface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +92,14 @@ public class BudgetDetailActivity extends BaseActivity {
             ivMore.setVisibility(View.VISIBLE);
 
             cardBudgetIcon = findViewById(R.id.cardBudgetIcon);
+            cardBudgetMethod = findViewById(R.id.cardBudgetMethod);
             ivBudgetIcon = findViewById(R.id.ivBudgetIcon);
             ivBudgetDot = findViewById(R.id.ivBudgetDot);
             ivBudgetPeriodDot = findViewById(R.id.ivBudgetPeriodDot);
             tvBudgetName = findViewById(R.id.tvBudgetName);
             tvBudgetDate = findViewById(R.id.tvBudgetDate);
             tvBudgetPeriod = findViewById(R.id.tvBudgetPeriod);
+            tvBudgetMethod = findViewById(R.id.tvBudgetMethod);
             tvBudgetAmount = findViewById(R.id.tvBudgetAmount);
             tvBudgetStatus = findViewById(R.id.tvBudgetStatus);
             tvSpentAmount = findViewById(R.id.tvSpentAmount);
@@ -109,7 +118,10 @@ public class BudgetDetailActivity extends BaseActivity {
             tvStatus = findViewById(R.id.tvStatus);
             tvViewAll = findViewById(R.id.tvViewAll);
             rvTransactions = findViewById(R.id.rvTransactions);
+            rvCategoryTransactions = findViewById(R.id.rvCategoryTransactions);
             emptyWrapper = findViewById(R.id.emptyWrapper);
+            lblMoreCategory = findViewById(R.id.lblMoreCategory);
+            tvViewAllMethod = findViewById(R.id.tvViewAllMethod);
 
             tvTitle.setText(getString(R.string.budget_details));
 
@@ -129,6 +141,9 @@ public class BudgetDetailActivity extends BaseActivity {
             if (bundle != null) {
 
                 budgetViewModel = new ViewModelProvider(this).get(BudgetViewModel.class);
+
+                semiTypeface = ResourcesCompat.getFont(this, R.font.exo2_semibold);
+                mediumTypeface = ResourcesCompat.getFont(this, R.font.exo2_medium);
 
                 bindData(bundle);
                 initializeAdapters();
@@ -201,6 +216,7 @@ public class BudgetDetailActivity extends BaseActivity {
 
                         updateBudgetStatus(budget, budgetWithDetail.spentAmount);
                         updateFields(budgetWithDetail);
+                        updateBudgetMethod(budget);
 
                         loadTransactions(budget);
                     }
@@ -323,6 +339,24 @@ public class BudgetDetailActivity extends BaseActivity {
         }
     }
 
+    private void updateBudgetMethod(BudgetEntity budget) {
+        try {
+            if (budget.methodId == 1) {
+                tvBudgetMethod.setText(getString(R.string.shared_detail_summary));
+                cardBudgetMethod.setVisibility(View.GONE);
+            } else {
+                tvBudgetMethod.setText(getString(R.string.separate_detail_summary));
+                cardBudgetMethod.setVisibility(View.VISIBLE);
+                loadCategoryBudgets(budget);
+
+                CommonUtils.setDrawables(BudgetDetailActivity.this, lblMoreCategory, R.drawable.ic_add,
+                        R.drawable.ic_right_arrow, R.dimen.icon_14, R.color.primary_dark);
+            }
+        }catch (Exception e) {
+            AppLogger.e(getClass(), "", e);
+        }
+    }
+
     private void loadTransactions(BudgetEntity budget) {
         try {
 
@@ -333,6 +367,14 @@ public class BudgetDetailActivity extends BaseActivity {
                     budget.isAllCategory, budget.walletCount == -1, true);
         } catch (Exception e) {
             AppLogger.e(getClass(), "loadTransactions", e);
+        }
+    }
+
+    public void loadCategoryBudgets(BudgetEntity budget) {
+        try {
+            budgetViewModel.loadCategoryBudgetProgress(PreferenceManager.INSTANCE.getAccountId(), budget.id, budget.startDate, budget.endDate, 1);
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "loadCategoryBudgets", e);
         }
     }
 
@@ -350,7 +392,7 @@ public class BudgetDetailActivity extends BaseActivity {
             ivMore.setOnClickListener(v -> showOptionDialog(budgetDetail));
 
             budgetViewModel.getTransactions().observe(this, list -> {
-                if(list!=null && !list.isEmpty()) {
+                if (list != null && !list.isEmpty()) {
                     emptyWrapper.setVisibility(View.GONE);
                     transactionAdapter.setItems(list);
                     rvTransactions.setVisibility(View.VISIBLE);
@@ -362,8 +404,37 @@ public class BudgetDetailActivity extends BaseActivity {
                 }
             });
 
+            budgetViewModel.getCategoryBudgets().observe(this, categoryBudgetProgresses -> {
+                if(categoryBudgetProgresses != null && !categoryBudgetProgresses.isEmpty()) {
+                    if(categoryBudgetProgresses.size() > 5) {
+                        categoryBudgetAdapter.setItems(new ArrayList<>(categoryBudgetProgresses.subList(0, 5)));
+                        lblMoreCategory.setVisibility(View.VISIBLE);
+
+                        lblMoreCategory.setText(getString(R.string.text_more_categories, categoryBudgetProgresses.size() - 5));
+                    } else {
+                        categoryBudgetAdapter.setItems(categoryBudgetProgresses);
+                        lblMoreCategory.setVisibility(View.GONE);
+                    }
+                } else {
+                    categoryBudgetAdapter.setItems(new ArrayList<>());
+                    lblMoreCategory.setVisibility(View.GONE);
+                }
+            });
+
             tvViewAll.setOnClickListener(v -> {
                 startActivity(new Intent(BudgetDetailActivity.this, BudgetTransactionActivity.class)
+                        .putExtra("budgetId", budgetDetail.budget.id));
+                ActivityUtils.overrideOpenTransition(BudgetDetailActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            tvViewAllMethod.setOnClickListener(v -> {
+                startActivity(new Intent(BudgetDetailActivity.this, CategoryBudgetActivity.class)
+                        .putExtra("budgetId", budgetDetail.budget.id));
+                ActivityUtils.overrideOpenTransition(BudgetDetailActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
+
+            lblMoreCategory.setOnClickListener(v -> {
+                startActivity(new Intent(BudgetDetailActivity.this, CategoryBudgetActivity.class)
                         .putExtra("budgetId", budgetDetail.budget.id));
                 ActivityUtils.overrideOpenTransition(BudgetDetailActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -374,6 +445,84 @@ public class BudgetDetailActivity extends BaseActivity {
 
     private void initializeAdapters() {
         try {
+
+            // CATEGORY BUDGETS
+            rvCategoryTransactions.setLayoutManager(new LinearLayoutManager(this));
+            categoryBudgetAdapter = new RecyclerViewAdapter<>(this, new ArrayList<>(), R.layout.item_category_budget) {
+                @Override
+                public void onPostBindViewHolder(ViewHolder holder, CategoryBudgetProgress categoryBudget) {
+                    MaterialCardView colorView = holder.getView(R.id.colorView);
+                    AppCompatImageView imageView = holder.getView(R.id.imageView);
+                    AppCompatTextView nameLabel = holder.getView(R.id.nameLabel);
+                    AppCompatTextView tvAmount = holder.getView(R.id.tvAmount);
+                    ProgressBar progressBudget = holder.getView(R.id.progressBudget);
+                    AppCompatTextView tvProgressPercentage = holder.getView(R.id.tvProgressPercentage);
+                    View divider = holder.getView(R.id.divider);
+
+                    int color = Color.parseColor(categoryBudget.color);
+                    int progress = CommonUtils.calculateProgress(categoryBudget.spentAmount, categoryBudget.budgetAmount);
+
+                    boolean isOverspent = categoryBudget.spentAmount > categoryBudget.budgetAmount;
+
+                    colorView.setCardBackgroundColor(color);
+                    imageView.setImageDrawable(ContextCompat.getDrawable(BudgetDetailActivity.this, DataHelper.getCategoryIcons().get(categoryBudget.icon)));
+                    nameLabel.setText(categoryBudget.getCategoryName(BudgetDetailActivity.this));
+
+                    String spentAmount = CommonUtils.getBeautifyAmount(categoryBudget.currencySymbol, categoryBudget.spentAmount);
+                    String budgetAmount = getString(R.string.target_amount_value, CommonUtils.getBeautifyAmount(categoryBudget.currencySymbol, categoryBudget.budgetAmount));
+                    CommonUtils.setFormattedText(tvAmount, spentAmount, budgetAmount, semiTypeface, mediumTypeface);
+
+                    if (isOverspent) {
+                        progressBudget.setProgressDrawable(CommonUtils.createGoalProgressDrawable(BudgetDetailActivity.this,
+                                        ContextCompat.getColor(BudgetDetailActivity.this, R.color.overspent_dark)));
+                        progressBudget.setProgress(100);
+                        tvProgressPercentage.setText(R.string.text_over);
+                        tvProgressPercentage.setTextColor(ContextCompat.getColor(BudgetDetailActivity.this, R.color.overspent_dark));
+                        tvProgressPercentage.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(
+                                BudgetDetailActivity.this, R.color.overspent_bg)));
+                    } else {
+                        progressBudget.setProgressDrawable(CommonUtils.createGoalProgressDrawable(BudgetDetailActivity.this, color));
+                        progressBudget.setProgress(progress);
+                        tvProgressPercentage.setText(getString(R.string.alert_percentage_value, progress));
+
+                        int darkColor = Color.rgb((int) (Color.red(color) * 0.75f), (int) (Color.green(color) * 0.75f), (int) (Color.blue(color) * 0.75f));
+                        tvProgressPercentage.setTextColor(darkColor);
+
+                        tvProgressPercentage.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(categoryBudget.color)));
+                    }
+
+                    int position = holder.getBindingAdapterPosition();
+                    if (position == getItemCount() - 1) {
+                        divider.setAlpha(0f);
+                    } else {
+                        divider.setAlpha(1f);
+                    }
+                }
+            };
+            rvCategoryTransactions.setAdapter(categoryBudgetAdapter);
+            rvCategoryTransactions.setHasFixedSize(true);
+            rvCategoryTransactions.setItemAnimator(null);
+
+            updateRecyclerViewMaxHeight();
+
+            categoryBudgetAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onChanged() {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+
+                @Override
+                public void onItemRangeRemoved(int positionStart, int itemCount) {
+                    updateRecyclerViewMaxHeight();
+                }
+            });
+
+            // TRANSACTION
             rvTransactions.setLayoutManager(new LinearLayoutManager(this));
             transactionAdapter = new TransactionAdapter(this, new ArrayList<>(), R.layout.item_transaction_period_detail,
                     false, "budget", null);
@@ -381,8 +530,6 @@ public class BudgetDetailActivity extends BaseActivity {
             rvTransactions.setHasFixedSize(true);
             rvTransactions.setItemAnimator(null);
             rvTransactions.addItemDecoration(new SimpleDividerItemDecoration(this));
-
-            updateRecyclerViewMaxHeight();
 
             transactionAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
                 @Override
@@ -793,6 +940,7 @@ public class BudgetDetailActivity extends BaseActivity {
             int maxHeight = availableHeight - cardMargins;
             if (maxHeight > 0) {
                 rvTransactions.setMaxHeight(maxHeight);
+                rvCategoryTransactions.setMaxHeight(maxHeight);
             }
         });
     }

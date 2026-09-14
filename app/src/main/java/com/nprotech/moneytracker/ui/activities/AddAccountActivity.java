@@ -339,6 +339,7 @@ public class AddAccountActivity extends BaseActivity {
             wallet.currencyCode = currency.code;
             wallet.currencySymbol = currency.symbol;
             wallet.categoryIcon = 0;
+            wallet.creditLimit = 0;
             wallet.initialAmount = initialAmount;
             wallet.amount = initialAmount;
             wallet.exchangeRate = 1;

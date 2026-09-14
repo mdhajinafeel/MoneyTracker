@@ -34,80 +34,61 @@ public class GoalContributionEntity {
     private long createdAt;
     private long updatedAt;
     private boolean isDeleted;
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
-
     public int getGoalId() {
         return goalId;
     }
-
     public void setGoalId(int goalId) {
         this.goalId = goalId;
     }
-
     public double getAmount() {
         return amount;
     }
-
     public void setAmount(double amount) {
         this.amount = amount;
     }
-
     public int getType() {
         return type;
     }
-
     public void setType(int type) {
         this.type = type;
     }
-
     public long getDate() {
         return date;
     }
-
     public void setDate(long date) {
         this.date = date;
     }
-
     @Nullable
     public String getNote() {
         return note;
     }
-
     public void setNote(@Nullable String note) {
         this.note = note;
     }
-
     public long getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(long createdAt) {
         this.createdAt = createdAt;
     }
-
     public long getUpdatedAt() {
         return updatedAt;
     }
-
     public void setUpdatedAt(long updatedAt) {
         this.updatedAt = updatedAt;
     }
-
     public boolean isDeleted() {
         return isDeleted;
     }
-
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
-
     @Ignore
     public GoalContributionEntity(int goalId, double amount, int type, long date, @Nullable String note, long createdAt, long updatedAt, boolean isDeleted) {
         this.goalId = goalId;
@@ -119,7 +100,6 @@ public class GoalContributionEntity {
         this.updatedAt = updatedAt;
         this.isDeleted = isDeleted;
     }
-
     public GoalContributionEntity() {
     }
 }

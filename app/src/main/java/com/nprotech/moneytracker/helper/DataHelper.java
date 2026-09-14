@@ -487,12 +487,14 @@ public class DataHelper {
         type = type + 1;
 
         return switch (type) {
-            case 1 -> context.getString(R.string.general);
-            case 2 -> context.getString(R.string.cash);
-            case 3 -> context.getString(R.string.bank);
+            case 1 -> context.getString(R.string.cash);
+            case 2 -> context.getString(R.string.bank);
+            case 3 -> context.getString(R.string.debit_card);
             case 4 -> context.getString(R.string.credit_card);
-            case 5 -> context.getString(R.string.debit_card);
-            default -> context.getString(R.string.general);
+            case 5 -> context.getString(R.string.e_wallet);
+            case 6 -> context.getString(R.string.prepaid_card);
+            case 7 -> context.getString(R.string.investment);
+            default -> context.getString(R.string.cash);
         };
     }
 

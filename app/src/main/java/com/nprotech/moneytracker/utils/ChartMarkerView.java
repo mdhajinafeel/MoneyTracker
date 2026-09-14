@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+@SuppressLint("ViewConstructor")
 public class ChartMarkerView extends MarkerView {
 
     private final AppCompatTextView tvDate, tvTime, tvAmount;

@@ -12,6 +12,7 @@ import com.nprotech.moneytracker.db.entites.BudgetEntity;
 import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.models.BudgetPeriod;
 import com.nprotech.moneytracker.models.BudgetWithDetails;
+import com.nprotech.moneytracker.models.CategoryBudgetProgress;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 import com.nprotech.moneytracker.notifications.BudgetNotificationHelper;
 
@@ -60,7 +61,7 @@ public class BudgetRepository {
         if (budget.repeatEnabled) {
             budget.repeatGroupId = (int) budgetId;
             BudgetPeriod nextPeriod = calculateNextPeriod(budget.periodId, budget.startDate, budget.endDate);
-            budget.nextRepeatDate = nextPeriod.startDate;
+            budget.nextRepeatDate = nextPeriod.startDate();
             budgetDao.update(budget);
         }
 
@@ -451,8 +452,8 @@ public class BudgetRepository {
         next.accountId = current.accountId;
         next.periodId = current.periodId;
         next.methodId = current.methodId;
-        next.startDate = nextPeriod.startDate;
-        next.endDate = nextPeriod.endDate;
+        next.startDate = nextPeriod.startDate();
+        next.endDate = nextPeriod.endDate();
         next.categoryCount = current.categoryCount;
         next.isAllCategory = current.isAllCategory;
         next.walletCount = current.walletCount;
@@ -467,7 +468,7 @@ public class BudgetRepository {
         next.currencyName = current.currencyName;
 
         BudgetPeriod followingPeriod = calculateNextPeriod(next.periodId, next.startDate, next.endDate);
-        next.nextRepeatDate = followingPeriod.startDate;
+        next.nextRepeatDate = followingPeriod.startDate();
 
         next.isSynced = false;
         next.isDeleted = false;
@@ -660,5 +661,13 @@ public class BudgetRepository {
 
     public List<Integer> getWalletIdsByBudgetId(int budgetId) {
         return budgetDao.getWalletIdsByBudgetId(budgetId);
+    }
+
+    public LiveData<Integer> getActiveBudgetCount(int accountId) {
+        return budgetDao.getActiveBudgetCount(accountId);
+    }
+
+    public List<CategoryBudgetProgress> getCategoryBudgetProgress(int accountId, int budgetId, long startDate, long endDate, int sortType) {
+        return budgetDao.getCategoryBudgetProgress(accountId, budgetId, startDate, endDate, sortType);
     }
 }

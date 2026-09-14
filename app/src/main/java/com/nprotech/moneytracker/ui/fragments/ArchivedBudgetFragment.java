@@ -41,7 +41,6 @@ import com.nprotech.moneytracker.helper.DateHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.BudgetWithDetails;
 import com.nprotech.moneytracker.ui.activities.BudgetDetailActivity;
-import com.nprotech.moneytracker.ui.activities.CreateBudgetActivity;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.utils.ActivityUtils;
