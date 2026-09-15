@@ -30,7 +30,7 @@ public interface BudgetDao {
     BudgetEntity getBudgetById(int budgetId);
 
     @Query("SELECT b.*, COALESCE(( " +
-            "    SELECT SUM(t.amount) " +
+            "    SELECT SUM(t.accountAmount) " +
             "    FROM transactions t " +
             "    INNER JOIN budget_category bc ON bc.categoryId = t.categoryId " +
             "    INNER JOIN budget_wallet bw ON bw.walletId = t.walletId " +
@@ -68,7 +68,7 @@ public interface BudgetDao {
 
             // Completed
             "            (:isCompleted = 1 AND COALESCE(( " +
-            "                SELECT SUM(t2.amount) " +
+            "                SELECT SUM(t2.accountAmount) " +
             "                FROM transactions t2 " +
             "                INNER JOIN budget_category bc2 " +
             "                    ON bc2.categoryId = t2.categoryId " +
@@ -88,7 +88,7 @@ public interface BudgetDao {
 
             // In Progress
             "            (:isCompleted = 0 AND COALESCE(( " +
-            "                SELECT SUM(t3.amount) " +
+            "                SELECT SUM(t3.accountAmount) " +
             "                FROM transactions t3 " +
             "                INNER JOIN budget_category bc3 " +
             "                    ON bc3.categoryId = t3.categoryId " +
@@ -111,7 +111,7 @@ public interface BudgetDao {
             "ORDER BY b.createdAt DESC")
     LiveData<List<BudgetWithDetails>> getBudgets(int accountId, boolean isArchived, boolean isPaused, boolean isCompleted);
 
-    @Query("SELECT b.*, COALESCE(( SELECT SUM(t.amount) FROM transactions t " +
+    @Query("SELECT b.*, COALESCE(( SELECT SUM(t.accountAmount) FROM transactions t " +
             "INNER JOIN budget_category bc ON bc.categoryId = t.categoryId " +
             "INNER JOIN budget_wallet bw ON bw.walletId = t.walletId " +
             "WHERE bc.budgetId = b.id " +
@@ -134,7 +134,7 @@ public interface BudgetDao {
             "AND b.isArchived = 0 " +
             "AND b.isPaused = 0 " +
             "AND COALESCE(( " +
-            "    SELECT SUM(t.amount) " +
+            "    SELECT SUM(t.accountAmount) " +
             "    FROM transactions t " +
             "    INNER JOIN budget_category bc " +
             "        ON bc.categoryId = t.categoryId " +
@@ -244,7 +244,7 @@ public interface BudgetDao {
     void updateAlertTriggered(int budgetId, boolean alertTriggered, long updatedAt);
 
     @Query("""
-        SELECT COALESCE(SUM(t.amount), 0)
+        SELECT COALESCE(SUM(t.accountAmount), 0)
         FROM transactions t
         WHERE t.isDeleted = 0
         AND t.type = 2
@@ -292,7 +292,7 @@ public interface BudgetDao {
             c.color AS color,
             bca.amount AS budgetAmount,
             COALESCE((
-                SELECT SUM(t.amount)
+                SELECT SUM(t.accountAmount)
                 FROM transactions t
                 WHERE t.isDeleted = 0
                 AND t.type = 2

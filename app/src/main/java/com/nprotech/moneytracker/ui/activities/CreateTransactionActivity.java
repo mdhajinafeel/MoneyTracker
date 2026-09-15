@@ -1376,11 +1376,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             }
 
             if (account != null) {
-                // Undo old income
+                double accountAmount = transactionAmount * exchangeRate;
+                transaction.accountAmount = accountAmount;
                 account.balance -= (oldAmount * exchangeRate);
-
-                // Apply new income
-                account.balance += (transactionAmount * exchangeRate);
+                account.balance += accountAmount;
             }
 
             transactionViewModel.updateTransaction(transaction, wallet, account);
@@ -1406,7 +1405,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             }
 
             if (account != null) {
-                account.balance += (transactionAmount * exchangeRate);
+                double accountAmount = transactionAmount * exchangeRate;
+                transaction.accountAmount = accountAmount;
+                account.balance += accountAmount;
             }
 
             transactionViewModel.saveTransaction(transaction, wallet, account);
@@ -1452,11 +1453,10 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             }
 
             if (account != null) {
-                // Undo old expense
+                double accountAmount = transactionAmount * exchangeRate;
+                transaction.accountAmount = accountAmount;
                 account.balance += (oldAmount * exchangeRate);
-
-                // Apply new expense
-                account.balance -= (transactionAmount * exchangeRate);
+                account.balance -= accountAmount;
             }
 
             transactionViewModel.updateTransaction(transaction, wallet, account);
@@ -1479,7 +1479,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
             }
 
             if (account != null) {
-                account.balance -= (transactionAmount * exchangeRate);
+                double accountAmount = transactionAmount * exchangeRate;
+                transaction.accountAmount = accountAmount;
+                account.balance -= accountAmount;
             }
 
             transactionViewModel.saveTransaction(transaction, wallet, account);
