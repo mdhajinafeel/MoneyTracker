@@ -1,5 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="add_debt">Add Debt</string>
+    <string name="debt_loan">Debt &amp; Loan</string>
+    <string name="debt_loans">Debts &amp; Loans</string>
     <string name="manage_what_you_have_owe">Manage what you have owe</string>
+    <string name="create_debt_loan">Create Debt / Loan</string>
+    <string name="edit_debt_loan">Edit Debt / Loan</string>
+    <string name="borrowed">Borrowed</string>
+    <string name="lent">Lent</string>
+    <string name="money_pay">Money to Pay</string>
+    <string name="money_receive">Money to Receive</string>
+    <string name="borrowed_from">Borrowed From</string>
+    <string name="lent_to">Lent To</string>
+    <string name="example_borrow_name">e.g., Person, Bank, etc.,</string>
+    <string name="example_borrow_title">e.g., Person Loan, etc., </string>
+    <string name="interest">Interest</string>
+    <string name="money_received_now">Money Received Now</string>
+    <string name="money_lent_now">Money Lent Now</string>
+    <string name="reminder">Reminder</string>
+    <string name="title_purpose">Title / Purpose</string>
+    <string name="add_received_money">Add the amount to your wallet balance.</string>
+    <string name="deduct_lent_money">Deduct the amount from your wallet balance.</string>
+    <string name="loan_summary">Summary</string>
+    <string name="due_date">Due Date</string>
+    <string name="principal_amount">Principal Amount</string>
+    <string name="total_to_pay">Total to Pay</string>
+    <string name="total_to_receive">Total to Receive</string>
+    <string name="interest_amount">Interest Amount</string>
+    <string name="repayment_method">Repayment Method</string>
+    <string name="interest_rate">Interest Rate</string>
+    <string name="interest_period">Interest Period</string>
+    <string name="calculation_method">Calculation Method</string>
+    <string name="interest_duration">Interest Duration</string>
+    <string name="compound_frequency">Compound Frequency</string>
+    <string name="duration">Duration</string>
+    <string name="week_text">Week</string>
+    <string name="bi_week_text">Bi-Week</string>
+    <string name="quarter_text">Quarter</string>
+    <string name="year_text">Year</string>
+    <string name="interest_duration_format">%1$d %2$s</string>
+
+    <string name="select_repayment_method">Select repayment method</string>
+    <string name="flexible">Flexible</string>
+    <string name="installments">Installments</string>
+    <string name="emi">EMI</string>
+
+    <string name="no_of_installments">No. of Installments</string>
+    <string name="installment_amount">Installment Amount</string>
+    <string name="first_payment_date">First Payment Date</string>
+    <string name="character_limit_35">%1$d/30</string>
+    <string name="character_limit_50">%1$d/50</string>
+    <string name="percentage_value">%1$s%%</string>
+    <string name="repayment_schedule">Repayment Schedule</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="payments">Payments</string>
+    <string name="total_payment">Total Payment</string>
+    <string name="total_interest">Total Interest</string>
+
+    <string name="select_interest">Select interest</string>
+    <string name="no_interest">No Interest</string>
+    <string name="interest_percentage">Percentage</string>
+    <string name="fixed_amount">Fixed Amount</string>
+
+    <string name="select_interest_period">Select interest period</string>
+    <string name="interest_per_day">Per Day</string>
+    <string name="interest_per_week">Per Week</string>
+    <string name="interest_per_month">Per Month</string>
+    <string name="interest_per_year">Per Year</string>
+    
+    <string name="select_calc_method">Select calculation method</string>
+    <string name="interest_simple_interest">Simple Interest</string>
+    <string name="interest_flat_rate">Flat Rate</string>
+    <string name="interest_reducing_balance">Reduce Balancing</string>
+    <string name="interest_compound_interest">Compound Interest</string>
+
+    <string name="select_comp_frequency">Select compound frequency</string>
+    <string name="calendar_half_yearly">Half-Yearly</string>
+    <string name="calendar_biweekly">Biweekly</string>
+
+    <string name="select_interest_duration">Select interest duration</string>
+    <string name="same_loan_period">Same as Loan Period</string>
+    <string name="custom_period">Custom Period</string>
+    <string name="text_principal">"Principal: "</string>
+    <string name="text_interest">"Interest: "</string>
+    <string name="text_balance">"Balance: "</string>
+
+    <plurals name="days_period">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <plurals name="payment_count">
+        <item quantity="one">%d Payment</item>
+        <item quantity="other">%d Payments</item>
+    </plurals>
 </resources>

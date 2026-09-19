@@ -672,6 +672,85 @@ public class DataHelper {
         return colors;
     }
 
+    //----------------------
+    //--- DEBTS & LOANS ---
+    //----------------------
+    public static ArrayList<String> getDebtLoanColorList() {
+        ArrayList<String> colors = new ArrayList<>();
+
+        // Blue
+        colors.add("#2196F3");
+        colors.add("#1976D2");
+        colors.add("#1565C0");
+        colors.add("#42A5F5");
+        colors.add("#0288D1");
+        colors.add("#039BE5");
+
+        // Teal / Cyan
+        colors.add("#00ACC1");
+        colors.add("#0097A7");
+        colors.add("#00897B");
+        colors.add("#00796B");
+        colors.add("#26A69A");
+        colors.add("#14B8A6");
+
+        // Green
+        colors.add("#10B981");
+        colors.add("#00A86B");
+        colors.add("#43A047");
+        colors.add("#388E3C");
+        colors.add("#2E7D32");
+        colors.add("#66BB6A");
+
+        // Amber / Gold
+        colors.add("#FFB300");
+        colors.add("#FFA000");
+        colors.add("#FF8F00");
+        colors.add("#F9A825");
+        colors.add("#FBC02D");
+        colors.add("#FFC107");
+
+        // Orange
+        colors.add("#FF9800");
+        colors.add("#FB8C00");
+        colors.add("#F57C00");
+        colors.add("#EF6C00");
+        colors.add("#FF7043");
+        colors.add("#FF5722");
+
+        // Red
+        colors.add("#EF5350");
+        colors.add("#E53935");
+        colors.add("#D32F2F");
+        colors.add("#C62828");
+        colors.add("#F44336");
+        colors.add("#E64A19");
+
+        // Pink / Magenta
+        colors.add("#EC407A");
+        colors.add("#E91E63");
+        colors.add("#D81B60");
+        colors.add("#C2185B");
+        colors.add("#E31C9E");
+        colors.add("#AD1457");
+
+        // Purple / Indigo
+        colors.add("#9C27B0");
+        colors.add("#8E24AA");
+        colors.add("#7B1FA2");
+        colors.add("#673AB7");
+        colors.add("#5E35B1");
+        colors.add("#512DA8");
+
+        // Brown / Neutral
+        colors.add("#8D6E63");
+        colors.add("#795548");
+        colors.add("#6D4C41");
+        colors.add("#5D4037");
+
+        return colors;
+    }
+
     public static String getPeriodName(int periodId) {
         String period = "";
 

@@ -94,14 +94,13 @@ public class IconPickerActivity extends BaseActivity {
                 return insets;
             });
 
-            getOnBackPressedDispatcher().addCallback(this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(IconPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    ActivityUtils.overrideCloseTransition(IconPickerActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                }
+            });
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
@@ -128,6 +127,8 @@ public class IconPickerActivity extends BaseActivity {
                     intent.putExtra("categoryIcon", icon);
                 } else if (iconType.equalsIgnoreCase("budget")) {
                     intent.putExtra("budgetIcon", icon);
+                } else if (iconType.equalsIgnoreCase("debt")) {
+                    intent.putExtra("debtIcon", icon);
                 }
                 setResult(-1, intent);
                 finish();
@@ -210,7 +211,8 @@ public class IconPickerActivity extends BaseActivity {
                     rvCategories.setVisibility(View.VISIBLE);
                     emptyWrapper.setVisibility(View.GONE);
                 }
-            } else if (iconType.equalsIgnoreCase("category") || iconType.equalsIgnoreCase("budget")) {
+            } else if (iconType.equalsIgnoreCase("category") || iconType.equalsIgnoreCase("budget")
+                    || iconType.equalsIgnoreCase("debt")) {
 
                 List<Integer> walletIcons = DataHelper.getCategoryIcons();
                 if (walletIcons.isEmpty()) {

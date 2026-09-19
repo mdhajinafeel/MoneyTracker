@@ -1,0 +1,159 @@
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/containerType"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardBorrow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginEnd="@dimen/margin_4"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius_8"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toStartOf="@id/cardLent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingVertical="@dimen/padding_16">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBorrow"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_circle_equal"
+                android:backgroundTint="@color/light_lavender"
+                android:padding="@dimen/padding_6"
+                android:src="@drawable/ic_receivable"
+                android:tint="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@id/textContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textContainer" />
+
+            <LinearLayout
+                android:id="@+id/textContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginEnd="@dimen/margin_2"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/ivBorrowSelected"
+                app:layout_constraintStart_toEndOf="@id/ivBorrow"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblBorrowed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/borrowed"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblBorrowedDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/money_pay"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBorrowSelected"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_complete"
+                android:tint="@color/primary"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_4"
+        android:layout_marginTop="@dimen/margin_10"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/corner_radius_8"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cardBorrow"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/padding_10"
+            android:paddingVertical="@dimen/padding_16">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLent"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_circle_equal"
+                android:backgroundTint="@color/light_lavender"
+                android:padding="@dimen/padding_6"
+                android:src="@drawable/ic_payable"
+                android:tint="@color/primary"
+                app:layout_constraintBottom_toBottomOf="@id/textContainer1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textContainer1" />
+
+            <LinearLayout
+                android:id="@+id/textContainer1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_6"
+                android:layout_marginEnd="@dimen/margin_2"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@id/ivLentSelected"
+                app:layout_constraintStart_toEndOf="@id/ivLent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblLent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lent"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/text_16"
+                    app:fontFamily="@font/exo2_semibold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblLentDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/money_receive"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium" />
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivLentSelected"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_complete"
+                android:tint="@color/primary"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

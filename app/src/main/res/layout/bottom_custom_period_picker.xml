@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/pickerHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_8"
+        android:paddingBottom="@dimen/padding_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="center"
+            android:text="@string/select_custom_period"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_16" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingStart="@dimen/padding_16"
+        android:paddingEnd="@dimen/padding_16"
+        android:paddingTop="@dimen/padding_8"
+        android:paddingBottom="@dimen/padding_8"
+        app:layout_constraintTop_toBottomOf="@+id/pickerHeader">
+
+        <com.nprotech.moneytracker.utils.CustomNumberPicker
+            android:id="@+id/numberPickerDuration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants" />
+
+        <Space
+            android:layout_width="@dimen/margin_8"
+            android:layout_height="1dp" />
+
+        <com.nprotech.moneytracker.utils.CustomNumberPicker
+            android:id="@+id/numberPickerPeriod"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:descendantFocusability="blocksDescendants" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginVertical="@dimen/margin_12"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutContent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvClose"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:background="@drawable/bg_box_white_stroke"
+            android:layout_weight="1"
+            android:fontFamily="@font/exo2_semibold"
+            android:gravity="center"
+            android:text="@string/text_close"
+            android:textAllCaps="true"
+            android:textColor="@color/primary_dark"
+            android:textSize="@dimen/text_14"
+            app:fontFamily="@font/exo2_semibold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDone"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:backgroundTint="@color/primary_dark"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/exo2_semibold"
+            android:letterSpacing="0.01"
+            android:text="@string/done"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_14"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/corner_radius_6"
+            app:elevation="@dimen/corner_elevation_8" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

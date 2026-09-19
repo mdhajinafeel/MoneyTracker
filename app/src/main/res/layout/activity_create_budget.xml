@@ -664,16 +664,15 @@
                                 android:layout_marginEnd="@dimen/margin_32"
                                 android:clickable="false"
                                 android:background="@android:color/transparent" />
-                        </FrameLayout>
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@drawable/ic_account_caret"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:tint="@color/primary" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="12dp"
+                                android:src="@drawable/ic_account_caret"
+                                app:tint="@color/primary" />
+                        </FrameLayout>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -768,8 +767,8 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:background="@drawable/bg_circle_theme"
-                        android:padding="@dimen/padding_6"
-                        android:src="@drawable/ic_alert"
+                        android:padding="@dimen/padding_4"
+                        android:src="@drawable/ic_alert_2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"

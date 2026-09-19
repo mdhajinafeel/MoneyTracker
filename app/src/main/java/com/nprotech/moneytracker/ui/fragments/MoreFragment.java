@@ -24,6 +24,7 @@ import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.MoreOptionsModel;
 import com.nprotech.moneytracker.ui.activities.BudgetActivity;
 import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
+import com.nprotech.moneytracker.ui.activities.DebtLoanActivity;
 import com.nprotech.moneytracker.ui.activities.GoalActivity;
 import com.nprotech.moneytracker.ui.activities.ManageWalletActivity;
 import com.nprotech.moneytracker.ui.activities.WalletTransactionDetailedActivity;
@@ -144,7 +145,7 @@ public class MoreFragment extends Fragment {
             moreOptionsModels = new ArrayList<>();
             moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_BUDGET, getString(R.string.budget), getString(R.string.plan_your_spending), R.drawable.ic_more_budget, R.color.budget_dark, R.color.budget_light, 0));
             moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_GOAL, getString(R.string.goals), getString(R.string.track_your_progress), R.drawable.ic_more_goal, R.color.goal_dark, R.color.goal_light, 0));
-            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_DEBT, getString(R.string.debt), getString(R.string.manage_what_you_have_owe), R.drawable.ic_more_debt, R.color.debt_dark, R.color.debt_light, 0));
+            moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_DEBT, getString(R.string.debt_loan), getString(R.string.manage_what_you_have_owe), R.drawable.ic_more_debt, R.color.debt_dark, R.color.debt_light, 0));
             moreOptionsModels.add(new MoreOptionsModel(TransactionEntity.TYPE_RECURRING, getString(R.string.recurring), getString(R.string.track_recurring_transactions), R.drawable.ic_more_recurring, R.color.reminder_dark, R.color.recurring_light, 0));
 
             moreOptionsAdapter = new RecyclerViewAdapter<>(requireActivity(), moreOptionsModels, R.layout.item_more_options) {
@@ -183,6 +184,10 @@ public class MoreFragment extends Fragment {
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (moreOptionsModel.id == TransactionEntity.TYPE_GOAL) {
                             startActivity(new Intent(requireActivity(), GoalActivity.class)
+                                    .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
+                            ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (moreOptionsModel.id == TransactionEntity.TYPE_DEBT) {
+                            startActivity(new Intent(requireActivity(), DebtLoanActivity.class)
                                     .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         }

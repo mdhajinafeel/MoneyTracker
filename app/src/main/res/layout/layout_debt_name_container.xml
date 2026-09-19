@@ -1,0 +1,70 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius_12"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/card_shadow"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_10">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivName"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_circle_theme"
+            android:padding="@dimen/padding_6"
+            android:src="@drawable/ic_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primary" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:text="@string/borrowed_from"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            app:fontFamily="@font/exo2_bold"
+            app:layout_constraintStart_toEndOf="@id/ivName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etName"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_48"
+            android:background="@drawable/bg_edit_text_underline"
+            android:ems="10"
+            android:fontFamily="@font/exo2_medium"
+            android:hint="@string/example_borrow_name"
+            android:inputType="textCapWords"
+            android:maxLength="25"
+            android:paddingStart="@dimen/padding_0"
+            android:paddingEnd="@dimen/padding_16"
+            android:textColor="@color/black"
+            android:textColorHint="@color/dark_grey"
+            android:textSize="@dimen/text_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/nameLabel"
+            app:layout_constraintTop_toBottomOf="@id/nameLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/maxLimitName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/funky_grey"
+            android:textSize="@dimen/text_8"
+            app:fontFamily="@font/exo2_bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etName" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

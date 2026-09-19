@@ -80,6 +80,8 @@
 
     <!-- HEIGHT -->
     <dimen name="edit_text_height_40">40dp</dimen>
+    <dimen name="edit_text_height_44">44dp</dimen>
+    <dimen name="edit_text_height_46">46dp</dimen>
     <dimen name="edit_text_height_48">48dp</dimen>
     <dimen name="edit_text_height_56">56dp</dimen>
     <dimen name="edit_text_height_64">64dp</dimen>
@@ -100,5 +102,7 @@
     <dimen name="icon_10">10dp</dimen>
     <dimen name="icon_12">12dp</dimen>
     <dimen name="icon_14">14dp</dimen>
+    <dimen name="icon_16">16dp</dimen>
     <dimen name="icon_18">18dp</dimen>
+    <dimen name="icon_20">20dp</dimen>
 </resources>

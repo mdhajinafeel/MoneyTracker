@@ -204,6 +204,13 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Create Debt Screen -->
+        <activity
+            android:name=".ui.activities.CreateDebtLoanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Settings Screen -->
         <activity
             android:name=".ui.activities.SettingsActivity"
@@ -298,6 +305,13 @@
         <!-- Goal Screen -->
         <activity
             android:name=".ui.activities.GoalActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

@@ -16,6 +16,7 @@ import com.nprotech.moneytracker.db.dao.BudgetDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
 import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
+import com.nprotech.moneytracker.db.dao.DebtLoanDao;
 import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
@@ -30,6 +31,7 @@ import com.nprotech.moneytracker.db.entites.BudgetWalletEntity;
 import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
+import com.nprotech.moneytracker.db.entites.DebtLoanEntity;
 import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
@@ -38,7 +40,7 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 @Database(entities = {CurrencyEntity.class, CategoryEntity.class, CommonDataEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
         TransactionAttachmentEntity.class, GoalEntity.class, GoalContributionEntity.class, BackupHistoryEntity.class, BudgetEntity.class, BudgetWalletEntity.class,
-        BudgetCategoryEntity.class, BudgetCategoryAmountEntity.class},
+        BudgetCategoryEntity.class, BudgetCategoryAmountEntity.class, DebtLoanEntity.class},
         version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
@@ -65,6 +67,8 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
     public abstract BackupHistoryDao backupHistoryDao();
 
     public abstract BudgetDao budgetDao();
+
+    public abstract DebtLoanDao debtLoanDao();
 
     public static MoneyTrackerDatabase getInstance(Context context) {
         if (INSTANCE == null) {

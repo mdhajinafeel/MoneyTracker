@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingVertical="@dimen/padding_2">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/exo2_medium"
+        android:text="@string/interest_rate"
+        android:textColor="@color/color_matte_black"
+        android:textSize="@dimen/text_14" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvInterestRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/exo2_semibold"
+        android:textColor="@color/color_matte_black"
+        android:textSize="@dimen/text_14" />
+</LinearLayout>

@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.provider.OpenableColumns;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,14 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.ColorUtils;
 import androidx.core.widget.TextViewCompat;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.AppLogger;
 
@@ -301,6 +304,47 @@ public class CommonUtils {
         textView.setCompoundDrawables(start, null, end, null);
     }
 
+    public static void setDrawableEditText(Context context, AppCompatEditText editText, @DrawableRes int resId, @DimenRes int dimen, @ColorRes int colorId, int gravity) {
+        try {
+            Drawable drawable = AppCompatResources.getDrawable(context, resId);
+            if (drawable != null) {
+                int size = context.getResources().getDimensionPixelSize(dimen);
+                drawable.setBounds(0, 0, size, size);
+                if (gravity == Gravity.START) {
+                    editText.setCompoundDrawablesRelative(drawable, null, null, null);
+                } else if (gravity == Gravity.END) {
+                    editText.setCompoundDrawablesRelative(null, null, drawable, null);
+                }
+                TextViewCompat.setCompoundDrawableTintList(editText, ColorStateList.valueOf(ContextCompat.getColor(context, colorId)));
+            }
+        } catch (Exception e) {
+            AppLogger.e(context.getClass(), "setDrawable", e);
+        }
+    }
+
+    public static void setDrawablesTIEditText(Context context, TextInputEditText editText, @DrawableRes int startDrawable, @DrawableRes int endDrawable, @DimenRes int sizeRes,
+                                              @DimenRes int endSizeRes, @ColorRes int tintColor) {
+        Drawable start = ContextCompat.getDrawable(context, startDrawable);
+        Drawable end = ContextCompat.getDrawable(context, endDrawable);
+
+        int size = context.getResources().getDimensionPixelSize(sizeRes);
+        int endSize = context.getResources().getDimensionPixelSize(endSizeRes);
+
+        if (start != null) {
+            start = start.mutate();
+            start.setTint(ContextCompat.getColor(context, tintColor));
+            start.setBounds(0, 0, size, size);
+        }
+
+        if (end != null) {
+            end = end.mutate();
+            end.setTint(ContextCompat.getColor(context, tintColor));
+            end.setBounds(0, 0, endSize, endSize);
+        }
+
+        editText.setCompoundDrawables(start, null, end, null);
+    }
+
     public static void setFormattedText(AppCompatTextView textView, String beforeText, String styledText, Typeface normalTypeface, Typeface styledTypeface) {
         String fullText = beforeText + styledText;
         SpannableString spannableString = new SpannableString(fullText);
@@ -309,6 +353,15 @@ public class CommonUtils {
         spannableString.setSpan(new CustomTypefaceSpan(styledTypeface), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setTypeface(normalTypeface);
         textView.setText(spannableString);
+    }
+
+    public static SpannableString createAmountText(String label, String amount, Typeface labelTypeface, Typeface amountTypeface) {
+        String text = label + ": " + amount;
+        SpannableString spannable = new SpannableString(text);
+        int amountStart = label.length() + 2;
+        spannable.setSpan(new CustomTypefaceSpan(labelTypeface), 0, label.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannable.setSpan(new CustomTypefaceSpan(amountTypeface), amountStart, text.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return spannable;
     }
 
     // =========================================================

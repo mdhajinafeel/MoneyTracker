@@ -1,0 +1,96 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_box_purple_stroke"
+    android:padding="@dimen/padding_12">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/summaryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loan_summary"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_14"
+        app:fontFamily="@font/exo2_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_4"
+        android:divider="@drawable/view_divider"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@+id/summaryLabel"
+        app:layout_constraintTop_toBottomOf="@+id/summaryLabel">
+
+        <include
+            android:id="@+id/layoutInterestRate"
+            layout="@layout/layout_debt_interest_rate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layoutInterestPeriod"
+            layout="@layout/layout_debt_interest_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layoutCalcMethod"
+            layout="@layout/layout_debt_calc_method"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layoutCompoundFrequency"
+            layout="@layout/layout_debt_compound_frequency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layoutDuration"
+            layout="@layout/layout_debt_interest_duration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/viewInterest"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="@dimen/margin_4"
+            android:background="@color/light_lavender"
+            android:visibility="gone" />
+
+        <include
+            android:id="@+id/layoutPrincipal"
+            layout="@layout/layout_debt_interest_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include
+            android:id="@+id/layoutInterestAmount"
+            layout="@layout/layout_debt_interest_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/margin_4"
+            android:background="@color/light_lavender" />
+
+        <include
+            android:id="@+id/layoutTotalPay"
+            layout="@layout/layout_debt_interest_total"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
