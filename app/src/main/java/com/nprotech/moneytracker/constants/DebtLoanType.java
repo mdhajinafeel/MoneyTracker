@@ -50,4 +50,11 @@ public final class DebtLoanType {
     public static final int REPAYMENT_FREQ_MONTHLY = 4;
     public static final int REPAYMENT_FREQ_QUARTERLY = 5;
     public static final int REPAYMENT_FREQ_YEARLY = 6;
+
+    // REMINDER
+    public static final int REMINDER_NONE = -1;
+    public static final int REMINDER_ON_DUE_DATE = 0;
+    public static final int REMINDER_1_DAY_BEFORE = 1;
+    public static final int REMINDER_3_DAYS_BEFORE = 2;
+    public static final int REMINDER_7_DAYS_BEFORE = 3;
 }

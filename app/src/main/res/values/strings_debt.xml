@@ -48,6 +48,17 @@
     <string name="error_loan_create">Error when create the loan</string>
     <string name="error_loan_update">Error when update the loan</string>
     <string name="error_loan_delete">Error when delete the loan</string>
+    <string name="no_debts_yet">No debts yet</string>
+    <string name="empty_debt_hint">Tap the + button to add debt.</string>
+    <string name="no_loans_yet">No loans yet</string>
+    <string name="empty_loan_hint">Tap the + button to add loan.</string>
+    <string name="reminder_time">Reminder Time</string>
+    <string name="no_reminder">No reminder</string>
+    <string name="on_payment_date">On payment date</string>
+    <string name="one_day_before">1 day before</string>
+    <string name="three_days_before">3 days before</string>
+    <string name="seven_days_before">7 days before</string>
+    <string name="reminder_with_time">%1$s · %2$s</string>
 
     <string name="select_repayment_method">Select repayment method</string>
     <string name="flexible">Flexible</string>
@@ -93,6 +104,9 @@
     <string name="text_principal">"Principal: "</string>
     <string name="text_interest">"Interest: "</string>
     <string name="text_balance">"Balance: "</string>
+    <string name="select_reminder">Select Reminder</string>
+    <string name="please_select_a_due_date_first">Please select a due date first</string>
+    <string name="please_select_the_first_payment_date_first">Please select the first payment date first</string>
 
     <plurals name="days_period">
         <item quantity="one">%d day</item>

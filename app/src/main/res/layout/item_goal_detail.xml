@@ -26,7 +26,7 @@
             android:id="@+id/ivGoalIcon"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:background="@drawable/bg_corner_theme"
+            android:background="@drawable/bg_box_white"
             android:padding="@dimen/padding_10"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"

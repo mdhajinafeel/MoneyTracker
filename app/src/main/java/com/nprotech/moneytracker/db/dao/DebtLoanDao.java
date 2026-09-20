@@ -22,8 +22,8 @@ public interface DebtLoanDao {
     @Query("SELECT * FROM debt_loans WHERE id = :id LIMIT 1")
     LiveData<DebtLoanEntity> getDebtLoanById(long id);
 
-    @Query("SELECT * FROM debt_loans ORDER BY createdAt DESC")
-    LiveData<List<DebtLoanEntity>> getAllDebtLoans();
+    @Query("SELECT * FROM debt_loans WHERE type = :type AND isDeleted = 0 ORDER BY createdAt DESC")
+    LiveData<List<DebtLoanEntity>> getAllDebtLoans(int type);
 
     @Query("UPDATE debt_loans SET updatedAt = :updatedAt, isDeleted = 1 WHERE id = :debtLoanId AND isDeleted = 0")
     int delete(int debtLoanId, long updatedAt);

@@ -103,8 +103,8 @@ public class DebtLoanRepository {
         return debtLoanDao.getDebtLoanById(id);
     }
 
-    public LiveData<List<DebtLoanEntity>> getAllDebtLoans() {
-        return debtLoanDao.getAllDebtLoans();
+    public LiveData<List<DebtLoanEntity>> getAllDebtLoans(int type) {
+        return debtLoanDao.getAllDebtLoans(type);
     }
 
     public void shutdown() {

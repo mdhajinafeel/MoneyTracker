@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.ui.activities;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -63,10 +64,12 @@ import com.nprotech.moneytracker.utils.CustomNumberPicker;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.DebtLoanViewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -110,6 +113,8 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private static final int DATE_TYPE_FIRST_PAYMENT = 3;
     private int selectedDateType = DATE_TYPE_START;
     private Date startDate, dueDate, firstPaymentDate;
+    private boolean reminderEnabled = false;
+    private int reminderDays = 0, reminderHour = 0, reminderMinute = 0;
     private ArrayList<String> debtColorLists;
     private AccountViewModel accountViewModel;
     private DebtLoanViewModel debtLoanViewModel;
@@ -293,6 +298,10 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 tempRepaymentFrequency = DebtLoanType.REPAYMENT_FREQ_MONTHLY;
                 customInterestDurationPeriod = DebtLoanType.INTEREST_PERIOD_MONTH;
                 debtIcon = 152;
+                reminderEnabled = false;
+                reminderDays = DebtLoanType.REMINDER_NONE;
+                reminderHour = 9;
+                reminderMinute = 0;
 
                 if (!walletLists.isEmpty()) {
                     selectedWallet = walletLists.get(0);
@@ -333,6 +342,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             updateInterestCompFrequencyFields();
             updateInterestDurationFields();
             updatePaymentFrequency();
+            updateReminderText();
             updateSaveButtonState();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
@@ -508,13 +518,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             });
 
             // REMINDER
-            cardReminder.setOnClickListener(v -> {
+            cardReminder.setOnClickListener(v -> showReminderPicker());
 
-            });
-
-            tvReminder.setOnClickListener(v -> {
-
-            });
+            tvReminder.setOnClickListener(v -> showReminderPicker());
 
             // COLOR
             cardColor.setOnClickListener(view -> {
@@ -2468,6 +2474,12 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             return;
         }
 
+        if (firstPaymentDate == null) {
+            schedule = new ArrayList<>();
+            cardRepaymentSchedule.setVisibility(View.GONE);
+            return;
+        }
+
         schedule = new ArrayList<>();
 
         if (selectedRepaymentMethod == DebtLoanType.REPAYMENT_INSTALLMENTS) {
@@ -2558,6 +2570,377 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             case DebtLoanType.REPAYMENT_FREQ_YEARLY -> getString(R.string.year_text);
             default -> "";
         };
+    }
+
+    // REMINDER
+    // REMINDER
+    private void showReminderPicker() {
+        try {
+
+            prepareBottomSheet();
+
+            BottomSheetDialog dialog = new BottomSheetDialog(this);
+
+            View bottomView = getLayoutInflater().inflate(
+                    R.layout.bottom_debt_loan_reminder,
+                    findViewById(android.R.id.content),
+                    false
+            );
+
+            AppCompatTextView tvTitle = bottomView.findViewById(R.id.tvTitle);
+            AppCompatTextView tvClose = bottomView.findViewById(R.id.tvClose);
+            RecyclerView rvReminder = bottomView.findViewById(R.id.rvReminder);
+            LinearLayout layoutTime = bottomView.findViewById(R.id.layoutTime);
+            AppCompatTextView tvReminderTime = bottomView.findViewById(R.id.tvReminderTime);
+            MaterialButton btnApply = bottomView.findViewById(R.id.btnApply);
+            MaterialButton btnReset = bottomView.findViewById(R.id.btnReset);
+
+            tvTitle.setText(getString(R.string.reminder));
+
+            List<FrequencyModel> reminderList = new ArrayList<>();
+
+            reminderList.add(new FrequencyModel(
+                    DebtLoanType.REMINDER_NONE,
+                    R.drawable.ic_notification_off,
+                    getString(R.string.no_reminder)
+            ));
+
+            reminderList.add(new FrequencyModel(
+                    DebtLoanType.REMINDER_ON_DUE_DATE,
+                    R.drawable.ic_calendar_due,
+                    getString(R.string.on_payment_date)
+            ));
+
+            reminderList.add(new FrequencyModel(
+                    DebtLoanType.REMINDER_1_DAY_BEFORE,
+                    R.drawable.ic_calendar_daily,
+                    getString(R.string.one_day_before)
+            ));
+
+            reminderList.add(new FrequencyModel(
+                    DebtLoanType.REMINDER_3_DAYS_BEFORE,
+                    R.drawable.ic_calendar_three_day,
+                    getString(R.string.three_days_before)
+            ));
+
+            reminderList.add(new FrequencyModel(
+                    DebtLoanType.REMINDER_7_DAYS_BEFORE,
+                    R.drawable.ic_calendar_weekly,
+                    getString(R.string.seven_days_before)
+            ));
+
+            // =====================================================
+            // TEMPORARY VALUES
+            // =====================================================
+
+            boolean[] tempReminderEnabled = {reminderEnabled};
+            int[] tempReminderDays = {reminderDays};
+
+            // Important:
+            // Keep the current selected time inside the temporary values.
+            int[] tempReminderHour = {reminderHour};
+            int[] tempReminderMinute = {reminderMinute};
+
+            RecyclerViewAdapter<FrequencyModel> adapter =
+                    new RecyclerViewAdapter<>(
+                            this,
+                            reminderList,
+                            R.layout.item_calendar_filter
+                    ) {
+
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void onPostBindViewHolder(
+                                ViewHolder holder,
+                                FrequencyModel frequency
+                        ) {
+
+                            boolean selected;
+
+                            if (frequency.frequency == DebtLoanType.REMINDER_NONE) {
+
+                                selected = !tempReminderEnabled[0];
+
+                            } else {
+
+                                selected = tempReminderEnabled[0]
+                                        && tempReminderDays[0]
+                                        == getReminderDays(frequency.frequency);
+                            }
+
+                            holder.setViewText(
+                                    R.id.tvFilterName,
+                                    frequency.frequencyName
+                            );
+
+                            holder.setViewImageDrawable(
+                                    R.id.ivIcon,
+                                    ContextCompat.getDrawable(
+                                            getApplicationContext(),
+                                            frequency.icon
+                                    )
+                            );
+
+                            holder.setViewVisibility(
+                                    R.id.ivSelected,
+                                    selected
+                                            ? View.VISIBLE
+                                            : View.GONE
+                            );
+
+                            holder.setViewTypeface(
+                                    R.id.tvFilterName,
+                                    selected
+                                            ? semiBold
+                                            : medium
+                            );
+
+                            holder.getView(R.id.rlFilterView)
+                                    .setOnClickListener(v -> {
+
+                                        if (frequency.frequency
+                                                == DebtLoanType.REMINDER_NONE) {
+
+                                            tempReminderEnabled[0] = false;
+                                            tempReminderDays[0] = 0;
+
+                                        } else {
+
+                                            tempReminderEnabled[0] = true;
+                                            tempReminderDays[0] =
+                                                    getReminderDays(
+                                                            frequency.frequency
+                                                    );
+                                        }
+
+                                        layoutTime.setVisibility(
+                                                tempReminderEnabled[0]
+                                                        ? View.VISIBLE
+                                                        : View.GONE
+                                        );
+
+                                        notifyDataSetChanged();
+                                    });
+                        }
+                    };
+
+            rvReminder.setAdapter(adapter);
+            rvReminder.setHasFixedSize(true);
+            rvReminder.setItemAnimator(null);
+
+            // =====================================================
+            // INITIAL TIME
+            // =====================================================
+
+            tvReminderTime.setText(
+                    formatReminderTime(
+                            tempReminderHour[0],
+                            tempReminderMinute[0]
+                    )
+            );
+
+            layoutTime.setVisibility(
+                    tempReminderEnabled[0]
+                            ? View.VISIBLE
+                            : View.GONE
+            );
+
+            // =====================================================
+            // SELECT REMINDER TIME
+            // =====================================================
+
+            layoutTime.setOnClickListener(v -> showReminderTimePicker(
+                    tvReminderTime,
+                    tempReminderHour,
+                    tempReminderMinute
+            ));
+
+            // =====================================================
+            // APPLY
+            // =====================================================
+
+            btnApply.setOnClickListener(v -> {
+
+                if (tempReminderEnabled[0]) {
+
+                    // Flexible repayment requires due date
+                    if (selectedRepaymentMethod
+                            == DebtLoanType.REPAYMENT_FLEXIBLE
+                            && dueDate == null) {
+
+                        Toast.makeText(
+                                this,
+                                R.string.please_select_a_due_date_first,
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        return;
+                    }
+
+                    // Scheduled repayment requires first payment date
+                    if (selectedRepaymentMethod
+                            != DebtLoanType.REPAYMENT_FLEXIBLE
+                            && firstPaymentDate == null) {
+
+                        Toast.makeText(
+                                this,
+                                R.string.please_select_the_first_payment_date_first,
+                                Toast.LENGTH_SHORT
+                        ).show();
+
+                        return;
+                    }
+                }
+
+                // =================================================
+                // SAVE TEMP VALUES TO ACTUAL VALUES
+                // =================================================
+
+                reminderEnabled = tempReminderEnabled[0];
+
+                reminderDays = tempReminderEnabled[0]
+                        ? tempReminderDays[0]
+                        : DebtLoanType.REMINDER_NONE;
+
+                reminderHour = tempReminderHour[0];
+                reminderMinute = tempReminderMinute[0];
+
+                updateReminderText();
+                updateSaveButtonState();
+
+                dialog.dismiss();
+            });
+
+            // =====================================================
+            // RESET
+            // =====================================================
+
+            btnReset.setOnClickListener(v -> {
+
+                reminderEnabled = false;
+                reminderDays = DebtLoanType.REMINDER_NONE;
+
+                // Keep default reminder time as 9:00 AM
+                reminderHour = 9;
+                reminderMinute = 0;
+
+                updateReminderText();
+                updateSaveButtonState();
+
+                dialog.dismiss();
+            });
+
+            // =====================================================
+            // CLOSE
+            // =====================================================
+
+            tvClose.setOnClickListener(v -> dialog.dismiss());
+
+            dialog.setContentView(bottomView);
+            dialog.show();
+
+        } catch (Exception e) {
+            AppLogger.e(
+                    getClass(),
+                    "showReminderPicker",
+                    e
+            );
+        }
+    }
+
+    private int getReminderDays(int reminderType) {
+        return switch (reminderType) {
+            case DebtLoanType.REMINDER_ON_DUE_DATE -> 0;
+            case DebtLoanType.REMINDER_1_DAY_BEFORE -> 1;
+            case DebtLoanType.REMINDER_3_DAYS_BEFORE -> 3;
+            case DebtLoanType.REMINDER_7_DAYS_BEFORE -> 7;
+            default -> -1;
+        };
+    }
+
+    private void showReminderTimePicker(
+            AppCompatTextView tvReminderTime,
+            int[] tempReminderHour,
+            int[] tempReminderMinute
+    ) {
+        try {
+
+            TimePickerDialog dialog = new TimePickerDialog(
+                    this,
+                    R.style.CustomDateTimePickerDialog,
+
+                    // This callback runs AFTER the user presses OK
+                    (view, hourOfDay, minute) -> {
+
+                        // Update temporary values
+                        tempReminderHour[0] = hourOfDay;
+                        tempReminderMinute[0] = minute;
+
+                        // Immediately update the picker bottom sheet text
+                        tvReminderTime.setText(
+                                formatReminderTime(
+                                        hourOfDay,
+                                        minute
+                                )
+                        );
+                    },
+
+                    // Initial picker time
+                    tempReminderHour[0],
+                    tempReminderMinute[0],
+
+                    // false = 12-hour AM/PM format
+                    false
+            );
+
+            dialog.show();
+
+            int color = ContextCompat.getColor(
+                    this,
+                    R.color.vibrant_orange
+            );
+
+            dialog.getButton(
+                    TimePickerDialog.BUTTON_POSITIVE
+            ).setTextColor(color);
+
+            dialog.getButton(
+                    TimePickerDialog.BUTTON_NEGATIVE
+            ).setTextColor(color);
+
+        } catch (Exception e) {
+
+            AppLogger.e(
+                    getClass(),
+                    "showReminderTimePicker",
+                    e
+            );
+        }
+    }
+
+    private String formatReminderTime(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        return new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(calendar.getTime());
+    }
+
+    private void updateReminderText() {
+
+        if (!reminderEnabled) {
+            tvReminder.setText(getString(R.string.not_set));
+            return;
+        }
+
+        String reminderText = switch (reminderDays) {
+            case 0 -> getString(R.string.on_payment_date);
+            case 1 -> getString(R.string.one_day_before);
+            case 3 -> getString(R.string.three_days_before);
+            case 7 -> getString(R.string.seven_days_before);
+            default -> getString(R.string.not_set);
+        };
+
+        tvReminder.setText(getString(R.string.reminder_with_time, reminderText, formatReminderTime(reminderHour, reminderMinute)));
     }
 
     @NonNull
@@ -2699,6 +3082,27 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             }
 
             // =====================================================
+            // REMINDER
+            // =====================================================
+            if (enabled && reminderEnabled) {
+
+                // Flexible repayment uses Due Date as the payment date
+                if (selectedRepaymentMethod == DebtLoanType.REPAYMENT_FLEXIBLE) {
+
+                    if (dueDate == null) {
+                        enabled = false;
+                    }
+
+                } else {
+
+                    // Installments / EMI use the generated payment schedule
+                    if (schedule == null || schedule.isEmpty()) {
+                        enabled = false;
+                    }
+                }
+            }
+
+            // =====================================================
             // UPDATE SAVE BUTTON
             // =====================================================
             tvSave.setEnabled(enabled);
@@ -2741,14 +3145,14 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
             if (selectedInterest == DebtLoanType.DEBT_PERCENTAGE) {
                 entity.interestCalculationMethod = selectedInterestCalcMethodPeriod;
+                entity.interestDuration = selectedInterestDurationPeriod;
+                if (selectedInterestCalcMethodPeriod == DebtLoanType.INTEREST_CALC_CI) {
+                    entity.compoundFrequency = selectedInterestCompFreqPeriod;
+                } else {
+                    entity.compoundFrequency = 0;
+                }
             } else {
                 entity.interestCalculationMethod = 0;
-            }
-
-            if (selectedInterestCalcMethodPeriod == DebtLoanType.INTEREST_CALC_CI) {
-                entity.compoundFrequency = selectedInterestCompFreqPeriod;
-                entity.interestDuration = selectedInterestDurationPeriod;
-            } else {
                 entity.compoundFrequency = 0;
                 entity.interestDuration = 0;
             }
@@ -2779,6 +3183,12 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             entity.isDeleted = false;
             entity.isSynced = false;
             entity.isMoneyReceivedLent = switchMoneyReceive.isChecked();
+
+            // REMINDER
+            entity.reminderEnabled = reminderEnabled;
+            entity.reminderDays = reminderEnabled ? reminderDays : 0;
+            entity.reminderHour = reminderEnabled ? reminderHour : 0;
+            entity.reminderMinute = reminderEnabled ? reminderMinute : 0;
 
             List<DebtLoanPaymentEntity> debtLoanPaymentList = new ArrayList<>();
             if (schedule != null && !schedule.isEmpty()) {

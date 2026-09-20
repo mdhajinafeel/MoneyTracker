@@ -39,6 +39,10 @@ public class DebtLoanEntity {
     public double paidAmount;
     public double remainingAmount;
     public boolean isMoneyReceivedLent = false;
+    public boolean reminderEnabled;
+    public int reminderDays;
+    public int reminderHour;
+    public int reminderMinute;
     public boolean isSynced = false;
     public boolean isDeleted = false;
     public long createdAt;

@@ -171,7 +171,11 @@ public class AddAccountActivity extends BaseActivity {
                 if (isEditing) return;
 
                 String value = s.toString().replace(",", "");
+
                 if (value.isEmpty()) return;
+
+                // Allow user to type "10."
+                if (value.endsWith(".")) return;
 
                 try {
                     isEditing = true;

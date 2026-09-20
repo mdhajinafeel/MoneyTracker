@@ -20,7 +20,7 @@
         android:padding="@dimen/padding_10">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardBudgetIcon"
+            android:id="@+id/cardDebtIcon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="@dimen/margin_4"
@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="@+id/leftWrapper">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivBudgetIcon"
+                android:id="@+id/ivDebtIcon"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvBudgetName"
+                android:id="@+id/tvDebtTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/padding_8"
@@ -68,37 +68,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:id="@+id/budgetContainer"
+                android:id="@+id/debtContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_6"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@id/tvBudgetName"
-                app:layout_constraintTop_toBottomOf="@id/tvBudgetName">
+                app:layout_constraintStart_toStartOf="@id/tvDebtTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvDebtTitle">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvBudgetPeriod"
+                    android:id="@+id/tvStartDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/exo2_bold"
-                    android:textSize="@dimen/text_12" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivBudgetDot"
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:layout_marginStart="@dimen/padding_4"
-                    android:layout_gravity="center_vertical"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/bg_goal_category_dot" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvBudgetDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/padding_4"
+                    android:drawablePadding="@dimen/padding_4"
+                    android:drawableTint="@color/dark_grey"
                     android:fontFamily="@font/exo2_medium"
                     android:gravity="center_vertical"
                     android:includeFontPadding="false"
@@ -114,7 +98,7 @@
                     android:visibility="gone" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvBudgetStatus"
+                    android:id="@+id/tvDebtLoanStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_4"
@@ -140,8 +124,8 @@
                 android:layout_marginTop="@dimen/margin_6"
                 android:fontFamily="@font/exo2_bold"
                 android:textSize="@dimen/text_16"
-                app:layout_constraintStart_toStartOf="@id/tvBudgetName"
-                app:layout_constraintTop_toBottomOf="@id/budgetContainer" />
+                app:layout_constraintStart_toStartOf="@id/tvDebtTitle"
+                app:layout_constraintTop_toBottomOf="@id/debtContainer" />
 
             <!-- Target Amount -->
             <androidx.appcompat.widget.AppCompatTextView
@@ -210,44 +194,22 @@
 
             <!-- LEFT -->
             <LinearLayout
+                android:id="@+id/layoutDaysLeft"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ic_wallet_thin"
+                    android:src="@drawable/ic_calendar_days_left"
                     app:tint="@color/dark_grey" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvWallets"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_4"
-                    android:fontFamily="@font/exo2_medium"
-                    android:textColor="@color/dark_grey"
-                    android:textSize="@dimen/text_14" />
-            </LinearLayout>
-
-            <!-- CENTER -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/ic_category_thin"
-                    app:tint="@color/dark_grey" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvCategories"
+                    android:id="@+id/tvDaysLeft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_4"

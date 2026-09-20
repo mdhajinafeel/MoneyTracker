@@ -57,8 +57,8 @@ public class DebtLoanViewModel extends ViewModel {
         return debtLoanRepository.getDebtLoanById(id);
     }
 
-    public LiveData<List<DebtLoanEntity>> getAllDebtLoans() {
-        return debtLoanRepository.getAllDebtLoans();
+    public LiveData<List<DebtLoanEntity>> getAllDebtLoans(int type) {
+        return debtLoanRepository.getAllDebtLoans(type);
     }
 
     @SuppressLint("EmptySuperCall")
