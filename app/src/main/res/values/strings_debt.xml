@@ -38,6 +38,16 @@
     <string name="quarter_text">Quarter</string>
     <string name="year_text">Year</string>
     <string name="interest_duration_format">%1$d %2$s</string>
+    <string name="debt_created">Debt created</string>
+    <string name="loan_created">Loan created</string>
+    <string name="debt_updated">Debt updated</string>
+    <string name="loan_updated">Loan updated</string>
+    <string name="error_debt_create">Error when create the debt</string>
+    <string name="error_debt_update">Error when update the debt</string>
+    <string name="error_debt_delete">Error when delete the debt</string>
+    <string name="error_loan_create">Error when create the loan</string>
+    <string name="error_loan_update">Error when update the loan</string>
+    <string name="error_loan_delete">Error when delete the loan</string>
 
     <string name="select_repayment_method">Select repayment method</string>
     <string name="flexible">Flexible</string>

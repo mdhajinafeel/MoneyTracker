@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -43,6 +44,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.DebtLoanType;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.DebtLoanEntity;
+import com.nprotech.moneytracker.db.entites.DebtLoanPaymentEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
@@ -58,11 +61,13 @@ import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.utils.CustomNumberPicker;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
+import com.nprotech.moneytracker.viewmodel.DebtLoanViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -93,7 +98,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private WalletEntity selectedWallet;
     private AccountEntity account;
     private List<WalletEntity> walletLists;
-    private int selectedType = 1, debtIcon = 0, selectedInterest = 0, tempInterest = 0, selectedInterestPeriod = 0, tempInterestPeriod = 0,
+    private int selectedType = 0, debtIcon = 0, selectedInterest = 0, tempInterest = 0, selectedInterestPeriod = 0, tempInterestPeriod = 0,
             selectedInterestCalcMethodPeriod = 0, tempInterestCalcMethodPeriod = 0, selectedInterestCompFreqPeriod = 0, tempInterestCompFreqPeriod = 0,
             selectedInterestDurationPeriod = 0, tempInterestDurationPeriod = 0, selectedRepaymentMethod = 0, tempRepaymentMethod = 0,
             selectedRepaymentFrequency = 0, tempRepaymentFrequency = 0;
@@ -107,7 +112,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private Date startDate, dueDate, firstPaymentDate;
     private ArrayList<String> debtColorLists;
     private AccountViewModel accountViewModel;
+    private DebtLoanViewModel debtLoanViewModel;
     private Typeface medium, semiBold;
+    private List<ReducingBalancePaymentModel> schedule;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -222,6 +229,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 isEdit = bundle.getBoolean("isEdit", false);
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
+                debtLoanViewModel = new ViewModelProvider(this).get(DebtLoanViewModel.class);
 
                 medium = ResourcesCompat.getFont(this, R.font.exo2_medium);
                 semiBold = ResourcesCompat.getFont(this, R.font.exo2_semibold);
@@ -268,7 +276,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 startDate = calendar.getTime();
                 tvStartDate.setText(DateHelper.getDateFromPicker(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)));
 
-                selectedType = 1;
+                selectedType = DebtLoanType.BORROW;
                 selectedInterest = DebtLoanType.DEBT_NO_INTEREST;
                 tempInterest = DebtLoanType.DEBT_NO_INTEREST;
                 selectedInterestPeriod = DebtLoanType.INTEREST_PERIOD_YEAR;
@@ -284,6 +292,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 selectedRepaymentFrequency = DebtLoanType.REPAYMENT_FREQ_MONTHLY;
                 tempRepaymentFrequency = DebtLoanType.REPAYMENT_FREQ_MONTHLY;
                 customInterestDurationPeriod = DebtLoanType.INTEREST_PERIOD_MONTH;
+                debtIcon = 152;
 
                 if (!walletLists.isEmpty()) {
                     selectedWallet = walletLists.get(0);
@@ -343,12 +352,12 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
             // TYPE
             cardBorrow.setOnClickListener(v -> {
-                selectedType = 1;
+                selectedType = DebtLoanType.BORROW;
                 updateTypeSelection();
             });
 
             cardLent.setOnClickListener(v -> {
-                selectedType = 2;
+                selectedType = DebtLoanType.LENT;
                 updateTypeSelection();
             });
 
@@ -432,15 +441,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             });
 
             // INTEREST
-            layoutInterestWrapper.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestPicker();
-            });
+            layoutInterestWrapper.setOnClickListener(v -> showInterestPicker());
 
-            tvInterest.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestPicker();
-            });
+            tvInterest.setOnClickListener(v -> showInterestPicker());
 
             // INTEREST AMOUNT
             etInterestAmount.setOnClickListener(v -> {
@@ -454,28 +457,16 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             });
 
             // INTEREST PERIOD
-            etInterestPeriod.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestPeriodPicker();
-            });
+            etInterestPeriod.setOnClickListener(v -> showInterestPeriodPicker());
 
             // INTEREST CALC METHOD
-            etCalculationMethod.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestCalcMethodPicker();
-            });
+            etCalculationMethod.setOnClickListener(v -> showInterestCalcMethodPicker());
 
             // INTEREST COMP FREQUENCY
-            etCompoundFrequency.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestCompFrequencyPicker();
-            });
+            etCompoundFrequency.setOnClickListener(v -> showInterestCompFrequencyPicker());
 
             // INTEREST DURATION
-            etInterestDuration.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showInterestDurationPicker();
-            });
+            etInterestDuration.setOnClickListener(v -> showInterestDurationPicker());
 
             etInterestRate.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -497,37 +488,21 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 }
             });
 
-            etCustomInterestDuration.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showCustomInterestDurationPicker();
-            });
+            etCustomInterestDuration.setOnClickListener(v -> showCustomInterestDurationPicker());
 
             // REPAYMENT
-            layoutRepaymentWrapper.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showRepaymentPicker();
-            });
+            layoutRepaymentWrapper.setOnClickListener(v -> showRepaymentPicker());
 
-            tvRepaymentMethod.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showRepaymentPicker();
-            });
+            tvRepaymentMethod.setOnClickListener(v -> showRepaymentPicker());
 
             // INSTALLMENTS
-            etNoOfInstallments.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showNoOfInstallmentsPicker();
-            });
+            etNoOfInstallments.setOnClickListener(v -> showNoOfInstallmentsPicker());
 
             // PAYMENT FREQUENCY
-            etPaymentFrequency.setOnClickListener(v -> {
-                hideKeyboard(this);
-                showPaymentFrequencyPicker();
-            });
+            etPaymentFrequency.setOnClickListener(v -> showPaymentFrequencyPicker());
 
             // FIRST PAYMENT DATE
             etFirstPaymentDate.setOnClickListener(v -> {
-                hideKeyboard(this);
                 selectedDateType = DATE_TYPE_FIRST_PAYMENT;
                 showFirstPaymentDatePicker();
             });
@@ -543,17 +518,13 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
             // COLOR
             cardColor.setOnClickListener(view -> {
-                etName.clearFocus();
-                etNotes.clearFocus();
-                hideKeyboard(this);
+                prepareBottomSheet();
                 colorSpinner.requestFocus();
                 colorSpinner.performClick();
             });
 
             frameColor.setOnClickListener(view -> {
-                etName.clearFocus();
-                etNotes.clearFocus();
-                hideKeyboard(this);
+                prepareBottomSheet();
                 colorSpinner.requestFocus();
                 colorSpinner.performClick();
             });
@@ -598,7 +569,26 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
             // SAVE
             tvSave.setOnClickListener(v -> {
+                if (!tvSave.isEnabled()) {
+                    return;
+                }
 
+                saveDebtLoan();
+            });
+
+            debtLoanViewModel.getDataSavedStatus().observe(this, aBoolean -> {
+                tvSave.setEnabled(true);
+                if (Boolean.TRUE.equals(aBoolean)) {
+
+                    if (selectedType == DebtLoanType.BORROW) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.debt_created), Toast.LENGTH_SHORT).show();
+                    } else if (selectedType == DebtLoanType.LENT) {
+                        Toast.makeText(getApplicationContext(), getString(R.string.loan_created), Toast.LENGTH_SHORT).show();
+                    }
+
+                    setResult(Activity.RESULT_OK);
+                    finishWithTransitions();
+                }
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -647,7 +637,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void updateTypeSelection() {
         try {
 
-            if (selectedType == 1) {
+            if (selectedType == DebtLoanType.BORROW) {
 
                 // =====================================================
                 // BORROW SELECTED
@@ -695,10 +685,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void selectWallets() {
         try {
 
-            hideKeyboard(this);
-            etName.clearFocus();
-            etNotes.clearFocus();
-            etTitle.clearFocus();
+            prepareBottomSheet();
 
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
@@ -756,6 +743,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showInterestPicker() {
         try {
 
+            prepareBottomSheet();
             tempInterest = selectedInterest;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -878,6 +866,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showInterestPeriodPicker() {
         try {
 
+            prepareBottomSheet();
             tempInterestPeriod = selectedInterestPeriod;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -962,9 +951,10 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     }
 
     // INTEREST CALC METHOD
-    private void showInterestCalcMethodPicker()     {
+    private void showInterestCalcMethodPicker() {
         try {
 
+            prepareBottomSheet();
             tempInterestCalcMethodPeriod = selectedInterestCalcMethodPeriod;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -1067,6 +1057,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showInterestCompFrequencyPicker() {
         try {
 
+            prepareBottomSheet();
             tempInterestCompFreqPeriod = selectedInterestCompFreqPeriod;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -1161,6 +1152,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showInterestDurationPicker() {
         try {
 
+            prepareBottomSheet();
             tempInterestDurationPeriod = selectedInterestDurationPeriod;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -1319,9 +1311,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             return;
         }
 
-        String rateText = etInterestRate.getText() != null
-                ? etInterestRate.getText().toString().trim()
-                : "";
+        String rateText = etInterestRate.getText() != null ? etInterestRate.getText().toString().trim() : "";
 
         if (rateText.isEmpty() || rateText.equals(".")) {
             debtLoanInterestAmount = 0;
@@ -1359,16 +1349,8 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 updateInterestSummary();
                 return;
             }
-
-            duration = getDurationInInterestPeriod(
-                    customInterestDuration,
-                    customInterestDurationPeriod,
-                    selectedInterestPeriod
-            );
-
+            duration = getDurationInInterestPeriod(customInterestDuration, customInterestDurationPeriod, selectedInterestPeriod);
         } else {
-
-            // SAME AS LOAN PERIOD
             duration = getLoanDurationInInterestPeriod();
         }
 
@@ -1379,8 +1361,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             return;
         }
 
-        debtLoanInterestAmount =
-                debtLoanPrincipalAmount * (rate / 100.0) * duration;
+        debtLoanInterestAmount = debtLoanPrincipalAmount * (rate / 100.0) * duration;
 
         updateAmountText();
         updateInterestSummary();
@@ -1547,11 +1528,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                     return;
                 }
 
-                duration = getDurationInInterestPeriod(
-                        customInterestDuration,
-                        customInterestDurationPeriod,
-                        selectedInterestPeriod
-                );
+                duration = getDurationInInterestPeriod(customInterestDuration, customInterestDurationPeriod, selectedInterestPeriod);
 
             } else {
                 duration = getLoanDurationInInterestPeriod();
@@ -1827,6 +1804,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showRepaymentPicker() {
         try {
 
+            prepareBottomSheet();
             tempRepaymentMethod = selectedRepaymentMethod;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -1918,6 +1896,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
     private void showNoOfInstallmentsPicker() {
 
+        prepareBottomSheet();
         View bottomView = getLayoutInflater().inflate(R.layout.bottom_number_picker, findViewById(android.R.id.content), false);
 
         CustomNumberPicker numberPicker = bottomView.findViewById(R.id.numberPicker);
@@ -1954,6 +1933,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
     private void showPaymentFrequencyPicker() {
         try {
 
+            prepareBottomSheet();
             tempRepaymentFrequency = selectedRepaymentFrequency;
 
             List<FrequencyModel> frequencyList = new ArrayList<>();
@@ -2070,6 +2050,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
     private void showFirstPaymentDatePicker() {
         try {
+
+            prepareBottomSheet();
+
             Calendar calendar = Calendar.getInstance();
 
             if (firstPaymentDate != null) {
@@ -2094,6 +2077,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
     private void showCustomInterestDurationPicker() {
 
+        prepareBottomSheet();
         View bottomView = getLayoutInflater().inflate(R.layout.bottom_custom_period_picker, findViewById(android.R.id.content), false);
 
         CustomNumberPicker numberPicker = bottomView.findViewById(R.id.numberPickerDuration);
@@ -2484,7 +2468,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             return;
         }
 
-        List<ReducingBalancePaymentModel> schedule;
+        schedule = new ArrayList<>();
 
         if (selectedRepaymentMethod == DebtLoanType.REPAYMENT_INSTALLMENTS) {
             schedule = generateInstallmentSchedule();
@@ -2498,7 +2482,6 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
         }
 
         tvSchedulePaymentCount.setText(getResources().getQuantityString(R.plurals.payment_count, schedule.size(), schedule.size()));
-
         tvScheduleFrequency.setText(getPaymentFrequencyText());
 
         double totalPayment = 0;
@@ -2527,9 +2510,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 holder.setViewText(R.id.tvPrincipal, CommonUtils.createAmountText(getString(R.string.text_principal),
                         CommonUtils.getBeautifyAmount(symbol, payment.principalAmount), medium, semiBold));
                 holder.setViewText(R.id.tvInterest, CommonUtils.createAmountText(getString(R.string.text_interest),
-                                CommonUtils.getBeautifyAmount(symbol, payment.interestAmount), medium, semiBold));
+                        CommonUtils.getBeautifyAmount(symbol, payment.interestAmount), medium, semiBold));
                 holder.setViewText(R.id.tvRemainingBalance, CommonUtils.createAmountText(getString(R.string.text_balance),
-                                CommonUtils.getBeautifyAmount(symbol, payment.closingBalance), medium, semiBold));
+                        CommonUtils.getBeautifyAmount(symbol, payment.closingBalance), medium, semiBold));
 
                 // =====================================================
                 // PAYMENT STATUS
@@ -2727,6 +2710,117 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
         }
     }
 
+    private void saveDebtLoan() {
+        try {
+            tvSave.setEnabled(false);
+
+            long now = System.currentTimeMillis();
+
+            DebtLoanEntity entity = new DebtLoanEntity();
+
+            entity.type = selectedType;
+            entity.name = etName.getText() != null ? etName.getText().toString().trim() : "";
+            entity.title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
+            entity.debtLoanIcon = debtIcon;
+            entity.debtLoanColor = colorSpinner.getSelectedItemPosition();
+            entity.walletId = selectedWallet != null ? selectedWallet.id : 0;
+            entity.currencyCode = selectedWallet != null ? selectedWallet.currencyCode : account.currencyCode;
+            entity.currencySymbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
+            entity.principalAmount = debtLoanPrincipalAmount;
+            entity.notes = etNotes.getText() != null ? etNotes.getText().toString().trim() : "";
+            entity.startDate = startDate != null ? startDate.getTime() : 0;
+            entity.dueDate = dueDate != null ? dueDate.getTime() : null;
+            entity.firstPaymentDate = firstPaymentDate != null ? firstPaymentDate.getTime() : null;
+            entity.interestType = selectedInterest;
+
+            String interestRateText = etInterestRate.getText() != null ? etInterestRate.getText().toString().trim() : "";
+            entity.interestRate = interestRateText.isEmpty() ? 0 : CommonUtils.parseDouble(interestRateText);
+
+            entity.interestAmount = debtLoanInterestAmount;
+            entity.interestPeriod = selectedInterestPeriod;
+
+            if (selectedInterest == DebtLoanType.DEBT_PERCENTAGE) {
+                entity.interestCalculationMethod = selectedInterestCalcMethodPeriod;
+            } else {
+                entity.interestCalculationMethod = 0;
+            }
+
+            if (selectedInterestCalcMethodPeriod == DebtLoanType.INTEREST_CALC_CI) {
+                entity.compoundFrequency = selectedInterestCompFreqPeriod;
+                entity.interestDuration = selectedInterestDurationPeriod;
+            } else {
+                entity.compoundFrequency = 0;
+                entity.interestDuration = 0;
+            }
+
+            if (selectedInterestDurationPeriod == DebtLoanType.INTEREST_CUSTOM_PERIOD) {
+                entity.customInterestDuration = customInterestDuration;
+                entity.customInterestDurationPeriod = customInterestDuration > 0 ? customInterestDurationPeriod : 0;
+            } else {
+                entity.customInterestDuration = 0;
+                entity.customInterestDurationPeriod = 0;
+            }
+
+            entity.repaymentMethod = selectedRepaymentMethod;
+            if (selectedRepaymentMethod != DebtLoanType.REPAYMENT_FLEXIBLE) {
+                entity.repaymentFrequency = selectedRepaymentFrequency;
+                entity.noOfInstallments = selectedNoOfInstallments;
+                entity.installmentAmount = CommonUtils.parseDouble(Objects.requireNonNull(etInstallmentAmount.getText()).toString().trim());
+            } else {
+                entity.repaymentFrequency = 0;
+                entity.noOfInstallments = 0;
+                entity.installmentAmount = 0;
+            }
+
+            entity.totalInterest = debtLoanInterestAmount;
+            entity.totalAmount = debtLoanPrincipalAmount + debtLoanInterestAmount;
+            entity.paidAmount = 0;
+            entity.remainingAmount = entity.totalAmount;
+            entity.isDeleted = false;
+            entity.isSynced = false;
+            entity.isMoneyReceivedLent = switchMoneyReceive.isChecked();
+
+            List<DebtLoanPaymentEntity> debtLoanPaymentList = new ArrayList<>();
+            if (schedule != null && !schedule.isEmpty()) {
+                for (ReducingBalancePaymentModel reducingBalancePaymentModel : schedule) {
+                    DebtLoanPaymentEntity debtLoanPayment = new DebtLoanPaymentEntity();
+                    debtLoanPayment.tempDebtLoanPaymentServerId = "DLP_" + now + "_" + reducingBalancePaymentModel.paymentNumber;
+                    debtLoanPayment.debtLoanPaymentId = 0;
+                    debtLoanPayment.paymentNumber = reducingBalancePaymentModel.paymentNumber;
+                    debtLoanPayment.paymentDate = reducingBalancePaymentModel.paymentDate != null ? reducingBalancePaymentModel.paymentDate.getTime() : 0L;
+                    debtLoanPayment.principalAmount = reducingBalancePaymentModel.principalAmount;
+                    debtLoanPayment.interestAmount = reducingBalancePaymentModel.interestAmount;
+                    debtLoanPayment.paymentAmount = reducingBalancePaymentModel.paymentAmount;
+                    debtLoanPayment.status = DebtLoanPaymentEntity.PAYMENT_PENDING;
+                    debtLoanPayment.paidAmount = 0;
+                    debtLoanPayment.paidDate = 0L;
+                    debtLoanPayment.createdAt = now;
+                    debtLoanPayment.updatedAt = now;
+                    debtLoanPayment.isSynced = false;
+                    debtLoanPayment.isDeleted = false;
+
+                    debtLoanPaymentList.add(debtLoanPayment);
+                }
+            }
+
+            // -----------------------------------------------------
+            // SAVE / UPDATE
+            // -----------------------------------------------------
+            if (isEdit) {
+                entity.updatedAt = now;
+            } else {
+                entity.createdAt = now;
+                entity.updatedAt = now;
+                entity.debtLoanId = 0;
+                entity.tempDebtLoanServerId = "DL_" + now;
+
+                debtLoanViewModel.saveDebtLoan(entity, debtLoanPaymentList);
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "saveDebtLoan", e);
+        }
+    }
+
     private void finishWithTransitions() {
         finish();
         ActivityUtils.overrideCloseTransition(this, R.anim.scale_in, R.anim.right_to_left);
@@ -2787,5 +2881,28 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
         } catch (Exception e) {
             AppLogger.e(getClass(), "onDateSet", e);
         }
+    }
+
+    private void prepareBottomSheet() {
+        // Clear focus from all EditTexts
+        etName.clearFocus();
+        etTitle.clearFocus();
+        etNotes.clearFocus();
+
+        etInterestRate.clearFocus();
+        etInterestPeriod.clearFocus();
+        etInterestAmount.clearFocus();
+        etCalculationMethod.clearFocus();
+        etInterestDuration.clearFocus();
+        etCompoundFrequency.clearFocus();
+
+        etNoOfInstallments.clearFocus();
+        etPaymentFrequency.clearFocus();
+        etInstallmentAmount.clearFocus();
+        etFirstPaymentDate.clearFocus();
+        etCustomInterestDuration.clearFocus();
+
+        // Hide keyboard
+        hideKeyboard(this);
     }
 }

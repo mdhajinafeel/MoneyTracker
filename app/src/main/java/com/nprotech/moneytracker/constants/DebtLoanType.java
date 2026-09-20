@@ -5,6 +5,10 @@ public final class DebtLoanType {
     private DebtLoanType() {
     }
 
+    // TYPE
+    public static final int BORROW = 1;
+    public static final int LENT = 2;
+
     // DEBT & LOAN INTEREST
     public static final int DEBT_NO_INTEREST = 1;
     public static final int DEBT_PERCENTAGE = 2;

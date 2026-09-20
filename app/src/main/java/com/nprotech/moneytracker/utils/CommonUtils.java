@@ -432,4 +432,23 @@ public class CommonUtils {
         }
         return 0;
     }
+
+    public static double parseDouble(CharSequence value) {
+
+        if (value == null) {
+            return 0;
+        }
+
+        String text = value.toString().trim();
+
+        if (text.isEmpty() || text.equals(".")) {
+            return 0;
+        }
+
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 }
