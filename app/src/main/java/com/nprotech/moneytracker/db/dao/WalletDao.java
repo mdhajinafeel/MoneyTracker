@@ -45,6 +45,9 @@ public interface WalletDao {
     @Query("UPDATE wallets SET amount = :amount WHERE id = :walletId")
     void updateWalletById(int walletId, double amount);
 
+    @Query("UPDATE wallets SET amount = :amount WHERE id = :walletId")
+    int updateWalletBalanceById(int walletId, double amount);
+
     @Update
     void updateWallet(WalletEntity wallet);
 

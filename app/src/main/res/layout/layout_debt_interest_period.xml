@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="0.35"
         android:fontFamily="@font/exo2_medium"
         android:text="@string/interest_period"
         android:textColor="@color/color_matte_black"
@@ -16,8 +16,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvInterestPeriod"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="end|center_vertical"
+        android:layout_weight="0.65"
         android:fontFamily="@font/exo2_semibold"
         android:textColor="@color/color_matte_black"
         android:textSize="@dimen/text_14" />

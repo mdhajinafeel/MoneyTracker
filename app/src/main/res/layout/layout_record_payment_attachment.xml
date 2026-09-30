@@ -1,0 +1,123 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardAttachment"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/corner_radius_12"
+    app:cardElevation="2dp"
+    app:strokeColor="@color/card_shadow"
+    app:strokeWidth="1dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_10">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAttachment"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_circle_theme"
+            android:padding="@dimen/padding_6"
+            android:src="@drawable/ic_attach"
+            app:layout_constraintBottom_toBottomOf="@id/layoutAttachContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/layoutAttachContainer"
+            app:tint="@color/primary" />
+
+        <LinearLayout
+            android:id="@+id/layoutAttachContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_16"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivAttachment"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/attachmentTitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:fontFamily="@font/exo2_bold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/attachmentDescLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:text="@string/add_files"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_12"
+                app:fontFamily="@font/exo2_medium" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAttachmentImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:clipToPadding="false"
+            android:padding="@dimen/padding_4"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ivAttachment"
+            app:layout_constraintTop_toBottomOf="@id/layoutAttachContainer"
+            app:spanCount="3" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/attachFileContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_12"
+            android:background="@drawable/bg_dotted_border_color"
+            android:padding="@dimen/padding_12"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/ivAttachment"
+            app:layout_constraintTop_toBottomOf="@id/layoutAttachContainer">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivFileAttach"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_add_file"
+                app:layout_constraintBottom_toBottomOf="@id/tapFileExtensions"
+                app:layout_constraintEnd_toStartOf="@id/tapAttachFile"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tapAttachFile"
+                app:tint="@color/primary_dark" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tapAttachFile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:text="@string/tap_add_attach"
+                android:textColor="@color/primary_dark"
+                android:textSize="@dimen/text_12"
+                app:fontFamily="@font/exo2_semibold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivFileAttach"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tapFileExtensions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:text="@string/attachment_extension"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_12"
+                app:fontFamily="@font/exo2_medium"
+                app:layout_constraintStart_toStartOf="@id/tapAttachFile"
+                app:layout_constraintTop_toBottomOf="@id/tapAttachFile" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

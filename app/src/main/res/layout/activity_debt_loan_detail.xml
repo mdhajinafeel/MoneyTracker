@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <!-- Toolbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="false"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDebtLoan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_16">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardDebtLoanIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        app:cardCornerRadius="@dimen/corner_radius_16"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/leftWrapper"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/leftWrapper">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivDebtLoanIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:tint="@color/white" />
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="64dp" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/leftWrapper"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_6"
+                        android:layout_marginEnd="@dimen/margin_2"
+                        app:layout_constraintEnd_toStartOf="@id/tvDebtLoanStatus"
+                        app:layout_constraintStart_toEndOf="@id/guideline1"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDebtLoanName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_16"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDebtLoanTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_8"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_14"
+                            app:fontFamily="@font/exo2_medium"
+                            app:layout_constraintStart_toStartOf="@id/tvDebtLoanName"
+                            app:layout_constraintTop_toBottomOf="@id/tvDebtLoanName" />
+
+                        <LinearLayout
+                            android:id="@+id/debtLoanContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_8"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="@id/tvDebtLoanName"
+                            app:layout_constraintTop_toBottomOf="@id/tvDebtLoanTitle">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivDebtLoanDot"
+                                android:layout_width="4dp"
+                                android:layout_height="4dp"
+                                android:layout_gravity="center_vertical"
+                                android:scaleType="centerInside"
+                                android:src="@drawable/bg_goal_category_dot" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvDebtLoanDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/padding_4"
+                                android:drawablePadding="@dimen/padding_2"
+                                android:drawableTint="@color/dark_grey"
+                                android:fontFamily="@font/exo2_medium"
+                                android:gravity="center_vertical"
+                                android:includeFontPadding="false"
+                                android:textColor="@color/dark_grey"
+                                android:textSize="@dimen/text_14" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDebtLoanAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_14"
+                            app:layout_constraintStart_toStartOf="@id/tvDebtLoanName"
+                            app:layout_constraintTop_toBottomOf="@id/debtLoanContainer" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDebtLoanStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge_income"
+                        android:drawablePadding="@dimen/padding_4"
+                        android:drawableTint="@color/income"
+                        android:gravity="center"
+                        android:paddingHorizontal="@dimen/padding_8"
+                        android:paddingVertical="@dimen/padding_2"
+                        android:textAllCaps="true"
+                        android:textColor="@color/income"
+                        android:textSize="@dimen/text_10"
+                        android:visibility="visible"
+                        app:fontFamily="@font/exo2_semibold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDebtLoanAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardDebtLoan"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_16"
+                    android:layout_marginVertical="@dimen/margin_16">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvPaidAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_bold"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblPaidAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/paid"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintStart_toStartOf="@+id/tvPaidAmount"
+                        app:layout_constraintTop_toBottomOf="@+id/tvPaidAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTotalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_4"
+                        android:fontFamily="@font/exo2_bold"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_18"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblTotalAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/remaining"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTotalAmount" />
+
+                    <!-- Progress Bar -->
+                    <ProgressBar
+                        android:id="@+id/progressDebtLoan"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"
+                        android:layout_marginTop="@dimen/margin_12"
+                        android:layout_marginEnd="@dimen/margin_6"
+                        android:max="100"
+                        android:progressDrawable="@drawable/progress_goal"
+                        app:layout_constraintEnd_toStartOf="@+id/tvProgressPercentage"
+                        app:layout_constraintStart_toStartOf="@+id/lblPaidAmount"
+                        app:layout_constraintTop_toBottomOf="@+id/lblTotalAmount" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvProgressPercentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_4"
+                        android:fontFamily="@font/exo2_semibold"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_14"
+                        app:layout_constraintBottom_toBottomOf="@id/progressDebtLoan"
+                        app:layout_constraintEnd_toEndOf="@+id/lblTotalAmount"
+                        app:layout_constraintTop_toTopOf="@id/progressDebtLoan" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/margin_8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/progressDebtLoan">
+
+                        <!-- Center divider -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:background="@color/light_lavender"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/guideline2"
+                            app:layout_constraintStart_toStartOf="@id/guideline2"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <!-- Center guideline -->
+                        <androidx.constraintlayout.widget.Guideline
+                            android:id="@+id/guideline2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintGuide_percent="0.50" />
+
+                        <!-- LEFT LAYOUT -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutLeft"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginEnd="@dimen/margin_8"
+                            android:paddingVertical="@dimen/padding_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/guideline2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivPrincipalAmount"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_white"
+                                android:backgroundTint="@color/light_lavender"
+                                android:padding="@dimen/padding_8"
+                                android:src="@drawable/ic_amount"
+                                android:tint="@color/primary_dark"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:id="@+id/layoutPrincipal"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_6"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivPrincipalAmount"
+                                app:layout_constraintStart_toEndOf="@+id/ivPrincipalAmount"
+                                app:layout_constraintTop_toTopOf="@+id/ivPrincipalAmount">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/lblPrincipalAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:text="@string/text_principal_1"
+                                    android:textColor="@color/text_grey"
+                                    android:textSize="@dimen/text_12" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvPrincipalAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/exo2_semibold"
+                                    android:textColor="@color/color_matte_black"
+                                    android:textSize="@dimen/text_16" />
+                            </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <!-- RIGHT LAYOUT -->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layoutRight"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:paddingVertical="@dimen/padding_6"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/guideline2"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivInterest"
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:background="@drawable/bg_circle_white"
+                                android:backgroundTint="@color/light_lavender"
+                                android:padding="@dimen/padding_8"
+                                android:src="@drawable/ic_percentage"
+                                android:tint="@color/primary_dark"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <LinearLayout
+                                android:id="@+id/layoutInterestAmount"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/margin_6"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="@+id/ivInterest"
+                                app:layout_constraintStart_toEndOf="@+id/ivInterest"
+                                app:layout_constraintTop_toTopOf="@+id/ivInterest">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/lblInterestAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/exo2_medium"
+                                    android:text="@string/text_interest_1"
+                                    android:textColor="@color/text_grey"
+                                    android:textSize="@dimen/text_12" />
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvInterestAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/exo2_semibold"
+                                    android:textColor="@color/color_matte_black"
+                                    android:textSize="@dimen/text_16" />
+                            </LinearLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDebtLoanDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_10"
+                android:visibility="visible"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardDebtLoanAmount"
+                app:strokeColor="@color/card_shadow"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@drawable/view_divider"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/padding_16"
+                    android:paddingVertical="@dimen/padding_16"
+                    android:showDividers="middle">
+
+                    <LinearLayout
+                        android:id="@+id/layoutStartDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_calendar"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="0.35"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/start_date"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvStartDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/layoutDueDate"
+                        layout="@layout/layout_debt_detail_due_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutWallet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_wallet_2"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="0.35"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/wallet"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvWallet"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+
+                    <include
+                        android:id="@+id/layoutInterest"
+                        layout="@layout/layout_debt_detail_interest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutInterestPercent"
+                        layout="@layout/layout_debt_detail_interest_percent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutInterestPeriod"
+                        layout="@layout/layout_debt_detail_interest_period"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutCalcMethod"
+                        layout="@layout/layout_debt_detail_calc_method"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutCompoundFrequency"
+                        layout="@layout/layout_debt_detail_comp_frequency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutDuration"
+                        layout="@layout/layout_debt_detail_interest_duration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutRepaymentMethod"
+                        layout="@layout/layout_debt_detail_repayment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutInstallments"
+                        layout="@layout/layout_debt_detail_installment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutFrequency"
+                        layout="@layout/layout_debt_detail_repay_frequency"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutInstallmentAmount"
+                        layout="@layout/layout_debt_detail_installment_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@+id/layoutFirstPaymentDate"
+                        layout="@layout/layout_debt_detail_first_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutReminder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_reminder_2"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="0.35"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/reminder"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvReminder"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutNotes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_desc"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="0.35"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/notes"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvNotes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_pause_outline"
+                            android:tint="@color/primary_dark" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/exo2_medium"
+                            android:text="@string/status"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_14" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_income"
+                            android:drawablePadding="@dimen/padding_4"
+                            android:drawableTint="@color/income"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/padding_8"
+                            android:paddingVertical="@dimen/padding_2"
+                            android:textAllCaps="true"
+                            android:textColor="@color/income"
+                            android:textSize="@dimen/text_12"
+                            app:fontFamily="@font/exo2_semibold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <include
+                android:id="@+id/cardDebtLoanTransaction"
+                layout="@layout/layout_debt_detail_payments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginVertical="@dimen/margin_10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardDebtLoanDetail" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

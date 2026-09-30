@@ -451,4 +451,14 @@ public class CommonUtils {
             return 0;
         }
     }
+
+    public static String formatInterestRate(double rate) {
+        if (rate == (long) rate) {
+            return String.format(Locale.US, "%d", (long) rate);
+        }
+
+        return String.format(Locale.US, "%.2f", rate)
+                .replaceAll("0+$", "")
+                .replaceAll("\\.$", "");
+    }
 }

@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.ui.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -65,6 +67,7 @@ public class BackupHistoryActivity extends BaseActivity {
     private SettingType selectedSortType = SettingType.NEWEST_FIRST;
     private SettingType selectedAttachmentType = SettingType.ALL_BACKUP;
     private boolean storageSettingsOpened = false;
+    private Typeface medium, semiBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +107,9 @@ public class BackupHistoryActivity extends BaseActivity {
             });
 
             backupHistoryViewModel = new ViewModelProvider(this).get(BackupHistoryViewModel.class);
+
+            medium = ResourcesCompat.getFont(this, R.font.exo2_medium);
+            semiBold = ResourcesCompat.getFont(this, R.font.exo2_semibold);
 
             initializeAdapter();
             observeData();
@@ -329,10 +335,15 @@ public class BackupHistoryActivity extends BaseActivity {
             RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, SettingItemModel item) {
-                    holder.setViewText(R.id.tvFilterName, item.title);
+
+                    AppCompatTextView tvFilterName = holder.getView(R.id.tvFilterName);
                     AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                     boolean selected = item.settingType == selectedSortType;
+
+                    tvFilterName.setText(item.title);
+                    tvFilterName.setTypeface(selected ? semiBold : medium);
                     ivSelected.setVisibility(selected ? View.VISIBLE : View.GONE);
+
                     holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
                         selectedSortType = item.settingType;
                         notifyDataSetChanged();
@@ -357,10 +368,15 @@ public class BackupHistoryActivity extends BaseActivity {
             RecyclerViewAdapter<SettingItemModel> filterAdapter = new RecyclerViewAdapter<>(this, filterList, R.layout.item_backup_filter_option) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, SettingItemModel item) {
-                    holder.setViewText(R.id.tvFilterName, item.title);
+
+                    AppCompatTextView tvFilterName = holder.getView(R.id.tvFilterName);
                     AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                     boolean selected = item.settingType == selectedAttachmentType;
+
+                    tvFilterName.setText(item.title);
+                    tvFilterName.setTypeface(selected ? semiBold : medium);
                     ivSelected.setVisibility(selected ? View.VISIBLE : View.GONE);
+
                     holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
                         selectedAttachmentType = item.settingType;
                         notifyDataSetChanged();

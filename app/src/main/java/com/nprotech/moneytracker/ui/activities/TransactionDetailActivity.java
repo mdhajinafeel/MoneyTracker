@@ -463,7 +463,7 @@ public class TransactionDetailActivity extends BaseActivity {
             File file = new File(attachment.attachmentPath);
 
             if (!file.exists()) {
-                Toast.makeText(this, "Attachment not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.attachment_not_found, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -942,7 +942,9 @@ public class TransactionDetailActivity extends BaseActivity {
                     fileName += "." + extension;
                 }
 
-                File attachmentDirectory = new File(getFilesDir(), "uploads" + File.separator + duplicateTransactionId);
+                File uploadsDir = new File(getFilesDir(), "uploads");
+                File paymentsDir = new File(uploadsDir, "transaction");
+                File attachmentDirectory = new File(paymentsDir, duplicateTransactionId);
                 if (!attachmentDirectory.exists() && !attachmentDirectory.mkdirs()) {
                     AppLogger.d(getClass(), "Unable to create attachment directory");
                     continue;

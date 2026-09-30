@@ -70,7 +70,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -107,7 +106,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             selectedRepaymentFrequency = 0, tempRepaymentFrequency = 0;
     private int selectedNoOfInstallments = 0, tempNoOfInstallments = 0, customInterestDuration = 0, customInterestDurationPeriod = 0;
     private boolean isEdit = false;
-    private double debtLoanPrincipalAmount = 0, debtLoanInterestAmount = 0;
+    private int debtLoanId = 0;
+    private DebtLoanEntity existingDebtLoan;
+    private double debtLoanPrincipalAmount = 0, debtLoanInterestAmount = 0, installmentAmount = 0;
     private static final int DATE_TYPE_START = 1;
     private static final int DATE_TYPE_DUE = 2;
     private static final int DATE_TYPE_FIRST_PAYMENT = 3;
@@ -135,9 +136,9 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             View rootView = findViewById(R.id.rootView);
             tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
+            icBack = toolbarWrapper.findViewById(R.id.icBack);
+            tvSave = toolbarWrapper.findViewById(R.id.tvSave);
 
-            icBack = findViewById(R.id.icBack);
-            tvSave = findViewById(R.id.tvSave);
             ivBorrowSelected = findViewById(R.id.ivBorrowSelected);
             ivLentSelected = findViewById(R.id.ivLentSelected);
             cardBorrow = findViewById(R.id.cardBorrow);
@@ -232,6 +233,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             if (bundle != null) {
 
                 isEdit = bundle.getBoolean("isEdit", false);
+                debtLoanId = bundle.getInt("debtLoanId", 0);
 
                 accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
                 debtLoanViewModel = new ViewModelProvider(this).get(DebtLoanViewModel.class);
@@ -266,6 +268,17 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
                 tvSave.setText(getString(R.string.update));
                 tvTitle.setText(getString(R.string.edit_debt_loan));
+
+                debtLoanViewModel.getDebtLoanById(debtLoanId).observe(this, result -> {
+                    if (result == null || result.debtLoan == null) {
+                        Toast.makeText(this, getString(R.string.parsing_error), Toast.LENGTH_SHORT).show();
+                        finishWithTransitions();
+                        return;
+                    }
+
+                    existingDebtLoan = result.debtLoan;
+                    loadDebtLoanForEdit(existingDebtLoan);
+                });
 
             } else {
 
@@ -346,6 +359,105 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             updateSaveButtonState();
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
+        }
+    }
+
+    private void loadDebtLoanForEdit(DebtLoanEntity loan) {
+        try {
+            // Type
+            selectedType = loan.type;
+
+            // Basic details
+            etName.setText(loan.name);
+            etTitle.setText(loan.title);
+            etNotes.setText(loan.notes);
+
+            // Wallet
+            for (WalletEntity wallet : walletLists) {
+                if (wallet.id == loan.walletId) {
+                    selectedWallet = wallet;
+                    break;
+                }
+            }
+
+            if (selectedWallet != null) {
+                tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
+                        CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
+            }
+
+            // Amount
+            debtLoanPrincipalAmount = loan.principalAmount;
+            debtLoanInterestAmount = loan.interestAmount;
+
+            etInterestRate.setText(loan.interestRate > 0 ? (loan.interestRate % 1 == 0 ? String.valueOf((int) loan.interestRate)
+                               : String.valueOf(loan.interestRate)) : "");
+            etNoOfInstallments.setText(loan.noOfInstallments > 0 ? String.valueOf(loan.noOfInstallments) : "");
+            etInstallmentAmount.setText(loan.installmentAmount > 0 ? CommonUtils.getBeautifyAmount(loan.currencySymbol, loan.installmentAmount) : "");
+            switchMoneyReceive.setChecked(loan.isMoneyReceivedLent);
+            if (loan.startDate > 0) {
+                tvStartDate.setText(DateHelper.getFormattedDate(loan.startDate));
+            }
+            if (loan.dueDate != null) {
+                tvDueDate.setText(DateHelper.getFormattedDate(loan.dueDate));
+            }
+            if (loan.firstPaymentDate != null) {
+                etFirstPaymentDate.setText(DateHelper.getFormattedDate(loan.firstPaymentDate));
+            }
+            if (loan.debtLoanIcon >= 0 && loan.debtLoanIcon < DataHelper.getCategoryIcons().size()) {
+                ivDebtIcon.setImageResource(DataHelper.getCategoryIcons().get(loan.debtLoanIcon));
+            }
+
+            // Interest
+            selectedInterest = loan.interestType;
+            selectedInterestPeriod = loan.interestPeriod;
+            selectedInterestCalcMethodPeriod = loan.interestCalculationMethod;
+            selectedInterestCompFreqPeriod = loan.compoundFrequency;
+            selectedInterestDurationPeriod = loan.interestDuration;
+
+            // Repayment
+            selectedRepaymentMethod = loan.repaymentMethod;
+            selectedRepaymentFrequency = loan.repaymentFrequency;
+            selectedNoOfInstallments = loan.noOfInstallments;
+
+            tempRepaymentMethod = selectedRepaymentMethod;
+            tempRepaymentFrequency = selectedRepaymentFrequency;
+            tempNoOfInstallments = selectedNoOfInstallments;
+
+            // Dates
+            startDate = loan.startDate > 0 ? new Date(loan.startDate) : null;
+            dueDate = loan.dueDate != null ? new Date(loan.dueDate) : null;
+            firstPaymentDate = loan.firstPaymentDate != null ? new Date(loan.firstPaymentDate) : null;
+
+            // Reminder
+            reminderEnabled = loan.reminderEnabled;
+            reminderDays = loan.reminderDays;
+            reminderHour = loan.reminderHour;
+            reminderMinute = loan.reminderMinute;
+
+            // Icon / color
+            debtIcon = loan.debtLoanIcon;
+
+            if (loan.debtLoanColor >= 0 && loan.debtLoanColor < debtColorLists.size()) {
+                colorSpinner.setSelection(loan.debtLoanColor);
+            }
+
+            // Refresh UI
+            updateTypeSelection();
+            updateAmountText();
+            updateInterestFields();
+            updateInterestPeriodFields();
+            updateInterestCalcMethodFields();
+            updateInterestCompFrequencyFields();
+            updateInterestDurationFields();
+            updatePaymentFrequency();
+            updateRepaymentFields();
+            updateReminderText();
+            updateInterestSummary();
+            updateRepaymentSchedule();
+            updateSaveButtonState();
+
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "loadDebtLoanForEdit", e);
         }
     }
 
@@ -585,11 +697,18 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             debtLoanViewModel.getDataSavedStatus().observe(this, aBoolean -> {
                 tvSave.setEnabled(true);
                 if (Boolean.TRUE.equals(aBoolean)) {
-
-                    if (selectedType == DebtLoanType.BORROW) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.debt_created), Toast.LENGTH_SHORT).show();
-                    } else if (selectedType == DebtLoanType.LENT) {
-                        Toast.makeText(getApplicationContext(), getString(R.string.loan_created), Toast.LENGTH_SHORT).show();
+                    if (isEdit) {
+                        if (selectedType == DebtLoanType.BORROW) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.debt_updated), Toast.LENGTH_SHORT).show();
+                        } else if (selectedType == DebtLoanType.LENT) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.loan_updated), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        if (selectedType == DebtLoanType.BORROW) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.debt_created), Toast.LENGTH_SHORT).show();
+                        } else if (selectedType == DebtLoanType.LENT) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.loan_created), Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     setResult(Activity.RESULT_OK);
@@ -2170,7 +2289,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             return;
         }
 
-        double installmentAmount = 0;
+        installmentAmount = 0;
 
         switch (selectedRepaymentMethod) {
             case DebtLoanType.REPAYMENT_INSTALLMENTS:
@@ -2760,34 +2879,17 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             // =====================================================
 
             btnApply.setOnClickListener(v -> {
-
                 if (tempReminderEnabled[0]) {
 
                     // Flexible repayment requires due date
-                    if (selectedRepaymentMethod
-                            == DebtLoanType.REPAYMENT_FLEXIBLE
-                            && dueDate == null) {
-
-                        Toast.makeText(
-                                this,
-                                R.string.please_select_a_due_date_first,
-                                Toast.LENGTH_SHORT
-                        ).show();
-
+                    if (selectedRepaymentMethod == DebtLoanType.REPAYMENT_FLEXIBLE && dueDate == null) {
+                        Toast.makeText(this, R.string.please_select_a_due_date_first, Toast.LENGTH_SHORT).show();
                         return;
                     }
 
                     // Scheduled repayment requires first payment date
-                    if (selectedRepaymentMethod
-                            != DebtLoanType.REPAYMENT_FLEXIBLE
-                            && firstPaymentDate == null) {
-
-                        Toast.makeText(
-                                this,
-                                R.string.please_select_the_first_payment_date_first,
-                                Toast.LENGTH_SHORT
-                        ).show();
-
+                    if (selectedRepaymentMethod != DebtLoanType.REPAYMENT_FLEXIBLE && firstPaymentDate == null) {
+                        Toast.makeText(this, R.string.please_select_the_first_payment_date_first, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -2795,13 +2897,8 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 // =================================================
                 // SAVE TEMP VALUES TO ACTUAL VALUES
                 // =================================================
-
                 reminderEnabled = tempReminderEnabled[0];
-
-                reminderDays = tempReminderEnabled[0]
-                        ? tempReminderDays[0]
-                        : DebtLoanType.REMINDER_NONE;
-
+                reminderDays = tempReminderEnabled[0] ? tempReminderDays[0] : DebtLoanType.REMINDER_NONE;
                 reminderHour = tempReminderHour[0];
                 reminderMinute = tempReminderMinute[0];
 
@@ -2858,63 +2955,20 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
         };
     }
 
-    private void showReminderTimePicker(
-            AppCompatTextView tvReminderTime,
-            int[] tempReminderHour,
-            int[] tempReminderMinute
-    ) {
+    private void showReminderTimePicker(AppCompatTextView tvReminderTime, int[] tempReminderHour, int[] tempReminderMinute) {
         try {
-
-            TimePickerDialog dialog = new TimePickerDialog(
-                    this,
-                    R.style.CustomDateTimePickerDialog,
-
-                    // This callback runs AFTER the user presses OK
+            TimePickerDialog dialog = new TimePickerDialog(this, R.style.CustomDateTimePickerDialog,
                     (view, hourOfDay, minute) -> {
-
-                        // Update temporary values
                         tempReminderHour[0] = hourOfDay;
                         tempReminderMinute[0] = minute;
-
-                        // Immediately update the picker bottom sheet text
-                        tvReminderTime.setText(
-                                formatReminderTime(
-                                        hourOfDay,
-                                        minute
-                                )
-                        );
-                    },
-
-                    // Initial picker time
-                    tempReminderHour[0],
-                    tempReminderMinute[0],
-
-                    // false = 12-hour AM/PM format
-                    false
-            );
-
+                        tvReminderTime.setText(formatReminderTime(hourOfDay, minute));
+                    }, tempReminderHour[0], tempReminderMinute[0], false);
             dialog.show();
-
-            int color = ContextCompat.getColor(
-                    this,
-                    R.color.vibrant_orange
-            );
-
-            dialog.getButton(
-                    TimePickerDialog.BUTTON_POSITIVE
-            ).setTextColor(color);
-
-            dialog.getButton(
-                    TimePickerDialog.BUTTON_NEGATIVE
-            ).setTextColor(color);
-
+            int color = ContextCompat.getColor(this, R.color.vibrant_orange);
+            dialog.getButton(TimePickerDialog.BUTTON_POSITIVE).setTextColor(color);
+            dialog.getButton(TimePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
         } catch (Exception e) {
-
-            AppLogger.e(
-                    getClass(),
-                    "showReminderTimePicker",
-                    e
-            );
+            AppLogger.e(getClass(), "showReminderTimePicker", e);
         }
     }
 
@@ -3120,8 +3174,37 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
 
             long now = System.currentTimeMillis();
 
-            DebtLoanEntity entity = new DebtLoanEntity();
+            DebtLoanEntity entity;
 
+            if (isEdit) {
+
+                if (existingDebtLoan == null || existingDebtLoan.id <= 0) {
+                    tvSave.setEnabled(true);
+                    return;
+                }
+
+                // Keep the existing record
+                entity = existingDebtLoan;
+
+            } else {
+
+                // Create a new record
+                entity = new DebtLoanEntity();
+
+                entity.createdAt = now;
+                entity.updatedAt = now;
+                entity.debtLoanId = 0;
+                entity.tempDebtLoanServerId = "DL_" + now;
+
+                entity.paidAmount = 0;
+                entity.remainingAmount = 0;
+                entity.isDeleted = false;
+                entity.isSynced = false;
+            }
+
+            // -----------------------------------------------------
+            // BASIC DETAILS
+            // -----------------------------------------------------
             entity.type = selectedType;
             entity.name = etName.getText() != null ? etName.getText().toString().trim() : "";
             entity.title = etTitle.getText() != null ? etTitle.getText().toString().trim() : "";
@@ -3135,17 +3218,26 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             entity.startDate = startDate != null ? startDate.getTime() : 0;
             entity.dueDate = dueDate != null ? dueDate.getTime() : null;
             entity.firstPaymentDate = firstPaymentDate != null ? firstPaymentDate.getTime() : null;
+
+            // -----------------------------------------------------
+            // INTEREST
+            // -----------------------------------------------------
             entity.interestType = selectedInterest;
-
             String interestRateText = etInterestRate.getText() != null ? etInterestRate.getText().toString().trim() : "";
-            entity.interestRate = interestRateText.isEmpty() ? 0 : CommonUtils.parseDouble(interestRateText);
 
+            entity.interestRate = interestRateText.isEmpty() ? 0 : CommonUtils.parseDouble(interestRateText);
             entity.interestAmount = debtLoanInterestAmount;
-            entity.interestPeriod = selectedInterestPeriod;
+
+            if (selectedInterest == DebtLoanType.DEBT_NO_INTEREST) {
+                entity.interestDuration = 0;
+            } else {
+                entity.interestDuration = selectedInterestDurationPeriod;
+            }
 
             if (selectedInterest == DebtLoanType.DEBT_PERCENTAGE) {
+                entity.interestPeriod = selectedInterestPeriod;
                 entity.interestCalculationMethod = selectedInterestCalcMethodPeriod;
-                entity.interestDuration = selectedInterestDurationPeriod;
+
                 if (selectedInterestCalcMethodPeriod == DebtLoanType.INTEREST_CALC_CI) {
                     entity.compoundFrequency = selectedInterestCompFreqPeriod;
                 } else {
@@ -3154,7 +3246,6 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             } else {
                 entity.interestCalculationMethod = 0;
                 entity.compoundFrequency = 0;
-                entity.interestDuration = 0;
             }
 
             if (selectedInterestDurationPeriod == DebtLoanType.INTEREST_CUSTOM_PERIOD) {
@@ -3165,51 +3256,78 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
                 entity.customInterestDurationPeriod = 0;
             }
 
+            // -----------------------------------------------------
+            // REPAYMENT
+            // -----------------------------------------------------
             entity.repaymentMethod = selectedRepaymentMethod;
+
             if (selectedRepaymentMethod != DebtLoanType.REPAYMENT_FLEXIBLE) {
                 entity.repaymentFrequency = selectedRepaymentFrequency;
                 entity.noOfInstallments = selectedNoOfInstallments;
-                entity.installmentAmount = CommonUtils.parseDouble(Objects.requireNonNull(etInstallmentAmount.getText()).toString().trim());
+                entity.installmentAmount = installmentAmount > 0 ? installmentAmount : 0;
             } else {
                 entity.repaymentFrequency = 0;
                 entity.noOfInstallments = 0;
                 entity.installmentAmount = 0;
             }
 
+            // -----------------------------------------------------
+            // TOTALS
+            // -----------------------------------------------------
             entity.totalInterest = debtLoanInterestAmount;
             entity.totalAmount = debtLoanPrincipalAmount + debtLoanInterestAmount;
-            entity.paidAmount = 0;
-            entity.remainingAmount = entity.totalAmount;
+
+            if (isEdit) {
+                entity.paidAmount = existingDebtLoan.paidAmount;
+                entity.remainingAmount = Math.max(0, entity.totalAmount - entity.paidAmount);
+            } else {
+                entity.paidAmount = 0;
+                entity.remainingAmount = entity.totalAmount;
+            }
+
             entity.isDeleted = false;
             entity.isSynced = false;
+
+            // -----------------------------------------------------
+            // MONEY RECEIVED / LENT
+            // -----------------------------------------------------
+
             entity.isMoneyReceivedLent = switchMoneyReceive.isChecked();
 
+            if (isEdit && existingDebtLoan != null && entity.totalAmount < existingDebtLoan.paidAmount) {
+                Toast.makeText(this, R.string.amount_already_paid, Toast.LENGTH_SHORT).show();
+                tvSave.setEnabled(true);
+                return;
+            }
+
+            // -----------------------------------------------------
             // REMINDER
+            // -----------------------------------------------------
             entity.reminderEnabled = reminderEnabled;
             entity.reminderDays = reminderEnabled ? reminderDays : 0;
             entity.reminderHour = reminderEnabled ? reminderHour : 0;
             entity.reminderMinute = reminderEnabled ? reminderMinute : 0;
 
             List<DebtLoanPaymentEntity> debtLoanPaymentList = new ArrayList<>();
-            if (schedule != null && !schedule.isEmpty()) {
-                for (ReducingBalancePaymentModel reducingBalancePaymentModel : schedule) {
-                    DebtLoanPaymentEntity debtLoanPayment = new DebtLoanPaymentEntity();
-                    debtLoanPayment.tempDebtLoanPaymentServerId = "DLP_" + now + "_" + reducingBalancePaymentModel.paymentNumber;
-                    debtLoanPayment.debtLoanPaymentId = 0;
-                    debtLoanPayment.paymentNumber = reducingBalancePaymentModel.paymentNumber;
-                    debtLoanPayment.paymentDate = reducingBalancePaymentModel.paymentDate != null ? reducingBalancePaymentModel.paymentDate.getTime() : 0L;
-                    debtLoanPayment.principalAmount = reducingBalancePaymentModel.principalAmount;
-                    debtLoanPayment.interestAmount = reducingBalancePaymentModel.interestAmount;
-                    debtLoanPayment.paymentAmount = reducingBalancePaymentModel.paymentAmount;
-                    debtLoanPayment.status = DebtLoanPaymentEntity.PAYMENT_PENDING;
-                    debtLoanPayment.paidAmount = 0;
-                    debtLoanPayment.paidDate = 0L;
-                    debtLoanPayment.createdAt = now;
-                    debtLoanPayment.updatedAt = now;
-                    debtLoanPayment.isSynced = false;
-                    debtLoanPayment.isDeleted = false;
 
-                    debtLoanPaymentList.add(debtLoanPayment);
+            if (schedule != null && !schedule.isEmpty()) {
+                for (ReducingBalancePaymentModel paymentModel : schedule) {
+                    DebtLoanPaymentEntity payment = new DebtLoanPaymentEntity();
+                    payment.tempDebtLoanPaymentServerId = "DLP_" + now + "_" + paymentModel.paymentNumber;
+                    payment.debtLoanPaymentId = 0;
+                    payment.paymentNumber = paymentModel.paymentNumber;
+                    payment.paymentDate = paymentModel.paymentDate != null ? paymentModel.paymentDate.getTime() : 0L;
+                    payment.principalAmount = paymentModel.principalAmount;
+                    payment.interestAmount = paymentModel.interestAmount;
+                    payment.paymentAmount = paymentModel.paymentAmount;
+                    payment.status = DebtLoanPaymentEntity.PAYMENT_PENDING;
+                    payment.paidAmount = 0;
+                    payment.paidDate = 0L;
+                    payment.createdAt = now;
+                    payment.updatedAt = now;
+                    payment.isSynced = false;
+                    payment.isDeleted = false;
+                    debtLoanPaymentList.add(payment);
                 }
             }
 
@@ -3217,16 +3335,33 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             // SAVE / UPDATE
             // -----------------------------------------------------
             if (isEdit) {
+                if (existingDebtLoan == null || existingDebtLoan.id <= 0) {
+                    tvSave.setEnabled(true);
+                    return;
+                }
+
+                // Keep the existing database record
+                entity.id = existingDebtLoan.id;
+                entity.debtLoanId = existingDebtLoan.debtLoanId;
+                entity.tempDebtLoanServerId = existingDebtLoan.tempDebtLoanServerId;
+                entity.createdAt = existingDebtLoan.createdAt;
+
+                // Keep existing payment history
+                entity.paidAmount = existingDebtLoan.paidAmount;
+                entity.remainingAmount = Math.max(0, entity.totalAmount - entity.paidAmount);
                 entity.updatedAt = now;
+
+                debtLoanViewModel.updateDebtLoan(entity, debtLoanPaymentList);
             } else {
                 entity.createdAt = now;
                 entity.updatedAt = now;
                 entity.debtLoanId = 0;
                 entity.tempDebtLoanServerId = "DL_" + now;
 
-                debtLoanViewModel.saveDebtLoan(entity, debtLoanPaymentList);
+                debtLoanViewModel.saveDebtLoan(entity, debtLoanPaymentList, this);
             }
         } catch (Exception e) {
+            tvSave.setEnabled(true);
             AppLogger.e(getClass(), "saveDebtLoan", e);
         }
     }

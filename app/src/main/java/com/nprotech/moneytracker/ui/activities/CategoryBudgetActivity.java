@@ -324,10 +324,15 @@ public class CategoryBudgetActivity extends BaseActivity {
             RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, SettingItemModel item) {
-                    holder.setViewText(R.id.tvFilterName, item.title);
+
+                    AppCompatTextView tvFilterName = holder.getView(R.id.tvFilterName);
                     AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                     boolean selected = item.settingType == selectedSortType;
+
+                    tvFilterName.setText(item.title);
                     ivSelected.setVisibility(selected ? View.VISIBLE : View.GONE);
+                    tvFilterName.setTypeface(selected ? semiTypeface : mediumTypeface);
+
                     holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
                         selectedSortType = item.settingType;
                         notifyDataSetChanged();

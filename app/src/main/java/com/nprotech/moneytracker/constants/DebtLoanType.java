@@ -57,4 +57,14 @@ public final class DebtLoanType {
     public static final int REMINDER_1_DAY_BEFORE = 1;
     public static final int REMINDER_3_DAYS_BEFORE = 2;
     public static final int REMINDER_7_DAYS_BEFORE = 3;
+
+    // PAYMENT METHOD
+    public static final int PAYMENT_METHOD_CASH = 0;
+    public static final int PAYMENT_METHOD_UPI = 1;
+    public static final int PAYMENT_METHOD_BANK_TRANSFER = 2;
+    public static final int PAYMENT_METHOD_CARD = 3;
+    public static final int PAYMENT_METHOD_CHEQUE = 4;
+    public static final int PAYMENT_METHOD_NET_BANKING = 5;
+    public static final int PAYMENT_METHOD_DEMAND_DRAFT = 6;
+    public static final int PAYMENT_METHOD_OTHER = 7;
 }

@@ -119,7 +119,7 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/funky_grey"
                             android:textSize="@dimen/text_8"
-                            app:fontFamily="@font/exo2_bold"
+                            app:fontFamily="@font/exo2_semibold"
                             app:layout_constraintTop_toBottomOf="@+id/etWalletName"
                             app:layout_constraintEnd_toEndOf="parent"/>
 

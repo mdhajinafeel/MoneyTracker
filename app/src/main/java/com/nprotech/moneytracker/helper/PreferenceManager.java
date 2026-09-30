@@ -151,4 +151,13 @@ public enum PreferenceManager {
     public int getBackupFrequency() {
         return prefStore.getInt(KEY_BACKUP_FREQUENCY, Constants.BACKUP_FREQUENCY_DAILY);
     }
+
+    // ===== DEBT & LOAN REMINDER =====
+    public boolean getDebtLoanReminder(String key) {
+        return prefStore.getBoolean(key, false);
+    }
+
+    public void setDebtLoanReminder(String key, boolean value) {
+        prefStore.edit().putBoolean(key, value).apply();
+    }
 }

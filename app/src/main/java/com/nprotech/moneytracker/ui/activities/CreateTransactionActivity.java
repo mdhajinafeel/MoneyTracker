@@ -1155,7 +1155,9 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
     private File saveFinalFile(Uri uri, String transactionId) throws Exception {
 
-        File dir = new File(getFilesDir(), "uploads" + File.separator + transactionId);
+        File uploadsDir = new File(getFilesDir(), "uploads");
+        File paymentsDir = new File(uploadsDir, "transaction");
+        File dir = new File(paymentsDir, transactionId);
 
         if (!dir.exists() && !dir.mkdirs()) {
             AppLogger.w(getClass(), "Failed to create transaction folder");

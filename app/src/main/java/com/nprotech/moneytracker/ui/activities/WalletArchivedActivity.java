@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -56,6 +58,7 @@ public class WalletArchivedActivity extends BaseActivity {
     private ConstraintLayout emptyWrapper;
     private RecyclerViewAdapter<WalletEntity> walletAdapter;
     private SettingType selectedSortType = SettingType.NEWEST_WALLET_FIRST;
+    private Typeface medium, semiBold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,9 @@ public class WalletArchivedActivity extends BaseActivity {
             );
 
             walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
+
+            medium = ResourcesCompat.getFont(this, R.font.exo2_medium);
+            semiBold = ResourcesCompat.getFont(this, R.font.exo2_semibold);
 
             bindData();
             initializeAdapter();
@@ -438,10 +444,15 @@ public class WalletArchivedActivity extends BaseActivity {
             RecyclerViewAdapter<SettingItemModel> sortByAdapter = new RecyclerViewAdapter<>(this, sortByList, R.layout.item_backup_filter_option) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, SettingItemModel item) {
-                    holder.setViewText(R.id.tvFilterName, item.title);
+
+                    AppCompatTextView tvFilterName = holder.getView(R.id.tvFilterName);
                     AppCompatImageView ivSelected = holder.getView(R.id.ivSelected);
                     boolean selected = item.settingType == selectedSortType;
+
+                    tvFilterName.setText(item.title);
                     ivSelected.setVisibility(selected ? View.VISIBLE : View.GONE);
+                    tvFilterName.setTypeface(selected ? semiBold : medium);
+
                     holder.getView(R.id.rlFilterView).setOnClickListener(v -> {
                         selectedSortType = item.settingType;
                         notifyDataSetChanged();

@@ -759,7 +759,9 @@ public class TransactionOverviewActivity extends BaseActivity {
                     fileName += "." + extension;
                 }
 
-                File attachmentDirectory = new File(getFilesDir(), "uploads" + File.separator + duplicateTransactionId);
+                File uploadsDir = new File(getFilesDir(), "uploads");
+                File paymentsDir = new File(uploadsDir, "transaction");
+                File attachmentDirectory = new File(paymentsDir, duplicateTransactionId);
                 if (!attachmentDirectory.exists() && !attachmentDirectory.mkdirs()) {
                     AppLogger.d(getClass(), "Unable to create attachment directory");
                     continue;

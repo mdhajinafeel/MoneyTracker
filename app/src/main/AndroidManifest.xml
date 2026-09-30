@@ -204,9 +204,44 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Create Debt Screen -->
+        <!-- Create Debt/Loan Screen -->
         <activity
             android:name=".ui.activities.CreateDebtLoanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt/Loan Detailed Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt/Loan Record Payment Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanRecordPaymentActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt/Loan Payment Detail Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanPaymentDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt/Loan Detailed Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanTransactionDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Debt/Loan Scheduled Detailed Screen -->
+        <activity
+            android:name=".ui.activities.DebtLoanScheduleDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

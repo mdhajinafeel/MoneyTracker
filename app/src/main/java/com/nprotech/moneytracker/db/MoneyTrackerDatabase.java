@@ -18,6 +18,8 @@ import com.nprotech.moneytracker.db.dao.CommonDataDao;
 import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanPaymentDao;
+import com.nprotech.moneytracker.db.dao.DebtLoanPaymentTransactionDao;
+import com.nprotech.moneytracker.db.dao.DebtLoanTransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
@@ -34,6 +36,8 @@ import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.db.entites.CurrencyEntity;
 import com.nprotech.moneytracker.db.entites.DebtLoanEntity;
 import com.nprotech.moneytracker.db.entites.DebtLoanPaymentEntity;
+import com.nprotech.moneytracker.db.entites.DebtLoanPaymentTransactionEntity;
+import com.nprotech.moneytracker.db.entites.DebtLoanTransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
@@ -42,7 +46,8 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 
 @Database(entities = {CurrencyEntity.class, CategoryEntity.class, CommonDataEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
         TransactionAttachmentEntity.class, GoalEntity.class, GoalContributionEntity.class, BackupHistoryEntity.class, BudgetEntity.class, BudgetWalletEntity.class,
-        BudgetCategoryEntity.class, BudgetCategoryAmountEntity.class, DebtLoanEntity.class, DebtLoanPaymentEntity.class},
+        BudgetCategoryEntity.class, BudgetCategoryAmountEntity.class, DebtLoanEntity.class, DebtLoanPaymentEntity.class, DebtLoanPaymentTransactionEntity.class,
+        DebtLoanTransactionAttachmentEntity.class},
         version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
@@ -73,6 +78,10 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
     public abstract DebtLoanDao debtLoanDao();
 
     public abstract DebtLoanPaymentDao debtLoanPaymentDao();
+
+    public abstract DebtLoanPaymentTransactionDao debtLoanPaymentTransactionDao();
+
+    public abstract DebtLoanTransactionAttachmentDao debtLoanTransactionAttachmentDao();
 
     public static MoneyTrackerDatabase getInstance(Context context) {
         if (INSTANCE == null) {

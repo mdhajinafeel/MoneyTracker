@@ -348,7 +348,7 @@
                         android:layout_height="32dp"
                         android:background="@drawable/bg_circle_theme"
                         android:padding="@dimen/padding_6"
-                        android:src="@drawable/ic_calendar_empty"
+                        android:src="@drawable/ic_refresh_time2"
                         app:layout_constraintBottom_toBottomOf="@+id/layoutRepaymentWrapper"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/layoutRepaymentWrapper"
@@ -754,7 +754,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/funky_grey"
                         android:textSize="@dimen/text_8"
-                        app:fontFamily="@font/exo2_bold"
+                        app:fontFamily="@font/exo2_semibold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/etNotes" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

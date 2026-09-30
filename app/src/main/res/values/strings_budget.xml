@@ -128,6 +128,8 @@
     <string name="lowest_spending">Lowest spending</string>
     <string name="highest_budget">Highest budget</string>
     <string name="lowest_budget">Lowest budget</string>
+    <string name="resume_budget_desc">Continue tracking this budget</string>
+    <string name="delete_budget_sub_message">All data will be permanently deleted.</string>
 
     <plurals name="category_selected_count">
         <item quantity="one">%d category selected</item>

@@ -67,6 +67,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvDebtDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_14"
+                app:fontFamily="@font/exo2_medium"
+                app:layout_constraintStart_toStartOf="@id/tvDebtTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvDebtTitle" />
+
             <LinearLayout
                 android:id="@+id/debtContainer"
                 android:layout_width="wrap_content"
@@ -75,7 +86,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@id/tvDebtTitle"
-                app:layout_constraintTop_toBottomOf="@id/tvDebtTitle">
+                app:layout_constraintTop_toBottomOf="@id/tvDebtDesc">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvStartDate"
@@ -94,8 +105,7 @@
                     android:layout_width="0.4dp"
                     android:layout_height="10dp"
                     android:layout_marginStart="@dimen/margin_4"
-                    android:background="@color/grey_88"
-                    android:visibility="gone" />
+                    android:background="@color/grey_88" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tvDebtLoanStatus"
@@ -111,7 +121,6 @@
                     android:textAllCaps="true"
                     android:textColor="@color/income"
                     android:textSize="@dimen/text_10"
-                    android:visibility="gone"
                     app:fontFamily="@font/exo2_semibold" />
 
             </LinearLayout>
@@ -205,6 +214,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:padding="@dimen/padding_2"
                     android:src="@drawable/ic_calendar_days_left"
                     app:tint="@color/dark_grey" />
 

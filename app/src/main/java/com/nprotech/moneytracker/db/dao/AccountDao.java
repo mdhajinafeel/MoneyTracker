@@ -32,6 +32,9 @@ public interface AccountDao {
     @Query("UPDATE accounts SET balance = :amount WHERE id = :accountId")
     void updateAccountById(int accountId, double amount);
 
+    @Query("UPDATE accounts SET balance = :amount WHERE id = :accountId")
+    int updateAccountBalanceById(int accountId, double amount);
+
     @Update
     void updateAccount(AccountEntity account);
 }

@@ -199,7 +199,8 @@ public class BackupSuccessActivity extends BaseActivity {
 
     private void shareBackup() {
 
-        if (backupUri == null) {Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
+        if (backupUri == null) {
+            Toast.makeText(this, R.string.backup_file_not_found, Toast.LENGTH_SHORT).show();
             return;
         }
 

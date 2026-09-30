@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layoutView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_4">
+
+    <LinearLayout
+        android:id="@+id/layoutIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="@dimen/padding_4"
+            android:src="@drawable/ic_complete"
+            android:tint="@color/income" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPaidNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_16"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/layoutIcon"
+        app:layout_constraintEnd_toStartOf="@id/layoutAmount"
+        app:layout_constraintStart_toEndOf="@id/layoutIcon"
+        app:layout_constraintTop_toTopOf="@id/layoutIcon">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPaidDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_semibold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPaidAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginEnd="@dimen/margin_10"
+            android:fontFamily="@font/exo2_medium"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_12"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_10"
+        android:gravity="end|center_vertical"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/layoutIcon"
+        app:layout_constraintEnd_toStartOf="@id/ivNavigation"
+        app:layout_constraintStart_toEndOf="@+id/layoutDate"
+        app:layout_constraintTop_toTopOf="@id/layoutIcon">
+
+        <!-- Amount -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_bold"
+            android:gravity="end"
+            android:textColor="@color/dark_grey"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/margin_6"
+            android:background="@drawable/bg_badge_income"
+            android:fontFamily="@font/exo2_medium"
+            android:gravity="center"
+            android:paddingStart="@dimen/padding_6"
+            android:paddingEnd="@dimen/padding_6"
+            android:textSize="@dimen/text_10"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivNavigation"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_marginEnd="@dimen/margin_4"
+        android:src="@drawable/ic_right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/vibrant_orange" />
+
+    <!-- Custom Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/light_grey"
+        app:layout_constraintEnd_toEndOf="@+id/ivNavigation"
+        app:layout_constraintStart_toStartOf="@id/layoutDate"
+        app:layout_constraintTop_toBottomOf="@id/layoutAmount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

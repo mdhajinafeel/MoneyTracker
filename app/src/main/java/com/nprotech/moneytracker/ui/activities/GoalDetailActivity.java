@@ -874,18 +874,14 @@ public class GoalDetailActivity extends BaseActivity {
     }
 
     private void setGoalStatusStyle(int textColor, int backgroundColor, int strokeColor) {
-
         tvGoalStatus.setTextColor(ContextCompat.getColor(this, textColor));
-
         Drawable background = AppCompatResources.getDrawable(this, R.drawable.bg_badge_income);
-
         if (background != null) {
             background = background.mutate();
             if (background instanceof GradientDrawable drawable) {
                 drawable.setColor(ContextCompat.getColor(this, backgroundColor));
                 drawable.setStroke(CommonUtils.dpToPx(this, 1), ContextCompat.getColor(this, strokeColor));
             }
-
             tvGoalStatus.setBackground(background);
         }
     }

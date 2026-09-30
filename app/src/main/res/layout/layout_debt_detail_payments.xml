@@ -1,0 +1,91 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_12"
+    app:cardElevation="@dimen/corner_elevation_2"
+    app:strokeColor="@color/card_shadow"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/view_divider"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/padding_16"
+        android:paddingVertical="@dimen/padding_16">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblDebtLoanTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/payment_history"
+                android:textColor="@color/color_matte_black"
+                android:textSize="@dimen/text_14" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvViewAll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableEnd="@drawable/ic_right_arrow_small"
+                android:drawablePadding="@dimen/padding_4"
+                android:fontFamily="@font/exo2_semibold"
+                android:gravity="end|center_vertical"
+                android:text="@string/view_all"
+                android:visibility="gone"
+                android:textColor="@color/vibrant_orange"
+                android:textSize="@dimen/text_14"
+                app:drawableTint="@color/vibrant_orange" />
+        </LinearLayout>
+
+        <com.nprotech.moneytracker.ui.common.MaxHeightRecyclerView
+            android:id="@+id/rvTransactions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:visibility="gone" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/emptyWrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/overviewCard">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivEmpty"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:src="?attr/emptyRecord"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/emptyTitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_8"
+                android:fontFamily="@font/exo2_bold"
+                android:text="@string/no_record"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivEmpty" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -12,6 +12,8 @@ import com.nprotech.moneytracker.db.dao.CurrencyDao;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanPaymentDao;
+import com.nprotech.moneytracker.db.dao.DebtLoanPaymentTransactionDao;
+import com.nprotech.moneytracker.db.dao.DebtLoanTransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.GoalDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
@@ -97,7 +99,8 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    DebtLoanRepository provideDebtLoanRepository(DebtLoanDao debtLoanDao, DebtLoanPaymentDao debtLoanPaymentDao, WalletDao walletDao, AccountDao accountDao) {
-        return new DebtLoanRepository(debtLoanDao, debtLoanPaymentDao, walletDao, accountDao);
+    DebtLoanRepository provideDebtLoanRepository(DebtLoanDao debtLoanDao, DebtLoanPaymentDao debtLoanPaymentDao, WalletDao walletDao, AccountDao accountDao,
+                                                 DebtLoanPaymentTransactionDao debtLoanPaymentTransactionDao, DebtLoanTransactionAttachmentDao debtLoanTransactionAttachmentDao) {
+        return new DebtLoanRepository(debtLoanDao, debtLoanPaymentDao, walletDao, accountDao, debtLoanPaymentTransactionDao, debtLoanTransactionAttachmentDao);
     }
 }

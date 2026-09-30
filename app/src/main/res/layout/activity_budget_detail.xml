@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_10"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="@dimen/corner_elevation_2"
-                app:cardBackgroundColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -58,9 +58,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_marginVertical="@dimen/margin_16"
-                    android:layout_height="wrap_content">
+                    android:layout_marginVertical="@dimen/margin_16">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardBudgetIcon"
@@ -153,21 +153,21 @@
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/ivBudgetPeriodDot"
                             android:layout_width="4dp"
-                            android:layout_marginStart="@dimen/margin_8"
                             android:layout_height="4dp"
                             android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/margin_8"
                             android:scaleType="centerInside"
                             android:src="@drawable/bg_goal_category_dot"
                             app:layout_constraintBottom_toBottomOf="@id/tvBudgetPeriod"
                             app:layout_constraintStart_toEndOf="@id/tvBudgetPeriod"
-                            app:layout_constraintTop_toTopOf="@id/tvBudgetPeriod"/>
+                            app:layout_constraintTop_toTopOf="@id/tvBudgetPeriod" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvBudgetAmount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/exo2_medium"
                             android:layout_marginStart="@dimen/margin_8"
+                            android:fontFamily="@font/exo2_medium"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/text_14"
                             app:layout_constraintBottom_toBottomOf="@id/ivBudgetPeriodDot"
@@ -190,9 +190,9 @@
                         android:textColor="@color/income"
                         android:textSize="@dimen/text_10"
                         android:visibility="visible"
+                        app:fontFamily="@font/exo2_semibold"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:fontFamily="@font/exo2_semibold" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -203,9 +203,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_10"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="@dimen/corner_elevation_2"
-                app:cardBackgroundColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardBudgetName"
@@ -214,9 +214,9 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_marginVertical="@dimen/margin_16"
+                    android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_16"
-                    android:layout_height="wrap_content">
+                    android:layout_marginVertical="@dimen/margin_16">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tvSpentAmount"
@@ -234,8 +234,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_2"
                         android:fontFamily="@font/exo2_medium"
-                        android:textColor="@color/dark_grey"
                         android:text="@string/spent"
+                        android:textColor="@color/dark_grey"
                         android:textSize="@dimen/text_12"
                         app:layout_constraintStart_toStartOf="@+id/tvSpentAmount"
                         app:layout_constraintTop_toBottomOf="@+id/tvSpentAmount" />
@@ -257,8 +257,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_2"
                         android:fontFamily="@font/exo2_medium"
-                        android:textColor="@color/dark_grey"
                         android:text="@string/budget"
+                        android:textColor="@color/dark_grey"
                         android:textSize="@dimen/text_12"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tvTargetAmount" />
@@ -298,9 +298,9 @@
                         android:backgroundTint="@color/color_income_circle"
                         android:paddingStart="@dimen/padding_10"
                         android:paddingTop="@dimen/padding_6"
-                        android:visibility="gone"
                         android:paddingEnd="@dimen/padding_10"
                         android:paddingBottom="@dimen/padding_6"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@id/progressBudget"
@@ -321,9 +321,9 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_6"
-                            android:text="@string/you_re_on_track"
                             android:fontFamily="@font/exo2_semibold"
                             android:gravity="center_vertical"
+                            android:text="@string/you_re_on_track"
                             android:textColor="@color/dark_income"
                             android:textSize="@dimen/text_12"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -337,8 +337,8 @@
                             android:layout_marginStart="@dimen/margin_6"
                             android:layout_marginTop="@dimen/margin_2"
                             android:fontFamily="@font/exo2_regular"
-                            android:text="@string/used_budget"
                             android:gravity="center_vertical"
+                            android:text="@string/used_budget"
                             android:textColor="@color/dark_grey"
                             android:textSize="@dimen/text_10"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -354,10 +354,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginTop="@dimen/margin_10"
-                app:cardCornerRadius="@dimen/corner_radius_12"
-                app:cardElevation="@dimen/corner_elevation_2"
                 android:visibility="visible"
                 app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardBudgetAmount"
@@ -369,17 +369,17 @@
                     android:layout_height="wrap_content"
                     android:divider="@drawable/view_divider"
                     android:orientation="vertical"
-                    android:showDividers="middle"
                     android:paddingHorizontal="@dimen/padding_16"
-                    android:paddingVertical="@dimen/padding_16">
+                    android:paddingVertical="@dimen/padding_16"
+                    android:showDividers="middle">
 
                     <LinearLayout
                         android:id="@+id/layoutPeriod"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -391,7 +391,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/text_period"
                             android:textColor="@color/color_matte_black"
@@ -399,8 +399,10 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvPeriod"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
                             android:textSize="@dimen/text_14" />
@@ -411,8 +413,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -424,7 +426,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/text_repeat"
                             android:textColor="@color/color_matte_black"
@@ -432,7 +434,9 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvRepeat"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
@@ -444,20 +448,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
-                            android:src="@drawable/ic_alert_2"
+                            android:src="@drawable/ic_reminder_2"
                             android:tint="@color/primary_dark" />
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/budget_alert"
                             android:textColor="@color/color_matte_black"
@@ -465,7 +469,9 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvAlert"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
@@ -477,8 +483,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -490,7 +496,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/wallets"
                             android:textColor="@color/color_matte_black"
@@ -498,7 +504,9 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvWallets"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
@@ -510,8 +518,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -523,7 +531,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/categories"
                             android:textColor="@color/color_matte_black"
@@ -531,7 +539,9 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvCategories"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
@@ -543,8 +553,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -556,7 +566,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_8"
-                            android:layout_weight="1"
+                            android:layout_weight="0.35"
                             android:fontFamily="@font/exo2_medium"
                             android:text="@string/budget_method"
                             android:textColor="@color/color_matte_black"
@@ -564,7 +574,9 @@
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/tvBudgetMethod"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.65"
+                            android:gravity="end|center_vertical"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/exo2_semibold"
                             android:textColor="@color/color_matte_black"
@@ -576,8 +588,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:paddingVertical="@dimen/padding_10"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/padding_10">
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:layout_width="22dp"
@@ -607,7 +619,7 @@
                             android:paddingVertical="@dimen/padding_2"
                             android:textAllCaps="true"
                             android:textColor="@color/income"
-                            android:textSize="@dimen/text_14"
+                            android:textSize="@dimen/text_12"
                             app:fontFamily="@font/exo2_semibold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -619,10 +631,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginVertical="@dimen/margin_10"
-                app:cardCornerRadius="@dimen/corner_radius_12"
-                app:cardElevation="@dimen/corner_elevation_2"
                 android:visibility="gone"
                 app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="@dimen/corner_elevation_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardBudgetDetail"
@@ -656,10 +668,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="end|center_vertical"
-                            android:fontFamily="@font/exo2_semibold"
                             android:drawableEnd="@drawable/ic_right_arrow_small"
                             android:drawablePadding="@dimen/padding_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
                             android:text="@string/view_all"
                             android:textColor="@color/vibrant_orange"
                             android:textSize="@dimen/text_14"
@@ -702,9 +714,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/margin_16"
                 android:layout_marginVertical="@dimen/margin_10"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/corner_radius_12"
                 app:cardElevation="@dimen/corner_elevation_2"
-                app:cardBackgroundColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -739,10 +751,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:gravity="end|center_vertical"
-                            android:fontFamily="@font/exo2_semibold"
                             android:drawableEnd="@drawable/ic_right_arrow_small"
                             android:drawablePadding="@dimen/padding_4"
+                            android:fontFamily="@font/exo2_semibold"
+                            android:gravity="end|center_vertical"
                             android:text="@string/view_all"
                             android:textColor="@color/vibrant_orange"
                             android:textSize="@dimen/text_14"
@@ -754,8 +766,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:visibility="gone"
-                        android:clipToPadding="false" />
+                        android:clipToPadding="false"
+                        android:visibility="gone" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/emptyWrapper"
