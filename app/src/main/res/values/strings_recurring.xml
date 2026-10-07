@@ -2,4 +2,155 @@
 <resources>
     <string name="add_recurring">Add Recurring</string>
     <string name="track_recurring_transactions">Track recurring transactions</string>
+    <string name="select_recurring">Select recurring</string>
+    <string name="repeat_on">Repeat On</string>
+    <string name="select_repeat_on">Select repeat on</string>
+    <string name="create_transaction">Create transaction</string>
+    <string name="automatically_create_transaction">Automatically create transaction</string>
+    <string name="never_miss_recurring_transaction">Never miss a recurring transaction</string>
+    <string name="income_recurring">Income Recurring</string>
+    <string name="expense_recurring">Expense Recurring</string>
+    <string name="transfer_recurring">Transfer Recurring</string>
+    <string name="no_repeat">No repeat</string>
+    <string name="repeat_option">Repeat option</string>
+    <string name="select_days">Select days</string>
+    <string name="repeat_every">Repeat every</string>
+    <string name="please_select_at_least_one_day">Please select at least one day</string>
+    <string name="times">times</string>
+    <string name="every">Every</string>
+    <string name="forever">Forever</string>
+    <string name="until">Until</string>
+    <string name="text_for">For</string>
+    <string name="text_every_value">"Every %1$s • %2$s"</string>
+    <string name="text_every_value1">"Every %1$s"</string>
+    <string name="same_day_each_month">Same day each month (%1$d)</string>
+    <string name="end_of_month">End of month</string>
+    <string name="recurring_transaction_saved">Recurring transaction saved</string>
+    <string name="failed_to_save_recurring_transaction">Failed to save recurring transaction</string>
+    <string name="every_months_last_day">Every %1$d months • Last day</string>
+    <string name="every_months_day">Every %1$d months • Day %2$d</string>
+    <string name="every_years_date">Every %1$d years</string>
+    <string name="no_recurring_yet">No recurring yet</string>
+    <string name="empty_recurring_hint">Tap the + button to add recurring.</string>
+    <string name="repeat_interval_atleast">Repeat interval must be at least 1</string>
+    <string name="please_select_until_date">Please select an until date</string>
+    <string name="please_enter_times">Please enter the number of times</string>
+    <string name="please_enter_an_amount">Please enter an amount</string>
+    <string name="please_select_a_wallet">Please select a wallet</string>
+    <string name="please_select_a_repeat_frequency">Please select a repeat frequency</string>
+    <string name="until_date_start_date">Until date must be after the start date</string>
+    <string name="select_recurring_transaction_end">Please select when the recurring transaction should end</string>
+    <string name="every_week_period">Every %1$s</string>
+    <string name="next_recurring">Next: %1$s</string>
+    <string name="next_recurring_text">Next Recurring</string>
+    <string name="recurring_transaction_added">Recurring transaction added</string>
+    <string name="recurring_transactions_added">Recurring transactions added</string>
+    <string name="a_recurring_expense_was_added">A recurring expense was added</string>
+    <string name="a_recurring_income_was_added">A recurring income was added</string>
+    <string name="a_recurring_transaction_was_added">A recurring transaction was added</string>
+    <string name="recurring_transactions_were_added">" recurring transactions were added"</string>
+    <string name="activate">Activate</string>
+    <string name="text_deactivated">Deactivated</string>
+    <string name="deactivate">Deactivate</string>
+    <string name="change_recurring_detail">Change recurring detail</string>
+    <string name="resume_this_recurring_transaction">Resume this transaction</string>
+    <string name="pause_this_recurring_transaction">Pause this transaction</string>
+    <string name="permanently_remove_this_recurring_transaction">Permanently remove this transaction</string>
+    <string name="view_recurring_details">View recurring details</string>
+    <string name="delete_recurring">Delete recurring</string>
+    <string name="delete_recurring_message">Are you sure you want to delete this recurring?</string>
+    <string name="recurring_deleted_successfully">Recurring deleted</string>
+    <string name="error_delete_recurring">Error when delete the recurring</string>
+    <string name="activate_recurring">Activate Recurring</string>
+    <string name="deactivate_recurring">Deactivate Recurring</string>
+    <string name="delete_activate_message">Are you sure you want to activate this recurring?</string>
+    <string name="delete_deactivate_message">Are you sure you want to deactivate this recurring?</string>
+    <string name="delete_activate_sub_message">You can deactivate it anytime from the progress recurring.</string>
+    <string name="delete_deactivate_sub_message">You can activate it anytime from the paused recurring.</string>
+    <string name="deactivated_successfully">Recurring deactivated</string>
+    <string name="error_deactivate">Error when deactivate the recurring</string>
+    <string name="activated_successfully">Recurring activated</string>
+    <string name="error_activate">Error when activate the recurring</string>
+    <string name="repeat_time">Repeat Time</string>
+    <string name="recurring_detail">Recurring Detail</string>
+    <string name="until_date">Until %1$s</string>
+    <string name="recurring_transaction_reminder">Recurring Transaction Reminder</string>
+    <string name="recurring_expense_due">Your recurring expense is due.</string>
+    <string name="recurring_income_due">Your recurring income is due.</string>
+    <string name="recurring_transfer_due">Your recurring transfer is due.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">day</item>
+        <item quantity="other">days</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Every %d day</item>
+        <item quantity="other">Every %d days</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">week</item>
+        <item quantity="other">weeks</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d week</item>
+        <item quantity="other">%d weeks</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Every %d month</item>
+        <item quantity="other">Every %d months</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">month</item>
+        <item quantity="other">months</item>
+    </plurals>
+
+    <plurals name="months_period_value">
+        <item quantity="one">%d month</item>
+        <item quantity="other">%d months</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">year</item>
+        <item quantity="other">year</item>
+    </plurals>
+
+    <plurals name="years_period_value">
+        <item quantity="one">%d year</item>
+        <item quantity="other">%d year</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Every %d year</item>
+        <item quantity="other">Every %d years</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">time</item>
+        <item quantity="other">times</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">For %d time</item>
+        <item quantity="other">For %d times</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Every %d month • Last day</item>
+        <item quantity="other">Every %d months • Last day</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Every %d month • Day %d</item>
+        <item quantity="other">Every %d months • Day %d</item>
+    </plurals>
 </resources>

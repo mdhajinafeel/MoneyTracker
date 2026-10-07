@@ -7,7 +7,6 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DataHelper {
@@ -498,69 +497,6 @@ public class DataHelper {
         };
     }
 
-    //----------------------
-    //--- GOALS ---
-    //----------------------
-    public static ArrayList<String> getGoalColorList() {
-        return new ArrayList<>(Arrays.asList(
-                "#F44336", // Red
-                "#E91E63", // Pink
-                "#9C27B0", // Purple
-                "#673AB7", // Deep Purple
-                "#3F51B5", // Indigo
-                "#2196F3", // Blue
-
-                "#03A9F4", // Light Blue
-                "#00BCD4", // Cyan
-                "#009688", // Teal
-                "#4CAF50", // Green
-                "#8BC34A", // Light Green
-                "#CDDC39", // Lime
-
-                "#FFEB3B", // Yellow
-                "#FFC107", // Amber
-                "#FF9800", // Orange
-                "#FF5722", // Deep Orange
-                "#795548", // Brown
-                "#607D8B", // Blue Grey
-
-                "#9E9E9E", // Grey
-                "#000000", // Black
-                "#FFFFFF", // White
-                "#EC407A", // Rose
-                "#26A69A", // Mint
-                "#FFD54F"  // Gold
-        ));
-    }
-
-    public static ArrayList<String> getGoalCategoryList(Context context) {
-        return new ArrayList<>(Arrays.asList(
-                context.getString(R.string.travel),
-                context.getString(R.string.emergency_fund),
-                context.getString(R.string.home),
-                context.getString(R.string.vehicle),
-                context.getString(R.string.education),
-                context.getString(R.string.medical),
-                context.getString(R.string.wedding),
-                context.getString(R.string.business),
-                context.getString(R.string.investment),
-                context.getString(R.string.retirement),
-                context.getString(R.string.vacation),
-                context.getString(R.string.shopping),
-                context.getString(R.string.gadgets),
-                context.getString(R.string.gift),
-                context.getString(R.string.festival),
-                context.getString(R.string.insurance),
-                context.getString(R.string.debt_payoff),
-                context.getString(R.string.fitness),
-                context.getString(R.string.religious),
-                context.getString(R.string.baby_family),
-                context.getString(R.string.pets),
-                context.getString(R.string.custom),
-                context.getString(R.string.others)
-        ));
-    }
-
     public static List<Integer> getGoalIcons() {
         List<Integer> arrayList = new ArrayList<>();
 
@@ -777,5 +713,104 @@ public class DataHelper {
         text = text.trim().toLowerCase();
 
         return text.substring(0, 1).toUpperCase() + text.substring(1);
+    }
+
+    public static int getNameResId(int type, int value) {
+
+        if (type == Constants.DAY) {
+            switch (value) {
+                case 1: return R.string.sunday;
+                case 2: return R.string.monday;
+                case 3: return R.string.tuesday;
+                case 4: return R.string.wednesday;
+                case 5: return R.string.thursday;
+                case 6: return R.string.friday;
+                case 7: return R.string.saturday;
+            }
+        } else if (type == Constants.MONTH) {
+            switch (value) {
+                case 1: return R.string.january;
+                case 2: return R.string.february;
+                case 3: return R.string.march;
+                case 4: return R.string.april;
+                case 5: return R.string.may;
+                case 6: return R.string.june;
+                case 7: return R.string.july;
+                case 8: return R.string.august;
+                case 9: return R.string.september;
+                case 10: return R.string.october;
+                case 11: return R.string.november;
+                case 12: return R.string.december;
+            }
+        } else if (type == Constants.STARTUP_SCREEN) {
+            switch (value) {
+                case 1: return R.string.transaction;
+                case 2: return R.string.calendar;
+                case 3: return R.string.statistic;
+                case 4: return R.string.more;
+            }
+        } else if (type == Constants.LANGUAGE) {
+            switch (value) {
+                case 1: return R.string.system_default;
+                case 2: return R.string.english;
+                case 3: return R.string.arabic;
+                case 4: return R.string.bengali;
+                case 5: return R.string.czech;
+                case 6: return R.string.german;
+                case 7: return R.string.greek;
+                case 8: return R.string.spanish;
+                case 9: return R.string.persian;
+                case 10: return R.string.french;
+                case 11: return R.string.hindi;
+                case 12: return R.string.indonesian;
+                case 13: return R.string.italian;
+                case 14: return R.string.japanese;
+                case 15: return R.string.korean;
+                case 16: return R.string.malay;
+                case 17: return R.string.dutch;
+                case 18: return R.string.polish;
+                case 19: return R.string.portuguese;
+                case 20: return R.string.romanian;
+                case 21: return R.string.russian;
+                case 22: return R.string.tamil;
+                case 23: return R.string.telugu;
+                case 24: return R.string.thai;
+                case 25: return R.string.turkish;
+                case 26: return R.string.ukrainian;
+                case 27: return R.string.vietnamese;
+                case 28: return R.string.chinese_simplified;
+                case 29: return R.string.chinese_traditional;
+            }
+        } else if (type == Constants.SMART_REMINDER) {
+            switch (value) {
+                case 1: return R.string.not_set;
+                case 2: return R.string.time_0;
+                case 3: return R.string.time_1;
+                case 4: return R.string.time_2;
+                case 5: return R.string.time_3;
+                case 6: return R.string.time_4;
+                case 7: return R.string.time_5;
+                case 8: return R.string.time_6;
+                case 9: return R.string.time_7;
+                case 10: return R.string.time_8;
+                case 11: return R.string.time_9;
+                case 12: return R.string.time_10;
+                case 13: return R.string.time_11;
+                case 14: return R.string.time_12;
+                case 15: return R.string.time_13;
+                case 16: return R.string.time_14;
+                case 17: return R.string.time_15;
+                case 18: return R.string.time_16;
+                case 19: return R.string.time_17;
+                case 20: return R.string.time_18;
+                case 21: return R.string.time_19;
+                case 22: return R.string.time_20;
+                case 23: return R.string.time_21;
+                case 24: return R.string.time_22;
+                case 25: return R.string.time_23;
+            }
+        }
+
+        return R.string.no_data;
     }
 }

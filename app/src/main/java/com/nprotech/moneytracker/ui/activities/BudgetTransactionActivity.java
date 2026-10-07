@@ -381,6 +381,7 @@ public class BudgetTransactionActivity extends BaseActivity {
                     duplicateFee.tempTransactionServerId = "T_FEE_" + feeTime;
                     duplicateFee.parentTransactionId = duplicateTransactionId;
                     duplicateFee.isFee = true;
+                    duplicateFee.isFromRecurring = false;
                     duplicateFee.isDeleted = false;
                     duplicateFee.isSynced = false;
                     duplicateFee.transactionDate = currentTime;

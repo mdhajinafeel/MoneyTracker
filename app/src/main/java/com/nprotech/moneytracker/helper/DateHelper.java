@@ -1,8 +1,10 @@
 package com.nprotech.moneytracker.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
+import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
 
@@ -331,5 +333,46 @@ public class DateHelper {
             case 3 -> day + "rd";
             default -> day + "th";
         };
+    }
+
+    public static String getWeekDaysDisplay(String repeatWeekDays, Context context) {
+
+        if (repeatWeekDays == null || repeatWeekDays.trim().isEmpty()) {
+            return "";
+        }
+
+        String[] values = repeatWeekDays.split(",");
+
+        boolean[] selectedDays = new boolean[8];
+        int selectedCount = 0;
+
+        for (String value : values) {
+            try {
+                int day = Integer.parseInt(value.trim());
+                if (day >= 1 && day <= 7 && !selectedDays[day]) {
+                    selectedDays[day] = true;
+                    selectedCount++;
+                }
+            } catch (NumberFormatException ignored) {
+            }
+        }
+
+        if (selectedCount == 7) {
+            return context.getString(R.string.every_day);
+        }
+
+        String[] dayNames = {"", context.getString(R.string.sunday_short), context.getString(R.string.monday_short), context.getString(R.string.tuesday_short),
+                context.getString(R.string.wednesday_short), context.getString(R.string.thursday_short), context.getString(R.string.friday_short),
+                context.getString(R.string.saturday_short)};
+
+        List<String> days = new ArrayList<>();
+
+        for (int day = 1; day <= 7; day++) {
+            if (selectedDays[day]) {
+                days.add(dayNames[day]);
+            }
+        }
+
+        return TextUtils.join(", ", days);
     }
 }

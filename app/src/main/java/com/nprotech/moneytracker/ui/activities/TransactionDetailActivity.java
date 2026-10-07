@@ -322,7 +322,6 @@ public class TransactionDetailActivity extends BaseActivity {
             }
 
             // DETAIL
-
             String categoryName = transaction.getCategoryName(this);
             if (Objects.equals(categoryName, "")) {
                 categoryName = transactionWithDetail.categoryName;

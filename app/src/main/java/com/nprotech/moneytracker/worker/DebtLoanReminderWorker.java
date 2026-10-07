@@ -28,12 +28,13 @@ public class DebtLoanReminderWorker extends Worker {
 
     private static final String CHANNEL_ID = "debt_loan_reminders";
     private static final String CHANNEL_NAME = "Debt & Loan Reminders";
-
     private final DebtLoanRepository repository;
+    private final Context context;
 
     @AssistedInject
     public DebtLoanReminderWorker(@Assisted @NonNull Context context, @Assisted @NonNull WorkerParameters params, DebtLoanRepository repository) {
         super(context, params);
+        this.context = context;
         this.repository = repository;
     }
 
@@ -70,15 +71,12 @@ public class DebtLoanReminderWorker extends Worker {
             return;
         }
 
-        String title;
-        String message;
-
         createNotificationChannel(manager);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_app_logo_small)
-                        .setContentTitle("Payment Reminder")
-                        .setContentText("Your Debt & Loan payment is due soon.")
+                        .setContentTitle(context.getString(R.string.payment_reminder))
+                        .setContentText(context.getString(R.string.your_debt_loan_payment_is_due_soon))
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setAutoCancel(true);
 

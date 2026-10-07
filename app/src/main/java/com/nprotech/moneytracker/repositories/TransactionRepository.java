@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.repositories;
 
 import androidx.lifecycle.LiveData;
 
+import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.MoneyTrackerDatabase;
 import com.nprotech.moneytracker.db.dao.AccountDao;
 import com.nprotech.moneytracker.db.dao.CategoryDao;
@@ -9,6 +10,7 @@ import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
+import com.nprotech.moneytracker.db.entites.CategoryEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -20,6 +22,7 @@ import com.nprotech.moneytracker.models.TransactionCategoryModel;
 import com.nprotech.moneytracker.models.TransactionTypeAmountModel;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionRepository {
@@ -146,8 +149,8 @@ public class TransactionRepository {
         return success[0];
     }
 
-    public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity, WalletEntity fromWallet, WalletEntity toWallet, AccountEntity account) {
-
+    public void saveTransferTransaction(TransactionEntity transaction, TransactionEntity feeTransactionActivity, WalletEntity fromWallet,
+                                        WalletEntity toWallet, AccountEntity account) {
         database.runInTransaction(() -> {
             long transactionInserted = transactionDao.insert(transaction);
             if (transactionInserted > 0) {
@@ -286,5 +289,20 @@ public class TransactionRepository {
         });
 
         return true;
+    }
+
+    public void saveRecurringIncomeExpenseTransaction(TransactionEntity transaction, WalletEntity wallet, AccountEntity account) {
+        database.runInTransaction(() -> {
+            transactionDao.insert(transaction);
+            walletDao.updateWallet(wallet);
+            accountDao.updateAccount(account);
+        });
+    }
+
+    public CategoryEntity getTransferFeeCategory() {
+        List<Integer> transferIds = new ArrayList<>();
+        transferIds.add(TransactionEntity.TYPE_EXPENSE);
+        transferIds.add(TransactionEntity.TYPE_TRANSFER);
+        return categoryDao.getDefaultCategoryByType(Constants.DEFAULT_CATEGORY_FEE_ID, transferIds);
     }
 }

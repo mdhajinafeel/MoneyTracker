@@ -75,36 +75,97 @@ public interface DebtLoanPaymentTransactionDao {
     void deleteByDebtLoanId(int debtLoanId);
 
     @Query("""
-            SELECT *, w.name AS walletName
-            FROM debt_loan_payment_transactions lp
-            INNER JOIN wallets w ON w.id = lp.walletId
-            INNER JOIN debt_loans l ON l.id = lp.debtLoanId
-            WHERE lp.debtLoanId = :debtLoanId
-            AND lp.isDeleted = 0
-            ORDER BY lp.createdAt ASC
-            """)
+        SELECT
+            lp.id,
+            lp.debtLoanId,
+            lp.debtLoanPaymentId,
+            lp.paymentMethod,
+            lp.paymentDate,
+            lp.amount,
+            lp.walletId,
+            lp.currencySymbol,
+            lp.currencyCode,
+            lp.convertedAmount,
+            lp.exchangeRate,
+            lp.reference,
+            lp.notes,
+            lp.createdAt,
+            lp.updatedAt,
+            lp.isSynced,
+            lp.isDeleted,
+            lp.tempDebtLoanTransactionServerId,
+            lp.debtLoanTransactionId,
+            w.name AS walletName
+        FROM debt_loan_payment_transactions lp
+        INNER JOIN wallets w ON w.id = lp.walletId
+        INNER JOIN debt_loans l ON l.id = lp.debtLoanId
+        WHERE lp.debtLoanId = :debtLoanId
+        AND lp.isDeleted = 0
+        ORDER BY lp.createdAt ASC
+        """)
     LiveData<List<DebtLoanTransactionWithDetails>> getPaymentsByDebtLoanId(int debtLoanId);
 
     @Query("""
-            SELECT *, w.name AS walletName
-            FROM debt_loan_payment_transactions lp
-            INNER JOIN wallets w ON w.id = lp.walletId
-            INNER JOIN debt_loans l ON l.id = lp.debtLoanId
-            WHERE lp.debtLoanId = :debtLoanId AND lp.debtLoanPaymentId = :debtLoanPaymentId
-            AND lp.isDeleted = 0
-            ORDER BY lp.createdAt ASC
-            """)
+        SELECT
+            lp.id,
+            lp.debtLoanId,
+            lp.debtLoanPaymentId,
+            lp.paymentMethod,
+            lp.paymentDate,
+            lp.amount,
+            lp.walletId,
+            lp.currencySymbol,
+            lp.currencyCode,
+            lp.convertedAmount,
+            lp.exchangeRate,
+            lp.reference,
+            lp.notes,
+            lp.createdAt,
+            lp.updatedAt,
+            lp.isSynced,
+            lp.isDeleted,
+            lp.tempDebtLoanTransactionServerId,
+            lp.debtLoanTransactionId,
+            w.name AS walletName
+        FROM debt_loan_payment_transactions lp
+        INNER JOIN wallets w ON w.id = lp.walletId
+        WHERE lp.debtLoanId = :debtLoanId
+        AND lp.debtLoanPaymentId = :debtLoanPaymentId
+        AND lp.isDeleted = 0
+        ORDER BY lp.createdAt ASC
+        """)
     LiveData<List<DebtLoanTransactionWithDetails>> getPaymentsByDebtLoanId(int debtLoanId, int debtLoanPaymentId);
 
     @Query("""
-            SELECT *, w.name AS walletName
-            FROM debt_loan_payment_transactions lp
-            INNER JOIN wallets w ON w.id = lp.walletId
-            INNER JOIN debt_loans l ON l.id = lp.debtLoanId
-            WHERE lp.debtLoanId = :debtLoanId AND lp.debtLoanPaymentId = :debtLoanPaymentId AND lp.id = :debtLoanTransactionId
-            AND lp.isDeleted = 0
-            ORDER BY lp.createdAt ASC
-            """)
+        SELECT
+            lp.id,
+            lp.debtLoanId,
+            lp.debtLoanPaymentId,
+            lp.paymentMethod,
+            lp.paymentDate,
+            lp.amount,
+            lp.walletId,
+            lp.currencySymbol,
+            lp.currencyCode,
+            lp.convertedAmount,
+            lp.exchangeRate,
+            lp.reference,
+            lp.notes,
+            lp.createdAt,
+            lp.updatedAt,
+            lp.isSynced,
+            lp.isDeleted,
+            lp.tempDebtLoanTransactionServerId,
+            lp.debtLoanTransactionId,
+            w.name AS walletName
+        FROM debt_loan_payment_transactions lp
+        INNER JOIN wallets w ON w.id = lp.walletId
+        WHERE lp.debtLoanId = :debtLoanId
+        AND lp.debtLoanPaymentId = :debtLoanPaymentId
+        AND lp.id = :debtLoanTransactionId
+        AND lp.isDeleted = 0
+        ORDER BY lp.createdAt ASC
+        """)
     LiveData<DebtLoanTransactionWithDetails> getPaymentDetailById(int debtLoanTransactionId, int debtLoanId, int debtLoanPaymentId);
 
     @Query("""

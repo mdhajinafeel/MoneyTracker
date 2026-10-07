@@ -21,6 +21,7 @@ public class Constants {
     // DEFAULT CATEGORY ID
     public static final int DEFAULT_CATEGORY_ADJUST_ID = 26;
     public static final int DEFAULT_CATEGORY_FEE_ID = 31;
+    public static final int CATEGORY_FEE_ID = 32;
     public static final int DEFAULT_CATEGORY_TRANSFER_ID = 32;
 
     // SUBSCRIPTION ID
@@ -48,4 +49,19 @@ public class Constants {
     // BUDGET METHOD
     public static final String METHOD_SHARED = "SHARED";
     public static final String METHOD_SEPARATE = "SEPARATE";
+
+    // RECURRING CONSTANTS
+    public static final int REPEAT_NONE = 0;
+    public static final int REPEAT_DAILY = 1;
+    public static final int REPEAT_WEEKLY = 2;
+    public static final int REPEAT_MONTHLY = 3;
+    public static final int REPEAT_YEARLY = 4;
+
+    public static final int UNIT_DAY = 0;
+    public static final int UNIT_WEEK = 1;
+    public static final int UNIT_MONTH = 2;
+    public static final int UNIT_YEAR = 3;
+
+    public static final int MONTHLY_DAY = 0;
+    public static final int MONTHLY_LAST_DAY = 1;
 }

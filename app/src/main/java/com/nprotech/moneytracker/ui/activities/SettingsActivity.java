@@ -1,10 +1,14 @@
 package com.nprotech.moneytracker.ui.activities;
 
+import android.Manifest;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +30,12 @@ import com.nprotech.moneytracker.db.entites.CommonDataEntity;
 import com.nprotech.moneytracker.enums.SettingType;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.BillingHelper;
+import com.nprotech.moneytracker.helper.DataHelper;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.helper.SettingHelper;
 import com.nprotech.moneytracker.models.PremiumFeatureModel;
 import com.nprotech.moneytracker.models.SettingItemModel;
+import com.nprotech.moneytracker.notifications.SmartReminderManager;
 import com.nprotech.moneytracker.ui.adapters.SettingOptionsAdapter;
 import com.nprotech.moneytracker.ui.adapters.SettingsAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
@@ -53,6 +59,8 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private List<SettingItemModel> configurationList;
     private SettingsAdapter configurationAdapter;
     private BillingHelper billingHelper;
+    private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
+    private boolean waitingForExactAlarmPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -316,7 +324,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             tvTitle.setText(getString(R.string.smart_reminder));
         }
 
-        SettingOptionsAdapter adapter = new SettingOptionsAdapter(data);
+        SettingOptionsAdapter adapter = new SettingOptionsAdapter(data, this);
         rvOptions.setAdapter(adapter);
 
         dialog.setView(view);
@@ -330,19 +338,32 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             if (selectedItem != null) {
                 if (type == Constants.DAY) {
                     PreferenceManager.INSTANCE.setWeekStartOn(selectedItem.value);
-                    updateConfigurationSubtitle(SettingType.WEEK_STARTS_ON, getString(selectedItem.nameResId));
+                    updateConfigurationSubtitle(SettingType.WEEK_STARTS_ON, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.STARTUP_SCREEN) {
                     PreferenceManager.INSTANCE.setStartUpScreen(selectedItem.value);
-                    updateConfigurationSubtitle(SettingType.STARTUP_SCREEN, getString(selectedItem.nameResId));
+                    updateConfigurationSubtitle(SettingType.STARTUP_SCREEN,  getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.LANGUAGE) {
                     PreferenceManager.INSTANCE.setLanguage(selectedItem.value);
-                    updateConfigurationSubtitle(SettingType.LANGUAGE, getString(selectedItem.nameResId));
+                    updateConfigurationSubtitle(SettingType.LANGUAGE, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.SMART_REMINDER) {
                     PreferenceManager.INSTANCE.setSmartReminder(selectedItem.value);
+                    SmartReminderManager manager = new SmartReminderManager(this);
                     if (selectedItem.value == 1) {
-                        updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(selectedItem.nameResId));
+                        manager.cancelReminder();
+                        updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                     } else {
-                        updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(R.string.trigger_reminder_at, getString(selectedItem.nameResId)));
+                        requestNotificationPermission();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                                waitingForExactAlarmPermission = true;
+                                requestExactAlarmPermission();
+                                return;
+                            }
+                        }
+                        manager.scheduleReminder(selectedItem.value);
+                        updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(R.string.trigger_reminder_at,
+                                getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value))));
                     }
                 }
 
@@ -370,7 +391,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         List<CommonDataEntity> days = commonDataViewModel.getDataByType(Constants.DAY);
         for (CommonDataEntity item : days) {
             if (item.value == PreferenceManager.INSTANCE.getWeekStartOn()) {
-                return getString(item.nameResId);
+                return getString(DataHelper.getNameResId(item.type, item.value));
             }
         }
         return getString(R.string.sunday);
@@ -380,7 +401,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         List<CommonDataEntity> screens = commonDataViewModel.getDataByType(Constants.STARTUP_SCREEN);
         for (CommonDataEntity item : screens) {
             if (item.value == PreferenceManager.INSTANCE.getStartUpScreen()) {
-                return getString(item.nameResId);
+                return getString(DataHelper.getNameResId(item.type, item.value));
             }
         }
         return getString(R.string.transaction);
@@ -390,7 +411,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         List<CommonDataEntity> languages = commonDataViewModel.getDataByType(Constants.LANGUAGE);
         for (CommonDataEntity item : languages) {
             if (item.value == PreferenceManager.INSTANCE.getLanguage()) {
-                return getString(item.nameResId);
+                return getString(DataHelper.getNameResId(item.type, item.value));
             }
         }
         return getString(R.string.system_default);
@@ -401,13 +422,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         for (CommonDataEntity item : smartReminders) {
             if (item.value == PreferenceManager.INSTANCE.getSmartReminder()) {
                 if (item.value == 1) {
-                    return getString(item.nameResId);
-                } else {
-                    return getString(R.string.trigger_reminder_at, getString(item.nameResId));
+                    return getString(DataHelper.getNameResId(item.type, item.value)
+                    );
                 }
+                return getString(R.string.trigger_reminder_at, getString(DataHelper.getNameResId(item.type, item.value)));
             }
         }
-        return getString(R.string.trigger_reminder_at, getString(R.string.time_0));
+        return getString(R.string.not_set);
     }
 
     @SuppressWarnings("deprecation")
@@ -452,7 +473,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
                 @Override
                 public void onError() {
-                    // TODO
+                    // TODO: Change for subscription
                     runOnUiThread(() -> tvPrice.setText(CommonUtils.getBeautifyAmount("$", 49)));
                 }
             });
@@ -465,5 +486,44 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     protected void onDestroy() {
         super.onDestroy();
         billingHelper.destroy();
+    }
+
+    private void requestNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
+            }
+        }
+    }
+
+    private void requestExactAlarmPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
+                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!waitingForExactAlarmPermission) {
+            return;
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            if (alarmManager != null && alarmManager.canScheduleExactAlarms()) {
+                waitingForExactAlarmPermission = false;
+                SmartReminderManager manager = new SmartReminderManager(this);
+                int reminderValue = PreferenceManager.INSTANCE.getSmartReminder();
+                if (reminderValue > 1 && reminderValue <= 25) {
+                    manager.scheduleReminder(reminderValue);
+                }
+            }
+        }
     }
 }

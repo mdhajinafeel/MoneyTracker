@@ -21,6 +21,7 @@ import com.nprotech.moneytracker.db.dao.DebtLoanPaymentDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanPaymentTransactionDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanTransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.GoalDao;
+import com.nprotech.moneytracker.db.dao.RecurringTransactionDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
@@ -40,6 +41,7 @@ import com.nprotech.moneytracker.db.entites.DebtLoanPaymentTransactionEntity;
 import com.nprotech.moneytracker.db.entites.DebtLoanTransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.GoalContributionEntity;
 import com.nprotech.moneytracker.db.entites.GoalEntity;
+import com.nprotech.moneytracker.db.entites.RecurringTransactionEntity;
 import com.nprotech.moneytracker.db.entites.TransactionAttachmentEntity;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.db.entites.WalletEntity;
@@ -47,7 +49,7 @@ import com.nprotech.moneytracker.db.entites.WalletEntity;
 @Database(entities = {CurrencyEntity.class, CategoryEntity.class, CommonDataEntity.class, AccountCurrencyMappingEntity.class, AccountEntity.class, WalletEntity.class, TransactionEntity.class,
         TransactionAttachmentEntity.class, GoalEntity.class, GoalContributionEntity.class, BackupHistoryEntity.class, BudgetEntity.class, BudgetWalletEntity.class,
         BudgetCategoryEntity.class, BudgetCategoryAmountEntity.class, DebtLoanEntity.class, DebtLoanPaymentEntity.class, DebtLoanPaymentTransactionEntity.class,
-        DebtLoanTransactionAttachmentEntity.class},
+        DebtLoanTransactionAttachmentEntity.class, RecurringTransactionEntity.class},
         version = Constants.DATABASE_VERSION, exportSchema = false)
 public abstract class MoneyTrackerDatabase extends RoomDatabase {
 
@@ -82,6 +84,8 @@ public abstract class MoneyTrackerDatabase extends RoomDatabase {
     public abstract DebtLoanPaymentTransactionDao debtLoanPaymentTransactionDao();
 
     public abstract DebtLoanTransactionAttachmentDao debtLoanTransactionAttachmentDao();
+
+    public abstract RecurringTransactionDao recurringTransactionDao();
 
     public static MoneyTrackerDatabase getInstance(Context context) {
         if (INSTANCE == null) {

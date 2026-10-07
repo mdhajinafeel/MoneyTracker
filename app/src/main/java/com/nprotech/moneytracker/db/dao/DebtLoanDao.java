@@ -117,4 +117,12 @@ LIMIT :limit OFFSET :offset
 
     @Query("SELECT * FROM debt_loans WHERE id = :id LIMIT 1")
     DebtLoanEntity getDebtLoanByIdSync(int id);
+
+    @Query("""
+        SELECT COUNT(*)
+        FROM debt_loans
+        WHERE accountId = :accountId
+          AND isDeleted = 0
+        """)
+    LiveData<Integer> getActiveDebtCount(int accountId);
 }

@@ -846,6 +846,7 @@
                         android:src="@drawable/ic_refresh_time2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:tint="@color/primary" />
 
                     <androidx.appcompat.widget.AppCompatTextView

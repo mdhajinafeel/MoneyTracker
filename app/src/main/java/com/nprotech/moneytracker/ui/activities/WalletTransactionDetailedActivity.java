@@ -516,7 +516,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
         transaction.walletId = wallet.id;
         transaction.amount = Math.abs(difference);
         transaction.transactionDate = currentTime;
-        transaction.description = getString(R.string.adjustment);
+        transaction.description = "adjust_001";
         transaction.tempTransactionServerId = "T_" + currentTime;
         transaction.accountId = PreferenceManager.INSTANCE.getAccountId();
         transaction.createdAt = currentTime;
@@ -543,7 +543,8 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
             transaction.defaultCategoryId = category.defaultCategory;
         }
 
-        transaction.description = getString(R.string.adjustment);
+        transaction.description = "adjust_001";
+        transaction.isFromRecurring = false;
 
         if (note != null) {
             transaction.memo = note;

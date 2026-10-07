@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.utils;
 
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -61,7 +62,7 @@ public class GoalRingDrawable extends Drawable {
     }
 
     @Override
-    public void setColorFilter(android.graphics.ColorFilter colorFilter) {
+    public void setColorFilter(ColorFilter colorFilter) {
         backgroundPaint.setColorFilter(colorFilter);
         progressPaint.setColorFilter(colorFilter);
         invalidateSelf();

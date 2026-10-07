@@ -59,6 +59,7 @@ public class TransactionEntity implements Serializable {
     public String parentTransactionId = "";
     public int goalId = 0;
     public boolean isFee = false;
+    public boolean isFromRecurring = false;
 
     public TransactionEntity() {
     }

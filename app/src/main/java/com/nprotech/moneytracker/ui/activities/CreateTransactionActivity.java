@@ -106,7 +106,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private Date date;
     private long transactionDate;
     private AccountEntity account;
-    private WalletEntity selectedWallet, selectedFromWallet;
+    private WalletEntity selectedWallet, selectedFromWallet, normalTransactionWallet;
     private AccountViewModel accountViewModel;
     private CategoryViewModel categoryViewModel;
     private TransactionViewModel transactionViewModel;
@@ -614,6 +614,37 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         timePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(color);
     }
 
+    private void restoreNormalTransactionWallet() {
+        try {
+            if (normalTransactionWallet != null) {
+                if (walletLists != null && !walletLists.isEmpty()) {
+                    for (WalletEntity wallet : walletLists) {
+                        if (wallet.id == normalTransactionWallet.id) {
+                            selectedWallet = wallet;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (selectedWallet == null && walletLists != null && !walletLists.isEmpty()) {
+                selectedWallet = walletLists.get(0);
+            }
+
+            if (selectedWallet != null) {
+                tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name, CommonUtils.getBeautifyAmount(
+                                        selectedWallet.currencySymbol, selectedWallet.amount)));
+            } else {
+                tvWallet.setText("");
+            }
+
+            updateAmountText();
+            updateSaveButtonState();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "restoreNormalTransactionWallet", e);
+        }
+    }
+
     private void switchTransMode(int mode) {
         try {
             boolean isIncome = mode == TransactionEntity.TYPE_INCOME;
@@ -648,6 +679,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 btnTransfer.setTypeface(medium);
 
                 tvCategory.setText(incomeCategory != null ? incomeCategory.getName(getApplicationContext()) : "");
+                restoreNormalTransactionWallet();
 
                 // -----------------------------
                 // Expense
@@ -666,11 +698,16 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 btnTransfer.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnTransfer.setTypeface(medium);
                 tvCategory.setText(expenseCategory != null ? expenseCategory.getName(getApplicationContext()) : "");
+                restoreNormalTransactionWallet();
 
                 // -----------------------------
                 // Transfer
                 // -----------------------------
             } else if (isTransfer) {
+
+                if (selectedWallet != null) {
+                    normalTransactionWallet = selectedWallet;
+                }
 
                 // Set first wallet as From Wallet
                 selectedFromWallet = null;
@@ -715,6 +752,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 btnExpense.setTextColor(ContextCompat.getColor(this, R.color.text_grey));
                 btnExpense.setTypeface(medium);
             }
+
+            updateSaveButtonState();
         } catch (Exception e) {
             AppLogger.e(getClass(), "switchTransMode", e);
         }
@@ -794,6 +833,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                         holder.getView(R.id.ivSelected).setVisibility(selectedWallet != null && selectedWallet.id == walletEntity.id ? View.VISIBLE : View.GONE);
                         holder.getView(R.id.rlAccountView).setOnClickListener(v -> {
                             selectedWallet = walletEntity;
+                            normalTransactionWallet = walletEntity;
+
                             tvWallet.setText(getString(R.string.wallet_info, selectedWallet.name,
                                     CommonUtils.getBeautifyAmount(selectedWallet.currencySymbol, selectedWallet.amount)));
 
@@ -1647,13 +1688,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                     feeTransaction.categoryId = category.id;
                     feeTransaction.defaultCategoryId = category.defaultCategory;
                     feeTransaction.transactionDate = transferTransaction.transactionDate;
-                    feeTransaction.description = getString(R.string.fee);
+                    feeTransaction.description = "fee";
                     feeTransaction.memo = "";
                     feeTransaction.parentTransactionId = transferTransaction.tempTransactionServerId;
                     feeTransaction.createdAt = currentTime;
                 }
                 feeTransaction.updatedAt = currentTime;
                 feeTransaction.isFee = true;
+                feeTransaction.isFromRecurring = false;
             }
 
             transactionViewModel.updateTransferTransaction(transferTransaction, feeTransaction, oldFeeTransaction, oldFromWallet, oldToWallet, fromWallet,
@@ -1727,11 +1769,12 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 feeTransaction.categoryId = category.id;
                 feeTransaction.defaultCategoryId = category.defaultCategory;
                 feeTransaction.transactionDate = transferTransaction.transactionDate;
-                feeTransaction.description = getString(R.string.fee);
+                feeTransaction.description = "fee";
                 feeTransaction.parentTransactionId = transferTransaction.tempTransactionServerId;
                 feeTransaction.createdAt = currentTime;
                 feeTransaction.updatedAt = currentTime;
                 feeTransaction.isFee = true;
+                feeTransaction.isFromRecurring = false;
             }
 
             transactionViewModel.saveTransferTransaction(transferTransaction, feeTransaction, fromWallet, toWallet, account);
@@ -1779,6 +1822,7 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
         transaction.transactionDate = date.getTime();
         transaction.description = Objects.requireNonNull(etDescription.getText()).toString().trim();
         transaction.memo = Objects.requireNonNull(etMemo.getText()).toString().trim();
+        transaction.isFromRecurring = false;
 
         return transaction;
     }

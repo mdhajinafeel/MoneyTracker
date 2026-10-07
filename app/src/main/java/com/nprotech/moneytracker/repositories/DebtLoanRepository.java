@@ -969,4 +969,8 @@ public class DebtLoanRepository {
             AppLogger.e(getClass(), "deleteDebtLoanAttachments", e);
         }
     }
+
+    public LiveData<Integer> getActiveDebtCount(int accountId) {
+        return debtLoanDao.getActiveDebtCount(accountId);
+    }
 }

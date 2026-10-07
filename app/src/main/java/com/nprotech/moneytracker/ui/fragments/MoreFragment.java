@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.ui.fragments;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +28,18 @@ import com.nprotech.moneytracker.ui.activities.CreateWalletActivity;
 import com.nprotech.moneytracker.ui.activities.DebtLoanActivity;
 import com.nprotech.moneytracker.ui.activities.GoalActivity;
 import com.nprotech.moneytracker.ui.activities.ManageWalletActivity;
+import com.nprotech.moneytracker.ui.activities.RecurringActivity;
 import com.nprotech.moneytracker.ui.activities.WalletTransactionDetailedActivity;
 import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.adapters.WalletsAdapter;
 import com.nprotech.moneytracker.utils.ActivityUtils;
+import com.nprotech.moneytracker.utils.CommonUtils;
 import com.nprotech.moneytracker.viewmodel.AccountViewModel;
 import com.nprotech.moneytracker.viewmodel.BudgetViewModel;
+import com.nprotech.moneytracker.viewmodel.DebtLoanViewModel;
 import com.nprotech.moneytracker.viewmodel.GoalViewModel;
+import com.nprotech.moneytracker.viewmodel.RecurringTransactionViewModel;
 import com.nprotech.moneytracker.viewmodel.WalletViewModel;
 
 import java.util.ArrayList;
@@ -52,6 +57,8 @@ public class MoreFragment extends Fragment {
     private AccountViewModel accountViewModel;
     private GoalViewModel goalViewModel;
     private BudgetViewModel budgetViewModel;
+    private DebtLoanViewModel debtLoanViewModel;
+    private RecurringTransactionViewModel recurringTransactionViewModel;
     private List<MoreOptionsModel> moreOptionsModels;
     private RecyclerViewAdapter<MoreOptionsModel> moreOptionsAdapter;
 
@@ -69,6 +76,8 @@ public class MoreFragment extends Fragment {
             accountViewModel = new ViewModelProvider(requireActivity()).get(AccountViewModel.class);
             goalViewModel = new ViewModelProvider(requireActivity()).get(GoalViewModel.class);
             budgetViewModel = new ViewModelProvider(requireActivity()).get(BudgetViewModel.class);
+            debtLoanViewModel = new ViewModelProvider(requireActivity()).get(DebtLoanViewModel.class);
+            recurringTransactionViewModel = new ViewModelProvider(requireActivity()).get(RecurringTransactionViewModel.class);
 
             initializeAdapters();
             setupListeners();
@@ -91,6 +100,8 @@ public class MoreFragment extends Fragment {
                     walletViewModel.selectAccount(account.id);
                     goalViewModel.selectAccount(account.id);
                     budgetViewModel.selectAccount(account.id);
+                    debtLoanViewModel.selectAccount(account.id);
+                    recurringTransactionViewModel.selectAccount(account.id);
                 }
             });
 
@@ -130,6 +141,28 @@ public class MoreFragment extends Fragment {
 
                 moreOptionsAdapter.notifyItemChanged(1);
             });
+
+            debtLoanViewModel.debtLoanCount().observe(getViewLifecycleOwner(), count -> {
+                if (count == null) {
+                    count = 0;
+                }
+
+                MoreOptionsModel debtLoanModel = moreOptionsModels.get(2);
+                debtLoanModel.count = count;
+
+                moreOptionsAdapter.notifyItemChanged(2);
+            });
+
+            recurringTransactionViewModel.recurringCount().observe(getViewLifecycleOwner(), count -> {
+                if (count == null) {
+                    count = 0;
+                }
+
+                MoreOptionsModel recurringModel = moreOptionsModels.get(3);
+                recurringModel.count = count;
+
+                moreOptionsAdapter.notifyItemChanged(3);
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
         }
@@ -164,8 +197,13 @@ public class MoreFragment extends Fragment {
 
                     if (moreOptionsModel.count > 0) {
                         colorBadgeView.setVisibility(View.VISIBLE);
-                        colorBadgeView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(requireContext(), moreOptionsModel.bgColor)));
-                        holder.setViewTextColor(R.id.tvBadgeCount, ContextCompat.getColor(requireContext(), moreOptionsModel.fgColor));
+                        int bgColor = ContextCompat.getColor(requireContext(), moreOptionsModel.bgColor);
+                        int fgColor = ContextCompat.getColor(requireContext(), moreOptionsModel.fgColor);
+                        GradientDrawable badgeDrawable = (GradientDrawable) colorBadgeView.getBackground().mutate();
+                        badgeDrawable.setColor(bgColor);
+                        badgeDrawable.setStroke(CommonUtils.dpToPx(requireActivity(), 1), fgColor);
+                        colorBadgeView.setBackground(badgeDrawable);
+                        holder.setViewTextColor(R.id.tvBadgeCount, fgColor);
                         holder.setViewText(R.id.tvBadgeCount, String.valueOf(moreOptionsModel.count));
                     } else {
                         colorBadgeView.setVisibility(View.GONE);
@@ -188,6 +226,10 @@ public class MoreFragment extends Fragment {
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         } else if (moreOptionsModel.id == TransactionEntity.TYPE_DEBT) {
                             startActivity(new Intent(requireActivity(), DebtLoanActivity.class)
+                                    .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
+                            ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
+                        } else if (moreOptionsModel.id == TransactionEntity.TYPE_RECURRING) {
+                            startActivity(new Intent(requireActivity(), RecurringActivity.class)
                                     .putExtra("accountId", PreferenceManager.INSTANCE.getAccountId()));
                             ActivityUtils.overrideOpenTransition(requireActivity(), R.anim.top_to_bottom, R.anim.scale_out);
                         }

@@ -10,7 +10,6 @@
     <!-- ========================================================= -->
     <!-- Toolbar                                                    -->
     <!-- ========================================================= -->
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarWrapper"
         android:layout_width="0dp"
@@ -27,7 +26,6 @@
     <!-- ========================================================= -->
     <!-- Content                                                    -->
     <!-- ========================================================= -->
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -46,7 +44,6 @@
             <!-- ================================================= -->
             <!-- Transaction Summary Card                         -->
             <!-- ================================================= -->
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardTransactionSummary"
                 android:layout_width="match_parent"

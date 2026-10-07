@@ -107,6 +107,15 @@ public enum PreferenceManager {
         return prefStore.getInt(KEY_SMART_REMINDER, 0);
     }
 
+    public boolean isSmartReminderEnabled() {
+        int value = getSmartReminder();
+        return value >= 2 && value <= 25;
+    }
+
+    public void clearSmartReminder() {
+        prefStore.edit().putInt(KEY_SMART_REMINDER, -1).apply();
+    }
+
     // ===== STARTUP SCREEN =====
     public void setStartUpScreen(int startUpScreen) {
         prefStore.edit().putInt(KEY_STARTUP_SCREEN, startUpScreen).apply();

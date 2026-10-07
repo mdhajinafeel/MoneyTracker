@@ -134,7 +134,14 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
                 tvBadgeDetail.setLayoutParams(params);
             } else {
                 holder.setViewVisibility(R.id.detailLabel, View.VISIBLE);
-                holder.setViewText(R.id.detailLabel, transaction.description);
+
+                if (transaction.type == TransactionEntity.TYPE_TRANSFER) {
+                    holder.setViewText(R.id.detailLabel, context.getString(R.string.fee));
+                } else if(transaction.description.equalsIgnoreCase("adjust_001")) {
+                    holder.setViewText(R.id.detailLabel, context.getString(R.string.adjustment));
+                } else {
+                    holder.setViewText(R.id.detailLabel, transaction.description);
+                }
 
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) tvBadgeDetail.getLayoutParams();
                 params.setMarginStart(context.getResources().getDimensionPixelSize(R.dimen.margin_8));
@@ -171,7 +178,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         amountLabel.setText(CommonUtils.getBeautifyAmount(item.currencySymbol, amount));
         amountLabel.setTextColor(color);
 
-        if(type.equalsIgnoreCase("calendar") || type.equalsIgnoreCase("daily")) {
+        if (type.equalsIgnoreCase("calendar") || type.equalsIgnoreCase("daily")) {
 
             ivMore.setVisibility(View.VISIBLE);
             transactionDate.setVisibility(View.GONE);
@@ -184,7 +191,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         } else {
             ivMore.setVisibility(View.GONE);
 
-            if(type.equalsIgnoreCase("budget") || type.equalsIgnoreCase("period")) {
+            if (type.equalsIgnoreCase("budget") || type.equalsIgnoreCase("period")) {
                 transactionDate.setVisibility(View.VISIBLE);
                 transactionDate.setText(DateHelper.getFormattedDate(transaction.transactionDate, "dd MMM yyyy"));
             } else {
@@ -195,7 +202,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         itemView.setOnClickListener(view -> {
 
             Intent intent = new Intent(context, TransactionDetailActivity.class);
-            if((type.equalsIgnoreCase("period") || type.equalsIgnoreCase("budget"))
+            if ((type.equalsIgnoreCase("period") || type.equalsIgnoreCase("budget"))
                     && item.transaction.type == TransactionEntity.TYPE_EXPENSE
                     && item.transaction.defaultCategoryId == Constants.DEFAULT_CATEGORY_FEE_ID) {
                 intent.putExtra("transactionId", item.transaction.parentTransactionId);

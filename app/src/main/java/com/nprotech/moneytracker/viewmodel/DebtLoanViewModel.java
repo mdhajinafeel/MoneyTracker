@@ -7,6 +7,7 @@ import android.os.Looper;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.nprotech.moneytracker.db.entites.DebtLoanEntity;
@@ -41,10 +42,17 @@ public class DebtLoanViewModel extends ViewModel {
     private final MutableLiveData<Boolean> transactionDeleted = new MutableLiveData<>();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private int transactionId = 0, paymentId = 0;
+    private final MutableLiveData<Integer> accountId = new MutableLiveData<>();
+    private final LiveData<Integer> debtLoanCount;
 
     @Inject
     public DebtLoanViewModel(DebtLoanRepository debtLoanRepository) {
         this.debtLoanRepository = debtLoanRepository;
+        debtLoanCount = Transformations.switchMap(accountId, debtLoanRepository::getActiveDebtCount);
+    }
+
+    public void selectAccount(int id) {
+        accountId.setValue(id);
     }
 
     public void saveDebtLoan(DebtLoanEntity entity, List<DebtLoanPaymentEntity> payments, Context context) {
@@ -225,6 +233,10 @@ public class DebtLoanViewModel extends ViewModel {
 
     public LiveData<DebtLoanPaymentEntity> getPaymentDataById(int paymentId) {
         return debtLoanRepository.getPaymentDataById(paymentId);
+    }
+
+    public LiveData<Integer> debtLoanCount() {
+        return debtLoanCount;
     }
 
     @SuppressLint("EmptySuperCall")

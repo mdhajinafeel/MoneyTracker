@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_16"
+        android:fontFamily="@font/exo2_bold"
+        android:text="@string/repeat_on"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/light_grey"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeader" />
+
+    <LinearLayout
+        android:id="@+id/layoutContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewDivider">
+
+        <LinearLayout
+            android:id="@+id/layoutEveryFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/weeklyEveryLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/every"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_16" />
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etRepeatEvery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:fontFamily="@font/exo2_semibold"
+                android:inputType="number"
+                android:maxLength="3"
+                android:minWidth="40dp"
+                android:textAlignment="center"
+                android:textColor="@color/color_matte_black"
+                android:textSize="@dimen/text_14" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvEveryRecurring"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_4"
+                android:fontFamily="@font/exo2_medium"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_16" />
+        </LinearLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/weekView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8"
+            android:visibility="gone"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/sunWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/sunLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/sunday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/monWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/monLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/monday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/tueWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tueLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/tuesday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/wedWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/wedLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/wednesday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/thuWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/thuLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/thursday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/friWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/friLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/friday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/satWrapper"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:background="@drawable/bg_recurring_weekly_uncheck">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/satLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/exo2_medium"
+                        android:text="@string/saturday_short"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <RadioGroup
+            android:id="@+id/radioMonthly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/margin_6"
+            android:layout_marginHorizontal="@dimen/margin_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topWrapper">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radioMonthlyDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/radio_button_selector"
+                android:checked="true"
+                android:textColor="@color/dark_grey"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/same_day_each_month"
+                android:textSize="@dimen/text_14" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/radioMonthlyLastDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/dark_grey"
+                android:buttonTint="@color/radio_button_selector"
+                android:fontFamily="@font/exo2_semibold"
+                android:text="@string/end_of_month"
+                android:textSize="@dimen/text_14" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_12"
+            android:layout_marginTop="@dimen/margin_10"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/frameRepeatInterval"
+                android:layout_width="120dp"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:background="@drawable/bg_edit_text_underline">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/typeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="-8dp"
+                    android:background="@android:color/transparent"
+                    android:spinnerMode="dropdown" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:src="@drawable/ic_account_caret"
+                    app:tint="@color/primary" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameUntilDate"
+                android:layout_width="150dp"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/margin_8"
+                android:background="@drawable/bg_edit_text_underline">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvUntilDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:textSize="@dimen/text_14"
+                    android:fontFamily="@font/exo2_semibold"
+                    android:textColor="@color/dark_grey" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="@dimen/margin_6"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:src="@drawable/ic_account_caret"
+                    app:tint="@color/primary" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/frameTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/edit_text_height_40"
+                android:visibility="gone"
+                android:layout_marginStart="@dimen/margin_8"
+                android:background="@drawable/bg_edit_text_underline">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etRepeatTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:background="@null"
+                    android:fontFamily="@font/exo2_medium"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:maxLength="3"
+                    android:minWidth="45dp"
+                    android:textColor="@color/color_matte_black"
+                    android:textSize="@dimen/text_14" />
+            </FrameLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblTimes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin_4"
+                android:fontFamily="@font/exo2_medium"
+                android:text="@string/times"
+                android:textSize="@dimen/text_16"
+                android:visibility="gone"
+                android:textColor="@color/dark_grey" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutActions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_20"
+        android:layout_marginTop="@dimen/margin_16"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutContainer">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApply"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_56"
+            android:layout_marginEnd="@dimen/margin_6"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_lavender"
+            android:fontFamily="@font/exo2_semibold"
+            android:letterSpacing="0.01"
+            android:text="@string/apply"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_14"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/primary"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReset"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/edit_text_height_56"
+            android:layout_marginStart="@dimen/margin_6"
+            android:layout_weight="1"
+            android:backgroundTint="@color/very_light_expense"
+            android:fontFamily="@font/exo2_semibold"
+            android:letterSpacing="0.01"
+            android:text="@string/reset"
+            android:textAllCaps="true"
+            android:textColor="@color/bright_red"
+            android:textSize="@dimen/text_14"
+            app:cornerRadius="@dimen/corner_radius_4"
+            app:strokeColor="@color/bright_red"
+            app:strokeWidth="1dp" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_12"
+        android:fontFamily="@font/exo2_semibold"
+        android:gravity="center"
+        android:text="@string/text_close"
+        android:textAllCaps="true"
+        android:textColor="@color/primary_dark"
+        android:textSize="@dimen/text_16"
+        app:fontFamily="@font/exo2_semibold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutActions" />
+</androidx.constraintlayout.widget.ConstraintLayout>

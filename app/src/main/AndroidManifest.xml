@@ -53,6 +53,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
         tools:ignore="ForegroundServicesPolicy" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:name=".MoneyTrackerApp"
@@ -344,9 +345,30 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Debt Screen -->
+        <!-- Debt/Loan Screen -->
         <activity
             android:name=".ui.activities.DebtLoanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Recurring Screen -->
+        <activity
+            android:name=".ui.activities.RecurringActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Create Recurring Screen -->
+        <activity
+            android:name=".ui.activities.CreateRecurringActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Recurring Detail Screen -->
+        <activity
+            android:name=".ui.activities.RecurringTransactionDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -449,5 +471,20 @@
                 tools:node="remove" />
 
         </provider>
+
+        <receiver
+            android:name=".notifications.SmartReminderReceiver"
+            android:exported="false" />
+
+        <receiver
+            android:name=".notifications.SmartReminderBootReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.ui.adapters;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
+import com.nprotech.moneytracker.helper.DataHelper;
 
 import java.util.List;
 import java.util.Locale;
@@ -23,9 +25,11 @@ public class SettingOptionsAdapter extends RecyclerView.Adapter<SettingOptionsAd
 
     private final List<CommonDataEntity> list;
     private int selectedPosition = RecyclerView.NO_POSITION;
+    private final Context context;
 
-    public SettingOptionsAdapter(List<CommonDataEntity> list) {
+    public SettingOptionsAdapter(List<CommonDataEntity> list, Context context) {
         this.list = list;
+        this.context = context;
 
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).selected) {
@@ -51,7 +55,7 @@ public class SettingOptionsAdapter extends RecyclerView.Adapter<SettingOptionsAd
         Typeface medium = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_medium);
         Typeface semiBold = ResourcesCompat.getFont(holder.itemView.getContext(), R.font.exo2_semibold);
 
-        holder.rbOption.setText(item.nameResId);
+        holder.rbOption.setText(context.getString(DataHelper.getNameResId(item.type, item.value)));
 
         boolean isSelected = position == selectedPosition;
         holder.rbOption.setChecked(isSelected);

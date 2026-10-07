@@ -15,6 +15,7 @@ import com.nprotech.moneytracker.db.dao.DebtLoanPaymentDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanPaymentTransactionDao;
 import com.nprotech.moneytracker.db.dao.DebtLoanTransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.GoalDao;
+import com.nprotech.moneytracker.db.dao.RecurringTransactionDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
@@ -26,6 +27,7 @@ import com.nprotech.moneytracker.repositories.DebtLoanRepository;
 import com.nprotech.moneytracker.repositories.GoalRepository;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 import com.nprotech.moneytracker.repositories.AccountRepository;
+import com.nprotech.moneytracker.repositories.RecurringTransactionRepository;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
 
@@ -102,5 +104,11 @@ public class RepoModule {
     DebtLoanRepository provideDebtLoanRepository(DebtLoanDao debtLoanDao, DebtLoanPaymentDao debtLoanPaymentDao, WalletDao walletDao, AccountDao accountDao,
                                                  DebtLoanPaymentTransactionDao debtLoanPaymentTransactionDao, DebtLoanTransactionAttachmentDao debtLoanTransactionAttachmentDao) {
         return new DebtLoanRepository(debtLoanDao, debtLoanPaymentDao, walletDao, accountDao, debtLoanPaymentTransactionDao, debtLoanTransactionAttachmentDao);
+    }
+
+    @Provides
+    @Singleton
+    RecurringTransactionRepository provideRecurringTransactionRepository(RecurringTransactionDao recurringTransactionDao) {
+        return new RecurringTransactionRepository(recurringTransactionDao);
     }
 }

@@ -3,6 +3,7 @@ package com.nprotech.moneytracker.worker;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.hilt.work.HiltWorker;
 import androidx.work.BackoffPolicy;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
@@ -19,12 +20,17 @@ import com.nprotech.moneytracker.utils.BackupManager;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
+import dagger.assisted.Assisted;
+import dagger.assisted.AssistedInject;
+
+@HiltWorker
 public class BackupWorker extends Worker {
 
     private static final String KEY_FREQUENCY = "backup_frequency";
     public static final String UNIQUE_BACKUP_WORK = "automatic_backup";
 
-    public BackupWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    @AssistedInject
+    public BackupWorker(@Assisted @NonNull Context context, @Assisted @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
 

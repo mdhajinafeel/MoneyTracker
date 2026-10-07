@@ -178,6 +178,8 @@
     <string name="amount_already_paid">Total amount cannot be less than the amount already paid</string>
     <string name="payment_updated">Payment updated</string>
     <string name="payment_deleted_successfully">Payment deleted successfully</string>
+    <string name="payment_reminder">Payment Reminder</string>
+    <string name="your_debt_loan_payment_is_due_soon"><![CDATA[Your Debt & Loan payment is due soon.]]></string>
 
     <plurals name="days_period">
         <item quantity="one">%d day</item>

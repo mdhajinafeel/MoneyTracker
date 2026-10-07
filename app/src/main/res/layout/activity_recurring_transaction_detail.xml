@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_light_background">
+
+    <!-- ========================================================= -->
+    <!-- Toolbar                                                    -->
+    <!-- ========================================================= -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarWrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/vibrant_orange"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <include layout="@layout/toolbar_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ========================================================= -->
+    <!-- Content                                                    -->
+    <!-- ========================================================= -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- ================================================= -->
+            <!-- Transaction Summary Card                         -->
+            <!-- ================================================= -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTransactionSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_16"
+                app:cardCornerRadius="@dimen/corner_radius_12"
+                app:cardElevation="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:strokeWidth="0.4dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="132dp">
+
+                    <!-- Decorative circle -->
+                    <View
+                        android:id="@+id/decorCircleLarge"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:alpha="0.45"
+                        android:background="@drawable/bg_summary_decor_circle"
+                        android:translationX="55dp"
+                        android:translationY="55dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Decorative circle -->
+                    <View
+                        android:id="@+id/decorCircleSmall"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:alpha="0.35"
+                        android:background="@drawable/bg_summary_decor_circle"
+                        android:translationX="5dp"
+                        android:translationY="45dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <!-- Transaction icon -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardTransactionIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="@dimen/margin_16"
+                        app:cardCornerRadius="@dimen/corner_radius_16"
+                        app:cardElevation="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivTransactionIcon"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:tint="@color/white" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- ================================================= -->
+                    <!-- From Wallet / Amount                             -->
+                    <!-- ================================================= -->
+                    <LinearLayout
+                        android:id="@+id/layoutFromSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_8"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/cardTransactionIcon"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Transaction type -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTransactionStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/padding_8"
+                            android:paddingVertical="@dimen/padding_2"
+                            android:textAllCaps="true"
+                            android:textColor="@color/transfer"
+                            android:textSize="@dimen/text_12"
+                            app:fontFamily="@font/exo2_semibold" />
+
+                        <!-- From amount -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTransactionAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/exo2_bold"
+                            android:maxLines="1"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_20" />
+
+                        <!-- From wallet -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvFromWalletSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_4"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/exo2_medium"
+                            android:maxLines="1"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_12" />
+
+                        <!-- Normal transaction description -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTransactionDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/exo2_medium"
+                            android:maxLines="1"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_12"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <!-- ================================================= -->
+                    <!-- Transfer Arrow                                    -->
+                    <!-- ================================================= -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivTransferArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="@dimen/margin_12"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_arrow_right"
+                        android:tint="@color/transfer"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/layoutFromSummary"
+                        app:layout_constraintTop_toTopOf="@id/layoutFromSummary" />
+
+                    <!-- ================================================= -->
+                    <!-- To Wallet / Received                              -->
+                    <!-- ================================================= -->
+                    <LinearLayout
+                        android:id="@+id/layoutToSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_12"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/ivTransferArrow"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <!-- Transaction type -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_badge_income"
+                            android:gravity="center"
+                            android:paddingHorizontal="@dimen/padding_8"
+                            android:paddingVertical="@dimen/padding_2"
+                            android:textAllCaps="true"
+                            android:textColor="@color/transfer"
+                            android:textSize="@dimen/text_12"
+                            android:visibility="invisible"
+                            app:fontFamily="@font/exo2_semibold" />
+
+                        <!-- To amount -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvReceivedAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_6"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/exo2_bold"
+                            android:maxLines="1"
+                            android:textColor="@color/color_matte_black"
+                            android:textSize="@dimen/text_20" />
+
+                        <!-- To wallet -->
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvToWalletSummary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_2"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/exo2_medium"
+                            android:maxLines="1"
+                            android:textColor="@color/dark_grey"
+                            android:textSize="@dimen/text_12" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <include
+                android:id="@+id/cardTransactionDetails"
+                layout="@layout/layout_recurring_transaction_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_16"
+                android:layout_marginTop="@dimen/margin_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardTransactionSummary" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_18"
+                app:layout_constraintTop_toBottomOf="@id/cardTransactionDetails" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

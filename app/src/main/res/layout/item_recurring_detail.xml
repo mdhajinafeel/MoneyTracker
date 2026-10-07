@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin_16"
+    android:layout_marginTop="@dimen/margin_8"
+    android:layout_marginEnd="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_4"
+    android:background="@color/white"
+    android:clipToPadding="false"
+    app:cardCornerRadius="@dimen/corner_radius_10"
+    app:cardElevation="@dimen/corner_elevation_4"
+    app:cardUseCompatPadding="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/itemView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_10">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardCategoryIcon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="@dimen/margin_4"
+            app:cardCornerRadius="@dimen/corner_radius_16"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivCategoryIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:tint="@color/white" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.16" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/leftWrapper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline1"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/nameLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/padding_8"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_18"
+                app:fontFamily="@font/exo2_semibold"
+                app:layout_constraintEnd_toStartOf="@id/amountLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/amountLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_16"
+                app:fontFamily="@font/exo2_bold"
+                app:layout_constraintBaseline_toBaselineOf="@id/nameLabel"
+                app:layout_constraintEnd_toStartOf="@id/ivMore" />
+
+            <LinearLayout
+                android:id="@+id/detailWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/nameLabel"
+                app:layout_constraintTop_toBottomOf="@id/nameLabel">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRepeatType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/padding_4"
+                    android:drawableTint="@color/dark_grey"
+                    android:fontFamily="@font/exo2_medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_14" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivRepeatDot"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="@dimen/padding_4"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bg_goal_category_dot" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRepeatPeriod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_4"
+                    android:fontFamily="@font/exo2_medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dateWrapper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_6"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailWrapper">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/nextRecurring"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    android:textSize="@dimen/text_12"
+                    app:fontFamily="@font/exo2_medium" />
+
+                <View
+                    android:id="@+id/viewLine2"
+                    android:layout_width="0.4dp"
+                    android:layout_height="10dp"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:background="@color/grey_88" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRecurringType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_4"
+                    android:background="@drawable/bg_badge_income"
+                    android:drawablePadding="@dimen/padding_4"
+                    android:drawableTint="@color/income"
+                    android:gravity="center"
+                    android:paddingHorizontal="@dimen/padding_8"
+                    android:paddingVertical="@dimen/padding_2"
+                    android:textAllCaps="true"
+                    android:textColor="@color/income"
+                    android:textSize="@dimen/text_10"
+                    app:fontFamily="@font/exo2_semibold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMore"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:padding="@dimen/padding_4"
+                android:layout_marginTop="@dimen/margin_10"
+                android:src="@drawable/ic_more_menu"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/amountLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

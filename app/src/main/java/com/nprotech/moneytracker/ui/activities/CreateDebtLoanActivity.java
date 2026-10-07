@@ -3211,6 +3211,7 @@ public class CreateDebtLoanActivity extends BaseActivity implements DatePickerDi
             entity.debtLoanIcon = debtIcon;
             entity.debtLoanColor = colorSpinner.getSelectedItemPosition();
             entity.walletId = selectedWallet != null ? selectedWallet.id : 0;
+            entity.accountId = PreferenceManager.INSTANCE.getAccountId();
             entity.currencyCode = selectedWallet != null ? selectedWallet.currencyCode : account.currencyCode;
             entity.currencySymbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
             entity.principalAmount = debtLoanPrincipalAmount;

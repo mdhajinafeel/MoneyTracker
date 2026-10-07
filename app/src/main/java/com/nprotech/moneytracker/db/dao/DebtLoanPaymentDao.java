@@ -24,12 +24,32 @@ public interface DebtLoanPaymentDao {
     int update(DebtLoanPaymentEntity payment);
 
     @Query("""
-            SELECT *, l.currencySymbol FROM debt_loan_payments lp
-            INNER JOIN debt_loans l ON l.id = lp.debtLoanId
-            WHERE lp.debtLoanId = :debtLoanId
-            AND lp.isDeleted = 0
-            ORDER BY lp.createdAt ASC
-            """)
+        SELECT
+            lp.id,
+            lp.tempDebtLoanServerId,
+            lp.debtLoanServerId,
+            lp.debtLoanId,
+            lp.paymentNumber,
+            lp.paymentDate,
+            lp.principalAmount,
+            lp.interestAmount,
+            lp.paymentAmount,
+            lp.status,
+            lp.paidAmount,
+            lp.paidDate,
+            lp.createdAt,
+            lp.updatedAt,
+            lp.isSynced,
+            lp.isDeleted,
+            lp.tempDebtLoanPaymentServerId,
+            lp.debtLoanPaymentId,
+            l.currencySymbol
+        FROM debt_loan_payments lp
+        INNER JOIN debt_loans l ON l.id = lp.debtLoanId
+        WHERE lp.debtLoanId = :debtLoanId
+        AND lp.isDeleted = 0
+        ORDER BY lp.createdAt ASC
+        """)
     LiveData<List<DebtLoanPaymentWithDetails>> getPaymentsByDebtLoanId(int debtLoanId);
 
     @Query("""
@@ -42,12 +62,32 @@ public interface DebtLoanPaymentDao {
     List<DebtLoanPaymentEntity> getPendingPayments(int debtLoanId);
 
     @Query("""
-            SELECT *, l.currencySymbol FROM debt_loan_payments lp
-            INNER JOIN debt_loans l ON l.id = lp.debtLoanId
-            WHERE lp.debtLoanId = :debtLoanId AND lp.id = :debtLoanPaymentId
-            AND lp.isDeleted = 0
-            ORDER BY lp.createdAt ASC
-            """)
+        SELECT
+            lp.id,
+            lp.tempDebtLoanServerId,
+            lp.debtLoanServerId,
+            lp.debtLoanId,
+            lp.paymentNumber,
+            lp.paymentDate,
+            lp.principalAmount,
+            lp.interestAmount,
+            lp.paymentAmount,
+            lp.status,
+            lp.paidAmount,
+            lp.paidDate,
+            lp.createdAt,
+            lp.updatedAt,
+            lp.isSynced,
+            lp.isDeleted,
+            lp.tempDebtLoanPaymentServerId,
+            lp.debtLoanPaymentId,
+            l.currencySymbol
+        FROM debt_loan_payments lp
+        INNER JOIN debt_loans l ON l.id = lp.debtLoanId
+        WHERE lp.debtLoanId = :debtLoanId
+        AND lp.id = :debtLoanPaymentId
+        AND lp.isDeleted = 0
+        """)
     LiveData<DebtLoanPaymentWithDetails> getPaymentDetailByDebtLoanId(int debtLoanId, int debtLoanPaymentId);
 
     @Query("UPDATE debt_loan_payments SET updatedAt = :updatedAt, isDeleted = 1 WHERE debtLoanId = :debtLoanId AND isDeleted = 0")

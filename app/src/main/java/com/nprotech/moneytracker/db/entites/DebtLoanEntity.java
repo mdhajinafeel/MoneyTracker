@@ -14,6 +14,7 @@ public class DebtLoanEntity {
     public int debtLoanIcon;
     public int debtLoanColor;
     public int walletId;
+    public int accountId;
     public String currencyCode;
     public String currencySymbol;
     public double principalAmount;

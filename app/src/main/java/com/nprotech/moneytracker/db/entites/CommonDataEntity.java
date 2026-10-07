@@ -19,15 +19,15 @@ public class CommonDataEntity implements Serializable {
     public int type;
     public int value;
     public String languageCode;
-    public int nameResId;
+    public String nameKey;
     public boolean active;
     public boolean selected;
 
-    public CommonDataEntity(int type, int value, String languageCode, int nameResId, boolean active, boolean selected) {
+    public CommonDataEntity(int type, int value, String languageCode, String nameKey, boolean active, boolean selected) {
         this.type = type;
         this.value = value;
         this.languageCode = languageCode;
-        this.nameResId = nameResId;
+        this.nameKey = nameKey;
         this.active = active;
         this.selected = selected;
     }

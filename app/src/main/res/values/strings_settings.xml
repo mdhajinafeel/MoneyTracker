@@ -58,4 +58,9 @@
     <string name="unlimited_wallets">Unlimited\nWallets</string>
     <string name="cloud_backup">Cloud\nBackup</string>
     <string name="more_features">+12\nfeatures</string>
+    <string name="daily_reminder">Daily reminder to record your income and expenses.</string>
+    <string name="smart_reminder_notification_title">Don\'t forget your transactions</string>
+    <string name="smart_reminder_notification_text">Take a moment to record today\'s transactions.</string>
+    <string name="smart_reminder_notification_big_text">Keep your finances up to date by recording your latest income and expenses.
+</string>
 </resources>
