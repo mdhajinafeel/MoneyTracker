@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="goal">Goal</string>
     <string name="goals">Goals</string>
     <string name="add_goal">Add Goal</string>
     <string name="goal_name">Goal Name</string>
@@ -16,7 +15,6 @@
     <string name="wedding">Wedding</string>
     <string name="business">Business</string>
     <string name="investment">Investment</string>
-    <string name="retirement">Retirement</string>
     <string name="vacation">Vacation</string>
     <string name="shopping">Shopping</string>
     <string name="restaurant">Restaurant</string>
@@ -24,8 +22,6 @@
     <string name="gift">Gift</string>
     <string name="festival">Festival</string>
     <string name="laptop"><![CDATA[Laptop & Computer]]></string>
-    <string name="insurance">Insurance</string>
-    <string name="debt_payoff">Debt Payoff</string>
     <string name="fitness">Fitness</string>
     <string name="gaming">Gaming</string>
     <string name="religious">Religious</string>
@@ -34,14 +30,12 @@
     <string name="startup">Start Up</string>
     <string name="baby_family"><![CDATA[Baby & Family]]></string>
     <string name="pets">Pets</string>
-    <string name="custom">Custom</string>
     <string name="auto_save">Auto Save</string>
     <string name="example_goal_name">e.g., New car, Home, Vacation</string>
     <string name="goal_autosave_hint">Automatically save money towards this goal</string>
     <string name="frequency">Frequency</string>
     <string name="day_of_month">Day of month</string>
     <string name="month_text">Month</string>
-    <string name="select_day">Select Day</string>
     <string name="starts_on">Starts On</string>
     <string name="week_day">Week Day</string>
     <string name="goal_month">Month</string>
@@ -56,7 +50,6 @@
     <string name="progress_percentage_target">%1$d%%\nof target</string>
     <string name="progress_percentage_completed">%1$d%%\ncompleted</string>
     <string name="goal_amount_progress">%1$s / %2$s</string>
-    <string name="default_wallet">Default Wallet</string>
     <string name="remaining_to_reach_goal">Remaining to reach goal:</string>
     <string name="add_money">Add Money</string>
     <string name="add_money_goal">Add Money to Goal</string>
@@ -85,7 +78,6 @@
     <string name="delete_withdrawal">Delete withdrawal</string>
     <string name="delete_withdrawal_message">Are you sure you want to delete this withdrawal?</string>
     <string name="goal_contribution">Goal contributions</string>
-    <string name="goal_withdrawal">Goal withdrawal</string>
     <string name="money_added">Money added to the goal</string>
     <string name="money_updated">Money updated to the goal</string>
     <string name="money_withdraw">Money withdraw from the goal</string>
@@ -124,7 +116,6 @@
     <string name="enable_auto_save_description">Enable auto save to automatically contribute to this goal.</string>
     <string name="enable_auto_save">Enable Auto Save</string>
     <string name="extra_amount">Extra Amount</string>
-    <string name="completed_on">Completed on %1$s</string>
     <string name="goal_id">Goal ID</string>
     <string name="goal_reach_saved">You reached your target and saved %1$s extra</string>
     <string name="goal_reached">You reached your target</string>

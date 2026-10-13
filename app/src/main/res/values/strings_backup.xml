@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="create_backup">Create Backup</string>
-    <string name="backup_list">Backup List</string>
     <string name="backup_deleted">Backup deleted</string>
     <string name="error_delete_backup">Error when delete the backup</string>
-    <string name="failed_to_delete_backup">Failed to delete backup</string>
     <string name="delete_backup">Delete backup</string>
     <string name="delete_backup_confirmation">Are you sure you want to delete the backup?</string>
-    <string name="database_exported_successfully">Backup generated</string>
-    <string name="backup_folder_failed">Unable to create backup folder</string>
-    <string name="database_not_found">Database not found</string>
-    <string name="backup_failed">Unable to create backup</string>
     <string name="backup_now">Backup Now</string>
     <string name="create_new_backup">Create a new backup of your data</string>
-    <string name="last_backup">Last Backup</string>
     <string name="restore_backup">Restore Backup</string>
     <string name="restore_backup_small">Restore backup</string>
     <string name="restore">Restore</string>
@@ -26,7 +18,7 @@
     <string name="data_safe_hint">Backups are stored only on your device.\nYou can also export and save them to cloud storage or other locations anytime.</string>
     <string name="keep_data_safe">Keep Your Data Safe</string>
     <string name="keep_data_safe_hint">Create a secure backup of your %1$s data. You can restore it anytime when needed.</string>
-    <string name="secure_100">100% Secure</string>
+    <string name="secure_100">100%% Secure</string>
     <string name="text_private">Private</string>
     <string name="local_only">Local Only</string>
     <string name="backup_options">Backup Options</string>
@@ -47,8 +39,7 @@
     <string name="creating_backup">Creating Backup…</string>
     <string name="preparing_database">Preparing database…</string>
     <string name="extracting_database">Extracting database…</string>
-    <string name="preparing_attachments">Preparing attachments…</string>
-    <string name="backup_progress_hint">Please don\'t close Expenixo while the backup is in progress.</string>
+    <string name="backup_progress_hint">Please don\'t close %1$s while the backup is in progress.</string>
     <string name="unable_backup">Unable to create backup.</string>
     <string name="backup_failed_message">"Backup failed: "</string>
     <string name="database_prepared">Database prepared</string>
@@ -61,7 +52,6 @@
     <string name="copying_attachments">Copying attachments…</string>
     <string name="backup_progress_percentage">%1$d%%</string>
     <string name="selected_location">Selected location</string>
-    <string name="unable_select_backup_location">Unable to select backup location</string>
     <string name="backup_not_created">Backup file was not created.</string>
     <string name="backup_location_changed">Backup location changed.</string>
     <string name="copying_database">Copying database…</string>
@@ -70,13 +60,9 @@
     <string name="backup_success_description">Your data has been safely backed up.</string>
     <string name="backup_location">Backup Location</string>
     <string name="backup_file">Backup File</string>
-    <string name="date_time">Date &amp; Time</string>
     <string name="size">Size</string>
-    <string name="open">Open</string>
-    <string name="share">Share</string>
     <string name="your_data_is_safe">Your data is safe!</string>
     <string name="backup_can_be_restored_anytime">You can restore this backup anytime from the Restore Backup screen.</string>
-    <string name="back_to_home">Back to Home</string>
     <string name="go_to_restore">Go to Restore</string>
     <string name="unable_open_backup_file">Unable to open backup file.</string>
     <string name="folder_is_not_writable">Selected backup folder is not writable.</string>
@@ -119,14 +105,11 @@
     <string name="no_attachment_files">No attachment files available</string>
     <string name="backup_restored_successfully">Backup restored</string>
     <string name="preparing_restore">Preparing restore…</string>
-    <string name="reading_backup_file">Reading backup file…</string>
     <string name="restoring_database">Restoring database…</string>
     <string name="restoring_attachments">Restoring attachments…</string>
     <string name="validating_database">Validating database…</string>
     <string name="preparing_app_database">Preparing app database…</string>
-    <string name="replacing_database">Replacing database…</string>
     <string name="restore_completed">Restore completed</string>
-    <string name="finalizing_attachments">Finalizing attachments…</string>
     <string name="unable_restore_backup">Unable to restore backup</string>
     <string name="internal_storage">Internal Storage</string>
     <string name="scanning_backups">Scanning backups…</string>

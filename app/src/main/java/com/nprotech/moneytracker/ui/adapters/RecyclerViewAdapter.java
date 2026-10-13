@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public abstract class RecyclerViewAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
 
     private static final int VIEW_TYPE_HEADER = 0;

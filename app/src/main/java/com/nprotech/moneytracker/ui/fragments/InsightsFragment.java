@@ -507,7 +507,7 @@ public class InsightsFragment extends Fragment implements MainActivity.ToolbarAc
         View bottomView = getLayoutInflater().inflate(R.layout.bottom_calendar_filter_layout, requireActivity().findViewById(android.R.id.content), false);
         RecyclerView rvSelectRange = bottomView.findViewById(R.id.rvSelectRange);
 
-        RecyclerViewAdapter<CalendarFilterModel> adapter = new RecyclerViewAdapter<>(requireContext(), calendarFilterModelList, R.layout.item_calendar_filter) {
+        RecyclerViewAdapter<CalendarFilterModel> adapter = new RecyclerViewAdapter<>(requireActivity(), calendarFilterModelList, R.layout.item_calendar_filter) {
             @Override
             public void onPostBindViewHolder(ViewHolder holder, CalendarFilterModel calendarFilter) {
 

@@ -63,8 +63,6 @@ public class ExpenseBreakdownFragment extends Fragment {
     private AccountViewModel accountViewModel;
     private StatisticsViewModel statisticsViewModel;
     private String currencySymbol = "";
-    private int selectedAccountId;
-    private long loadedStart, loadedEnd;
     private List<CategoryExpenseModel> expenseList = new ArrayList<>();
     private TransactionBreakdownAdapter transactionBreakdownAdapter;
 
@@ -98,10 +96,10 @@ public class ExpenseBreakdownFragment extends Fragment {
 
                 if (filter == null) return;
 
-                selectedAccountId = filter.accountId;
+                int selectedAccountId = filter.accountId;
 
-                loadedStart = filter.startDate;
-                loadedEnd = filter.endDate;
+                long loadedStart = filter.startDate;
+                long loadedEnd = filter.endDate;
 
                 statisticsViewModel.loadCategoryExpense(TransactionEntity.TYPE_EXPENSE, selectedAccountId, loadedStart, loadedEnd);
 

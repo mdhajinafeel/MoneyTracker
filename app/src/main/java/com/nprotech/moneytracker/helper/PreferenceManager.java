@@ -23,6 +23,17 @@ public enum PreferenceManager {
     private static final String KEY_BACKUP_LOCATION = "backupLocation";
     private static final String KEY_AUTO_BACKUP = "autoBackup";
     private static final String KEY_BACKUP_FREQUENCY = "backupFrequency";
+    private static final String KEY_PASSWORD_HASH = "passwordHash";
+    private static final String KEY_PASSWORD_SALT = "passwordSalt";
+    private static final String KEY_PASSWORD_ALGORITHM = "passwordAlgorithm";
+    private static final String KEY_PIN_HASH = "pinHash";
+    private static final String KEY_PIN_SALT = "pinSalt";
+    private static final String KEY_PIN_ALGORITHM = "pinAlgorithm";
+    private static final String KEY_PIN_SET = "pinSet";
+    private static final String KEY_FINGERPRINT_ENABLED = "fingerprintEnabled";
+    private static final String KEY_AUTO_LOCK_SECONDS = "autoLockSeconds";
+    private static final String KEY_PRIMARY_UNLOCK_METHOD = "primary_unlock_method";
+    private static final String KEY_APP_LOCK_ENABLED = "appLockEnabled";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -168,5 +179,113 @@ public enum PreferenceManager {
 
     public void setDebtLoanReminder(String key, boolean value) {
         prefStore.edit().putBoolean(key, value).apply();
+    }
+
+    // ===== PASSWORD CREDENTIALS =====
+    public void setPasswordHash(String hash) {
+        prefStore.edit().putString(KEY_PASSWORD_HASH, hash).apply();
+    }
+
+    public String getPasswordHash() {
+        return prefStore.getString(KEY_PASSWORD_HASH, "");
+    }
+
+    public void setPasswordSalt(String salt) {
+        prefStore.edit().putString(KEY_PASSWORD_SALT, salt).apply();
+    }
+
+    public String getPasswordSalt() {
+        return prefStore.getString(KEY_PASSWORD_SALT, "");
+    }
+
+    public void setPasswordAlgorithm(String algorithm) {
+        prefStore.edit().putString(KEY_PASSWORD_ALGORITHM, algorithm).apply();
+    }
+
+    public String getPasswordAlgorithm() {
+        return prefStore.getString(KEY_PASSWORD_ALGORITHM, "");
+    }
+
+    public void clearPasswordCredentials() {
+        prefStore.edit().remove(KEY_PASSWORD_HASH)
+                .remove(KEY_PASSWORD_SALT)
+                .remove(KEY_PASSWORD_ALGORITHM).apply();
+        setPasswordSet(0);
+    }
+
+    // ===== PIN CREDENTIALS =====
+    public void savePinCredentials(String hash, String salt, String algorithm) {
+        prefStore.edit()
+                .putString(KEY_PIN_HASH, hash)
+                .putString(KEY_PIN_SALT, salt)
+                .putString(KEY_PIN_ALGORITHM, algorithm)
+                .putBoolean(KEY_PIN_SET, true)
+                .apply();
+    }
+
+    public String getPinHash() {
+        return prefStore.getString(KEY_PIN_HASH, "");
+    }
+
+    public String getPinSalt() {
+        return prefStore.getString(KEY_PIN_SALT, "");
+    }
+
+    public String getPinAlgorithm() {
+        return prefStore.getString(KEY_PIN_ALGORITHM, "");
+    }
+
+    public boolean isPinSet() {
+        return prefStore.getBoolean(KEY_PIN_SET, false);
+    }
+
+    public void clearPinCredentials() {
+        prefStore.edit()
+                .remove(KEY_PIN_HASH)
+                .remove(KEY_PIN_SALT)
+                .remove(KEY_PIN_ALGORITHM)
+                .putBoolean(KEY_PIN_SET, false)
+                .apply();
+    }
+
+    // ===== FINGERPRINT =====
+    public void setFingerprintEnabled(boolean enabled) {
+        prefStore.edit().putBoolean(KEY_FINGERPRINT_ENABLED, enabled).apply();
+    }
+
+    public boolean isFingerprintEnabled() {
+        return prefStore.getBoolean(KEY_FINGERPRINT_ENABLED, false);
+    }
+
+    // ===== AUTO LOCK =====
+    public void setAutoLockSeconds(int seconds) {
+        prefStore.edit().putInt(KEY_AUTO_LOCK_SECONDS, seconds).apply();
+    }
+
+    public int getAutoLockSeconds() {
+        return prefStore.getInt(KEY_AUTO_LOCK_SECONDS, Constants.AUTO_LOCK_NEVER);
+    }
+
+    // ===== PRIMARY UNLOCK =====
+    public void setPrimaryUnlockMethod(String method) {
+        if (!Constants.PRIMARY_METHOD_PASSWORD.equals(method) && !Constants.PRIMARY_METHOD_PIN.equals(method)
+                && !Constants.PRIMARY_METHOD_FINGERPRINT.equals(method)) {
+            return;
+        }
+        prefStore.edit().putString(KEY_PRIMARY_UNLOCK_METHOD, method).apply();
+    }
+
+    public String getPrimaryUnlockMethod() {
+        return prefStore.getString(KEY_PRIMARY_UNLOCK_METHOD, Constants.PRIMARY_METHOD_PASSWORD);
+    }
+
+    // ===== APP LOCK =====
+
+    public void setAppLockEnabled(boolean enabled) {
+        prefStore.edit().putBoolean(KEY_APP_LOCK_ENABLED, enabled).apply();
+    }
+
+    public boolean isAppLockEnabled() {
+        return prefStore.getBoolean(KEY_APP_LOCK_ENABLED, false);
     }
 }

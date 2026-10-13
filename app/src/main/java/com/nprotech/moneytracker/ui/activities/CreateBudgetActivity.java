@@ -870,13 +870,7 @@ public class CreateBudgetActivity extends BaseActivity {
 
                         isAllCategory = data.getBooleanExtra("isAllCategory", false);
 
-                        Iterator<Integer> iterator = categoryAmounts.keySet().iterator();
-                        while (iterator.hasNext()) {
-                            Integer categoryId = iterator.next();
-                            if (!selectedCategoryIds.contains(categoryId)) {
-                                iterator.remove();
-                            }
-                        }
+                        categoryAmounts.keySet().removeIf(categoryId -> !selectedCategoryIds.contains(categoryId));
 
                         // Recalculate Separate budget total
                         if (Constants.METHOD_SEPARATE.equals(budgetMethod)) {

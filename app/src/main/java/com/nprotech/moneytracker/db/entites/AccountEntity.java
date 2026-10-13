@@ -9,7 +9,9 @@ import java.io.Serializable;
 @Entity(
         tableName = "accounts",
         indices = {
-                @Index(value = {"ordering"})
+                @Index(value = {"ordering"}),
+                @Index(value = {"serverId"}),
+                @Index(value = {"isDeleted"})
         }
 )
 public class AccountEntity implements Serializable {

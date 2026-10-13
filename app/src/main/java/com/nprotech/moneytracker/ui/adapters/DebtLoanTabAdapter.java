@@ -5,12 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.nprotech.moneytracker.ui.fragments.ArchivedBudgetFragment;
-import com.nprotech.moneytracker.ui.fragments.CompletedBudgetFragment;
 import com.nprotech.moneytracker.ui.fragments.DebtFragment;
-import com.nprotech.moneytracker.ui.fragments.InProgressBudgetFragment;
 import com.nprotech.moneytracker.ui.fragments.LoanFragment;
-import com.nprotech.moneytracker.ui.fragments.PausedBudgetFragment;
 
 public class DebtLoanTabAdapter extends FragmentStateAdapter {
 

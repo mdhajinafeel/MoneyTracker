@@ -14,7 +14,6 @@ import java.util.List;
 
 public class OnboardingAdapter extends RecyclerViewAdapter<OnboardingModel> {
 
-
     public OnboardingAdapter(Context context, List<OnboardingModel> list) {
         super(context, list, R.layout.item_onboarding);
     }

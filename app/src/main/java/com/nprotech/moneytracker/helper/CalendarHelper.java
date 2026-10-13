@@ -2,7 +2,6 @@ package com.nprotech.moneytracker.helper;
 
 import android.content.Context;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.models.CalendarDayModel;
@@ -445,7 +444,6 @@ public class CalendarHelper {
         calendar.set(13, 0);
         calendar.set(14, 0);
         calendar.add(5, 1);
-        Log.d("asd", String.valueOf(calendar.getTime()));
         return calendar.getTime().getTime();
     }
 

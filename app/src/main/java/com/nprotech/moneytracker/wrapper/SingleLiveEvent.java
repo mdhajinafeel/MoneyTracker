@@ -28,9 +28,4 @@ public class SingleLiveEvent<T> extends MutableLiveData<T> {
         pending.set(true);
         super.setValue(t);
     }
-
-    @MainThread
-    public void call() {
-        setValue(null);
-    }
 }

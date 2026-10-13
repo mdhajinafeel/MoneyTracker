@@ -3,12 +3,21 @@ package com.nprotech.moneytracker.db.entites;
 import android.content.Context;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.DataHelper;
 
-@Entity(tableName = "recurring_transactions")
+@Entity(
+        tableName = "recurring_transactions",
+        indices = {
+                @Index(value = {"accountId", "isDeleted", "status", "createdAt"}),
+                @Index(value = {"tempRecurringServerId", "isDeleted"}),
+                @Index(value = {"isActive", "status", "isDeleted", "nextRunDate"}),
+                @Index(value = {"isActive", "isDeleted", "status", "reminder", "reminderShown", "nextRunDate"})
+        }
+)
 public class RecurringTransactionEntity {
 
     @PrimaryKey(autoGenerate = true)

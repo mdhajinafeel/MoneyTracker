@@ -1,14 +1,11 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.Manifest;
-import android.app.AlarmManager;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +57,6 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private SettingsAdapter configurationAdapter;
     private BillingHelper billingHelper;
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1001;
-    private boolean waitingForExactAlarmPermission = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,8 +118,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             List<PremiumFeatureModel> features = Arrays.asList(
                     new PremiumFeatureModel(R.drawable.ic_wallet, getString(R.string.unlimited_wallets)),
                     new PremiumFeatureModel(R.drawable.ic_cloud, getString(R.string.cloud_backup)),
-                    new PremiumFeatureModel(R.drawable.ic_settings_other, getString(R.string.more_features))
-            );
+                    new PremiumFeatureModel(R.drawable.ic_settings_other, getString(R.string.more_features)));
 
             billingHelper = new BillingHelper(this);
 
@@ -181,7 +176,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             configurationList.add(new SettingItemModel(SettingType.LANGUAGE, R.drawable.ic_language, R.color.language_dark, R.color.language_light,
                     getString(R.string.language), true, true, getLanguageSubtitle(), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.PASSWORD, R.drawable.ic_password, R.color.password_dark, R.color.password_light,
-                    getString(R.string.password), true, true, getString(R.string.not_set), true, false, 0));
+                    getString(R.string.password), true, true, PreferenceManager.INSTANCE.isAppLockEnabled() ? getString(R.string.enabled) : getString(R.string.not_set), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, R.drawable.ic_reminder, R.color.reminder_dark, R.color.reminder_light,
                     getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true, 0));
 
@@ -282,6 +277,9 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             fetchData(Constants.STARTUP_SCREEN);
         } else if (item.settingType == SettingType.LANGUAGE) {
             fetchData(Constants.LANGUAGE);
+        } else if (item.settingType == SettingType.PASSWORD) {
+            startActivity(new Intent(SettingsActivity.this, PasswordSecurityActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (item.settingType == SettingType.SMART_REMINDER) {
             fetchData(Constants.SMART_REMINDER);
         } else if (item.settingType == SettingType.MANAGE_BACKUP) {
@@ -341,7 +339,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                     updateConfigurationSubtitle(SettingType.WEEK_STARTS_ON, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.STARTUP_SCREEN) {
                     PreferenceManager.INSTANCE.setStartUpScreen(selectedItem.value);
-                    updateConfigurationSubtitle(SettingType.STARTUP_SCREEN,  getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
+                    updateConfigurationSubtitle(SettingType.STARTUP_SCREEN, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.LANGUAGE) {
                     PreferenceManager.INSTANCE.setLanguage(selectedItem.value);
                     updateConfigurationSubtitle(SettingType.LANGUAGE, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
@@ -349,19 +347,13 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                     PreferenceManager.INSTANCE.setSmartReminder(selectedItem.value);
                     SmartReminderManager manager = new SmartReminderManager(this);
                     if (selectedItem.value == 1) {
-                        manager.cancelReminder();
+                        manager.cancelWorker();
                         updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                     } else {
                         requestNotificationPermission();
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-                            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
-                                waitingForExactAlarmPermission = true;
-                                requestExactAlarmPermission();
-                                return;
-                            }
-                        }
-                        manager.scheduleReminder(selectedItem.value);
+
+                        manager.createNotificationChannel();
+                        manager.scheduleNextReminderWithWorker(selectedItem.value);
                         updateConfigurationSubtitle(SettingType.SMART_REMINDER, getString(R.string.trigger_reminder_at,
                                 getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value))));
                     }
@@ -483,6 +475,16 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (configurationList != null && configurationAdapter != null) {
+            updateConfigurationSubtitle(SettingType.PASSWORD,
+                    PreferenceManager.INSTANCE.isAppLockEnabled() ? getString(R.string.enabled) : getString(R.string.not_set));
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         billingHelper.destroy();
@@ -492,37 +494,6 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_NOTIFICATION_PERMISSION);
-            }
-        }
-    }
-
-    private void requestExactAlarmPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            if (alarmManager != null && !alarmManager.canScheduleExactAlarms()) {
-                Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM, Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-            }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        if (!waitingForExactAlarmPermission) {
-            return;
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            if (alarmManager != null && alarmManager.canScheduleExactAlarms()) {
-                waitingForExactAlarmPermission = false;
-                SmartReminderManager manager = new SmartReminderManager(this);
-                int reminderValue = PreferenceManager.INSTANCE.getSmartReminder();
-                if (reminderValue > 1 && reminderValue <= 25) {
-                    manager.scheduleReminder(reminderValue);
-                }
             }
         }
     }

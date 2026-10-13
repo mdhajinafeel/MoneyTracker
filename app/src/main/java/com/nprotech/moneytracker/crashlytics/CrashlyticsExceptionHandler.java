@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.crashlytics;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -12,7 +14,6 @@ public class CrashlyticsExceptionHandler implements Thread.UncaughtExceptionHand
         this.defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public void uncaughtException(Thread thread, @NonNull Throwable throwable) {
 
@@ -23,7 +24,9 @@ public class CrashlyticsExceptionHandler implements Thread.UncaughtExceptionHand
 
         // Custom Keys
         crashlytics.setCustomKey("thread_name", thread.getName());
-        crashlytics.setCustomKey("thread_id", thread.getId());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+            crashlytics.setCustomKey("thread_id", thread.threadId());
+        }
 
         // Optional log
         crashlytics.log("Uncaught exception captured");

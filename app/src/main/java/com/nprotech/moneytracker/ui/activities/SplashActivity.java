@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.helper.PreferenceManager;
+import com.nprotech.moneytracker.security.AppLockManager;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 
@@ -23,9 +26,7 @@ public class SplashActivity extends BaseActivity {
     private AppCompatImageView imgLogo;
     private AppCompatTextView tvAppName, tvAppTagline;
     private static final int SPLASH_DELAY = 1500; // 1 second
-    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-            | Intent.FLAG_ACTIVITY_CLEAR_TOP;
+    private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class SplashActivity extends BaseActivity {
             boolean isAccountExists = PreferenceManager.INSTANCE.getAccountId() > 0;
 
             if (isAccountExists) {
-                redirectToMain();
+                continueAfterSplash();
             } else {
                 redirectToCreateAccount();
             }
@@ -104,14 +105,6 @@ public class SplashActivity extends BaseActivity {
                         .start(), 250);
     }
 
-    private void redirectToMain() {
-        startActivity(new Intent(this, MainActivity.class)
-                .putExtra("isFromLogin", false)
-                .addFlags(INTENT_FLAGS));
-        ActivityUtils.overrideOpenTransition(this, android.R.anim.fade_in, android.R.anim.fade_out);
-        finish();
-    }
-
     private void redirectToCreateAccount() {
         startActivity(new Intent(this, AddAccountActivity.class)
                 .addFlags(INTENT_FLAGS));
@@ -128,6 +121,34 @@ public class SplashActivity extends BaseActivity {
 
     private boolean isOnboardingCompleted() {
         return PreferenceManager.INSTANCE.getOnBoardingCompleted();
+    }
+
+    private final ActivityResultLauncher<Intent> appLockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == RESULT_OK && AppLockManager.isAuthenticated()) {
+                    openMainActivity();
+                } else {
+                    finish();
+                }
+            }
+    );
+
+    private void continueAfterSplash() {
+        PreferenceManager prefs = PreferenceManager.INSTANCE;
+        if (prefs.isAppLockEnabled()) {
+            AppLockManager.requireAuthentication();
+            appLockLauncher.launch(new Intent(this, AppLockActivity.class));
+        } else {
+            openMainActivity();
+        }
+    }
+
+    private void openMainActivity() {
+        startActivity(new Intent(this, MainActivity.class)
+                .putExtra("isFromLogin", false)
+                .addFlags(INTENT_FLAGS));
+        ActivityUtils.overrideOpenTransition(this, android.R.anim.fade_in, android.R.anim.fade_out);
+        finish();
     }
 
     @Override

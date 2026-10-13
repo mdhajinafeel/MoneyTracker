@@ -17,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -86,6 +88,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -125,6 +129,8 @@ public class DebtLoanRecordPaymentActivity extends BaseActivity implements DateP
     private List<WalletEntity> walletLists;
     private int debtLoanTransactionId = 0;
     private DebtLoanPaymentTransactionEntity existingTransaction;
+    private final ExecutorService ioExecutor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -603,47 +609,75 @@ public class DebtLoanRecordPaymentActivity extends BaseActivity implements DateP
             });
 
             debtLoanViewModel.getDataSavedStatus().observe(this, aBoolean -> {
-                tvSave.setEnabled(true);
-                if (Boolean.TRUE.equals(aBoolean)) {
+                if (!Boolean.TRUE.equals(aBoolean)) {
+                    tvSave.setEnabled(true);
+                    return;
+                }
 
-                    List<DebtLoanTransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
-                    if (!selectedFileUri.isEmpty()) {
-                        for (Uri uri : selectedFileUri) {
+                tvSave.setEnabled(false);
 
-                            if ("file".equalsIgnoreCase(uri.getScheme()) && existingAttachmentPaths.contains(uri.getPath())) {
+                // Capture UI state before leaving the main thread.
+                List<Uri> uris = new ArrayList<>(selectedFileUri);
+                List<String> existingPaths = new ArrayList<>(existingAttachmentPaths);
+
+                String tempDebtLoanServerId = debtLoan.tempDebtLoanServerId;
+                int debtLoanId = debtLoan.id;
+                boolean editing = isEdit;
+
+                int paymentId = debtLoanViewModel.getPaymentId();
+                int transactionId = debtLoanViewModel.getTransactionId();
+
+                ioExecutor.execute(() -> {
+                    boolean success = true;
+                    try {
+                        List<DebtLoanTransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
+                        for (Uri uri : uris) {
+                            if ("file".equalsIgnoreCase(uri.getScheme()) && existingPaths.contains(uri.getPath())) {
                                 continue;
                             }
 
-                            try {
-                                File file = saveFinalFile(uri, debtLoan.tempDebtLoanServerId);
-                                DebtLoanTransactionAttachmentEntity transactionAttachment = new DebtLoanTransactionAttachmentEntity();
-                                transactionAttachment.tempDebtLoanServerId = debtLoan.tempDebtLoanServerId;
-                                transactionAttachment.serverId = 0;
-                                transactionAttachment.debtLoanId = debtLoan.id;
-                                transactionAttachment.debtLoanPaymentId = debtLoanViewModel.getPaymentId();
-                                transactionAttachment.debtLoanPaymentTransactionId = debtLoanViewModel.getTransactionId();
-                                transactionAttachment.attachmentPath = file.getAbsolutePath();
-                                transactionAttachment.attachmentName = CommonUtils.getFileName(uri, this);
-                                transactionAttachment.attachmentExtension = CommonUtils.getFileExtension(transactionAttachment.attachmentName);
-                                transactionAttachment.attachmentSize = file.length();
-                                transactionAttachment.createdAt = System.currentTimeMillis();
-                                transactionAttachment.updatedAt = System.currentTimeMillis();
-
-                                attachmentEntities.add(transactionAttachment);
-                            } catch (Exception e) {
-                                AppLogger.e(getClass(), "buildTransaction", e);
-                            }
+                            File file = saveFinalFile(uri, tempDebtLoanServerId);
+                            DebtLoanTransactionAttachmentEntity attachment = new DebtLoanTransactionAttachmentEntity();
+                            attachment.tempDebtLoanServerId = tempDebtLoanServerId;
+                            attachment.serverId = 0;
+                            attachment.debtLoanId = debtLoanId;
+                            attachment.debtLoanPaymentId = paymentId;
+                            attachment.debtLoanPaymentTransactionId = transactionId;
+                            attachment.attachmentPath = file.getAbsolutePath();
+                            attachment.attachmentName = CommonUtils.getFileName(uri, getApplicationContext());
+                            attachment.attachmentExtension = CommonUtils.getFileExtension(attachment.attachmentName);
+                            attachment.attachmentSize = file.length();
+                            attachment.createdAt = System.currentTimeMillis();
+                            attachment.updatedAt = System.currentTimeMillis();
+                            attachmentEntities.add(attachment);
                         }
 
                         if (!attachmentEntities.isEmpty()) {
                             debtLoanViewModel.saveTransactionAttachment(attachmentEntities);
                         }
+                    } catch (Exception e) {
+                        success = false;
+                        AppLogger.e(getClass(), "saveDebtLoanAttachments", e);
                     }
 
-                    Toast.makeText(getApplicationContext(), getString(isEdit ? R.string.payment_updated : R.string.payment_recorded), Toast.LENGTH_SHORT).show();
-                    setResult(Activity.RESULT_OK);
-                    finishWithTransitions();
-                }
+                    boolean finalSuccess = success;
+
+                    mainHandler.post(() -> {
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+
+                        if (!finalSuccess) {
+                            tvSave.setEnabled(true);
+                            Toast.makeText(getApplicationContext(), getString(R.string.error_update), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        Toast.makeText(getApplicationContext(), getString(editing ? R.string.payment_updated : R.string.payment_recorded), Toast.LENGTH_SHORT).show();
+                        setResult(Activity.RESULT_OK);
+                        finishWithTransitions();
+                    });
+                });
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);

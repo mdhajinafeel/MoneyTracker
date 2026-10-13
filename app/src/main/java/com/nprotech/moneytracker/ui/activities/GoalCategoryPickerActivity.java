@@ -115,7 +115,7 @@ public class GoalCategoryPickerActivity extends BaseActivity {
 
     private void bindCategories(List<CategoryEntity> expenseCategories) {
         try {
-            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(getApplicationContext(), expenseCategories, R.layout.item_goal_category_picker) {
+            RecyclerViewAdapter<CategoryEntity> expenseCategoryAdapter = new RecyclerViewAdapter<>(this, expenseCategories, R.layout.item_goal_category_picker) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, CategoryEntity categoryEntity) {
 

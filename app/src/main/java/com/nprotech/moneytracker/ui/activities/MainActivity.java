@@ -242,7 +242,7 @@ public class MainActivity extends BaseActivity {
             RecyclerView rvAccounts = bottomView.findViewById(R.id.rvAccounts);
             LinearLayout layoutAddAccount = bottomView.findViewById(R.id.layoutAddAccount);
 
-            RecyclerViewAdapter<AccountEntity> adapter = new RecyclerViewAdapter<>(getApplicationContext(), accountList, R.layout.item_switch_accounts) {
+            RecyclerViewAdapter<AccountEntity> adapter = new RecyclerViewAdapter<>(this, accountList, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, AccountEntity accountEntity) {
                     holder.setViewText(R.id.tvAccountName, accountEntity.name);

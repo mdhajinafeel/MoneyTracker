@@ -108,7 +108,7 @@ public class CurrencyPickerActivity extends BaseActivity {
             }
 
             if (!currencyLists.isEmpty()) {
-                currenciesRecyclerViewAdapter = new RecyclerViewAdapter<>(getApplicationContext(), currencyLists,
+                currenciesRecyclerViewAdapter = new RecyclerViewAdapter<>(this, currencyLists,
                         R.layout.item_currency) {
                     @Override
                     public void onPostBindViewHolder(ViewHolder holder, CurrencyEntity currencyEntity) {

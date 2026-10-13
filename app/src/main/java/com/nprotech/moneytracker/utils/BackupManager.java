@@ -387,6 +387,7 @@ public class BackupManager {
         return context.getString(R.string.internal_storage) + "/" + context.getString(R.string.app_name) + "/Backups";
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean ensureBackupDirectoryExists() {
         File backupDirectory = getBackupDirectory();
         if (backupDirectory.exists()) {

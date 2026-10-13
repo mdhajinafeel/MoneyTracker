@@ -45,7 +45,6 @@ import com.nprotech.moneytracker.viewmodel.CategoryViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -325,15 +324,7 @@ public class CategoryAmountActivity extends BaseActivity {
                 if (categoryIds != null) {
                     selectedCategoryIds.clear();
                     selectedCategoryIds.addAll(categoryIds);
-
-                    Iterator<Integer> iterator = categoryAmounts.keySet().iterator();
-                    while (iterator.hasNext()) {
-                        Integer id = iterator.next();
-                        if (!selectedCategoryIds.contains(id)) {
-                            iterator.remove();
-                        }
-                    }
-
+                    categoryAmounts.keySet().removeIf(id -> !selectedCategoryIds.contains(id));
                     categoryViewModel.incomeCategory(TransactionEntity.TYPE_EXPENSE, true);
                 }
             }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="add_recurring">Add Recurring</string>
     <string name="track_recurring_transactions">Track recurring transactions</string>
     <string name="select_recurring">Select recurring</string>
     <string name="repeat_on">Repeat On</string>
     <string name="select_repeat_on">Select repeat on</string>
     <string name="create_transaction">Create transaction</string>
-    <string name="automatically_create_transaction">Automatically create transaction</string>
     <string name="never_miss_recurring_transaction">Never miss a recurring transaction</string>
     <string name="income_recurring">Income Recurring</string>
     <string name="expense_recurring">Expense Recurring</string>
@@ -14,7 +12,6 @@
     <string name="no_repeat">No repeat</string>
     <string name="repeat_option">Repeat option</string>
     <string name="select_days">Select days</string>
-    <string name="repeat_every">Repeat every</string>
     <string name="please_select_at_least_one_day">Please select at least one day</string>
     <string name="times">times</string>
     <string name="every">Every</string>
@@ -27,9 +24,6 @@
     <string name="end_of_month">End of month</string>
     <string name="recurring_transaction_saved">Recurring transaction saved</string>
     <string name="failed_to_save_recurring_transaction">Failed to save recurring transaction</string>
-    <string name="every_months_last_day">Every %1$d months • Last day</string>
-    <string name="every_months_day">Every %1$d months • Day %2$d</string>
-    <string name="every_years_date">Every %1$d years</string>
     <string name="no_recurring_yet">No recurring yet</string>
     <string name="empty_recurring_hint">Tap the + button to add recurring.</string>
     <string name="repeat_interval_atleast">Repeat interval must be at least 1</string>
@@ -114,19 +108,9 @@
         <item quantity="other">months</item>
     </plurals>
 
-    <plurals name="months_period_value">
-        <item quantity="one">%d month</item>
-        <item quantity="other">%d months</item>
-    </plurals>
-
     <plurals name="years_period">
         <item quantity="one">year</item>
         <item quantity="other">year</item>
-    </plurals>
-
-    <plurals name="years_period_value">
-        <item quantity="one">%d year</item>
-        <item quantity="other">%d year</item>
     </plurals>
 
     <plurals name="every_year_period">

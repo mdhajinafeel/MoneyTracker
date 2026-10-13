@@ -7,8 +7,6 @@
     <string name="budget_created">Budget created</string>
     <string name="budget_updated">Budget updated</string>
     <string name="error_budget_create">Error when create the budget</string>
-    <string name="error_budget_update">Error when update the budget</string>
-    <string name="error_budget_delete">Error when delete the budget</string>
     <string name="plan_your_spending">Plan your spending</string>
     <string name="budget_name">Budget Name</string>
     <string name="example_budget_name">e.g., Monthly essentials</string>
@@ -32,7 +30,6 @@
     <string name="select_year">Select Year</string>
     <string name="select_custom_period">Select Custom Period</string>
     <string name="select_start_date">Select Start Date</string>
-    <string name="select_end_date">Select End Date</string>
     <string name="separate_method">Separate Method</string>
     <string name="separate_detail_summary">Separate</string>
     <string name="shared_detail_summary">Shared</string>
@@ -144,11 +141,6 @@
     <plurals name="budget_amount_tips_count">
         <item quantity="one">This amount will be shared across all %d selected category</item>
         <item quantity="other">This amount will be shared across all %d selected categories</item>
-    </plurals>
-
-    <plurals name="repeat_budget_custom_tips">
-        <item quantity="one">This budget will automatically repeat every %d day.</item>
-        <item quantity="other">This budget will automatically repeat every %d days.</item>
     </plurals>
 
     <plurals name="budget_period_detail_desc_count">

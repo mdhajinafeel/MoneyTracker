@@ -144,27 +144,21 @@ public class BackupHistoryActivity extends BaseActivity {
     private void loadBackupHistory() {
 
         backupHistoryViewModel.loadBackupHistory(getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
-
         showScanning();
-
         backupHistoryViewModel.scanBackups(this, getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
     }
 
     private void observeData() {
         try {
             backupHistoryViewModel.getBackupHistoryList().observe(this, entities -> {
-
                 if (entities == null || entities.isEmpty()) {
-
-                    if (loadingWrapper.getVisibility() != View.VISIBLE) {
-                        rvBackupHistory.setVisibility(View.GONE);
-                        emptyWrapper.setVisibility(View.VISIBLE);
-                    }
-
+                    loadingWrapper.setVisibility(View.GONE);
+                    rvBackupHistory.setVisibility(View.GONE);
+                    emptyWrapper.setVisibility(View.VISIBLE);
+                    backupHistoryRecyclerViewAdapter.replaceItems(new ArrayList<>());
                     tvTotalBackup.setText("0");
                     lblTotalBackup.setText(getResources().getQuantityString(R.plurals.total_backup_count, 0, 0));
                     tvAllBackup.setText(getResources().getQuantityString(R.plurals.backup_count, 0, 0));
-
                     return;
                 }
 
@@ -641,6 +635,7 @@ public class BackupHistoryActivity extends BaseActivity {
             // =====================================================
 
             backupHistoryViewModel.deleteBackup(this, backup);
+            removeBackupFromList(backup);
         } catch (Exception e) {
             AppLogger.e(getClass(), "deleteBackup", e);
             Toast.makeText(this, R.string.error_delete_backup, Toast.LENGTH_SHORT).show();
@@ -691,6 +686,33 @@ public class BackupHistoryActivity extends BaseActivity {
         } catch (Exception e) {
             AppLogger.e(getClass(), "shareBackup", e);
             Toast.makeText(this, R.string.unable_to_share_backup, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removeBackupFromList(BackupFileModel backup) {
+        if (backup == null || backupHistoryRecyclerViewAdapter == null) {
+            return;
+        }
+
+        List<BackupFileModel> currentList = new ArrayList<>(backupHistoryRecyclerViewAdapter.getItems());
+
+        for (int i = 0; i < currentList.size(); i++) {
+            BackupFileModel item = currentList.get(i);
+            if (item != null && Objects.equals(item.backupId, backup.backupId)) {
+                currentList.remove(i);
+                backupHistoryRecyclerViewAdapter.replaceItems(currentList);
+                int count = currentList.size();
+                tvTotalBackup.setText(String.valueOf(count));
+                lblTotalBackup.setText(getResources().getQuantityString(R.plurals.total_backup_count, count, count));
+                tvAllBackup.setText(getResources().getQuantityString(R.plurals.backup_count, count, count));
+
+                if (count == 0) {
+                    rvBackupHistory.setVisibility(View.GONE);
+                    emptyWrapper.setVisibility(View.VISIBLE);
+                }
+
+                return;
+            }
         }
     }
 

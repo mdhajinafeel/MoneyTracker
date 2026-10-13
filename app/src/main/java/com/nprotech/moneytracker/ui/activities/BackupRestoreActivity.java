@@ -6,8 +6,11 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.OpenableColumns;
+import android.provider.Settings;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.format.Formatter;
@@ -70,7 +73,7 @@ public class BackupRestoreActivity extends BaseActivity {
 
     private AppCompatImageView icBack, ivDeviceSelected, ivAttachSelected, ivFileDeleted;
     private AppCompatTextView lblDesc, tvSorting, lblRestoreBottomHint, lblRestoreTips, lblSelectBackupTitle, tvSelectedFileName, tvFileDate, tvFileTime, tvFileSize,
-            tvFileAttachment, tvBackupProgress, tvBackupPercentage;
+            tvFileAttachment, tvBackupProgress, tvBackupPercentage, tvBackupInfo;
     private MaterialCardView cardDevice, cardAttach, backupProgressContainer;
     private CircularProgressIndicator backupProgressBar;
     private ProgressBar backupLinearProgress;
@@ -89,6 +92,7 @@ public class BackupRestoreActivity extends BaseActivity {
     private Uri preselectedBackupUri;
     private boolean isFromHistory = false;
     private Typeface medium, semiBold;
+    private boolean storageSettingsOpened = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +138,7 @@ public class BackupRestoreActivity extends BaseActivity {
             tvBackupProgress = findViewById(R.id.tvBackupProgress);
             tvBackupPercentage = findViewById(R.id.tvBackupPercentage);
             loadingWrapper = findViewById(R.id.loadingWrapper);
+            tvBackupInfo = findViewById(R.id.tvBackupInfo);
 
             tvTitle.setText(getString(R.string.restore_backup));
 
@@ -171,6 +176,7 @@ public class BackupRestoreActivity extends BaseActivity {
         try {
 
             lblDesc.setText(getString(R.string.restore_data_desc, getString(R.string.app_name)));
+            tvBackupInfo.setText(getString(R.string.backup_progress_hint, getString(R.string.app_name)));
 
             CommonUtils.setDrawable(this, tvSorting, R.drawable.ic_filter, R.dimen.icon_12, R.color.primary_dark, Gravity.START);
             CommonUtils.setDrawable(this, lblRestoreBottomHint, R.drawable.ic_lock, R.dimen.icon_8, R.color.dark_grey, Gravity.START);
@@ -189,6 +195,18 @@ public class BackupRestoreActivity extends BaseActivity {
             // Source UI
             // =====================================================
             updateSourceSelection();
+
+            // =====================================================
+            // Start scanning only when storage access is available
+            // =====================================================
+            if (selectedOptions == 1) {
+                if (hasStorageAccess()) {
+                    loadBackupHistory();
+                } else {
+                    hideScanning();
+                    requestStorageAccess();
+                }
+            }
 
             // =====================================================
             // Start scanning
@@ -414,9 +432,14 @@ public class BackupRestoreActivity extends BaseActivity {
             tvSorting.setOnClickListener(v -> showBackupFilterDialog());
 
             cardDevice.setOnClickListener(v -> {
-                if (selectedOptions != 1) {
-                    selectedOptions = 1;
-                    updateSourceSelection();
+                selectedOptions = 1;
+                updateSourceSelection();
+
+                if (hasStorageAccess()) {
+                    loadBackupHistory();
+                } else {
+                    hideScanning();
+                    requestStorageAccess();
                 }
             });
 
@@ -1106,5 +1129,86 @@ public class BackupRestoreActivity extends BaseActivity {
         }
 
         selectedBackup = null;
+    }
+
+    private boolean hasStorageAccess() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        }
+        return true;
+    }
+
+    private void requestStorageAccess() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && !Environment.isExternalStorageManager()) {
+            try {
+                storageSettingsOpened = true;
+                Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            } catch (Exception e) {
+                AppLogger.e(getClass(), "requestStorageAccess", e);
+                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void loadBackupHistory() {
+        showScanning();
+        backupHistoryViewModel.scanBackups(this, getSortValue(selectedSortType), getAttachmentFilterValue(selectedAttachmentType));
+    }
+
+    private void hideScanning() {
+        loadingWrapper.setVisibility(View.GONE);
+    }
+
+    private void showAccessDialog() {
+
+        AlertDialog dialog = new AlertDialog.Builder(this).create();
+        View view = getLayoutInflater().inflate(R.layout.dialog_delete_confirmation, null, false);
+
+        MaterialCardView cardHeader = view.findViewById(R.id.cardHeader);
+        AppCompatImageView headerImage = view.findViewById(R.id.headerImage);
+        AppCompatTextView tvTitle = view.findViewById(R.id.tvTitle);
+        AppCompatTextView tvMessage = view.findViewById(R.id.tvMessage);
+        MaterialButton tvDelete = view.findViewById(R.id.tvDelete);
+        tvTitle.setText(R.string.storage_access_required);
+        tvMessage.setText(getString(R.string.storage_access_required_message, getString(R.string.app_name)));
+        tvDelete.setText(R.string.allow_access);
+        tvDelete.setTextColor(ContextCompat.getColor(this, R.color.text_primary));
+
+        cardHeader.setCardBackgroundColor(getColor(R.color.category_light));
+        headerImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_folder_access));
+        headerImage.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.category_dark)));
+
+        dialog.setView(view);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        view.findViewById(R.id.tvCancel).setVisibility(View.GONE);
+        view.findViewById(R.id.tvDelete).setOnClickListener(v -> {
+            dialog.dismiss();
+            requestStorageAccess();
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (storageSettingsOpened) {
+            storageSettingsOpened = false;
+            if (hasStorageAccess()) {
+                if (selectedOptions == 1) {
+                    loadBackupHistory();
+                }
+            } else {
+                hideScanning();
+                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_LONG).show();
+                showAccessDialog();
+            }
+        }
     }
 }

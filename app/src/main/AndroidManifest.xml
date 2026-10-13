@@ -53,7 +53,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
         tools:ignore="ForegroundServicesPolicy" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:name=".MoneyTrackerApp"
@@ -78,6 +78,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- App Lock Screen -->
+        <activity
+            android:name=".ui.activities.AppLockActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Onboarding Screen -->
         <activity
@@ -296,6 +303,27 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Password Security Screen -->
+        <activity
+            android:name=".ui.activities.PasswordSecurityActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Setting Password Screen -->
+        <activity
+            android:name=".ui.activities.SettingPasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Setting Pin Screen -->
+        <activity
+            android:name=".ui.activities.SettingPinActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Transaction Overview Screen -->
         <activity
             android:name=".ui.activities.TransactionOverviewActivity"
@@ -454,12 +482,11 @@
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
+        <!-- Disable automatic WorkManager initialization -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
@@ -469,22 +496,6 @@
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
                 tools:node="remove" />
-
         </provider>
-
-        <receiver
-            android:name=".notifications.SmartReminderReceiver"
-            android:exported="false" />
-
-        <receiver
-            android:name=".notifications.SmartReminderBootReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

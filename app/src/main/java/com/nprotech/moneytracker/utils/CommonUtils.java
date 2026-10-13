@@ -259,7 +259,7 @@ public class CommonUtils {
     }
 
     public static String getDisplayId(int goalId, String type) {
-        return String.format(Locale.US, "#" + type + "%05d", goalId);
+        return String.format(Locale.US, "#%s%05d", type, goalId);
     }
 
     // =========================================================

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="permission_granted">Permission Granted</string>
-    <string name="permission_denied">Permission Denied</string>
     <string name="camera_permission_denied">Camera permission denied</string>
     <string name="camera_permission_required">Camera Permission Required</string>
     <string name="camera_access_required">Camera access is required to take photos for expense attachments.</string>

@@ -4,6 +4,7 @@
     <color name="primary">#FF6A1B9A</color>
     <color name="primary_dark">#FF5B1485</color>
     <color name="primary_light">#FF8E24AA</color>
+    <color name="text_primary_dark">#706BB3</color>
     <color name="app_background">#E6D9FC</color>
     <color name="light_lavender">#8CE2A8F2</color>
     <color name="very_light_lavender">#33E2A8F2</color>
@@ -25,7 +26,6 @@
     <color name="dim_expense">#33f73242</color>
     <color name="transfer">#2196F3</color>
     <color name="light_transfer">#662196F3</color>
-    <color name="dim_transfer">#332196F3</color>
     <color name="very_light_orange">#0DF28C28</color>
     <color name="light_orange">#66F28C28</color>
     <color name="orange">#F28C28</color>
@@ -41,7 +41,6 @@
     <color name="reminder_dark">#F59E0B</color>
     <color name="backup_dark">#7C3AED</color>
     <color name="rate_dark">#A16207</color>
-    <color name="share_dark">#22C55E</color>
     <color name="feedback_dark">#2563EB</color>
     <color name="privacy_dark">#7C3AED</color>
     <color name="terms_dark">#F97316</color>
@@ -80,7 +79,6 @@
     <color name="debt_dark">#C62828</color>
     <color name="debt_light">#FBEAEA</color>
 
-    <color name="recurring_dark">#558B2F</color>
     <color name="recurring_light">#EEF5E7</color>
 
     <color name="azure_blue">#FF2563EB</color>
@@ -95,7 +93,6 @@
 
     <color name="very_light_grey">#0DBDBDBD</color>
     <color name="grey">#BDBDBD</color>
-    <color name="text_hint">#757575</color>
     <color name="dark_grey">#565656</color>
     <color name="very_dark_grey">#0E0E0E</color>
     <color name="ghost_white">#F8FAFC</color>
@@ -107,16 +104,12 @@
     <color name="funky_grey">#777777</color>
     <color name="light_grey">#F6F6F6</color>
 
-    <color name="background">#FFFFFF</color>
     <color name="colorTransparent">#00000000</color>
     <color name="blue_alpha">#603b92ff</color>
 
     <color name="opening_balance">#1E88E5</color>
     <color name="closing_balance">#43A047</color>
 
-    <color name="indicator_active">#6A1B9A</color>
-    <color name="indicator_inactive">#DDD6FE</color>
-    <color name="onboarding_light">#FCFAFF</color>
     <color name="text_primary">#24134E</color>
     <color name="text_secondary">#6F6F86</color>
 
@@ -124,12 +117,8 @@
     <color name="text_disabled">#FFF3E8</color>
 
     <color name="withdraw_orange">#F57C00</color>
-    <color name="withdraw_orange_dark">#E65100</color>
-    <color name="withdraw_orange_light">#FFF1E6</color>
     <color name="withdraw_orange_disabled">#F8C9A0</color>
 
-    <color name="success">#198754</color>
-    <color name="success_light">#E8F5E9</color>
     <color name="color_matte_black">#171717</color>
 
     <color name="color_income_card">#F2FBF3</color>
@@ -139,19 +128,15 @@
     <color name="color_transfer_card">#F2F6FF</color>
     <color name="color_transfer_circle">#B8CDF8</color>
 
-    <color name="color_pause">#F59E0B</color>
     <color name="color_pause_light">#FFF7E6</color>
     <color name="color_pause_dark">#B45309</color>
 
     <color name="resume_dark">#2E7D32</color>
     <color name="resume_light">#66BB6A</color>
-    <color name="resume_bg">#9DF2A4</color>
 
     <color name="overspent_dark">#C62828</color>
-    <color name="overspent_light">#EF5350</color>
     <color name="overspent_bg">#F8D6D6</color>
 
     <color name="warning_dark">#EF6C00</color>
-    <color name="warning_light">#FFA726</color>
     <color name="warning_bg">#FFF8E1</color>
 </resources>

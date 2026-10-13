@@ -12,6 +12,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
+@SuppressWarnings("unused")
 public class ViewHolder extends RecyclerView.ViewHolder {
 
     private final SparseArray<View> mViews;

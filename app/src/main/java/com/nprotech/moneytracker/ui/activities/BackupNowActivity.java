@@ -44,7 +44,7 @@ public class BackupNowActivity extends BaseActivity {
 
     private AppCompatImageView icBack;
     private AppCompatTextView lblDesc, lblSecure, lblPrivate, lblLocalOnly, lblIncluded, lblDatabaseDesc, lblBackupHint,
-            tvBackupSize, tvAttachmentSize, tvEstimatedSize, tvSaveLocation, tvBackupPercentage, tvBackupTitle, tvBackupProgress;
+            tvBackupSize, tvAttachmentSize, tvEstimatedSize, tvSaveLocation, tvBackupPercentage, tvBackupTitle, tvBackupProgress, tvBackupInfo;
     private SwitchCompat switchAttachInclude;
     private MaterialButton btnChangeLocation, btnStartBackup;
     private MaterialCardView backupProgressContainer;
@@ -88,6 +88,7 @@ public class BackupNowActivity extends BaseActivity {
             backupLinearProgress = findViewById(R.id.backupLinearProgress);
             btnChangeLocation = findViewById(R.id.btnChangeLocation);
             btnStartBackup = findViewById(R.id.btnStartBackup);
+            tvBackupInfo = findViewById(R.id.tvBackupInfo);
             tvTitle.setText(R.string.backup_now);
 
             // -----------------------------------------
@@ -134,6 +135,7 @@ public class BackupNowActivity extends BaseActivity {
             CommonUtils.setDrawable(this, lblBackupHint, R.drawable.ic_lock_key, R.dimen.icon_10, R.color.primary, Gravity.START);
             lblDesc.setText(getString(R.string.keep_data_safe_hint, getString(R.string.app_name)));
             lblDatabaseDesc.setText(getString(R.string.database_required_desc, getString(R.string.app_name)));
+            tvBackupInfo.setText(getString(R.string.backup_progress_hint, getString(R.string.app_name)));
         } catch (Exception e) {
             AppLogger.e(getClass(), "bindData", e);
         }

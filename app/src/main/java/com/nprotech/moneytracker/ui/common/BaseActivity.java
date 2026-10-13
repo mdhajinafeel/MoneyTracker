@@ -2,6 +2,7 @@ package com.nprotech.moneytracker.ui.common;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -24,7 +25,11 @@ import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
 import com.nprotech.moneytracker.helper.DataHelper;
+import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.models.TransactionWithDetails;
+import com.nprotech.moneytracker.security.AppLockManager;
+import com.nprotech.moneytracker.ui.activities.AppLockActivity;
+import com.nprotech.moneytracker.ui.activities.SplashActivity;
 import com.nprotech.moneytracker.utils.CommonUtils;
 
 import java.text.SimpleDateFormat;
@@ -34,13 +39,27 @@ import java.util.Objects;
 
 public class BaseActivity extends AppCompatActivity {
 
+    private static int startedActivityCount = 0;
+
     @Override
     protected void onStart() {
         super.onStart();
+
+        synchronized (BaseActivity.class) {
+            startedActivityCount++;
+        }
     }
 
     @Override
     protected void onStop() {
+        synchronized (BaseActivity.class) {
+            startedActivityCount = Math.max(0, startedActivityCount - 1);
+
+            if (startedActivityCount == 0) {
+                AppLockManager.onAppBackgrounded();
+            }
+        }
+
         super.onStop();
     }
 
@@ -253,6 +272,32 @@ public class BaseActivity extends AppCompatActivity {
             dialog.show();
         } catch (Exception e) {
             AppLogger.e(getClass(), "showOptionDialog", e);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (this instanceof SplashActivity || this instanceof AppLockActivity) {
+            return;
+        }
+
+        PreferenceManager prefs = PreferenceManager.INSTANCE;
+        if (!prefs.isAppLockEnabled()) {
+            return;
+        }
+
+        int autoLockSeconds = prefs.getAutoLockSeconds();
+
+        if (AppLockManager.shouldLock(autoLockSeconds) && AppLockManager.tryShowLockScreen()) {
+            try {
+                Intent intent = new Intent(this, AppLockActivity.class);
+                startActivity(intent);
+            } catch (Exception e) {
+                AppLockManager.onLockScreenClosed();
+                AppLogger.e(getClass(), "launchAppLock", e);
+            }
         }
     }
 }

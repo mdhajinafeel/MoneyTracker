@@ -91,7 +91,7 @@
                             android:layout_marginEnd="@dimen/margin_6"
                             android:text="@string/backup_settings_desc"
                             android:textColor="@color/dark_grey"
-                            android:textSize="@dimen/text_14"
+                            android:textSize="@dimen/text_12"
                             app:fontFamily="@font/exo2_medium"
                             app:layout_constraintEnd_toStartOf="@+id/ivBackupSetting"
                             app:layout_constraintStart_toStartOf="parent"
@@ -123,7 +123,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/bg_round_dark"
-                    android:backgroundTint="@color/light_lavender"
+                    android:backgroundTint="@color/very_light_lavender"
                     android:padding="@dimen/padding_8"
                     android:src="@drawable/ic_folder"
                     app:layout_constraintStart_toStartOf="parent"
@@ -249,7 +249,7 @@
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/bg_round_dark"
-                    android:backgroundTint="@color/light_lavender"
+                    android:backgroundTint="@color/very_light_lavender"
                     android:padding="@dimen/padding_8"
                     android:src="@drawable/ic_refresh_time"
                     app:layout_constraintStart_toStartOf="parent"
@@ -408,7 +408,7 @@
                             android:layout_marginTop="@dimen/margin_4"
                             android:ellipsize="middle"
                             android:maxLines="2"
-                            android:text="Every day"
+                            android:text="@string/every_day"
                             android:textColor="@color/black"
                             android:textSize="@dimen/text_12"
                             app:fontFamily="@font/exo2_semibold"
@@ -426,10 +426,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tvFrequencyTitle"
                             app:layout_constraintTop_toTopOf="@id/ivFrequency"
-                            app:tint="@color/primary_dark" />
-
+                            app:tint="@color/text_primary" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 

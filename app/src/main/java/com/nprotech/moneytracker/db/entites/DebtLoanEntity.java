@@ -1,9 +1,17 @@
 package com.nprotech.moneytracker.db.entites;
 
 import androidx.room.Entity;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "debt_loans")
+@Entity(
+        tableName = "debt_loans",
+        indices = {
+                @Index(value = {"type", "isDeleted", "createdAt"}),
+                @Index(value = {"accountId", "isDeleted"}),
+                @Index(value = {"reminderEnabled", "isDeleted"})
+        }
+)
 public class DebtLoanEntity {
 
     @PrimaryKey(autoGenerate = true)

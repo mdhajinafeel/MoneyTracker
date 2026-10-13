@@ -10,9 +10,7 @@
     <string name="edit_currency">Edit Currency</string>
     <string name="currency_display">%1$s (%2$s)</string>
     <string name="rate">Rate</string>
-    <string name="currency_name_format">%1$s - %2$s</string>
     <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
-    <string name="manage_currency">Manage Currency</string>
     <string name="no_currency">No additional currencies</string>
     <string name="empty_currency_hint">Tap the + button to add the currency.</string>
     <string name="delete_currency">Remove Currency</string>

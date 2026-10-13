@@ -105,7 +105,7 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
         if (transaction.type == TransactionEntity.TYPE_INCOME) {
             amount = transaction.amount;
         } else if (transaction.type == TransactionEntity.TYPE_TRANSFER) {
-            amount = transaction.amount;
+            amount = transaction.convertedAmount;
             color = ContextCompat.getColor(context, R.color.transfer);
             badge = ContextCompat.getDrawable(context, R.drawable.bg_badge_transfer);
             badgeText = context.getString(R.string.transfer);
@@ -167,7 +167,6 @@ public class TransactionAdapter extends RecyclerViewAdapter<TransactionWithDetai
             feeLabel.setVisibility(View.VISIBLE);
             feeAmountLabel.setVisibility(View.VISIBLE);
         } else {
-
             tvBadgeFee.setVisibility(View.GONE);
             feeLabel.setVisibility(View.GONE);
             feeAmountLabel.setVisibility(View.GONE);

@@ -14,6 +14,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -86,6 +88,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -122,6 +126,8 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private TransactionWithDetails transactionWithDetails;
     private Typeface medium, semiBold;
     private static final String ADD_MORE_URI = "expenixo://add_more";
+    private final ExecutorService ioExecutor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -443,14 +449,14 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
                 if (!isChecked) return;
 
                 if (checkedId == R.id.btnIncome) {
-                    switchTransMode(1);
-                    transactionType = 1;
+                    transactionType = TransactionEntity.TYPE_INCOME;
+                    switchTransMode(transactionType);
                 } else if (checkedId == R.id.btnExpense) {
-                    switchTransMode(2);
-                    transactionType = 2;
+                    transactionType = TransactionEntity.TYPE_EXPENSE;
+                    switchTransMode(transactionType);
                 } else if (checkedId == R.id.btnTransfer) {
-                    switchTransMode(3);
-                    transactionType = 3;
+                    transactionType = TransactionEntity.TYPE_TRANSFER;
+                    switchTransMode(transactionType);
                 }
             });
 
@@ -536,56 +542,92 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
 
                 tvSave.setEnabled(true);
 
-                if (Boolean.TRUE.equals(aBoolean)) {
-                    List<TransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
-                    if (!selectedFileUri.isEmpty()) {
-                        for (Uri uri : selectedFileUri) {
-                            try {
-                                File file = saveFinalFile(uri, tempTransactionServerId);
+                if (!Boolean.TRUE.equals(aBoolean)) {
+                    return;
+                }
 
-                                TransactionAttachmentEntity transactionAttachment = new TransactionAttachmentEntity();
-                                transactionAttachment.tempTransactionServerId = tempTransactionServerId;
-                                transactionAttachment.serverId = 0;
-                                transactionAttachment.attachmentPath = file.getAbsolutePath();
-                                transactionAttachment.attachmentName = CommonUtils.getFileName(uri, this);
-                                transactionAttachment.attachmentExtension = CommonUtils.getFileExtension(transactionAttachment.attachmentName);
-                                transactionAttachment.attachmentSize = file.length();
-                                transactionAttachment.createdAt = System.currentTimeMillis();
-                                transactionAttachment.updatedAt = System.currentTimeMillis();
+                // Capture UI-owned values before starting background work.
+                List<Uri> uris = new ArrayList<>(selectedFileUri);
+                String transactionId = tempTransactionServerId;
 
-                                attachmentEntities.add(transactionAttachment);
-                            } catch (Exception e) {
-                                AppLogger.e(getClass(), "buildTransaction", e);
-                            }
+                ioExecutor.execute(() -> {
+                    try {
+                        List<TransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
+                        for (Uri uri : uris) {
+                            File file = saveFinalFile(uri, transactionId);
+                            TransactionAttachmentEntity attachment = new TransactionAttachmentEntity();
+                            attachment.tempTransactionServerId = transactionId;
+                            attachment.serverId = 0;
+                            attachment.attachmentPath = file.getAbsolutePath();
+                            attachment.attachmentName = CommonUtils.getFileName(uri, this);
+                            attachment.attachmentExtension = CommonUtils.getFileExtension(attachment.attachmentName);
+                            attachment.attachmentSize = file.length();
+                            attachment.createdAt = System.currentTimeMillis();
+                            attachment.updatedAt = System.currentTimeMillis();
+                            attachmentEntities.add(attachment);
                         }
 
                         if (!attachmentEntities.isEmpty()) {
                             transactionViewModel.saveTransactionAttachment(attachmentEntities);
                         }
-                    }
 
-                    Intent resultIntent = new Intent();
-                    resultIntent.putExtra("newTransaction", transactionViewModel.getTransactionById(tempTransactionServerId));
-                    resultIntent.putExtra("isSaved", true);
-                    resultIntent.putExtra("isUpdated", false);
-                    setResult(Activity.RESULT_OK, resultIntent);
-                    finish();
-                }
+                        TransactionEntity savedTransaction = transactionViewModel.getTransactionById(transactionId);
+
+                        mainHandler.post(() -> {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("newTransaction", savedTransaction);
+                            resultIntent.putExtra("isSaved", true);
+                            resultIntent.putExtra("isUpdated", false);
+
+                            setResult(Activity.RESULT_OK, resultIntent);
+                            finish();
+                        });
+
+                    } catch (Exception e) {
+                        AppLogger.e(getClass(), "saveTransactionAttachments", e);
+                        mainHandler.post(() -> {
+                            if (isFinishing() || isDestroyed()) {
+                                return;
+                            }
+
+                            tvSave.setEnabled(true);
+                            Toast.makeText(this, R.string.unable_to_save, Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
             });
 
             transactionViewModel.getDataUpdatedStatus().observe(this, aBoolean -> {
-
                 if (!Boolean.TRUE.equals(aBoolean)) {
                     return;
                 }
-                tvSave.setEnabled(true);
-                saveNewAttachments();
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("isSaved", false);
-                resultIntent.putExtra("isUpdated", true);
-                resultIntent.putExtra("tempTransactionServerId", transactionWithDetails.transaction.tempTransactionServerId);
-                setResult(RESULT_OK, resultIntent);
-                finish();
+
+                tvSave.setEnabled(false);
+
+                // Capture the required values on the UI thread.
+                List<Uri> uris = new ArrayList<>(selectedFileUri);
+                List<String> existingPaths = new ArrayList<>(existingAttachmentPaths);
+                String transactionId = tempTransactionServerId;
+                String savedTransactionId = transactionWithDetails.transaction.tempTransactionServerId;
+
+                ioExecutor.execute(() -> {
+                    saveNewAttachments(uris, existingPaths, transactionId);
+                    mainHandler.post(() -> {
+                        if (isFinishing() || isDestroyed()) {
+                            return;
+                        }
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("isSaved", false);
+                        resultIntent.putExtra("isUpdated", true);
+                        resultIntent.putExtra("tempTransactionServerId", savedTransactionId);
+                        setResult(Activity.RESULT_OK, resultIntent);
+                        finish();
+                    });
+                });
             });
         } catch (Exception e) {
             AppLogger.e(getClass(), "setupListeners", e);
@@ -1830,33 +1872,40 @@ public class CreateTransactionActivity extends BaseActivity implements DatePicke
     private void updateAmountText() {
         String symbol;
         if (transactionType == TransactionEntity.TYPE_TRANSFER) {
-            symbol = selectedFromWallet != null ? selectedFromWallet.currencySymbol : account.currencySymbol;
+            if (selectedFromWallet != null) {
+                symbol = selectedFromWallet.currencySymbol;
+            } else {
+                symbol = account != null ? account.currencySymbol : "";
+            }
         } else {
-            symbol = selectedWallet != null ? selectedWallet.currencySymbol : account.currencySymbol;
+            if (selectedWallet != null) {
+                symbol = selectedWallet.currencySymbol;
+            } else {
+                symbol = account != null ? account.currencySymbol : "";
+            }
         }
         tvAmount.setText(CommonUtils.getBeautifyAmount(symbol, transactionAmount));
     }
 
-    private void saveNewAttachments() {
+    private void saveNewAttachments(List<Uri> uris, List<String> existingPaths, String transactionId) {
         try {
-
-            if (selectedFileUri.isEmpty()) {
+            if (uris.isEmpty()) {
                 return;
             }
 
             List<TransactionAttachmentEntity> attachmentEntities = new ArrayList<>();
 
-            for (Uri uri : selectedFileUri) {
-                if ("file".equalsIgnoreCase(uri.getScheme()) && existingAttachmentPaths.contains(uri.getPath())) {
+            for (Uri uri : uris) {
+                if ("file".equalsIgnoreCase(uri.getScheme()) && existingPaths.contains(uri.getPath())) {
                     continue;
                 }
 
-                File file = saveFinalFile(uri, tempTransactionServerId);
+                File file = saveFinalFile(uri, transactionId);
                 TransactionAttachmentEntity attachment = new TransactionAttachmentEntity();
-                attachment.tempTransactionServerId = tempTransactionServerId;
+                attachment.tempTransactionServerId = transactionId;
                 attachment.serverId = 0;
                 attachment.attachmentPath = file.getAbsolutePath();
-                attachment.attachmentName = CommonUtils.getFileName(uri, this);
+                attachment.attachmentName = CommonUtils.getFileName(uri, getApplicationContext());
                 attachment.attachmentExtension = CommonUtils.getFileExtension(attachment.attachmentName);
                 attachment.attachmentSize = file.length();
                 attachment.createdAt = System.currentTimeMillis();

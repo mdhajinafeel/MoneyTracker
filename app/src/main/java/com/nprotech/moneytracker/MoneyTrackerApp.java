@@ -6,9 +6,6 @@ import android.content.SharedPreferences;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.hilt.work.HiltWorkerFactory;
-import androidx.lifecycle.DefaultLifecycleObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.work.Configuration;
 
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
@@ -34,16 +31,12 @@ import devliving.online.securedpreferencestore.SecuredPreferenceStore;
 @HiltAndroidApp
 public class MoneyTrackerApp extends Application implements Configuration.Provider {
 
-    private static boolean appProcessAlive = false;
-
     @Inject
     HiltWorkerFactory hiltWorkerFactory;
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        appProcessAlive = true;
 
         // Initialize preferences
         initSecureSharedPref();
@@ -121,9 +114,5 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
     @Override
     public Configuration getWorkManagerConfiguration() {
         return new Configuration.Builder().setWorkerFactory(hiltWorkerFactory).build();
-    }
-
-    public static boolean isAppProcessAlive() {
-        return appProcessAlive;
     }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
 
     public interface OnSettingActionListener {
-
         void onSettingClick(SettingItemModel item);
     }
 
@@ -60,11 +59,7 @@ public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHo
         holder.imageView.setImageDrawable(ContextCompat.getDrawable(context, item.icon));
         holder.imageView.setImageTintList(ColorStateList.valueOf(ContextCompat.getColor(context, item.fgColor)));
 
-        holder.colorView.setBackgroundTintList(
-                ColorStateList.valueOf(
-                        ContextCompat.getColor(context, item.bgColor)
-                )
-        );
+        holder.colorView.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(context, item.bgColor)));
 
         if (item.isEnabled) {
             holder.itemView.setOnClickListener(v -> {

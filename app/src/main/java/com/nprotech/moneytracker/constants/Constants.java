@@ -57,11 +57,18 @@ public class Constants {
     public static final int REPEAT_MONTHLY = 3;
     public static final int REPEAT_YEARLY = 4;
 
-    public static final int UNIT_DAY = 0;
-    public static final int UNIT_WEEK = 1;
-    public static final int UNIT_MONTH = 2;
-    public static final int UNIT_YEAR = 3;
-
     public static final int MONTHLY_DAY = 0;
     public static final int MONTHLY_LAST_DAY = 1;
+
+    // AUTO LOCK
+    public static final int AUTO_LOCK_IMMEDIATELY = 0;
+    public static final int AUTO_LOCK_30_SECONDS = 30;
+    public static final int AUTO_LOCK_1_MINUTE = 60;
+    public static final int AUTO_LOCK_5_MINUTES = 300;
+    public static final int AUTO_LOCK_15_MINUTES = 900;
+    public static final int AUTO_LOCK_NEVER = -1;
+
+    public static final String PRIMARY_METHOD_PASSWORD = "password";
+    public static final String PRIMARY_METHOD_PIN = "pin";
+    public static final String PRIMARY_METHOD_FINGERPRINT = "fingerprint";
 }

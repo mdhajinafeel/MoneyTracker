@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.nprotech.moneytracker"
-        minSdk 23
+        minSdk 24
         targetSdk 37
 
         versionCode 1
@@ -180,6 +180,11 @@ dependencies {
     // ---------------------------
     implementation libs.review
     implementation libs.tasks
+
+    // --------------------------
+    // Biometric
+    // --------------------------
+    implementation libs.biometric
 
     // ---------------------------
     // Testing

@@ -13,7 +13,6 @@
     <string name="add_note">Add a note…</string>
     <string name="description">Description</string>
     <string name="short_description">Short Description</string>
-    <string name="transfer_to"> —&gt; </string>
     <string name="enter_amount">Enter Amount</string>
     <string name="cash_wallet">Cash Wallet</string>
     <string name="cash">Cash</string>
@@ -30,7 +29,6 @@
     <string name="no_transaction">No transactions yet</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
-    <string name="date_compare">End Date must be greater than Start Date</string>
     <string name="date_amp_time"><![CDATA[Date & Time]]></string>
     <string name="future">Future</string>
     <string name="add_files">Add photos or files (Max 5 files)</string>
@@ -38,7 +36,6 @@
     <string name="tap_add_attach">Tap to add attachment</string>
     <string name="attachment_extension">Images, PDF, Docs, Excel, Zip etc.</string>
     <string name="add_more">Add More</string>
-    <string name="file_not_found">File not found</string>
     <string name="unable_to_open_attachment">Unable to open attachment</string>
     <string name="wallet_currency">%1$s (%2$s)</string>
     <string name="amount_from_wallet">Amount (From Wallet)</string>
@@ -55,6 +52,7 @@
     <string name="duplicate_transaction_desc">Create a copy of this transaction?</string>
     <string name="transaction_duplicated">Transaction duplicated</string>
     <string name="transaction_deleted">Transaction deleted</string>
+    <string name="unable_to_save">Unable to save</string>
 
     <plurals name="transaction_count">
         <item quantity="one">%d transaction</item>

@@ -45,10 +45,8 @@
     <string name="loan_updated">Loan updated</string>
     <string name="debt_deleted">Debt deleted</string>
     <string name="loan_deleted">Loan deleted</string>
-    <string name="error_debt_create">Error when create the debt</string>
     <string name="error_debt_update">Error when update the debt</string>
     <string name="error_debt_delete">Error when delete the debt</string>
-    <string name="error_loan_create">Error when create the loan</string>
     <string name="error_loan_update">Error when update the loan</string>
     <string name="error_loan_delete">Error when delete the loan</string>
     <string name="no_debts_yet">No debts yet</string>
@@ -85,7 +83,6 @@
     <string name="percentage_value">%1$s%%</string>
     <string name="repayment_schedule">Repayment Schedule</string>
     <string name="upcoming">Upcoming</string>
-    <string name="payments">Payments</string>
     <string name="total_payment">Total Payment</string>
     <string name="total_interest">Total Interest</string>
 
@@ -126,14 +123,11 @@
     <string name="text_overdue">Overdue</string>
     <string name="paid">Paid</string>
     <string name="change_debt_detail">Change debt detail</string>
-    <string name="change_loan_detail">Change loan detail</string>
     <string name="see_debt_detail">See debt information</string>
-    <string name="see_loan_detail">See loan information</string>
     <string name="record_payment">Record Payment</string>
     <string name="update_payment">Update Payment</string>
     <string name="view_schedule">View Schedule</string>
     <string name="remove_debt">Remove debt</string>
-    <string name="remove_loan">Remove loan</string>
     <string name="view_all_payment_details">View all payment details</string>
     <string name="record_payment_desc">Record a payment transaction</string>
     <string name="debt_details">Debt Details</string>
@@ -147,8 +141,6 @@
     <string name="payment_method">Payment Method</string>
     <string name="reference_transaction_id">Reference / Transaction ID</string>
     <string name="ref_transaction_id">Ref. / Trans. ID</string>
-    <string name="add_files_3">Add photos or files (Max 3 files)</string>
-    <string name="attachment_title_3">Attachments (%1$d/3)</string>
     <string name="select_payment_method">Select payment method</string>
     <string name="upi">UPI</string>
     <string name="bank_transfer">Bank Transfer</string>
@@ -172,8 +164,6 @@
     <string name="paid_amount">Paid Amount</string>
     <string name="installment_details">Installment Details</string>
     <string name="view_history">View History</string>
-    <string name="payment_transaction_not_found">Payment transaction not found</string>
-    <string name="payment_details_not_found">Payment details not found</string>
     <string name="attachment_not_found">Attachment not found</string>
     <string name="amount_already_paid">Total amount cannot be less than the amount already paid</string>
     <string name="payment_updated">Payment updated</string>

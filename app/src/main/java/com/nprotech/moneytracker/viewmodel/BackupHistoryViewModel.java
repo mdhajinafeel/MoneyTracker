@@ -191,10 +191,11 @@ public class BackupHistoryViewModel extends ViewModel {
                 }
 
                 if (fileDeleted) {
+                    // Delete the database record first.
                     backupHistoryRepository.deleteByBackupId(backup.backupId);
-                    currentPage = 0;
-                    hasMore = true;
-                    loadNextPage();
+
+                    // Reload the first page after deletion completes.
+                    loadBackupHistory(currentSortType, currentAttachmentType);
                 }
             } catch (Exception e) {
                 AppLogger.e(getClass(), "deleteBackup", e);

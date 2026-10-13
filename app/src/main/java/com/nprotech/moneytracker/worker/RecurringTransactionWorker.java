@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.worker;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,7 +17,6 @@ import androidx.hilt.work.HiltWorker;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
-import com.nprotech.moneytracker.MoneyTrackerApp;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.AccountEntity;
@@ -570,12 +570,12 @@ public class RecurringTransactionWorker extends Worker {
         createNotificationChannel();
 
         Intent openIntent;
-        if (MoneyTrackerApp.isAppProcessAlive()) {
-            // Existing process
-            openIntent = new Intent(context, MainActivity.class);
+        if (isAppInForeground()) {
+            // APP OPEN
+            openIntent = new Intent(getApplicationContext(), MainActivity.class);
         } else {
-            // Fresh process after app was killed
-            openIntent = new Intent(context, SplashActivity.class);
+            // APP CLOSED/KILLED
+            openIntent = new Intent(getApplicationContext(), SplashActivity.class);
         }
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 2001, openIntent,
@@ -626,13 +626,16 @@ public class RecurringTransactionWorker extends Worker {
 
         createNotificationChannel();
 
+        // =====================================
+        // INTENT
+        // =====================================
         Intent openIntent;
-        if (MoneyTrackerApp.isAppProcessAlive()) {
-            // Existing process
-            openIntent = new Intent(context, MainActivity.class);
+        if (isAppInForeground()) {
+            // APP OPEN
+            openIntent = new Intent(getApplicationContext(), MainActivity.class);
         } else {
-            // Fresh process after app was killed
-            openIntent = new Intent(context, SplashActivity.class);
+            // APP CLOSED/KILLED
+            openIntent = new Intent(getApplicationContext(), SplashActivity.class);
         }
         openIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, recurring.id, openIntent,
@@ -666,5 +669,12 @@ public class RecurringTransactionWorker extends Worker {
                 && !recurring.isDeleted
                 && recurring.status != RecurringTransactionEntity.STATUS_PAUSED
                 && recurring.status != RecurringTransactionEntity.STATUS_COMPLETED;
+    }
+
+    private boolean isAppInForeground() {
+        ActivityManager.RunningAppProcessInfo appProcessInfo = new ActivityManager.RunningAppProcessInfo();
+        ActivityManager.getMyMemoryState(appProcessInfo);
+        return appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+                || appProcessInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_VISIBLE;
     }
 }
