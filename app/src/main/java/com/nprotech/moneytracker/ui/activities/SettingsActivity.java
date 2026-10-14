@@ -148,7 +148,7 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
     private void fetchManagementSettings() {
         try {
             List<SettingItemModel> managementList = new ArrayList<>();
-            managementList.add(new SettingItemModel(SettingType.ACCOUNT, R.drawable.ic_account, R.color.account_dark, R.color.account_light,
+            managementList.add(new SettingItemModel(SettingType.ACCOUNT, R.drawable.ic_bank, R.color.account_dark, R.color.account_light,
                     getString(R.string.account), true, true, getString(R.string.manage_account_details), true, false, 0));
             managementList.add(new SettingItemModel(SettingType.WALLET, R.drawable.ic_account_wallet, R.color.wallet_dark, R.color.wallet_light,
                     getString(R.string.wallet), true, true, getString(R.string.manage_wallets), true, false, 0));
@@ -262,7 +262,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     @Override
     public void onSettingClick(SettingItemModel item) {
-        if (Objects.requireNonNull(item.settingType) == SettingType.WALLET) {
+        if (Objects.requireNonNull(item.settingType) == SettingType.ACCOUNT) {
+            startActivity(new Intent(SettingsActivity.this, ManageAccountActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+        } else if (Objects.requireNonNull(item.settingType) == SettingType.WALLET) {
             startActivity(new Intent(SettingsActivity.this, ManageWalletActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (Objects.requireNonNull(item.settingType) == SettingType.CURRENCY) {

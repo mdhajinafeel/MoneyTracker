@@ -17,9 +17,9 @@
             android:background="@drawable/bg_circle_white"
             android:fontFamily="@font/exo2_semibold"
             android:gravity="center"
-            android:padding="@dimen/padding_4"
+            android:padding="@dimen/padding_2"
             android:textColor="@color/text_primary"
-            android:textSize="@dimen/text_10"
+            android:textSize="@dimen/text_12"
             app:minTextSize="@dimen/text_10" />
 
         <!-- CODE + NAME -->

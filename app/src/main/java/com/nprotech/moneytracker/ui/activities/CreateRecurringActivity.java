@@ -720,7 +720,7 @@ public class CreateRecurringActivity extends BaseActivity implements DatePickerD
             // -----------------------------
             if (isIncome) {
 
-                tvTitle.setText(getString(R.string.income));
+                tvTitle.setText(getString(R.string.income_recurring));
 
                 btnIncome.setBackgroundColor(ContextCompat.getColor(this, R.color.light_income));
                 btnIncome.setTextColor(ContextCompat.getColor(this, R.color.income));
@@ -740,7 +740,7 @@ public class CreateRecurringActivity extends BaseActivity implements DatePickerD
                 // -----------------------------
             } else if (isExpense) {
 
-                tvTitle.setText(getString(R.string.expense));
+                tvTitle.setText(getString(R.string.expense_recurring));
 
                 btnExpense.setBackgroundColor(ContextCompat.getColor(this, R.color.light_expense));
                 btnExpense.setTextColor(ContextCompat.getColor(this, R.color.expense));
@@ -794,7 +794,7 @@ public class CreateRecurringActivity extends BaseActivity implements DatePickerD
                 // Fee uses From Wallet currency
                 tvFee.setText(CommonUtils.getBeautifyAmount(selectedFromWallet != null ? selectedFromWallet.currencySymbol : account.currencySymbol, transactionFee));
 
-                tvTitle.setText(getString(R.string.transfer));
+                tvTitle.setText(getString(R.string.transfer_recurring));
 
                 btnTransfer.setBackgroundColor(ContextCompat.getColor(this, R.color.light_transfer));
                 btnTransfer.setTextColor(ContextCompat.getColor(this, R.color.transfer));

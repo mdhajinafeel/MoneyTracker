@@ -61,16 +61,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_weight="1"
-            android:gravity="start"
+            android:layout_marginTop="@dimen/margin_20"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <!-- Cancel Button -->
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_6"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/exo2_bold"
@@ -80,16 +79,14 @@
                 android:textAllCaps="true"
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/text_16" />
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_16"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:orientation="horizontal">
+            <!-- Spacer -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
+            <!-- PIN Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPin"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -106,6 +103,7 @@
                 app:cornerRadius="@dimen/corner_radius_6"
                 app:elevation="@dimen/corner_elevation_8" />
 
+            <!-- Password Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPassword"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"

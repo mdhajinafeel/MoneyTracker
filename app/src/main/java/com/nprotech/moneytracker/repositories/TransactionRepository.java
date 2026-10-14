@@ -94,6 +94,10 @@ public class TransactionRepository {
         return transactionDao.getTransactionAmountByType(walletId);
     }
 
+    public List<TransactionTypeAmountModel> getTransactionAmountByTypeForAccount(int accountId) {
+        return transactionDao.getTransactionAmountByTypeForAccount(accountId);
+    }
+
     public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
         return transactionDao.getTransactionAmountByCategory(walletId);
     }
@@ -275,7 +279,12 @@ public class TransactionRepository {
         if(categoryId > 0) {
             return transactionDao.getTransactionsByCategory(accountId, walletId, categoryId, pageSize, offset);
         }
-        return transactionDao.getTransactionsByWallet(accountId, walletId, pageSize, offset);
+
+        if(walletId > 0) {
+            return transactionDao.getTransactionsByWallet(accountId, walletId, pageSize, offset);
+        }
+
+        return transactionDao.getTransactionsByAccount(accountId, pageSize, offset);
     }
 
     public int getTransactionCountByCategory(int categoryId) {

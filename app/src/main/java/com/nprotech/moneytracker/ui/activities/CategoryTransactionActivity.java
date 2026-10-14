@@ -62,12 +62,13 @@ public class CategoryTransactionActivity extends BaseActivity {
     private BudgetViewModel budgetViewModel;
     private AccountViewModel accountViewModel;
     private TransactionViewModel transactionViewModel;
-    private int categoryId = 0, walletId = 0, budgetId = 0, budgetWalletCount = 0;
+    private int categoryId = 0, walletId = 0, budgetId = 0, budgetWalletCount = 0, accountId = 0;
     private DailyTransactionAdapter dailyTransactionAdapter;
     private String accountCurrencySymbol;
     private long budgetStartDate = 0, budgetEndDate = 0;
     private AccountEntity account;
     private boolean isFromBudget = false;
+    private boolean isFromAccount = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,12 +103,15 @@ public class CategoryTransactionActivity extends BaseActivity {
             if (bundle != null) {
 
                 isFromBudget = bundle.getBoolean("isFromBudget", false);
+                isFromAccount = bundle.getBoolean("isFromAccount", false);
 
                 if (!Objects.equals(bundle.getString("categoryName"), "")) {
                     tvTitle.setText(bundle.getString("categoryName"));
                 } else {
                     if (isFromBudget) {
                         tvTitle.setText(getString(R.string.category_transactions));
+                    } else if (isFromAccount) {
+                        tvTitle.setText(R.string.account_transactions);
                     } else {
                         tvTitle.setText(R.string.wallet_transactions);
                     }
@@ -118,6 +122,7 @@ public class CategoryTransactionActivity extends BaseActivity {
                 budgetViewModel = new ViewModelProvider(this).get(BudgetViewModel.class);
                 transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
 
+                accountId = bundle.getInt("accountId", 0);
                 categoryId = bundle.getInt("categoryId", 0);
                 walletId = bundle.getInt("walletId", 0);
                 budgetId = bundle.getInt("budgetId", 0);
@@ -140,8 +145,12 @@ public class CategoryTransactionActivity extends BaseActivity {
 
     private void bindData() {
         try {
+            if(accountId == 0) {
+                accountId = PreferenceManager.INSTANCE.getAccountId();
+            }
 
-            account = accountViewModel.getAccountDetailById(PreferenceManager.INSTANCE.getAccountId());
+            account = accountViewModel.getAccountDetailById(accountId);
+
             if (account != null) {
                 accountCurrencySymbol = account.currencySymbol;
                 dailyTransactionAdapter.setAccountCurrencySymbol(accountCurrencySymbol);
@@ -149,7 +158,6 @@ public class CategoryTransactionActivity extends BaseActivity {
             }
 
             walletViewModel.getCategoryTransactions().observe(this, dailyTransModels -> {
-
                 if (dailyTransModels == null || dailyTransModels.isEmpty()) {
                     rvTransactions.setVisibility(View.GONE);
                     emptyWrapper.setVisibility(View.VISIBLE);
@@ -691,6 +699,8 @@ public class CategoryTransactionActivity extends BaseActivity {
             List<Integer> walletIds = budgetViewModel.getWalletIdsByBudgetId(budgetId);
             budgetViewModel.loadAllTransactions(PreferenceManager.INSTANCE.getAccountId(), budgetStartDate, budgetEndDate, categoryIds, walletIds,
                     false, budgetWalletCount == -1, false);
+        } else if (isFromAccount) {
+            walletViewModel.loadTransactions(accountId, 0, 0);
         } else {
             walletViewModel.loadTransactions(account.id, walletId, categoryId);
         }

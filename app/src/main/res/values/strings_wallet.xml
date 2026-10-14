@@ -89,6 +89,7 @@
     <string name="select_payment_date">Select payment date</string>
     <string name="billing">Billing</string>
     <string name="wallet_type_currency">%1$s (%2$s)</string>
+    <string name="restore_your_wallet">Restore your wallet</string>
 
     <plurals name="wallet_count">
         <item quantity="one">%d wallet</item>

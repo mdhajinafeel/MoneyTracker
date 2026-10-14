@@ -277,7 +277,8 @@ public class TransactionOverviewActivity extends BaseActivity {
             dailyTransactionAdapter = new DailyTransactionAdapter(this, new ArrayList<>(), currencySymbol, item -> showTransactionActions(item,
                     // View Details
                     () -> {
-                        startActivity(new Intent(TransactionOverviewActivity.this, TransactionDetailActivity.class).putExtra("transactionId", item.transaction.tempTransactionServerId));
+                        startActivity(new Intent(TransactionOverviewActivity.this, TransactionDetailActivity.class)
+                                .putExtra("transactionId", item.transaction.tempTransactionServerId));
                         ActivityUtils.overrideOpenTransition(TransactionOverviewActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
                     },
 

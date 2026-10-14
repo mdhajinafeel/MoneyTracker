@@ -71,4 +71,11 @@ public interface WalletDao {
 
     @Query("UPDATE wallets SET isDeleted = 1 WHERE id = :walletId AND accountId = :accountId AND isDefault = 0")
     void deleteWallet(int walletId, int accountId);
+
+    @Query("UPDATE wallets SET isDeleted = 1, isDefault = 0 " +
+            "WHERE accountId = :accountId AND isDeleted = 0")
+    void deleteAllWalletsForAccount(int accountId);
+
+    @Query("SELECT COUNT(id) AS cnt FROM wallets WHERE isDeleted = 0 AND isArchived = 0 AND isActive = 1 AND accountId = :accountId")
+    int walletCount(int accountId);
 }

@@ -232,6 +232,7 @@ public class CategoryBudgetActivity extends BaseActivity {
                         intent.putExtra("budgetEndDate", budgetDetail.budget.endDate);
                         intent.putExtra("categoryId", categoryBudget.categoryId);
                         intent.putExtra("isFromBudget", true);
+                        intent.putExtra("isFromAccount", false);
                         intent.putExtra("categoryName", categoryBudget.getCategoryName(CategoryBudgetActivity.this));
                         startActivity(intent);
                         ActivityUtils.overrideOpenTransition(CategoryBudgetActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
@@ -245,6 +246,7 @@ public class CategoryBudgetActivity extends BaseActivity {
                         intent.putExtra("budgetWalletCount", budgetDetail.budget.walletCount);
                         intent.putExtra("categoryId", categoryBudget.categoryId);
                         intent.putExtra("isFromBudget", true);
+                        intent.putExtra("isFromAccount", false);
                         intent.putExtra("categoryName", categoryBudget.getCategoryName(CategoryBudgetActivity.this));
                         startActivity(intent);
                         ActivityUtils.overrideOpenTransition(CategoryBudgetActivity.this, R.anim.top_to_bottom, R.anim.scale_out);

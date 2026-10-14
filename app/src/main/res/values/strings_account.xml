@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="accounts">Accounts</string>
     <string name="add_account">Add Account</string>
+    <string name="edit_account">Edit Account</string>
     <string name="account_heading">What should we call this account?</string>
     <string name="choose_name">Choose a name that helps you identify this account easily.</string>
     <string name="account_name">Account Name</string>
@@ -11,4 +13,52 @@
     <string name="initial_amount">Initial Balance</string>
     <string name="initial">Initial</string>
     <string name="account_balance_format">Balance : %1$s</string>
+    <string name="manage_account_desc">Manage all your bank accounts, cards and more in one place.</string>
+    <string name="your_accounts">Your Accounts</string>
+    <string name="all_accounts">All Accounts</string>
+    <string name="add_new_account">Add New Account</string>
+    <string name="add_account_desc">Add bank account, credit card or other account</string>
+    <string name="archived_accounts">Archived Accounts</string>
+    <string name="archived_accounts_desc">View and restore your archived accounts</string>
+    <string name="account_created">Account created</string>
+    <string name="account_updated">Account updated</string>
+    <string name="currency_edit_account">Currency cannot be changed while editing an account.</string>
+    <string name="account_action">Account Action</string>
+    <string name="update_account_detail">Update account detail</string>
+    <string name="use_as_your_default_account">Use as your default account</string>
+    <string name="see_account_detail">See account detail</string>
+    <string name="hide_from_active_accounts">Hide from active accounts</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Remove all wallets & transactions]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Delete Wallets & Transactions]]></string>
+    <string name="remove_account">Remove account</string>
+    <string name="account_set_as_default">Account set as default</string>
+    <string name="archive_account">Archive account?</string>
+    <string name="account_archived">Account archived</string>
+    <string name="delete_account_message">This will permanently remove the account and all its wallets, transactions. This action cannot be undone.</string>
+    <string name="delete_account">Delete account</string>
+    <string name="account_deleted">Account deleted</string>
+    <string name="error_delete_account">Error when delete the account</string>
+    <string name="opening_balance_editing_account">Opening balance cannot be changed while editing an account.</string>
+    <string name="cannot_change_initial_amount">Cannot change the initial amount because of existing transactions.</string>
+    <string name="archive_account_message">This account will be hidden from active accounts. Your balance and transactions will be preserved.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Delete account wallets &amp; transactions?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[All wallets &amp; transactions in this account will be deleted. This action cannot be undone.]]></string>
+    <string name="error_delete_account_trans">Error when delete the account transaction</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Account wallets &amp; transactions deleted]]></string>
+    <string name="transactions">Transactions</string>
+    <string name="view_all_transactions">View all transactions</string>
+    <string name="view_all_recurring_transactions">View all recurring transactions</string>
+    <string name="recurring_transactions">Recurring Transactions</string>
+    <string name="account_details">Account Details</string>
+    <string name="archived_account_desc">These accounts are archived and hidden from your active account list. All wallets and transactions data are kept and can be restored anytime.</string>
+    <string name="restore_account">Restore account?</string>
+    <string name="account_restore">Account restored</string>
+    <string name="restore_account_message">This account will be moved back to your active accounts. Your balance and transactions will remain unchanged.</string>
+    <string name="restore_your_account">Restore your account</string>
+    <string name="account_transactions">Account Transactions</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d account</item>
+        <item quantity="other">%d accounts</item>
+    </plurals>
 </resources>

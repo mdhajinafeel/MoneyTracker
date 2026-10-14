@@ -58,6 +58,7 @@ public class InProgressRecurringFragment extends Fragment {
     private ConstraintLayout emptyWrapper;
     private RecurringTransactionViewModel recurringTransactionViewModel;
     private RecyclerViewAdapter<RecurringTransactionWithDetails> recurringAdapter;
+    private int accountId = -1;
 
     @Nullable
     @Override
@@ -76,6 +77,15 @@ public class InProgressRecurringFragment extends Fragment {
 
             recurringTransactionViewModel = new ViewModelProvider(this).get(RecurringTransactionViewModel.class);
 
+            Bundle args = getArguments();
+            if (args != null) {
+                accountId = args.getInt("accountId", 0);
+            }
+
+            if (accountId == 0) {
+                accountId = PreferenceManager.INSTANCE.getAccountId();
+            }
+
             bindData();
             initializeAdapter();
         } catch (Exception e) {
@@ -87,7 +97,7 @@ public class InProgressRecurringFragment extends Fragment {
     private void bindData() {
         try {
 
-            recurringTransactionViewModel.getRecurringTransactions(PreferenceManager.INSTANCE.getAccountId(), false,
+            recurringTransactionViewModel.getRecurringTransactions(accountId, false,
                     false).observe(getViewLifecycleOwner(), recurringTransactions -> {
                 if (recurringTransactions.isEmpty()) {
                     emptyWrapper.setVisibility(View.VISIBLE);

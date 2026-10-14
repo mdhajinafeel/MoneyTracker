@@ -261,6 +261,34 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Manage Account Screen -->
+        <activity
+            android:name=".ui.activities.ManageAccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Create Account Screen -->
+        <activity
+            android:name=".ui.activities.CreateAccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Archived Account Screen -->
+        <activity
+            android:name=".ui.activities.AccountArchivedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Account Detail Screen -->
+        <activity
+            android:name=".ui.activities.AccountTransactionDetailedActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Manage Wallet Screen -->
         <activity
             android:name=".ui.activities.ManageWalletActivity"

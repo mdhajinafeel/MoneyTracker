@@ -117,7 +117,7 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/ivBackupTime"
+                    android:id="@+id/ivWallets"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:background="@drawable/bg_circle_stroke"
@@ -131,13 +131,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/allBackupContainer"
+                    android:id="@+id/allWalletContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_10"
                     android:orientation="vertical"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/ivBackupTime">
+                    app:layout_constraintStart_toEndOf="@+id/ivWallets">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/lblAllWallets"

@@ -189,6 +189,10 @@ public class TransactionViewModel extends ViewModel {
         return transactionRepository.getTransactionAmountByType(walletId);
     }
 
+    public List<TransactionTypeAmountModel> getTransactionAmountByTypeForAccount(int accountId) {
+        return transactionRepository.getTransactionAmountByTypeForAccount(accountId);
+    }
+
     public LiveData<List<TransactionCategoryModel>> getTransactionAmountByCategory(int walletId) {
         return transactionRepository.getTransactionAmountByCategory(walletId);
     }

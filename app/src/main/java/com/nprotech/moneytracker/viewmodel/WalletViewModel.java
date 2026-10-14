@@ -287,4 +287,16 @@ public class WalletViewModel extends ViewModel {
     public void setWalletArchivedSort(int sortType) {
         walletArchivedSortType.setValue(sortType);
     }
+
+    public boolean canChangeAccountCurrency(int accountId) {
+        return walletRepository.canChangeAccountCurrency(accountId);
+    }
+
+    public boolean updateDefaultWalletOpeningAmount(int accountId, double openingAmount) {
+        return walletRepository.updateDefaultWalletOpeningAmount(accountId, openingAmount);
+    }
+
+    public int walletCount(int accountId) {
+        return walletRepository.walletCount(accountId);
+    }
 }

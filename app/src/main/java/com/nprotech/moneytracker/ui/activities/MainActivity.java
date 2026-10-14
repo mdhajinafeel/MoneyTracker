@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker.ui.activities;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -72,6 +73,7 @@ public class MainActivity extends BaseActivity {
     private ToolbarActionListener toolbarActionListener;
     private LiveData<BalanceSummaryModel> accountSummaryLiveData;
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
+    private RecyclerViewAdapter<AccountEntity> accountAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +120,7 @@ public class MainActivity extends BaseActivity {
                 return insets;
             });
 
-            accountViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
-
+            accountViewModel.validateSelectedAccount();
             observeData();
 
             restoreOrCreateFragments(savedInstanceState);
@@ -150,22 +151,20 @@ public class MainActivity extends BaseActivity {
                 return false;
             });
 
-            getOnBackPressedDispatcher().addCallback(
-                    this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
 
-                            long currentTime = System.currentTimeMillis();
+                    long currentTime = System.currentTimeMillis();
 
-                            if (currentTime - lastBackPressedTime < EXIT_INTERVAL) {
-                                finishAffinity();
-                            } else {
-                                lastBackPressedTime = currentTime;
-                                Toast.makeText(MainActivity.this, R.string.press_again_to_exit, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                    if (currentTime - lastBackPressedTime < EXIT_INTERVAL) {
+                        finishAffinity();
+                    } else {
+                        lastBackPressedTime = currentTime;
+                        Toast.makeText(MainActivity.this, R.string.press_again_to_exit, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
 
             clickListeners();
         } catch (Exception e) {
@@ -176,6 +175,16 @@ public class MainActivity extends BaseActivity {
     private void observeData() {
         accountViewModel.getSelectedAccount().observe(this, accountEntity -> {
             if (accountEntity == null) {
+                tvAccountName.setText("");
+                tvAccountBalance.setText("");
+                tvTotalIncome.setText("");
+                tvTotalExpense.setText("");
+
+                if (accountSummaryLiveData != null) {
+                    accountSummaryLiveData.removeObservers(this);
+                    accountSummaryLiveData = null;
+                }
+
                 return;
             }
 
@@ -201,14 +210,10 @@ public class MainActivity extends BaseActivity {
             });
         });
 
-        accountViewModel.getAllAccounts().observe(this, accounts -> {
-            accountList.clear();
-            if (accounts != null) {
-                accountList.addAll(accounts);
-            }
-        });
+        accountViewModel.getAllAccounts();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void clickListeners() {
         try {
             tvAccountName.setOnClickListener(v -> switchAccounts());
@@ -229,6 +234,17 @@ public class MainActivity extends BaseActivity {
                     toolbarActionListener.onCalendarClicked();
                 }
             });
+
+            accountViewModel.getAccountList().observe(this, accounts -> {
+                accountList.clear();
+                if (accounts != null) {
+                    accountList.addAll(accounts);
+                }
+
+                if (accountAdapter != null) {
+                    accountAdapter.notifyDataSetChanged();
+                }
+            });
         } catch (Exception e) {
             AppLogger.e(getClass(), "clickListeners", e);
         }
@@ -236,13 +252,12 @@ public class MainActivity extends BaseActivity {
 
     private void switchAccounts() {
         try {
-
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_account_picker_layout, findViewById(android.R.id.content), false);
             RecyclerView rvAccounts = bottomView.findViewById(R.id.rvAccounts);
             LinearLayout layoutAddAccount = bottomView.findViewById(R.id.layoutAddAccount);
 
-            RecyclerViewAdapter<AccountEntity> adapter = new RecyclerViewAdapter<>(this, accountList, R.layout.item_switch_accounts) {
+            accountAdapter = new RecyclerViewAdapter<>(this, accountList, R.layout.item_switch_accounts) {
                 @Override
                 public void onPostBindViewHolder(ViewHolder holder, AccountEntity accountEntity) {
                     holder.setViewText(R.id.tvAccountName, accountEntity.name);
@@ -257,12 +272,15 @@ public class MainActivity extends BaseActivity {
                 }
             };
 
-            rvAccounts.setAdapter(adapter);
+            rvAccounts.setAdapter(accountAdapter);
             rvAccounts.setHasFixedSize(true);
 
             layoutAddAccount.setOnClickListener(v -> {
-                startActivity(new Intent(MainActivity.this, AddAccountActivity.class));
-                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+                dialog.dismiss();
+                startActivity(new Intent(MainActivity.this, CreateAccountActivity.class)
+                        .putExtra("isEdit", false)
+                        .putExtra("accountId", 0));
+                ActivityUtils.overrideOpenTransition(MainActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
             });
 
             dialog.setContentView(bottomView);
@@ -476,5 +494,12 @@ public class MainActivity extends BaseActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_PERMISSION_REQUEST_CODE);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        accountViewModel.validateSelectedAccount();
+        accountViewModel.getAllAccounts();
     }
 }

@@ -22,10 +22,16 @@ public class AccountEntity implements Serializable {
     public String currencyCode;
     public String currencyName;
     public String currencySymbol;
+    public double initialAmount;
     public double balance;
     public int ordering;
     public boolean isDeleted = false;
     public boolean isSynced = false;
+    public boolean isDefault = false;
+    public boolean isArchived = false;
+    public long archivedAt;
     public int serverId = 0;
     public String tempAccountServerId;
+    public int categoryIcon;
+    public String accountColor;
 }

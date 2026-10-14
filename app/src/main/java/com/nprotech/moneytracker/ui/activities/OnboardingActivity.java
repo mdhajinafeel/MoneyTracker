@@ -153,7 +153,8 @@ public class OnboardingActivity extends BaseActivity {
             intent = new Intent(this, MainActivity.class)
                     .putExtra("isFromLogin", false);
         } else {
-            intent = new Intent(this, AddAccountActivity.class);
+            intent = new Intent(this, AddAccountActivity.class)
+                    .putExtra("isStarting", true);
         }
 
         intent.addFlags(INTENT_FLAGS);

@@ -183,7 +183,6 @@ public class CreateGoalActivity extends BaseActivity {
 
     private void bindData() {
         try {
-
             if (isEdit) {
 
                 tvSave.setText(getString(R.string.update));
@@ -206,8 +205,8 @@ public class CreateGoalActivity extends BaseActivity {
                     etDescription.setText(goal.notes);
 
                     // ---------------------------------------------
-// AUTO SAVE
-// ---------------------------------------------
+                    // AUTO SAVE
+                    // ---------------------------------------------
                     if (goal.autoSaveEnabled) {
 
                         // Enable auto save

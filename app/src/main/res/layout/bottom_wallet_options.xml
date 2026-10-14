@@ -68,7 +68,7 @@
             android:id="@+id/labelWrapper"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_6"
+            android:layout_marginStart="@dimen/margin_10"
             android:layout_marginEnd="@dimen/margin_2"
             app:layout_constraintStart_toEndOf="@id/colorView"
             app:layout_constraintEnd_toEndOf="parent"
@@ -378,7 +378,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_2"
                 android:fontFamily="@font/exo2_medium"
-                android:text="Restore your wallet"
+                android:text="@string/restore_your_wallet"
                 android:textColor="@color/text_grey"
                 android:textSize="@dimen/text_12" />
         </LinearLayout>

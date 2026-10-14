@@ -61,6 +61,7 @@ public class ManageWalletActivity extends BaseActivity {
     private FloatingActionButton fabAddWallet;
     private SettingType selectedSortType = SettingType.DEFAULT_WALLET_FIRST;
     private Typeface medium, semiBold;
+    private int accountId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,13 @@ public class ManageWalletActivity extends BaseActivity {
             medium = ResourcesCompat.getFont(this, R.font.exo2_medium);
             semiBold = ResourcesCompat.getFont(this, R.font.exo2_semibold);
 
+            Bundle bundle = getIntent().getExtras();
+            if (bundle != null) {
+                accountId = bundle.getInt("accountId", 0);
+            } else {
+                accountId = PreferenceManager.INSTANCE.getAccountId();
+            }
+
             bindData();
             initializeAdapter();
             observeData();
@@ -115,7 +123,12 @@ public class ManageWalletActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            walletViewModel.selectAccount(PreferenceManager.INSTANCE.getAccountId());
+
+            if (accountId == 0) {
+                accountId = PreferenceManager.INSTANCE.getAccountId();
+            }
+
+            walletViewModel.selectAccount(accountId);
 
             tvAllWallets.setText(getResources().getQuantityString(R.plurals.wallet_count, 0, 0));
             CommonUtils.setDrawable(this, tvSorting, R.drawable.ic_filter, R.dimen.icon_12, R.color.primary_dark, Gravity.START);
@@ -144,6 +157,7 @@ public class ManageWalletActivity extends BaseActivity {
                     ivWalletIcon.setImageDrawable(ContextCompat.getDrawable(ManageWalletActivity.this, walletIcon));
                     tvWalletName.setText(wallet.name);
                     tvWalletCurrency.setText(getString(R.string.wallet_currency, wallet.currencyName, wallet.currencyCode));
+                    tvWalletCurrency.setSelected(true);
 
                     if (wallet.isDefault) {
                         tvWalletBadge.setVisibility(View.VISIBLE);
@@ -498,7 +512,7 @@ public class ManageWalletActivity extends BaseActivity {
             });
 
             btnSecondary.setOnClickListener(v -> {
-                selectedSortType = SettingType.NEWEST_WALLET_FIRST;
+                selectedSortType = SettingType.DEFAULT_WALLET_FIRST;
                 applyWalletFilters();
                 dialog.dismiss();
             });
@@ -508,7 +522,7 @@ public class ManageWalletActivity extends BaseActivity {
             dialog.setContentView(bottomView);
             dialog.show();
         } catch (Exception e) {
-            AppLogger.e(getClass(), "showBackupFilterDialog", e);
+            AppLogger.e(getClass(), "showWalletFilterDialog", e);
         }
     }
 

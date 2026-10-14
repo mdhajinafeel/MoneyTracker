@@ -62,6 +62,7 @@ public class AddAccountActivity extends BaseActivity {
     private CurrencyEntity currency;
     private static final int INTENT_FLAGS = Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP;
     private ActivityResultLauncher<String> notificationPermissionLauncher;
+    private boolean isStarting = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,13 @@ public class AddAccountActivity extends BaseActivity {
             masterViewModel = new ViewModelProvider(this).get(MasterViewModel.class);
             accountViewModel = new ViewModelProvider(this).get(AccountViewModel.class);
             walletViewModel = new ViewModelProvider(this).get(WalletViewModel.class);
+
+            Bundle bundle = getIntent().getExtras();
+            if(bundle != null) {
+                isStarting = bundle.getBoolean("isStarting", false);
+            } else {
+                isStarting = false;
+            }
 
             setupListeners();
             setupLauncher();
@@ -135,7 +143,6 @@ public class AddAccountActivity extends BaseActivity {
         btnNextStep2.setOnClickListener(view -> showStep3());
 
         btnCreateAccount.setOnClickListener(view -> {
-
             if (TextUtils.isEmpty(etInitialAmount.getText())) {
                 Toast.makeText(getApplicationContext(), getString(R.string.enter_the_amount), Toast.LENGTH_SHORT).show();
                 return;
@@ -308,6 +315,12 @@ public class AddAccountActivity extends BaseActivity {
         account.isDeleted = false;
         account.isSynced = false;
         account.ordering = accountViewModel.getLastAccountOrder() + 1;
+        account.isDefault = isStarting;
+        account.initialAmount = initialAmount;
+        account.isArchived = false;
+        account.archivedAt = 0;
+        account.accountColor = "#6A1B9A";
+        account.categoryIcon = 3;
         account.serverId = 0;
         account.tempAccountServerId = "A_" + currentTime;
         long accountId = accountViewModel.saveAccount(account);
@@ -315,7 +328,6 @@ public class AddAccountActivity extends BaseActivity {
         if (accountId > 0) {
 
             PreferenceManager.INSTANCE.setAccountId((int) accountId);
-
             AccountCurrencyMappingEntity accountCurrencyMappingEntity = new AccountCurrencyMappingEntity();
             accountCurrencyMappingEntity.accountId = (int) accountId;
             accountCurrencyMappingEntity.tempAccountServerId = "A_" + currentTime;

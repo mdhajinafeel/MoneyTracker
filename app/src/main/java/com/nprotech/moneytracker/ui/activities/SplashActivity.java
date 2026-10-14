@@ -107,6 +107,7 @@ public class SplashActivity extends BaseActivity {
 
     private void redirectToCreateAccount() {
         startActivity(new Intent(this, AddAccountActivity.class)
+                .putExtra("isStarting", true)
                 .addFlags(INTENT_FLAGS));
         ActivityUtils.overrideOpenTransition(this, android.R.anim.fade_in, android.R.anim.fade_out);
         finish();

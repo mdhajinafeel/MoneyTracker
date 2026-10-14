@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.db.entites.TransactionEntity;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.ui.adapters.RecurringTabAdapter;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
@@ -34,6 +35,7 @@ public class RecurringActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     private FloatingActionButton fabAddRecurring;
+    private int accountId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,6 +72,13 @@ public class RecurringActivity extends BaseActivity {
 
             Bundle bundle = getIntent().getExtras();
             if (bundle != null) {
+
+                accountId = getIntent().getIntExtra("accountId", 0);
+
+                if (accountId == 0) {
+                    accountId = PreferenceManager.INSTANCE.getAccountId();
+                }
+
                 bindData();
                 setupListeners();
             } else {
@@ -84,7 +93,7 @@ public class RecurringActivity extends BaseActivity {
 
     private void bindData() {
         try {
-            RecurringTabAdapter adapter = new RecurringTabAdapter(this);
+            RecurringTabAdapter adapter = new RecurringTabAdapter(this, accountId);
             viewPager.setAdapter(adapter);
             viewPager.setOffscreenPageLimit(1);
 

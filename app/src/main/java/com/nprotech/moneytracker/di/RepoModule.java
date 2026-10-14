@@ -57,8 +57,9 @@ public class RepoModule {
 
     @Provides
     @Singleton
-    AccountRepository provideAccountRepository(AccountDao accountDao, AccountCurrencyMappingDao accountCurrencyMappingDao) {
-        return new AccountRepository(accountDao, accountCurrencyMappingDao);
+    AccountRepository provideAccountRepository(MoneyTrackerDatabase database, AccountDao accountDao, AccountCurrencyMappingDao accountCurrencyMappingDao,
+                                               TransactionDao transactionDao, WalletDao walletDao, BudgetRepository budgetRepository) {
+        return new AccountRepository(database, accountDao, accountCurrencyMappingDao, transactionDao, walletDao, budgetRepository);
     }
 
     @Provides

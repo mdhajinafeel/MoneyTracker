@@ -81,6 +81,9 @@ public interface TransactionDao {
     @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE walletId = :walletId AND isDeleted = 0 GROUP BY type")
     List<TransactionTypeAmountModel> getTransactionAmountByType(int walletId);
 
+    @Query("SELECT type, SUM(amount) as amount FROM transactions WHERE accountId = :accountId AND isDeleted = 0 GROUP BY type")
+    List<TransactionTypeAmountModel> getTransactionAmountByTypeForAccount(int accountId);
+
     @Query("SELECT x.defaultCategoryId, x.transactionCount, SUM(x.amount + x.feeAmount) AS amount, x.color, x.icon, x.currencySymbol, x.type, " +
             "x.categoryId, x.categoryName, x.walletId, x.isFee " +
             "FROM (SELECT t.defaultCategoryId, COUNT(*) AS transactionCount, SUM(t.amount) AS amount, c.color, c.icon, w.currencySymbol, " +
@@ -323,6 +326,23 @@ public interface TransactionDao {
             "LIMIT :limit OFFSET :offset")
     List<TransactionWithDetails> getTransactionsByWallet(int accountId, int walletId, int limit, int offset);
 
+    @Transaction
+    @Query("SELECT t.*, w.currencySymbol AS currencySymbol, c.color, c.name AS categoryName, " +
+            "c.icon AS icon, " +
+            "w.name AS walletName, fw.name AS fromWalletName, w.exchangeRate " +
+            "FROM transactions t " +
+            "JOIN wallets w ON w.id = t.walletId " +
+            "LEFT JOIN wallets fw ON fw.id = t.fromWalletId " +
+            "JOIN categories c ON c.defaultCategory = t.defaultCategoryId AND c.type = t.type " +
+            "WHERE t.isDeleted = 0 " +
+            "AND t.accountId = :accountId " +
+            "AND w.accountId = :accountId " +
+            "AND t.type IN (1,2,3) " +
+            "AND (t.parentTransactionId IS NULL OR t.parentTransactionId = '') " +
+            "ORDER BY t.transactionDate DESC " +
+            "LIMIT :limit OFFSET :offset")
+    List<TransactionWithDetails> getTransactionsByAccount(int accountId, int limit, int offset);
+
     @Query("SELECT COUNT(*) FROM transactions WHERE categoryId = :categoryId AND isDeleted = 0")
     int getTransactionCountByCategory(int categoryId);
 
@@ -331,6 +351,9 @@ public interface TransactionDao {
 
     @Query("SELECT * FROM transactions WHERE isDeleted = 0 AND accountId = :accountId AND (walletId = :walletId OR fromWalletId = :walletId)")
     List<TransactionEntity> getTransactionsForWallet(int walletId, int accountId);
+
+    @Query("SELECT * FROM transactions WHERE isDeleted = 0 AND accountId = :accountId")
+    List<TransactionEntity> getTransactionsForAccount(int accountId);
 
     // BUDGET TRANSACTIONS
     @Transaction
@@ -374,4 +397,27 @@ public interface TransactionDao {
             "LIMIT :limit OFFSET :offset")
     List<TransactionWithDetails> getTransactionsForBudgetPaged(int accountId, long startDate, long endDate, List<Integer> categoryIds,
                                                                 List<Integer> walletIds, boolean allCategories, boolean allWallets, int limit, int offset);
+
+    @Query(
+            "SELECT COUNT(*) FROM transactions " +
+                    "WHERE accountId = :accountId AND isDeleted = 0"
+    )
+    int getActiveTransactionCount(int accountId);
+
+    @Query(
+            "SELECT COUNT(*) FROM transactions t " +
+                    "WHERE t.accountId = :accountId " +
+                    "AND t.isDeleted = 0 " +
+                    "AND (" +
+                    "t.type = 2 OR " +
+                    "(t.type = 3 " +
+                    "AND t.fromWalletId IN (" +
+                    "SELECT id FROM wallets WHERE accountId = :accountId AND isDeleted = 0" +
+                    ") " +
+                    "AND t.walletId NOT IN (" +
+                    "SELECT id FROM wallets WHERE accountId = :accountId AND isDeleted = 0" +
+                    "))" +
+                    ")"
+    )
+    int getBalanceDecreasingTransactionCount(int accountId);
 }

@@ -1,5 +1,7 @@
 package com.nprotech.moneytracker.ui.adapters;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -11,20 +13,32 @@ import com.nprotech.moneytracker.ui.fragments.InProgressRecurringFragment;
 
 public class RecurringTabAdapter extends FragmentStateAdapter {
 
-    public RecurringTabAdapter(@NonNull FragmentActivity activity) {
+    private final int accountId;
+
+    public RecurringTabAdapter(@NonNull FragmentActivity activity, int accountId) {
         super(activity);
+        this.accountId = accountId;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return switch (position) {
+        Bundle args = new Bundle();
+        args.putInt("accountId", accountId);
+
+        Fragment fragment = switch (position) {
             case 0 -> new InProgressRecurringFragment();
             case 1 -> new DeactivatedRecurringFragment();
             case 2 -> new CompletedRecurringFragment();
-            default -> throw new IllegalArgumentException("Invalid position: " + position);
+            default -> throw new IllegalArgumentException(
+                    "Invalid position: " + position
+            );
         };
+
+        fragment.setArguments(args);
+        return fragment;
     }
+
 
     @Override
     public int getItemCount() {

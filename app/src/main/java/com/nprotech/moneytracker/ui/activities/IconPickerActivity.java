@@ -129,6 +129,8 @@ public class IconPickerActivity extends BaseActivity {
                     intent.putExtra("budgetIcon", icon);
                 } else if (iconType.equalsIgnoreCase("debt")) {
                     intent.putExtra("debtIcon", icon);
+                }  else if (iconType.equalsIgnoreCase("account")) {
+                    intent.putExtra("accountIcon", icon);
                 }
                 setResult(-1, intent);
                 finish();
@@ -142,7 +144,7 @@ public class IconPickerActivity extends BaseActivity {
     private void bindIcons() {
         try {
 
-            if (iconType.equalsIgnoreCase("wallet")) {
+            if (iconType.equalsIgnoreCase("wallet") || iconType.equalsIgnoreCase("account")) {
                 List<Integer> walletIcons = DataHelper.getWalletIcons();
                 if (walletIcons.isEmpty()) {
 
@@ -164,36 +166,27 @@ public class IconPickerActivity extends BaseActivity {
                             if (position == selectedPosition) {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                    wrapper.getBackground().setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor(color), BlendMode.SRC_OVER));
-                                    imageView.setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#F8F8F8"), BlendMode.SRC_IN));
+                                    wrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(color), BlendMode.SRC_OVER));
+                                    imageView.setColorFilter(new BlendModeColorFilter(Color.parseColor("#F8F8F8"), BlendMode.SRC_IN));
                                 } else {
-
                                     Drawable drawable = wrapper.getBackground().mutate();
                                     DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
                                     DrawableCompat.setTint(drawable, Color.parseColor(color));
                                     wrapper.setBackground(drawable);
-
-                                    imageView.setColorFilter(
-                                            Color.parseColor("#F8F8F8"), PorterDuff.Mode.SRC_IN);
+                                    imageView.setColorFilter(Color.parseColor("#F8F8F8"), PorterDuff.Mode.SRC_IN);
                                 }
 
                             } else {
 
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                    wrapper.getBackground().setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#E0E0E0"), BlendMode.SRC_OVER));
-                                    imageView.setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#262525"), BlendMode.SRC_IN));
+                                    wrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor("#E0E0E0"), BlendMode.SRC_OVER));
+                                    imageView.setColorFilter(new BlendModeColorFilter(Color.parseColor("#262525"), BlendMode.SRC_IN));
                                 } else {
                                     Drawable drawable = wrapper.getBackground().mutate();
                                     DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
                                     DrawableCompat.setTint(drawable, Color.parseColor(color));
                                     wrapper.setBackground(drawable);
-
-                                    imageView.setColorFilter(
-                                            Color.parseColor("#262525"), PorterDuff.Mode.SRC_IN);
+                                    imageView.setColorFilter(Color.parseColor("#262525"), PorterDuff.Mode.SRC_IN);
                                 }
                             }
 
@@ -219,51 +212,35 @@ public class IconPickerActivity extends BaseActivity {
                     rvCategories.setVisibility(View.GONE);
                     emptyWrapper.setVisibility(View.VISIBLE);
                 } else {
-
                     iconAdapter = new RecyclerViewAdapter<>(IconPickerActivity.this, walletIcons, R.layout.item_icon_picker) {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
                         public void onPostBindViewHolder(ViewHolder holder, Integer wallets) {
-
                             ConstraintLayout wrapper = holder.getView(R.id.wrapper);
                             AppCompatImageView imageView = holder.getView(R.id.imageView);
-
                             imageView.setImageResource(wallets);
-
                             int position = holder.getBindingAdapterPosition();
                             if (position == selectedPosition) {
-
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                    wrapper.getBackground().setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor(color), BlendMode.SRC_OVER));
-                                    imageView.setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#F8F8F8"), BlendMode.SRC_IN));
+                                    wrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor(color), BlendMode.SRC_OVER));
+                                    imageView.setColorFilter(new BlendModeColorFilter(Color.parseColor("#F8F8F8"), BlendMode.SRC_IN));
                                 } else {
-
                                     Drawable drawable = wrapper.getBackground().mutate();
                                     DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
                                     DrawableCompat.setTint(drawable, Color.parseColor(color));
                                     wrapper.setBackground(drawable);
-
-                                    imageView.setColorFilter(
-                                            Color.parseColor("#F8F8F8"), PorterDuff.Mode.SRC_IN);
+                                    imageView.setColorFilter(Color.parseColor("#F8F8F8"), PorterDuff.Mode.SRC_IN);
                                 }
-
                             } else {
-
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                    wrapper.getBackground().setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#E0E0E0"), BlendMode.SRC_OVER));
-                                    imageView.setColorFilter(
-                                            new BlendModeColorFilter(Color.parseColor("#262525"), BlendMode.SRC_IN));
+                                    wrapper.getBackground().setColorFilter(new BlendModeColorFilter(Color.parseColor("#E0E0E0"), BlendMode.SRC_OVER));
+                                    imageView.setColorFilter(new BlendModeColorFilter(Color.parseColor("#262525"), BlendMode.SRC_IN));
                                 } else {
                                     Drawable drawable = wrapper.getBackground().mutate();
                                     DrawableCompat.setTintMode(drawable, PorterDuff.Mode.SRC_OVER);
                                     DrawableCompat.setTint(drawable, Color.parseColor(color));
                                     wrapper.setBackground(drawable);
-
-                                    imageView.setColorFilter(
-                                            Color.parseColor("#262525"), PorterDuff.Mode.SRC_IN);
+                                    imageView.setColorFilter(Color.parseColor("#262525"), PorterDuff.Mode.SRC_IN);
                                 }
                             }
 

@@ -34,4 +34,8 @@ public interface AccountCurrencyMappingDao {
 
     @Update
     void update(AccountCurrencyMappingEntity entity);
+
+    @Query("UPDATE account_currency_mapping SET isActive = 0 " +
+            "WHERE accountId = :accountId AND isActive = 1")
+    void deactivateAccountCurrencyMappings(int accountId);
 }

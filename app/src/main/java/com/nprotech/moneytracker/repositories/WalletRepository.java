@@ -100,7 +100,7 @@ public class WalletRepository {
         for (TransactionEntity transaction : transactions) {
             int rows = transactionDao.deleteTransaction(transaction.tempTransactionServerId, updatedAt);
 
-            if(rows > 0) {
+            if (rows > 0) {
                 budgetRepository.checkBudgetAlerts();
             }
         }
@@ -189,8 +189,52 @@ public class WalletRepository {
     }
 
     private void recalculateAccountBalance(int accountId) {
-
         double accountBalance = walletDao.getAccountBalance(accountId);
         accountDao.updateAccountById(accountId, accountBalance);
+    }
+
+    public boolean canChangeAccountCurrency(int accountId) {
+        return transactionDao.getActiveTransactionCount(accountId) == 0;
+    }
+
+    public boolean updateDefaultWalletOpeningAmount(int accountId, double openingAmount) {
+        final boolean[] updated = {
+                false
+        };
+        database.runInTransaction(() -> {
+            if (transactionDao.getBalanceDecreasingTransactionCount(accountId) > 0) {
+                return;
+            }
+
+            List<WalletEntity> wallets = walletDao.getWalletsByAccountId(accountId);
+
+            WalletEntity defaultWallet = null;
+
+            for (WalletEntity wallet : wallets) {
+                if (wallet.isDefault) {
+                    defaultWallet = wallet;
+                    break;
+                }
+            }
+
+            if (defaultWallet == null) {
+                return;
+            }
+
+            defaultWallet.initialAmount = openingAmount;
+            List<TransactionEntity> transactions = transactionDao.getTransactionsForWallet(defaultWallet.id, accountId);
+            defaultWallet.amount = calculateWalletBalance(defaultWallet.id, openingAmount, transactions);
+
+            walletDao.updateWallet(defaultWallet);
+            recalculateAccountBalance(accountId);
+
+            updated[0] = true;
+        });
+
+        return updated[0];
+    }
+
+    public int walletCount(int accountId) {
+        return walletDao.walletCount(accountId);
     }
 }

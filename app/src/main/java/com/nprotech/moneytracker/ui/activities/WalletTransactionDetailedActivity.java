@@ -365,6 +365,7 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
                 intent.putExtra("categoryId", 0);
                 intent.putExtra("walletId", walletId);
                 intent.putExtra("categoryName", "");
+                intent.putExtra("isFromAccount", false);
                 startActivity(intent);
                 ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
@@ -408,7 +409,6 @@ public class WalletTransactionDetailedActivity extends BaseActivity {
 
     private void switchWallets() {
         try {
-
             BottomSheetDialog dialog = new BottomSheetDialog(this);
             View bottomView = getLayoutInflater().inflate(R.layout.bottom_wallet_picker_layout, findViewById(android.R.id.content), false);
             RecyclerView rvWallets = bottomView.findViewById(R.id.rvWallets);
