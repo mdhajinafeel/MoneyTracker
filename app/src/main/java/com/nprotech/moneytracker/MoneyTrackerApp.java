@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.hilt.work.HiltWorkerFactory;
 import androidx.work.Configuration;
 
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
@@ -78,6 +79,13 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
         // Firebase crashlytics
         firebaseCrashlytics();
 
+        // Google Ads
+        new Thread(() -> MobileAds.initialize(getApplicationContext(),
+                initializationStatus -> {
+                    // AdMob initialized.
+                })
+        ).start();
+
         // Budget Repeat
         BudgetRepeatScheduler.scheduleBudgetRepeat(this);
 
@@ -88,7 +96,7 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
     private void initSecureSharedPref() {
         try {
             String appName = getApplicationContext().getString(R.string.app_name);
-            String prefName = appName +  "_PREF";
+            String prefName = appName + "_PREF";
             String prefix = appName.toLowerCase() + "_money_tracker";
             byte[] seed = (appName.toLowerCase() + "_money_tracker").getBytes(StandardCharsets.UTF_8);
             SecuredPreferenceStore.init(getApplicationContext(), prefName, prefix, seed, new DefaultRecoveryHandler());

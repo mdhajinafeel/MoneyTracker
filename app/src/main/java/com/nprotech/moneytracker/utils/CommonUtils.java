@@ -367,7 +367,6 @@ public class CommonUtils {
     // =========================================================
     // FILE NAME & EXTENSION
     // =========================================================
-
     public static String getFileName(Uri uri, Context context) {
         String fileName = null;
 

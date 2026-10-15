@@ -10,7 +10,7 @@ android {
     compileSdk 37
 
     defaultConfig {
-        applicationId "com.nprotech.moneytracker"
+        applicationId "com.expenixo.moneytracker"
         minSdk 24
         targetSdk 37
 
@@ -37,15 +37,20 @@ android {
             initWith release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.release
-            debuggable true
+            debuggable false
 
-            buildConfigField "String", "APPLICATION_NAME", "\"CGR Terra ERP\""
-            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_TERRAERP-Prod\""
+            // Release package:
+            // com.expenixo.moneytracker
+
+            buildConfigField "String", "APPLICATION_NAME", "\"EXPENIXO\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"EXPENIXO-Prod\""
             buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
             buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+            buildConfigField "String", "FIREBASE_URL", "\"https://expenixo-money-tracker-2f0ce.web.app/\""
+            // TODO CHANGE
+            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"NEED TO CHANGE\""
         }
 
         debug {
@@ -53,12 +58,17 @@ android {
             applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
 
-            buildConfigField "String", "APPLICATION_NAME", "\"CGR Terra ERP\""
-            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"CGR_TERRAERP-Dev\""
+            // Debug package:
+            // com.expenixo.moneytracker.debug
+
+            buildConfigField "String", "APPLICATION_NAME", "\"EXPENIXO\""
+            buildConfigField "String", "APP_INSTANCE_PREFIX", "\"EXPENIXO-Debug\""
             buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
             buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
             buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
+            buildConfigField "String", "FIREBASE_URL", "\"https://expenixo-money-tracker-2f0ce.web.app/\""
+            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"ca-app-pub-3940256099942544/9214589741\""
         }
     }
 
@@ -185,6 +195,16 @@ dependencies {
     // Biometric
     // --------------------------
     implementation libs.biometric
+
+    // --------------------------
+    // Browser
+    // --------------------------
+    implementation libs.androidx.browser
+
+    // --------------------------
+    // Google Ads
+    // --------------------------
+    implementation libs.play.services.ads
 
     // ---------------------------
     // Testing

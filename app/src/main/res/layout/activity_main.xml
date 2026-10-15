@@ -204,10 +204,22 @@
         android:layout_height="0dp"
         android:background="@color/app_light_background"
         android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/toolbarWrapper"
+        app:layout_constraintBottom_toTopOf="@id/adViewContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- AdMob Banner Container -->
+    <FrameLayout
+        android:id="@+id/adViewContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarWrapper" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

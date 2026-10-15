@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.nprotech.moneytracker.BuildConfig;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
 import com.nprotech.moneytracker.db.entites.CommonDataEntity;
@@ -292,6 +293,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
             SettingHelper.rateApp(this);
         } else if (item.settingType == SettingType.SHARE_APP) {
             SettingHelper.shareApp(this);
+        } else if (item.settingType == SettingType.PRIVACY_POLICY) {
+            SettingHelper.openLegalPage(this, BuildConfig.FIREBASE_URL + "privacy-policy.html");
+        } else if (item.settingType == SettingType.TERMS_CONDITIONS) {
+            SettingHelper.openLegalPage(this, BuildConfig.FIREBASE_URL + "terms-and-conditions.html");
         } else if (item.settingType == SettingType.ABOUT) {
             startActivity(new Intent(SettingsActivity.this, AboutActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);

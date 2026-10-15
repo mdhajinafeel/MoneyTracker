@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,6 +30,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.nprotech.moneytracker.R;
@@ -74,6 +81,7 @@ public class MainActivity extends BaseActivity {
     private LiveData<BalanceSummaryModel> accountSummaryLiveData;
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE = 1001;
     private RecyclerViewAdapter<AccountEntity> accountAdapter;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +91,9 @@ public class MainActivity extends BaseActivity {
         hideKeyboard(this);
         requestNotificationPermission();
         initComponents(savedInstanceState);
+
+        // ADS BANNER
+        loadBanner();
     }
 
     private void initComponents(Bundle savedInstanceState) {
@@ -495,6 +506,71 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
+
+    private void loadBanner() {
+        FrameLayout adContainer = findViewById(R.id.adViewContainer);
+
+        if (adContainer == null || adView != null) {
+            return;
+        }
+
+        // IMPORTANT: Do not use GONE before measuring the container.
+        adContainer.setVisibility(View.GONE);
+
+        adContainer.post(() -> {
+            if (isFinishing() || isDestroyed() || adView != null) {
+                return;
+            }
+
+            int widthPx = adContainer.getWidth();
+
+            if (widthPx <= 0) {
+                // Try again after the next layout pass.
+                adContainer.getViewTreeObserver()
+                        .addOnGlobalLayoutListener(new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
+                            @Override
+                            public void onGlobalLayout() {
+                                if (adContainer.getWidth() <= 0) {
+                                    return;
+                                }
+
+                                adContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                                loadBanner();
+                            }
+                        });
+                return;
+            }
+
+            adView = new AdView(MainActivity.this);
+
+            // TEST THIS FIRST. Replace with BuildConfig.BANNER_AD_UNIT_ID
+            // after confirming the test banner works.
+            adView.setAdUnitId("ca-app-pub-8483476381850373/5973236117");
+            adView.setAdSize(AdSize.BANNER);
+
+            adView.setAdListener(new AdListener() {
+                @Override
+                public void onAdLoaded() {
+                    adContainer.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdFailedToLoad(@NonNull LoadAdError error) {
+                    AppLogger.e(getClass(), "loadTestBanner: code=" + error.getCode() + ", message=" + error.getMessage(),
+                            new Exception("AdMob banner failed to load"));
+                    adContainer.setVisibility(View.GONE);
+                    adView.destroy();
+                    adView = null;
+                }
+            });
+
+            adContainer.removeAllViews();
+            adContainer.addView(adView, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT, android.view.Gravity.CENTER));
+            adView.loadAd(new AdRequest.Builder().build());
+        });
+    }
+
 
     @Override
     protected void onResume() {

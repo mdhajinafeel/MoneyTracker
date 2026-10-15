@@ -504,6 +504,11 @@
             android:name="firebase_crashlytics_collection_enabled"
             android:value="true" />
 
+        <!-- Google Ads -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8483476381850373~8947803687" />
+
         <!-- File Providers -->
         <provider
             android:name="androidx.core.content.FileProvider"

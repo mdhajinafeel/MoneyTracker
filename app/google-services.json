@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "793461084847",
-    "project_id": "money-tracker-7c099",
-    "storage_bucket": "money-tracker-7c099.firebasestorage.app"
+    "project_number": "430019303750",
+    "project_id": "expenixo-money-tracker-2f0ce",
+    "storage_bucket": "expenixo-money-tracker-2f0ce.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:793461084847:android:98aef4cb8a5aae4b0d3a5a",
+        "mobilesdk_app_id": "1:430019303750:android:9acf354edd52261585ed47",
         "android_client_info": {
-          "package_name": "com.nprotech.moneytracker"
+          "package_name": "com.expenixo.moneytracker"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAeIzwv28KFC5OHoH5YVOkhSzVrjhO7j98"
+          "current_key": "AIzaSyDSWn4DY4GYbwHYZtH2d1JOprWAnEGpFGQ"
         }
       ],
       "services": {
@@ -26,15 +26,15 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:793461084847:android:5a0cd344b3abc89d0d3a5a",
+        "mobilesdk_app_id": "1:430019303750:android:cd1478eb7ac7711b85ed47",
         "android_client_info": {
-          "package_name": "com.nprotech.moneytracker.debug"
+          "package_name": "com.expenixo.moneytracker.debug"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAeIzwv28KFC5OHoH5YVOkhSzVrjhO7j98"
+          "current_key": "AIzaSyDSWn4DY4GYbwHYZtH2d1JOprWAnEGpFGQ"
         }
       ],
       "services": {

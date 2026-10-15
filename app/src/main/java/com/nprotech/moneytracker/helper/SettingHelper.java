@@ -2,13 +2,14 @@ package com.nprotech.moneytracker.helper;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.browser.customtabs.CustomTabsIntent;
 
-import com.google.android.gms.tasks.Task;
-import com.google.android.play.core.review.ReviewException;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
@@ -16,46 +17,50 @@ import com.nprotech.moneytracker.R;
 
 public class SettingHelper {
 
-    //-----------------------
+    // -----------------------
     // RATE APP
-    //-----------------------
+    // -----------------------
     public static void rateApp(@NonNull Activity activity) {
+
+        // TODO Change to true after Expenixo is published on Google Play
+        boolean isPublishedOnPlayStore = false;
+        if (!isPublishedOnPlayStore) {
+            Toast.makeText(activity, activity.getString(R.string.app_google_play_yet, activity.getString(R.string.app_name)), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         ReviewManager manager = ReviewManagerFactory.create(activity);
-        Task<ReviewInfo> request = manager.requestReviewFlow();
-        request.addOnCompleteListener(task -> {
+        manager.requestReviewFlow().addOnCompleteListener(task -> {
+            if (activity.isFinishing() || activity.isDestroyed()) {
+                return;
+            }
             if (task.isSuccessful()) {
                 ReviewInfo reviewInfo = task.getResult();
-                manager.launchReviewFlow(activity, reviewInfo)
-                        .addOnCompleteListener(launchTask -> {
-                            // Google may or may not show the dialog.
-                            // Flow has finished.
-                            AppLogger.d(SettingHelper.class, "Review flow completed");
-                        });
+                manager.launchReviewFlow(activity, reviewInfo).addOnCompleteListener(launchTask ->
+                                AppLogger.d(SettingHelper.class, "Review flow completed"));
             } else {
-                Exception exception = task.getException();
-                if (exception instanceof ReviewException reviewException) {
-                    AppLogger.e(SettingHelper.class, "rateApp", reviewException);
-                } else {
-                    AppLogger.e(SettingHelper.class, "rateApp", exception);
-                }
+                AppLogger.e(SettingHelper.class, "rateApp", task.getException());
                 openPlayStore(activity);
             }
         });
     }
 
-    //-----------------------
+    // -----------------------
     // OPEN PLAY STORE
-    //-----------------------
-    private static void openPlayStore(Activity activity) {
-        // WhatsApp package name for testing
-        String packageName = "com.whatsapp";
+    // -----------------------
+    private static void openPlayStore(@NonNull Activity activity) {
+        // TODO Change to true after Expenixo is published on Google Play
+        boolean isPublishedOnPlayStore = false;
+        if (!isPublishedOnPlayStore) {
+            Toast.makeText(activity, activity.getString(R.string.app_google_play_yet, activity.getString(R.string.app_name)), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String packageName = activity.getPackageName();
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activity.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName));
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activity.startActivity(intent);
         }
     }
@@ -75,5 +80,13 @@ public class SettingHelper {
         activity.startActivity(
                 Intent.createChooser(intent, "Share " + appName)
         );
+    }
+
+    //-------------------------
+    // LEGAL PAGE
+    //-------------------------
+    public static void openLegalPage(Context context, String url) {
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder().setShowTitle(true).build();
+        customTabsIntent.launchUrl(context, Uri.parse(url));
     }
 }

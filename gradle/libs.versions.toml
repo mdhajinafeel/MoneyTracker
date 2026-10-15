@@ -34,6 +34,8 @@ review = "2.0.2"
 tasks = "18.4.1"
 biometric = "1.1.0"
 hiltWorker = "1.4.0"
+browser = "1.10.0"
+playServicesAds = "25.5.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -78,6 +80,8 @@ billing = { module = "com.android.billingclient:billing", version.ref = "billing
 review = { module = "com.google.android.play:review", version.ref = "review" }
 tasks = { module = "com.google.android.gms:play-services-tasks", version.ref = "tasks" }
 biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
+androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
