@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">खाते</string>
+    <string name="add_account">खाता जोड़ें</string>
+    <string name="edit_account">खाता संपादित करें</string>
+    <string name="account_heading">हम इस खाते को क्या नाम दें?</string>
+    <string name="choose_name">ऐसा नाम चुनें जिससे आप इस खाते को आसानी से पहचान सकें।</string>
+    <string name="account_name">खाते का नाम</string>
+    <string name="create_account">खाता बनाएँ</string>
+    <string name="select_account">खाता चुनें</string>
+    <string name="initial_balance">प्रारंभिक शेष राशि दर्ज करें</string>
+    <string name="opening_balance_subtext">इस खाते की शुरुआती शेष राशि जोड़ें।</string>
+    <string name="initial_amount">प्रारंभिक शेष राशि</string>
+    <string name="initial">प्रारंभिक</string>
+    <string name="account_balance_format">शेष राशि: %1$s</string>
+    <string name="manage_account_desc">अपने सभी बैंक खातों, कार्ड और अन्य खातों को एक ही जगह पर प्रबंधित करें।</string>
+    <string name="your_accounts">आपके खाते</string>
+    <string name="all_accounts">सभी खाते</string>
+    <string name="add_new_account">नया खाता जोड़ें</string>
+    <string name="add_account_desc">बैंक खाता, क्रेडिट कार्ड या अन्य खाता जोड़ें</string>
+    <string name="archived_accounts">संग्रहीत खाते</string>
+    <string name="archived_accounts_desc">अपने संग्रहीत खाते देखें और पुनर्स्थापित करें</string>
+    <string name="account_created">खाता बनाया गया</string>
+    <string name="account_updated">खाता अपडेट किया गया</string>
+    <string name="currency_edit_account">खाता संपादित करते समय मुद्रा नहीं बदली जा सकती।</string>
+    <string name="account_action">खाते की कार्रवाई</string>
+    <string name="update_account_detail">खाते का विवरण अपडेट करें</string>
+    <string name="use_as_your_default_account">इसे अपना डिफ़ॉल्ट खाता बनाएँ</string>
+    <string name="see_account_detail">खाते का विवरण देखें</string>
+    <string name="hide_from_active_accounts">सक्रिय खातों से छिपाएँ</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[सभी वॉलेट और लेन-देन हटाएँ]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[वॉलेट और लेन-देन हटाएँ]]></string>
+    <string name="remove_account">खाता हटाएँ</string>
+    <string name="account_set_as_default">खाता डिफ़ॉल्ट के रूप में सेट किया गया</string>
+    <string name="archive_account">खाता संग्रहित करें?</string>
+    <string name="account_archived">खाता संग्रहित किया गया</string>
+    <string name="delete_account_message">इससे खाता और इसके सभी वॉलेट तथा लेन-देन स्थायी रूप से हट जाएँगे। इस कार्रवाई को वापस नहीं किया जा सकता।</string>
+    <string name="delete_account">खाता हटाएँ</string>
+    <string name="account_deleted">खाता हटा दिया गया</string>
+    <string name="error_delete_account">खाता हटाते समय त्रुटि हुई</string>
+    <string name="opening_balance_editing_account">खाता संपादित करते समय शुरुआती शेष राशि नहीं बदली जा सकती।</string>
+    <string name="cannot_change_initial_amount">मौजूदा लेन-देन के कारण प्रारंभिक राशि नहीं बदली जा सकती।</string>
+    <string name="archive_account_message">यह खाता सक्रिय खातों से छिपा दिया जाएगा। आपकी शेष राशि और लेन-देन सुरक्षित रहेंगे।</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[खाते के वॉलेट और लेन-देन हटाएँ?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[इस खाते के सभी वॉलेट और लेन-देन हटा दिए जाएँगे। इस कार्रवाई को वापस नहीं किया जा सकता।]]></string>
+    <string name="error_delete_account_trans">खाते के लेन-देन हटाते समय त्रुटि हुई</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[खाते के वॉलेट और लेन-देन हटा दिए गए]]></string>
+    <string name="transactions">लेन-देन</string>
+    <string name="view_all_transactions">सभी लेन-देन देखें</string>
+    <string name="view_all_recurring_transactions">सभी आवर्ती लेन-देन देखें</string>
+    <string name="recurring_transactions">आवर्ती लेन-देन</string>
+    <string name="account_details">खाते का विवरण</string>
+    <string name="archived_account_desc">ये खाते संग्रहित हैं और आपकी सक्रिय खाता सूची से छिपे हुए हैं। सभी वॉलेट और लेन-देन का डेटा सुरक्षित रखा गया है और इसे कभी भी पुनर्स्थापित किया जा सकता है।</string>
+    <string name="restore_account">खाता पुनर्स्थापित करें?</string>
+    <string name="account_restore">खाता पुनर्स्थापित किया गया</string>
+    <string name="restore_account_message">यह खाता आपके सक्रिय खातों में वापस ले जाया जाएगा। आपकी शेष राशि और लेन-देन में कोई बदलाव नहीं होगा।</string>
+    <string name="restore_your_account">अपना खाता पुनर्स्थापित करें</string>
+    <string name="account_transactions">खाते के लेन-देन</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d खाता</item>
+        <item quantity="other">%d खाते</item>
+    </plurals>
+</resources>

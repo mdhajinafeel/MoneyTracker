@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">ارز</string>
+    <string name="choose_currency">ارز خود را انتخاب کنید</string>
+    <string name="select_currency_subtext">ارز مورد استفاده برای این حساب را انتخاب کنید.</string>
+    <string name="select_the_currency">ارز را انتخاب کنید</string>
+    <string name="search_currency">جستجوی ارز</string>
+    <string name="select_currency">انتخاب ارز</string>
+    <string name="add_currency">افزودن ارز</string>
+    <string name="edit_currency">ویرایش ارز</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">نرخ</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">ارز اضافی وجود ندارد</string>
+    <string name="empty_currency_hint">برای افزودن ارز، روی دکمه + ضربه بزنید.</string>
+    <string name="delete_currency">حذف ارز</string>
+    <string name="delete_message_currency">آیا مطمئن هستید که می‌خواهید این ارز را حذف کنید؟</string>
+    <string name="message_currency">کیف پول‌هایی که از این ارز استفاده می‌کنند، به ارز پایه تغییر خواهند کرد.</string>
+    <string name="currency_has_been_removed_successfully">ارز حذف شد</string>
+    <string name="base_currency">ارز پایه</string>
+    <string name="additional_currency">ارزهای اضافی</string>
+    <string name="currency_subtext">ارزی را که می‌خواهید استفاده کنید انتخاب کنید</string>
+    <string name="enter_the_rate">نرخ را وارد کنید</string>
+    <string name="default_base_currency">این ارز، ارز پیش‌فرض و پایه شماست</string>
+    <string name="exchange_currency_hint">نرخ‌های تبدیل بر اساس ارز پایه شما (%1$s) محاسبه می‌شوند.\nمی‌توانید نرخ هر ارز را جداگانه به‌روزرسانی کنید.</string>
+</resources>

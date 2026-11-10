@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Harian</string>
+    <string name="calendar_weekly">Mingguan</string>
+    <string name="calendar_monthly">Bulanan</string>
+    <string name="calendar_quarterly">Suku Tahunan</string>
+    <string name="calendar_yearly">Tahunan</string>
+    <string name="calendar_all">Semua</string>
+    <string name="calendar_custom">Tersuai</string>
+
+    <string name="total_balance">Jumlah Baki</string>
+    <string name="balance">Baki</string>
+    <string name="opening_balance">Baki Awal</string>
+    <string name="ending_balance">Baki Akhir</string>
+    <string name="overview">Gambaran Keseluruhan</string>
+    <string name="breakdown">Pecahan</string>
+    <string name="transaction_overview">Gambaran Keseluruhan Transaksi</string>
+    <string name="select_range">Pilih Julat</string>
+    <string name="all_time">Sepanjang Masa</string>
+    <string name="period_spending">Perbelanjaan Tempoh Ini</string>
+</resources>

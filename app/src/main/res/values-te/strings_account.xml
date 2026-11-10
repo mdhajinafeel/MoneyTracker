@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">ఖాతాలు</string>
+    <string name="add_account">ఖాతాను జోడించండి</string>
+    <string name="edit_account">ఖాతాను సవరించండి</string>
+    <string name="account_heading">ఈ ఖాతాకు ఏ పేరు పెట్టాలనుకుంటున్నారు?</string>
+    <string name="choose_name">ఈ ఖాతాను సులభంగా గుర్తించడానికి ఒక పేరును ఎంచుకోండి.</string>
+    <string name="account_name">ఖాతా పేరు</string>
+    <string name="create_account">ఖాతాను సృష్టించండి</string>
+    <string name="select_account">ఖాతాను ఎంచుకోండి</string>
+    <string name="initial_balance">ప్రారంభ నిల్వను నమోదు చేయండి</string>
+    <string name="opening_balance_subtext">ఈ ఖాతా కోసం ప్రారంభ నిల్వను జోడించండి.</string>
+    <string name="initial_amount">ప్రారంభ నిల్వ</string>
+    <string name="initial">ప్రారంభ</string>
+    <string name="account_balance_format">నిల్వ: %1$s</string>
+    <string name="manage_account_desc">మీ అన్ని బ్యాంక్ ఖాతాలు, కార్డులు మరియు ఇతర ఖాతాలను ఒకే చోట నిర్వహించండి.</string>
+    <string name="your_accounts">మీ ఖాతాలు</string>
+    <string name="all_accounts">అన్ని ఖాతాలు</string>
+    <string name="add_new_account">కొత్త ఖాతాను జోడించండి</string>
+    <string name="add_account_desc">బ్యాంక్ ఖాతా, క్రెడిట్ కార్డ్ లేదా ఇతర ఖాతాను జోడించండి</string>
+    <string name="archived_accounts">ఆర్కైవ్ చేసిన ఖాతాలు</string>
+    <string name="archived_accounts_desc">ఆర్కైవ్ చేసిన ఖాతాలను చూడండి మరియు పునరుద్ధరించండి</string>
+    <string name="account_created">ఖాతా సృష్టించబడింది</string>
+    <string name="account_updated">ఖాతా నవీకరించబడింది</string>
+    <string name="currency_edit_account">ఖాతాను సవరించేటప్పుడు కరెన్సీని మార్చలేరు.</string>
+    <string name="account_action">ఖాతా చర్య</string>
+    <string name="update_account_detail">ఖాతా వివరాలను నవీకరించండి</string>
+    <string name="use_as_your_default_account">మీ డిఫాల్ట్ ఖాతాగా ఉపయోగించండి</string>
+    <string name="see_account_detail">ఖాతా వివరాలను చూడండి</string>
+    <string name="hide_from_active_accounts">క్రియాశీల ఖాతాల నుండి దాచండి</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[అన్ని వాలెట్లు & లావాదేవీలను తొలగించండి]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[వాలెట్లు & లావాదేవీలను తొలగించండి]]></string>
+    <string name="remove_account">ఖాతాను తొలగించండి</string>
+    <string name="account_set_as_default">ఖాతా డిఫాల్ట్‌గా సెట్ చేయబడింది</string>
+    <string name="archive_account">ఖాతాను ఆర్కైవ్ చేయాలా?</string>
+    <string name="account_archived">ఖాతా ఆర్కైవ్ చేయబడింది</string>
+    <string name="delete_account_message">ఈ ఖాతా మరియు దానిలోని అన్ని వాలెట్లు, లావాదేవీలు శాశ్వతంగా తొలగించబడతాయి. ఈ చర్యను రద్దు చేయలేరు.</string>
+    <string name="delete_account">ఖాతాను తొలగించండి</string>
+    <string name="account_deleted">ఖాతా తొలగించబడింది</string>
+    <string name="error_delete_account">ఖాతాను తొలగించడంలో లోపం</string>
+    <string name="opening_balance_editing_account">ఖాతాను సవరించేటప్పుడు ప్రారంభ నిల్వను మార్చలేరు.</string>
+    <string name="cannot_change_initial_amount">ఇప్పటికే లావాదేవీలు ఉన్నందున ప్రారంభ మొత్తాన్ని మార్చలేరు.</string>
+    <string name="archive_account_message">ఈ ఖాతా క్రియాశీల ఖాతాల నుండి దాచబడుతుంది. మీ నిల్వ మరియు లావాదేవీలు భద్రంగా ఉంటాయి.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[ఖాతా వాలెట్లు & లావాదేవీలను తొలగించాలా?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[ఈ ఖాతాలోని అన్ని వాలెట్లు & లావాదేవీలు తొలగించబడతాయి. ఈ చర్యను రద్దు చేయలేరు.]]></string>
+    <string name="error_delete_account_trans">ఖాతా లావాదేవీని తొలగించడంలో లోపం</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[ఖాతా వాలెట్లు & లావాదేవీలు తొలగించబడ్డాయి]]></string>
+    <string name="transactions">లావాదేవీలు</string>
+    <string name="view_all_transactions">అన్ని లావాదేవీలను చూడండి</string>
+    <string name="view_all_recurring_transactions">అన్ని పునరావృత లావాదేవీలను చూడండి</string>
+    <string name="recurring_transactions">పునరావృత లావాదేవీలు</string>
+    <string name="account_details">ఖాతా వివరాలు</string>
+    <string name="archived_account_desc">ఈ ఖాతాలు ఆర్కైవ్ చేయబడి మీ క్రియాశీల ఖాతాల జాబితా నుండి దాచబడ్డాయి. అన్ని వాలెట్లు మరియు లావాదేవీల డేటా భద్రంగా ఉంటుంది. ఎప్పుడైనా పునరుద్ధరించవచ్చు.</string>
+    <string name="restore_account">ఖాతాను పునరుద్ధరించాలా?</string>
+    <string name="account_restore">ఖాతా పునరుద్ధరించబడింది</string>
+    <string name="restore_account_message">ఈ ఖాతా మళ్లీ మీ క్రియాశీల ఖాతాల్లోకి తరలించబడుతుంది. మీ నిల్వ మరియు లావాదేవీలు మారవు.</string>
+    <string name="restore_your_account">మీ ఖాతాను పునరుద్ధరించండి</string>
+    <string name="account_transactions">ఖాతా లావాదేవీలు</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d ఖాతా</item>
+        <item quantity="other">%d ఖాతాలు</item>
+    </plurals>
+</resources>

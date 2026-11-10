@@ -360,7 +360,7 @@ public class AppLockActivity extends BaseActivity {
         BiometricManager biometricManager = BiometricManager.from(this);
         if (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_WEAK) != BiometricManager.BIOMETRIC_SUCCESS) {
             fingerprintPromptStarted = false;
-            Toast.makeText(this, getString(R.string.biometric_authentication_unavailable_use_pin), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.biometric_authentication_unavailable_use_pin), Toast.LENGTH_SHORT).show();
             return;
         }
 

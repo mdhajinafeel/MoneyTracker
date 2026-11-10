@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Dziennie</string>
+    <string name="calendar_weekly">Tygodniowo</string>
+    <string name="calendar_monthly">Miesięcznie</string>
+    <string name="calendar_quarterly">Kwartalnie</string>
+    <string name="calendar_yearly">Rocznie</string>
+    <string name="calendar_all">Wszystko</string>
+    <string name="calendar_custom">Niestandardowy</string>
+
+    <string name="total_balance">Saldo całkowite</string>
+    <string name="balance">Saldo</string>
+    <string name="opening_balance">Saldo początkowe</string>
+    <string name="ending_balance">Saldo końcowe</string>
+    <string name="overview">Przegląd</string>
+    <string name="breakdown">Podział</string>
+    <string name="transaction_overview">Przegląd transakcji</string>
+    <string name="select_range">Wybierz zakres</string>
+    <string name="all_time">Cały okres</string>
+    <string name="period_spending">Wydatki w okresie</string>
+</resources>

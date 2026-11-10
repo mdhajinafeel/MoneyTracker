@@ -29,6 +29,7 @@
     <color name="very_light_orange">#0DF28C28</color>
     <color name="light_orange">#66F28C28</color>
     <color name="orange">#F28C28</color>
+    <color name="dark_orange">#713C03</color>
 
     <color name="account_dark">#6D28D9</color>
     <color name="wallet_dark">#2563EB</color>
@@ -69,13 +70,10 @@
     <color name="about_light">#E7DEFF</color>
     <color name="version_light">#EBEBEB</color>
     <color name="smart_light">#F3E8FF</color>
-
     <color name="budget_dark">#673AB7</color>
     <color name="budget_light">#F0EAF8</color>
-
     <color name="goal_dark">#0288A8</color>
     <color name="goal_light">#E3F4F7</color>
-
     <color name="debt_dark">#C62828</color>
     <color name="debt_light">#FBEAEA</color>
 
@@ -119,18 +117,6 @@
     <color name="withdraw_orange">#F57C00</color>
     <color name="withdraw_orange_disabled">#F8C9A0</color>
 
-    <color name="color_matte_black">#171717</color>
-
-    <color name="color_income_card">#F2FBF3</color>
-    <color name="color_income_circle">#B7E8C0</color>
-    <color name="color_expense_card">#FFF3F3</color>
-    <color name="color_expense_circle">#F8B4B4</color>
-    <color name="color_transfer_card">#F2F6FF</color>
-    <color name="color_transfer_circle">#B8CDF8</color>
-
-    <color name="color_pause_light">#FFF7E6</color>
-    <color name="color_pause_dark">#B45309</color>
-
     <color name="resume_dark">#2E7D32</color>
     <color name="resume_light">#66BB6A</color>
 
@@ -139,4 +125,47 @@
 
     <color name="warning_dark">#EF6C00</color>
     <color name="warning_bg">#FFF8E1</color>
+    <color name="pale_lavendar">#F4F2FC</color>
+    <color name="grayish_purple">#68658A</color>
+    <color name="lavendar_web">#E9E5F4</color>
+
+    <color name="feature_transactions">#1595FE</color>
+    <color name="feature_accounts">#00A896</color>
+    <color name="feature_wallets">#0788FC</color>
+    <color name="feature_currencies">#E5A000</color>
+    <color name="feature_budgets">#961EF4</color>
+    <color name="feature_goals">#FB00A5</color>
+    <color name="feature_debt_loans">#7414E7</color>
+    <color name="feature_recurring">#FF8C0C</color>
+    <color name="feature_cloud_backup">#0081FC</color>
+    <color name="feature_ad_free">#FC0066</color>
+
+    <color name="feature_transactions_bg">#E5F3FF</color>
+    <color name="feature_accounts_bg">#E0F5F1</color>
+    <color name="feature_wallets_bg">#E5F2FF</color>
+    <color name="feature_currencies_bg">#FFF5D9</color>
+    <color name="feature_budgets_bg">#F1E5FF</color>
+    <color name="feature_goals_bg">#FFE5F5</color>
+    <color name="feature_debt_loans_bg">#EEE4FF</color>
+    <color name="feature_recurring_bg">#FFF0DF</color>
+    <color name="feature_cloud_backup_bg">#E3F2FF</color>
+    <color name="feature_ad_free_bg">#FFE5EE</color>
+
+    <color name="bright_color">#F0ECF5</color>
+    <color name="tranquil_eve">#EEEAF4</color>
+    <color name="color_gold">#D2AF26</color>
+    <color name="color_lavendar">#F3E8FF</color>
+    <color name="color_violet_purple">#7C3AED</color>
+    <color name="color_white_wash">#FAF9FE</color>
+    <color name="color_iris_eyes">#17104D</color>
+    <color name="color_matte_black">#171717</color>
+    <color name="color_income_card">#F2FBF3</color>
+    <color name="color_income_circle">#B7E8C0</color>
+    <color name="color_expense_card">#FFF3F3</color>
+    <color name="color_expense_circle">#F8B4B4</color>
+    <color name="color_transfer_card">#F2F6FF</color>
+    <color name="color_transfer_circle">#B8CDF8</color>
+    <color name="color_pause_light">#FFF7E6</color>
+    <color name="color_pause_dark">#B45309</color>
+    <color name="bright_violet">#7C3AED</color>
 </resources>

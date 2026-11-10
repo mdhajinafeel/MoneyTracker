@@ -24,5 +24,4 @@
         android:fontFamily="@font/exo2_medium"
         android:textColor="@color/primary_dark"
         android:textSize="@dimen/text_10" />
-
 </LinearLayout>

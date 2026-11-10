@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Gelir</string>
+    <string name="total_income">Toplam Gelir</string>
+    <string name="expense">Gider</string>
+    <string name="total_expense">Toplam Gider</string>
+    <string name="transfer">Transfer</string>
+    <string name="recurring">Düzenli İşlem</string>
+    <string name="trans_delete_failed">İşlem silinemedi</string>
+    <string name="fee">Ücret</string>
+    <string name="memo">Not</string>
+    <string name="notes">Notlar</string>
+    <string name="add_note">Not ekleyin…</string>
+    <string name="description">Açıklama</string>
+    <string name="short_description">Kısa Açıklama</string>
+    <string name="enter_amount">Tutarı Girin</string>
+    <string name="cash_wallet">Nakit Cüzdanı</string>
+    <string name="cash">Nakit</string>
+    <string name="enter_the_amount">Tutarı girin</string>
+    <string name="date">Tarih</string>
+    <string name="select_date">Tarih Seçin</string>
+    <string name="amount">Tutar</string>
+    <string name="add_record">İlk işleminizi eklemek için + düğmesine dokunun.</string>
+    <string name="type">Tür</string>
+    <string name="view_all">Tümünü Gör</string>
+    <string name="delete_transaction">İşlemi Sil</string>
+    <string name="total">Toplam</string>
+    <string name="all_transaction">Tüm İşlemler</string>
+    <string name="no_transaction">Henüz işlem yok</string>
+    <string name="start_date">Başlangıç Tarihi</string>
+    <string name="end_date">Bitiş Tarihi</string>
+    <string name="date_amp_time"><![CDATA[Tarih ve Saat]]></string>
+    <string name="future">Gelecek</string>
+    <string name="add_files">Fotoğraf veya dosya ekleyin (En fazla 5 dosya)</string>
+    <string name="attachment_title">Ekler (%1$d/5)</string>
+    <string name="tap_add_attach">Ek eklemek için dokunun</string>
+    <string name="attachment_extension">Görseller, PDF, Belgeler, Excel, ZIP vb.</string>
+    <string name="add_more">Daha Fazla Ekle</string>
+    <string name="unable_to_open_attachment">Ek açılamıyor</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Tutar (Cüzdandan)</string>
+    <string name="fee_from_wallet">Ücret (Cüzdandan)</string>
+    <string name="received_from_wallet">Alınan (Cüzdana)</string>
+    <string name="transaction_action">İşlem Eylemi</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">İşlem Ayrıntılarını Görüntüle</string>
+    <string name="change_detail">İşlem Ayrıntılarını Değiştir</string>
+    <string name="duplicate_copy">Kopya Oluştur</string>
+    <string name="remove_transaction">İşlemi Kaldır</string>
+    <string name="duplicate">Çoğalt</string>
+    <string name="duplicate_transaction">İşlemi Çoğalt</string>
+    <string name="duplicate_transaction_desc">Bu işlemin bir kopyası oluşturulsun mu?</string>
+    <string name="transaction_duplicated">İşlem çoğaltıldı</string>
+    <string name="transaction_deleted">İşlem silindi</string>
+    <string name="unable_to_save">Kaydedilemedi</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d işlem</item>
+        <item quantity="other">%d işlem</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Ek (%d)</item>
+        <item quantity="other">Ekler (%d)</item>
+    </plurals>
+</resources>

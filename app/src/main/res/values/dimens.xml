@@ -33,6 +33,7 @@
     <dimen name="padding_16">16dp</dimen>
     <dimen name="padding_18">18dp</dimen>
     <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_24">24dp</dimen>
     <dimen name="padding_60">60dp</dimen>
 
     <!-- TEXT -->
@@ -74,8 +75,12 @@
 
     <!-- HEIGHT -->
     <dimen name="edit_text_height_40">40dp</dimen>
+    <dimen name="edit_text_height_42">42dp</dimen>
     <dimen name="edit_text_height_48">48dp</dimen>
+    <dimen name="edit_text_height_52">52dp</dimen>
+    <dimen name="edit_text_height_54">54dp</dimen>
     <dimen name="edit_text_height_56">56dp</dimen>
+    <dimen name="edit_text_height_60">60dp</dimen>
     <dimen name="edit_text_height_64">64dp</dimen>
     <dimen name="keyboard_number_height">50dp</dimen>
     <dimen name="graph_height">175dp</dimen>
@@ -93,4 +98,5 @@
     <dimen name="icon_14">14dp</dimen>
     <dimen name="icon_18">18dp</dimen>
     <dimen name="icon_20">20dp</dimen>
+    <dimen name="icon_22">22dp</dimen>
 </resources>

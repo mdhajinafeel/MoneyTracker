@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Zilnic</string>
+    <string name="calendar_weekly">Săptămânal</string>
+    <string name="calendar_monthly">Lunar</string>
+    <string name="calendar_quarterly">Trimestrial</string>
+    <string name="calendar_yearly">Anual</string>
+    <string name="calendar_all">Toate</string>
+    <string name="calendar_custom">Personalizat</string>
+
+    <string name="total_balance">Sold total</string>
+    <string name="balance">Sold</string>
+    <string name="opening_balance">Sold inițial</string>
+    <string name="ending_balance">Sold final</string>
+    <string name="overview">Prezentare generală</string>
+    <string name="breakdown">Detaliere</string>
+    <string name="transaction_overview">Prezentare generală a tranzacțiilor</string>
+    <string name="select_range">Selectează intervalul</string>
+    <string name="all_time">Toată perioada</string>
+    <string name="period_spending">Cheltuieli în perioada selectată</string>
+</resources>

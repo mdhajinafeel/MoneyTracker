@@ -1,0 +1,229 @@
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Каждый расход. Каждая деталь.</string>
+    <string name="app_tag_text1">Расходы</string>
+    <string name="app_tag_text2">Аналитика</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Транзакции</string>
+    <string name="calendar">Календарь</string>
+    <string name="statistic">Аналитика</string>
+    <string name="more">Ещё</string>
+    <string name="wallet">Кошелёк</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Воскресенье</string>
+    <string name="monday">Понедельник</string>
+    <string name="tuesday">Вторник</string>
+    <string name="wednesday">Среда</string>
+    <string name="thursday">Четверг</string>
+    <string name="friday">Пятница</string>
+    <string name="saturday">Суббота</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">Вс</string>
+    <string name="monday_short">Пн</string>
+    <string name="tuesday_short">Вт</string>
+    <string name="wednesday_short">Ср</string>
+    <string name="thursday_short">Чт</string>
+    <string name="friday_short">Пт</string>
+    <string name="saturday_short">Сб</string>
+
+    <string-array name="week_days">
+        <item>Воскресенье</item>
+        <item>Понедельник</item>
+        <item>Вторник</item>
+        <item>Среда</item>
+        <item>Четверг</item>
+        <item>Пятница</item>
+        <item>Суббота</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>Вс</item>
+        <item>Пн</item>
+        <item>Вт</item>
+        <item>Ср</item>
+        <item>Чт</item>
+        <item>Пт</item>
+        <item>Сб</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Январь</string>
+    <string name="february">Февраль</string>
+    <string name="march">Март</string>
+    <string name="april">Апрель</string>
+    <string name="may">Май</string>
+    <string name="june">Июнь</string>
+    <string name="july">Июль</string>
+    <string name="august">Август</string>
+    <string name="september">Сентябрь</string>
+    <string name="october">Октябрь</string>
+    <string name="november">Ноябрь</string>
+    <string name="december">Декабрь</string>
+
+    <string-array name="month_full">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Янв</item>
+        <item>Фев</item>
+        <item>Мар</item>
+        <item>Апр</item>
+        <item>Май</item>
+        <item>Июн</item>
+        <item>Июл</item>
+        <item>Авг</item>
+        <item>Сен</item>
+        <item>Окт</item>
+        <item>Ноя</item>
+        <item>Дек</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>К1</item>
+        <item>К2</item>
+        <item>К3</item>
+        <item>К4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">По умолчанию системы</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Сброс</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Далее</string>
+    <string name="skip">Пропустить</string>
+    <string name="get_started">Начать</string>
+    <string name="press_again_to_exit">Нажмите ещё раз для выхода</string>
+    <string name="settings">Настройки</string>
+    <string name="save">Сохранить</string>
+    <string name="done">Готово</string>
+    <string name="delete">Удалить</string>
+    <string name="ok">ОК</string>
+    <string name="cancel">Отмена</string>
+    <string name="no_record">Нет записей</string>
+    <string name="no_data">Нет данных</string>
+    <string name="detail">Детали транзакции</string>
+    <string name="parsing_error">Ошибка при обработке данных</string>
+    <string name="update">Обновить</string>
+    <string name="color">Цвет</string>
+    <string name="icon">Значок</string>
+    <string name="select_icon">Выберите значок</string>
+    <string name="delete_message">Вы уверены, что хотите удалить?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Назад</string>
+    <string name="dash">-</string>
+    <string name="add_text">Добавить</string>
+    <string name="remaining">Остаток</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Посмотреть подробности</string>
+    <string name="view_breakdown">Посмотреть всю разбивку</string>
+    <string name="error_update">Ошибка при обновлении</string>
+    <string name="text_edit">Изменить</string>
+    <string name="text_delete">удалить</string>
+    <string name="text_close">Закрыть</string>
+    <string name="text_remove">Убрать</string>
+    <string name="apply">Применить</string>
+    <string name="reset">Сбросить</string>
+    <string name="select_option">Выберите вариант</string>
+    <string name="text_default">По умолчанию</string>
+    <string name="active">Активный</string>
+    <string name="inactive">Неактивный</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+    <string name="please_wait">Пожалуйста, подождите…</string>
+</resources>

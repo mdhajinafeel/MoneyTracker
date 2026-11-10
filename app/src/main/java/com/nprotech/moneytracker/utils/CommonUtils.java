@@ -41,6 +41,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -91,6 +92,17 @@ public class CommonUtils {
 
         decimalFormat.setGroupingUsed(true);
         return decimalFormat.format(value);
+    }
+
+    public static String formatCurrency(Context context, double amount, String currencyCode) {
+        try {
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(Locale.getDefault());
+            formatter.setCurrency(Currency.getInstance(currencyCode));
+            return formatter.format(amount);
+        } catch (Exception e) {
+            AppLogger.e(context.getClass(), "formatCurrency", e);
+            return String.format(Locale.getDefault(), "%.2f", amount);
+        }
     }
 
     public static String formatCompact(double value) {

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="track_recurring_transactions">Suivre les transactions récurrentes</string>
+    <string name="select_recurring">Sélectionner la récurrence</string>
+    <string name="repeat_on">Répéter le</string>
+    <string name="select_repeat_on">Sélectionner les jours de répétition</string>
+    <string name="create_transaction">Créer une transaction</string>
+    <string name="never_miss_recurring_transaction">Ne manquez plus aucune transaction récurrente</string>
+    <string name="income_recurring">Revenus récurrents</string>
+    <string name="expense_recurring">Dépenses récurrentes</string>
+    <string name="transfer_recurring">Virements récurrents</string>
+    <string name="no_repeat">Aucune répétition</string>
+    <string name="repeat_option">Option de répétition</string>
+    <string name="select_days">Sélectionner les jours</string>
+    <string name="please_select_at_least_one_day">Veuillez sélectionner au moins un jour</string>
+    <string name="times">fois</string>
+    <string name="every">Tous les</string>
+    <string name="forever">Indéfiniment</string>
+    <string name="until">Jusqu\'au</string>
+    <string name="text_for">Pendant</string>
+    <string name="text_every_value">"Tous les %1$s • %2$s"</string>
+    <string name="text_every_value1">"Tous les %1$s"</string>
+    <string name="same_day_each_month">Le même jour chaque mois (%1$d)</string>
+    <string name="end_of_month">Fin du mois</string>
+    <string name="recurring_transaction_saved">Transaction récurrente enregistrée</string>
+    <string name="failed_to_save_recurring_transaction">Échec de l\'enregistrement de la transaction récurrente</string>
+    <string name="no_recurring_yet">Aucune récurrence pour le moment</string>
+    <string name="empty_recurring_hint">Appuyez sur le bouton + pour ajouter une récurrence.</string>
+    <string name="repeat_interval_atleast">L\'intervalle de répétition doit être d\'au moins 1</string>
+    <string name="please_select_until_date">Veuillez sélectionner une date de fin</string>
+    <string name="please_enter_times">Veuillez saisir le nombre de répétitions</string>
+    <string name="please_enter_an_amount">Veuillez saisir un montant</string>
+    <string name="please_select_a_wallet">Veuillez sélectionner un portefeuille</string>
+    <string name="please_select_a_repeat_frequency">Veuillez sélectionner une fréquence de répétition</string>
+    <string name="until_date_start_date">La date de fin doit être postérieure à la date de début</string>
+    <string name="select_recurring_transaction_end">Veuillez choisir la date de fin de la transaction récurrente</string>
+    <string name="every_week_period">Tous les %1$s</string>
+    <string name="next_recurring">Suivant : %1$s</string>
+    <string name="next_recurring_text">Prochaine récurrence</string>
+    <string name="recurring_transaction_added">Transaction récurrente ajoutée</string>
+    <string name="recurring_transactions_added">Transactions récurrentes ajoutées</string>
+    <string name="a_recurring_expense_was_added">Une dépense récurrente a été ajoutée</string>
+    <string name="a_recurring_income_was_added">Un revenu récurrent a été ajouté</string>
+    <string name="a_recurring_transaction_was_added">Une transaction récurrente a été ajoutée</string>
+    <string name="recurring_transactions_were_added">" transactions récurrentes ont été ajoutées"</string>
+    <string name="activate">Activer</string>
+    <string name="text_deactivated">Désactivé</string>
+    <string name="deactivate">Désactiver</string>
+    <string name="change_recurring_detail">Modifier les détails de la récurrence</string>
+    <string name="resume_this_recurring_transaction">Reprendre cette transaction</string>
+    <string name="pause_this_recurring_transaction">Mettre cette transaction en pause</string>
+    <string name="permanently_remove_this_recurring_transaction">Supprimer définitivement cette transaction</string>
+    <string name="view_recurring_details">Afficher les détails de la récurrence</string>
+    <string name="delete_recurring">Supprimer la récurrence</string>
+    <string name="delete_recurring_message">Voulez-vous vraiment supprimer cette récurrence ?</string>
+    <string name="recurring_deleted_successfully">Récurrence supprimée</string>
+    <string name="error_delete_recurring">Erreur lors de la suppression de la récurrence</string>
+    <string name="activate_recurring">Activer la récurrence</string>
+    <string name="deactivate_recurring">Désactiver la récurrence</string>
+    <string name="delete_activate_message">Voulez-vous vraiment activer cette récurrence ?</string>
+    <string name="delete_deactivate_message">Voulez-vous vraiment désactiver cette récurrence ?</string>
+    <string name="delete_activate_sub_message">Vous pourrez la désactiver à tout moment depuis les récurrences actives.</string>
+    <string name="delete_deactivate_sub_message">Vous pourrez la réactiver à tout moment depuis les récurrences en pause.</string>
+    <string name="deactivated_successfully">Récurrence désactivée</string>
+    <string name="error_deactivate">Erreur lors de la désactivation de la récurrence</string>
+    <string name="activated_successfully">Récurrence activée</string>
+    <string name="error_activate">Erreur lors de l\'activation de la récurrence</string>
+    <string name="repeat_time">Fréquence de répétition</string>
+    <string name="recurring_detail">Détails de la récurrence</string>
+    <string name="until_date">Jusqu\'au %1$s</string>
+    <string name="recurring_transaction_reminder">Rappel de transaction récurrente</string>
+    <string name="recurring_expense_due">Votre dépense récurrente arrive à échéance.</string>
+    <string name="recurring_income_due">Votre revenu récurrent arrive à échéance.</string>
+    <string name="recurring_transfer_due">Votre virement récurrent arrive à échéance.</string>
+
+    <plurals name="day_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">jour</item>
+        <item quantity="many">jours</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Tous les %d jour</item>
+        <item quantity="many">Tous les %d jours</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d jour</item>
+        <item quantity="many">%d jours</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">semaine</item>
+        <item quantity="many">semaines</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d semaine</item>
+        <item quantity="many">%d semaines</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Tous les %d mois</item>
+        <item quantity="many">Tous les %d mois</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">mois</item>
+        <item quantity="many">mois</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">an</item>
+        <item quantity="many">ans</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Tous les %d ans</item>
+        <item quantity="many">Tous les %d ans</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">fois</item>
+        <item quantity="many">fois</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Pendant %d fois</item>
+        <item quantity="many">Pendant %d fois</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Tous les %d mois • Dernier jour</item>
+        <item quantity="many">Tous les %d mois • Dernier jour</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Tous les %d mois • Jour %d</item>
+        <item quantity="many">Tous les %d mois • Jour %d</item>
+    </plurals>
+</resources>

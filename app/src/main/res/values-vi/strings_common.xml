@@ -1,0 +1,229 @@
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Mọi khoản chi tiêu. Mọi thông tin hữu ích.</string>
+    <string name="app_tag_text1">Chi tiêu</string>
+    <string name="app_tag_text2">Thông tin</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Giao dịch</string>
+    <string name="calendar">Lịch</string>
+    <string name="statistic">Phân tích</string>
+    <string name="more">Thêm</string>
+    <string name="wallet">Ví</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Chủ nhật</string>
+    <string name="monday">Thứ hai</string>
+    <string name="tuesday">Thứ ba</string>
+    <string name="wednesday">Thứ tư</string>
+    <string name="thursday">Thứ năm</string>
+    <string name="friday">Thứ sáu</string>
+    <string name="saturday">Thứ bảy</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">CN</string>
+    <string name="monday_short">T2</string>
+    <string name="tuesday_short">T3</string>
+    <string name="wednesday_short">T4</string>
+    <string name="thursday_short">T5</string>
+    <string name="friday_short">T6</string>
+    <string name="saturday_short">T7</string>
+
+    <string-array name="week_days">
+        <item>Chủ nhật</item>
+        <item>Thứ hai</item>
+        <item>Thứ ba</item>
+        <item>Thứ tư</item>
+        <item>Thứ năm</item>
+        <item>Thứ sáu</item>
+        <item>Thứ bảy</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>CN</item>
+        <item>T2</item>
+        <item>T3</item>
+        <item>T4</item>
+        <item>T5</item>
+        <item>T6</item>
+        <item>T7</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Tháng 1</string>
+    <string name="february">Tháng 2</string>
+    <string name="march">Tháng 3</string>
+    <string name="april">Tháng 4</string>
+    <string name="may">Tháng 5</string>
+    <string name="june">Tháng 6</string>
+    <string name="july">Tháng 7</string>
+    <string name="august">Tháng 8</string>
+    <string name="september">Tháng 9</string>
+    <string name="october">Tháng 10</string>
+    <string name="november">Tháng 11</string>
+    <string name="december">Tháng 12</string>
+
+    <string-array name="month_full">
+        <item>Tháng 1</item>
+        <item>Tháng 2</item>
+        <item>Tháng 3</item>
+        <item>Tháng 4</item>
+        <item>Tháng 5</item>
+        <item>Tháng 6</item>
+        <item>Tháng 7</item>
+        <item>Tháng 8</item>
+        <item>Tháng 9</item>
+        <item>Tháng 10</item>
+        <item>Tháng 11</item>
+        <item>Tháng 12</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Th1</item>
+        <item>Th2</item>
+        <item>Th3</item>
+        <item>Th4</item>
+        <item>Th5</item>
+        <item>Th6</item>
+        <item>Th7</item>
+        <item>Th8</item>
+        <item>Th9</item>
+        <item>Th10</item>
+        <item>Th11</item>
+        <item>Th12</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>Q1</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">Mặc định hệ thống</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Thoát</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Tiếp theo</string>
+    <string name="skip">Bỏ qua</string>
+    <string name="get_started">Bắt đầu</string>
+    <string name="press_again_to_exit">Nhấn lại để thoát</string>
+    <string name="settings">Cài đặt</string>
+    <string name="save">Lưu</string>
+    <string name="done">Hoàn tất</string>
+    <string name="delete">Xóa</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Hủy</string>
+    <string name="no_record">Không có bản ghi</string>
+    <string name="no_data">Không có dữ liệu</string>
+    <string name="detail">Chi tiết giao dịch</string>
+    <string name="parsing_error">Đã xảy ra lỗi khi phân tích dữ liệu</string>
+    <string name="update">Cập nhật</string>
+    <string name="color">Màu sắc</string>
+    <string name="icon">Biểu tượng</string>
+    <string name="select_icon">Chọn biểu tượng</string>
+    <string name="delete_message">Bạn có chắc chắn muốn xóa không?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Trước đó</string>
+    <string name="dash">-</string>
+    <string name="add_text">Thêm</string>
+    <string name="remaining">Còn lại</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Xem chi tiết</string>
+    <string name="view_breakdown">Xem toàn bộ phân tích</string>
+    <string name="error_update">Lỗi khi cập nhật</string>
+    <string name="text_edit">Chỉnh sửa</string>
+    <string name="text_delete">xóa</string>
+    <string name="text_close">Đóng</string>
+    <string name="text_remove">Gỡ bỏ</string>
+    <string name="apply">Áp dụng</string>
+    <string name="reset">Đặt lại</string>
+    <string name="select_option">Chọn tùy chọn</string>
+    <string name="text_default">Mặc định</string>
+    <string name="active">Đang hoạt động</string>
+    <string name="inactive">Không hoạt động</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Đã xảy ra lỗi</string>
+    <string name="please_wait">Vui lòng chờ…</string>
+</resources>

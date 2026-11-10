@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Доступ до камери заборонено</string>
+    <string name="camera_permission_required">Потрібен доступ до камери</string>
+    <string name="camera_access_required">Для фотографування та додавання фото до витрат потрібен доступ до камери.</string>
+    <string name="allow">Дозволити</string>
+    <string name="permission_required">Потрібен дозвіл</string>
+    <string name="camera_permission_disabled">Доступ до камери вимкнено. Увімкніть його в налаштуваннях програми.</string>
+    <string name="open_settings">Відкрити налаштування</string>
+    <string name="cancel_subscription_desc">Ви можете скасувати підписку будь-коли в Google Play</string>
+</resources>

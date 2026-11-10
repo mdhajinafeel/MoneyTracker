@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">आपका पैसा, आपका नियंत्रण</string>
+    <string name="walkthrough_1_desc">हर खर्च को ट्रैक करें, अपने बजट पर नज़र रखें और समझें कि आपका पैसा कहाँ खर्च होता है।</string>
+    <string name="walkthrough_2_title">हर वॉलेट का प्रबंधन करें</string>
+    <string name="walkthrough_2_desc">नकदी, बैंक खाते, कार्ड और डिजिटल वॉलेट को एक ही सुरक्षित स्थान पर रखें।</string>
+    <string name="walkthrough_3_title">तुरंत खर्च दर्ज करें</string>
+    <string name="walkthrough_3_desc">कुछ ही टैप में श्रेणियों, नोट्स और अटैचमेंट के साथ लेन-देन जोड़ें।</string>
+    <string name="walkthrough_4_title"><![CDATA[स्मार्ट रिपोर्ट और विश्लेषण]]></string>
+    <string name="walkthrough_4_desc">शक्तिशाली चार्ट और व्यक्तिगत वित्तीय जानकारी के साथ अपने खर्चों को समझें।</string>
+    <string name="walkthrough_5_title">रिमाइंडर के साथ आगे रहें</string>
+    <string name="walkthrough_5_desc">स्मार्ट रिमाइंडर के साथ बिल, सब्सक्रिप्शन और नियमित भुगतानों पर नज़र रखें।</string>
+    <string name="walkthrough_6_title">अपने वित्तीय लक्ष्य हासिल करें</string>
+    <string name="walkthrough_6_desc">पैसों की बेहतर आदतें बनाएँ, अधिक बचत करें और हर दिन अपनी वित्तीय स्थिति पर भरोसा बढ़ाएँ।</string>
+
+</resources>

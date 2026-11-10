@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">حساب‌ها</string>
+    <string name="add_account">افزودن حساب</string>
+    <string name="edit_account">ویرایش حساب</string>
+    <string name="account_heading">برای این حساب چه نامی انتخاب کنیم؟</string>
+    <string name="choose_name">نامی انتخاب کنید که به‌راحتی بتوانید این حساب را شناسایی کنید.</string>
+    <string name="account_name">نام حساب</string>
+    <string name="create_account">ایجاد حساب</string>
+    <string name="select_account">انتخاب حساب</string>
+    <string name="initial_balance">موجودی اولیه را وارد کنید</string>
+    <string name="opening_balance_subtext">موجودی افتتاحیه این حساب را وارد کنید.</string>
+    <string name="initial_amount">موجودی اولیه</string>
+    <string name="initial">اولیه</string>
+    <string name="account_balance_format">موجودی: %1$s</string>
+    <string name="manage_account_desc">تمام حساب‌های بانکی، کارت‌ها و موارد دیگر را در یک مکان مدیریت کنید.</string>
+    <string name="your_accounts">حساب‌های شما</string>
+    <string name="all_accounts">همه حساب‌ها</string>
+    <string name="add_new_account">افزودن حساب جدید</string>
+    <string name="add_account_desc">حساب بانکی، کارت اعتباری یا حساب دیگری اضافه کنید</string>
+    <string name="archived_accounts">حساب‌های بایگانی‌شده</string>
+    <string name="archived_accounts_desc">حساب‌های بایگانی‌شده را مشاهده و بازیابی کنید</string>
+    <string name="account_created">حساب ایجاد شد</string>
+    <string name="account_updated">حساب به‌روزرسانی شد</string>
+    <string name="currency_edit_account">هنگام ویرایش حساب، امکان تغییر ارز وجود ندارد.</string>
+    <string name="account_action">عملیات حساب</string>
+    <string name="update_account_detail">به‌روزرسانی جزئیات حساب</string>
+    <string name="use_as_your_default_account">استفاده به‌عنوان حساب پیش‌فرض</string>
+    <string name="see_account_detail">مشاهده جزئیات حساب</string>
+    <string name="hide_from_active_accounts">پنهان کردن از حساب‌های فعال</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[حذف همه کیف پول‌ها و تراکنش‌ها]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[حذف کیف پول‌ها و تراکنش‌ها]]></string>
+    <string name="remove_account">حذف حساب</string>
+    <string name="account_set_as_default">حساب به‌عنوان پیش‌فرض تنظیم شد</string>
+    <string name="archive_account">حساب بایگانی شود؟</string>
+    <string name="account_archived">حساب بایگانی شد</string>
+    <string name="delete_account_message">این کار حساب و تمام کیف پول‌ها و تراکنش‌های آن را برای همیشه حذف می‌کند. این عمل قابل بازگشت نیست.</string>
+    <string name="delete_account">حذف حساب</string>
+    <string name="account_deleted">حساب حذف شد</string>
+    <string name="error_delete_account">خطا هنگام حذف حساب</string>
+    <string name="opening_balance_editing_account">هنگام ویرایش حساب، امکان تغییر موجودی افتتاحیه وجود ندارد.</string>
+    <string name="cannot_change_initial_amount">به دلیل وجود تراکنش‌های قبلی، امکان تغییر موجودی اولیه وجود ندارد.</string>
+    <string name="archive_account_message">این حساب از فهرست حساب‌های فعال پنهان می‌شود. موجودی و تراکنش‌های شما حفظ خواهند شد.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[کیف پول‌ها و تراکنش‌های حساب حذف شوند؟]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[تمام کیف پول‌ها و تراکنش‌های این حساب حذف خواهند شد. این عمل قابل بازگشت نیست.]]></string>
+    <string name="error_delete_account_trans">خطا هنگام حذف تراکنش حساب</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[کیف پول‌ها و تراکنش‌های حساب حذف شدند]]></string>
+    <string name="transactions">تراکنش‌ها</string>
+    <string name="view_all_transactions">مشاهده همه تراکنش‌ها</string>
+    <string name="view_all_recurring_transactions">مشاهده همه تراکنش‌های تکرارشونده</string>
+    <string name="recurring_transactions">تراکنش‌های تکرارشونده</string>
+    <string name="account_details">جزئیات حساب</string>
+    <string name="archived_account_desc">این حساب‌ها بایگانی شده و از فهرست حساب‌های فعال شما پنهان شده‌اند. اطلاعات تمام کیف پول‌ها و تراکنش‌ها حفظ می‌شوند و می‌توانید هر زمان آن‌ها را بازیابی کنید.</string>
+    <string name="restore_account">حساب بازیابی شود؟</string>
+    <string name="account_restore">حساب بازیابی شد</string>
+    <string name="restore_account_message">این حساب دوباره به فهرست حساب‌های فعال شما منتقل می‌شود. موجودی و تراکنش‌های شما بدون تغییر باقی خواهند ماند.</string>
+    <string name="restore_your_account">بازیابی حساب شما</string>
+    <string name="account_transactions">تراکنش‌های حساب</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d حساب</item>
+        <item quantity="other">%d حساب</item>
+    </plurals>
+</resources>

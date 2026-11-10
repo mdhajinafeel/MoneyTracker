@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">கணக்குகள்</string>
+    <string name="add_account">கணக்கைச் சேர்</string>
+    <string name="edit_account">கணக்கைத் திருத்து</string>
+    <string name="account_heading">இந்தக் கணக்கை எவ்வாறு அழைக்க விரும்புகிறீர்கள்?</string>
+    <string name="choose_name">இந்தக் கணக்கை எளிதில் அடையாளம் காண உதவும் பெயரைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="account_name">கணக்கின் பெயர்</string>
+    <string name="create_account">கணக்கை உருவாக்கு</string>
+    <string name="select_account">கணக்கைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="initial_balance">தொடக்க இருப்பை உள்ளிடவும்</string>
+    <string name="opening_balance_subtext">இந்தக் கணக்கிற்கான தொடக்க இருப்பைச் சேர்க்கவும்.</string>
+    <string name="initial_amount">தொடக்க இருப்பு</string>
+    <string name="initial">தொடக்கம்</string>
+    <string name="account_balance_format">இருப்பு : %1$s</string>
+    <string name="manage_account_desc">உங்கள் வங்கிக் கணக்குகள், அட்டைகள் மற்றும் பிற கணக்குகள் அனைத்தையும் ஒரே இடத்தில் நிர்வகிக்கவும்.</string>
+    <string name="your_accounts">உங்கள் கணக்குகள்</string>
+    <string name="all_accounts">அனைத்துக் கணக்குகள்</string>
+    <string name="add_new_account">புதிய கணக்கைச் சேர்</string>
+    <string name="add_account_desc">வங்கிக் கணக்கு, கடன் அட்டை அல்லது பிற கணக்கைச் சேர்க்கவும்</string>
+    <string name="archived_accounts">காப்பகப்படுத்தப்பட்ட கணக்குகள்</string>
+    <string name="archived_accounts_desc">காப்பகப்படுத்தப்பட்ட உங்கள் கணக்குகளைக் கண்டு மீட்டெடுக்கவும்</string>
+    <string name="account_created">கணக்கு உருவாக்கப்பட்டது</string>
+    <string name="account_updated">கணக்கு புதுப்பிக்கப்பட்டது</string>
+    <string name="currency_edit_account">கணக்கைத் திருத்தும்போது நாணயத்தை மாற்ற முடியாது.</string>
+    <string name="account_action">கணக்கு செயல்கள்</string>
+    <string name="update_account_detail">கணக்கு விவரங்களைப் புதுப்பிக்கவும்</string>
+    <string name="use_as_your_default_account">இயல்புநிலைக் கணக்காகப் பயன்படுத்து</string>
+    <string name="see_account_detail">கணக்கு விவரங்களைக் காண்க</string>
+    <string name="hide_from_active_accounts">செயலில் உள்ள கணக்குகளிலிருந்து மறைக்கவும்</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[அனைத்து பணப்பைகளையும் பரிவர்த்தனைகளையும் அகற்று]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[பணப்பைகளையும் பரிவர்த்தனைகளையும் நீக்கு]]></string>
+    <string name="remove_account">கணக்கை அகற்று</string>
+    <string name="account_set_as_default">இயல்புநிலைக் கணக்காக அமைக்கப்பட்டது</string>
+    <string name="archive_account">கணக்கைக் காப்பகப்படுத்தவா?</string>
+    <string name="account_archived">கணக்கு காப்பகப்படுத்தப்பட்டது</string>
+    <string name="delete_account_message">இந்தக் கணக்கும் அதனுடன் தொடர்புடைய அனைத்து பணப்பைகளும் பரிவர்த்தனைகளும் நிரந்தரமாக நீக்கப்படும். இந்தச் செயலை மீண்டும் மாற்ற முடியாது.</string>
+    <string name="delete_account">கணக்கை நீக்கு</string>
+    <string name="account_deleted">கணக்கு நீக்கப்பட்டது</string>
+    <string name="error_delete_account">கணக்கை நீக்கும்போது பிழை ஏற்பட்டது</string>
+    <string name="opening_balance_editing_account">கணக்கைத் திருத்தும்போது தொடக்க இருப்பை மாற்ற முடியாது.</string>
+    <string name="cannot_change_initial_amount">ஏற்கனவே பரிவர்த்தனைகள் இருப்பதால் தொடக்கத் தொகையை மாற்ற முடியாது.</string>
+    <string name="archive_account_message">இந்தக் கணக்கு செயலில் உள்ள கணக்குகளிலிருந்து மறைக்கப்படும். உங்கள் இருப்பும் பரிவர்த்தனைகளும் அப்படியே பாதுகாக்கப்படும்.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[கணக்கின் பணப்பைகளையும் பரிவர்த்தனைகளையும் நீக்கவா?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[இந்தக் கணக்கில் உள்ள அனைத்து பணப்பைகளும் பரிவர்த்தனைகளும் நீக்கப்படும். இந்தச் செயலை மீண்டும் மாற்ற முடியாது.]]></string>
+    <string name="error_delete_account_trans">கணக்கின் பரிவர்த்தனையை நீக்கும்போது பிழை ஏற்பட்டது</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[கணக்கின் பணப்பைகளும் பரிவர்த்தனைகளும் நீக்கப்பட்டன]]></string>
+    <string name="transactions">பரிவர்த்தனைகள்</string>
+    <string name="view_all_transactions">அனைத்துப் பரிவர்த்தனைகளையும் காண்க</string>
+    <string name="view_all_recurring_transactions">தொடர் பரிவர்த்தனைகள் அனைத்தையும் காண்க</string>
+    <string name="recurring_transactions">தொடர் பரிவர்த்தனைகள்</string>
+    <string name="account_details">கணக்கு விவரங்கள்</string>
+    <string name="archived_account_desc">இந்தக் கணக்குகள் காப்பகப்படுத்தப்பட்டு, செயலில் உள்ள கணக்குகளின் பட்டியலிலிருந்து மறைக்கப்பட்டுள்ளன. அனைத்து பணப்பைகள் மற்றும் பரிவர்த்தனைத் தரவுகளும் பாதுகாக்கப்பட்டுள்ளன; அவற்றை எப்போது வேண்டுமானாலும் மீட்டெடுக்கலாம்.</string>
+    <string name="restore_account">கணக்கை மீட்டெடுக்கவா?</string>
+    <string name="account_restore">கணக்கு மீட்டெடுக்கப்பட்டது</string>
+    <string name="restore_account_message">இந்தக் கணக்கு மீண்டும் உங்கள் செயலில் உள்ள கணக்குகளுக்குக் கொண்டுவரப்படும். உங்கள் இருப்பும் பரிவர்த்தனைகளும் மாறாமல் இருக்கும்.</string>
+    <string name="restore_your_account">உங்கள் கணக்கை மீட்டெடுக்கவும்</string>
+    <string name="account_transactions">கணக்குப் பரிவர்த்தனைகள்</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d கணக்கு</item>
+        <item quantity="other">%d கணக்குகள்</item>
+    </plurals>
+</resources>

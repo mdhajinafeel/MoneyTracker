@@ -261,6 +261,20 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Upgrade Premium Screen -->
+        <activity
+            android:name=".ui.activities.UpgradePremiumActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Manage Subscription Screen -->
+        <activity
+            android:name=".ui.activities.ManageSubscriptionActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Manage Account Screen -->
         <activity
             android:name=".ui.activities.ManageAccountActivity"
@@ -488,6 +502,90 @@
         <!-- Backup Setting Screen -->
         <activity
             android:name=".ui.activities.BackupSettingActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Manage Profile Screen -->
+        <activity
+            android:name=".ui.activities.ManageProfileActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Manage Logged In Profile Screen -->
+        <activity
+            android:name=".ui.activities.ManageProfileLoggedInActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Account Detail Screen -->
+        <activity
+            android:name=".ui.activities.ProfileAccountDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Edit Screen -->
+        <activity
+            android:name=".ui.activities.ProfileEditDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Forgot Password Screen -->
+        <activity
+            android:name=".ui.activities.ProfileForgotPasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Reset Otp Screen -->
+        <activity
+            android:name=".ui.activities.ProfileResetPasswordOtpActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Reset Password Screen -->
+        <activity
+            android:name=".ui.activities.ProfileResetPasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Account Detail Screen -->
+        <activity
+            android:name=".ui.activities.ProfileChangePasswordActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Login Screen -->
+        <activity
+            android:name=".ui.activities.ProfileLoginActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Create Account Screen -->
+        <activity
+            android:name=".ui.activities.ProfileCreateAccountActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Profile Verify Screen -->
+        <activity
+            android:name=".ui.activities.ProfileVerifyActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Managed Profile Screen -->
+        <activity
+            android:name=".ui.activities.ManageProfileDevicesActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />

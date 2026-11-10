@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">ನಿಮ್ಮ ಹಣಕಾಸಿನ ಮೇಲೆ ಸಂಪೂರ್ಣ ನಿಯಂತ್ರಣ</string>
+    <string name="walkthrough_1_desc">ಪ್ರತಿ ಖರ್ಚನ್ನು ದಾಖಲಿಸಿ, ನಿಮ್ಮ ಬಜೆಟ್ ಗಮನಿಸಿ ಮತ್ತು ನಿಮ್ಮ ಹಣ ಎಲ್ಲಿಗೆ ಹೋಗುತ್ತಿದೆ ಎಂಬುದನ್ನು ತಿಳಿದುಕೊಳ್ಳಿ.</string>
+    <string name="walkthrough_2_title">ಪ್ರತಿಯೊಂದು ವಾಲೆಟ್ ನಿರ್ವಹಿಸಿ</string>
+    <string name="walkthrough_2_desc">ನಗದು, ಬ್ಯಾಂಕ್ ಖಾತೆಗಳು, ಕಾರ್ಡ್‌ಗಳು ಮತ್ತು ಡಿಜಿಟಲ್ ವಾಲೆಟ್‌ಗಳನ್ನು ಒಂದೇ ಸುರಕ್ಷಿತ ಸ್ಥಳದಲ್ಲಿ ಇರಿಸಿ.</string>
+    <string name="walkthrough_3_title">ಖರ್ಚುಗಳನ್ನು ತಕ್ಷಣ ದಾಖಲಿಸಿ</string>
+    <string name="walkthrough_3_desc">ಕೆಲವೇ ಟ್ಯಾಪ್‌ಗಳಲ್ಲಿ ವರ್ಗಗಳು, ಟಿಪ್ಪಣಿಗಳು ಮತ್ತು ಲಗತ್ತುಗಳೊಂದಿಗೆ ವಹಿವಾಟುಗಳನ್ನು ಸೇರಿಸಿ.</string>
+    <string name="walkthrough_4_title"><![CDATA[ಸ್ಮಾರ್ಟ್ ವರದಿಗಳು ಮತ್ತು ವಿಶ್ಲೇಷಣೆ]]></string>
+    <string name="walkthrough_4_desc">ಶಕ್ತಿಶಾಲಿ ಚಾರ್ಟ್‌ಗಳು ಮತ್ತು ವೈಯಕ್ತಿಕ ಹಣಕಾಸಿನ ಒಳನೋಟಗಳೊಂದಿಗೆ ನಿಮ್ಮ ಖರ್ಚುಗಳನ್ನು ದೃಶ್ಯರೂಪದಲ್ಲಿ ನೋಡಿ.</string>
+    <string name="walkthrough_5_title">ಜ್ಞಾಪನೆಗಳೊಂದಿಗೆ ಸದಾ ಸಿದ್ಧರಾಗಿರಿ</string>
+    <string name="walkthrough_5_desc">ಸ್ಮಾರ್ಟ್ ಜ್ಞಾಪನೆಗಳ ಮೂಲಕ ಬಿಲ್‌ಗಳು, ಚಂದಾದಾರಿಕೆಗಳು ಮತ್ತು ಮರುಕಳಿಸುವ ಪಾವತಿಗಳನ್ನು ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ನಿರ್ವಹಿಸಿ.</string>
+    <string name="walkthrough_6_title">ನಿಮ್ಮ ಹಣಕಾಸಿನ ಗುರಿಗಳನ್ನು ಸಾಧಿಸಿ</string>
+    <string name="walkthrough_6_desc">ಉತ್ತಮ ಹಣಕಾಸಿನ ಅಭ್ಯಾಸಗಳನ್ನು ಬೆಳೆಸಿಕೊಳ್ಳಿ, ಹೆಚ್ಚು ಉಳಿತಾಯ ಮಾಡಿ ಮತ್ತು ಪ್ರತಿದಿನ ನಿಮ್ಮ ಹಣಕಾಸಿನ ಆತ್ಮವಿಶ್ವಾಸವನ್ನು ಹೆಚ್ಚಿಸಿಕೊಳ್ಳಿ.</string>
+</resources>

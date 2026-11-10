@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">تم رفض إذن الكاميرا</string>
+    <string name="camera_permission_required">إذن الكاميرا مطلوب</string>
+    <string name="camera_access_required">يلزم الوصول إلى الكاميرا لالتقاط صور وإرفاقها بالمصروفات.</string>
+    <string name="allow">السماح</string>
+    <string name="permission_required">الإذن مطلوب</string>
+    <string name="camera_permission_disabled">إذن الكاميرا غير مفعّل. يرجى تفعيله من إعدادات التطبيق.</string>
+    <string name="open_settings">فتح الإعدادات</string>
+    <string name="cancel_subscription_desc">يمكنك إلغاء اشتراكك في أي وقت من خلال Google Play</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Účty</string>
+    <string name="add_account">Přidat účet</string>
+    <string name="edit_account">Upravit účet</string>
+    <string name="account_heading">Jak chcete tento účet pojmenovat?</string>
+    <string name="choose_name">Vyberte název, který vám pomůže tento účet snadno rozpoznat.</string>
+    <string name="account_name">Název účtu</string>
+    <string name="create_account">Vytvořit účet</string>
+    <string name="select_account">Vyberte účet</string>
+    <string name="initial_balance">Zadejte počáteční zůstatek</string>
+    <string name="opening_balance_subtext">Přidejte počáteční zůstatek tohoto účtu.</string>
+    <string name="initial_amount">Počáteční zůstatek</string>
+    <string name="initial">Počáteční</string>
+    <string name="account_balance_format">Zůstatek : %1$s</string>
+    <string name="manage_account_desc">Spravujte všechny své bankovní účty, karty a další účty na jednom místě.</string>
+    <string name="your_accounts">Vaše účty</string>
+    <string name="all_accounts">Všechny účty</string>
+    <string name="add_new_account">Přidat nový účet</string>
+    <string name="add_account_desc">Přidejte bankovní účet, kreditní kartu nebo jiný účet</string>
+    <string name="archived_accounts">Archivované účty</string>
+    <string name="archived_accounts_desc">Zobrazte a obnovte své archivované účty</string>
+    <string name="account_created">Účet byl vytvořen</string>
+    <string name="account_updated">Účet byl aktualizován</string>
+    <string name="currency_edit_account">Měnu nelze při úpravě účtu změnit.</string>
+    <string name="account_action">Akce s účtem</string>
+    <string name="update_account_detail">Aktualizovat údaje účtu</string>
+    <string name="use_as_your_default_account">Použít jako výchozí účet</string>
+    <string name="see_account_detail">Zobrazit podrobnosti účtu</string>
+    <string name="hide_from_active_accounts">Skrýt z aktivních účtů</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Odebrat všechny peněženky a transakce]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Odstranit peněženky a transakce]]></string>
+    <string name="remove_account">Odebrat účet</string>
+    <string name="account_set_as_default">Účet byl nastaven jako výchozí</string>
+    <string name="archive_account">Archivovat účet?</string>
+    <string name="account_archived">Účet byl archivován</string>
+    <string name="delete_account_message">Tímto trvale odstraníte účet, všechny jeho peněženky a transakce. Tuto akci nelze vrátit zpět.</string>
+    <string name="delete_account">Odstranit účet</string>
+    <string name="account_deleted">Účet byl odstraněn</string>
+    <string name="error_delete_account">Při odstraňování účtu došlo k chybě</string>
+    <string name="opening_balance_editing_account">Počáteční zůstatek nelze při úpravě účtu změnit.</string>
+    <string name="cannot_change_initial_amount">Počáteční částku nelze změnit, protože existují transakce.</string>
+    <string name="archive_account_message">Tento účet bude skryt z aktivních účtů. Váš zůstatek a transakce zůstanou zachovány.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Odstranit peněženky a transakce účtu?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Všechny peněženky a transakce v tomto účtu budou odstraněny. Tuto akci nelze vrátit zpět.]]></string>
+    <string name="error_delete_account_trans">Při odstraňování transakce účtu došlo k chybě</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Peněženky a transakce účtu byly odstraněny]]></string>
+    <string name="transactions">Transakce</string>
+    <string name="view_all_transactions">Zobrazit všechny transakce</string>
+    <string name="view_all_recurring_transactions">Zobrazit všechny opakované transakce</string>
+    <string name="recurring_transactions">Opakované transakce</string>
+    <string name="account_details">Podrobnosti účtu</string>
+    <string name="archived_account_desc">Tyto účty jsou archivovány a skryty ze seznamu aktivních účtů. Všechna data o peněženkách a transakcích jsou uchována a lze je kdykoli obnovit.</string>
+    <string name="restore_account">Obnovit účet?</string>
+    <string name="account_restore">Účet byl obnoven</string>
+    <string name="restore_account_message">Tento účet bude přesunut zpět mezi vaše aktivní účty. Váš zůstatek a transakce zůstanou beze změny.</string>
+    <string name="restore_your_account">Obnovte svůj účet</string>
+    <string name="account_transactions">Transakce účtu</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d účet</item>
+        <item quantity="few">%d účty</item>
+        <item quantity="many">%d účtu</item>
+        <item quantity="other">%d účtu</item>
+    </plurals>
+</resources>

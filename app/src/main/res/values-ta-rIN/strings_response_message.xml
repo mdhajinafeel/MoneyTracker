@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">இந்த மின்னஞ்சலில் ஏற்கனவே ஒரு கணக்கு உள்ளது.</string>
+    <string name="error_check_details">உங்கள் விவரங்களைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_too_many_attempts">பலமுறை முயற்சித்துள்ளீர்கள். பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_account_creation_failed">கணக்கை உருவாக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="error_network_connection">இணைக்க முடியவில்லை. உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="check_internet_connection">இணைக்க முடியவில்லை. உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</string>
+</resources>

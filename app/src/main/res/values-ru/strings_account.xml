@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Счета</string>
+    <string name="add_account">Добавить счёт</string>
+    <string name="edit_account">Изменить счёт</string>
+    <string name="account_heading">Как назвать этот счёт?</string>
+    <string name="choose_name">Выберите название, по которому вам будет легко найти этот счёт.</string>
+    <string name="account_name">Название счёта</string>
+    <string name="create_account">Создать счёт</string>
+    <string name="select_account">Выберите счёт</string>
+    <string name="initial_balance">Введите начальный баланс</string>
+    <string name="opening_balance_subtext">Укажите начальный баланс этого счёта.</string>
+    <string name="initial_amount">Начальный баланс</string>
+    <string name="initial">Начальный</string>
+    <string name="account_balance_format">Баланс: %1$s</string>
+    <string name="manage_account_desc">Управляйте всеми своими банковскими счетами, картами и другими счетами в одном месте.</string>
+    <string name="your_accounts">Ваши счета</string>
+    <string name="all_accounts">Все счета</string>
+    <string name="add_new_account">Добавить новый счёт</string>
+    <string name="add_account_desc">Добавьте банковский счёт, кредитную карту или другой счёт</string>
+    <string name="archived_accounts">Архивные счета</string>
+    <string name="archived_accounts_desc">Просматривайте и восстанавливайте архивные счета</string>
+    <string name="account_created">Счёт создан</string>
+    <string name="account_updated">Счёт обновлён</string>
+    <string name="currency_edit_account">Нельзя изменить валюту при редактировании счёта.</string>
+    <string name="account_action">Действия со счётом</string>
+    <string name="update_account_detail">Обновить данные счёта</string>
+    <string name="use_as_your_default_account">Использовать по умолчанию</string>
+    <string name="see_account_detail">Посмотреть данные счёта</string>
+    <string name="hide_from_active_accounts">Скрыть из активных счетов</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Удалить все кошельки и транзакции]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Удалить кошельки и транзакции]]></string>
+    <string name="remove_account">Удалить счёт</string>
+    <string name="account_set_as_default">Счёт установлен по умолчанию</string>
+    <string name="archive_account">Архивировать счёт?</string>
+    <string name="account_archived">Счёт перемещён в архив</string>
+    <string name="delete_account_message">Счёт, а также все связанные с ним кошельки и транзакции будут удалены без возможности восстановления.</string>
+    <string name="delete_account">Удалить счёт</string>
+    <string name="account_deleted">Счёт удалён</string>
+    <string name="error_delete_account">Ошибка при удалении счёта</string>
+    <string name="opening_balance_editing_account">Нельзя изменить начальный баланс при редактировании счёта.</string>
+    <string name="cannot_change_initial_amount">Нельзя изменить начальную сумму, поскольку уже существуют транзакции.</string>
+    <string name="archive_account_message">Этот счёт будет скрыт из списка активных счетов. Ваш баланс и транзакции сохранятся.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Удалить кошельки и транзакции счёта?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Все кошельки и транзакции этого счёта будут удалены. Это действие нельзя отменить.]]></string>
+    <string name="error_delete_account_trans">Ошибка при удалении транзакции счёта</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Кошельки и транзакции счёта удалены]]></string>
+    <string name="transactions">Транзакции</string>
+    <string name="view_all_transactions">Посмотреть все транзакции</string>
+    <string name="view_all_recurring_transactions">Посмотреть все регулярные транзакции</string>
+    <string name="recurring_transactions">Регулярные транзакции</string>
+    <string name="account_details">Информация о счёте</string>
+    <string name="archived_account_desc">Эти счета находятся в архиве и скрыты из списка активных счетов. Все данные о кошельках и транзакциях сохранены, их можно восстановить в любое время.</string>
+    <string name="restore_account">Восстановить счёт?</string>
+    <string name="account_restore">Счёт восстановлен</string>
+    <string name="restore_account_message">Этот счёт будет возвращён в список активных счетов. Баланс и транзакции останутся без изменений.</string>
+    <string name="restore_your_account">Восстановить счёт</string>
+    <string name="account_transactions">Транзакции счёта</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d счёт</item>
+        <item quantity="few">%d счёта</item>
+        <item quantity="many">%d счетов</item>
+        <item quantity="other">%d счёта</item>
+    </plurals>
+</resources>

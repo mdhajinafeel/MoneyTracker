@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">कैमरे की अनुमति अस्वीकार कर दी गई</string>
+    <string name="camera_permission_required">कैमरे की अनुमति आवश्यक है</string>
+    <string name="camera_access_required">खर्च के अटैचमेंट के लिए फ़ोटो लेने हेतु कैमरे की अनुमति आवश्यक है।</string>
+    <string name="allow">अनुमति दें</string>
+    <string name="permission_required">अनुमति आवश्यक है</string>
+    <string name="camera_permission_disabled">कैमरे की अनुमति बंद है। कृपया इसे ऐप सेटिंग्स से सक्षम करें।</string>
+    <string name="open_settings">सेटिंग्स खोलें</string>
+    <string name="cancel_subscription_desc">आप Google Play से कभी भी अपनी सदस्यता रद्द कर सकते हैं</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">गैलरी</string>
+    <string name="camera">कैमरा</string>
+    <string name="select_source">स्रोत चुनें</string>
+    <string name="file">फ़ाइल</string>
+</resources>

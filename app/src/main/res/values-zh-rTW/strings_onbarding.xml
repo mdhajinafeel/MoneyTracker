@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">全面掌握您的財務</string>
+    <string name="walkthrough_1_desc">追蹤每筆支出、監控預算，並了解您的錢花在何處。</string>
+    <string name="walkthrough_2_title">管理所有錢包</string>
+    <string name="walkthrough_2_desc">將現金、銀行帳戶、卡片和電子錢包集中管理於安全的地方。</string>
+    <string name="walkthrough_3_title">快速記錄支出</string>
+    <string name="walkthrough_3_desc">只需點擊幾下，即可新增交易、類別、備註和附件。</string>
+    <string name="walkthrough_4_title"><![CDATA[智慧報表與分析]]></string>
+    <string name="walkthrough_4_desc">透過強大的圖表和個人化財務洞察，清楚了解您的支出情況。</string>
+    <string name="walkthrough_5_title">透過提醒掌握重要事項</string>
+    <string name="walkthrough_5_desc">透過智慧提醒，掌握帳單、訂閱和定期付款的到期時間。</string>
+    <string name="walkthrough_6_title">實現您的財務目標</string>
+    <string name="walkthrough_6_desc">養成更好的理財習慣、增加儲蓄，每天建立財務信心。</string>
+</resources>

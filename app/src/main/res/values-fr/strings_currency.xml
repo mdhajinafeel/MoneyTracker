@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Devise</string>
+    <string name="choose_currency">Choisissez votre devise</string>
+    <string name="select_currency_subtext">Sélectionnez la devise de ce compte.</string>
+    <string name="select_the_currency">Sélectionner la devise</string>
+    <string name="search_currency">Rechercher une devise</string>
+    <string name="select_currency">Sélectionner une devise</string>
+    <string name="add_currency">Ajouter une devise</string>
+    <string name="edit_currency">Modifier la devise</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Taux</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Aucune devise supplémentaire</string>
+    <string name="empty_currency_hint">Appuyez sur le bouton + pour ajouter une devise.</string>
+    <string name="delete_currency">Supprimer la devise</string>
+    <string name="delete_message_currency">Voulez-vous vraiment supprimer cette devise ?</string>
+    <string name="message_currency">Les portefeuilles utilisant cette devise passeront à la devise de base.</string>
+    <string name="currency_has_been_removed_successfully">Devise supprimée</string>
+    <string name="base_currency">Devise de base</string>
+    <string name="additional_currency">Devises supplémentaires</string>
+    <string name="currency_subtext">Choisissez la devise que vous souhaitez utiliser</string>
+    <string name="enter_the_rate">Saisir le taux</string>
+    <string name="default_base_currency">Il s’agit de votre devise de base par défaut</string>
+    <string name="exchange_currency_hint">Les taux de change sont calculés par rapport à votre devise de base (%1$s).\nVous pouvez mettre à jour les taux pour chaque devise.</string>
+</resources>

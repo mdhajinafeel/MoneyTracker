@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">দৈনিক</string>
+    <string name="calendar_weekly">সাপ্তাহিক</string>
+    <string name="calendar_monthly">মাসিক</string>
+    <string name="calendar_quarterly">ত্রৈমাসিক</string>
+    <string name="calendar_yearly">বার্ষিক</string>
+    <string name="calendar_all">সব</string>
+    <string name="calendar_custom">কাস্টম</string>
+
+    <string name="total_balance">মোট ব্যালেন্স</string>
+    <string name="balance">ব্যালেন্স</string>
+    <string name="opening_balance">প্রারম্ভিক ব্যালেন্স</string>
+    <string name="ending_balance">সমাপনী ব্যালেন্স</string>
+    <string name="overview">সারসংক্ষেপ</string>
+    <string name="breakdown">বিস্তারিত বিভাজন</string>
+    <string name="transaction_overview">লেনদেনের সারসংক্ষেপ</string>
+    <string name="select_range">সময়সীমা নির্বাচন করুন</string>
+    <string name="all_time">সর্বকাল</string>
+    <string name="period_spending">সময়কালের ব্যয়</string>
+</resources>

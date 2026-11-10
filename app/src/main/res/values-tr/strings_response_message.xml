@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Bu e-posta adresiyle zaten bir hesap mevcut.</string>
+    <string name="error_check_details">Lütfen bilgilerinizi kontrol edip tekrar deneyin.</string>
+    <string name="error_too_many_attempts">Çok fazla deneme yapıldı. Lütfen daha sonra tekrar deneyin.</string>
+    <string name="error_account_creation_failed">Hesap oluşturulamadı. Lütfen tekrar deneyin.</string>
+    <string name="error_network_connection">Bağlantı kurulamıyor. İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="check_internet_connection">Bağlantı kurulamıyor. İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">పునరావృత లావాదేవీలను ట్రాక్ చేయండి</string>
+    <string name="select_recurring">పునరావృతాన్ని ఎంచుకోండి</string>
+    <string name="repeat_on">పునరావృతమయ్యే రోజు</string>
+    <string name="select_repeat_on">పునరావృతమయ్యే రోజును ఎంచుకోండి</string>
+    <string name="create_transaction">లావాదేవీని సృష్టించండి</string>
+    <string name="never_miss_recurring_transaction">పునరావృత లావాదేవీని ఎప్పుడూ మిస్ చేయవద్దు</string>
+    <string name="income_recurring">పునరావృత ఆదాయం</string>
+    <string name="expense_recurring">పునరావృత ఖర్చు</string>
+    <string name="transfer_recurring">పునరావృత బదిలీ</string>
+    <string name="no_repeat">పునరావృతం లేదు</string>
+    <string name="repeat_option">పునరావృత ఎంపిక</string>
+    <string name="select_days">రోజులను ఎంచుకోండి</string>
+    <string name="please_select_at_least_one_day">కనీసం ఒక రోజును ఎంచుకోండి</string>
+    <string name="times">సార్లు</string>
+    <string name="every">ప్రతి</string>
+    <string name="forever">ఎప్పటికీ</string>
+    <string name="until">వరకు</string>
+    <string name="text_for">కోసం</string>
+    <string name="text_every_value">"ప్రతి %1$s • %2$s"</string>
+    <string name="text_every_value1">"ప్రతి %1$s"</string>
+    <string name="same_day_each_month">ప్రతి నెల అదే రోజు (%1$d)</string>
+    <string name="end_of_month">నెల చివరి రోజు</string>
+    <string name="recurring_transaction_saved">పునరావృత లావాదేవీ సేవ్ చేయబడింది</string>
+    <string name="failed_to_save_recurring_transaction">పునరావృత లావాదేవీని సేవ్ చేయడం విఫలమైంది</string>
+    <string name="no_recurring_yet">ఇంకా పునరావృత లావాదేవీలు లేవు</string>
+    <string name="empty_recurring_hint">పునరావృత లావాదేవీని జోడించడానికి + బటన్‌ను నొక్కండి.</string>
+    <string name="repeat_interval_atleast">పునరావృత విరామం కనీసం 1 ఉండాలి</string>
+    <string name="please_select_until_date">దయచేసి ముగింపు తేదీని ఎంచుకోండి</string>
+    <string name="please_enter_times">ఎన్ని సార్లు పునరావృతం కావాలో నమోదు చేయండి</string>
+    <string name="please_enter_an_amount">దయచేసి మొత్తాన్ని నమోదు చేయండి</string>
+    <string name="please_select_a_wallet">దయచేసి వాలెట్‌ను ఎంచుకోండి</string>
+    <string name="please_select_a_repeat_frequency">దయచేసి పునరావృత వ్యవధిని ఎంచుకోండి</string>
+    <string name="until_date_start_date">ముగింపు తేదీ ప్రారంభ తేదీ తర్వాత ఉండాలి</string>
+    <string name="select_recurring_transaction_end">పునరావృత లావాదేవీ ఎప్పుడు ముగియాలో ఎంచుకోండి</string>
+    <string name="every_week_period">ప్రతి %1$s</string>
+    <string name="next_recurring">తదుపరి: %1$s</string>
+    <string name="next_recurring_text">తదుపరి పునరావృతం</string>
+    <string name="recurring_transaction_added">పునరావృత లావాదేవీ జోడించబడింది</string>
+    <string name="recurring_transactions_added">పునరావృత లావాదేవీలు జోడించబడ్డాయి</string>
+    <string name="a_recurring_expense_was_added">పునరావృత ఖర్చు జోడించబడింది</string>
+    <string name="a_recurring_income_was_added">పునరావృత ఆదాయం జోడించబడింది</string>
+    <string name="a_recurring_transaction_was_added">పునరావృత లావాదేవీ జోడించబడింది</string>
+    <string name="recurring_transactions_were_added">" పునరావృత లావాదేవీలు జోడించబడ్డాయి"</string>
+    <string name="activate">ప్రారంభించండి</string>
+    <string name="text_deactivated">నిలిపివేయబడింది</string>
+    <string name="deactivate">నిలిపివేయండి</string>
+    <string name="change_recurring_detail">పునరావృత వివరాలను మార్చండి</string>
+    <string name="resume_this_recurring_transaction">ఈ లావాదేవీని మళ్లీ ప్రారంభించండి</string>
+    <string name="pause_this_recurring_transaction">ఈ లావాదేవీని పాజ్ చేయండి</string>
+    <string name="permanently_remove_this_recurring_transaction">ఈ లావాదేవీని శాశ్వతంగా తొలగించండి</string>
+    <string name="view_recurring_details">పునరావృత వివరాలను చూడండి</string>
+    <string name="delete_recurring">పునరావృతాన్ని తొలగించండి</string>
+    <string name="delete_recurring_message">ఈ పునరావృతాన్ని తొలగించాలనుకుంటున్నారా?</string>
+    <string name="recurring_deleted_successfully">పునరావృతం తొలగించబడింది</string>
+    <string name="error_delete_recurring">పునరావృతాన్ని తొలగించడంలో లోపం</string>
+    <string name="activate_recurring">పునరావృతాన్ని ప్రారంభించండి</string>
+    <string name="deactivate_recurring">పునరావృతాన్ని నిలిపివేయండి</string>
+    <string name="delete_activate_message">ఈ పునరావృతాన్ని ప్రారంభించాలనుకుంటున్నారా?</string>
+    <string name="delete_deactivate_message">ఈ పునరావృతాన్ని నిలిపివేయాలనుకుంటున్నారా?</string>
+    <string name="delete_activate_sub_message">ప్రగతిలో ఉన్న పునరావృతాల నుండి ఎప్పుడైనా నిలిపివేయవచ్చు.</string>
+    <string name="delete_deactivate_sub_message">పాజ్ చేసిన పునరావృతాల నుండి ఎప్పుడైనా మళ్లీ ప్రారంభించవచ్చు.</string>
+    <string name="deactivated_successfully">పునరావృతం నిలిపివేయబడింది</string>
+    <string name="error_deactivate">పునరావృతాన్ని నిలిపివేయడంలో లోపం</string>
+    <string name="activated_successfully">పునరావృతం ప్రారంభించబడింది</string>
+    <string name="error_activate">పునరావృతాన్ని ప్రారంభించడంలో లోపం</string>
+    <string name="repeat_time">పునరావృత సమయం</string>
+    <string name="recurring_detail">పునరావృత వివరాలు</string>
+    <string name="until_date">%1$s వరకు</string>
+    <string name="recurring_transaction_reminder">పునరావృత లావాదేవీ రిమైండర్</string>
+    <string name="recurring_expense_due">మీ పునరావృత ఖర్చు చెల్లించాల్సిన సమయం వచ్చింది.</string>
+    <string name="recurring_income_due">మీ పునరావృత ఆదాయం అందాల్సిన సమయం వచ్చింది.</string>
+    <string name="recurring_transfer_due">మీ పునరావృత బదిలీ చేయాల్సిన సమయం వచ్చింది.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">రోజు</item>
+        <item quantity="other">రోజులు</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">ప్రతి %d రోజు</item>
+        <item quantity="other">ప్రతి %d రోజులకు</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d రోజు</item>
+        <item quantity="other">%d రోజులు</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">వారం</item>
+        <item quantity="other">వారాలు</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d వారం</item>
+        <item quantity="other">%d వారాలు</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">ప్రతి %d నెల</item>
+        <item quantity="other">ప్రతి %d నెలలకు</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">నెల</item>
+        <item quantity="other">నెలలు</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">సంవత్సరం</item>
+        <item quantity="other">సంవత్సరాలు</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">ప్రతి %d సంవత్సరం</item>
+        <item quantity="other">ప్రతి %d సంవత్సరాలకు</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">సారి</item>
+        <item quantity="other">సార్లు</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d సారి కోసం</item>
+        <item quantity="other">%d సార్ల కోసం</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">ప్రతి %d నెల • చివరి రోజు</item>
+        <item quantity="other">ప్రతి %d నెలలకు • చివరి రోజు</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">ప్రతి %d నెల • %dవ రోజు</item>
+        <item quantity="other">ప్రతి %d నెలలకు • %dవ రోజు</item>
+    </plurals>
+</resources>

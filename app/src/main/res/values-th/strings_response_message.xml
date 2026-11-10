@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">มีบัญชีที่ใช้อีเมลนี้อยู่แล้ว</string>
+    <string name="error_check_details">โปรดตรวจสอบข้อมูลของคุณแล้วลองอีกครั้ง</string>
+    <string name="error_too_many_attempts">คุณพยายามหลายครั้งเกินไป โปรดลองอีกครั้งในภายหลัง</string>
+    <string name="error_account_creation_failed">สร้างบัญชีไม่สำเร็จ โปรดลองอีกครั้ง</string>
+    <string name="error_network_connection">ไม่สามารถเชื่อมต่อได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้ง</string>
+    <string name="check_internet_connection">ไม่สามารถเชื่อมต่อได้ โปรดตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วลองอีกครั้ง</string>
+</resources>

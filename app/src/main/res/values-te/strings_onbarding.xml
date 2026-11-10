@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">మీ ఆర్థిక వ్యవహారాలపై పూర్తి నియంత్రణ</string>
+    <string name="walkthrough_1_desc">ప్రతి ఖర్చును నమోదు చేయండి, మీ బడ్జెట్‌ను పర్యవేక్షించండి మరియు మీ డబ్బు ఎక్కడ ఖర్చవుతుందో తెలుసుకోండి.</string>
+    <string name="walkthrough_2_title">ప్రతి వాలెట్‌ను నిర్వహించండి</string>
+    <string name="walkthrough_2_desc">నగదు, బ్యాంక్ ఖాతాలు, కార్డులు మరియు డిజిటల్ వాలెట్లను ఒకే సురక్షితమైన చోట ఉంచండి.</string>
+    <string name="walkthrough_3_title">ఖర్చులను వెంటనే నమోదు చేయండి</string>
+    <string name="walkthrough_3_desc">కొన్ని ట్యాప్‌లతోనే వర్గాలు, గమనికలు మరియు జోడింపులతో లావాదేవీలను నమోదు చేయండి.</string>
+    <string name="walkthrough_4_title"><![CDATA[స్మార్ట్ నివేదికలు & విశ్లేషణలు]]></string>
+    <string name="walkthrough_4_desc">శక్తివంతమైన చార్ట్‌లు మరియు వ్యక్తిగత ఆర్థిక విశ్లేషణలతో మీ ఖర్చులను సులభంగా అర్థం చేసుకోండి.</string>
+    <string name="walkthrough_5_title">రిమైండర్‌లతో ముందుండండి</string>
+    <string name="walkthrough_5_desc">స్మార్ట్ రిమైండర్‌లతో బిల్లులు, సబ్‌స్క్రిప్షన్‌లు మరియు పునరావృత చెల్లింపులను సకాలంలో నిర్వహించండి.</string>
+    <string name="walkthrough_6_title">మీ ఆర్థిక లక్ష్యాలను సాధించండి</string>
+    <string name="walkthrough_6_desc">మెరుగైన ఆర్థిక అలవాట్లను పెంపొందించుకోండి, మరింత పొదుపు చేయండి మరియు ప్రతిరోజూ మీ ఆర్థిక విశ్వాసాన్ని పెంచుకోండి.</string>
+</resources>

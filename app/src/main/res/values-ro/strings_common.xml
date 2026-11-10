@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Fiecare cheltuială. Fiecare perspectivă.</string>
+    <string name="app_tag_text1">Cheltuială</string>
+    <string name="app_tag_text2">Perspectivă</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Tranzacții</string>
+    <string name="calendar">Calendar</string>
+    <string name="statistic">Analize</string>
+    <string name="more">Mai multe</string>
+    <string name="wallet">Portofel</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Duminică</string>
+    <string name="monday">Luni</string>
+    <string name="tuesday">Marți</string>
+    <string name="wednesday">Miercuri</string>
+    <string name="thursday">Joi</string>
+    <string name="friday">Vineri</string>
+    <string name="saturday">Sâmbătă</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">Dum</string>
+    <string name="monday_short">Lun</string>
+    <string name="tuesday_short">Mar</string>
+    <string name="wednesday_short">Mie</string>
+    <string name="thursday_short">Joi</string>
+    <string name="friday_short">Vin</string>
+    <string name="saturday_short">Sâm</string>
+
+    <string-array name="week_days">
+        <item>Duminică</item>
+        <item>Luni</item>
+        <item>Marți</item>
+        <item>Miercuri</item>
+        <item>Joi</item>
+        <item>Vineri</item>
+        <item>Sâmbătă</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>Dum</item>
+        <item>Lun</item>
+        <item>Mar</item>
+        <item>Mie</item>
+        <item>Joi</item>
+        <item>Vin</item>
+        <item>Sâm</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Ianuarie</string>
+    <string name="february">Februarie</string>
+    <string name="march">Martie</string>
+    <string name="april">Aprilie</string>
+    <string name="may">Mai</string>
+    <string name="june">Iunie</string>
+    <string name="july">Iulie</string>
+    <string name="august">August</string>
+    <string name="september">Septembrie</string>
+    <string name="october">Octombrie</string>
+    <string name="november">Noiembrie</string>
+    <string name="december">Decembrie</string>
+
+    <string-array name="month_full">
+        <item>Ianuarie</item>
+        <item>Februarie</item>
+        <item>Martie</item>
+        <item>Aprilie</item>
+        <item>Mai</item>
+        <item>Iunie</item>
+        <item>Iulie</item>
+        <item>August</item>
+        <item>Septembrie</item>
+        <item>Octombrie</item>
+        <item>Noiembrie</item>
+        <item>Decembrie</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Ian</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>Mai</item>
+        <item>Iun</item>
+        <item>Iul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Noi</item>
+        <item>Dec</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>T1</item>
+        <item>T2</item>
+        <item>T3</item>
+        <item>T4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">Implicit pentru sistem</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Ieșire</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Următorul</string>
+    <string name="skip">Omite</string>
+    <string name="get_started">Începe</string>
+    <string name="press_again_to_exit">Apasă din nou pentru a ieși</string>
+    <string name="settings">Setări</string>
+    <string name="save">Salvează</string>
+    <string name="done">Gata</string>
+    <string name="delete">Șterge</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Anulează</string>
+    <string name="no_record">Nicio înregistrare</string>
+    <string name="no_data">Nu există date</string>
+    <string name="detail">Detalii tranzacție</string>
+    <string name="parsing_error">A apărut o eroare la procesarea datelor</string>
+    <string name="update">Actualizează</string>
+    <string name="color">Culoare</string>
+    <string name="icon">Pictogramă</string>
+    <string name="select_icon">Selectează pictograma</string>
+    <string name="delete_message">Sigur dorești să ștergi?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Anterior</string>
+    <string name="dash">-</string>
+    <string name="add_text">Adaugă</string>
+    <string name="remaining">Rămas</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Vezi detaliile</string>
+    <string name="view_breakdown">Vezi întreaga defalcare</string>
+    <string name="error_update">Eroare la actualizare</string>
+    <string name="text_edit">Editează</string>
+    <string name="text_delete">șterge</string>
+    <string name="text_close">Închide</string>
+    <string name="text_remove">Elimină</string>
+    <string name="apply">Aplică</string>
+    <string name="reset">Resetează</string>
+    <string name="select_option">Selectează opțiunea</string>
+    <string name="text_default">Implicit</string>
+    <string name="active">Activ</string>
+    <string name="inactive">Inactiv</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Ceva nu a funcționat corect</string>
+    <string name="please_wait">Te rugăm să aștepți…</string>
+</resources>

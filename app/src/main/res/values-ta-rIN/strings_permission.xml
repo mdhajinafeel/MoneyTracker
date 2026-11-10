@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">கேமரா அனுமதி மறுக்கப்பட்டது</string>
+    <string name="camera_permission_required">கேமரா அனுமதி தேவை</string>
+    <string name="camera_access_required">செலவு இணைப்புகளுக்காகப் புகைப்படம் எடுக்க கேமரா அணுகல் தேவை.</string>
+    <string name="allow">அனுமதி</string>
+    <string name="permission_required">அனுமதி தேவை</string>
+    <string name="camera_permission_disabled">கேமரா அனுமதி முடக்கப்பட்டுள்ளது. ஆப் அமைப்புகளில் அதை இயக்கவும்.</string>
+    <string name="open_settings">அமைப்புகளைத் திறக்கவும்</string>
+    <string name="cancel_subscription_desc">Google Play மூலம் உங்கள் சந்தாவை எப்போது வேண்டுமானாலும் ரத்து செய்யலாம்</string>
+</resources>

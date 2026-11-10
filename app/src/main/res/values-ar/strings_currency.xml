@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">العملة</string>
+    <string name="choose_currency">اختر عملتك</string>
+    <string name="select_currency_subtext">حدد العملة لهذا الحساب.</string>
+    <string name="select_the_currency">حدد العملة</string>
+    <string name="search_currency">البحث عن عملة</string>
+    <string name="select_currency">اختيار العملة</string>
+    <string name="add_currency">إضافة عملة</string>
+    <string name="edit_currency">تعديل العملة</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">السعر</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">لا توجد عملات إضافية</string>
+    <string name="empty_currency_hint">اضغط على زر + لإضافة عملة.</string>
+    <string name="delete_currency">إزالة العملة</string>
+    <string name="delete_message_currency">هل أنت متأكد أنك تريد إزالة هذه العملة؟</string>
+    <string name="message_currency">سيتم تغيير المحافظ التي تستخدم هذه العملة إلى العملة الأساسية.</string>
+    <string name="currency_has_been_removed_successfully">تمت إزالة العملة</string>
+    <string name="base_currency">العملة الأساسية</string>
+    <string name="additional_currency">العملات الإضافية</string>
+    <string name="currency_subtext">اختر العملة التي تريد استخدامها</string>
+    <string name="enter_the_rate">أدخل سعر الصرف</string>
+    <string name="default_base_currency">هذه هي عملتك الافتراضية/الأساسية</string>
+    <string name="exchange_currency_hint">أسعار الصرف محسوبة بالنسبة إلى عملتك الأساسية (%1$s).\nيمكنك تحديث أسعار الصرف لكل عملة.</string>
+</resources>

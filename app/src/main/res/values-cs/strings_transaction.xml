@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Příjem</string>
+    <string name="total_income">Celkové příjmy</string>
+    <string name="expense">Výdaj</string>
+    <string name="total_expense">Celkové výdaje</string>
+    <string name="transfer">Převod</string>
+    <string name="recurring">Opakování</string>
+    <string name="trans_delete_failed">Transakci se nepodařilo odstranit</string>
+    <string name="fee">Poplatek</string>
+    <string name="memo">Poznámka</string>
+    <string name="notes">Poznámky</string>
+    <string name="add_note">Přidat poznámku…</string>
+    <string name="description">Popis</string>
+    <string name="short_description">Stručný popis</string>
+    <string name="enter_amount">Zadejte částku</string>
+    <string name="cash_wallet">Hotovostní peněženka</string>
+    <string name="cash">Hotovost</string>
+    <string name="enter_the_amount">Zadejte částku</string>
+    <string name="date">Datum</string>
+    <string name="select_date">Vybrat datum</string>
+    <string name="amount">Částka</string>
+    <string name="add_record">Klepnutím na tlačítko + přidejte svou první transakci.</string>
+    <string name="type">Typ</string>
+    <string name="view_all">Zobrazit vše</string>
+    <string name="delete_transaction">Odstranit transakci</string>
+    <string name="total">Celkem</string>
+    <string name="all_transaction">Všechny transakce</string>
+    <string name="no_transaction">Zatím žádné transakce</string>
+    <string name="start_date">Počáteční datum</string>
+    <string name="end_date">Konečné datum</string>
+    <string name="date_amp_time"><![CDATA[Datum a čas]]></string>
+    <string name="future">Budoucí</string>
+    <string name="add_files">Přidat fotografie nebo soubory (max. 5 souborů)</string>
+    <string name="attachment_title">Přílohy (%1$d/5)</string>
+    <string name="tap_add_attach">Klepnutím přidáte přílohu</string>
+    <string name="attachment_extension">Obrázky, PDF, dokumenty, Excel, ZIP atd.</string>
+    <string name="add_more">Přidat další</string>
+    <string name="unable_to_open_attachment">Přílohu nelze otevřít</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Částka (z peněženky)</string>
+    <string name="fee_from_wallet">Poplatek (z peněženky)</string>
+    <string name="received_from_wallet">Přijato (do peněženky)</string>
+    <string name="transaction_action">Akce s transakcí</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Zobrazit podrobnosti transakce</string>
+    <string name="change_detail">Upravit podrobnosti transakce</string>
+    <string name="duplicate_copy">Vytvořit kopii</string>
+    <string name="remove_transaction">Odstranit transakci</string>
+    <string name="duplicate">Duplikovat</string>
+    <string name="duplicate_transaction">Duplikovat transakci</string>
+    <string name="duplicate_transaction_desc">Chcete vytvořit kopii této transakce?</string>
+    <string name="transaction_duplicated">Transakce byla duplikována</string>
+    <string name="transaction_deleted">Transakce byla odstraněna</string>
+    <string name="unable_to_save">Nelze uložit</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d transakce</item>
+        <item quantity="few">%d transakce</item>
+        <item quantity="many">%d transakcí</item>
+        <item quantity="other">%d transakce</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Příloha (%d)</item>
+        <item quantity="few">Přílohy (%d)</item>
+        <item quantity="many">Příloh (%d)</item>
+        <item quantity="other">Přílohy (%d)</item>
+    </plurals>
+</resources>

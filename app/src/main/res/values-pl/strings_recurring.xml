@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Śledź cykliczne transakcje</string>
+    <string name="select_recurring">Wybierz cykliczność</string>
+    <string name="repeat_on">Powtarzaj w</string>
+    <string name="select_repeat_on">Wybierz dni powtarzania</string>
+    <string name="create_transaction">Utwórz transakcję</string>
+    <string name="never_miss_recurring_transaction">Nigdy nie przegap cyklicznej transakcji</string>
+    <string name="income_recurring">Cykliczny dochód</string>
+    <string name="expense_recurring">Cykliczny wydatek</string>
+    <string name="transfer_recurring">Cykliczny przelew</string>
+    <string name="no_repeat">Bez powtarzania</string>
+    <string name="repeat_option">Opcja powtarzania</string>
+    <string name="select_days">Wybierz dni</string>
+    <string name="please_select_at_least_one_day">Wybierz co najmniej jeden dzień</string>
+    <string name="times">razy</string>
+    <string name="every">Co</string>
+    <string name="forever">Bezterminowo</string>
+    <string name="until">Do</string>
+    <string name="text_for">Przez</string>
+    <string name="text_every_value">"Co %1$s • %2$s"</string>
+    <string name="text_every_value1">"Co %1$s"</string>
+    <string name="same_day_each_month">Tego samego dnia każdego miesiąca (%1$d)</string>
+    <string name="end_of_month">Ostatni dzień miesiąca</string>
+    <string name="recurring_transaction_saved">Zapisano cykliczną transakcję</string>
+    <string name="failed_to_save_recurring_transaction">Nie udało się zapisać cyklicznej transakcji</string>
+    <string name="no_recurring_yet">Brak transakcji cyklicznych</string>
+    <string name="empty_recurring_hint">Dotknij przycisku +, aby dodać transakcję cykliczną.</string>
+    <string name="repeat_interval_atleast">Odstęp między powtórzeniami musi wynosić co najmniej 1</string>
+    <string name="please_select_until_date">Wybierz datę zakończenia</string>
+    <string name="please_enter_times">Wprowadź liczbę powtórzeń</string>
+    <string name="please_enter_an_amount">Wprowadź kwotę</string>
+    <string name="please_select_a_wallet">Wybierz portfel</string>
+    <string name="please_select_a_repeat_frequency">Wybierz częstotliwość powtarzania</string>
+    <string name="until_date_start_date">Data zakończenia musi przypadać po dacie rozpoczęcia</string>
+    <string name="select_recurring_transaction_end">Wybierz, kiedy cykliczna transakcja ma się zakończyć</string>
+    <string name="every_week_period">Co %1$s</string>
+    <string name="next_recurring">Następna: %1$s</string>
+    <string name="next_recurring_text">Następna transakcja cykliczna</string>
+    <string name="recurring_transaction_added">Dodano cykliczną transakcję</string>
+    <string name="recurring_transactions_added">Dodano cykliczne transakcje</string>
+    <string name="a_recurring_expense_was_added">Dodano cykliczny wydatek</string>
+    <string name="a_recurring_income_was_added">Dodano cykliczny dochód</string>
+    <string name="a_recurring_transaction_was_added">Dodano cykliczną transakcję</string>
+    <string name="recurring_transactions_were_added">" dodano cyklicznych transakcji"</string>
+    <string name="activate">Aktywuj</string>
+    <string name="text_deactivated">Nieaktywna</string>
+    <string name="deactivate">Dezaktywuj</string>
+    <string name="change_recurring_detail">Zmień szczegóły cykliczności</string>
+    <string name="resume_this_recurring_transaction">Wznów tę transakcję</string>
+    <string name="pause_this_recurring_transaction">Wstrzymaj tę transakcję</string>
+    <string name="permanently_remove_this_recurring_transaction">Trwale usuń tę transakcję</string>
+    <string name="view_recurring_details">Wyświetl szczegóły cykliczności</string>
+    <string name="delete_recurring">Usuń cykliczność</string>
+    <string name="delete_recurring_message">Czy na pewno chcesz usunąć tę cykliczność?</string>
+    <string name="recurring_deleted_successfully">Usunięto cykliczność</string>
+    <string name="error_delete_recurring">Wystąpił błąd podczas usuwania cykliczności</string>
+    <string name="activate_recurring">Aktywuj cykliczność</string>
+    <string name="deactivate_recurring">Dezaktywuj cykliczność</string>
+    <string name="delete_activate_message">Czy na pewno chcesz aktywować tę cykliczność?</string>
+    <string name="delete_deactivate_message">Czy na pewno chcesz dezaktywować tę cykliczność?</string>
+    <string name="delete_activate_sub_message">Możesz ją dezaktywować w dowolnym momencie w sekcji aktywnych transakcji cyklicznych.</string>
+    <string name="delete_deactivate_sub_message">Możesz ją aktywować w dowolnym momencie w sekcji wstrzymanych transakcji cyklicznych.</string>
+    <string name="deactivated_successfully">Dezaktywowano cykliczność</string>
+    <string name="error_deactivate">Wystąpił błąd podczas dezaktywowania cykliczności</string>
+    <string name="activated_successfully">Aktywowano cykliczność</string>
+    <string name="error_activate">Wystąpił błąd podczas aktywowania cykliczności</string>
+    <string name="repeat_time">Częstotliwość powtarzania</string>
+    <string name="recurring_detail">Szczegóły cykliczności</string>
+    <string name="until_date">Do %1$s</string>
+    <string name="recurring_transaction_reminder">Przypomnienie o cyklicznej transakcji</string>
+    <string name="recurring_expense_due">Termin cyklicznego wydatku już nadszedł.</string>
+    <string name="recurring_income_due">Termin cyklicznego dochodu już nadszedł.</string>
+    <string name="recurring_transfer_due">Termin cyklicznego przelewu już nadszedł.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">dzień</item>
+        <item quantity="few">dni</item>
+        <item quantity="many">dni</item>
+        <item quantity="other">dnia</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Co %d dzień</item>
+        <item quantity="few">Co %d dni</item>
+        <item quantity="many">Co %d dni</item>
+        <item quantity="other">Co %d dnia</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d dzień</item>
+        <item quantity="few">%d dni</item>
+        <item quantity="many">%d dni</item>
+        <item quantity="other">%d dnia</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">tydzień</item>
+        <item quantity="few">tygodnie</item>
+        <item quantity="many">tygodni</item>
+        <item quantity="other">tygodnia</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d tydzień</item>
+        <item quantity="few">%d tygodnie</item>
+        <item quantity="many">%d tygodni</item>
+        <item quantity="other">%d tygodnia</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Co %d miesiąc</item>
+        <item quantity="few">Co %d miesiące</item>
+        <item quantity="many">Co %d miesięcy</item>
+        <item quantity="other">Co %d miesiąca</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">miesiąc</item>
+        <item quantity="few">miesiące</item>
+        <item quantity="many">miesięcy</item>
+        <item quantity="other">miesiąca</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">rok</item>
+        <item quantity="few">lata</item>
+        <item quantity="many">lat</item>
+        <item quantity="other">roku</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Co %d rok</item>
+        <item quantity="few">Co %d lata</item>
+        <item quantity="many">Co %d lat</item>
+        <item quantity="other">Co %d roku</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">raz</item>
+        <item quantity="few">razy</item>
+        <item quantity="many">razy</item>
+        <item quantity="other">raza</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Przez %d raz</item>
+        <item quantity="few">Przez %d razy</item>
+        <item quantity="many">Przez %d razy</item>
+        <item quantity="other">Przez %d raza</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Co %d miesiąc • Ostatni dzień</item>
+        <item quantity="few">Co %d miesiące • Ostatni dzień</item>
+        <item quantity="many">Co %d miesięcy • Ostatni dzień</item>
+        <item quantity="other">Co %d miesiąca • Ostatni dzień</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Co %d miesiąc • Dzień %d</item>
+        <item quantity="few">Co %d miesiące • Dzień %d</item>
+        <item quantity="many">Co %d miesięcy • Dzień %d</item>
+        <item quantity="other">Co %d miesiąca • Dzień %d</item>
+    </plurals>
+</resources>

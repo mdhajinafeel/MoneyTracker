@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">വിഭാഗം ചേർക്കുക</string>
+    <string name="edit_category">വിഭാഗം എഡിറ്റ് ചെയ്യുക</string>
+    <string name="category_created">വിഭാഗം സൃഷ്ടിച്ചു</string>
+    <string name="category_updated">വിഭാഗം അപ്ഡേറ്റ് ചെയ്തു</string>
+    <string name="category_deleted">വിഭാഗം ഇല്ലാതാക്കി</string>
+    <string name="category_moved">വിഭാഗം മാറ്റി</string>
+    <string name="error_delete_category">വിഭാഗം ഇല്ലാതാക്കുമ്പോൾ പിശക് സംഭവിച്ചു</string>
+    <string name="error_moved_category">വിഭാഗം മാറ്റുമ്പോൾ പിശക് സംഭവിച്ചു</string>
+    <string name="category_bills">ബില്ലുകളും യൂട്ടിലിറ്റികളും</string>
+    <string name="category_bonus">ബോണസ്</string>
+    <string name="category_clothing">വസ്ത്രങ്ങൾ</string>
+    <string name="category_dividend">ലാഭവിഹിതം</string>
+    <string name="category_education">വിദ്യാഭ്യാസം</string>
+    <string name="category_entertainment">വിനോദം</string>
+    <string name="category_fitness">ശാരീരികക്ഷമത</string>
+    <string name="category_food">ഭക്ഷണം</string>
+    <string name="category_grocery">പലചരക്ക് സാധനങ്ങൾ</string>
+    <string name="category_furniture">വീടും ഫർണിച്ചറും</string>
+    <string name="category_gifts">സമ്മാനങ്ങൾ</string>
+    <string name="category_health_and_beauty">ആരോഗ്യം</string>
+    <string name="category_investment">നിക്ഷേപം</string>
+    <string name="category_lottery">ലോട്ടറി</string>
+    <string name="category_others">മറ്റുള്ളവ</string>
+    <string name="category_pet">വളർത്തുമൃഗങ്ങൾ</string>
+    <string name="category_salary">ശമ്പളം</string>
+    <string name="category_shopping">ഷോപ്പിംഗ്</string>
+    <string name="category_tips">ടിപ്പുകൾ</string>
+    <string name="category_cashback">റിവാർഡുകൾ</string>
+    <string name="category_transportation">യാത്രാ ചെലവുകൾ</string>
+    <string name="category_travel">യാത്ര</string>
+    <string name="adjustment">ക്രമീകരണം</string>
+    <string name="loan">വായ്പ</string>
+    <string name="repay">തിരിച്ചടവ്</string>
+    <string name="debt">കടം</string>
+    <string name="collect">കടം പിരിച്ചെടുക്കൽ</string>
+    <string name="category_allowance">അലവൻസ്</string>
+    <string name="category_award">പുരസ്കാരം</string>
+    <string name="manage_category">വിഭാഗങ്ങൾ</string>
+    <string name="empty_category">വിഭാഗങ്ങളൊന്നുമില്ല</string>
+    <string name="empty_category_hint">വിഭാഗങ്ങൾ ചേർക്കാൻ + ബട്ടൺ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="select_category">വിഭാഗം തിരഞ്ഞെടുക്കുക</string>
+    <string name="category">വിഭാഗം</string>
+    <string name="category_name">വിഭാഗത്തിന്റെ പേര്</string>
+    <string name="include_category_hint">റിപ്പോർട്ടുകളിലും ചാർട്ടുകളിലും ഈ വിഭാഗം കാണിക്കുക</string>
+    <string name="status_active_hint">ഈ വിഭാഗം ഉപയോഗിക്കാൻ ലഭ്യമാണ്</string>
+    <string name="status_inactive_hint">ഈ വിഭാഗം മറച്ചിരിക്കുന്നു. ഇടപാടുകൾ ചേർക്കുമ്പോൾ ഇത് കാണിക്കില്ല.</string>
+    <string name="include_reports">റിപ്പോർട്ടുകളിൽ ഉൾപ്പെടുത്തുക</string>
+    <string name="delete_category_message">%1$s വിഭാഗം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?</string>
+    <string name="delete_category">വിഭാഗം ഇല്ലാതാക്കണോ?</string>
+    <string name="no_transactions_found">ഇടപാടുകളൊന്നും കണ്ടെത്തിയില്ല</string>
+    <string name="category_permanently_delete">ഈ വിഭാഗം ശാശ്വതമായി ഇല്ലാതാക്കാം.</string>
+    <string name="category_in_use">വിഭാഗം ഉപയോഗത്തിലുണ്ട്</string>
+    <string name="move_delete">മാറ്റി ഇല്ലാതാക്കുക</string>
+    <string name="move_transaction_to">ഇടപാട് മാറ്റേണ്ട വിഭാഗം</string>
+    <string name="status">നില</string>
+    <string name="all_categories">എല്ലാ വിഭാഗങ്ങളും</string>
+    <string name="categories">വിഭാഗങ്ങൾ</string>
+    <string name="category_transactions">വിഭാഗത്തിലെ ഇടപാടുകൾ</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">"%2$s" എന്ന വിഭാഗത്തിൽ നിന്നുള്ള %1$d ഇടപാട് മറ്റൊരു വിഭാഗത്തിലേക്ക് മാറ്റും.</item>
+        <item quantity="other">"%2$s" എന്ന വിഭാഗത്തിൽ നിന്നുള്ള %1$d ഇടപാടുകൾ മറ്റൊരു വിഭാഗത്തിലേക്ക് മാറ്റും.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">"%1$s" എന്ന വിഭാഗം 1 ഇടപാടിൽ ഉപയോഗിക്കുന്നതിനാൽ ഇല്ലാതാക്കാൻ കഴിയില്ല.\n\nവിഭാഗം എഡിറ്റ് ചെയ്യുന്നതിലൂടെ ഇത് പ്രവർത്തനരഹിതമാക്കാം.</item>
+        <item quantity="other">"%1$s" എന്ന വിഭാഗം %2$d ഇടപാടുകളിൽ ഉപയോഗിക്കുന്നതിനാൽ ഇല്ലാതാക്കാൻ കഴിയില്ല.\n\nവിഭാഗം എഡിറ്റ് ചെയ്യുന്നതിലൂടെ ഇത് പ്രവർത്തനരഹിതമാക്കാം.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">"%2$s" എന്ന വിഭാഗത്തിലെ ഇടപാട് "%3$s" എന്ന വിഭാഗത്തിലേക്ക് മാറ്റും.\n\n"%4$s" ശാശ്വതമായി ഇല്ലാതാക്കും.</item>
+        <item quantity="other">"%2$s" എന്ന വിഭാഗത്തിലെ എല്ലാ %1$d ഇടപാടുകളും "%3$s" എന്ന വിഭാഗത്തിലേക്ക് മാറ്റും.\n\n"%4$s" ശാശ്വതമായി ഇല്ലാതാക്കും.</item>
+    </plurals>
+</resources>

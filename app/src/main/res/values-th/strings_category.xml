@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">เพิ่มหมวดหมู่</string>
+    <string name="edit_category">แก้ไขหมวดหมู่</string>
+    <string name="category_created">สร้างหมวดหมู่แล้ว</string>
+    <string name="category_updated">อัปเดตหมวดหมู่แล้ว</string>
+    <string name="category_deleted">ลบหมวดหมู่แล้ว</string>
+    <string name="category_moved">ย้ายหมวดหมู่แล้ว</string>
+    <string name="error_delete_category">เกิดข้อผิดพลาดขณะลบหมวดหมู่</string>
+    <string name="error_moved_category">เกิดข้อผิดพลาดขณะย้ายหมวดหมู่</string>
+    <string name="category_bills">บิลและค่าสาธารณูปโภค</string>
+    <string name="category_bonus">โบนัส</string>
+    <string name="category_clothing">เสื้อผ้า</string>
+    <string name="category_dividend">เงินปันผล</string>
+    <string name="category_education">การศึกษา</string>
+    <string name="category_entertainment">ความบันเทิง</string>
+    <string name="category_fitness">การออกกำลังกาย</string>
+    <string name="category_food">อาหาร</string>
+    <string name="category_grocery">ของชำ</string>
+    <string name="category_furniture">บ้านและเฟอร์นิเจอร์</string>
+    <string name="category_gifts">ของขวัญ</string>
+    <string name="category_health_and_beauty">สุขภาพ</string>
+    <string name="category_investment">การลงทุน</string>
+    <string name="category_lottery">ลอตเตอรี่</string>
+    <string name="category_others">อื่น ๆ</string>
+    <string name="category_pet">สัตว์เลี้ยง</string>
+    <string name="category_salary">เงินเดือน</string>
+    <string name="category_shopping">ช้อปปิ้ง</string>
+    <string name="category_tips">ทิป</string>
+    <string name="category_cashback">รางวัล</string>
+    <string name="category_transportation">การเดินทาง</string>
+    <string name="category_travel">ท่องเที่ยว</string>
+    <string name="adjustment">การปรับยอด</string>
+    <string name="loan">เงินกู้</string>
+    <string name="repay">การชำระคืน</string>
+    <string name="debt">หนี้สิน</string>
+    <string name="collect">การเรียกเก็บหนี้</string>
+    <string name="category_allowance">เงินเบี้ยเลี้ยง</string>
+    <string name="category_award">รางวัล</string>
+    <string name="manage_category">หมวดหมู่</string>
+    <string name="empty_category">ไม่มีหมวดหมู่</string>
+    <string name="empty_category_hint">แตะปุ่ม + เพื่อเพิ่มหมวดหมู่</string>
+    <string name="select_category">เลือกหมวดหมู่</string>
+    <string name="category">หมวดหมู่</string>
+    <string name="category_name">ชื่อหมวดหมู่</string>
+    <string name="include_category_hint">แสดงหมวดหมู่นี้ในรายงานและแผนภูมิ</string>
+    <string name="status_active_hint">หมวดหมู่นี้พร้อมใช้งาน</string>
+    <string name="status_inactive_hint">หมวดหมู่นี้ถูกซ่อนและจะไม่ปรากฏเมื่อเพิ่มรายการธุรกรรม</string>
+    <string name="include_reports">รวมในรายงาน</string>
+    <string name="delete_category_message">คุณแน่ใจหรือไม่ว่าต้องการลบหมวดหมู่ \'%1$s\'?</string>
+    <string name="delete_category">ลบหมวดหมู่หรือไม่?</string>
+    <string name="no_transactions_found">ไม่พบรายการธุรกรรม</string>
+    <string name="category_permanently_delete">สามารถลบหมวดหมู่นี้ได้อย่างถาวร</string>
+    <string name="category_in_use">หมวดหมู่กำลังถูกใช้งาน</string>
+    <string name="move_delete">ย้ายและลบ</string>
+    <string name="move_transaction_to">ย้ายรายการธุรกรรมไปยัง</string>
+    <string name="status">สถานะ</string>
+    <string name="all_categories">หมวดหมู่ทั้งหมด</string>
+    <string name="categories">หมวดหมู่</string>
+    <string name="category_transactions">รายการธุรกรรมตามหมวดหมู่</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">ย้ายรายการธุรกรรม %1$d รายการจาก &quot;%2$s&quot; ไปยังหมวดหมู่อื่น</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">&quot;%1$s&quot; ถูกใช้ในรายการธุรกรรม %2$d รายการ จึงไม่สามารถลบได้\n\nคุณสามารถปิดใช้งานหมวดหมู่นี้ได้จากเมนูแก้ไขหมวดหมู่</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">รายการธุรกรรมทั้งหมด %1$d รายการจาก &quot;%2$s&quot; จะถูกย้ายไปยัง &quot;%3$s&quot;\n\n&quot;%4$s&quot; จะถูกลบอย่างถาวร</item>
+    </plurals>
+</resources>

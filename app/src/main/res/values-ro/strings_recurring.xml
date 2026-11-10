@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Urmărește tranzacțiile recurente</string>
+    <string name="select_recurring">Selectează recurența</string>
+    <string name="repeat_on">Repetă în</string>
+    <string name="select_repeat_on">Selectează zilele de repetare</string>
+    <string name="create_transaction">Creează tranzacția</string>
+    <string name="never_miss_recurring_transaction">Nu rata niciodată o tranzacție recurentă</string>
+    <string name="income_recurring">Venit recurent</string>
+    <string name="expense_recurring">Cheltuială recurentă</string>
+    <string name="transfer_recurring">Transfer recurent</string>
+    <string name="no_repeat">Fără repetare</string>
+    <string name="repeat_option">Opțiune de repetare</string>
+    <string name="select_days">Selectează zilele</string>
+    <string name="please_select_at_least_one_day">Selectează cel puțin o zi</string>
+    <string name="times">ori</string>
+    <string name="every">La fiecare</string>
+    <string name="forever">Pentru totdeauna</string>
+    <string name="until">Până la</string>
+    <string name="text_for">Pentru</string>
+    <string name="text_every_value">"La fiecare %1$s • %2$s"</string>
+    <string name="text_every_value1">"La fiecare %1$s"</string>
+    <string name="same_day_each_month">Aceeași zi în fiecare lună (%1$d)</string>
+    <string name="end_of_month">Sfârșitul lunii</string>
+    <string name="recurring_transaction_saved">Tranzacție recurentă salvată</string>
+    <string name="failed_to_save_recurring_transaction">Salvarea tranzacției recurente a eșuat</string>
+    <string name="no_recurring_yet">Nu există încă tranzacții recurente</string>
+    <string name="empty_recurring_hint">Apasă butonul + pentru a adăuga o tranzacție recurentă.</string>
+    <string name="repeat_interval_atleast">Intervalul de repetare trebuie să fie de cel puțin 1</string>
+    <string name="please_select_until_date">Selectează data de încheiere</string>
+    <string name="please_enter_times">Introdu numărul de repetări</string>
+    <string name="please_enter_an_amount">Introdu o sumă</string>
+    <string name="please_select_a_wallet">Selectează un portofel</string>
+    <string name="please_select_a_repeat_frequency">Selectează frecvența de repetare</string>
+    <string name="until_date_start_date">Data de încheiere trebuie să fie ulterioară datei de început</string>
+    <string name="select_recurring_transaction_end">Selectează când trebuie să se încheie tranzacția recurentă</string>
+    <string name="every_week_period">La fiecare %1$s</string>
+    <string name="next_recurring">Următoarea: %1$s</string>
+    <string name="next_recurring_text">Următoarea recurență</string>
+    <string name="recurring_transaction_added">Tranzacție recurentă adăugată</string>
+    <string name="recurring_transactions_added">Tranzacții recurente adăugate</string>
+    <string name="a_recurring_expense_was_added">A fost adăugată o cheltuială recurentă</string>
+    <string name="a_recurring_income_was_added">A fost adăugat un venit recurent</string>
+    <string name="a_recurring_transaction_was_added">A fost adăugată o tranzacție recurentă</string>
+    <string name="recurring_transactions_were_added">" tranzacții recurente au fost adăugate"</string>
+    <string name="activate">Activează</string>
+    <string name="text_deactivated">Dezactivat</string>
+    <string name="deactivate">Dezactivează</string>
+    <string name="change_recurring_detail">Modifică detaliile recurenței</string>
+    <string name="resume_this_recurring_transaction">Reia această tranzacție</string>
+    <string name="pause_this_recurring_transaction">Întrerupe această tranzacție</string>
+    <string name="permanently_remove_this_recurring_transaction">Elimină definitiv această tranzacție</string>
+    <string name="view_recurring_details">Vezi detaliile recurenței</string>
+    <string name="delete_recurring">Șterge recurența</string>
+    <string name="delete_recurring_message">Sigur dorești să ștergi această recurență?</string>
+    <string name="recurring_deleted_successfully">Recurență ștearsă</string>
+    <string name="error_delete_recurring">Eroare la ștergerea recurenței</string>
+    <string name="activate_recurring">Activează recurența</string>
+    <string name="deactivate_recurring">Dezactivează recurența</string>
+    <string name="delete_activate_message">Sigur dorești să activezi această recurență?</string>
+    <string name="delete_deactivate_message">Sigur dorești să dezactivezi această recurență?</string>
+    <string name="delete_activate_sub_message">O poți dezactiva oricând din lista recurențelor active.</string>
+    <string name="delete_deactivate_sub_message">O poți activa oricând din lista recurențelor întrerupte.</string>
+    <string name="deactivated_successfully">Recurență dezactivată</string>
+    <string name="error_deactivate">Eroare la dezactivarea recurenței</string>
+    <string name="activated_successfully">Recurență activată</string>
+    <string name="error_activate">Eroare la activarea recurenței</string>
+    <string name="repeat_time">Frecvența repetării</string>
+    <string name="recurring_detail">Detalii despre recurență</string>
+    <string name="until_date">Până la %1$s</string>
+    <string name="recurring_transaction_reminder">Memento pentru tranzacție recurentă</string>
+    <string name="recurring_expense_due">Cheltuiala recurentă este scadentă.</string>
+    <string name="recurring_income_due">Venitul recurent este scadent.</string>
+    <string name="recurring_transfer_due">Transferul recurent este scadent.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">zi</item>
+        <item quantity="few">zile</item>
+        <item quantity="other">de zile</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">La fiecare %d zi</item>
+        <item quantity="few">La fiecare %d zile</item>
+        <item quantity="other">La fiecare %d de zile</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d zi</item>
+        <item quantity="few">%d zile</item>
+        <item quantity="other">%d de zile</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">săptămână</item>
+        <item quantity="few">săptămâni</item>
+        <item quantity="other">de săptămâni</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d săptămână</item>
+        <item quantity="few">%d săptămâni</item>
+        <item quantity="other">%d de săptămâni</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">La fiecare %d lună</item>
+        <item quantity="few">La fiecare %d luni</item>
+        <item quantity="other">La fiecare %d de luni</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">lună</item>
+        <item quantity="few">luni</item>
+        <item quantity="other">de luni</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">an</item>
+        <item quantity="few">ani</item>
+        <item quantity="other">de ani</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">La fiecare %d an</item>
+        <item quantity="few">La fiecare %d ani</item>
+        <item quantity="other">La fiecare %d de ani</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">dată</item>
+        <item quantity="few">ori</item>
+        <item quantity="other">de ori</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">De %d dată</item>
+        <item quantity="few">De %d ori</item>
+        <item quantity="other">De %d de ori</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">La fiecare %d lună • Ultima zi</item>
+        <item quantity="few">La fiecare %d luni • Ultima zi</item>
+        <item quantity="other">La fiecare %d de luni • Ultima zi</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">La fiecare %d lună • Ziua %d</item>
+        <item quantity="few">La fiecare %d luni • Ziua %d</item>
+        <item quantity="other">La fiecare %d de luni • Ziua %d</item>
+    </plurals>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Валюта</string>
+    <string name="choose_currency">Виберіть валюту</string>
+    <string name="select_currency_subtext">Виберіть валюту для цього рахунку.</string>
+    <string name="select_the_currency">Виберіть валюту</string>
+    <string name="search_currency">Пошук валюти</string>
+    <string name="select_currency">Вибрати валюту</string>
+    <string name="add_currency">Додати валюту</string>
+    <string name="edit_currency">Редагувати валюту</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Курс</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Немає додаткових валют</string>
+    <string name="empty_currency_hint">Натисніть кнопку +, щоб додати валюту.</string>
+    <string name="delete_currency">Видалити валюту</string>
+    <string name="delete_message_currency">Ви впевнені, що хочете видалити цю валюту?</string>
+    <string name="message_currency">Гаманці, які використовують цю валюту, буде переведено на базову валюту.</string>
+    <string name="currency_has_been_removed_successfully">Валюту видалено</string>
+    <string name="base_currency">Базова валюта</string>
+    <string name="additional_currency">Додаткові валюти</string>
+    <string name="currency_subtext">Виберіть валюту, яку хочете використовувати</string>
+    <string name="enter_the_rate">Введіть курс</string>
+    <string name="default_base_currency">Це ваша валюта за замовчуванням (базова валюта)</string>
+    <string name="exchange_currency_hint">Курси обміну вказані відносно вашої базової валюти (%1$s).\nВи можете оновити курс для кожної валюти.</string>
+</resources>

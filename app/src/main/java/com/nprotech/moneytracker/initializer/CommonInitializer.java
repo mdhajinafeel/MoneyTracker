@@ -90,12 +90,14 @@ public class CommonInitializer {
         list.add(new CommonDataEntity(Constants.LANGUAGE, 21, "ru", "russian", true, false));
         list.add(new CommonDataEntity(Constants.LANGUAGE, 22, "ta", "tamil", true, false));
         list.add(new CommonDataEntity(Constants.LANGUAGE, 23, "te", "telugu", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 24, "th", "thai", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 25, "tr", "turkish", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 26, "uk", "ukrainian", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 27, "vi", "vietnamese", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 28, "zh-CN", "chinese_simplified", true, false));
-        list.add(new CommonDataEntity(Constants.LANGUAGE, 29, "zh-TW", "chinese_traditional", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 24, "ml", "malayalam", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 25, "kn", "kannada", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 26, "th", "thai", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 27, "tr", "turkish", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 28, "uk", "ukrainian", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 29, "vi", "vietnamese", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 30, "zh-CN", "chinese_simplified", true, false));
+        list.add(new CommonDataEntity(Constants.LANGUAGE, 31, "zh-TW", "chinese_traditional", true, false));
 
         // Smart Reminder
         list.add(new CommonDataEntity(Constants.SMART_REMINDER, 1, "", "not_set", true, true));

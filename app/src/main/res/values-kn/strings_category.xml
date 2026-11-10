@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">ವರ್ಗ ಸೇರಿಸಿ</string>
+    <string name="edit_category">ವರ್ಗ ಸಂಪಾದಿಸಿ</string>
+    <string name="category_created">ವರ್ಗ ರಚಿಸಲಾಗಿದೆ</string>
+    <string name="category_updated">ವರ್ಗ ನವೀಕರಿಸಲಾಗಿದೆ</string>
+    <string name="category_deleted">ವರ್ಗ ಅಳಿಸಲಾಗಿದೆ</string>
+    <string name="category_moved">ವರ್ಗ ಸ್ಥಳಾಂತರಿಸಲಾಗಿದೆ</string>
+    <string name="error_delete_category">ವರ್ಗ ಅಳಿಸುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ</string>
+    <string name="error_moved_category">ವರ್ಗ ಸ್ಥಳಾಂತರಿಸುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ</string>
+    <string name="category_bills">ಬಿಲ್‌ಗಳು ಮತ್ತು ಉಪಯುಕ್ತತೆಗಳು</string>
+    <string name="category_bonus">ಬೋನಸ್</string>
+    <string name="category_clothing">ಬಟ್ಟೆ</string>
+    <string name="category_dividend">ಲಾಭಾಂಶ</string>
+    <string name="category_education">ಶಿಕ್ಷಣ</string>
+    <string name="category_entertainment">ಮನರಂಜನೆ</string>
+    <string name="category_fitness">ದೈಹಿಕ ಸಾಮರ್ಥ್ಯ</string>
+    <string name="category_food">ಆಹಾರ</string>
+    <string name="category_grocery">ದಿನಸಿ ಸಾಮಾನುಗಳು</string>
+    <string name="category_furniture">ಮನೆ ಮತ್ತು ಪೀಠೋಪಕರಣಗಳು</string>
+    <string name="category_gifts">ಉಡುಗೊರೆಗಳು</string>
+    <string name="category_health_and_beauty">ಆರೋಗ್ಯ</string>
+    <string name="category_investment">ಹೂಡಿಕೆ</string>
+    <string name="category_lottery">ಲಾಟರಿ</string>
+    <string name="category_others">ಇತರೆ</string>
+    <string name="category_pet">ಸಾಕುಪ್ರಾಣಿಗಳು</string>
+    <string name="category_salary">ಸಂಬಳ</string>
+    <string name="category_shopping">ಶಾಪಿಂಗ್</string>
+    <string name="category_tips">ಟಿಪ್ಸ್</string>
+    <string name="category_cashback">ಬಹುಮಾನಗಳು</string>
+    <string name="category_transportation">ಸಾರಿಗೆ</string>
+    <string name="category_travel">ಪ್ರಯಾಣ</string>
+    <string name="adjustment">ಹೊಂದಾಣಿಕೆ</string>
+    <string name="loan">ಸಾಲ</string>
+    <string name="repay">ಮರುಪಾವತಿ</string>
+    <string name="debt">ಬಾಕಿ ಸಾಲ</string>
+    <string name="collect">ಸಾಲ ವಸೂಲಿ</string>
+    <string name="category_allowance">ಭತ್ಯೆ</string>
+    <string name="category_award">ಪ್ರಶಸ್ತಿ</string>
+    <string name="manage_category">ವರ್ಗಗಳು</string>
+    <string name="empty_category">ಯಾವುದೇ ವರ್ಗಗಳಿಲ್ಲ</string>
+    <string name="empty_category_hint">ವರ್ಗಗಳನ್ನು ಸೇರಿಸಲು + ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="select_category">ವರ್ಗ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="category">ವರ್ಗ</string>
+    <string name="category_name">ವರ್ಗದ ಹೆಸರು</string>
+    <string name="include_category_hint">ವರದಿಗಳು ಮತ್ತು ಚಾರ್ಟ್‌ಗಳಲ್ಲಿ ಈ ವರ್ಗವನ್ನು ತೋರಿಸಿ</string>
+    <string name="status_active_hint">ಈ ವರ್ಗ ಬಳಕೆಗೆ ಲಭ್ಯವಿದೆ</string>
+    <string name="status_inactive_hint">ಈ ವರ್ಗವನ್ನು ಮರೆಮಾಡಲಾಗಿದೆ ಮತ್ತು ವಹಿವಾಟುಗಳನ್ನು ಸೇರಿಸುವಾಗ ಕಾಣಿಸುವುದಿಲ್ಲ.</string>
+    <string name="include_reports">ವರದಿಗಳಲ್ಲಿ ಸೇರಿಸಿ</string>
+    <string name="delete_category_message">ನೀವು \'%1$s\' ವರ್ಗವನ್ನು ಅಳಿಸಲು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?</string>
+    <string name="delete_category">ವರ್ಗವನ್ನು ಅಳಿಸಬೇಕೆ?</string>
+    <string name="no_transactions_found">ಯಾವುದೇ ವಹಿವಾಟುಗಳು ಕಂಡುಬಂದಿಲ್ಲ</string>
+    <string name="category_permanently_delete">ಈ ವರ್ಗವನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಬಹುದು.</string>
+    <string name="category_in_use">ಬಳಕೆಯಲ್ಲಿರುವ ವರ್ಗ</string>
+    <string name="move_delete">ಸ್ಥಳಾಂತರಿಸಿ ಮತ್ತು ಅಳಿಸಿ</string>
+    <string name="move_transaction_to">ವಹಿವಾಟನ್ನು ಇಲ್ಲಿಗೆ ಸ್ಥಳಾಂತರಿಸಿ</string>
+    <string name="status">ಸ್ಥಿತಿ</string>
+    <string name="all_categories">ಎಲ್ಲಾ ವರ್ಗಗಳು</string>
+    <string name="categories">ವರ್ಗಗಳು</string>
+    <string name="category_transactions">ವರ್ಗದ ವಹಿವಾಟುಗಳು</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">%1$d ವಹಿವಾಟನ್ನು "%2$s" ನಿಂದ ಮತ್ತೊಂದು ವರ್ಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸಿ.</item>
+        <item quantity="other">%1$d ವಹಿವಾಟುಗಳನ್ನು "%2$s" ನಿಂದ ಮತ್ತೊಂದು ವರ್ಗಕ್ಕೆ ಸ್ಥಳಾಂತರಿಸಿ.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">"%1$s" ಅನ್ನು 1 ವಹಿವಾಟಿನಲ್ಲಿ ಬಳಸಲಾಗಿದೆ. ಆದ್ದರಿಂದ ಅದನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.\n\nವರ್ಗ ಸಂಪಾದಿಸಿ ಆಯ್ಕೆಯಿಂದ ಈ ವರ್ಗವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬಹುದು.</item>
+        <item quantity="other">"%1$s" ಅನ್ನು %2$d ವಹಿವಾಟುಗಳಲ್ಲಿ ಬಳಸಲಾಗಿದೆ. ಆದ್ದರಿಂದ ಅದನ್ನು ಅಳಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ.\n\nವರ್ಗ ಸಂಪಾದಿಸಿ ಆಯ್ಕೆಯಿಂದ ಈ ವರ್ಗವನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬಹುದು.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">"%2$s" ನಲ್ಲಿರುವ ವಹಿವಾಟನ್ನು "%3$s" ಗೆ ಸ್ಥಳಾಂತರಿಸಲಾಗುತ್ತದೆ.\n\n"%4$s" ಅನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.</item>
+        <item quantity="other">"%2$s" ನಲ್ಲಿರುವ ಎಲ್ಲಾ %1$d ವಹಿವಾಟುಗಳನ್ನು "%3$s" ಗೆ ಸ್ಥಳಾಂತರಿಸಲಾಗುತ್ತದೆ.\n\n"%4$s" ಅನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲಾಗುತ್ತದೆ.</item>
+    </plurals>
+</resources>

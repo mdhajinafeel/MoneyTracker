@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Autorizzazione della fotocamera negata</string>
+    <string name="camera_permission_required">Autorizzazione della fotocamera richiesta</string>
+    <string name="camera_access_required">È necessario accedere alla fotocamera per scattare foto da allegare alle spese.</string>
+    <string name="allow">Consenti</string>
+    <string name="permission_required">Autorizzazione richiesta</string>
+    <string name="camera_permission_disabled">L\'autorizzazione della fotocamera è disattivata. Attivala dalle impostazioni dell\'app.</string>
+    <string name="open_settings">Apri impostazioni</string>
+    <string name="cancel_subscription_desc">Puoi annullare l\'abbonamento in qualsiasi momento da Google Play</string>
+</resources>

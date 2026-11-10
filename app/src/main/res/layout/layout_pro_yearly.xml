@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/corner_radius_4"
+    app:cardElevation="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_10">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivYearlySelected"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_circle_outline"
+            android:tint="@color/primary"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/yearlyContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_10"
+            android:layout_marginEnd="@dimen/margin_2"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toStartOf="@+id/layoutDiscount"
+            app:layout_constraintStart_toEndOf="@id/ivYearlySelected"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblYearly"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/calendar_yearly"
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_16"
+                app:fontFamily="@font/exo2_semibold" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblYearlyDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_2"
+                android:text="@string/billed_yearly"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_12"
+                app:fontFamily="@font/exo2_medium" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvYearlyPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:textColor="@color/vibrant_orange"
+                    android:textSize="@dimen/text_20"
+                    app:fontFamily="@font/exo2_bold" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/lblYear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2"
+                    android:text="@string/per_year"
+                    android:textColor="@color/text_grey"
+                    android:textSize="@dimen/text_14"
+                    app:fontFamily="@font/exo2_semibold" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/lblEquivalentMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_4"
+                android:text="@string/equivalent_month"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_10"
+                app:fontFamily="@font/exo2_medium" />
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/layoutDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/corner_radius_6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/yearlyContainer"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/dim_income"
+                android:padding="@dimen/padding_10">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivPriceTag"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/select_year"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_category"
+                    android:tint="@color/dark_income"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/layoutPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_6"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivPriceTag"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:text="@string/save"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_10"
+                        app:fontFamily="@font/exo2_medium" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvSavePrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_14"
+                        app:fontFamily="@font/exo2_semibold" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/lblPerYear"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_2"
+                        android:text="@string/text_per_year"
+                        android:textColor="@color/dark_grey"
+                        android:textSize="@dimen/text_10"
+                        app:fontFamily="@font/exo2_medium" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

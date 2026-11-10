@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">நாணயம்</string>
+    <string name="choose_currency">உங்கள் நாணயத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="select_currency_subtext">இந்தக் கணக்கிற்கான நாணயத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="select_the_currency">நாணயத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="search_currency">நாணயத்தைத் தேடவும்</string>
+    <string name="select_currency">நாணயத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="add_currency">நாணயத்தைச் சேர்</string>
+    <string name="edit_currency">நாணயத்தைத் திருத்து</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">மாற்று விகிதம்</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">கூடுதல் நாணயங்கள் எதுவும் இல்லை</string>
+    <string name="empty_currency_hint">நாணயத்தைச் சேர்க்க + பொத்தானைத் தட்டவும்.</string>
+    <string name="delete_currency">நாணயத்தை அகற்று</string>
+    <string name="delete_message_currency">இந்த நாணயத்தை நிச்சயமாக அகற்ற விரும்புகிறீர்களா?</string>
+    <string name="message_currency">இந்த நாணயத்தைப் பயன்படுத்தும் பணப்பைகள் அடிப்படை நாணயத்திற்கு மாற்றப்படும்.</string>
+    <string name="currency_has_been_removed_successfully">நாணயம் அகற்றப்பட்டது</string>
+    <string name="base_currency">அடிப்படை நாணயம்</string>
+    <string name="additional_currency">கூடுதல் நாணயங்கள்</string>
+    <string name="currency_subtext">நீங்கள் பயன்படுத்த விரும்பும் நாணயத்தைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="enter_the_rate">மாற்று விகிதத்தை உள்ளிடவும்</string>
+    <string name="default_base_currency">இது உங்கள் இயல்புநிலை / அடிப்படை நாணயம்</string>
+    <string name="exchange_currency_hint">மாற்று விகிதங்கள் உங்கள் அடிப்படை நாணயத்தை (%1$s) அடிப்படையாகக் கொண்டவை.\nஒவ்வொரு நாணயத்திற்குமான மாற்று விகிதத்தை நீங்கள் புதுப்பிக்கலாம்.</string>
+</resources>

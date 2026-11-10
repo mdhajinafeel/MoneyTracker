@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Đã tồn tại tài khoản với địa chỉ email này.</string>
+    <string name="error_check_details">Vui lòng kiểm tra thông tin và thử lại.</string>
+    <string name="error_too_many_attempts">Bạn đã thử quá nhiều lần. Vui lòng thử lại sau.</string>
+    <string name="error_account_creation_failed">Không thể tạo tài khoản. Vui lòng thử lại.</string>
+    <string name="error_network_connection">Không thể kết nối. Vui lòng kiểm tra kết nối Internet và thử lại.</string>
+    <string name="check_internet_connection">Không thể kết nối. Vui lòng kiểm tra kết nối Internet và thử lại.</string>
+</resources>

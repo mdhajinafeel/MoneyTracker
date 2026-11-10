@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">账户</string>
+    <string name="add_account">添加账户</string>
+    <string name="edit_account">编辑账户</string>
+    <string name="account_heading">您想为这个账户取什么名称？</string>
+    <string name="choose_name">选择一个便于识别此账户的名称。</string>
+    <string name="account_name">账户名称</string>
+    <string name="create_account">创建账户</string>
+    <string name="select_account">选择账户</string>
+    <string name="initial_balance">输入初始余额</string>
+    <string name="opening_balance_subtext">为此账户添加期初余额。</string>
+    <string name="initial_amount">初始余额</string>
+    <string name="initial">初始</string>
+    <string name="account_balance_format">余额：%1$s</string>
+    <string name="manage_account_desc">在一个地方管理所有银行账户、银行卡及其他账户。</string>
+    <string name="your_accounts">您的账户</string>
+    <string name="all_accounts">所有账户</string>
+    <string name="add_new_account">添加新账户</string>
+    <string name="add_account_desc">添加银行账户、信用卡或其他账户</string>
+    <string name="archived_accounts">已归档账户</string>
+    <string name="archived_accounts_desc">查看并恢复已归档的账户</string>
+    <string name="account_created">账户已创建</string>
+    <string name="account_updated">账户已更新</string>
+    <string name="currency_edit_account">编辑账户时无法更改货币。</string>
+    <string name="account_action">账户操作</string>
+    <string name="update_account_detail">更新账户信息</string>
+    <string name="use_as_your_default_account">设为您的默认账户</string>
+    <string name="see_account_detail">查看账户详情</string>
+    <string name="hide_from_active_accounts">从活动账户中隐藏</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[移除所有钱包和交易]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[删除钱包和交易]]></string>
+    <string name="remove_account">移除账户</string>
+    <string name="account_set_as_default">账户已设为默认账户</string>
+    <string name="archive_account">归档账户？</string>
+    <string name="account_archived">账户已归档</string>
+    <string name="delete_account_message">此操作将永久删除该账户及其所有钱包和交易。此操作无法撤销。</string>
+    <string name="delete_account">删除账户</string>
+    <string name="account_deleted">账户已删除</string>
+    <string name="error_delete_account">删除账户时出错</string>
+    <string name="opening_balance_editing_account">编辑账户时无法更改期初余额。</string>
+    <string name="cannot_change_initial_amount">由于存在交易记录，无法更改初始金额。</string>
+    <string name="archive_account_message">此账户将从活动账户列表中隐藏。您的余额和交易记录将被保留。</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[删除账户的钱包和交易？]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[此账户中的所有钱包和交易都将被删除。此操作无法撤销。]]></string>
+    <string name="error_delete_account_trans">删除账户交易时出错</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[账户的钱包和交易已删除]]></string>
+    <string name="transactions">交易</string>
+    <string name="view_all_transactions">查看所有交易</string>
+    <string name="view_all_recurring_transactions">查看所有定期交易</string>
+    <string name="recurring_transactions">定期交易</string>
+    <string name="account_details">账户详情</string>
+    <string name="archived_account_desc">这些账户已归档，并从活动账户列表中隐藏。所有钱包和交易数据都会保留，您可以随时恢复。</string>
+    <string name="restore_account">恢复账户？</string>
+    <string name="account_restore">账户已恢复</string>
+    <string name="restore_account_message">此账户将移回您的活动账户列表。余额和交易记录将保持不变。</string>
+    <string name="restore_your_account">恢复您的账户</string>
+    <string name="account_transactions">账户交易</string>
+
+    <plurals name="account_count">
+        <item quantity="other">%d 个账户</item>
+    </plurals>
+</resources>

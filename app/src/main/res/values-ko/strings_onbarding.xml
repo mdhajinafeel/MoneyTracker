@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">내 돈을 스마트하게 관리하세요</string>
+    <string name="walkthrough_1_desc">모든 지출을 기록하고, 예산을 관리하며, 돈이 어디에 사용되는지 파악하세요.</string>
+    <string name="walkthrough_2_title">모든 지갑을 한곳에서 관리하세요</string>
+    <string name="walkthrough_2_desc">현금, 은행 계좌, 카드 및 디지털 지갑을 하나의 안전한 공간에서 관리하세요.</string>
+    <string name="walkthrough_3_title">지출을 즉시 기록하세요</string>
+    <string name="walkthrough_3_desc">몇 번의 터치만으로 카테고리, 메모 및 첨부 파일과 함께 거래를 추가하세요.</string>
+    <string name="walkthrough_4_title"><![CDATA[스마트 보고서 및 분석]]></string>
+    <string name="walkthrough_4_desc">다양한 차트와 맞춤형 금융 인사이트를 통해 지출 내역을 시각적으로 확인하세요.</string>
+    <string name="walkthrough_5_title">알림으로 결제를 놓치지 마세요</string>
+    <string name="walkthrough_5_desc">스마트 알림으로 청구서, 구독 및 정기 결제를 관리하세요.</string>
+    <string name="walkthrough_6_title">재정 목표를 달성하세요</string>
+    <string name="walkthrough_6_desc">더 나은 금융 습관을 만들고, 더 많이 저축하며, 매일 재정 관리에 대한 자신감을 키우세요.</string>
+</resources>

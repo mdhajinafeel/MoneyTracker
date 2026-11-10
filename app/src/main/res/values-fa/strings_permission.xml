@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">اجازه دسترسی به دوربین رد شد</string>
+    <string name="camera_permission_required">اجازه دسترسی به دوربین لازم است</string>
+    <string name="camera_access_required">برای گرفتن عکس جهت پیوست به هزینه‌ها، دسترسی به دوربین لازم است.</string>
+    <string name="allow">اجازه دادن</string>
+    <string name="permission_required">اجازه دسترسی لازم است</string>
+    <string name="camera_permission_disabled">اجازه دسترسی به دوربین غیرفعال است. لطفاً آن را از تنظیمات برنامه فعال کنید.</string>
+    <string name="open_settings">باز کردن تنظیمات</string>
+    <string name="cancel_subscription_desc">هر زمان می‌توانید اشتراک خود را از طریق Google Play لغو کنید</string>
+</resources>

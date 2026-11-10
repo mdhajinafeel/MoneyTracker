@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ</string>
+    <string name="select_recurring">ಮರುಕಳಿಸುವ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="repeat_on">ಮರುಕಳಿಸುವ ದಿನ</string>
+    <string name="select_repeat_on">ಮರುಕಳಿಸುವ ದಿನವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="create_transaction">ವಹಿವಾಟು ರಚಿಸಿ</string>
+    <string name="never_miss_recurring_transaction">ಯಾವುದೇ ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ತಪ್ಪಿಸಿಕೊಳ್ಳಬೇಡಿ</string>
+    <string name="income_recurring">ಮರುಕಳಿಸುವ ಆದಾಯ</string>
+    <string name="expense_recurring">ಮರುಕಳಿಸುವ ಖರ್ಚು</string>
+    <string name="transfer_recurring">ಮರುಕಳಿಸುವ ವರ್ಗಾವಣೆ</string>
+    <string name="no_repeat">ಮರುಕಳಿಸುವುದಿಲ್ಲ</string>
+    <string name="repeat_option">ಮರುಕಳಿಸುವ ಆಯ್ಕೆ</string>
+    <string name="select_days">ದಿನಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="please_select_at_least_one_day">ದಯವಿಟ್ಟು ಕನಿಷ್ಠ ಒಂದು ದಿನವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="times">ಬಾರಿ</string>
+    <string name="every">ಪ್ರತಿ</string>
+    <string name="forever">ಯಾವಾಗಲೂ</string>
+    <string name="until">ವರೆಗೆ</string>
+    <string name="text_for">ಒಟ್ಟು</string>
+    <string name="text_every_value">"ಪ್ರತಿ %1$s • %2$s"</string>
+    <string name="text_every_value1">"ಪ್ರತಿ %1$s"</string>
+    <string name="same_day_each_month">ಪ್ರತಿ ತಿಂಗಳ ಅದೇ ದಿನ (%1$d)</string>
+    <string name="end_of_month">ತಿಂಗಳ ಕೊನೆಯ ದಿನ</string>
+    <string name="recurring_transaction_saved">ಮರುಕಳಿಸುವ ವಹಿವಾಟು ಉಳಿಸಲಾಗಿದೆ</string>
+    <string name="failed_to_save_recurring_transaction">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಉಳಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
+    <string name="no_recurring_yet">ಇನ್ನೂ ಯಾವುದೇ ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳಿಲ್ಲ</string>
+    <string name="empty_recurring_hint">ಮರುಕಳಿಸುವ ವಹಿವಾಟು ಸೇರಿಸಲು + ಬಟನ್ ಒತ್ತಿರಿ.</string>
+    <string name="repeat_interval_atleast">ಮರುಕಳಿಸುವ ಮಧ್ಯಂತರ ಕನಿಷ್ಠ 1 ಆಗಿರಬೇಕು</string>
+    <string name="please_select_until_date">ದಯವಿಟ್ಟು ಅಂತಿಮ ದಿನಾಂಕವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="please_enter_times">ದಯವಿಟ್ಟು ಎಷ್ಟು ಬಾರಿ ಎಂಬುದನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="please_enter_an_amount">ದಯವಿಟ್ಟು ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="please_select_a_wallet">ದಯವಿಟ್ಟು ವಾಲೆಟ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="please_select_a_repeat_frequency">ದಯವಿಟ್ಟು ಮರುಕಳಿಸುವ ಆವರ್ತನವನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="until_date_start_date">ಅಂತಿಮ ದಿನಾಂಕವು ಪ್ರಾರಂಭ ದಿನಾಂಕದ ನಂತರ ಇರಬೇಕು</string>
+    <string name="select_recurring_transaction_end">ಮರುಕಳಿಸುವ ವಹಿವಾಟು ಯಾವಾಗ ಕೊನೆಗೊಳ್ಳಬೇಕು ಎಂಬುದನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="every_week_period">ಪ್ರತಿ %1$s</string>
+    <string name="next_recurring">ಮುಂದಿನದು: %1$s</string>
+    <string name="next_recurring_text">ಮುಂದಿನ ಮರುಕಳಿಸುವ ವಹಿವಾಟು</string>
+    <string name="recurring_transaction_added">ಮರುಕಳಿಸುವ ವಹಿವಾಟು ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="recurring_transactions_added">ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="a_recurring_expense_was_added">ಮರುಕಳಿಸುವ ಖರ್ಚನ್ನು ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="a_recurring_income_was_added">ಮರುಕಳಿಸುವ ಆದಾಯವನ್ನು ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="a_recurring_transaction_was_added">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಸೇರಿಸಲಾಗಿದೆ</string>
+    <string name="recurring_transactions_were_added">" ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳನ್ನು ಸೇರಿಸಲಾಗಿದೆ"</string>
+    <string name="activate">ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="text_deactivated">ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="deactivate">ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="change_recurring_detail">ಮರುಕಳಿಸುವ ವಿವರಗಳನ್ನು ಬದಲಾಯಿಸಿ</string>
+    <string name="resume_this_recurring_transaction">ಈ ವಹಿವಾಟನ್ನು ಪುನರಾರಂಭಿಸಿ</string>
+    <string name="pause_this_recurring_transaction">ಈ ವಹಿವಾಟನ್ನು ವಿರಾಮಗೊಳಿಸಿ</string>
+    <string name="permanently_remove_this_recurring_transaction">ಈ ವಹಿವಾಟನ್ನು ಶಾಶ್ವತವಾಗಿ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="view_recurring_details">ಮರುಕಳಿಸುವ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="delete_recurring">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಅಳಿಸಿ</string>
+    <string name="delete_recurring_message">ಈ ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಅಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?</string>
+    <string name="recurring_deleted_successfully">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಅಳಿಸಲಾಗಿದೆ</string>
+    <string name="error_delete_recurring">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಅಳಿಸುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ</string>
+    <string name="activate_recurring">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="deactivate_recurring">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಿ</string>
+    <string name="delete_activate_message">ಈ ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?</string>
+    <string name="delete_deactivate_message">ಈ ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲು ನೀವು ಖಚಿತವಾಗಿದ್ದೀರಾ?</string>
+    <string name="delete_activate_sub_message">ಪ್ರಗತಿಯಲ್ಲಿರುವ ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳಿಂದ ನೀವು ಇದನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಬಹುದು.</string>
+    <string name="delete_deactivate_sub_message">ವಿರಾಮಗೊಳಿಸಿದ ಮರುಕಳಿಸುವ ವಹಿವಾಟುಗಳಿಂದ ನೀವು ಇದನ್ನು ಯಾವಾಗ ಬೇಕಾದರೂ ಸಕ್ರಿಯಗೊಳಿಸಬಹುದು.</string>
+    <string name="deactivated_successfully">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="error_deactivate">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ</string>
+    <string name="activated_successfully">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಸಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="error_activate">ಮರುಕಳಿಸುವ ವಹಿವಾಟನ್ನು ಸಕ್ರಿಯಗೊಳಿಸುವಾಗ ದೋಷ ಉಂಟಾಗಿದೆ</string>
+    <string name="repeat_time">ಮರುಕಳಿಸುವ ಸಮಯ</string>
+    <string name="recurring_detail">ಮರುಕಳಿಸುವ ವಿವರಗಳು</string>
+    <string name="until_date">%1$s ವರೆಗೆ</string>
+    <string name="recurring_transaction_reminder">ಮರುಕಳಿಸುವ ವಹಿವಾಟಿನ ಜ್ಞಾಪನೆ</string>
+    <string name="recurring_expense_due">ನಿಮ್ಮ ಮರುಕಳಿಸುವ ಖರ್ಚಿನ ದಿನಾಂಕ ಬಂದಿದೆ.</string>
+    <string name="recurring_income_due">ನಿಮ್ಮ ಮರುಕಳಿಸುವ ಆದಾಯದ ದಿನಾಂಕ ಬಂದಿದೆ.</string>
+    <string name="recurring_transfer_due">ನಿಮ್ಮ ಮರುಕಳಿಸುವ ವರ್ಗಾವಣೆಯ ದಿನಾಂಕ ಬಂದಿದೆ.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">ದಿನ</item>
+        <item quantity="other">ದಿನಗಳು</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">ಪ್ರತಿ %d ದಿನಕ್ಕೆ</item>
+        <item quantity="other">ಪ್ರತಿ %d ದಿನಗಳಿಗೊಮ್ಮೆ</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d ದಿನ</item>
+        <item quantity="other">%d ದಿನಗಳು</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">ವಾರ</item>
+        <item quantity="other">ವಾರಗಳು</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d ವಾರ</item>
+        <item quantity="other">%d ವಾರಗಳು</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">ಪ್ರತಿ %d ತಿಂಗಳಿಗೆ</item>
+        <item quantity="other">ಪ್ರತಿ %d ತಿಂಗಳಿಗೊಮ್ಮೆ</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">ತಿಂಗಳು</item>
+        <item quantity="other">ತಿಂಗಳುಗಳು</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">ವರ್ಷ</item>
+        <item quantity="other">ವರ್ಷ</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">ಪ್ರತಿ %d ವರ್ಷಕ್ಕೆ</item>
+        <item quantity="other">ಪ್ರತಿ %d ವರ್ಷಗಳಿಗೊಮ್ಮೆ</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">ಬಾರಿ</item>
+        <item quantity="other">ಬಾರಿ</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d ಬಾರಿಗೆ</item>
+        <item quantity="other">%d ಬಾರಿ</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">ಪ್ರತಿ %d ತಿಂಗಳಿಗೆ • ಕೊನೆಯ ದಿನ</item>
+        <item quantity="other">ಪ್ರತಿ %d ತಿಂಗಳಿಗೊಮ್ಮೆ • ಕೊನೆಯ ದಿನ</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">ಪ್ರತಿ %d ತಿಂಗಳಿಗೆ • %dನೇ ದಿನ</item>
+        <item quantity="other">ಪ್ರತಿ %d ತಿಂಗಳಿಗೊಮ್ಮೆ • %dನೇ ದಿನ</item>
+    </plurals>
+</resources>

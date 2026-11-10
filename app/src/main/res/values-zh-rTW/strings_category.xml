@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">新增類別</string>
+    <string name="edit_category">編輯類別</string>
+    <string name="category_created">類別已建立</string>
+    <string name="category_updated">類別已更新</string>
+    <string name="category_deleted">類別已刪除</string>
+    <string name="category_moved">類別已移動</string>
+    <string name="error_delete_category">刪除類別時發生錯誤</string>
+    <string name="error_moved_category">移動類別時發生錯誤</string>
+    <string name="category_bills">帳單與公用事業</string>
+    <string name="category_bonus">獎金</string>
+    <string name="category_clothing">服飾</string>
+    <string name="category_dividend">股息</string>
+    <string name="category_education">教育</string>
+    <string name="category_entertainment">娛樂</string>
+    <string name="category_fitness">健身</string>
+    <string name="category_food">餐飲</string>
+    <string name="category_grocery">日用品</string>
+    <string name="category_furniture">居家與家具</string>
+    <string name="category_gifts">禮物</string>
+    <string name="category_health_and_beauty">健康</string>
+    <string name="category_investment">投資</string>
+    <string name="category_lottery">彩券</string>
+    <string name="category_others">其他</string>
+    <string name="category_pet">寵物</string>
+    <string name="category_salary">薪資</string>
+    <string name="category_shopping">購物</string>
+    <string name="category_tips">小費</string>
+    <string name="category_cashback">回饋</string>
+    <string name="category_transportation">交通</string>
+    <string name="category_travel">旅遊</string>
+    <string name="adjustment">調整</string>
+    <string name="loan">貸款</string>
+    <string name="repay">還款</string>
+    <string name="debt">債務</string>
+    <string name="collect">收回欠款</string>
+    <string name="category_allowance">津貼</string>
+    <string name="category_award">獎勵</string>
+    <string name="manage_category">類別</string>
+    <string name="empty_category">沒有類別</string>
+    <string name="empty_category_hint">點選 + 按鈕以新增類別。</string>
+    <string name="select_category">選擇類別</string>
+    <string name="category">類別</string>
+    <string name="category_name">類別名稱</string>
+    <string name="include_category_hint">在報表和圖表中顯示此類別</string>
+    <string name="status_active_hint">此類別可供使用</string>
+    <string name="status_inactive_hint">此類別已隱藏，新增交易時不會顯示。</string>
+    <string name="include_reports">納入報表</string>
+    <string name="delete_category_message">確定要刪除「%1$s」類別嗎？</string>
+    <string name="delete_category">要刪除類別嗎？</string>
+    <string name="no_transactions_found">找不到交易</string>
+    <string name="category_permanently_delete">此類別可以永久刪除。</string>
+    <string name="category_in_use">類別正在使用中</string>
+    <string name="move_delete">移動並刪除</string>
+    <string name="move_transaction_to">將交易移動至</string>
+    <string name="status">狀態</string>
+    <string name="all_categories">所有類別</string>
+    <string name="categories">類別</string>
+    <string name="category_transactions">類別交易</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">將 %1$d 筆來自「%2$s」的交易移至其他類別。</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">「%1$s」已被 %2$d 筆交易使用，因此無法刪除。\n\n您可以在「編輯類別」中將此類別設為停用。</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">來自「%2$s」的全部 %1$d 筆交易將移至「%3$s」。\n\n「%4$s」將被永久刪除。</item>
+    </plurals>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filtre -->
+    <string name="calendar_daily">Günlük</string>
+    <string name="calendar_weekly">Haftalık</string>
+    <string name="calendar_monthly">Aylık</string>
+    <string name="calendar_quarterly">Üç Aylık</string>
+    <string name="calendar_yearly">Yıllık</string>
+    <string name="calendar_all">Tümü</string>
+    <string name="calendar_custom">Özel</string>
+
+    <string name="total_balance">Toplam Bakiye</string>
+    <string name="balance">Bakiye</string>
+    <string name="opening_balance">Açılış bakiyesi</string>
+    <string name="ending_balance">Kapanış bakiyesi</string>
+    <string name="overview">Genel Bakış</string>
+    <string name="breakdown">Dağılım</string>
+    <string name="transaction_overview">İşlem Özeti</string>
+    <string name="select_range">Aralık seçin</string>
+    <string name="all_time">Tüm Zamanlar</string>
+    <string name="period_spending">Dönem Harcamaları</string>
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Thêm danh mục</string>
+    <string name="edit_category">Chỉnh sửa danh mục</string>
+    <string name="category_created">Đã tạo danh mục</string>
+    <string name="category_updated">Đã cập nhật danh mục</string>
+    <string name="category_deleted">Đã xóa danh mục</string>
+    <string name="category_moved">Đã di chuyển danh mục</string>
+    <string name="error_delete_category">Lỗi khi xóa danh mục</string>
+    <string name="error_moved_category">Lỗi khi di chuyển danh mục</string>
+    <string name="category_bills">Hóa đơn và tiện ích</string>
+    <string name="category_bonus">Tiền thưởng</string>
+    <string name="category_clothing">Quần áo</string>
+    <string name="category_dividend">Cổ tức</string>
+    <string name="category_education">Giáo dục</string>
+    <string name="category_entertainment">Giải trí</string>
+    <string name="category_fitness">Thể dục</string>
+    <string name="category_food">Ăn uống</string>
+    <string name="category_grocery">Tạp hóa</string>
+    <string name="category_furniture">Nhà cửa và nội thất</string>
+    <string name="category_gifts">Quà tặng</string>
+    <string name="category_health_and_beauty">Sức khỏe</string>
+    <string name="category_investment">Đầu tư</string>
+    <string name="category_lottery">Xổ số</string>
+    <string name="category_others">Khác</string>
+    <string name="category_pet">Thú cưng</string>
+    <string name="category_salary">Lương</string>
+    <string name="category_shopping">Mua sắm</string>
+    <string name="category_tips">Tiền boa</string>
+    <string name="category_cashback">Hoàn tiền và phần thưởng</string>
+    <string name="category_transportation">Đi lại</string>
+    <string name="category_travel">Du lịch</string>
+    <string name="adjustment">Điều chỉnh</string>
+    <string name="loan">Khoản vay</string>
+    <string name="repay">Trả nợ</string>
+    <string name="debt">Nợ</string>
+    <string name="collect">Thu hồi nợ</string>
+    <string name="category_allowance">Tiền trợ cấp</string>
+    <string name="category_award">Giải thưởng</string>
+    <string name="manage_category">Danh mục</string>
+    <string name="empty_category">Chưa có danh mục</string>
+    <string name="empty_category_hint">Nhấn nút + để thêm danh mục.</string>
+    <string name="select_category">Chọn danh mục</string>
+    <string name="category">Danh mục</string>
+    <string name="category_name">Tên danh mục</string>
+    <string name="include_category_hint">Hiển thị danh mục này trong báo cáo và biểu đồ</string>
+    <string name="status_active_hint">Danh mục có thể được sử dụng</string>
+    <string name="status_inactive_hint">Danh mục bị ẩn và sẽ không xuất hiện khi thêm giao dịch.</string>
+    <string name="include_reports">Đưa vào báo cáo</string>
+    <string name="delete_category_message">Bạn có chắc chắn muốn xóa danh mục \'%1$s\' không?</string>
+    <string name="delete_category">Xóa danh mục?</string>
+    <string name="no_transactions_found">Không tìm thấy giao dịch nào</string>
+    <string name="category_permanently_delete">Danh mục này có thể bị xóa vĩnh viễn.</string>
+    <string name="category_in_use">Danh mục đang được sử dụng</string>
+    <string name="move_delete">Di chuyển và xóa</string>
+    <string name="move_transaction_to">Chuyển giao dịch đến</string>
+    <string name="status">Trạng thái</string>
+    <string name="all_categories">Tất cả danh mục</string>
+    <string name="categories">Danh mục</string>
+    <string name="category_transactions">Giao dịch theo danh mục</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">Chuyển %1$d giao dịch từ &quot;%2$s&quot; sang danh mục khác.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">&quot;%1$s&quot; đang được sử dụng trong %2$d giao dịch và không thể xóa.\n\nBạn có thể chuyển danh mục này sang trạng thái không hoạt động trong mục Chỉnh sửa danh mục.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">Tất cả %1$d giao dịch từ &quot;%2$s&quot; sẽ được chuyển sang &quot;%3$s&quot;.\n\n&quot;%4$s&quot; sẽ bị xóa vĩnh viễn.</item>
+    </plurals>
+</resources>

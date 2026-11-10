@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">收入</string>
+    <string name="total_income">总收入</string>
+    <string name="expense">支出</string>
+    <string name="total_expense">总支出</string>
+    <string name="transfer">转账</string>
+    <string name="recurring">定期交易</string>
+    <string name="trans_delete_failed">删除交易失败</string>
+    <string name="fee">手续费</string>
+    <string name="memo">备注</string>
+    <string name="notes">备注</string>
+    <string name="add_note">添加备注…</string>
+    <string name="description">说明</string>
+    <string name="short_description">简短说明</string>
+    <string name="enter_amount">输入金额</string>
+    <string name="cash_wallet">现金钱包</string>
+    <string name="cash">现金</string>
+    <string name="enter_the_amount">请输入金额</string>
+    <string name="date">日期</string>
+    <string name="select_date">选择日期</string>
+    <string name="amount">金额</string>
+    <string name="add_record">点击 + 按钮添加你的第一笔交易。</string>
+    <string name="type">类型</string>
+    <string name="view_all">查看全部</string>
+    <string name="delete_transaction">删除交易</string>
+    <string name="total">总计</string>
+    <string name="all_transaction">所有交易</string>
+    <string name="no_transaction">暂无交易记录</string>
+    <string name="start_date">开始日期</string>
+    <string name="end_date">结束日期</string>
+    <string name="date_amp_time"><![CDATA[日期和时间]]></string>
+    <string name="future">未来</string>
+    <string name="add_files">添加照片或文件（最多 5 个文件）</string>
+    <string name="attachment_title">附件（%1$d/5）</string>
+    <string name="tap_add_attach">点击添加附件</string>
+    <string name="attachment_extension">图片、PDF、文档、Excel、ZIP 等</string>
+    <string name="add_more">添加更多</string>
+    <string name="unable_to_open_attachment">无法打开附件</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">金额（从钱包扣除）</string>
+    <string name="fee_from_wallet">手续费（从钱包扣除）</string>
+    <string name="received_from_wallet">到账金额（转入钱包）</string>
+    <string name="transaction_action">交易操作</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">查看交易详情</string>
+    <string name="change_detail">修改交易详情</string>
+    <string name="duplicate_copy">创建副本</string>
+    <string name="remove_transaction">删除交易</string>
+    <string name="duplicate">复制</string>
+    <string name="duplicate_transaction">复制交易</string>
+    <string name="duplicate_transaction_desc">确定要创建此交易的副本吗？</string>
+    <string name="transaction_duplicated">交易已复制</string>
+    <string name="transaction_deleted">交易已删除</string>
+    <string name="unable_to_save">无法保存</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">%d 笔交易</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">附件（%d）</item>
+    </plurals>
+</resources>

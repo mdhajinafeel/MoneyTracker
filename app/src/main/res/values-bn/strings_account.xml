@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">অ্যাকাউন্টসমূহ</string>
+    <string name="add_account">অ্যাকাউন্ট যোগ করুন</string>
+    <string name="edit_account">অ্যাকাউন্ট সম্পাদনা করুন</string>
+    <string name="account_heading">এই অ্যাকাউন্টের কী নাম রাখবেন?</string>
+    <string name="choose_name">এই অ্যাকাউন্টটি সহজে শনাক্ত করতে সাহায্য করবে এমন একটি নাম নির্বাচন করুন।</string>
+    <string name="account_name">অ্যাকাউন্টের নাম</string>
+    <string name="create_account">অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="select_account">অ্যাকাউন্ট নির্বাচন করুন</string>
+    <string name="initial_balance">প্রাথমিক ব্যালেন্স লিখুন</string>
+    <string name="opening_balance_subtext">এই অ্যাকাউন্টের প্রারম্ভিক ব্যালেন্স যোগ করুন।</string>
+    <string name="initial_amount">প্রাথমিক ব্যালেন্স</string>
+    <string name="initial">প্রাথমিক</string>
+    <string name="account_balance_format">ব্যালেন্স : %1$s</string>
+    <string name="manage_account_desc">আপনার সব ব্যাংক অ্যাকাউন্ট, কার্ড এবং অন্যান্য অ্যাকাউন্ট এক জায়গা থেকে পরিচালনা করুন।</string>
+    <string name="your_accounts">আপনার অ্যাকাউন্টসমূহ</string>
+    <string name="all_accounts">সব অ্যাকাউন্ট</string>
+    <string name="add_new_account">নতুন অ্যাকাউন্ট যোগ করুন</string>
+    <string name="add_account_desc">ব্যাংক অ্যাকাউন্ট, ক্রেডিট কার্ড বা অন্য কোনো অ্যাকাউন্ট যোগ করুন</string>
+    <string name="archived_accounts">আর্কাইভ করা অ্যাকাউন্টসমূহ</string>
+    <string name="archived_accounts_desc">আপনার আর্কাইভ করা অ্যাকাউন্ট দেখুন এবং পুনরুদ্ধার করুন</string>
+    <string name="account_created">অ্যাকাউন্ট তৈরি হয়েছে</string>
+    <string name="account_updated">অ্যাকাউন্ট আপডেট হয়েছে</string>
+    <string name="currency_edit_account">অ্যাকাউন্ট সম্পাদনা করার সময় মুদ্রা পরিবর্তন করা যাবে না।</string>
+    <string name="account_action">অ্যাকাউন্টের কার্যক্রম</string>
+    <string name="update_account_detail">অ্যাকাউন্টের বিবরণ আপডেট করুন</string>
+    <string name="use_as_your_default_account">ডিফল্ট অ্যাকাউন্ট হিসেবে ব্যবহার করুন</string>
+    <string name="see_account_detail">অ্যাকাউন্টের বিবরণ দেখুন</string>
+    <string name="hide_from_active_accounts">সক্রিয় অ্যাকাউন্ট থেকে লুকান</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[সব ওয়ালেট ও লেনদেন সরান]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[ওয়ালেট ও লেনদেন মুছুন]]></string>
+    <string name="remove_account">অ্যাকাউন্ট সরান</string>
+    <string name="account_set_as_default">অ্যাকাউন্টটি ডিফল্ট হিসেবে সেট করা হয়েছে</string>
+    <string name="archive_account">অ্যাকাউন্ট আর্কাইভ করবেন?</string>
+    <string name="account_archived">অ্যাকাউন্ট আর্কাইভ করা হয়েছে</string>
+    <string name="delete_account_message">এর ফলে অ্যাকাউন্ট এবং এর সব ওয়ালেট ও লেনদেন স্থায়ীভাবে মুছে যাবে। এই কাজটি আর ফিরিয়ে নেওয়া যাবে না।</string>
+    <string name="delete_account">অ্যাকাউন্ট মুছুন</string>
+    <string name="account_deleted">অ্যাকাউন্ট মুছে ফেলা হয়েছে</string>
+    <string name="error_delete_account">অ্যাকাউন্ট মুছতে সমস্যা হয়েছে</string>
+    <string name="opening_balance_editing_account">অ্যাকাউন্ট সম্পাদনা করার সময় প্রারম্ভিক ব্যালেন্স পরিবর্তন করা যাবে না।</string>
+    <string name="cannot_change_initial_amount">বিদ্যমান লেনদেন থাকার কারণে প্রাথমিক পরিমাণ পরিবর্তন করা যাবে না।</string>
+    <string name="archive_account_message">এই অ্যাকাউন্টটি সক্রিয় অ্যাকাউন্টের তালিকা থেকে লুকানো হবে। আপনার ব্যালেন্স এবং লেনদেন সংরক্ষিত থাকবে।</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[অ্যাকাউন্টের ওয়ালেট ও লেনদেন মুছবেন?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[এই অ্যাকাউন্টের সব ওয়ালেট ও লেনদেন মুছে ফেলা হবে। এই কাজটি আর ফিরিয়ে নেওয়া যাবে না।]]></string>
+    <string name="error_delete_account_trans">অ্যাকাউন্টের লেনদেন মুছতে সমস্যা হয়েছে</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[অ্যাকাউন্টের ওয়ালেট ও লেনদেন মুছে ফেলা হয়েছে]]></string>
+    <string name="transactions">লেনদেন</string>
+    <string name="view_all_transactions">সব লেনদেন দেখুন</string>
+    <string name="view_all_recurring_transactions">সব পুনরাবৃত্ত লেনদেন দেখুন</string>
+    <string name="recurring_transactions">পুনরাবৃত্ত লেনদেন</string>
+    <string name="account_details">অ্যাকাউন্টের বিবরণ</string>
+    <string name="archived_account_desc">এই অ্যাকাউন্টগুলো আর্কাইভ করা হয়েছে এবং আপনার সক্রিয় অ্যাকাউন্টের তালিকা থেকে লুকানো রয়েছে। সব ওয়ালেট ও লেনদেনের তথ্য সংরক্ষিত আছে এবং যেকোনো সময় পুনরুদ্ধার করা যাবে।</string>
+    <string name="restore_account">অ্যাকাউন্ট পুনরুদ্ধার করবেন?</string>
+    <string name="account_restore">অ্যাকাউন্ট পুনরুদ্ধার করা হয়েছে</string>
+    <string name="restore_account_message">এই অ্যাকাউন্টটি আপনার সক্রিয় অ্যাকাউন্টের তালিকায় ফিরিয়ে আনা হবে। আপনার ব্যালেন্স এবং লেনদেন অপরিবর্তিত থাকবে।</string>
+    <string name="restore_your_account">আপনার অ্যাকাউন্ট পুনরুদ্ধার করুন</string>
+    <string name="account_transactions">অ্যাকাউন্টের লেনদেন</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%dটি অ্যাকাউন্ট</item>
+        <item quantity="other">%dটি অ্যাকাউন্ট</item>
+    </plurals>
+</resources>

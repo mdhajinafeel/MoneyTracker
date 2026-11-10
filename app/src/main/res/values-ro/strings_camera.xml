@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">Galerie</string>
+    <string name="camera">Cameră</string>
+    <string name="select_source">Selectează sursa</string>
+    <string name="file">Fișier</string>
+</resources>

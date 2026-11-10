@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">ದೈನಂದಿನ</string>
+    <string name="calendar_weekly">ವಾರದ</string>
+    <string name="calendar_monthly">ಮಾಸಿಕ</string>
+    <string name="calendar_quarterly">ತ್ರೈಮಾಸಿಕ</string>
+    <string name="calendar_yearly">ವಾರ್ಷಿಕ</string>
+    <string name="calendar_all">ಎಲ್ಲಾ</string>
+    <string name="calendar_custom">ಕಸ್ಟಮ್</string>
+
+    <string name="total_balance">ಒಟ್ಟು ಬಾಕಿ</string>
+    <string name="balance">ಬಾಕಿ</string>
+    <string name="opening_balance">ಆರಂಭಿಕ ಬಾಕಿ</string>
+    <string name="ending_balance">ಅಂತಿಮ ಬಾಕಿ</string>
+    <string name="overview">ಅವಲೋಕನ</string>
+    <string name="breakdown">ವಿವರವಾದ ವಿಂಗಡಣೆ</string>
+    <string name="transaction_overview">ವಹಿವಾಟಿನ ಅವಲೋಕನ</string>
+    <string name="select_range">ಅವಧಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="all_time">ಎಲ್ಲಾ ಸಮಯ</string>
+    <string name="period_spending">ಅವಧಿಯ ಖರ್ಚು</string>
+</resources>

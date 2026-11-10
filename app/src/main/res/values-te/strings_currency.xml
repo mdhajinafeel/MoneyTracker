@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">కరెన్సీ</string>
+    <string name="choose_currency">మీ కరెన్సీని ఎంచుకోండి</string>
+    <string name="select_currency_subtext">ఈ ఖాతా కోసం కరెన్సీని ఎంచుకోండి.</string>
+    <string name="select_the_currency">కరెన్సీని ఎంచుకోండి</string>
+    <string name="search_currency">కరెన్సీని వెతకండి</string>
+    <string name="select_currency">కరెన్సీని ఎంచుకోండి</string>
+    <string name="add_currency">కరెన్సీని జోడించండి</string>
+    <string name="edit_currency">కరెన్సీని సవరించండి</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">రేటు</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">అదనపు కరెన్సీలు లేవు</string>
+    <string name="empty_currency_hint">కరెన్సీని జోడించడానికి + బటన్‌ను నొక్కండి.</string>
+    <string name="delete_currency">కరెన్సీని తొలగించండి</string>
+    <string name="delete_message_currency">ఈ కరెన్సీని తొలగించాలనుకుంటున్నారా?</string>
+    <string name="message_currency">ఈ కరెన్సీని ఉపయోగిస్తున్న వాలెట్లు ప్రాథమిక కరెన్సీకి మార్చబడతాయి.</string>
+    <string name="currency_has_been_removed_successfully">కరెన్సీ తొలగించబడింది</string>
+    <string name="base_currency">ప్రాథమిక కరెన్సీ</string>
+    <string name="additional_currency">అదనపు కరెన్సీలు</string>
+    <string name="currency_subtext">మీరు ఉపయోగించాలనుకుంటున్న కరెన్సీని ఎంచుకోండి</string>
+    <string name="enter_the_rate">రేటును నమోదు చేయండి</string>
+    <string name="default_base_currency">ఇది మీ డిఫాల్ట్ / ప్రాథమిక కరెన్సీ</string>
+    <string name="exchange_currency_hint">మార్పిడి రేట్లు మీ ప్రాథమిక కరెన్సీ (%1$s) ఆధారంగా ఉంటాయి.\nప్రతి కరెన్సీకి సంబంధించిన రేట్లను నవీకరించవచ్చు.</string>
+</resources>

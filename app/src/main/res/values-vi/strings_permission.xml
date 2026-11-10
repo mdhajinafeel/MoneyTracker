@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Quyền sử dụng máy ảnh đã bị từ chối</string>
+    <string name="camera_permission_required">Cần quyền sử dụng máy ảnh</string>
+    <string name="camera_access_required">Cần quyền truy cập máy ảnh để chụp ảnh đính kèm cho các khoản chi tiêu.</string>
+    <string name="allow">Cho phép</string>
+    <string name="permission_required">Cần quyền truy cập</string>
+    <string name="camera_permission_disabled">Quyền sử dụng máy ảnh đã bị tắt. Vui lòng bật quyền này trong Cài đặt ứng dụng.</string>
+    <string name="open_settings">Mở cài đặt</string>
+    <string name="cancel_subscription_desc">Bạn có thể hủy đăng ký bất cứ lúc nào từ Google Play</string>
+</resources>

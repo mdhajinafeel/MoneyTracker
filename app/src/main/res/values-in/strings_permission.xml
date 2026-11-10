@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Izin kamera ditolak</string>
+    <string name="camera_permission_required">Izin Kamera Diperlukan</string>
+    <string name="camera_access_required">Akses kamera diperlukan untuk mengambil foto sebagai lampiran pengeluaran.</string>
+    <string name="allow">Izinkan</string>
+    <string name="permission_required">Izin Diperlukan</string>
+    <string name="camera_permission_disabled">Izin kamera dinonaktifkan. Silakan aktifkan melalui Pengaturan Aplikasi.</string>
+    <string name="open_settings">Buka Pengaturan</string>
+    <string name="cancel_subscription_desc">Batalkan langganan Anda kapan saja melalui Google Play</string>
+</resources>

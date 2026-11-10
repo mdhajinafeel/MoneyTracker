@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Konta</string>
+    <string name="add_account">Dodaj konto</string>
+    <string name="edit_account">Edytuj konto</string>
+    <string name="account_heading">Jak nazwać to konto?</string>
+    <string name="choose_name">Wybierz nazwę, która ułatwi Ci rozpoznanie tego konta.</string>
+    <string name="account_name">Nazwa konta</string>
+    <string name="create_account">Utwórz konto</string>
+    <string name="select_account">Wybierz konto</string>
+    <string name="initial_balance">Wprowadź saldo początkowe</string>
+    <string name="opening_balance_subtext">Dodaj saldo początkowe dla tego konta.</string>
+    <string name="initial_amount">Saldo początkowe</string>
+    <string name="initial">Początkowe</string>
+    <string name="account_balance_format">Saldo: %1$s</string>
+    <string name="manage_account_desc">Zarządzaj wszystkimi kontami bankowymi, kartami i innymi w jednym miejscu.</string>
+    <string name="your_accounts">Twoje konta</string>
+    <string name="all_accounts">Wszystkie konta</string>
+    <string name="add_new_account">Dodaj nowe konto</string>
+    <string name="add_account_desc">Dodaj konto bankowe, kartę kredytową lub inne konto</string>
+    <string name="archived_accounts">Zarchiwizowane konta</string>
+    <string name="archived_accounts_desc">Wyświetl i przywróć zarchiwizowane konta</string>
+    <string name="account_created">Konto zostało utworzone</string>
+    <string name="account_updated">Konto zostało zaktualizowane</string>
+    <string name="currency_edit_account">Nie można zmienić waluty podczas edytowania konta.</string>
+    <string name="account_action">Działania dotyczące konta</string>
+    <string name="update_account_detail">Zaktualizuj szczegóły konta</string>
+    <string name="use_as_your_default_account">Użyj jako konta domyślnego</string>
+    <string name="see_account_detail">Zobacz szczegóły konta</string>
+    <string name="hide_from_active_accounts">Ukryj wśród aktywnych kont</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Usuń wszystkie portfele i transakcje]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Usuń portfele i transakcje]]></string>
+    <string name="remove_account">Usuń konto</string>
+    <string name="account_set_as_default">Konto ustawione jako domyślne</string>
+    <string name="archive_account">Zarchiwizować konto?</string>
+    <string name="account_archived">Konto zostało zarchiwizowane</string>
+    <string name="delete_account_message">Konto oraz wszystkie jego portfele i transakcje zostaną trwale usunięte. Tej czynności nie można cofnąć.</string>
+    <string name="delete_account">Usuń konto</string>
+    <string name="account_deleted">Konto zostało usunięte</string>
+    <string name="error_delete_account">Błąd podczas usuwania konta</string>
+    <string name="opening_balance_editing_account">Nie można zmienić salda początkowego podczas edytowania konta.</string>
+    <string name="cannot_change_initial_amount">Nie można zmienić kwoty początkowej z powodu istniejących transakcji.</string>
+    <string name="archive_account_message">To konto zostanie ukryte wśród aktywnych kont. Saldo i transakcje zostaną zachowane.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Usunąć portfele i transakcje konta?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Wszystkie portfele i transakcje na tym koncie zostaną usunięte. Tej czynności nie można cofnąć.]]></string>
+    <string name="error_delete_account_trans">Błąd podczas usuwania transakcji konta</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Portfele i transakcje konta zostały usunięte]]></string>
+    <string name="transactions">Transakcje</string>
+    <string name="view_all_transactions">Zobacz wszystkie transakcje</string>
+    <string name="view_all_recurring_transactions">Zobacz wszystkie transakcje cykliczne</string>
+    <string name="recurring_transactions">Transakcje cykliczne</string>
+    <string name="account_details">Szczegóły konta</string>
+    <string name="archived_account_desc">Te konta są zarchiwizowane i ukryte na liście aktywnych kont. Wszystkie portfele i dane transakcji są zachowane i można je przywrócić w dowolnym momencie.</string>
+    <string name="restore_account">Przywrócić konto?</string>
+    <string name="account_restore">Konto zostało przywrócone</string>
+    <string name="restore_account_message">To konto zostanie przeniesione z powrotem do aktywnych kont. Saldo i transakcje pozostaną bez zmian.</string>
+    <string name="restore_your_account">Przywróć swoje konto</string>
+    <string name="account_transactions">Transakcje konta</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d konto</item>
+        <item quantity="few">%d konta</item>
+        <item quantity="many">%d kont</item>
+        <item quantity="other">%d konta</item>
+    </plurals>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">افزودن دسته‌بندی</string>
+    <string name="edit_category">ویرایش دسته‌بندی</string>
+    <string name="category_created">دسته‌بندی ایجاد شد</string>
+    <string name="category_updated">دسته‌بندی به‌روزرسانی شد</string>
+    <string name="category_deleted">دسته‌بندی حذف شد</string>
+    <string name="category_moved">دسته‌بندی منتقل شد</string>
+    <string name="error_delete_category">خطا در حذف دسته‌بندی</string>
+    <string name="error_moved_category">خطا در انتقال دسته‌بندی</string>
+    <string name="category_bills">قبوض و خدمات رفاهی</string>
+    <string name="category_bonus">پاداش</string>
+    <string name="category_clothing">پوشاک</string>
+    <string name="category_dividend">سود سهام</string>
+    <string name="category_education">آموزش</string>
+    <string name="category_entertainment">سرگرمی</string>
+    <string name="category_fitness">تناسب اندام</string>
+    <string name="category_food">غذا</string>
+    <string name="category_grocery">خرید مواد غذایی</string>
+    <string name="category_furniture">خانه و مبلمان</string>
+    <string name="category_gifts">هدایا</string>
+    <string name="category_health_and_beauty">سلامت و زیبایی</string>
+    <string name="category_investment">سرمایه‌گذاری</string>
+    <string name="category_lottery">بخت‌آزمایی</string>
+    <string name="category_others">سایر موارد</string>
+    <string name="category_pet">حیوانات خانگی</string>
+    <string name="category_salary">حقوق</string>
+    <string name="category_shopping">خرید</string>
+    <string name="category_tips">انعام</string>
+    <string name="category_cashback">پاداش‌ها</string>
+    <string name="category_transportation">حمل‌ونقل</string>
+    <string name="category_travel">سفر</string>
+    <string name="adjustment">تعدیل</string>
+    <string name="loan">وام</string>
+    <string name="repay">بازپرداخت</string>
+    <string name="debt">بدهی</string>
+    <string name="collect">وصول بدهی</string>
+    <string name="category_allowance">کمک‌هزینه</string>
+    <string name="category_award">جایزه</string>
+    <string name="manage_category">دسته‌بندی‌ها</string>
+    <string name="empty_category">بدون دسته‌بندی</string>
+    <string name="empty_category_hint">برای افزودن دسته‌بندی، روی دکمه + ضربه بزنید.</string>
+    <string name="select_category">انتخاب دسته‌بندی</string>
+    <string name="category">دسته‌بندی</string>
+    <string name="category_name">نام دسته‌بندی</string>
+    <string name="include_category_hint">نمایش این دسته‌بندی در گزارش‌ها و نمودارها</string>
+    <string name="status_active_hint">این دسته‌بندی برای استفاده در دسترس است</string>
+    <string name="status_inactive_hint">این دسته‌بندی پنهان است و هنگام افزودن تراکنش نمایش داده نمی‌شود.</string>
+    <string name="include_reports">نمایش در گزارش‌ها</string>
+    <string name="delete_category_message">آیا مطمئن هستید که می‌خواهید دسته‌بندی «%1$s» را حذف کنید؟</string>
+    <string name="delete_category">حذف دسته‌بندی؟</string>
+    <string name="no_transactions_found">هیچ تراکنشی یافت نشد</string>
+    <string name="category_permanently_delete">این دسته‌بندی را می‌توان برای همیشه حذف کرد.</string>
+    <string name="category_in_use">دسته‌بندی در حال استفاده است</string>
+    <string name="move_delete">انتقال و حذف</string>
+    <string name="move_transaction_to">انتقال تراکنش به</string>
+    <string name="status">وضعیت</string>
+    <string name="all_categories">همه دسته‌بندی‌ها</string>
+    <string name="categories">دسته‌بندی‌ها</string>
+    <string name="category_transactions">تراکنش‌های دسته‌بندی</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">تراکنش %1$d از «%2$s» به دسته‌بندی دیگری منتقل می‌شود.</item>
+        <item quantity="other">%1$d تراکنش از «%2$s» به دسته‌بندی دیگری منتقل می‌شوند.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">«%1$s» در ۱ تراکنش استفاده شده است و نمی‌توان آن را حذف کرد.\n\nمی‌توانید این دسته‌بندی را از بخش ویرایش دسته‌بندی غیرفعال کنید.</item>
+        <item quantity="other">«%1$s» در %2$d تراکنش استفاده شده است و نمی‌توان آن را حذف کرد.\n\nمی‌توانید این دسته‌بندی را از بخش ویرایش دسته‌بندی غیرفعال کنید.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">تراکنش دسته‌بندی «%2$s» به «%3$s» منتقل می‌شود.\n\n«%4$s» برای همیشه حذف خواهد شد.</item>
+        <item quantity="other">تمام %1$d تراکنش دسته‌بندی «%2$s» به «%3$s» منتقل می‌شوند.\n\n«%4$s» برای همیشه حذف خواهد شد.</item>
+    </plurals>
+</resources>

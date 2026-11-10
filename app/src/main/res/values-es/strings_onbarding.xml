@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">Domina tus finanzas</string>
+    <string name="walkthrough_1_desc">Registra cada gasto, controla tu presupuesto y descubre en qué se gasta tu dinero.</string>
+    <string name="walkthrough_2_title">Gestiona todas tus cuentas</string>
+    <string name="walkthrough_2_desc">Mantén tu efectivo, cuentas bancarias, tarjetas y billeteras digitales en un solo lugar seguro.</string>
+    <string name="walkthrough_3_title">Registra tus gastos al instante</string>
+    <string name="walkthrough_3_desc">Añade transacciones con categorías, notas y archivos adjuntos en solo unos toques.</string>
+    <string name="walkthrough_4_title"><![CDATA[Informes y análisis inteligentes]]></string>
+    <string name="walkthrough_4_desc">Visualiza tus gastos con gráficos detallados y recomendaciones financieras personalizadas.</string>
+    <string name="walkthrough_5_title">No olvides ningún pago</string>
+    <string name="walkthrough_5_desc">Mantén al día tus facturas, suscripciones y pagos recurrentes con recordatorios inteligentes.</string>
+    <string name="walkthrough_6_title">Alcanza tus metas financieras</string>
+    <string name="walkthrough_6_desc">Desarrolla mejores hábitos financieros, ahorra más y gana confianza en tus finanzas cada día.</string>
+</resources>

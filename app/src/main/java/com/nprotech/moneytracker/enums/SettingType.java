@@ -2,6 +2,10 @@ package com.nprotech.moneytracker.enums;
 
 public enum SettingType {
 
+    // ACCOUNT & SECURITY
+    PROFILE,
+    LOGGED_IN_PROFILE,
+
     // MANAGEMENT
     ACCOUNT,
     WALLET,

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">カテゴリを追加</string>
+    <string name="edit_category">カテゴリを編集</string>
+    <string name="category_created">カテゴリを作成しました</string>
+    <string name="category_updated">カテゴリを更新しました</string>
+    <string name="category_deleted">カテゴリを削除しました</string>
+    <string name="category_moved">カテゴリを移動しました</string>
+    <string name="error_delete_category">カテゴリの削除中にエラーが発生しました</string>
+    <string name="error_moved_category">カテゴリの移動中にエラーが発生しました</string>
+    <string name="category_bills">請求書・公共料金</string>
+    <string name="category_bonus">ボーナス</string>
+    <string name="category_clothing">衣類</string>
+    <string name="category_dividend">配当金</string>
+    <string name="category_education">教育</string>
+    <string name="category_entertainment">娯楽</string>
+    <string name="category_fitness">フィットネス</string>
+    <string name="category_food">食費</string>
+    <string name="category_grocery">食料品</string>
+    <string name="category_furniture">住宅・家具</string>
+    <string name="category_gifts">贈り物</string>
+    <string name="category_health_and_beauty">健康</string>
+    <string name="category_investment">投資</string>
+    <string name="category_lottery">宝くじ</string>
+    <string name="category_others">その他</string>
+    <string name="category_pet">ペット</string>
+    <string name="category_salary">給与</string>
+    <string name="category_shopping">買い物</string>
+    <string name="category_tips">チップ</string>
+    <string name="category_cashback">特典</string>
+    <string name="category_transportation">交通費</string>
+    <string name="category_travel">旅行</string>
+    <string name="adjustment">調整</string>
+    <string name="loan">貸付</string>
+    <string name="repay">返済</string>
+    <string name="debt">債務</string>
+    <string name="collect">債権回収</string>
+    <string name="category_allowance">お小遣い</string>
+    <string name="category_award">賞金</string>
+    <string name="manage_category">カテゴリ管理</string>
+    <string name="empty_category">カテゴリがありません</string>
+    <string name="empty_category_hint">＋ボタンをタップしてカテゴリを追加してください。</string>
+    <string name="select_category">カテゴリを選択</string>
+    <string name="category">カテゴリ</string>
+    <string name="category_name">カテゴリ名</string>
+    <string name="include_category_hint">このカテゴリをレポートやグラフに表示します</string>
+    <string name="status_active_hint">このカテゴリは使用できます</string>
+    <string name="status_inactive_hint">このカテゴリは非表示になり、取引の追加時には表示されません。</string>
+    <string name="include_reports">レポートに含める</string>
+    <string name="delete_category_message">カテゴリ「%1$s」を削除してもよろしいですか？</string>
+    <string name="delete_category">カテゴリを削除しますか？</string>
+    <string name="no_transactions_found">取引が見つかりません</string>
+    <string name="category_permanently_delete">このカテゴリは完全に削除できます。</string>
+    <string name="category_in_use">使用中のカテゴリ</string>
+    <string name="move_delete">移動して削除</string>
+    <string name="move_transaction_to">取引の移動先</string>
+    <string name="status">ステータス</string>
+    <string name="all_categories">すべてのカテゴリ</string>
+    <string name="categories">カテゴリ</string>
+    <string name="category_transactions">カテゴリ別の取引</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">%2$s から %1$d 件の取引を別のカテゴリに移動します。</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">「%1$s」は %2$d 件の取引で使用されているため、削除できません。\n\n「カテゴリを編集」から、このカテゴリを無効にできます。</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">「%2$s」のすべての %1$d 件の取引を「%3$s」に移動します。\n\n「%4$s」は完全に削除されます。</item>
+    </plurals>
+</resources>

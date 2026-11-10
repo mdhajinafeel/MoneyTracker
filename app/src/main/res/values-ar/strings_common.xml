@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">كل مصروف. كل رؤية.</string>
+    <string name="app_tag_text1">المصروفات</string>
+    <string name="app_tag_text2">الرؤى</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">المعاملة</string>
+    <string name="calendar">التقويم</string>
+    <string name="statistic">الإحصائيات</string>
+    <string name="more">المزيد</string>
+    <string name="wallet">المحفظة</string>
+
+    <!-- DAYS -->
+    <string name="sunday">الأحد</string>
+    <string name="monday">الإثنين</string>
+    <string name="tuesday">الثلاثاء</string>
+    <string name="wednesday">الأربعاء</string>
+    <string name="thursday">الخميس</string>
+    <string name="friday">الجمعة</string>
+    <string name="saturday">السبت</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">أحد</string>
+    <string name="monday_short">إثن</string>
+    <string name="tuesday_short">ثلا</string>
+    <string name="wednesday_short">أرب</string>
+    <string name="thursday_short">خمي</string>
+    <string name="friday_short">جمع</string>
+    <string name="saturday_short">سبت</string>
+
+    <string-array name="week_days">
+        <item>الأحد</item>
+        <item>الإثنين</item>
+        <item>الثلاثاء</item>
+        <item>الأربعاء</item>
+        <item>الخميس</item>
+        <item>الجمعة</item>
+        <item>السبت</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>أحد</item>
+        <item>إثن</item>
+        <item>ثلا</item>
+        <item>أرب</item>
+        <item>خمي</item>
+        <item>جمع</item>
+        <item>سبت</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">يناير</string>
+    <string name="february">فبراير</string>
+    <string name="march">مارس</string>
+    <string name="april">أبريل</string>
+    <string name="may">مايو</string>
+    <string name="june">يونيو</string>
+    <string name="july">يوليو</string>
+    <string name="august">أغسطس</string>
+    <string name="september">سبتمبر</string>
+    <string name="october">أكتوبر</string>
+    <string name="november">نوفمبر</string>
+    <string name="december">ديسمبر</string>
+
+    <string-array name="month_full">
+        <item>يناير</item>
+        <item>فبراير</item>
+        <item>مارس</item>
+        <item>أبريل</item>
+        <item>مايو</item>
+        <item>يونيو</item>
+        <item>يوليو</item>
+        <item>أغسطس</item>
+        <item>سبتمبر</item>
+        <item>أكتوبر</item>
+        <item>نوفمبر</item>
+        <item>ديسمبر</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>ينا</item>
+        <item>فبر</item>
+        <item>مار</item>
+        <item>أبر</item>
+        <item>ماي</item>
+        <item>يون</item>
+        <item>يول</item>
+        <item>أغس</item>
+        <item>سبت</item>
+        <item>أكت</item>
+        <item>نوف</item>
+        <item>ديس</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>ر1</item>
+        <item>ر2</item>
+        <item>ر3</item>
+        <item>ر4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">افتراضي النظام</string>
+    <string name="english">الإنجليزية</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">البنغالية</string>
+    <string name="czech">التشيكية</string>
+    <string name="german">الألمانية</string>
+    <string name="greek">اليونانية</string>
+    <string name="spanish">الإسبانية</string>
+    <string name="persian">الفارسية</string>
+    <string name="french">الفرنسية</string>
+    <string name="hindi">الهندية</string>
+    <string name="indonesian">الإندونيسية</string>
+    <string name="italian">الإيطالية</string>
+    <string name="japanese">اليابانية</string>
+    <string name="korean">الكورية</string>
+    <string name="malay">الملايوية</string>
+    <string name="dutch">الهولندية</string>
+    <string name="polish">البولندية</string>
+    <string name="portuguese">البرتغالية</string>
+    <string name="romanian">الرومانية</string>
+    <string name="russian">الروسية</string>
+    <string name="tamil">التاميلية</string>
+    <string name="telugu">التيلجو</string>
+    <string name="malayalam">المالايالامية</string>
+    <string name="kannada">الكانادا</string>
+    <string name="thai">التايلاندية</string>
+    <string name="turkish">التركية</string>
+    <string name="ukrainian">الأوكرانية</string>
+    <string name="vietnamese">الفيتنامية</string>
+    <string name="chinese_simplified">الصينية المبسطة</string>
+    <string name="chinese_traditional">الصينية التقليدية</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">مسح</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">التالي</string>
+    <string name="skip">تخطي</string>
+    <string name="get_started">ابدأ الآن</string>
+    <string name="press_again_to_exit">اضغط مرة أخرى للخروج</string>
+    <string name="settings">الإعدادات</string>
+    <string name="save">حفظ</string>
+    <string name="done">تم</string>
+    <string name="delete">حذف</string>
+    <string name="ok">موافق</string>
+    <string name="cancel">إلغاء</string>
+    <string name="no_record">لا توجد سجلات</string>
+    <string name="no_data">لا توجد بيانات</string>
+    <string name="detail">تفاصيل المعاملة</string>
+    <string name="parsing_error">حدث خطأ أثناء تحليل البيانات</string>
+    <string name="update">تحديث</string>
+    <string name="color">اللون</string>
+    <string name="icon">الأيقونة</string>
+    <string name="select_icon">اختيار أيقونة</string>
+    <string name="delete_message">هل أنت متأكد من أنك تريد الحذف؟</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">السابق</string>
+    <string name="dash">-</string>
+    <string name="add_text">إضافة</string>
+    <string name="remaining">المتبقي</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">عرض التفاصيل</string>
+    <string name="view_breakdown">عرض جميع التفاصيل</string>
+    <string name="error_update">حدث خطأ أثناء التحديث</string>
+    <string name="text_edit">تعديل</string>
+    <string name="text_delete">حذف</string>
+    <string name="text_close">إغلاق</string>
+    <string name="text_remove">إزالة</string>
+    <string name="apply">تطبيق</string>
+    <string name="reset">إعادة تعيين</string>
+    <string name="select_option">اختيار خيار</string>
+    <string name="text_default">افتراضي</string>
+    <string name="active">نشط</string>
+    <string name="inactive">غير نشط</string>
+    <string name="tab_layout">تخطيط علامات التبويب</string>
+    <string name="something_went_wrong">حدث خطأ ما</string>
+    <string name="please_wait">يرجى الانتظار…</string>
+</resources>

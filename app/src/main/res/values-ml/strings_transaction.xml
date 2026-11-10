@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">വരുമാനം</string>
+    <string name="total_income">ആകെ വരുമാനം</string>
+    <string name="expense">ചെലവ്</string>
+    <string name="total_expense">ആകെ ചെലവ്</string>
+    <string name="transfer">കൈമാറ്റം</string>
+    <string name="recurring">ആവർത്തനം</string>
+    <string name="trans_delete_failed">ഇടപാട് ഇല്ലാതാക്കാനായില്ല</string>
+    <string name="fee">ഫീസ്</string>
+    <string name="memo">കുറിപ്പ്</string>
+    <string name="notes">കുറിപ്പുകൾ</string>
+    <string name="add_note">ഒരു കുറിപ്പ് ചേർക്കുക…</string>
+    <string name="description">വിവരണം</string>
+    <string name="short_description">ചുരുക്ക വിവരണം</string>
+    <string name="enter_amount">തുക നൽകുക</string>
+    <string name="cash_wallet">ക്യാഷ് വാലറ്റ്</string>
+    <string name="cash">പണം</string>
+    <string name="enter_the_amount">തുക നൽകുക</string>
+    <string name="date">തീയതി</string>
+    <string name="select_date">തീയതി തിരഞ്ഞെടുക്കുക</string>
+    <string name="amount">തുക</string>
+    <string name="add_record">നിങ്ങളുടെ ആദ്യ ഇടപാട് ചേർക്കാൻ + ബട്ടൺ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="type">തരം</string>
+    <string name="view_all">എല്ലാം കാണുക</string>
+    <string name="delete_transaction">ഇടപാട് ഇല്ലാതാക്കുക</string>
+    <string name="total">ആകെ</string>
+    <string name="all_transaction">എല്ലാ ഇടപാടുകളും</string>
+    <string name="no_transaction">ഇതുവരെ ഇടപാടുകളൊന്നുമില്ല</string>
+    <string name="start_date">ആരംഭ തീയതി</string>
+    <string name="end_date">അവസാന തീയതി</string>
+    <string name="date_amp_time"><![CDATA[തീയതിയും സമയവും]]></string>
+    <string name="future">ഭാവി</string>
+    <string name="add_files">ഫോട്ടോകളോ ഫയലുകളോ ചേർക്കുക (പരമാവധി 5 ഫയലുകൾ)</string>
+    <string name="attachment_title">അറ്റാച്ച്മെന്റുകൾ (%1$d/5)</string>
+    <string name="tap_add_attach">അറ്റാച്ച്മെന്റ് ചേർക്കാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="attachment_extension">ചിത്രങ്ങൾ, PDF, ഡോക്യുമെന്റുകൾ, Excel, Zip തുടങ്ങിയവ</string>
+    <string name="add_more">കൂടുതൽ ചേർക്കുക</string>
+    <string name="unable_to_open_attachment">അറ്റാച്ച്മെന്റ് തുറക്കാനായില്ല</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">തുക (വാലറ്റിൽ നിന്ന്)</string>
+    <string name="fee_from_wallet">ഫീസ് (വാലറ്റിൽ നിന്ന്)</string>
+    <string name="received_from_wallet">ലഭിച്ചത് (വാലറ്റിലേക്ക്)</string>
+    <string name="transaction_action">ഇടപാട് പ്രവർത്തനം</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">ഇടപാടിന്റെ വിശദാംശങ്ങൾ കാണുക</string>
+    <string name="change_detail">ഇടപാടിന്റെ വിശദാംശങ്ങൾ മാറ്റുക</string>
+    <string name="duplicate_copy">ഒരു പകർപ്പ് സൃഷ്ടിക്കുക</string>
+    <string name="remove_transaction">ഇടപാട് നീക്കം ചെയ്യുക</string>
+    <string name="duplicate">പകർപ്പെടുക്കുക</string>
+    <string name="duplicate_transaction">ഇടപാടിന്റെ പകർപ്പ് സൃഷ്ടിക്കുക</string>
+    <string name="duplicate_transaction_desc">ഈ ഇടപാടിന്റെ ഒരു പകർപ്പ് സൃഷ്ടിക്കണോ?</string>
+    <string name="transaction_duplicated">ഇടപാടിന്റെ പകർപ്പ് സൃഷ്ടിച്ചു</string>
+    <string name="transaction_deleted">ഇടപാട് ഇല്ലാതാക്കി</string>
+    <string name="unable_to_save">സംരക്ഷിക്കാനായില്ല</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d ഇടപാട്</item>
+        <item quantity="other">%d ഇടപാടുകൾ</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">അറ്റാച്ച്മെന്റ് (%d)</item>
+        <item quantity="other">അറ്റാച്ച്മെന്റുകൾ (%d)</item>
+    </plurals>
+</resources>

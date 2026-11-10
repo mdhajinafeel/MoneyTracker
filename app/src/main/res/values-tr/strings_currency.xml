@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Para Birimi</string>
+    <string name="choose_currency">Para biriminizi seçin</string>
+    <string name="select_currency_subtext">Bu hesap için para birimini seçin.</string>
+    <string name="select_the_currency">Para birimini seçin</string>
+    <string name="search_currency">Para Birimi Ara</string>
+    <string name="select_currency">Para Birimi Seçin</string>
+    <string name="add_currency">Para Birimi Ekle</string>
+    <string name="edit_currency">Para Birimini Düzenle</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Kur</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Ek para birimi yok</string>
+    <string name="empty_currency_hint">Para birimi eklemek için + düğmesine dokunun.</string>
+    <string name="delete_currency">Para Birimini Kaldır</string>
+    <string name="delete_message_currency">Bu para birimini kaldırmak istediğinizden emin misiniz?</string>
+    <string name="message_currency">Bu para birimini kullanan cüzdanlar ana para birimine dönüştürülecektir.</string>
+    <string name="currency_has_been_removed_successfully">Para birimi kaldırıldı</string>
+    <string name="base_currency">Ana Para Birimi</string>
+    <string name="additional_currency">Ek Para Birimleri</string>
+    <string name="currency_subtext">Kullanmak istediğiniz para birimini seçin</string>
+    <string name="enter_the_rate">Döviz kurunu girin</string>
+    <string name="default_base_currency">Bu, varsayılan/ana para biriminizdir</string>
+    <string name="exchange_currency_hint">Döviz kurları ana para biriminize (%1$s) göre belirlenir.\nHer para biriminin kurunu ayrı ayrı güncelleyebilirsiniz.</string>
+</resources>

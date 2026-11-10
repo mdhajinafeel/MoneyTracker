@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Додати категорію</string>
+    <string name="edit_category">Редагувати категорію</string>
+    <string name="category_created">Категорію створено</string>
+    <string name="category_updated">Категорію оновлено</string>
+    <string name="category_deleted">Категорію видалено</string>
+    <string name="category_moved">Категорію переміщено</string>
+    <string name="error_delete_category">Помилка під час видалення категорії</string>
+    <string name="error_moved_category">Помилка під час переміщення категорії</string>
+    <string name="category_bills">Рахунки та комунальні послуги</string>
+    <string name="category_bonus">Бонус</string>
+    <string name="category_clothing">Одяг</string>
+    <string name="category_dividend">Дивіденди</string>
+    <string name="category_education">Освіта</string>
+    <string name="category_entertainment">Розваги</string>
+    <string name="category_fitness">Фітнес</string>
+    <string name="category_food">Їжа</string>
+    <string name="category_grocery">Продукти</string>
+    <string name="category_furniture">Дім та меблі</string>
+    <string name="category_gifts">Подарунки</string>
+    <string name="category_health_and_beauty">Здоров’я</string>
+    <string name="category_investment">Інвестиції</string>
+    <string name="category_lottery">Лотерея</string>
+    <string name="category_others">Інше</string>
+    <string name="category_pet">Домашні тварини</string>
+    <string name="category_salary">Зарплата</string>
+    <string name="category_shopping">Покупки</string>
+    <string name="category_tips">Чайові</string>
+    <string name="category_cashback">Винагороди</string>
+    <string name="category_transportation">Транспорт</string>
+    <string name="category_travel">Подорожі</string>
+    <string name="adjustment">Коригування</string>
+    <string name="loan">Позика</string>
+    <string name="repay">Погашення</string>
+    <string name="debt">Борг</string>
+    <string name="collect">Стягнення боргу</string>
+    <string name="category_allowance">Кишенькові гроші</string>
+    <string name="category_award">Нагорода</string>
+    <string name="manage_category">Категорії</string>
+    <string name="empty_category">Немає категорій</string>
+    <string name="empty_category_hint">Натисніть кнопку +, щоб додати категорії.</string>
+    <string name="select_category">Виберіть категорію</string>
+    <string name="category">Категорія</string>
+    <string name="category_name">Назва категорії</string>
+    <string name="include_category_hint">Показувати цю категорію у звітах і діаграмах</string>
+    <string name="status_active_hint">Категорія доступна для використання</string>
+    <string name="status_inactive_hint">Категорія прихована й не відображатиметься під час додавання транзакцій.</string>
+    <string name="include_reports">Включити до звітів</string>
+    <string name="delete_category_message">Ви впевнені, що хочете видалити категорію «%1$s»?</string>
+    <string name="delete_category">Видалити категорію?</string>
+    <string name="no_transactions_found">Транзакцій не знайдено</string>
+    <string name="category_permanently_delete">Цю категорію можна видалити назавжди.</string>
+    <string name="category_in_use">Категорія використовується</string>
+    <string name="move_delete">Перемістити та видалити</string>
+    <string name="move_transaction_to">Перемістити транзакцію до</string>
+    <string name="status">Статус</string>
+    <string name="all_categories">Усі категорії</string>
+    <string name="categories">Категорії</string>
+    <string name="category_transactions">Транзакції категорії</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Перемістити %1$d транзакцію з «%2$s» до іншої категорії.</item>
+        <item quantity="few">Перемістити %1$d транзакції з «%2$s» до іншої категорії.</item>
+        <item quantity="many">Перемістити %1$d транзакцій з «%2$s» до іншої категорії.</item>
+        <item quantity="other">Перемістити %1$d транзакції з «%2$s» до іншої категорії.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">Категорія «%1$s» використовується в 1 транзакції, тому її неможливо видалити.\n\nВи можете зробити цю категорію неактивною в розділі «Редагувати категорію».</item>
+        <item quantity="few">Категорія «%1$s» використовується в %2$d транзакціях, тому її неможливо видалити.\n\nВи можете зробити цю категорію неактивною в розділі «Редагувати категорію».</item>
+        <item quantity="many">Категорія «%1$s» використовується в %2$d транзакціях, тому її неможливо видалити.\n\nВи можете зробити цю категорію неактивною в розділі «Редагувати категорію».</item>
+        <item quantity="other">Категорія «%1$s» використовується в %2$d транзакції, тому її неможливо видалити.\n\nВи можете зробити цю категорію неактивною в розділі «Редагувати категорію».</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">Транзакцію з «%2$s» буде переміщено до «%3$s».\n\n«%4$s» буде видалено назавжди.</item>
+        <item quantity="few">Усі %1$d транзакції з «%2$s» буде переміщено до «%3$s».\n\n«%4$s» буде видалено назавжди.</item>
+        <item quantity="many">Усі %1$d транзакцій з «%2$s» буде переміщено до «%3$s».\n\n«%4$s» буде видалено назавжди.</item>
+        <item quantity="other">Усі %1$d транзакції з «%2$s» буде переміщено до «%3$s».\n\n«%4$s» буде видалено назавжди.</item>
+    </plurals>
+</resources>

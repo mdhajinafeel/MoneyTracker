@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">श्रेणी जोड़ें</string>
+    <string name="edit_category">श्रेणी संपादित करें</string>
+    <string name="category_created">श्रेणी बनाई गई</string>
+    <string name="category_updated">श्रेणी अपडेट की गई</string>
+    <string name="category_deleted">श्रेणी हटाई गई</string>
+    <string name="category_moved">श्रेणी स्थानांतरित की गई</string>
+    <string name="error_delete_category">श्रेणी हटाते समय त्रुटि हुई</string>
+    <string name="error_moved_category">श्रेणी स्थानांतरित करते समय त्रुटि हुई</string>
+    <string name="category_bills">बिल और उपयोगिता सेवाएँ</string>
+    <string name="category_bonus">बोनस</string>
+    <string name="category_clothing">कपड़े</string>
+    <string name="category_dividend">लाभांश</string>
+    <string name="category_education">शिक्षा</string>
+    <string name="category_entertainment">मनोरंजन</string>
+    <string name="category_fitness">फिटनेस</string>
+    <string name="category_food">भोजन</string>
+    <string name="category_grocery">किराने का सामान</string>
+    <string name="category_furniture">घर और फर्नीचर</string>
+    <string name="category_gifts">उपहार</string>
+    <string name="category_health_and_beauty">स्वास्थ्य</string>
+    <string name="category_investment">निवेश</string>
+    <string name="category_lottery">लॉटरी</string>
+    <string name="category_others">अन्य</string>
+    <string name="category_pet">पालतू जानवर</string>
+    <string name="category_salary">वेतन</string>
+    <string name="category_shopping">खरीदारी</string>
+    <string name="category_tips">टिप्स</string>
+    <string name="category_cashback">रिवॉर्ड</string>
+    <string name="category_transportation">परिवहन</string>
+    <string name="category_travel">यात्रा</string>
+    <string name="adjustment">समायोजन</string>
+    <string name="loan">ऋण</string>
+    <string name="repay">ऋण चुकौती</string>
+    <string name="debt">कर्ज़</string>
+    <string name="collect">कर्ज़ की वसूली</string>
+    <string name="category_allowance">भत्ता</string>
+    <string name="category_award">पुरस्कार</string>
+    <string name="manage_category">श्रेणियाँ</string>
+    <string name="empty_category">कोई श्रेणी नहीं</string>
+    <string name="empty_category_hint">श्रेणियाँ जोड़ने के लिए + बटन पर टैप करें।</string>
+    <string name="select_category">श्रेणी चुनें</string>
+    <string name="category">श्रेणी</string>
+    <string name="category_name">श्रेणी का नाम</string>
+    <string name="include_category_hint">इस श्रेणी को रिपोर्ट और चार्ट में दिखाएँ</string>
+    <string name="status_active_hint">यह श्रेणी उपयोग के लिए उपलब्ध है</string>
+    <string name="status_inactive_hint">यह श्रेणी छिपी हुई है और लेन-देन जोड़ते समय दिखाई नहीं देगी।</string>
+    <string name="include_reports">रिपोर्ट में शामिल करें</string>
+    <string name="delete_category_message">क्या आप वाकई \'%1$s\' श्रेणी हटाना चाहते हैं?</string>
+    <string name="delete_category">श्रेणी हटाएँ?</string>
+    <string name="no_transactions_found">कोई लेन-देन नहीं मिला</string>
+    <string name="category_permanently_delete">इस श्रेणी को स्थायी रूप से हटाया जा सकता है।</string>
+    <string name="category_in_use">श्रेणी उपयोग में है</string>
+    <string name="move_delete">स्थानांतरित करें और हटाएँ</string>
+    <string name="move_transaction_to">लेन-देन यहाँ स्थानांतरित करें</string>
+    <string name="status">स्थिति</string>
+    <string name="all_categories">सभी श्रेणियाँ</string>
+    <string name="categories">श्रेणियाँ</string>
+    <string name="category_transactions">श्रेणी के लेन-देन</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">%1$d लेन-देन को &quot;%2$s&quot; से किसी दूसरी श्रेणी में स्थानांतरित करें।</item>
+        <item quantity="other">%1$d लेन-देन को &quot;%2$s&quot; से किसी दूसरी श्रेणी में स्थानांतरित करें।</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">&quot;%1$s&quot; श्रेणी का उपयोग 1 लेन-देन में हो रहा है, इसलिए इसे हटाया नहीं जा सकता।\n\nआप श्रेणी संपादित करें विकल्प से इस श्रेणी को निष्क्रिय कर सकते हैं।</item>
+        <item quantity="other">&quot;%1$s&quot; श्रेणी का उपयोग %2$d लेन-देन में हो रहा है, इसलिए इसे हटाया नहीं जा सकता।\n\nआप श्रेणी संपादित करें विकल्प से इस श्रेणी को निष्क्रिय कर सकते हैं।</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">&quot;%2$s&quot; का लेन-देन &quot;%3$s&quot; में स्थानांतरित कर दिया जाएगा।\n\n&quot;%4$s&quot; को स्थायी रूप से हटा दिया जाएगा।</item>
+        <item quantity="other">&quot;%2$s&quot; के सभी %1$d लेन-देन &quot;%3$s&quot; में स्थानांतरित कर दिए जाएँगे।\n\n&quot;%4$s&quot; को स्थायी रूप से हटा दिया जाएगा।</item>
+    </plurals>
+</resources>

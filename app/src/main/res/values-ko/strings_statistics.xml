@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">일별</string>
+    <string name="calendar_weekly">주별</string>
+    <string name="calendar_monthly">월별</string>
+    <string name="calendar_quarterly">분기별</string>
+    <string name="calendar_yearly">연간</string>
+    <string name="calendar_all">전체</string>
+    <string name="calendar_custom">사용자 지정</string>
+
+    <string name="total_balance">총 잔액</string>
+    <string name="balance">잔액</string>
+    <string name="opening_balance">기초 잔액</string>
+    <string name="ending_balance">기말 잔액</string>
+    <string name="overview">개요</string>
+    <string name="breakdown">세부 내역</string>
+    <string name="transaction_overview">거래 개요</string>
+    <string name="select_range">기간 선택</string>
+    <string name="all_time">전체 기간</string>
+    <string name="period_spending">기간별 지출</string>
+</resources>

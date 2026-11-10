@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Theo dõi giao dịch định kỳ</string>
+    <string name="select_recurring">Chọn định kỳ</string>
+    <string name="repeat_on">Lặp lại vào</string>
+    <string name="select_repeat_on">Chọn ngày lặp lại</string>
+    <string name="create_transaction">Tạo giao dịch</string>
+    <string name="never_miss_recurring_transaction">Không bỏ lỡ bất kỳ giao dịch định kỳ nào</string>
+    <string name="income_recurring">Thu nhập định kỳ</string>
+    <string name="expense_recurring">Chi tiêu định kỳ</string>
+    <string name="transfer_recurring">Chuyển tiền định kỳ</string>
+    <string name="no_repeat">Không lặp lại</string>
+    <string name="repeat_option">Tùy chọn lặp lại</string>
+    <string name="select_days">Chọn ngày</string>
+    <string name="please_select_at_least_one_day">Vui lòng chọn ít nhất một ngày</string>
+    <string name="times">lần</string>
+    <string name="every">Mỗi</string>
+    <string name="forever">Mãi mãi</string>
+    <string name="until">Đến</string>
+    <string name="text_for">Trong</string>
+    <string name="text_every_value">"Mỗi %1$s • %2$s"</string>
+    <string name="text_every_value1">"Mỗi %1$s"</string>
+    <string name="same_day_each_month">Cùng ngày mỗi tháng (%1$d)</string>
+    <string name="end_of_month">Ngày cuối tháng</string>
+    <string name="recurring_transaction_saved">Đã lưu giao dịch định kỳ</string>
+    <string name="failed_to_save_recurring_transaction">Không thể lưu giao dịch định kỳ</string>
+    <string name="no_recurring_yet">Chưa có giao dịch định kỳ</string>
+    <string name="empty_recurring_hint">Nhấn nút + để thêm giao dịch định kỳ.</string>
+    <string name="repeat_interval_atleast">Khoảng thời gian lặp lại phải ít nhất là 1</string>
+    <string name="please_select_until_date">Vui lòng chọn ngày kết thúc</string>
+    <string name="please_enter_times">Vui lòng nhập số lần lặp lại</string>
+    <string name="please_enter_an_amount">Vui lòng nhập số tiền</string>
+    <string name="please_select_a_wallet">Vui lòng chọn ví</string>
+    <string name="please_select_a_repeat_frequency">Vui lòng chọn tần suất lặp lại</string>
+    <string name="until_date_start_date">Ngày kết thúc phải sau ngày bắt đầu</string>
+    <string name="select_recurring_transaction_end">Vui lòng chọn thời điểm kết thúc giao dịch định kỳ</string>
+    <string name="every_week_period">Mỗi %1$s</string>
+    <string name="next_recurring">Tiếp theo: %1$s</string>
+    <string name="next_recurring_text">Giao dịch định kỳ tiếp theo</string>
+    <string name="recurring_transaction_added">Đã thêm giao dịch định kỳ</string>
+    <string name="recurring_transactions_added">Đã thêm các giao dịch định kỳ</string>
+    <string name="a_recurring_expense_was_added">Đã thêm khoản chi tiêu định kỳ</string>
+    <string name="a_recurring_income_was_added">Đã thêm khoản thu nhập định kỳ</string>
+    <string name="a_recurring_transaction_was_added">Đã thêm giao dịch định kỳ</string>
+    <string name="recurring_transactions_were_added">" giao dịch định kỳ đã được thêm"</string>
+    <string name="activate">Kích hoạt</string>
+    <string name="text_deactivated">Đã vô hiệu hóa</string>
+    <string name="deactivate">Vô hiệu hóa</string>
+    <string name="change_recurring_detail">Thay đổi thông tin định kỳ</string>
+    <string name="resume_this_recurring_transaction">Tiếp tục giao dịch này</string>
+    <string name="pause_this_recurring_transaction">Tạm dừng giao dịch này</string>
+    <string name="permanently_remove_this_recurring_transaction">Xóa vĩnh viễn giao dịch này</string>
+    <string name="view_recurring_details">Xem chi tiết định kỳ</string>
+    <string name="delete_recurring">Xóa giao dịch định kỳ</string>
+    <string name="delete_recurring_message">Bạn có chắc chắn muốn xóa giao dịch định kỳ này không?</string>
+    <string name="recurring_deleted_successfully">Đã xóa giao dịch định kỳ</string>
+    <string name="error_delete_recurring">Đã xảy ra lỗi khi xóa giao dịch định kỳ</string>
+    <string name="activate_recurring">Kích hoạt giao dịch định kỳ</string>
+    <string name="deactivate_recurring">Vô hiệu hóa giao dịch định kỳ</string>
+    <string name="delete_activate_message">Bạn có chắc chắn muốn kích hoạt giao dịch định kỳ này không?</string>
+    <string name="delete_deactivate_message">Bạn có chắc chắn muốn vô hiệu hóa giao dịch định kỳ này không?</string>
+    <string name="delete_activate_sub_message">Bạn có thể vô hiệu hóa giao dịch này bất cứ lúc nào trong danh sách đang hoạt động.</string>
+    <string name="delete_deactivate_sub_message">Bạn có thể kích hoạt giao dịch này bất cứ lúc nào trong danh sách đã tạm dừng.</string>
+    <string name="deactivated_successfully">Đã vô hiệu hóa giao dịch định kỳ</string>
+    <string name="error_deactivate">Đã xảy ra lỗi khi vô hiệu hóa giao dịch định kỳ</string>
+    <string name="activated_successfully">Đã kích hoạt giao dịch định kỳ</string>
+    <string name="error_activate">Đã xảy ra lỗi khi kích hoạt giao dịch định kỳ</string>
+    <string name="repeat_time">Thời gian lặp lại</string>
+    <string name="recurring_detail">Chi tiết định kỳ</string>
+    <string name="until_date">Đến %1$s</string>
+    <string name="recurring_transaction_reminder">Nhắc nhở giao dịch định kỳ</string>
+    <string name="recurring_expense_due">Khoản chi tiêu định kỳ của bạn đã đến hạn.</string>
+    <string name="recurring_income_due">Khoản thu nhập định kỳ của bạn đã đến hạn.</string>
+    <string name="recurring_transfer_due">Giao dịch chuyển tiền định kỳ của bạn đã đến hạn.</string>
+
+    <plurals name="day_period">
+        <item quantity="other">ngày</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="other">Mỗi %d ngày</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="other">%d ngày</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="other">tuần</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="other">%d tuần</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="other">Mỗi %d tháng</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="other">tháng</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="other">năm</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="other">Mỗi %d năm</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="other">lần</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="other">Trong %d lần</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="other">Mỗi %d tháng • Ngày cuối tháng</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="other">Mỗi %d tháng • Ngày %d</item>
+    </plurals>
+</resources>

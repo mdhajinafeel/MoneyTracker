@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">வகையைச் சேர்</string>
+    <string name="edit_category">வகையைத் திருத்து</string>
+    <string name="category_created">வகை உருவாக்கப்பட்டது</string>
+    <string name="category_updated">வகை புதுப்பிக்கப்பட்டது</string>
+    <string name="category_deleted">வகை நீக்கப்பட்டது</string>
+    <string name="category_moved">வகை மாற்றப்பட்டது</string>
+    <string name="error_delete_category">வகையை நீக்கும்போது பிழை ஏற்பட்டது</string>
+    <string name="error_moved_category">வகையை மாற்றும்போது பிழை ஏற்பட்டது</string>
+    <string name="category_bills">கட்டணங்கள் மற்றும் பயன்பாட்டுச் சேவைகள்</string>
+    <string name="category_bonus">போனஸ்</string>
+    <string name="category_clothing">ஆடைகள்</string>
+    <string name="category_dividend">பங்காதாயம்</string>
+    <string name="category_education">கல்வி</string>
+    <string name="category_entertainment">பொழுதுபோக்கு</string>
+    <string name="category_fitness">உடற்பயிற்சி</string>
+    <string name="category_food">உணவு</string>
+    <string name="category_grocery">மளிகைப் பொருட்கள்</string>
+    <string name="category_furniture">வீடு மற்றும் வீட்டு உபயோகப் பொருட்கள்</string>
+    <string name="category_gifts">பரிசுகள்</string>
+    <string name="category_health_and_beauty">ஆரோக்கியம்</string>
+    <string name="category_investment">முதலீடு</string>
+    <string name="category_lottery">லாட்டரி</string>
+    <string name="category_others">மற்றவை</string>
+    <string name="category_pet">செல்லப்பிராணி</string>
+    <string name="category_salary">சம்பளம்</string>
+    <string name="category_shopping">கடைத்தெரு வாங்கல்கள்</string>
+    <string name="category_tips">கைமாறு</string>
+    <string name="category_cashback">வெகுமதிகள்</string>
+    <string name="category_transportation">போக்குவரத்து</string>
+    <string name="category_travel">பயணம்</string>
+    <string name="adjustment">சரிசெய்தல்</string>
+    <string name="loan">கடன் வழங்கியது</string>
+    <string name="repay">திருப்பிச் செலுத்துதல்</string>
+    <string name="debt">கடன் பெற்றது</string>
+    <string name="collect">கடன் வசூல்</string>
+    <string name="category_allowance">படித்தொகை</string>
+    <string name="category_award">விருது</string>
+    <string name="manage_category">வகைகள்</string>
+    <string name="empty_category">வகைகள் எதுவும் இல்லை</string>
+    <string name="empty_category_hint">வகைகளைச் சேர்க்க + பொத்தானைத் தட்டவும்.</string>
+    <string name="select_category">வகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="category">வகை</string>
+    <string name="category_name">வகையின் பெயர்</string>
+    <string name="include_category_hint">இந்த வகையை அறிக்கைகள் மற்றும் வரைபடங்களில் காட்டவும்</string>
+    <string name="status_active_hint">இந்த வகையைப் பயன்படுத்தலாம்</string>
+    <string name="status_inactive_hint">இந்த வகை மறைக்கப்பட்டுள்ளது; பரிவர்த்தனைகளைச் சேர்க்கும்போது இது காட்டப்படாது.</string>
+    <string name="include_reports">அறிக்கைகளில் சேர்க்கவும்</string>
+    <string name="delete_category_message">\'%1$s\' வகையை நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
+    <string name="delete_category">வகையை நீக்கவா?</string>
+    <string name="no_transactions_found">பரிவர்த்தனைகள் எதுவும் இல்லை</string>
+    <string name="category_permanently_delete">இந்த வகையை நிரந்தரமாக நீக்கலாம்.</string>
+    <string name="category_in_use">பயன்பாட்டில் உள்ள வகை</string>
+    <string name="move_delete">மாற்றி நீக்கு</string>
+    <string name="move_transaction_to">பரிவர்த்தனையை இங்கு மாற்றவும்</string>
+    <string name="status">நிலை</string>
+    <string name="all_categories">அனைத்து வகைகளும்</string>
+    <string name="categories">வகைகள்</string>
+    <string name="category_transactions">வகை வாரியான பரிவர்த்தனைகள்</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">%1$d பரிவர்த்தனையை &quot;%2$s&quot; என்பதிலிருந்து வேறொரு வகைக்கு மாற்றவும்.</item>
+        <item quantity="other">%1$d பரிவர்த்தனைகளை &quot;%2$s&quot; என்பதிலிருந்து வேறொரு வகைக்கு மாற்றவும்.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">&quot;%1$s&quot; வகை 1 பரிவர்த்தனையில் பயன்படுத்தப்படுகிறது. எனவே இதை நீக்க முடியாது.\n\nவகையைத் திருத்து பகுதியில் இந்த வகையைச் செயலற்றதாக மாற்றலாம்.</item>
+        <item quantity="other">&quot;%1$s&quot; வகை %2$d பரிவர்த்தனைகளில் பயன்படுத்தப்படுகிறது. எனவே இதை நீக்க முடியாது.\n\nவகையைத் திருத்து பகுதியில் இந்த வகையைச் செயலற்றதாக மாற்றலாம்.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">&quot;%2$s&quot; வகையிலுள்ள பரிவர்த்தனை &quot;%3$s&quot; வகைக்கு மாற்றப்படும்.\n\n&quot;%4$s&quot; நிரந்தரமாக நீக்கப்படும்.</item>
+        <item quantity="other">&quot;%2$s&quot; வகையிலுள்ள அனைத்து %1$d பரிவர்த்தனைகளும் &quot;%3$s&quot; வகைக்கு மாற்றப்படும்.\n\n&quot;%4$s&quot; நிரந்தரமாக நீக்கப்படும்.</item>
+    </plurals>
+</resources>

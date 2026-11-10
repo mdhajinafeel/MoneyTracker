@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">వర్గాన్ని జోడించండి</string>
+    <string name="edit_category">వర్గాన్ని సవరించండి</string>
+    <string name="category_created">వర్గం సృష్టించబడింది</string>
+    <string name="category_updated">వర్గం నవీకరించబడింది</string>
+    <string name="category_deleted">వర్గం తొలగించబడింది</string>
+    <string name="category_moved">వర్గం తరలించబడింది</string>
+    <string name="error_delete_category">వర్గాన్ని తొలగించడంలో లోపం</string>
+    <string name="error_moved_category">వర్గాన్ని తరలించడంలో లోపం</string>
+    <string name="category_bills">బిల్లులు &amp; యుటిలిటీలు</string>
+    <string name="category_bonus">బోనస్</string>
+    <string name="category_clothing">దుస్తులు</string>
+    <string name="category_dividend">డివిడెండ్</string>
+    <string name="category_education">విద్య</string>
+    <string name="category_entertainment">వినోదం</string>
+    <string name="category_fitness">ఫిట్‌నెస్</string>
+    <string name="category_food">ఆహారం</string>
+    <string name="category_grocery">కిరాణా సరుకులు</string>
+    <string name="category_furniture">ఇల్లు &amp; ఫర్నిచర్</string>
+    <string name="category_gifts">బహుమతులు</string>
+    <string name="category_health_and_beauty">ఆరోగ్యం</string>
+    <string name="category_investment">పెట్టుబడి</string>
+    <string name="category_lottery">లాటరీ</string>
+    <string name="category_others">ఇతరాలు</string>
+    <string name="category_pet">పెంపుడు జంతువులు</string>
+    <string name="category_salary">జీతం</string>
+    <string name="category_shopping">షాపింగ్</string>
+    <string name="category_tips">టిప్స్</string>
+    <string name="category_cashback">రివార్డులు</string>
+    <string name="category_transportation">రవాణా</string>
+    <string name="category_travel">ప్రయాణం</string>
+    <string name="adjustment">సర్దుబాటు</string>
+    <string name="loan">రుణం</string>
+    <string name="repay">తిరిగి చెల్లింపు</string>
+    <string name="debt">అప్పు</string>
+    <string name="collect">అప్పు వసూలు</string>
+    <string name="category_allowance">భత్యం</string>
+    <string name="category_award">బహుమతి</string>
+    <string name="manage_category">వర్గాలు</string>
+    <string name="empty_category">వర్గాలు లేవు</string>
+    <string name="empty_category_hint">వర్గాలను జోడించడానికి + బటన్‌ను నొక్కండి.</string>
+    <string name="select_category">వర్గాన్ని ఎంచుకోండి</string>
+    <string name="category">వర్గం</string>
+    <string name="category_name">వర్గం పేరు</string>
+    <string name="include_category_hint">నివేదికలు మరియు చార్ట్‌లలో ఈ వర్గాన్ని చూపించండి</string>
+    <string name="status_active_hint">ఈ వర్గాన్ని ఉపయోగించవచ్చు</string>
+    <string name="status_inactive_hint">ఈ వర్గం దాచబడుతుంది మరియు లావాదేవీలను జోడించేటప్పుడు కనిపించదు.</string>
+    <string name="include_reports">నివేదికల్లో చేర్చండి</string>
+    <string name="delete_category_message">\'%1$s\' వర్గాన్ని తొలగించాలనుకుంటున్నారా?</string>
+    <string name="delete_category">వర్గాన్ని తొలగించాలా?</string>
+    <string name="no_transactions_found">లావాదేవీలు ఏవీ కనుగొనబడలేదు</string>
+    <string name="category_permanently_delete">ఈ వర్గాన్ని శాశ్వతంగా తొలగించవచ్చు.</string>
+    <string name="category_in_use">వాడుకలో ఉన్న వర్గం</string>
+    <string name="move_delete">తరలించి తొలగించండి</string>
+    <string name="move_transaction_to">లావాదేవీని ఇక్కడికి తరలించండి</string>
+    <string name="status">స్థితి</string>
+    <string name="all_categories">అన్ని వర్గాలు</string>
+    <string name="categories">వర్గాలు</string>
+    <string name="category_transactions">వర్గం లావాదేవీలు</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">%1$d లావాదేవీని "%2$s" నుండి మరొక వర్గానికి తరలించండి.</item>
+        <item quantity="other">%1$d లావాదేవీలను "%2$s" నుండి మరొక వర్గానికి తరలించండి.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">"%1$s" వర్గం 1 లావాదేవీలో ఉపయోగించబడుతోంది. కాబట్టి దాన్ని తొలగించలేరు.\n\nవర్గాన్ని క్రియారహితం చేయడానికి వర్గాన్ని సవరించండి.</item>
+        <item quantity="other">"%1$s" వర్గం %2$d లావాదేవీలలో ఉపయోగించబడుతోంది. కాబట్టి దాన్ని తొలగించలేరు.\n\nవర్గాన్ని క్రియారహితం చేయడానికి వర్గాన్ని సవరించండి.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">"%2$s" లోని లావాదేవీ "%3$s" కు తరలించబడుతుంది.\n\n"%4$s" శాశ్వతంగా తొలగించబడుతుంది.</item>
+        <item quantity="other">"%2$s" లోని మొత్తం %1$d లావాదేవీలు "%3$s" కు తరలించబడతాయి.\n\n"%4$s" శాశ్వతంగా తొలగించబడుతుంది.</item>
+    </plurals>
+</resources>

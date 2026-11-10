@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Esiste già un account con questo indirizzo email.</string>
+    <string name="error_check_details">Controlla i tuoi dati e riprova.</string>
+    <string name="error_too_many_attempts">Troppi tentativi. Riprova più tardi.</string>
+    <string name="error_account_creation_failed">Creazione dell\'account non riuscita. Riprova.</string>
+    <string name="error_network_connection">Impossibile connettersi. Controlla la connessione Internet e riprova.</string>
+    <string name="check_internet_connection">Impossibile connettersi. Controlla la connessione Internet e riprova.</string>
+</resources>

@@ -1,0 +1,229 @@
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Ogni spesa. Ogni intuizione.</string>
+    <string name="app_tag_text1">Spesa</string>
+    <string name="app_tag_text2">Analisi</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Transazione</string>
+    <string name="calendar">Calendario</string>
+    <string name="statistic">Analisi</string>
+    <string name="more">Altro</string>
+    <string name="wallet">Portafoglio</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Domenica</string>
+    <string name="monday">Lunedì</string>
+    <string name="tuesday">Martedì</string>
+    <string name="wednesday">Mercoledì</string>
+    <string name="thursday">Giovedì</string>
+    <string name="friday">Venerdì</string>
+    <string name="saturday">Sabato</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">Dom</string>
+    <string name="monday_short">Lun</string>
+    <string name="tuesday_short">Mar</string>
+    <string name="wednesday_short">Mer</string>
+    <string name="thursday_short">Gio</string>
+    <string name="friday_short">Ven</string>
+    <string name="saturday_short">Sab</string>
+
+    <string-array name="week_days">
+        <item>Domenica</item>
+        <item>Lunedì</item>
+        <item>Martedì</item>
+        <item>Mercoledì</item>
+        <item>Giovedì</item>
+        <item>Venerdì</item>
+        <item>Sabato</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>Dom</item>
+        <item>Lun</item>
+        <item>Mar</item>
+        <item>Mer</item>
+        <item>Gio</item>
+        <item>Ven</item>
+        <item>Sab</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Gennaio</string>
+    <string name="february">Febbraio</string>
+    <string name="march">Marzo</string>
+    <string name="april">Aprile</string>
+    <string name="may">Maggio</string>
+    <string name="june">Giugno</string>
+    <string name="july">Luglio</string>
+    <string name="august">Agosto</string>
+    <string name="september">Settembre</string>
+    <string name="october">Ottobre</string>
+    <string name="november">Novembre</string>
+    <string name="december">Dicembre</string>
+
+    <string-array name="month_full">
+        <item>Gennaio</item>
+        <item>Febbraio</item>
+        <item>Marzo</item>
+        <item>Aprile</item>
+        <item>Maggio</item>
+        <item>Giugno</item>
+        <item>Luglio</item>
+        <item>Agosto</item>
+        <item>Settembre</item>
+        <item>Ottobre</item>
+        <item>Novembre</item>
+        <item>Dicembre</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Gen</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>Mag</item>
+        <item>Giu</item>
+        <item>Lug</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Ott</item>
+        <item>Nov</item>
+        <item>Dic</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>T1</item>
+        <item>T2</item>
+        <item>T3</item>
+        <item>T4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">Predefinita del sistema</string>
+    <string name="english">Inglese</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Esci</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Avanti</string>
+    <string name="skip">Salta</string>
+    <string name="get_started">Inizia</string>
+    <string name="press_again_to_exit">Premi di nuovo per uscire</string>
+    <string name="settings">Impostazioni</string>
+    <string name="save">Salva</string>
+    <string name="done">Fatto</string>
+    <string name="delete">Elimina</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annulla</string>
+    <string name="no_record">Nessun record</string>
+    <string name="no_data">Nessun dato</string>
+    <string name="detail">Dettagli della transazione</string>
+    <string name="parsing_error">Si è verificato un errore durante l\'elaborazione dei dati</string>
+    <string name="update">Aggiorna</string>
+    <string name="color">Colore</string>
+    <string name="icon">Icona</string>
+    <string name="select_icon">Seleziona icona</string>
+    <string name="delete_message">Sei sicuro di voler eliminare?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Indietro</string>
+    <string name="dash">-</string>
+    <string name="add_text">Aggiungi</string>
+    <string name="remaining">Rimanente</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Visualizza dettagli</string>
+    <string name="view_breakdown">Visualizza tutta la ripartizione</string>
+    <string name="error_update">Errore durante l\'aggiornamento</string>
+    <string name="text_edit">Modifica</string>
+    <string name="text_delete">elimina</string>
+    <string name="text_close">Chiudi</string>
+    <string name="text_remove">Rimuovi</string>
+    <string name="apply">Applica</string>
+    <string name="reset">Reimposta</string>
+    <string name="select_option">Seleziona un\'opzione</string>
+    <string name="text_default">Predefinito</string>
+    <string name="active">Attivo</string>
+    <string name="inactive">Inattivo</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Qualcosa è andato storto</string>
+    <string name="please_wait">Attendi…</string>
+</resources>

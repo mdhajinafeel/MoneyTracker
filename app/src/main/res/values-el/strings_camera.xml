@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">Συλλογή</string>
+    <string name="camera">Κάμερα</string>
+    <string name="select_source">Επιλογή πηγής</string>
+    <string name="file">Αρχείο</string>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Ingreso</string>
+    <string name="total_income">Ingresos totales</string>
+    <string name="expense">Gasto</string>
+    <string name="total_expense">Gastos totales</string>
+    <string name="transfer">Transferencia</string>
+    <string name="recurring">Recurrente</string>
+    <string name="trans_delete_failed">No se pudo eliminar la transacción</string>
+    <string name="fee">Comisión</string>
+    <string name="memo">Nota</string>
+    <string name="notes">Notas</string>
+    <string name="add_note">Añadir una nota…</string>
+    <string name="description">Descripción</string>
+    <string name="short_description">Descripción breve</string>
+    <string name="enter_amount">Introducir importe</string>
+    <string name="cash_wallet">Billetera de efectivo</string>
+    <string name="cash">Efectivo</string>
+    <string name="enter_the_amount">Introduce el importe</string>
+    <string name="date">Fecha</string>
+    <string name="select_date">Seleccionar fecha</string>
+    <string name="amount">Importe</string>
+    <string name="add_record">Pulsa el botón + para añadir tu primera transacción.</string>
+    <string name="type">Tipo</string>
+    <string name="view_all">Ver todo</string>
+    <string name="delete_transaction">Eliminar transacción</string>
+    <string name="total">Total</string>
+    <string name="all_transaction">Todas las transacciones</string>
+    <string name="no_transaction">Aún no hay transacciones</string>
+    <string name="start_date">Fecha de inicio</string>
+    <string name="end_date">Fecha de finalización</string>
+    <string name="date_amp_time"><![CDATA[Fecha y hora]]></string>
+    <string name="future">Futuro</string>
+    <string name="add_files">Añadir fotos o archivos (máximo 5 archivos)</string>
+    <string name="attachment_title">Archivos adjuntos (%1$d/5)</string>
+    <string name="tap_add_attach">Pulsa para añadir un archivo adjunto</string>
+    <string name="attachment_extension">Imágenes, PDF, documentos, Excel, ZIP, etc.</string>
+    <string name="add_more">Añadir más</string>
+    <string name="unable_to_open_attachment">No se pudo abrir el archivo adjunto</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Importe (desde la billetera)</string>
+    <string name="fee_from_wallet">Comisión (desde la billetera)</string>
+    <string name="received_from_wallet">Recibido (en la billetera de destino)</string>
+    <string name="transaction_action">Acciones de la transacción</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Ver detalles de la transacción</string>
+    <string name="change_detail">Modificar detalles de la transacción</string>
+    <string name="duplicate_copy">Crear una copia</string>
+    <string name="remove_transaction">Eliminar transacción</string>
+    <string name="duplicate">Duplicar</string>
+    <string name="duplicate_transaction">Duplicar transacción</string>
+    <string name="duplicate_transaction_desc">¿Quieres crear una copia de esta transacción?</string>
+    <string name="transaction_duplicated">Transacción duplicada</string>
+    <string name="transaction_deleted">Transacción eliminada</string>
+    <string name="unable_to_save">No se pudo guardar</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d transacción</item>
+        <item quantity="many">%d transacciones</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Archivo adjunto (%d)</item>
+        <item quantity="many">Archivos adjuntos (%d)</item>
+    </plurals>
+</resources>

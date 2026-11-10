@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">จัดการเงินของคุณอย่างมืออาชีพ</string>
+    <string name="walkthrough_1_desc">ติดตามค่าใช้จ่ายทุกรายการ ตรวจสอบงบประมาณ และทำความเข้าใจว่าเงินของคุณถูกใช้ไปกับอะไรบ้าง</string>
+    <string name="walkthrough_2_title">จัดการกระเป๋าเงินทุกใบ</string>
+    <string name="walkthrough_2_desc">จัดเก็บเงินสด บัญชีธนาคาร บัตร และกระเป๋าเงินดิจิทัลไว้ในที่เดียวอย่างปลอดภัย</string>
+    <string name="walkthrough_3_title">บันทึกค่าใช้จ่ายได้ทันที</string>
+    <string name="walkthrough_3_desc">เพิ่มรายการธุรกรรมพร้อมหมวดหมู่ บันทึกย่อ และไฟล์แนบได้ง่าย ๆ เพียงไม่กี่ขั้นตอน</string>
+    <string name="walkthrough_4_title"><![CDATA[รายงานและการวิเคราะห์อัจฉริยะ]]></string>
+    <string name="walkthrough_4_desc">ดูภาพรวมการใช้จ่ายของคุณผ่านแผนภูมิที่มีประสิทธิภาพและข้อมูลเชิงลึกทางการเงินที่ปรับให้เหมาะกับคุณ</string>
+    <string name="walkthrough_5_title">ไม่พลาดทุกกำหนดด้วยการแจ้งเตือน</string>
+    <string name="walkthrough_5_desc">ติดตามบิล การสมัครสมาชิก และการชำระเงินที่เกิดขึ้นประจำได้อย่างง่ายดายด้วยระบบแจ้งเตือนอัจฉริยะ</string>
+    <string name="walkthrough_6_title">บรรลุเป้าหมายทางการเงินของคุณ</string>
+    <string name="walkthrough_6_desc">สร้างนิสัยทางการเงินที่ดีขึ้น ออมเงินให้มากขึ้น และเพิ่มความมั่นใจในการจัดการการเงินของคุณในทุกวัน</string>
+</resources>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Každý výdaj. Každý přehled.</string>
+    <string name="app_tag_text1">Výdaj</string>
+    <string name="app_tag_text2">Přehled</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Transakce</string>
+    <string name="calendar">Kalendář</string>
+    <string name="statistic">Přehledy</string>
+    <string name="more">Více</string>
+    <string name="wallet">Peněženka</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Neděle</string>
+    <string name="monday">Pondělí</string>
+    <string name="tuesday">Úterý</string>
+    <string name="wednesday">Středa</string>
+    <string name="thursday">Čtvrtek</string>
+    <string name="friday">Pátek</string>
+    <string name="saturday">Sobota</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">Ne</string>
+    <string name="monday_short">Po</string>
+    <string name="tuesday_short">Út</string>
+    <string name="wednesday_short">St</string>
+    <string name="thursday_short">Čt</string>
+    <string name="friday_short">Pá</string>
+    <string name="saturday_short">So</string>
+
+    <string-array name="week_days">
+        <item>Neděle</item>
+        <item>Pondělí</item>
+        <item>Úterý</item>
+        <item>Středa</item>
+        <item>Čtvrtek</item>
+        <item>Pátek</item>
+        <item>Sobota</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>Ne</item>
+        <item>Po</item>
+        <item>Út</item>
+        <item>St</item>
+        <item>Čt</item>
+        <item>Pá</item>
+        <item>So</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Leden</string>
+    <string name="february">Únor</string>
+    <string name="march">Březen</string>
+    <string name="april">Duben</string>
+    <string name="may">Květen</string>
+    <string name="june">Červen</string>
+    <string name="july">Červenec</string>
+    <string name="august">Srpen</string>
+    <string name="september">Září</string>
+    <string name="october">Říjen</string>
+    <string name="november">Listopad</string>
+    <string name="december">Prosinec</string>
+
+    <string-array name="month_full">
+        <item>Leden</item>
+        <item>Únor</item>
+        <item>Březen</item>
+        <item>Duben</item>
+        <item>Květen</item>
+        <item>Červen</item>
+        <item>Červenec</item>
+        <item>Srpen</item>
+        <item>Září</item>
+        <item>Říjen</item>
+        <item>Listopad</item>
+        <item>Prosinec</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Led</item>
+        <item>Úno</item>
+        <item>Bře</item>
+        <item>Dub</item>
+        <item>Kvě</item>
+        <item>Čvn</item>
+        <item>Čvc</item>
+        <item>Srp</item>
+        <item>Zář</item>
+        <item>Říj</item>
+        <item>Lis</item>
+        <item>Pro</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>Q1</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">Výchozí nastavení systému</string>
+    <string name="english">Angličtina</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Vymazat</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Další</string>
+    <string name="skip">Přeskočit</string>
+    <string name="get_started">Začít</string>
+    <string name="press_again_to_exit">Dalším stisknutím ukončíte aplikaci</string>
+    <string name="settings">Nastavení</string>
+    <string name="save">Uložit</string>
+    <string name="done">Hotovo</string>
+    <string name="delete">Odstranit</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Zrušit</string>
+    <string name="no_record">Žádný záznam</string>
+    <string name="no_data">Žádná data</string>
+    <string name="detail">Detail transakce</string>
+    <string name="parsing_error">Při zpracování dat došlo k chybě</string>
+    <string name="update">Aktualizovat</string>
+    <string name="color">Barva</string>
+    <string name="icon">Ikona</string>
+    <string name="select_icon">Vybrat ikonu</string>
+    <string name="delete_message">Opravdu chcete odstranit?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Předchozí</string>
+    <string name="dash">-</string>
+    <string name="add_text">Přidat</string>
+    <string name="remaining">Zbývá</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Zobrazit podrobnosti</string>
+    <string name="view_breakdown">Zobrazit celý rozpis</string>
+    <string name="error_update">Při aktualizaci došlo k chybě</string>
+    <string name="text_edit">Upravit</string>
+    <string name="text_delete">odstranit</string>
+    <string name="text_close">Zavřít</string>
+    <string name="text_remove">Odebrat</string>
+    <string name="apply">Použít</string>
+    <string name="reset">Obnovit</string>
+    <string name="select_option">Vyberte možnost</string>
+    <string name="text_default">Výchozí</string>
+    <string name="active">Aktivní</string>
+    <string name="inactive">Neaktivní</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Něco se pokazilo</string>
+    <string name="please_wait">Čekejte prosím…</string>
+</resources>

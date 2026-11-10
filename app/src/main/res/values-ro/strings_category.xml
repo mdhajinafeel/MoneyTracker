@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Adaugă categorie</string>
+    <string name="edit_category">Editează categoria</string>
+    <string name="category_created">Categorie creată</string>
+    <string name="category_updated">Categorie actualizată</string>
+    <string name="category_deleted">Categorie ștearsă</string>
+    <string name="category_moved">Categorie mutată</string>
+    <string name="error_delete_category">Eroare la ștergerea categoriei</string>
+    <string name="error_moved_category">Eroare la mutarea categoriei</string>
+    <string name="category_bills">Facturi și utilități</string>
+    <string name="category_bonus">Bonus</string>
+    <string name="category_clothing">Îmbrăcăminte</string>
+    <string name="category_dividend">Dividende</string>
+    <string name="category_education">Educație</string>
+    <string name="category_entertainment">Divertisment</string>
+    <string name="category_fitness">Fitness</string>
+    <string name="category_food">Mâncare</string>
+    <string name="category_grocery">Cumpărături alimentare</string>
+    <string name="category_furniture">Casă și mobilier</string>
+    <string name="category_gifts">Cadouri</string>
+    <string name="category_health_and_beauty">Sănătate</string>
+    <string name="category_investment">Investiții</string>
+    <string name="category_lottery">Loterie</string>
+    <string name="category_others">Altele</string>
+    <string name="category_pet">Animale de companie</string>
+    <string name="category_salary">Salariu</string>
+    <string name="category_shopping">Cumpărături</string>
+    <string name="category_tips">Bacșișuri</string>
+    <string name="category_cashback">Recompense</string>
+    <string name="category_transportation">Transport</string>
+    <string name="category_travel">Călătorii</string>
+    <string name="adjustment">Ajustare</string>
+    <string name="loan">Împrumut</string>
+    <string name="repay">Rambursare</string>
+    <string name="debt">Datorie</string>
+    <string name="collect">Recuperare datorie</string>
+    <string name="category_allowance">Alocație</string>
+    <string name="category_award">Premiu</string>
+    <string name="manage_category">Categorii</string>
+    <string name="empty_category">Nu există categorii</string>
+    <string name="empty_category_hint">Atinge butonul + pentru a adăuga categorii.</string>
+    <string name="select_category">Selectează categoria</string>
+    <string name="category">Categorie</string>
+    <string name="category_name">Numele categoriei</string>
+    <string name="include_category_hint">Afișează această categorie în rapoarte și grafice</string>
+    <string name="status_active_hint">Categoria este disponibilă pentru utilizare</string>
+    <string name="status_inactive_hint">Categoria este ascunsă și nu va apărea la adăugarea tranzacțiilor.</string>
+    <string name="include_reports">Include în rapoarte</string>
+    <string name="delete_category_message">Sigur dorești să ștergi categoria „%1$s”?</string>
+    <string name="delete_category">Ștergi categoria?</string>
+    <string name="no_transactions_found">Nu au fost găsite tranzacții</string>
+    <string name="category_permanently_delete">Această categorie poate fi ștearsă definitiv.</string>
+    <string name="category_in_use">Categorie utilizată</string>
+    <string name="move_delete">Mută și șterge</string>
+    <string name="move_transaction_to">Mută tranzacția în</string>
+    <string name="status">Stare</string>
+    <string name="all_categories">Toate categoriile</string>
+    <string name="categories">Categorii</string>
+    <string name="category_transactions">Tranzacțiile categoriei</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Mută tranzacția %1$d din „%2$s” într-o altă categorie.</item>
+        <item quantity="few">Mută %1$d tranzacții din „%2$s” într-o altă categorie.</item>
+        <item quantity="other">Mută %1$d de tranzacții din „%2$s” într-o altă categorie.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">„%1$s” este utilizată de o tranzacție și nu poate fi ștearsă.\n\nPoți dezactiva această categorie din opțiunea Editează categoria.</item>
+        <item quantity="few">„%1$s” este utilizată de %2$d tranzacții și nu poate fi ștearsă.\n\nPoți dezactiva această categorie din opțiunea Editează categoria.</item>
+        <item quantity="other">„%1$s” este utilizată de %2$d de tranzacții și nu poate fi ștearsă.\n\nPoți dezactiva această categorie din opțiunea Editează categoria.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">Tranzacția din „%2$s” va fi mutată în „%3$s”.\n\n„%4$s” va fi ștearsă definitiv.</item>
+        <item quantity="few">Toate cele %1$d tranzacții din „%2$s” vor fi mutate în „%3$s”.\n\n„%4$s” va fi ștearsă definitiv.</item>
+        <item quantity="other">Toate cele %1$d de tranzacții din „%2$s” vor fi mutate în „%3$s”.\n\n„%4$s” va fi ștearsă definitiv.</item>
+    </plurals>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">پیگیری تراکنش‌های تکرارشونده</string>
+    <string name="select_recurring">انتخاب تراکنش تکرارشونده</string>
+    <string name="repeat_on">تکرار در</string>
+    <string name="select_repeat_on">انتخاب زمان تکرار</string>
+    <string name="create_transaction">ایجاد تراکنش</string>
+    <string name="never_miss_recurring_transaction">هیچ تراکنش تکرارشونده‌ای را فراموش نکنید</string>
+    <string name="income_recurring">درآمد تکرارشونده</string>
+    <string name="expense_recurring">هزینه تکرارشونده</string>
+    <string name="transfer_recurring">انتقال تکرارشونده</string>
+    <string name="no_repeat">بدون تکرار</string>
+    <string name="repeat_option">گزینه تکرار</string>
+    <string name="select_days">انتخاب روزها</string>
+    <string name="please_select_at_least_one_day">لطفاً حداقل یک روز انتخاب کنید</string>
+    <string name="times">بار</string>
+    <string name="every">هر</string>
+    <string name="forever">برای همیشه</string>
+    <string name="until">تا</string>
+    <string name="text_for">به مدت</string>
+    <string name="text_every_value">"هر %1$s • %2$s"</string>
+    <string name="text_every_value1">"هر %1$s"</string>
+    <string name="same_day_each_month">همان روز در هر ماه (%1$d)</string>
+    <string name="end_of_month">پایان ماه</string>
+    <string name="recurring_transaction_saved">تراکنش تکرارشونده ذخیره شد</string>
+    <string name="failed_to_save_recurring_transaction">ذخیره تراکنش تکرارشونده ناموفق بود</string>
+    <string name="no_recurring_yet">هنوز تراکنش تکرارشونده‌ای وجود ندارد</string>
+    <string name="empty_recurring_hint">برای افزودن تراکنش تکرارشونده، روی دکمه + بزنید.</string>
+    <string name="repeat_interval_atleast">فاصله تکرار باید حداقل ۱ باشد</string>
+    <string name="please_select_until_date">لطفاً تاریخ پایان را انتخاب کنید</string>
+    <string name="please_enter_times">لطفاً تعداد دفعات را وارد کنید</string>
+    <string name="please_enter_an_amount">لطفاً مبلغ را وارد کنید</string>
+    <string name="please_select_a_wallet">لطفاً یک کیف پول انتخاب کنید</string>
+    <string name="please_select_a_repeat_frequency">لطفاً فاصله زمانی تکرار را انتخاب کنید</string>
+    <string name="until_date_start_date">تاریخ پایان باید بعد از تاریخ شروع باشد</string>
+    <string name="select_recurring_transaction_end">لطفاً زمان پایان تراکنش تکرارشونده را انتخاب کنید</string>
+    <string name="every_week_period">هر %1$s</string>
+    <string name="next_recurring">بعدی: %1$s</string>
+    <string name="next_recurring_text">تکرار بعدی</string>
+    <string name="recurring_transaction_added">تراکنش تکرارشونده اضافه شد</string>
+    <string name="recurring_transactions_added">تراکنش‌های تکرارشونده اضافه شدند</string>
+    <string name="a_recurring_expense_was_added">یک هزینه تکرارشونده اضافه شد</string>
+    <string name="a_recurring_income_was_added">یک درآمد تکرارشونده اضافه شد</string>
+    <string name="a_recurring_transaction_was_added">یک تراکنش تکرارشونده اضافه شد</string>
+    <string name="recurring_transactions_were_added">" تراکنش تکرارشونده اضافه شدند"</string>
+    <string name="activate">فعال‌سازی</string>
+    <string name="text_deactivated">غیرفعال‌شده</string>
+    <string name="deactivate">غیرفعال‌سازی</string>
+    <string name="change_recurring_detail">تغییر جزئیات تکرار</string>
+    <string name="resume_this_recurring_transaction">ازسرگیری این تراکنش</string>
+    <string name="pause_this_recurring_transaction">توقف موقت این تراکنش</string>
+    <string name="permanently_remove_this_recurring_transaction">حذف دائمی این تراکنش</string>
+    <string name="view_recurring_details">مشاهده جزئیات تکرار</string>
+    <string name="delete_recurring">حذف تراکنش تکرارشونده</string>
+    <string name="delete_recurring_message">آیا مطمئن هستید که می‌خواهید این تراکنش تکرارشونده را حذف کنید؟</string>
+    <string name="recurring_deleted_successfully">تراکنش تکرارشونده حذف شد</string>
+    <string name="error_delete_recurring">خطا در حذف تراکنش تکرارشونده</string>
+    <string name="activate_recurring">فعال‌سازی تراکنش تکرارشونده</string>
+    <string name="deactivate_recurring">غیرفعال‌سازی تراکنش تکرارشونده</string>
+    <string name="delete_activate_message">آیا مطمئن هستید که می‌خواهید این تراکنش تکرارشونده را فعال کنید؟</string>
+    <string name="delete_deactivate_message">آیا مطمئن هستید که می‌خواهید این تراکنش تکرارشونده را غیرفعال کنید؟</string>
+    <string name="delete_activate_sub_message">هر زمان می‌توانید آن را از بخش تراکنش‌های فعال متوقف کنید.</string>
+    <string name="delete_deactivate_sub_message">هر زمان می‌توانید آن را از بخش تراکنش‌های متوقف‌شده فعال کنید.</string>
+    <string name="deactivated_successfully">تراکنش تکرارشونده غیرفعال شد</string>
+    <string name="error_deactivate">خطا در غیرفعال‌سازی تراکنش تکرارشونده</string>
+    <string name="activated_successfully">تراکنش تکرارشونده فعال شد</string>
+    <string name="error_activate">خطا در فعال‌سازی تراکنش تکرارشونده</string>
+    <string name="repeat_time">زمان تکرار</string>
+    <string name="recurring_detail">جزئیات تکرار</string>
+    <string name="until_date">تا %1$s</string>
+    <string name="recurring_transaction_reminder">یادآور تراکنش تکرارشونده</string>
+    <string name="recurring_expense_due">زمان پرداخت هزینه تکرارشونده شما فرا رسیده است.</string>
+    <string name="recurring_income_due">زمان دریافت درآمد تکرارشونده شما فرا رسیده است.</string>
+    <string name="recurring_transfer_due">زمان انتقال تکرارشونده شما فرا رسیده است.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">روز</item>
+        <item quantity="other">روز</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">هر %d روز</item>
+        <item quantity="other">هر %d روز</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d روز</item>
+        <item quantity="other">%d روز</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">هفته</item>
+        <item quantity="other">هفته</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d هفته</item>
+        <item quantity="other">%d هفته</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">هر %d ماه</item>
+        <item quantity="other">هر %d ماه</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">ماه</item>
+        <item quantity="other">ماه</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">سال</item>
+        <item quantity="other">سال</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">هر %d سال</item>
+        <item quantity="other">هر %d سال</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">بار</item>
+        <item quantity="other">بار</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">به مدت %d بار</item>
+        <item quantity="other">به مدت %d بار</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">هر %d ماه • روز آخر</item>
+        <item quantity="other">هر %d ماه • روز آخر</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">هر %d ماه • روز %d</item>
+        <item quantity="other">هر %d ماه • روز %d</item>
+    </plurals>
+</resources>

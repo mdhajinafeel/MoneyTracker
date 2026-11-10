@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">ಆದಾಯ</string>
+    <string name="total_income">ಒಟ್ಟು ಆದಾಯ</string>
+    <string name="expense">ಖರ್ಚು</string>
+    <string name="total_expense">ಒಟ್ಟು ಖರ್ಚು</string>
+    <string name="transfer">ವರ್ಗಾವಣೆ</string>
+    <string name="recurring">ಮರುಕಳಿಸುವ</string>
+    <string name="trans_delete_failed">ವಹಿವಾಟನ್ನು ಅಳಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
+    <string name="fee">ಶುಲ್ಕ</string>
+    <string name="memo">ಟಿಪ್ಪಣಿ</string>
+    <string name="notes">ಟಿಪ್ಪಣಿಗಳು</string>
+    <string name="add_note">ಟಿಪ್ಪಣಿ ಸೇರಿಸಿ…</string>
+    <string name="description">ವಿವರಣೆ</string>
+    <string name="short_description">ಸಂಕ್ಷಿಪ್ತ ವಿವರಣೆ</string>
+    <string name="enter_amount">ಮೊತ್ತ ನಮೂದಿಸಿ</string>
+    <string name="cash_wallet">ನಗದು ವಾಲೆಟ್</string>
+    <string name="cash">ನಗದು</string>
+    <string name="enter_the_amount">ಮೊತ್ತವನ್ನು ನಮೂದಿಸಿ</string>
+    <string name="date">ದಿನಾಂಕ</string>
+    <string name="select_date">ದಿನಾಂಕ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="amount">ಮೊತ್ತ</string>
+    <string name="add_record">ನಿಮ್ಮ ಮೊದಲ ವಹಿವಾಟನ್ನು ಸೇರಿಸಲು + ಬಟನ್ ಒತ್ತಿರಿ.</string>
+    <string name="type">ಪ್ರಕಾರ</string>
+    <string name="view_all">ಎಲ್ಲವನ್ನೂ ವೀಕ್ಷಿಸಿ</string>
+    <string name="delete_transaction">ವಹಿವಾಟನ್ನು ಅಳಿಸಿ</string>
+    <string name="total">ಒಟ್ಟು</string>
+    <string name="all_transaction">ಎಲ್ಲಾ ವಹಿವಾಟುಗಳು</string>
+    <string name="no_transaction">ಇನ್ನೂ ಯಾವುದೇ ವಹಿವಾಟುಗಳಿಲ್ಲ</string>
+    <string name="start_date">ಪ್ರಾರಂಭ ದಿನಾಂಕ</string>
+    <string name="end_date">ಅಂತಿಮ ದಿನಾಂಕ</string>
+    <string name="date_amp_time"><![CDATA[ದಿನಾಂಕ ಮತ್ತು ಸಮಯ]]></string>
+    <string name="future">ಭವಿಷ್ಯ</string>
+    <string name="add_files">ಫೋಟೋಗಳು ಅಥವಾ ಫೈಲ್‌ಗಳನ್ನು ಸೇರಿಸಿ (ಗರಿಷ್ಠ 5 ಫೈಲ್‌ಗಳು)</string>
+    <string name="attachment_title">ಲಗತ್ತುಗಳು (%1$d/5)</string>
+    <string name="tap_add_attach">ಲಗತ್ತನ್ನು ಸೇರಿಸಲು ಒತ್ತಿರಿ</string>
+    <string name="attachment_extension">ಚಿತ್ರಗಳು, PDF, ಡಾಕ್ಯುಮೆಂಟ್‌ಗಳು, Excel, Zip ಇತ್ಯಾದಿ.</string>
+    <string name="add_more">ಇನ್ನಷ್ಟು ಸೇರಿಸಿ</string>
+    <string name="unable_to_open_attachment">ಲಗತ್ತನ್ನು ತೆರೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">ಮೊತ್ತ (ವಾಲೆಟ್‌ನಿಂದ)</string>
+    <string name="fee_from_wallet">ಶುಲ್ಕ (ವಾಲೆಟ್‌ನಿಂದ)</string>
+    <string name="received_from_wallet">ಸ್ವೀಕರಿಸಿದ ಮೊತ್ತ (ವಾಲೆಟ್‌ಗೆ)</string>
+    <string name="transaction_action">ವಹಿವಾಟಿನ ಕ್ರಿಯೆ</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">ವಹಿವಾಟಿನ ವಿವರಗಳನ್ನು ವೀಕ್ಷಿಸಿ</string>
+    <string name="change_detail">ವಹಿವಾಟಿನ ವಿವರಗಳನ್ನು ಬದಲಾಯಿಸಿ</string>
+    <string name="duplicate_copy">ಪ್ರತಿಯನ್ನು ರಚಿಸಿ</string>
+    <string name="remove_transaction">ವಹಿವಾಟನ್ನು ತೆಗೆದುಹಾಕಿ</string>
+    <string name="duplicate">ನಕಲು ಮಾಡಿ</string>
+    <string name="duplicate_transaction">ವಹಿವಾಟಿನ ನಕಲು ರಚಿಸಿ</string>
+    <string name="duplicate_transaction_desc">ಈ ವಹಿವಾಟಿನ ಪ್ರತಿಯನ್ನು ರಚಿಸಲು ಬಯಸುವಿರಾ?</string>
+    <string name="transaction_duplicated">ವಹಿವಾಟಿನ ನಕಲು ರಚಿಸಲಾಗಿದೆ</string>
+    <string name="transaction_deleted">ವಹಿವಾಟನ್ನು ಅಳಿಸಲಾಗಿದೆ</string>
+    <string name="unable_to_save">ಉಳಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d ವಹಿವಾಟು</item>
+        <item quantity="other">%d ವಹಿವಾಟುಗಳು</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">ಲಗತ್ತು (%d)</item>
+        <item quantity="other">ಲಗತ್ತುಗಳು (%d)</item>
+    </plurals>
+</resources>

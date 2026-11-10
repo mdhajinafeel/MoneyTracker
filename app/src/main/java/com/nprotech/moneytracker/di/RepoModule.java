@@ -19,6 +19,8 @@ import com.nprotech.moneytracker.db.dao.RecurringTransactionDao;
 import com.nprotech.moneytracker.db.dao.TransactionAttachmentDao;
 import com.nprotech.moneytracker.db.dao.TransactionDao;
 import com.nprotech.moneytracker.db.dao.WalletDao;
+import com.nprotech.moneytracker.network.IApiService;
+import com.nprotech.moneytracker.repositories.AuthRepository;
 import com.nprotech.moneytracker.repositories.BackupHistoryRepository;
 import com.nprotech.moneytracker.repositories.BudgetRepository;
 import com.nprotech.moneytracker.repositories.CategoryRepository;
@@ -27,6 +29,7 @@ import com.nprotech.moneytracker.repositories.DebtLoanRepository;
 import com.nprotech.moneytracker.repositories.GoalRepository;
 import com.nprotech.moneytracker.repositories.MasterRepository;
 import com.nprotech.moneytracker.repositories.AccountRepository;
+import com.nprotech.moneytracker.repositories.ProfilePhotoRepository;
 import com.nprotech.moneytracker.repositories.RecurringTransactionRepository;
 import com.nprotech.moneytracker.repositories.TransactionRepository;
 import com.nprotech.moneytracker.repositories.WalletRepository;
@@ -111,5 +114,17 @@ public class RepoModule {
     @Singleton
     RecurringTransactionRepository provideRecurringTransactionRepository(RecurringTransactionDao recurringTransactionDao) {
         return new RecurringTransactionRepository(recurringTransactionDao);
+    }
+
+    @Provides
+    @Singleton
+    AuthRepository provideAuthRepository(@ApplicationContext Context context, IApiService iApiService) {
+        return new AuthRepository(context, iApiService);
+    }
+
+    @Provides
+    @Singleton
+    ProfilePhotoRepository provideProfilePhotoRepository(@ApplicationContext Context context, IApiService iApiService) {
+        return new ProfilePhotoRepository(context, iApiService);
     }
 }

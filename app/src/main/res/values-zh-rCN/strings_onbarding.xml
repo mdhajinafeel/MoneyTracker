@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">轻松掌控你的财务</string>
+    <string name="walkthrough_1_desc">记录每笔支出，监控预算，了解资金的去向。</string>
+    <string name="walkthrough_2_title">管理所有钱包</string>
+    <string name="walkthrough_2_desc">将现金、银行账户、银行卡和电子钱包集中管理，安全又方便。</string>
+    <string name="walkthrough_3_title">快速记录支出</string>
+    <string name="walkthrough_3_desc">只需轻点几下，即可添加交易、类别、备注和附件。</string>
+    <string name="walkthrough_4_title"><![CDATA[智能报告与数据分析]]></string>
+    <string name="walkthrough_4_desc">通过强大的图表和个性化财务洞察，直观了解你的消费情况。</string>
+    <string name="walkthrough_5_title">通过提醒掌握财务动态</string>
+    <string name="walkthrough_5_desc">通过智能提醒，及时了解账单、订阅和定期付款。</string>
+    <string name="walkthrough_6_title">实现你的财务目标</string>
+    <string name="walkthrough_6_desc">养成良好的理财习惯，增加储蓄，每天提升财务信心。</string>
+</resources>

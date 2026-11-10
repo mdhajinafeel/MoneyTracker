@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">添加类别</string>
+    <string name="edit_category">编辑类别</string>
+    <string name="category_created">类别已创建</string>
+    <string name="category_updated">类别已更新</string>
+    <string name="category_deleted">类别已删除</string>
+    <string name="category_moved">类别已移动</string>
+    <string name="error_delete_category">删除类别时出错</string>
+    <string name="error_moved_category">移动类别时出错</string>
+    <string name="category_bills">账单和公用事业</string>
+    <string name="category_bonus">奖金</string>
+    <string name="category_clothing">服装</string>
+    <string name="category_dividend">股息</string>
+    <string name="category_education">教育</string>
+    <string name="category_entertainment">娱乐</string>
+    <string name="category_fitness">健身</string>
+    <string name="category_food">餐饮</string>
+    <string name="category_grocery">日用品</string>
+    <string name="category_furniture">家居和家具</string>
+    <string name="category_gifts">礼物</string>
+    <string name="category_health_and_beauty">健康</string>
+    <string name="category_investment">投资</string>
+    <string name="category_lottery">彩票</string>
+    <string name="category_others">其他</string>
+    <string name="category_pet">宠物</string>
+    <string name="category_salary">工资</string>
+    <string name="category_shopping">购物</string>
+    <string name="category_tips">小费</string>
+    <string name="category_cashback">奖励</string>
+    <string name="category_transportation">交通</string>
+    <string name="category_travel">旅行</string>
+    <string name="adjustment">调整</string>
+    <string name="loan">贷款</string>
+    <string name="repay">还款</string>
+    <string name="debt">债务</string>
+    <string name="collect">收回债务</string>
+    <string name="category_allowance">津贴</string>
+    <string name="category_award">奖金</string>
+    <string name="manage_category">类别管理</string>
+    <string name="empty_category">暂无类别</string>
+    <string name="empty_category_hint">点击 + 按钮添加类别。</string>
+    <string name="select_category">选择类别</string>
+    <string name="category">类别</string>
+    <string name="category_name">类别名称</string>
+    <string name="include_category_hint">在报告和图表中显示此类别</string>
+    <string name="status_active_hint">此类别可供使用</string>
+    <string name="status_inactive_hint">此类别已隐藏，添加交易时不会显示。</string>
+    <string name="include_reports">纳入报告</string>
+    <string name="delete_category_message">确定要删除类别“%1$s”吗？</string>
+    <string name="delete_category">删除类别？</string>
+    <string name="no_transactions_found">未找到交易记录</string>
+    <string name="category_permanently_delete">此类别可以永久删除。</string>
+    <string name="category_in_use">类别正在使用中</string>
+    <string name="move_delete">移动并删除</string>
+    <string name="move_transaction_to">将交易移动到</string>
+    <string name="status">状态</string>
+    <string name="all_categories">所有类别</string>
+    <string name="categories">类别</string>
+    <string name="category_transactions">类别交易记录</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">将 %1$d 笔来自“%2$s”的交易移动到其他类别。</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">“%1$s”正在被 %2$d 笔交易使用，无法删除。\n\n你可以在“编辑类别”中将此类别设为停用。</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">来自“%2$s”的全部 %1$d 笔交易将被移动到“%3$s”。\n\n“%4$s”将被永久删除。</item>
+    </plurals>
+</resources>

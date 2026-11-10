@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">बार-बार होने वाले लेन-देन पर नज़र रखें</string>
+    <string name="select_recurring">आवर्ती लेन-देन चुनें</string>
+    <string name="repeat_on">दोहराने का दिन</string>
+    <string name="select_repeat_on">दोहराने का दिन चुनें</string>
+    <string name="create_transaction">लेन-देन बनाएँ</string>
+    <string name="never_miss_recurring_transaction">कोई भी आवर्ती लेन-देन न भूलें</string>
+    <string name="income_recurring">आवर्ती आय</string>
+    <string name="expense_recurring">आवर्ती खर्च</string>
+    <string name="transfer_recurring">आवर्ती ट्रांसफर</string>
+    <string name="no_repeat">दोहराएँ नहीं</string>
+    <string name="repeat_option">दोहराने का विकल्प</string>
+    <string name="select_days">दिन चुनें</string>
+    <string name="please_select_at_least_one_day">कृपया कम से कम एक दिन चुनें</string>
+    <string name="times">बार</string>
+    <string name="every">हर</string>
+    <string name="forever">हमेशा</string>
+    <string name="until">तक</string>
+    <string name="text_for">के लिए</string>
+    <string name="text_every_value">"हर %1$s • %2$s"</string>
+    <string name="text_every_value1">"हर %1$s"</string>
+    <string name="same_day_each_month">हर महीने उसी दिन (%1$d)</string>
+    <string name="end_of_month">महीने का आखिरी दिन</string>
+    <string name="recurring_transaction_saved">आवर्ती लेन-देन सहेजा गया</string>
+    <string name="failed_to_save_recurring_transaction">आवर्ती लेन-देन सहेजने में विफल</string>
+    <string name="no_recurring_yet">अभी तक कोई आवर्ती लेन-देन नहीं है</string>
+    <string name="empty_recurring_hint">आवर्ती लेन-देन जोड़ने के लिए + बटन दबाएँ।</string>
+    <string name="repeat_interval_atleast">दोहराने का अंतराल कम से कम 1 होना चाहिए</string>
+    <string name="please_select_until_date">कृपया समाप्ति की तारीख चुनें</string>
+    <string name="please_enter_times">कृपया दोहराने की संख्या दर्ज करें</string>
+    <string name="please_enter_an_amount">कृपया राशि दर्ज करें</string>
+    <string name="please_select_a_wallet">कृपया एक वॉलेट चुनें</string>
+    <string name="please_select_a_repeat_frequency">कृपया दोहराने की आवृत्ति चुनें</string>
+    <string name="until_date_start_date">समाप्ति की तारीख शुरुआती तारीख के बाद होनी चाहिए</string>
+    <string name="select_recurring_transaction_end">कृपया चुनें कि आवर्ती लेन-देन कब समाप्त होना चाहिए</string>
+    <string name="every_week_period">हर %1$s</string>
+    <string name="next_recurring">अगला: %1$s</string>
+    <string name="next_recurring_text">अगला आवर्ती लेन-देन</string>
+    <string name="recurring_transaction_added">आवर्ती लेन-देन जोड़ा गया</string>
+    <string name="recurring_transactions_added">आवर्ती लेन-देन जोड़े गए</string>
+    <string name="a_recurring_expense_was_added">एक आवर्ती खर्च जोड़ा गया</string>
+    <string name="a_recurring_income_was_added">एक आवर्ती आय जोड़ी गई</string>
+    <string name="a_recurring_transaction_was_added">एक आवर्ती लेन-देन जोड़ा गया</string>
+    <string name="recurring_transactions_were_added">" आवर्ती लेन-देन जोड़े गए"</string>
+    <string name="activate">सक्रिय करें</string>
+    <string name="text_deactivated">निष्क्रिय</string>
+    <string name="deactivate">निष्क्रिय करें</string>
+    <string name="change_recurring_detail">आवर्ती लेन-देन का विवरण बदलें</string>
+    <string name="resume_this_recurring_transaction">इस लेन-देन को फिर से शुरू करें</string>
+    <string name="pause_this_recurring_transaction">इस लेन-देन को रोकें</string>
+    <string name="permanently_remove_this_recurring_transaction">इस लेन-देन को स्थायी रूप से हटाएँ</string>
+    <string name="view_recurring_details">आवर्ती लेन-देन का विवरण देखें</string>
+    <string name="delete_recurring">आवर्ती लेन-देन हटाएँ</string>
+    <string name="delete_recurring_message">क्या आप वाकई इस आवर्ती लेन-देन को हटाना चाहते हैं?</string>
+    <string name="recurring_deleted_successfully">आवर्ती लेन-देन हटा दिया गया</string>
+    <string name="error_delete_recurring">आवर्ती लेन-देन हटाते समय त्रुटि हुई</string>
+    <string name="activate_recurring">आवर्ती लेन-देन सक्रिय करें</string>
+    <string name="deactivate_recurring">आवर्ती लेन-देन निष्क्रिय करें</string>
+    <string name="delete_activate_message">क्या आप वाकई इस आवर्ती लेन-देन को सक्रिय करना चाहते हैं?</string>
+    <string name="delete_deactivate_message">क्या आप वाकई इस आवर्ती लेन-देन को निष्क्रिय करना चाहते हैं?</string>
+    <string name="delete_activate_sub_message">आप इसे कभी भी सक्रिय आवर्ती लेन-देन की सूची से निष्क्रिय कर सकते हैं।</string>
+    <string name="delete_deactivate_sub_message">आप इसे कभी भी रुके हुए आवर्ती लेन-देन की सूची से सक्रिय कर सकते हैं।</string>
+    <string name="deactivated_successfully">आवर्ती लेन-देन निष्क्रिय कर दिया गया</string>
+    <string name="error_deactivate">आवर्ती लेन-देन निष्क्रिय करते समय त्रुटि हुई</string>
+    <string name="activated_successfully">आवर्ती लेन-देन सक्रिय कर दिया गया</string>
+    <string name="error_activate">आवर्ती लेन-देन सक्रिय करते समय त्रुटि हुई</string>
+    <string name="repeat_time">दोहराने का समय</string>
+    <string name="recurring_detail">आवर्ती लेन-देन का विवरण</string>
+    <string name="until_date">%1$s तक</string>
+    <string name="recurring_transaction_reminder">आवर्ती लेन-देन रिमाइंडर</string>
+    <string name="recurring_expense_due">आपका आवर्ती खर्च देय है।</string>
+    <string name="recurring_income_due">आपकी आवर्ती आय देय है।</string>
+    <string name="recurring_transfer_due">आपका आवर्ती ट्रांसफर देय है।</string>
+
+    <plurals name="day_period">
+        <item quantity="one">दिन</item>
+        <item quantity="other">दिन</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">हर %d दिन</item>
+        <item quantity="other">हर %d दिन</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d दिन</item>
+        <item quantity="other">%d दिन</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">सप्ताह</item>
+        <item quantity="other">सप्ताह</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d सप्ताह</item>
+        <item quantity="other">%d सप्ताह</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">हर %d महीने</item>
+        <item quantity="other">हर %d महीने</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">महीना</item>
+        <item quantity="other">महीने</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">वर्ष</item>
+        <item quantity="other">वर्ष</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">हर %d वर्ष</item>
+        <item quantity="other">हर %d वर्ष</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">बार</item>
+        <item quantity="other">बार</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d बार के लिए</item>
+        <item quantity="other">%d बार के लिए</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">हर %d महीने • आखिरी दिन</item>
+        <item quantity="other">हर %d महीने • आखिरी दिन</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">हर %d महीने • दिन %d</item>
+        <item quantity="other">हर %d महीने • दिन %d</item>
+    </plurals>
+</resources>

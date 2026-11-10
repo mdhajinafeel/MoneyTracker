@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Валюта</string>
+    <string name="choose_currency">Выберите валюту</string>
+    <string name="select_currency_subtext">Выберите валюту для этого счёта.</string>
+    <string name="select_the_currency">Выберите валюту</string>
+    <string name="search_currency">Поиск валюты</string>
+    <string name="select_currency">Выбрать валюту</string>
+    <string name="add_currency">Добавить валюту</string>
+    <string name="edit_currency">Изменить валюту</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Курс</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Нет дополнительных валют</string>
+    <string name="empty_currency_hint">Нажмите кнопку +, чтобы добавить валюту.</string>
+    <string name="delete_currency">Удалить валюту</string>
+    <string name="delete_message_currency">Вы уверены, что хотите удалить эту валюту?</string>
+    <string name="message_currency">Кошельки, использующие эту валюту, будут переведены на базовую валюту.</string>
+    <string name="currency_has_been_removed_successfully">Валюта удалена</string>
+    <string name="base_currency">Базовая валюта</string>
+    <string name="additional_currency">Дополнительные валюты</string>
+    <string name="currency_subtext">Выберите валюту, которую хотите использовать</string>
+    <string name="enter_the_rate">Введите курс</string>
+    <string name="default_base_currency">Это ваша основная валюта по умолчанию</string>
+    <string name="exchange_currency_hint">Обменные курсы рассчитываются относительно вашей базовой валюты (%1$s).\nВы можете обновить курс для каждой валюты.</string>
+</resources>

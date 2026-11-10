@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">Ваши финансы под контролем</string>
+    <string name="walkthrough_1_desc">Отслеживайте расходы, контролируйте бюджет и узнавайте, куда уходят ваши деньги.</string>
+    <string name="walkthrough_2_title">Управляйте всеми кошельками</string>
+    <string name="walkthrough_2_desc">Храните наличные, банковские счета, карты и электронные кошельки в одном защищённом месте.</string>
+    <string name="walkthrough_3_title">Записывайте расходы мгновенно</string>
+    <string name="walkthrough_3_desc">Добавляйте транзакции с категориями, заметками и вложениями всего за несколько нажатий.</string>
+    <string name="walkthrough_4_title"><![CDATA[Умные отчёты и аналитика]]></string>
+    <string name="walkthrough_4_desc">Анализируйте свои расходы с помощью наглядных диаграмм и персональных финансовых отчётов.</string>
+    <string name="walkthrough_5_title">Не забывайте о важных платежах</string>
+    <string name="walkthrough_5_desc">Следите за счетами, подписками и регулярными платежами с помощью умных напоминаний.</string>
+    <string name="walkthrough_6_title">Достигайте финансовых целей</string>
+    <string name="walkthrough_6_desc">Формируйте полезные финансовые привычки, больше откладывайте и укрепляйте свою финансовую уверенность каждый день.</string>
+</resources>

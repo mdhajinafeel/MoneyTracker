@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Monedă</string>
+    <string name="choose_currency">Alege moneda</string>
+    <string name="select_currency_subtext">Selectează moneda pentru acest cont.</string>
+    <string name="select_the_currency">Selectează moneda</string>
+    <string name="search_currency">Caută moneda</string>
+    <string name="select_currency">Selectează moneda</string>
+    <string name="add_currency">Adaugă monedă</string>
+    <string name="edit_currency">Editează moneda</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Curs</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Nu există monede suplimentare</string>
+    <string name="empty_currency_hint">Atinge butonul + pentru a adăuga o monedă.</string>
+    <string name="delete_currency">Elimină moneda</string>
+    <string name="delete_message_currency">Sigur dorești să elimini această monedă?</string>
+    <string name="message_currency">Portofelele care folosesc această monedă vor fi schimbate în moneda de bază.</string>
+    <string name="currency_has_been_removed_successfully">Monedă eliminată</string>
+    <string name="base_currency">Moneda de bază</string>
+    <string name="additional_currency">Monede suplimentare</string>
+    <string name="currency_subtext">Alege moneda pe care dorești să o folosești</string>
+    <string name="enter_the_rate">Introdu cursul de schimb</string>
+    <string name="default_base_currency">Aceasta este moneda ta implicită/de bază</string>
+    <string name="exchange_currency_hint">Cursurile de schimb sunt raportate la moneda ta de bază (%1$s).\nPoți actualiza cursul pentru fiecare monedă.</string>
+</resources>

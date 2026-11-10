@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">ক্যাটাগরি যোগ করুন</string>
+    <string name="edit_category">ক্যাটাগরি সম্পাদনা করুন</string>
+    <string name="category_created">ক্যাটাগরি তৈরি করা হয়েছে</string>
+    <string name="category_updated">ক্যাটাগরি আপডেট করা হয়েছে</string>
+    <string name="category_deleted">ক্যাটাগরি মুছে ফেলা হয়েছে</string>
+    <string name="category_moved">ক্যাটাগরি সরানো হয়েছে</string>
+    <string name="error_delete_category">ক্যাটাগরি মুছতে সমস্যা হয়েছে</string>
+    <string name="error_moved_category">ক্যাটাগরি সরাতে সমস্যা হয়েছে</string>
+    <string name="category_bills">বিল ও ইউটিলিটি</string>
+    <string name="category_bonus">বোনাস</string>
+    <string name="category_clothing">পোশাক</string>
+    <string name="category_dividend">লভ্যাংশ</string>
+    <string name="category_education">শিক্ষা</string>
+    <string name="category_entertainment">বিনোদন</string>
+    <string name="category_fitness">ফিটনেস</string>
+    <string name="category_food">খাবার</string>
+    <string name="category_grocery">মুদিখানা</string>
+    <string name="category_furniture">বাড়ি ও আসবাবপত্র</string>
+    <string name="category_gifts">উপহার</string>
+    <string name="category_health_and_beauty">স্বাস্থ্য</string>
+    <string name="category_investment">বিনিয়োগ</string>
+    <string name="category_lottery">লটারি</string>
+    <string name="category_others">অন্যান্য</string>
+    <string name="category_pet">পোষা প্রাণী</string>
+    <string name="category_salary">বেতন</string>
+    <string name="category_shopping">কেনাকাটা</string>
+    <string name="category_tips">বকশিশ</string>
+    <string name="category_cashback">পুরস্কার</string>
+    <string name="category_transportation">যাতায়াত</string>
+    <string name="category_travel">ভ্রমণ</string>
+    <string name="adjustment">সমন্বয়</string>
+    <string name="loan">ঋণ</string>
+    <string name="repay">ঋণ পরিশোধ</string>
+    <string name="debt">দেনা</string>
+    <string name="collect">দেনা আদায়</string>
+    <string name="category_allowance">ভাতা</string>
+    <string name="category_award">পুরস্কার</string>
+    <string name="manage_category">ক্যাটাগরিসমূহ</string>
+    <string name="empty_category">কোনো ক্যাটাগরি নেই</string>
+    <string name="empty_category_hint">ক্যাটাগরি যোগ করতে + বোতামে ট্যাপ করুন।</string>
+    <string name="select_category">ক্যাটাগরি নির্বাচন করুন</string>
+    <string name="category">ক্যাটাগরি</string>
+    <string name="category_name">ক্যাটাগরির নাম</string>
+    <string name="include_category_hint">রিপোর্ট ও চার্টে এই ক্যাটাগরি দেখান</string>
+    <string name="status_active_hint">এই ক্যাটাগরিটি ব্যবহারের জন্য উপলব্ধ</string>
+    <string name="status_inactive_hint">এই ক্যাটাগরিটি লুকানো থাকবে এবং লেনদেন যোগ করার সময় দেখানো হবে না।</string>
+    <string name="include_reports">রিপোর্টে অন্তর্ভুক্ত করুন</string>
+    <string name="delete_category_message">আপনি কি নিশ্চিত যে \'%1$s\' ক্যাটাগরিটি মুছে ফেলতে চান?</string>
+    <string name="delete_category">ক্যাটাগরি মুছে ফেলবেন?</string>
+    <string name="no_transactions_found">কোনো লেনদেন পাওয়া যায়নি</string>
+    <string name="category_permanently_delete">এই ক্যাটাগরিটি স্থায়ীভাবে মুছে ফেলা যাবে।</string>
+    <string name="category_in_use">ক্যাটাগরিটি ব্যবহৃত হচ্ছে</string>
+    <string name="move_delete">সরান ও মুছুন</string>
+    <string name="move_transaction_to">লেনদেন সরান এখানে</string>
+    <string name="status">অবস্থা</string>
+    <string name="all_categories">সব ক্যাটাগরি</string>
+    <string name="categories">ক্যাটাগরিসমূহ</string>
+    <string name="category_transactions">ক্যাটাগরির লেনদেন</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">&quot;%2$s&quot; থেকে %1$dটি লেনদেন অন্য ক্যাটাগরিতে সরানো হবে।</item>
+        <item quantity="other">&quot;%2$s&quot; থেকে %1$dটি লেনদেন অন্য ক্যাটাগরিতে সরানো হবে।</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">&quot;%1$s&quot; ক্যাটাগরিটি ১টি লেনদেনে ব্যবহৃত হচ্ছে, তাই এটি মুছে ফেলা যাবে না।\n\nআপনি ক্যাটাগরি সম্পাদনা করুন থেকে এটিকে নিষ্ক্রিয় করতে পারেন।</item>
+        <item quantity="other">&quot;%1$s&quot; ক্যাটাগরিটি %2$dটি লেনদেনে ব্যবহৃত হচ্ছে, তাই এটি মুছে ফেলা যাবে না।\n\nআপনি ক্যাটাগরি সম্পাদনা করুন থেকে এটিকে নিষ্ক্রিয় করতে পারেন।</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">&quot;%2$s&quot; থেকে লেনদেনটি &quot;%3$s&quot;-এ সরানো হবে।\n\n&quot;%4$s&quot; স্থায়ীভাবে মুছে ফেলা হবে।</item>
+        <item quantity="other">&quot;%2$s&quot; থেকে সব %1$dটি লেনদেন &quot;%3$s&quot;-এ সরানো হবে।\n\n&quot;%4$s&quot; স্থায়ীভাবে মুছে ফেলা হবে।</item>
+    </plurals>
+</resources>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Рахунки</string>
+    <string name="add_account">Додати рахунок</string>
+    <string name="edit_account">Редагувати рахунок</string>
+    <string name="account_heading">Як назвемо цей рахунок?</string>
+    <string name="choose_name">Виберіть назву, яка допоможе легко розпізнати цей рахунок.</string>
+    <string name="account_name">Назва рахунку</string>
+    <string name="create_account">Створити рахунок</string>
+    <string name="select_account">Вибрати рахунок</string>
+    <string name="initial_balance">Введіть початковий баланс</string>
+    <string name="opening_balance_subtext">Додайте початковий баланс для цього рахунку.</string>
+    <string name="initial_amount">Початковий баланс</string>
+    <string name="initial">Початковий</string>
+    <string name="account_balance_format">Баланс : %1$s</string>
+    <string name="manage_account_desc">Керуйте всіма банківськими рахунками, картками та іншим в одному місці.</string>
+    <string name="your_accounts">Ваші рахунки</string>
+    <string name="all_accounts">Усі рахунки</string>
+    <string name="add_new_account">Додати новий рахунок</string>
+    <string name="add_account_desc">Додайте банківський рахунок, кредитну картку або інший рахунок</string>
+    <string name="archived_accounts">Архівні рахунки</string>
+    <string name="archived_accounts_desc">Переглядайте та відновлюйте архівні рахунки</string>
+    <string name="account_created">Рахунок створено</string>
+    <string name="account_updated">Рахунок оновлено</string>
+    <string name="currency_edit_account">Валюту не можна змінити під час редагування рахунку.</string>
+    <string name="account_action">Дії з рахунком</string>
+    <string name="update_account_detail">Оновити дані рахунку</string>
+    <string name="use_as_your_default_account">Використовувати як основний рахунок</string>
+    <string name="see_account_detail">Переглянути дані рахунку</string>
+    <string name="hide_from_active_accounts">Приховати серед активних рахунків</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Видалити всі гаманці та транзакції]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Видалити гаманці та транзакції]]></string>
+    <string name="remove_account">Видалити рахунок</string>
+    <string name="account_set_as_default">Рахунок призначено основним</string>
+    <string name="archive_account">Архівувати рахунок?</string>
+    <string name="account_archived">Рахунок архівовано</string>
+    <string name="delete_account_message">Рахунок, усі його гаманці та транзакції буде видалено назавжди. Цю дію неможливо скасувати.</string>
+    <string name="delete_account">Видалити рахунок</string>
+    <string name="account_deleted">Рахунок видалено</string>
+    <string name="error_delete_account">Не вдалося видалити рахунок</string>
+    <string name="opening_balance_editing_account">Початковий баланс не можна змінити під час редагування рахунку.</string>
+    <string name="cannot_change_initial_amount">Неможливо змінити початкову суму через наявні транзакції.</string>
+    <string name="archive_account_message">Цей рахунок буде приховано серед активних рахунків. Ваш баланс і транзакції буде збережено.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Видалити гаманці та транзакції рахунку?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Усі гаманці та транзакції цього рахунку буде видалено. Цю дію неможливо скасувати.]]></string>
+    <string name="error_delete_account_trans">Не вдалося видалити транзакцію рахунку</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Гаманці та транзакції рахунку видалено]]></string>
+    <string name="transactions">Транзакції</string>
+    <string name="view_all_transactions">Переглянути всі транзакції</string>
+    <string name="view_all_recurring_transactions">Переглянути всі регулярні транзакції</string>
+    <string name="recurring_transactions">Регулярні транзакції</string>
+    <string name="account_details">Дані рахунку</string>
+    <string name="archived_account_desc">Ці рахунки архівовано та приховано зі списку активних рахунків. Усі гаманці й дані транзакцій збережено, їх можна відновити в будь-який час.</string>
+    <string name="restore_account">Відновити рахунок?</string>
+    <string name="account_restore">Рахунок відновлено</string>
+    <string name="restore_account_message">Цей рахунок буде повернуто до списку активних рахунків. Його баланс і транзакції залишаться без змін.</string>
+    <string name="restore_your_account">Відновити рахунок</string>
+    <string name="account_transactions">Транзакції рахунку</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d рахунок</item>
+        <item quantity="few">%d рахунки</item>
+        <item quantity="many">%d рахунків</item>
+        <item quantity="other">%d рахунку</item>
+    </plurals>
+</resources>

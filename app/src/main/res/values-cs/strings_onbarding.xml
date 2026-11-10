@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Mějte své finance pod kontrolou</string>
+    <string name="walkthrough_1_desc">Sledujte každý výdaj, kontrolujte svůj rozpočet a zjistěte, kam vaše peníze odcházejí.</string>
+    <string name="walkthrough_2_title">Spravujte všechny peněženky</string>
+    <string name="walkthrough_2_desc">Mějte hotovost, bankovní účty, karty a digitální peněženky na jednom bezpečném místě.</string>
+    <string name="walkthrough_3_title">Zaznamenávejte výdaje okamžitě</string>
+    <string name="walkthrough_3_desc">Přidávejte transakce s kategoriemi, poznámkami a přílohami během několika klepnutí.</string>
+    <string name="walkthrough_4_title"><![CDATA[Chytré přehledy a analýzy]]></string>
+    <string name="walkthrough_4_desc">Zobrazte své výdaje pomocí přehledných grafů a personalizovaných finančních analýz.</string>
+    <string name="walkthrough_5_title">Mějte vše pod kontrolou díky připomenutím</string>
+    <string name="walkthrough_5_desc">Nezapomínejte na účty, předplatná a pravidelné platby díky chytrým připomenutím.</string>
+    <string name="walkthrough_6_title">Dosáhněte svých finančních cílů</string>
+    <string name="walkthrough_6_desc">Vytvářejte lepší finanční návyky, více spořte a každý den posilujte svou jistotu ve správě financí.</string>
+</resources>

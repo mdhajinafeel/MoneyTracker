@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Añadir categoría</string>
+    <string name="edit_category">Editar categoría</string>
+    <string name="category_created">Categoría creada</string>
+    <string name="category_updated">Categoría actualizada</string>
+    <string name="category_deleted">Categoría eliminada</string>
+    <string name="category_moved">Categoría movida</string>
+    <string name="error_delete_category">Error al eliminar la categoría</string>
+    <string name="error_moved_category">Error al mover la categoría</string>
+    <string name="category_bills">Facturas y servicios</string>
+    <string name="category_bonus">Bonificación</string>
+    <string name="category_clothing">Ropa</string>
+    <string name="category_dividend">Dividendos</string>
+    <string name="category_education">Educación</string>
+    <string name="category_entertainment">Entretenimiento</string>
+    <string name="category_fitness">Actividad física</string>
+    <string name="category_food">Comida</string>
+    <string name="category_grocery">Supermercado</string>
+    <string name="category_furniture">Hogar y muebles</string>
+    <string name="category_gifts">Regalos</string>
+    <string name="category_health_and_beauty">Salud</string>
+    <string name="category_investment">Inversión</string>
+    <string name="category_lottery">Lotería</string>
+    <string name="category_others">Otros</string>
+    <string name="category_pet">Mascotas</string>
+    <string name="category_salary">Salario</string>
+    <string name="category_shopping">Compras</string>
+    <string name="category_tips">Propinas</string>
+    <string name="category_cashback">Recompensas</string>
+    <string name="category_transportation">Transporte</string>
+    <string name="category_travel">Viajes</string>
+    <string name="adjustment">Ajuste</string>
+    <string name="loan">Préstamo</string>
+    <string name="repay">Reembolso</string>
+    <string name="debt">Deuda</string>
+    <string name="collect">Cobro de deuda</string>
+    <string name="category_allowance">Asignación</string>
+    <string name="category_award">Premio</string>
+    <string name="manage_category">Categorías</string>
+    <string name="empty_category">No hay categorías</string>
+    <string name="empty_category_hint">Toca el botón + para añadir categorías.</string>
+    <string name="select_category">Seleccionar categoría</string>
+    <string name="category">Categoría</string>
+    <string name="category_name">Nombre de la categoría</string>
+    <string name="include_category_hint">Mostrar esta categoría en informes y gráficos</string>
+    <string name="status_active_hint">La categoría está disponible para su uso</string>
+    <string name="status_inactive_hint">La categoría está oculta y no aparecerá al añadir transacciones.</string>
+    <string name="include_reports">Incluir en informes</string>
+    <string name="delete_category_message">¿Estás seguro de que quieres eliminar la categoría \'%1$s\'?</string>
+    <string name="delete_category">¿Eliminar categoría?</string>
+    <string name="no_transactions_found">No se encontraron transacciones</string>
+    <string name="category_permanently_delete">Esta categoría se puede eliminar permanentemente.</string>
+    <string name="category_in_use">Categoría en uso</string>
+    <string name="move_delete">Mover y eliminar</string>
+    <string name="move_transaction_to">Mover transacción a</string>
+    <string name="status">Estado</string>
+    <string name="all_categories">Todas las categorías</string>
+    <string name="categories">Categorías</string>
+    <string name="category_transactions">Transacciones de la categoría</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Mover %1$d transacción de "%2$s" a otra categoría.</item>
+        <item quantity="many">Mover %1$d transacciones de "%2$s" a otra categoría.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">"%1$s" se utiliza en 1 transacción y no se puede eliminar.\n\nPuedes desactivar esta categoría desde Editar categoría.</item>
+        <item quantity="many">"%1$s" se utiliza en %2$d transacciones y no se puede eliminar.\n\nPuedes desactivar esta categoría desde Editar categoría.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">La transacción de "%2$s" se moverá a "%3$s".\n\n"%4$s" se eliminará permanentemente.</item>
+        <item quantity="many">Las %1$d transacciones de "%2$s" se moverán a "%3$s".\n\n"%4$s" se eliminará permanentemente.</item>
+    </plurals>
+</resources>

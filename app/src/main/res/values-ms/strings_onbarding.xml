@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Kuasai Kewangan Anda</string>
+    <string name="walkthrough_1_desc">Jejaki setiap perbelanjaan, pantau belanjawan dan fahami ke mana wang anda dibelanjakan.</string>
+    <string name="walkthrough_2_title">Urus Setiap Dompet</string>
+    <string name="walkthrough_2_desc">Simpan wang tunai, akaun bank, kad dan dompet digital anda di satu tempat yang selamat.</string>
+    <string name="walkthrough_3_title">Rekod Perbelanjaan dengan Segera</string>
+    <string name="walkthrough_3_desc">Tambah transaksi bersama kategori, nota dan lampiran hanya dengan beberapa ketikan.</string>
+    <string name="walkthrough_4_title"><![CDATA[Laporan & Analisis Pintar]]></string>
+    <string name="walkthrough_4_desc">Lihat corak perbelanjaan anda melalui carta yang mantap dan maklumat kewangan yang diperibadikan.</string>
+    <string name="walkthrough_5_title">Jangan Terlepas dengan Peringatan</string>
+    <string name="walkthrough_5_desc">Pantau bil, langganan dan pembayaran berulang dengan peringatan pintar.</string>
+    <string name="walkthrough_6_title">Capai Matlamat Kewangan Anda</string>
+    <string name="walkthrough_6_desc">Bina tabiat kewangan yang lebih baik, tingkatkan simpanan dan bina keyakinan kewangan setiap hari.</string>
+</resources>

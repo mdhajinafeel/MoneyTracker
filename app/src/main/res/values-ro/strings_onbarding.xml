@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">Controlează-ți banii</string>
+    <string name="walkthrough_1_desc">Urmărește fiecare cheltuială, monitorizează-ți bugetul și înțelege unde se duc banii tăi.</string>
+    <string name="walkthrough_2_title">Gestionează toate portofelele</string>
+    <string name="walkthrough_2_desc">Păstrează numerarul, conturile bancare, cardurile și portofelele digitale într-un singur loc securizat.</string>
+    <string name="walkthrough_3_title">Înregistrează cheltuielile instantaneu</string>
+    <string name="walkthrough_3_desc">Adaugă tranzacții cu categorii, note și atașamente în doar câteva atingeri.</string>
+    <string name="walkthrough_4_title"><![CDATA[Rapoarte și analize inteligente]]></string>
+    <string name="walkthrough_4_desc">Vizualizează-ți cheltuielile cu ajutorul graficelor avansate și al informațiilor financiare personalizate.</string>
+    <string name="walkthrough_5_title">Nu rata plățile importante</string>
+    <string name="walkthrough_5_desc">Ține evidența facturilor, abonamentelor și plăților recurente cu ajutorul mementourilor inteligente.</string>
+    <string name="walkthrough_6_title">Atinge-ți obiectivele financiare</string>
+    <string name="walkthrough_6_desc">Dezvoltă obiceiuri financiare mai bune, economisește mai mult și câștigă încredere în gestionarea banilor în fiecare zi.</string>
+</resources>

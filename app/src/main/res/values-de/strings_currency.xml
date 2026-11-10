@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Währung</string>
+    <string name="choose_currency">Wähle deine Währung</string>
+    <string name="select_currency_subtext">Wähle die Währung für dieses Konto aus.</string>
+    <string name="select_the_currency">Währung auswählen</string>
+    <string name="search_currency">Währung suchen</string>
+    <string name="select_currency">Währung auswählen</string>
+    <string name="add_currency">Währung hinzufügen</string>
+    <string name="edit_currency">Währung bearbeiten</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Kurs</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Keine weiteren Währungen vorhanden</string>
+    <string name="empty_currency_hint">Tippe auf die Schaltfläche +, um eine Währung hinzuzufügen.</string>
+    <string name="delete_currency">Währung entfernen</string>
+    <string name="delete_message_currency">Möchtest du diese Währung wirklich entfernen?</string>
+    <string name="message_currency">Wallets, die diese Währung verwenden, werden auf die Basiswährung umgestellt.</string>
+    <string name="currency_has_been_removed_successfully">Währung entfernt</string>
+    <string name="base_currency">Basiswährung</string>
+    <string name="additional_currency">Weitere Währungen</string>
+    <string name="currency_subtext">Wähle die Währung aus, die du verwenden möchtest.</string>
+    <string name="enter_the_rate">Wechselkurs eingeben</string>
+    <string name="default_base_currency">Dies ist deine Standard- bzw. Basiswährung.</string>
+    <string name="exchange_currency_hint">Die Wechselkurse beziehen sich auf deine Basiswährung (%1$s).\nDu kannst die Kurse für jede Währung einzeln aktualisieren.</string>
+</resources>

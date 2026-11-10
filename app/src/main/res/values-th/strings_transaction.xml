@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">รายรับ</string>
+    <string name="total_income">รายรับทั้งหมด</string>
+    <string name="expense">รายจ่าย</string>
+    <string name="total_expense">รายจ่ายทั้งหมด</string>
+    <string name="transfer">โอนเงิน</string>
+    <string name="recurring">รายการประจำ</string>
+    <string name="trans_delete_failed">ลบธุรกรรมไม่สำเร็จ</string>
+    <string name="fee">ค่าธรรมเนียม</string>
+    <string name="memo">บันทึก</string>
+    <string name="notes">หมายเหตุ</string>
+    <string name="add_note">เพิ่มบันทึก…</string>
+    <string name="description">คำอธิบาย</string>
+    <string name="short_description">คำอธิบายสั้น ๆ</string>
+    <string name="enter_amount">ป้อนจำนวนเงิน</string>
+    <string name="cash_wallet">กระเป๋าเงินสด</string>
+    <string name="cash">เงินสด</string>
+    <string name="enter_the_amount">ป้อนจำนวนเงิน</string>
+    <string name="date">วันที่</string>
+    <string name="select_date">เลือกวันที่</string>
+    <string name="amount">จำนวนเงิน</string>
+    <string name="add_record">แตะปุ่ม + เพื่อเพิ่มธุรกรรมแรกของคุณ</string>
+    <string name="type">ประเภท</string>
+    <string name="view_all">ดูทั้งหมด</string>
+    <string name="delete_transaction">ลบธุรกรรม</string>
+    <string name="total">ทั้งหมด</string>
+    <string name="all_transaction">ธุรกรรมทั้งหมด</string>
+    <string name="no_transaction">ยังไม่มีธุรกรรม</string>
+    <string name="start_date">วันที่เริ่มต้น</string>
+    <string name="end_date">วันที่สิ้นสุด</string>
+    <string name="date_amp_time"><![CDATA[วันที่และเวลา]]></string>
+    <string name="future">อนาคต</string>
+    <string name="add_files">เพิ่มรูปภาพหรือไฟล์ (สูงสุด 5 ไฟล์)</string>
+    <string name="attachment_title">ไฟล์แนบ (%1$d/5)</string>
+    <string name="tap_add_attach">แตะเพื่อเพิ่มไฟล์แนบ</string>
+    <string name="attachment_extension">รูปภาพ, PDF, เอกสาร, Excel, Zip ฯลฯ</string>
+    <string name="add_more">เพิ่มอีก</string>
+    <string name="unable_to_open_attachment">ไม่สามารถเปิดไฟล์แนบได้</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">จำนวนเงิน (จากกระเป๋าเงิน)</string>
+    <string name="fee_from_wallet">ค่าธรรมเนียม (จากกระเป๋าเงิน)</string>
+    <string name="received_from_wallet">จำนวนเงินที่ได้รับ (เข้ากระเป๋าเงิน)</string>
+    <string name="transaction_action">การดำเนินการกับธุรกรรม</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">ดูรายละเอียดธุรกรรม</string>
+    <string name="change_detail">แก้ไขรายละเอียดธุรกรรม</string>
+    <string name="duplicate_copy">สร้างสำเนา</string>
+    <string name="remove_transaction">ลบธุรกรรม</string>
+    <string name="duplicate">ทำซ้ำ</string>
+    <string name="duplicate_transaction">ทำซ้ำธุรกรรม</string>
+    <string name="duplicate_transaction_desc">ต้องการสร้างสำเนาของธุรกรรมนี้หรือไม่?</string>
+    <string name="transaction_duplicated">สร้างสำเนาธุรกรรมแล้ว</string>
+    <string name="transaction_deleted">ลบธุรกรรมแล้ว</string>
+    <string name="unable_to_save">ไม่สามารถบันทึกได้</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">ธุรกรรม %d รายการ</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">ไฟล์แนบ (%d)</item>
+    </plurals>
+</resources>

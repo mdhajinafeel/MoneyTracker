@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">ಕರೆನ್ಸಿ</string>
+    <string name="choose_currency">ನಿಮ್ಮ ಕರೆನ್ಸಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="select_currency_subtext">ಈ ಖಾತೆಗೆ ಕರೆನ್ಸಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.</string>
+    <string name="select_the_currency">ಕರೆನ್ಸಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="search_currency">ಕರೆನ್ಸಿ ಹುಡುಕಿ</string>
+    <string name="select_currency">ಕರೆನ್ಸಿ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="add_currency">ಕರೆನ್ಸಿ ಸೇರಿಸಿ</string>
+    <string name="edit_currency">ಕರೆನ್ಸಿ ಸಂಪಾದಿಸಿ</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">ದರ</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">ಹೆಚ್ಚುವರಿ ಕರೆನ್ಸಿಗಳಿಲ್ಲ</string>
+    <string name="empty_currency_hint">ಕರೆನ್ಸಿ ಸೇರಿಸಲು + ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ.</string>
+    <string name="delete_currency">ಕರೆನ್ಸಿ ತೆಗೆದುಹಾಕಿ</string>
+    <string name="delete_message_currency">ಈ ಕರೆನ್ಸಿಯನ್ನು ತೆಗೆದುಹಾಕಲು ನೀವು ಖಚಿತವಾಗಿ ಬಯಸುವಿರಾ?</string>
+    <string name="message_currency">ಈ ಕರೆನ್ಸಿಯನ್ನು ಬಳಸುವ ವಾಲೆಟ್‌ಗಳನ್ನು ಮೂಲ ಕರೆನ್ಸಿಗೆ ಬದಲಾಯಿಸಲಾಗುತ್ತದೆ.</string>
+    <string name="currency_has_been_removed_successfully">ಕರೆನ್ಸಿ ತೆಗೆದುಹಾಕಲಾಗಿದೆ</string>
+    <string name="base_currency">ಮೂಲ ಕರೆನ್ಸಿ</string>
+    <string name="additional_currency">ಹೆಚ್ಚುವರಿ ಕರೆನ್ಸಿಗಳು</string>
+    <string name="currency_subtext">ನೀವು ಬಳಸಲು ಬಯಸುವ ಕರೆನ್ಸಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="enter_the_rate">ವಿನಿಮಯ ದರ ನಮೂದಿಸಿ</string>
+    <string name="default_base_currency">ಇದು ನಿಮ್ಮ ಡೀಫಾಲ್ಟ್/ಮೂಲ ಕರೆನ್ಸಿಯಾಗಿದೆ</string>
+    <string name="exchange_currency_hint">ವಿನಿಮಯ ದರಗಳು ನಿಮ್ಮ ಮೂಲ ಕರೆನ್ಸಿ (%1$s) ಗೆ ಅನುಗುಣವಾಗಿರುತ್ತವೆ.\nನೀವು ಪ್ರತಿ ಕರೆನ್ಸಿಯ ವಿನಿಮಯ ದರವನ್ನು ನವೀಕರಿಸಬಹುದು.</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Щодня</string>
+    <string name="calendar_weekly">Щотижня</string>
+    <string name="calendar_monthly">Щомісяця</string>
+    <string name="calendar_quarterly">Щокварталу</string>
+    <string name="calendar_yearly">Щороку</string>
+    <string name="calendar_all">Усі</string>
+    <string name="calendar_custom">Власний період</string>
+
+    <string name="total_balance">Загальний баланс</string>
+    <string name="balance">Баланс</string>
+    <string name="opening_balance">Початковий баланс</string>
+    <string name="ending_balance">Кінцевий баланс</string>
+    <string name="overview">Огляд</string>
+    <string name="breakdown">Деталізація</string>
+    <string name="transaction_overview">Огляд транзакцій</string>
+    <string name="select_range">Виберіть період</string>
+    <string name="all_time">За весь час</string>
+    <string name="period_spending">Витрати за період</string>
+</resources>

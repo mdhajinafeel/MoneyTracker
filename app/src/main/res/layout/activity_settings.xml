@@ -110,8 +110,8 @@
                             android:fontFamily="@font/exo2_semibold"
                             android:gravity="center"
                             android:textAllCaps="true"
-                            android:paddingHorizontal="@dimen/padding_6"
                             android:text="@string/premium"
+                            android:paddingHorizontal="@dimen/padding_8"
                             android:textColor="@color/primary"
                             android:textSize="@dimen/text_10"
                             app:layout_constraintStart_toEndOf="@id/leftPanel"
@@ -120,7 +120,7 @@
                         <!-- Price -->
                         <LinearLayout
                             android:id="@+id/layoutPrice"
-                            android:layout_width="70dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="58dp"
                             android:layout_marginTop="@dimen/margin_12"
                             android:layout_marginEnd="@dimen/margin_12"
@@ -139,6 +139,7 @@
                                 android:fontFamily="@font/exo2_bold"/>
 
                             <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvPricePeriod"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/month"
@@ -150,17 +151,35 @@
 
                         <!-- Title -->
                         <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tvTitle"
-                            android:layout_width="0dp"
+                            android:id="@+id/tvUpgradeTitle"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_2"
                             android:fontFamily="@font/exo2_bold"
-                            android:text="@string/upgrade_to_premium"
                             android:textColor="@color/text_primary"
                             android:textSize="@dimen/text_16"
-                            app:layout_constraintEnd_toStartOf="@id/layoutPrice"
                             app:layout_constraintStart_toStartOf="@id/tvPremium"
                             app:layout_constraintTop_toBottomOf="@id/tvPremium" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvBadgeActive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="@dimen/margin_8"
+                            android:background="@drawable/bg_badge_income"
+                            android:drawableTint="@color/dark_income"
+                            android:gravity="center"
+                            android:drawablePadding="@dimen/padding_2"
+                            android:paddingStart="@dimen/padding_6"
+                            android:paddingEnd="@dimen/padding_6"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_10"
+                            android:text="@string/active"
+                            android:visibility="gone"
+                            app:fontFamily="@font/exo2_semibold"
+                            app:layout_constraintStart_toEndOf="@id/tvUpgradeTitle"
+                            app:layout_constraintTop_toTopOf="@id/tvUpgradeTitle"
+                            app:layout_constraintBottom_toBottomOf="@id/tvUpgradeTitle" />
 
                         <!-- Subtitle -->
                         <androidx.appcompat.widget.AppCompatTextView
@@ -168,13 +187,12 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_2"
-                            android:text="@string/upgrade_subtext"
                             android:textColor="@color/text_grey"
                             android:fontFamily="@font/exo2_medium"
                             android:textSize="@dimen/text_10"
                             app:layout_constraintEnd_toStartOf="@id/layoutPrice"
-                            app:layout_constraintStart_toStartOf="@id/tvTitle"
-                            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+                            app:layout_constraintStart_toStartOf="@id/tvUpgradeTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvUpgradeTitle" />
 
                         <!-- Features -->
                         <LinearLayout
@@ -245,7 +263,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_marginEnd="12dp"
-                            android:text="@string/upgrade"
                             android:textAllCaps="false"
                             android:letterSpacing="0"
                             android:textColor="@android:color/white"
@@ -263,6 +280,60 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                </com.google.android.material.card.MaterialCardView>
+            </RelativeLayout>
+
+            <!-- Account & Security -->
+            <RelativeLayout
+                android:id="@+id/rlSecurity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_4"
+                android:layout_marginEnd="@dimen/margin_10">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/securityCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_8"
+                    android:layout_marginTop="@dimen/margin_6"
+                    android:layout_marginEnd="@dimen/margin_8"
+                    android:layout_marginBottom="@dimen/margin_6"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/corner_radius_8"
+                    app:cardElevation="@dimen/corner_elevation_2"
+                    app:strokeColor="@color/card_shadow"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSecurity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_12"
+                            android:layout_marginTop="@dimen/margin_12"
+                            android:text="@string/account_security"
+                            android:textAllCaps="true"
+                            android:textColor="@color/vibrant_orange"
+                            android:textSize="@dimen/text_14"
+                            app:drawableTint="@color/vibrant_orange"
+                            app:fontFamily="@font/exo2_semibold" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSecurity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_marginBottom="@dimen/margin_10"
+                            android:background="@color/white"
+                            android:nestedScrollingEnabled="false"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </RelativeLayout>
 

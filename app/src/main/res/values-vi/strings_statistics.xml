@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Hằng ngày</string>
+    <string name="calendar_weekly">Hằng tuần</string>
+    <string name="calendar_monthly">Hằng tháng</string>
+    <string name="calendar_quarterly">Hằng quý</string>
+    <string name="calendar_yearly">Hằng năm</string>
+    <string name="calendar_all">Tất cả</string>
+    <string name="calendar_custom">Tùy chỉnh</string>
+
+    <string name="total_balance">Tổng số dư</string>
+    <string name="balance">Số dư</string>
+    <string name="opening_balance">Số dư đầu kỳ</string>
+    <string name="ending_balance">Số dư cuối kỳ</string>
+    <string name="overview">Tổng quan</string>
+    <string name="breakdown">Phân tích chi tiết</string>
+    <string name="transaction_overview">Tổng quan giao dịch</string>
+    <string name="select_range">Chọn khoảng thời gian</string>
+    <string name="all_time">Toàn bộ thời gian</string>
+    <string name="period_spending">Chi tiêu trong kỳ</string>
+</resources>

@@ -188,7 +188,7 @@ public class PasswordSecurityActivity extends BaseActivity {
                     PreferenceManager.INSTANCE.setAppLockEnabled(false);
                     setSecurityOptionsEnabled(false);
 
-                    Toast.makeText(this, R.string.create_password_or_pin_first, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.create_password_or_pin_first, Toast.LENGTH_SHORT).show();
 
                     showCreateUnlockMethodDialog();
                     return;
@@ -236,7 +236,7 @@ public class PasswordSecurityActivity extends BaseActivity {
                 boolean credentialExists = PasswordCredentialStore.isPasswordSet() || PinCredentialStore.isPinSet();
                 if (!credentialExists) {
                     disableFingerprintSwitch();
-                    Toast.makeText(this, "Create a password or PIN first.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.create_password_pin_first, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -318,7 +318,7 @@ public class PasswordSecurityActivity extends BaseActivity {
                     message = getString(R.string.biometric_authentication_unavailable);
                 }
 
-                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
                 return;
             }
 

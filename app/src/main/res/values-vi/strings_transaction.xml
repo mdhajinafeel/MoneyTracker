@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Thu nhập</string>
+    <string name="total_income">Tổng thu nhập</string>
+    <string name="expense">Chi tiêu</string>
+    <string name="total_expense">Tổng chi tiêu</string>
+    <string name="transfer">Chuyển tiền</string>
+    <string name="recurring">Định kỳ</string>
+    <string name="trans_delete_failed">Không thể xóa giao dịch</string>
+    <string name="fee">Phí</string>
+    <string name="memo">Ghi chú</string>
+    <string name="notes">Ghi chú</string>
+    <string name="add_note">Thêm ghi chú…</string>
+    <string name="description">Mô tả</string>
+    <string name="short_description">Mô tả ngắn</string>
+    <string name="enter_amount">Nhập số tiền</string>
+    <string name="cash_wallet">Ví tiền mặt</string>
+    <string name="cash">Tiền mặt</string>
+    <string name="enter_the_amount">Nhập số tiền</string>
+    <string name="date">Ngày</string>
+    <string name="select_date">Chọn ngày</string>
+    <string name="amount">Số tiền</string>
+    <string name="add_record">Nhấn nút + để thêm giao dịch đầu tiên.</string>
+    <string name="type">Loại</string>
+    <string name="view_all">Xem tất cả</string>
+    <string name="delete_transaction">Xóa giao dịch</string>
+    <string name="total">Tổng cộng</string>
+    <string name="all_transaction">Tất cả giao dịch</string>
+    <string name="no_transaction">Chưa có giao dịch</string>
+    <string name="start_date">Ngày bắt đầu</string>
+    <string name="end_date">Ngày kết thúc</string>
+    <string name="date_amp_time"><![CDATA[Ngày & Giờ]]></string>
+    <string name="future">Tương lai</string>
+    <string name="add_files">Thêm ảnh hoặc tệp (Tối đa 5 tệp)</string>
+    <string name="attachment_title">Tệp đính kèm (%1$d/5)</string>
+    <string name="tap_add_attach">Nhấn để thêm tệp đính kèm</string>
+    <string name="attachment_extension">Hình ảnh, PDF, Docs, Excel, Zip, v.v.</string>
+    <string name="add_more">Thêm nữa</string>
+    <string name="unable_to_open_attachment">Không thể mở tệp đính kèm</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Số tiền (Từ ví)</string>
+    <string name="fee_from_wallet">Phí (Từ ví)</string>
+    <string name="received_from_wallet">Số tiền nhận (Vào ví)</string>
+    <string name="transaction_action">Thao tác giao dịch</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Xem chi tiết giao dịch</string>
+    <string name="change_detail">Chỉnh sửa chi tiết giao dịch</string>
+    <string name="duplicate_copy">Tạo bản sao</string>
+    <string name="remove_transaction">Xóa giao dịch</string>
+    <string name="duplicate">Nhân bản</string>
+    <string name="duplicate_transaction">Nhân bản giao dịch</string>
+    <string name="duplicate_transaction_desc">Bạn có muốn tạo bản sao của giao dịch này không?</string>
+    <string name="transaction_duplicated">Đã nhân bản giao dịch</string>
+    <string name="transaction_deleted">Đã xóa giao dịch</string>
+    <string name="unable_to_save">Không thể lưu</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">%d giao dịch</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">Tệp đính kèm (%d)</item>
+    </plurals>
+</resources>

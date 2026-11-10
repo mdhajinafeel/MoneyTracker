@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">บัญชี</string>
+    <string name="add_account">เพิ่มบัญชี</string>
+    <string name="edit_account">แก้ไขบัญชี</string>
+    <string name="account_heading">คุณต้องการตั้งชื่อบัญชีนี้ว่าอะไร?</string>
+    <string name="choose_name">เลือกชื่อที่ช่วยให้คุณจดจำและระบุบัญชีนี้ได้ง่าย</string>
+    <string name="account_name">ชื่อบัญชี</string>
+    <string name="create_account">สร้างบัญชี</string>
+    <string name="select_account">เลือกบัญชี</string>
+    <string name="initial_balance">ป้อนยอดเงินเริ่มต้น</string>
+    <string name="opening_balance_subtext">เพิ่มยอดเงินเริ่มต้นสำหรับบัญชีนี้</string>
+    <string name="initial_amount">ยอดเงินเริ่มต้น</string>
+    <string name="initial">เริ่มต้น</string>
+    <string name="account_balance_format">ยอดคงเหลือ : %1$s</string>
+    <string name="manage_account_desc">จัดการบัญชีธนาคาร บัตร และบัญชีอื่น ๆ ทั้งหมดของคุณได้ในที่เดียว</string>
+    <string name="your_accounts">บัญชีของคุณ</string>
+    <string name="all_accounts">บัญชีทั้งหมด</string>
+    <string name="add_new_account">เพิ่มบัญชีใหม่</string>
+    <string name="add_account_desc">เพิ่มบัญชีธนาคาร บัตรเครดิต หรือบัญชีประเภทอื่น</string>
+    <string name="archived_accounts">บัญชีที่เก็บถาวร</string>
+    <string name="archived_accounts_desc">ดูและกู้คืนบัญชีที่เก็บถาวรของคุณ</string>
+    <string name="account_created">สร้างบัญชีแล้ว</string>
+    <string name="account_updated">อัปเดตบัญชีแล้ว</string>
+    <string name="currency_edit_account">ไม่สามารถเปลี่ยนสกุลเงินขณะแก้ไขบัญชีได้</string>
+    <string name="account_action">การจัดการบัญชี</string>
+    <string name="update_account_detail">อัปเดตรายละเอียดบัญชี</string>
+    <string name="use_as_your_default_account">ตั้งเป็นบัญชีเริ่มต้นของคุณ</string>
+    <string name="see_account_detail">ดูรายละเอียดบัญชี</string>
+    <string name="hide_from_active_accounts">ซ่อนจากบัญชีที่ใช้งานอยู่</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[ลบกระเป๋าเงินและรายการธุรกรรมทั้งหมด]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[ลบกระเป๋าเงินและรายการธุรกรรม]]></string>
+    <string name="remove_account">นำบัญชีออก</string>
+    <string name="account_set_as_default">ตั้งบัญชีเป็นบัญชีเริ่มต้นแล้ว</string>
+    <string name="archive_account">เก็บบัญชีนี้ถาวรหรือไม่?</string>
+    <string name="account_archived">เก็บบัญชีถาวรแล้ว</string>
+    <string name="delete_account_message">การดำเนินการนี้จะลบบัญชี กระเป๋าเงิน และรายการธุรกรรมทั้งหมดอย่างถาวร และไม่สามารถยกเลิกได้</string>
+    <string name="delete_account">ลบบัญชี</string>
+    <string name="account_deleted">ลบบัญชีแล้ว</string>
+    <string name="error_delete_account">เกิดข้อผิดพลาดขณะลบบัญชี</string>
+    <string name="opening_balance_editing_account">ไม่สามารถเปลี่ยนยอดเงินเริ่มต้นขณะแก้ไขบัญชีได้</string>
+    <string name="cannot_change_initial_amount">ไม่สามารถเปลี่ยนยอดเงินเริ่มต้นได้ เนื่องจากมีรายการธุรกรรมอยู่แล้ว</string>
+    <string name="archive_account_message">บัญชีนี้จะถูกซ่อนจากบัญชีที่ใช้งานอยู่ ยอดเงินคงเหลือและรายการธุรกรรมของคุณจะยังคงอยู่</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[ลบกระเป๋าเงินและรายการธุรกรรมของบัญชีหรือไม่?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[กระเป๋าเงินและรายการธุรกรรมทั้งหมดในบัญชีนี้จะถูกลบ การดำเนินการนี้ไม่สามารถยกเลิกได้]]></string>
+    <string name="error_delete_account_trans">เกิดข้อผิดพลาดขณะลบรายการธุรกรรมของบัญชี</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[ลบกระเป๋าเงินและรายการธุรกรรมของบัญชีแล้ว]]></string>
+    <string name="transactions">รายการธุรกรรม</string>
+    <string name="view_all_transactions">ดูรายการธุรกรรมทั้งหมด</string>
+    <string name="view_all_recurring_transactions">ดูรายการธุรกรรมที่เกิดซ้ำทั้งหมด</string>
+    <string name="recurring_transactions">รายการธุรกรรมที่เกิดซ้ำ</string>
+    <string name="account_details">รายละเอียดบัญชี</string>
+    <string name="archived_account_desc">บัญชีเหล่านี้ถูกเก็บถาวรและซ่อนจากรายการบัญชีที่ใช้งานอยู่ของคุณ ข้อมูลกระเป๋าเงินและรายการธุรกรรมทั้งหมดจะยังคงถูกเก็บไว้และสามารถกู้คืนได้ทุกเมื่อ</string>
+    <string name="restore_account">กู้คืนบัญชีหรือไม่?</string>
+    <string name="account_restore">กู้คืนบัญชีแล้ว</string>
+    <string name="restore_account_message">บัญชีนี้จะถูกย้ายกลับไปยังรายการบัญชีที่ใช้งานอยู่ ยอดเงินคงเหลือและรายการธุรกรรมของคุณจะไม่เปลี่ยนแปลง</string>
+    <string name="restore_your_account">กู้คืนบัญชีของคุณ</string>
+    <string name="account_transactions">รายการธุรกรรมของบัญชี</string>
+
+    <plurals name="account_count">
+        <item quantity="other">%d บัญชี</item>
+    </plurals>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">通貨</string>
+    <string name="choose_currency">通貨を選択してください</string>
+    <string name="select_currency_subtext">この口座で使用する通貨を選択してください。</string>
+    <string name="select_the_currency">通貨を選択</string>
+    <string name="search_currency">通貨を検索</string>
+    <string name="select_currency">通貨を選択</string>
+    <string name="add_currency">通貨を追加</string>
+    <string name="edit_currency">通貨を編集</string>
+    <string name="currency_display">%1$s（%2$s）</string>
+    <string name="rate">為替レート</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">追加の通貨はありません</string>
+    <string name="empty_currency_hint">＋ボタンをタップして通貨を追加してください。</string>
+    <string name="delete_currency">通貨を削除</string>
+    <string name="delete_message_currency">この通貨を削除してもよろしいですか？</string>
+    <string name="message_currency">この通貨を使用しているウォレットは、基本通貨に変更されます。</string>
+    <string name="currency_has_been_removed_successfully">通貨を削除しました</string>
+    <string name="base_currency">基本通貨</string>
+    <string name="additional_currency">追加の通貨</string>
+    <string name="currency_subtext">使用する通貨を選択してください</string>
+    <string name="enter_the_rate">為替レートを入力</string>
+    <string name="default_base_currency">これはデフォルトの基本通貨です</string>
+    <string name="exchange_currency_hint">為替レートは基本通貨（%1$s）を基準としています。\n各通貨の為替レートはいつでも更新できます。</string>
+</resources>

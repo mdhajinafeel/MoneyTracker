@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Účet s touto e-mailovou adresou již existuje.</string>
+    <string name="error_check_details">Zkontrolujte prosím své údaje a zkuste to znovu.</string>
+    <string name="error_too_many_attempts">Příliš mnoho pokusů. Zkuste to prosím později.</string>
+    <string name="error_account_creation_failed">Vytvoření účtu se nezdařilo. Zkuste to prosím znovu.</string>
+    <string name="error_network_connection">Nelze se připojit. Zkontrolujte připojení k internetu a zkuste to znovu.</string>
+    <string name="check_internet_connection">Nelze se připojit. Zkontrolujte připojení k internetu a zkuste to znovu.</string>
+</resources>

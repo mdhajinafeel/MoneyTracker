@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Προσθήκη κατηγορίας</string>
+    <string name="edit_category">Επεξεργασία κατηγορίας</string>
+    <string name="category_created">Η κατηγορία δημιουργήθηκε</string>
+    <string name="category_updated">Η κατηγορία ενημερώθηκε</string>
+    <string name="category_deleted">Η κατηγορία διαγράφηκε</string>
+    <string name="category_moved">Η κατηγορία μετακινήθηκε</string>
+    <string name="error_delete_category">Σφάλμα κατά τη διαγραφή της κατηγορίας</string>
+    <string name="error_moved_category">Σφάλμα κατά τη μετακίνηση της κατηγορίας</string>
+    <string name="category_bills">Λογαριασμοί και υπηρεσίες κοινής ωφέλειας</string>
+    <string name="category_bonus">Μπόνους</string>
+    <string name="category_clothing">Ένδυση</string>
+    <string name="category_dividend">Μέρισμα</string>
+    <string name="category_education">Εκπαίδευση</string>
+    <string name="category_entertainment">Ψυχαγωγία</string>
+    <string name="category_fitness">Άσκηση και φυσική κατάσταση</string>
+    <string name="category_food">Φαγητό</string>
+    <string name="category_grocery">Είδη παντοπωλείου</string>
+    <string name="category_furniture">Σπίτι και έπιπλα</string>
+    <string name="category_gifts">Δώρα</string>
+    <string name="category_health_and_beauty">Υγεία</string>
+    <string name="category_investment">Επένδυση</string>
+    <string name="category_lottery">Λαχείο</string>
+    <string name="category_others">Άλλα</string>
+    <string name="category_pet">Κατοικίδιο</string>
+    <string name="category_salary">Μισθός</string>
+    <string name="category_shopping">Αγορές</string>
+    <string name="category_tips">Φιλοδωρήματα</string>
+    <string name="category_cashback">Ανταμοιβές</string>
+    <string name="category_transportation">Μετακινήσεις</string>
+    <string name="category_travel">Ταξίδια</string>
+    <string name="adjustment">Προσαρμογή</string>
+    <string name="loan">Δάνειο</string>
+    <string name="repay">Αποπληρωμή</string>
+    <string name="debt">Χρέος</string>
+    <string name="collect">Είσπραξη οφειλής</string>
+    <string name="category_allowance">Επίδομα</string>
+    <string name="category_award">Βραβείο</string>
+    <string name="manage_category">Κατηγορίες</string>
+    <string name="empty_category">Δεν υπάρχουν κατηγορίες</string>
+    <string name="empty_category_hint">Πατήστε το κουμπί + για να προσθέσετε κατηγορίες.</string>
+    <string name="select_category">Επιλογή κατηγορίας</string>
+    <string name="category">Κατηγορία</string>
+    <string name="category_name">Όνομα κατηγορίας</string>
+    <string name="include_category_hint">Εμφάνιση αυτής της κατηγορίας στις αναφορές και στα γραφήματα</string>
+    <string name="status_active_hint">Η κατηγορία είναι διαθέσιμη για χρήση</string>
+    <string name="status_inactive_hint">Η κατηγορία είναι κρυφή και δεν θα εμφανίζεται κατά την προσθήκη συναλλαγών.</string>
+    <string name="include_reports">Συμπερίληψη στις αναφορές</string>
+    <string name="delete_category_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε την κατηγορία \'%1$s\';</string>
+    <string name="delete_category">Διαγραφή κατηγορίας;</string>
+    <string name="no_transactions_found">Δεν βρέθηκαν συναλλαγές</string>
+    <string name="category_permanently_delete">Αυτή η κατηγορία μπορεί να διαγραφεί οριστικά.</string>
+    <string name="category_in_use">Κατηγορία σε χρήση</string>
+    <string name="move_delete">Μετακίνηση και διαγραφή</string>
+    <string name="move_transaction_to">Μετακίνηση συναλλαγής σε</string>
+    <string name="status">Κατάσταση</string>
+    <string name="all_categories">Όλες οι κατηγορίες</string>
+    <string name="categories">Κατηγορίες</string>
+    <string name="category_transactions">Συναλλαγές κατηγορίας</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Μετακινήστε τη συναλλαγή %1$d από την κατηγορία &quot;%2$s&quot; σε μια άλλη κατηγορία.</item>
+        <item quantity="other">Μετακινήστε τις %1$d συναλλαγές από την κατηγορία &quot;%2$s&quot; σε μια άλλη κατηγορία.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">Η κατηγορία &quot;%1$s&quot; χρησιμοποιείται από 1 συναλλαγή και δεν μπορεί να διαγραφεί.\n\nΜπορείτε να απενεργοποιήσετε αυτήν την κατηγορία από την επιλογή «Επεξεργασία κατηγορίας».</item>
+        <item quantity="other">Η κατηγορία &quot;%1$s&quot; χρησιμοποιείται από %2$d συναλλαγές και δεν μπορεί να διαγραφεί.\n\nΜπορείτε να απενεργοποιήσετε αυτήν την κατηγορία από την επιλογή «Επεξεργασία κατηγορίας».</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">Η συναλλαγή από την κατηγορία &quot;%2$s&quot; θα μετακινηθεί στην κατηγορία &quot;%3$s&quot;.\n\nΗ κατηγορία &quot;%4$s&quot; θα διαγραφεί οριστικά.</item>
+        <item quantity="other">Όλες οι %1$d συναλλαγές από την κατηγορία &quot;%2$s&quot; θα μετακινηθούν στην κατηγορία &quot;%3$s&quot;.\n\nΗ κατηγορία &quot;%4$s&quot; θα διαγραφεί οριστικά.</item>
+    </plurals>
+</resources>

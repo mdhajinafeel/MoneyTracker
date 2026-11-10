@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">தொடர்ச்சியான பரிவர்த்தனைகளைக் கண்காணிக்கவும்</string>
+    <string name="select_recurring">தொடர்ச்சியான பரிவர்த்தனையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="repeat_on">மீண்டும் நடைபெறும் நாள்</string>
+    <string name="select_repeat_on">மீண்டும் நடைபெறும் நாளைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="create_transaction">பரிவர்த்தனையை உருவாக்கவும்</string>
+    <string name="never_miss_recurring_transaction">தொடர்ச்சியான பரிவர்த்தனையை ஒருபோதும் தவறவிடாதீர்கள்</string>
+    <string name="income_recurring">தொடர்ச்சியான வருமானம்</string>
+    <string name="expense_recurring">தொடர்ச்சியான செலவு</string>
+    <string name="transfer_recurring">தொடர்ச்சியான பணப் பரிமாற்றம்</string>
+    <string name="no_repeat">மீண்டும் நடைபெறாது</string>
+    <string name="repeat_option">மீண்டும் நடைபெறும் விருப்பம்</string>
+    <string name="select_days">நாட்களைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_select_at_least_one_day">குறைந்தது ஒரு நாளையாவது தேர்ந்தெடுக்கவும்</string>
+    <string name="times">முறை</string>
+    <string name="every">ஒவ்வொரு</string>
+    <string name="forever">என்றென்றும்</string>
+    <string name="until">வரை</string>
+    <string name="text_for">குறிப்பிட்ட காலத்திற்கு</string>
+    <string name="text_every_value">"ஒவ்வொரு %1$s • %2$s"</string>
+    <string name="text_every_value1">"ஒவ்வொரு %1$s"</string>
+    <string name="same_day_each_month">ஒவ்வொரு மாதமும் அதே நாள் (%1$d)</string>
+    <string name="end_of_month">மாதத்தின் கடைசி நாள்</string>
+    <string name="recurring_transaction_saved">தொடர்ச்சியான பரிவர்த்தனை சேமிக்கப்பட்டது</string>
+    <string name="failed_to_save_recurring_transaction">தொடர்ச்சியான பரிவர்த்தனையைச் சேமிக்க முடியவில்லை</string>
+    <string name="no_recurring_yet">இதுவரை தொடர்ச்சியான பரிவர்த்தனைகள் இல்லை</string>
+    <string name="empty_recurring_hint">தொடர்ச்சியான பரிவர்த்தனையைச் சேர்க்க + பொத்தானைத் தட்டவும்.</string>
+    <string name="repeat_interval_atleast">மீண்டும் நடைபெறும் இடைவெளி குறைந்தது 1 ஆக இருக்க வேண்டும்</string>
+    <string name="please_select_until_date">முடிவு தேதியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_enter_times">எத்தனை முறை என்பதை உள்ளிடவும்</string>
+    <string name="please_enter_an_amount">தொகையை உள்ளிடவும்</string>
+    <string name="please_select_a_wallet">ஒரு பணப்பையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_select_a_repeat_frequency">மீண்டும் நடைபெறும் இடைவெளியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="until_date_start_date">முடிவு தேதி தொடக்கத் தேதிக்குப் பிறகு இருக்க வேண்டும்</string>
+    <string name="select_recurring_transaction_end">தொடர்ச்சியான பரிவர்த்தனை எப்போது முடிவடைய வேண்டும் என்பதைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="every_week_period">ஒவ்வொரு %1$s</string>
+    <string name="next_recurring">அடுத்து: %1$s</string>
+    <string name="next_recurring_text">அடுத்த தொடர்ச்சியான பரிவர்த்தனை</string>
+    <string name="recurring_transaction_added">தொடர்ச்சியான பரிவர்த்தனை சேர்க்கப்பட்டது</string>
+    <string name="recurring_transactions_added">தொடர்ச்சியான பரிவர்த்தனைகள் சேர்க்கப்பட்டன</string>
+    <string name="a_recurring_expense_was_added">தொடர்ச்சியான செலவு சேர்க்கப்பட்டது</string>
+    <string name="a_recurring_income_was_added">தொடர்ச்சியான வருமானம் சேர்க்கப்பட்டது</string>
+    <string name="a_recurring_transaction_was_added">தொடர்ச்சியான பரிவர்த்தனை சேர்க்கப்பட்டது</string>
+    <string name="recurring_transactions_were_added">" தொடர்ச்சியான பரிவர்த்தனைகள் சேர்க்கப்பட்டன"</string>
+    <string name="activate">செயல்படுத்தவும்</string>
+    <string name="text_deactivated">செயலிழக்கச் செய்யப்பட்டது</string>
+    <string name="deactivate">செயலிழக்கச் செய்யவும்</string>
+    <string name="change_recurring_detail">தொடர்ச்சியான பரிவர்த்தனை விவரத்தை மாற்றவும்</string>
+    <string name="resume_this_recurring_transaction">இந்தப் பரிவர்த்தனையை மீண்டும் தொடரவும்</string>
+    <string name="pause_this_recurring_transaction">இந்தப் பரிவர்த்தனையை இடைநிறுத்தவும்</string>
+    <string name="permanently_remove_this_recurring_transaction">இந்தப் பரிவர்த்தனையை நிரந்தரமாக நீக்கவும்</string>
+    <string name="view_recurring_details">தொடர்ச்சியான பரிவர்த்தனை விவரங்களைப் பார்க்கவும்</string>
+    <string name="delete_recurring">தொடர்ச்சியான பரிவர்த்தனையை நீக்கவும்</string>
+    <string name="delete_recurring_message">இந்தத் தொடர்ச்சியான பரிவர்த்தனையை நீக்க விரும்புகிறீர்களா?</string>
+    <string name="recurring_deleted_successfully">தொடர்ச்சியான பரிவர்த்தனை நீக்கப்பட்டது</string>
+    <string name="error_delete_recurring">தொடர்ச்சியான பரிவர்த்தனையை நீக்கும்போது பிழை ஏற்பட்டது</string>
+    <string name="activate_recurring">தொடர்ச்சியான பரிவர்த்தனையைச் செயல்படுத்தவும்</string>
+    <string name="deactivate_recurring">தொடர்ச்சியான பரிவர்த்தனையைச் செயலிழக்கச் செய்யவும்</string>
+    <string name="delete_activate_message">இந்தத் தொடர்ச்சியான பரிவர்த்தனையைச் செயல்படுத்த விரும்புகிறீர்களா?</string>
+    <string name="delete_deactivate_message">இந்தத் தொடர்ச்சியான பரிவர்த்தனையைச் செயலிழக்கச் செய்ய விரும்புகிறீர்களா?</string>
+    <string name="delete_activate_sub_message">செயலில் உள்ள தொடர்ச்சியான பரிவர்த்தனைகள் பகுதியில் இருந்து எப்போது வேண்டுமானாலும் இதைச் செயலிழக்கச் செய்யலாம்.</string>
+    <string name="delete_deactivate_sub_message">இடைநிறுத்தப்பட்ட தொடர்ச்சியான பரிவர்த்தனைகள் பகுதியில் இருந்து எப்போது வேண்டுமானாலும் இதைச் செயல்படுத்தலாம்.</string>
+    <string name="deactivated_successfully">தொடர்ச்சியான பரிவர்த்தனை செயலிழக்கச் செய்யப்பட்டது</string>
+    <string name="error_deactivate">தொடர்ச்சியான பரிவர்த்தனையைச் செயலிழக்கச் செய்யும்போது பிழை ஏற்பட்டது</string>
+    <string name="activated_successfully">தொடர்ச்சியான பரிவர்த்தனை செயல்படுத்தப்பட்டது</string>
+    <string name="error_activate">தொடர்ச்சியான பரிவர்த்தனையைச் செயல்படுத்தும்போது பிழை ஏற்பட்டது</string>
+    <string name="repeat_time">மீண்டும் நடைபெறும் எண்ணிக்கை</string>
+    <string name="recurring_detail">தொடர்ச்சியான பரிவர்த்தனை விவரம்</string>
+    <string name="until_date">%1$s வரை</string>
+    <string name="recurring_transaction_reminder">தொடர்ச்சியான பரிவர்த்தனை நினைவூட்டல்</string>
+    <string name="recurring_expense_due">உங்கள் தொடர்ச்சியான செலுத்தல் நிலுவையில் உள்ளது.</string>
+    <string name="recurring_income_due">உங்கள் தொடர்ச்சியான வருமானம் வர வேண்டியுள்ளது.</string>
+    <string name="recurring_transfer_due">உங்கள் தொடர்ச்சியான பணப் பரிமாற்றம் செய்ய வேண்டியுள்ளது.</string>
+    <plurals name="day_period">
+        <item quantity="one">நாள்</item>
+        <item quantity="other">நாட்கள்</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">ஒவ்வொரு %d நாளுக்கும்</item>
+        <item quantity="other">ஒவ்வொரு %d நாட்களுக்கும்</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d நாள்</item>
+        <item quantity="other">%d நாட்கள்</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">வாரம்</item>
+        <item quantity="other">வாரங்கள்</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d வாரம்</item>
+        <item quantity="other">%d வாரங்கள்</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">ஒவ்வொரு %d மாதத்திற்கும்</item>
+        <item quantity="other">ஒவ்வொரு %d மாதங்களுக்கும்</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">மாதம்</item>
+        <item quantity="other">மாதங்கள்</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">ஆண்டு</item>
+        <item quantity="other">ஆண்டுகள்</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">ஒவ்வொரு %d ஆண்டுக்கும்</item>
+        <item quantity="other">ஒவ்வொரு %d ஆண்டுகளுக்கும்</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">முறை</item>
+        <item quantity="other">முறைகள்</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d முறைக்கு</item>
+        <item quantity="other">%d முறைகளுக்கு</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">ஒவ்வொரு %d மாதத்திற்கும் • கடைசி நாள்</item>
+        <item quantity="other">ஒவ்வொரு %d மாதங்களுக்கும் • கடைசி நாள்</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">ஒவ்வொரு %d மாதத்திற்கும் • %d-ஆம் நாள்</item>
+        <item quantity="other">ஒவ்வொரு %d மாதங்களுக்கும் • %d-ஆம் நாள்</item>
+    </plurals>
+</resources>

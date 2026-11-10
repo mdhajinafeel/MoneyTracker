@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">يوجد حساب مسجل بالفعل باستخدام هذا البريد الإلكتروني.</string>
+    <string name="error_check_details">يرجى التحقق من بياناتك والمحاولة مرة أخرى.</string>
+    <string name="error_too_many_attempts">عدد المحاولات كبير جدًا. يرجى المحاولة لاحقًا.</string>
+    <string name="error_account_creation_failed">فشل إنشاء الحساب. يرجى المحاولة مرة أخرى.</string>
+    <string name="error_network_connection">تعذّر الاتصال. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+    <string name="check_internet_connection">تعذّر الاتصال. تحقق من اتصالك بالإنترنت وحاول مرة أخرى.</string>
+</resources>

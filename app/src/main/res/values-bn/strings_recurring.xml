@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">নিয়মিত লেনদেনের হিসাব রাখুন</string>
+    <string name="select_recurring">নিয়মিত লেনদেন নির্বাচন করুন</string>
+    <string name="repeat_on">পুনরাবৃত্তির দিন</string>
+    <string name="select_repeat_on">পুনরাবৃত্তির দিন নির্বাচন করুন</string>
+    <string name="create_transaction">লেনদেন তৈরি করুন</string>
+    <string name="never_miss_recurring_transaction">কোনো নিয়মিত লেনদেনের তারিখ মিস করবেন না</string>
+    <string name="income_recurring">নিয়মিত আয়</string>
+    <string name="expense_recurring">নিয়মিত ব্যয়</string>
+    <string name="transfer_recurring">নিয়মিত অর্থ স্থানান্তর</string>
+    <string name="no_repeat">পুনরাবৃত্তি নয়</string>
+    <string name="repeat_option">পুনরাবৃত্তির বিকল্প</string>
+    <string name="select_days">দিন নির্বাচন করুন</string>
+    <string name="please_select_at_least_one_day">অনুগ্রহ করে অন্তত একটি দিন নির্বাচন করুন</string>
+    <string name="times">বার</string>
+    <string name="every">প্রতি</string>
+    <string name="forever">অনির্দিষ্টকাল</string>
+    <string name="until">পর্যন্ত</string>
+    <string name="text_for">জন্য</string>
+    <string name="text_every_value">"প্রতি %1$s • %2$s"</string>
+    <string name="text_every_value1">"প্রতি %1$s"</string>
+    <string name="same_day_each_month">প্রতি মাসের একই দিন (%1$d)</string>
+    <string name="end_of_month">মাসের শেষ দিন</string>
+    <string name="recurring_transaction_saved">নিয়মিত লেনদেন সংরক্ষণ করা হয়েছে</string>
+    <string name="failed_to_save_recurring_transaction">নিয়মিত লেনদেন সংরক্ষণ করা যায়নি</string>
+    <string name="no_recurring_yet">এখনও কোনো নিয়মিত লেনদেন নেই</string>
+    <string name="empty_recurring_hint">নিয়মিত লেনদেন যোগ করতে + বোতামে ট্যাপ করুন।</string>
+    <string name="repeat_interval_atleast">পুনরাবৃত্তির ব্যবধান কমপক্ষে ১ হতে হবে</string>
+    <string name="please_select_until_date">অনুগ্রহ করে শেষ তারিখ নির্বাচন করুন</string>
+    <string name="please_enter_times">অনুগ্রহ করে কতবার হবে তা লিখুন</string>
+    <string name="please_enter_an_amount">অনুগ্রহ করে একটি পরিমাণ লিখুন</string>
+    <string name="please_select_a_wallet">অনুগ্রহ করে একটি ওয়ালেট নির্বাচন করুন</string>
+    <string name="please_select_a_repeat_frequency">অনুগ্রহ করে পুনরাবৃত্তির হার নির্বাচন করুন</string>
+    <string name="until_date_start_date">শেষ তারিখ শুরুর তারিখের পরে হতে হবে</string>
+    <string name="select_recurring_transaction_end">নিয়মিত লেনদেন কখন শেষ হবে তা নির্বাচন করুন</string>
+    <string name="every_week_period">প্রতি %1$s</string>
+    <string name="next_recurring">পরবর্তী: %1$s</string>
+    <string name="next_recurring_text">পরবর্তী নিয়মিত লেনদেন</string>
+    <string name="recurring_transaction_added">নিয়মিত লেনদেন যোগ করা হয়েছে</string>
+    <string name="recurring_transactions_added">নিয়মিত লেনদেনগুলো যোগ করা হয়েছে</string>
+    <string name="a_recurring_expense_was_added">একটি নিয়মিত ব্যয় যোগ করা হয়েছে</string>
+    <string name="a_recurring_income_was_added">একটি নিয়মিত আয় যোগ করা হয়েছে</string>
+    <string name="a_recurring_transaction_was_added">একটি নিয়মিত লেনদেন যোগ করা হয়েছে</string>
+    <string name="recurring_transactions_were_added">"টি নিয়মিত লেনদেন যোগ করা হয়েছে"</string>
+    <string name="activate">চালু করুন</string>
+    <string name="text_deactivated">নিষ্ক্রিয়</string>
+    <string name="deactivate">বন্ধ করুন</string>
+    <string name="change_recurring_detail">নিয়মিত লেনদেনের বিবরণ পরিবর্তন করুন</string>
+    <string name="resume_this_recurring_transaction">এই লেনদেন আবার চালু করুন</string>
+    <string name="pause_this_recurring_transaction">এই লেনদেন সাময়িকভাবে বন্ধ করুন</string>
+    <string name="permanently_remove_this_recurring_transaction">এই লেনদেন স্থায়ীভাবে সরিয়ে ফেলুন</string>
+    <string name="view_recurring_details">নিয়মিত লেনদেনের বিবরণ দেখুন</string>
+    <string name="delete_recurring">নিয়মিত লেনদেন মুছুন</string>
+    <string name="delete_recurring_message">আপনি কি নিশ্চিত যে এই নিয়মিত লেনদেনটি মুছে ফেলতে চান?</string>
+    <string name="recurring_deleted_successfully">নিয়মিত লেনদেন মুছে ফেলা হয়েছে</string>
+    <string name="error_delete_recurring">নিয়মিত লেনদেন মুছতে সমস্যা হয়েছে</string>
+    <string name="activate_recurring">নিয়মিত লেনদেন চালু করুন</string>
+    <string name="deactivate_recurring">নিয়মিত লেনদেন বন্ধ করুন</string>
+    <string name="delete_activate_message">আপনি কি নিশ্চিত যে এই নিয়মিত লেনদেনটি চালু করতে চান?</string>
+    <string name="delete_deactivate_message">আপনি কি নিশ্চিত যে এই নিয়মিত লেনদেনটি বন্ধ করতে চান?</string>
+    <string name="delete_activate_sub_message">চলমান নিয়মিত লেনদেনের তালিকা থেকে আপনি যেকোনো সময় এটি বন্ধ করতে পারবেন।</string>
+    <string name="delete_deactivate_sub_message">বিরতিতে থাকা নিয়মিত লেনদেনের তালিকা থেকে আপনি যেকোনো সময় এটি চালু করতে পারবেন।</string>
+    <string name="deactivated_successfully">নিয়মিত লেনদেন বন্ধ করা হয়েছে</string>
+    <string name="error_deactivate">নিয়মিত লেনদেন বন্ধ করতে সমস্যা হয়েছে</string>
+    <string name="activated_successfully">নিয়মিত লেনদেন চালু করা হয়েছে</string>
+    <string name="error_activate">নিয়মিত লেনদেন চালু করতে সমস্যা হয়েছে</string>
+    <string name="repeat_time">পুনরাবৃত্তির সময়</string>
+    <string name="recurring_detail">নিয়মিত লেনদেনের বিবরণ</string>
+    <string name="until_date">%1$s পর্যন্ত</string>
+    <string name="recurring_transaction_reminder">নিয়মিত লেনদেনের রিমাইন্ডার</string>
+    <string name="recurring_expense_due">আপনার নিয়মিত ব্যয়ের পরিশোধের সময় হয়েছে।</string>
+    <string name="recurring_income_due">আপনার নিয়মিত আয় পাওয়ার সময় হয়েছে।</string>
+    <string name="recurring_transfer_due">আপনার নিয়মিত অর্থ স্থানান্তরের সময় হয়েছে।</string>
+
+    <plurals name="day_period">
+        <item quantity="one">দিন</item>
+        <item quantity="other">দিন</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">প্রতি %d দিন</item>
+        <item quantity="other">প্রতি %d দিন</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d দিন</item>
+        <item quantity="other">%d দিন</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">সপ্তাহ</item>
+        <item quantity="other">সপ্তাহ</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d সপ্তাহ</item>
+        <item quantity="other">%d সপ্তাহ</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">প্রতি %d মাস</item>
+        <item quantity="other">প্রতি %d মাস</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">মাস</item>
+        <item quantity="other">মাস</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">বছর</item>
+        <item quantity="other">বছর</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">প্রতি %d বছর</item>
+        <item quantity="other">প্রতি %d বছর</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">বার</item>
+        <item quantity="other">বার</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d বারের জন্য</item>
+        <item quantity="other">%d বারের জন্য</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">প্রতি %d মাসে • শেষ দিন</item>
+        <item quantity="other">প্রতি %d মাসে • শেষ দিন</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">প্রতি %d মাসে • %d তারিখ</item>
+        <item quantity="other">প্রতি %d মাসে • %d তারিখ</item>
+    </plurals>
+</resources>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Moneda</string>
+    <string name="choose_currency">Elige tu moneda</string>
+    <string name="select_currency_subtext">Selecciona la moneda para esta cuenta.</string>
+    <string name="select_the_currency">Selecciona la moneda</string>
+    <string name="search_currency">Buscar moneda</string>
+    <string name="select_currency">Seleccionar moneda</string>
+    <string name="add_currency">Añadir moneda</string>
+    <string name="edit_currency">Editar moneda</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Tipo de cambio</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">No hay monedas adicionales</string>
+    <string name="empty_currency_hint">Toca el botón + para añadir una moneda.</string>
+    <string name="delete_currency">Eliminar moneda</string>
+    <string name="delete_message_currency">¿Estás seguro de que quieres eliminar esta moneda?</string>
+    <string name="message_currency">Las billeteras que utilicen esta moneda cambiarán a la moneda base.</string>
+    <string name="currency_has_been_removed_successfully">Moneda eliminada</string>
+    <string name="base_currency">Moneda base</string>
+    <string name="additional_currency">Monedas adicionales</string>
+    <string name="currency_subtext">Elige la moneda que deseas utilizar</string>
+    <string name="enter_the_rate">Introduce el tipo de cambio</string>
+    <string name="default_base_currency">Esta es tu moneda base predeterminada</string>
+    <string name="exchange_currency_hint">Los tipos de cambio se calculan en relación con tu moneda base (%1$s).\nPuedes actualizar el tipo de cambio de cada moneda.</string>
+</resources>

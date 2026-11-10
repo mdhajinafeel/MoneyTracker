@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">تحكّم كامل بأموالك</string>
+    <string name="walkthrough_1_desc">تابع كل مصروفاتك، وراقب ميزانيتك، وافهم أين تذهب أموالك.</string>
+    <string name="walkthrough_2_title">إدارة جميع محافظك</string>
+    <string name="walkthrough_2_desc">اجمع أموالك النقدية وحساباتك البنكية وبطاقاتك ومحافظك الرقمية في مكان واحد آمن.</string>
+    <string name="walkthrough_3_title">تسجيل المصروفات فورًا</string>
+    <string name="walkthrough_3_desc">أضف المعاملات مع الفئات والملاحظات والمرفقات ببضع نقرات فقط.</string>
+    <string name="walkthrough_4_title"><![CDATA[تقارير وتحليلات ذكية]]></string>
+    <string name="walkthrough_4_desc">استعرض إنفاقك من خلال مخططات واضحة ورؤى مالية مخصصة.</string>
+    <string name="walkthrough_5_title">ابقَ على اطلاع بالتذكيرات</string>
+    <string name="walkthrough_5_desc">تابع فواتيرك واشتراكاتك ومدفوعاتك المتكررة من خلال تذكيرات ذكية.</string>
+    <string name="walkthrough_6_title">حقّق أهدافك المالية</string>
+    <string name="walkthrough_6_desc">اكتسب عادات مالية أفضل، وادخر المزيد، وعزّز ثقتك في إدارة أموالك كل يوم.</string>
+</resources>

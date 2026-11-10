@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">ติดตามรายการธุรกรรมที่เกิดขึ้นประจำ</string>
+    <string name="select_recurring">เลือกรายการที่เกิดขึ้นประจำ</string>
+    <string name="repeat_on">ทำซ้ำใน</string>
+    <string name="select_repeat_on">เลือกวันที่ทำซ้ำ</string>
+    <string name="create_transaction">สร้างรายการธุรกรรม</string>
+    <string name="never_miss_recurring_transaction">ไม่พลาดรายการธุรกรรมที่เกิดขึ้นประจำ</string>
+    <string name="income_recurring">รายรับที่เกิดขึ้นประจำ</string>
+    <string name="expense_recurring">รายจ่ายที่เกิดขึ้นประจำ</string>
+    <string name="transfer_recurring">การโอนเงินที่เกิดขึ้นประจำ</string>
+    <string name="no_repeat">ไม่ทำซ้ำ</string>
+    <string name="repeat_option">ตัวเลือกการทำซ้ำ</string>
+    <string name="select_days">เลือกวัน</string>
+    <string name="please_select_at_least_one_day">โปรดเลือกอย่างน้อยหนึ่งวัน</string>
+    <string name="times">ครั้ง</string>
+    <string name="every">ทุก ๆ</string>
+    <string name="forever">ตลอดไป</string>
+    <string name="until">จนถึง</string>
+    <string name="text_for">เป็นเวลา</string>
+    <string name="text_every_value">"ทุก ๆ %1$s • %2$s"</string>
+    <string name="text_every_value1">"ทุก ๆ %1$s"</string>
+    <string name="same_day_each_month">วันเดียวกันของทุกเดือน (%1$d)</string>
+    <string name="end_of_month">วันสุดท้ายของเดือน</string>
+    <string name="recurring_transaction_saved">บันทึกรายการธุรกรรมที่เกิดขึ้นประจำแล้ว</string>
+    <string name="failed_to_save_recurring_transaction">ไม่สามารถบันทึกรายการธุรกรรมที่เกิดขึ้นประจำได้</string>
+    <string name="no_recurring_yet">ยังไม่มีรายการที่เกิดขึ้นประจำ</string>
+    <string name="empty_recurring_hint">แตะปุ่ม + เพื่อเพิ่มรายการที่เกิดขึ้นประจำ</string>
+    <string name="repeat_interval_atleast">ช่วงเวลาการทำซ้ำต้องมีค่าอย่างน้อย 1</string>
+    <string name="please_select_until_date">โปรดเลือกวันที่สิ้นสุด</string>
+    <string name="please_enter_times">โปรดระบุจำนวนครั้ง</string>
+    <string name="please_enter_an_amount">โปรดป้อนจำนวนเงิน</string>
+    <string name="please_select_a_wallet">โปรดเลือกกระเป๋าเงิน</string>
+    <string name="please_select_a_repeat_frequency">โปรดเลือกความถี่ในการทำซ้ำ</string>
+    <string name="until_date_start_date">วันที่สิ้นสุดต้องอยู่หลังวันที่เริ่มต้น</string>
+    <string name="select_recurring_transaction_end">โปรดเลือกวันที่สิ้นสุดของรายการธุรกรรมที่เกิดขึ้นประจำ</string>
+    <string name="every_week_period">ทุก ๆ %1$s</string>
+    <string name="next_recurring">ครั้งถัดไป: %1$s</string>
+    <string name="next_recurring_text">รายการถัดไป</string>
+    <string name="recurring_transaction_added">เพิ่มรายการธุรกรรมที่เกิดขึ้นประจำแล้ว</string>
+    <string name="recurring_transactions_added">เพิ่มรายการธุรกรรมที่เกิดขึ้นประจำแล้ว</string>
+    <string name="a_recurring_expense_was_added">เพิ่มรายการรายจ่ายที่เกิดขึ้นประจำแล้ว</string>
+    <string name="a_recurring_income_was_added">เพิ่มรายการรายรับที่เกิดขึ้นประจำแล้ว</string>
+    <string name="a_recurring_transaction_was_added">เพิ่มรายการธุรกรรมที่เกิดขึ้นประจำแล้ว</string>
+    <string name="recurring_transactions_were_added">" เพิ่มรายการธุรกรรมที่เกิดขึ้นประจำแล้ว"</string>
+    <string name="activate">เปิดใช้งาน</string>
+    <string name="text_deactivated">ปิดใช้งานแล้ว</string>
+    <string name="deactivate">ปิดใช้งาน</string>
+    <string name="change_recurring_detail">แก้ไขรายละเอียดรายการที่เกิดขึ้นประจำ</string>
+    <string name="resume_this_recurring_transaction">ดำเนินรายการนี้ต่อ</string>
+    <string name="pause_this_recurring_transaction">หยุดรายการนี้ชั่วคราว</string>
+    <string name="permanently_remove_this_recurring_transaction">ลบรายการนี้อย่างถาวร</string>
+    <string name="view_recurring_details">ดูรายละเอียดรายการที่เกิดขึ้นประจำ</string>
+    <string name="delete_recurring">ลบรายการที่เกิดขึ้นประจำ</string>
+    <string name="delete_recurring_message">คุณแน่ใจหรือไม่ว่าต้องการลบรายการที่เกิดขึ้นประจำนี้?</string>
+    <string name="recurring_deleted_successfully">ลบรายการที่เกิดขึ้นประจำแล้ว</string>
+    <string name="error_delete_recurring">เกิดข้อผิดพลาดในการลบรายการที่เกิดขึ้นประจำ</string>
+    <string name="activate_recurring">เปิดใช้งานรายการที่เกิดขึ้นประจำ</string>
+    <string name="deactivate_recurring">ปิดใช้งานรายการที่เกิดขึ้นประจำ</string>
+    <string name="delete_activate_message">คุณแน่ใจหรือไม่ว่าต้องการเปิดใช้งานรายการที่เกิดขึ้นประจำนี้?</string>
+    <string name="delete_deactivate_message">คุณแน่ใจหรือไม่ว่าต้องการปิดใช้งานรายการที่เกิดขึ้นประจำนี้?</string>
+    <string name="delete_activate_sub_message">คุณสามารถปิดใช้งานได้ทุกเมื่อจากรายการที่กำลังดำเนินการ</string>
+    <string name="delete_deactivate_sub_message">คุณสามารถเปิดใช้งานได้ทุกเมื่อจากรายการที่หยุดชั่วคราว</string>
+    <string name="deactivated_successfully">ปิดใช้งานรายการที่เกิดขึ้นประจำแล้ว</string>
+    <string name="error_deactivate">เกิดข้อผิดพลาดในการปิดใช้งานรายการที่เกิดขึ้นประจำ</string>
+    <string name="activated_successfully">เปิดใช้งานรายการที่เกิดขึ้นประจำแล้ว</string>
+    <string name="error_activate">เกิดข้อผิดพลาดในการเปิดใช้งานรายการที่เกิดขึ้นประจำ</string>
+    <string name="repeat_time">เวลาที่ทำซ้ำ</string>
+    <string name="recurring_detail">รายละเอียดรายการที่เกิดขึ้นประจำ</string>
+    <string name="until_date">จนถึง %1$s</string>
+    <string name="recurring_transaction_reminder">การแจ้งเตือนรายการธุรกรรมที่เกิดขึ้นประจำ</string>
+    <string name="recurring_expense_due">ถึงกำหนดรายการรายจ่ายที่เกิดขึ้นประจำของคุณแล้ว</string>
+    <string name="recurring_income_due">ถึงกำหนดรายการรายรับที่เกิดขึ้นประจำของคุณแล้ว</string>
+    <string name="recurring_transfer_due">ถึงกำหนดรายการโอนเงินที่เกิดขึ้นประจำของคุณแล้ว</string>
+
+    <plurals name="day_period">
+        <item quantity="other">วัน</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="other">ทุก ๆ %d วัน</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="other">%d วัน</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="other">สัปดาห์</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="other">%d สัปดาห์</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="other">ทุก ๆ %d เดือน</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="other">เดือน</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="other">ปี</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="other">ทุก ๆ %d ปี</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="other">ครั้ง</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="other">เป็นเวลา %d ครั้ง</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="other">ทุก ๆ %d เดือน • วันสุดท้ายของเดือน</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="other">ทุก ๆ %d เดือน • วันที่ %d</item>
+    </plurals>
+</resources>

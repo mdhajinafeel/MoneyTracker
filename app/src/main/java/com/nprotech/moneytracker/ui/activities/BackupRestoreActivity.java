@@ -1147,7 +1147,7 @@ public class BackupRestoreActivity extends BaseActivity {
                 startActivity(intent);
             } catch (Exception e) {
                 AppLogger.e(getClass(), "requestStorageAccess", e);
-                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -1206,7 +1206,7 @@ public class BackupRestoreActivity extends BaseActivity {
                 }
             } else {
                 hideScanning();
-                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.storage_access_required_message, getString(R.string.app_name)), Toast.LENGTH_SHORT).show();
                 showAccessDialog();
             }
         }

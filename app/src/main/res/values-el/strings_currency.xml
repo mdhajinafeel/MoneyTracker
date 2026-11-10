@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Νόμισμα</string>
+    <string name="choose_currency">Επιλέξτε το νόμισμά σας</string>
+    <string name="select_currency_subtext">Επιλέξτε το νόμισμα για αυτόν τον λογαριασμό.</string>
+    <string name="select_the_currency">Επιλέξτε το νόμισμα</string>
+    <string name="search_currency">Αναζήτηση νομίσματος</string>
+    <string name="select_currency">Επιλογή νομίσματος</string>
+    <string name="add_currency">Προσθήκη νομίσματος</string>
+    <string name="edit_currency">Επεξεργασία νομίσματος</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Ισοτιμία</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Δεν υπάρχουν πρόσθετα νομίσματα</string>
+    <string name="empty_currency_hint">Πατήστε το κουμπί + για να προσθέσετε νόμισμα.</string>
+    <string name="delete_currency">Αφαίρεση νομίσματος</string>
+    <string name="delete_message_currency">Είστε βέβαιοι ότι θέλετε να αφαιρέσετε αυτό το νόμισμα;</string>
+    <string name="message_currency">Τα πορτοφόλια που χρησιμοποιούν αυτό το νόμισμα θα αλλάξουν στο βασικό νόμισμα.</string>
+    <string name="currency_has_been_removed_successfully">Το νόμισμα αφαιρέθηκε</string>
+    <string name="base_currency">Βασικό νόμισμα</string>
+    <string name="additional_currency">Πρόσθετα νομίσματα</string>
+    <string name="currency_subtext">Επιλέξτε το νόμισμα που θέλετε να χρησιμοποιήσετε</string>
+    <string name="enter_the_rate">Εισαγάγετε την ισοτιμία</string>
+    <string name="default_base_currency">Αυτό είναι το προεπιλεγμένο/βασικό σας νόμισμα</string>
+    <string name="exchange_currency_hint">Οι συναλλαγματικές ισοτιμίες υπολογίζονται σε σχέση με το βασικό σας νόμισμα (%1$s).\nΜπορείτε να ενημερώσετε τις ισοτιμίες για κάθε νόμισμα.</string>
+</resources>

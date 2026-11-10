@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Mata Uang</string>
+    <string name="choose_currency">Pilih Mata Uang Anda</string>
+    <string name="select_currency_subtext">Pilih mata uang untuk akun ini.</string>
+    <string name="select_the_currency">Pilih Mata Uang</string>
+    <string name="search_currency">Cari Mata Uang</string>
+    <string name="select_currency">Pilih Mata Uang</string>
+    <string name="add_currency">Tambah Mata Uang</string>
+    <string name="edit_currency">Edit Mata Uang</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Kurs</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Tidak ada mata uang tambahan</string>
+    <string name="empty_currency_hint">Ketuk tombol + untuk menambahkan mata uang.</string>
+    <string name="delete_currency">Hapus Mata Uang</string>
+    <string name="delete_message_currency">Apakah Anda yakin ingin menghapus mata uang ini?</string>
+    <string name="message_currency">Dompet yang menggunakan mata uang ini akan diubah ke mata uang dasar.</string>
+    <string name="currency_has_been_removed_successfully">Mata uang berhasil dihapus</string>
+    <string name="base_currency">Mata Uang Dasar</string>
+    <string name="additional_currency">Mata Uang Tambahan</string>
+    <string name="currency_subtext">Pilih mata uang yang ingin Anda gunakan</string>
+    <string name="enter_the_rate">Masukkan Kurs</string>
+    <string name="default_base_currency">Ini adalah mata uang default/dasar Anda</string>
+    <string name="exchange_currency_hint">Nilai tukar dihitung berdasarkan mata uang dasar Anda (%1$s).\nAnda dapat memperbarui nilai tukar untuk setiap mata uang.</string>
+</resources>

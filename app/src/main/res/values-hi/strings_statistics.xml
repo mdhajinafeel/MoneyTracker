@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">दैनिक</string>
+    <string name="calendar_weekly">साप्ताहिक</string>
+    <string name="calendar_monthly">मासिक</string>
+    <string name="calendar_quarterly">तिमाही</string>
+    <string name="calendar_yearly">वार्षिक</string>
+    <string name="calendar_all">सभी</string>
+    <string name="calendar_custom">कस्टम</string>
+
+    <string name="total_balance">कुल शेष राशि</string>
+    <string name="balance">शेष राशि</string>
+    <string name="opening_balance">प्रारंभिक शेष राशि</string>
+    <string name="ending_balance">अंतिम शेष राशि</string>
+    <string name="overview">अवलोकन</string>
+    <string name="breakdown">विवरण</string>
+    <string name="transaction_overview">लेन-देन का अवलोकन</string>
+    <string name="select_range">अवधि चुनें</string>
+    <string name="all_time">पूरी अवधि</string>
+    <string name="period_spending">अवधि का खर्च</string>
+
+</resources>

@@ -131,6 +131,7 @@ public class DeactivatedRecurringFragment extends Fragment {
                     AppCompatTextView nextRecurring = holder.getView(R.id.nextRecurring);
                     AppCompatImageView ivRepeatDot = holder.getView(R.id.ivRepeatDot);
                     AppCompatImageView ivMore = holder.getView(R.id.ivMore);
+                    View viewLine2 = holder.getView(R.id.viewLine2);
 
                     int color = Color.parseColor(recurring.color);
                     cardCategoryIcon.setCardBackgroundColor(color);
@@ -199,7 +200,12 @@ public class DeactivatedRecurringFragment extends Fragment {
                     }
 
                     if (recurringTransaction.nextRunDate > 0) {
+                        nextRecurring.setVisibility(View.VISIBLE);
+                        viewLine2.setVisibility(View.VISIBLE);
                         nextRecurring.setText(getString(R.string.next_recurring, DateHelper.getFormattedDate(recurringTransaction.nextRunDate)));
+                    } else {
+                        nextRecurring.setVisibility(View.GONE);
+                        viewLine2.setVisibility(View.GONE);
                     }
 
                     ivMore.setOnClickListener(v -> showOptionDialog(recurring));

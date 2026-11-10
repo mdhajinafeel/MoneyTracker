@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">Setiap Pengeluaran. Setiap Wawasan.</string>
+    <string name="app_tag_text1">Pengeluaran</string>
+    <string name="app_tag_text2">Wawasan</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">Transaksi</string>
+    <string name="calendar">Kalender</string>
+    <string name="statistic">Wawasan</string>
+    <string name="more">Lainnya</string>
+    <string name="wallet">Dompet</string>
+
+    <!-- DAYS -->
+    <string name="sunday">Minggu</string>
+    <string name="monday">Senin</string>
+    <string name="tuesday">Selasa</string>
+    <string name="wednesday">Rabu</string>
+    <string name="thursday">Kamis</string>
+    <string name="friday">Jumat</string>
+    <string name="saturday">Sabtu</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">Min</string>
+    <string name="monday_short">Sen</string>
+    <string name="tuesday_short">Sel</string>
+    <string name="wednesday_short">Rab</string>
+    <string name="thursday_short">Kam</string>
+    <string name="friday_short">Jum</string>
+    <string name="saturday_short">Sab</string>
+
+    <string-array name="week_days">
+        <item>Minggu</item>
+        <item>Senin</item>
+        <item>Selasa</item>
+        <item>Rabu</item>
+        <item>Kamis</item>
+        <item>Jumat</item>
+        <item>Sabtu</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>Min</item>
+        <item>Sen</item>
+        <item>Sel</item>
+        <item>Rab</item>
+        <item>Kam</item>
+        <item>Jum</item>
+        <item>Sab</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">Januari</string>
+    <string name="february">Februari</string>
+    <string name="march">Maret</string>
+    <string name="april">April</string>
+    <string name="may">Mei</string>
+    <string name="june">Juni</string>
+    <string name="july">Juli</string>
+    <string name="august">Agustus</string>
+    <string name="september">September</string>
+    <string name="october">Oktober</string>
+    <string name="november">November</string>
+    <string name="december">Desember</string>
+
+    <string-array name="month_full">
+        <item>Januari</item>
+        <item>Februari</item>
+        <item>Maret</item>
+        <item>April</item>
+        <item>Mei</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>Agustus</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Desember</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>Mei</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Agu</item>
+        <item>Sep</item>
+        <item>Okt</item>
+        <item>Nov</item>
+        <item>Des</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>TW1</item>
+        <item>TW2</item>
+        <item>TW3</item>
+        <item>TW4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">Default Sistem</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">Keluar</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">Berikutnya</string>
+    <string name="skip">Lewati</string>
+    <string name="get_started">Mulai</string>
+    <string name="press_again_to_exit">Tekan sekali lagi untuk keluar</string>
+    <string name="settings">Pengaturan</string>
+    <string name="save">Simpan</string>
+    <string name="done">Selesai</string>
+    <string name="delete">Hapus</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+    <string name="no_record">Tidak Ada Catatan</string>
+    <string name="no_data">Tidak Ada Data</string>
+    <string name="detail">Detail Transaksi</string>
+    <string name="parsing_error">Terjadi kesalahan saat memproses data</string>
+    <string name="update">Perbarui</string>
+    <string name="color">Warna</string>
+    <string name="icon">Ikon</string>
+    <string name="select_icon">Pilih Ikon</string>
+    <string name="delete_message">Apakah Anda yakin ingin menghapus?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">Sebelumnya</string>
+    <string name="dash">-</string>
+    <string name="add_text">Tambah</string>
+    <string name="remaining">Tersisa</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">Lihat Detail</string>
+    <string name="view_breakdown">Lihat Rincian Lengkap</string>
+    <string name="error_update">Gagal memperbarui</string>
+    <string name="text_edit">Edit</string>
+    <string name="text_delete">Hapus</string>
+    <string name="text_close">Tutup</string>
+    <string name="text_remove">Singkirkan</string>
+    <string name="apply">Terapkan</string>
+    <string name="reset">Atur Ulang</string>
+    <string name="select_option">Pilih Opsi</string>
+    <string name="text_default">Default</string>
+    <string name="active">Aktif</string>
+    <string name="inactive">Tidak Aktif</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Terjadi kesalahan</string>
+    <string name="please_wait">Harap tunggu…</string>
+</resources>

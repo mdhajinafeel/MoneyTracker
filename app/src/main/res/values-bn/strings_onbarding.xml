@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">আপনার অর্থ, আপনার নিয়ন্ত্রণে</string>
+    <string name="walkthrough_1_desc">প্রতিটি খরচের হিসাব রাখুন, আপনার বাজেট পর্যবেক্ষণ করুন এবং আপনার টাকা কোথায় খরচ হচ্ছে তা বুঝুন।</string>
+    <string name="walkthrough_2_title">সব ওয়ালেট পরিচালনা করুন</string>
+    <string name="walkthrough_2_desc">নগদ টাকা, ব্যাংক অ্যাকাউন্ট, কার্ড এবং ডিজিটাল ওয়ালেট—সবকিছু এক নিরাপদ জায়গায় রাখুন।</string>
+    <string name="walkthrough_3_title">তাৎক্ষণিকভাবে খরচের হিসাব রাখুন</string>
+    <string name="walkthrough_3_desc">মাত্র কয়েকটি ট্যাপে ক্যাটাগরি, নোট এবং সংযুক্তিসহ লেনদেন যোগ করুন।</string>
+    <string name="walkthrough_4_title"><![CDATA[স্মার্ট রিপোর্ট ও বিশ্লেষণ]]></string>
+    <string name="walkthrough_4_desc">শক্তিশালী চার্ট এবং ব্যক্তিগত আর্থিক বিশ্লেষণের মাধ্যমে আপনার খরচের চিত্র দেখুন।</string>
+    <string name="walkthrough_5_title">রিমাইন্ডারের মাধ্যমে এগিয়ে থাকুন</string>
+    <string name="walkthrough_5_desc">স্মার্ট রিমাইন্ডারের সাহায্যে বিল, সাবস্ক্রিপশন এবং নিয়মিত পেমেন্টের হিসাব রাখুন।</string>
+    <string name="walkthrough_6_title">আপনার আর্থিক লক্ষ্য অর্জন করুন</string>
+    <string name="walkthrough_6_desc">প্রতিদিন আরও ভালো আর্থিক অভ্যাস গড়ে তুলুন, বেশি সঞ্চয় করুন এবং নিজের আর্থিক সক্ষমতার ওপর আত্মবিশ্বাস বাড়ান।</string>
+</resources>

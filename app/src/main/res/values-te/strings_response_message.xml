@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">ఈ ఇమెయిల్‌తో ఇప్పటికే ఒక ఖాతా ఉంది.</string>
+    <string name="error_check_details">దయచేసి మీ వివరాలను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_too_many_attempts">చాలా ఎక్కువ ప్రయత్నాలు జరిగాయి. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_account_creation_failed">ఖాతాను సృష్టించడం విఫలమైంది. దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_network_connection">కనెక్ట్ చేయడం సాధ్యం కాలేదు. మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="check_internet_connection">కనెక్ట్ చేయడం సాధ్యం కాలేదు. మీ ఇంటర్నెట్ కనెక్షన్‌ను తనిఖీ చేసి మళ్లీ ప్రయత్నించండి.</string>
+</resources>

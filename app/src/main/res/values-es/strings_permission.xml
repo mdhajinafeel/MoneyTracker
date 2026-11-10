@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Permiso de cámara denegado</string>
+    <string name="camera_permission_required">Se requiere permiso de cámara</string>
+    <string name="camera_access_required">Se necesita acceso a la cámara para tomar fotos y adjuntarlas a los gastos.</string>
+    <string name="allow">Permitir</string>
+    <string name="permission_required">Se requiere permiso</string>
+    <string name="camera_permission_disabled">El permiso de cámara está desactivado. Actívalo desde los ajustes de la aplicación.</string>
+    <string name="open_settings">Abrir ajustes</string>
+    <string name="cancel_subscription_desc">Cancela tu suscripción en cualquier momento desde Google Play.</string>
+</resources>

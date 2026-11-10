@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Λογαριασμοί</string>
+    <string name="add_account">Προσθήκη λογαριασμού</string>
+    <string name="edit_account">Επεξεργασία λογαριασμού</string>
+    <string name="account_heading">Πώς θέλετε να ονομάσετε αυτόν τον λογαριασμό;</string>
+    <string name="choose_name">Επιλέξτε ένα όνομα που θα σας βοηθά να αναγνωρίζετε εύκολα αυτόν τον λογαριασμό.</string>
+    <string name="account_name">Όνομα λογαριασμού</string>
+    <string name="create_account">Δημιουργία λογαριασμού</string>
+    <string name="select_account">Επιλογή λογαριασμού</string>
+    <string name="initial_balance">Εισαγάγετε το αρχικό υπόλοιπο</string>
+    <string name="opening_balance_subtext">Προσθέστε το αρχικό υπόλοιπο αυτού του λογαριασμού.</string>
+    <string name="initial_amount">Αρχικό υπόλοιπο</string>
+    <string name="initial">Αρχικό</string>
+    <string name="account_balance_format">Υπόλοιπο : %1$s</string>
+    <string name="manage_account_desc">Διαχειριστείτε όλους τους τραπεζικούς λογαριασμούς, τις κάρτες και άλλα σε ένα μέρος.</string>
+    <string name="your_accounts">Οι λογαριασμοί σας</string>
+    <string name="all_accounts">Όλοι οι λογαριασμοί</string>
+    <string name="add_new_account">Προσθήκη νέου λογαριασμού</string>
+    <string name="add_account_desc">Προσθέστε τραπεζικό λογαριασμό, πιστωτική κάρτα ή άλλον λογαριασμό</string>
+    <string name="archived_accounts">Αρχειοθετημένοι λογαριασμοί</string>
+    <string name="archived_accounts_desc">Προβολή και επαναφορά των αρχειοθετημένων λογαριασμών σας</string>
+    <string name="account_created">Ο λογαριασμός δημιουργήθηκε</string>
+    <string name="account_updated">Ο λογαριασμός ενημερώθηκε</string>
+    <string name="currency_edit_account">Το νόμισμα δεν μπορεί να αλλάξει κατά την επεξεργασία ενός λογαριασμού.</string>
+    <string name="account_action">Ενέργειες λογαριασμού</string>
+    <string name="update_account_detail">Ενημέρωση στοιχείων λογαριασμού</string>
+    <string name="use_as_your_default_account">Χρήση ως προεπιλεγμένου λογαριασμού</string>
+    <string name="see_account_detail">Προβολή στοιχείων λογαριασμού</string>
+    <string name="hide_from_active_accounts">Απόκρυψη από τους ενεργούς λογαριασμούς</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Αφαίρεση όλων των πορτοφολιών & συναλλαγών]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Διαγραφή πορτοφολιών & συναλλαγών]]></string>
+    <string name="remove_account">Αφαίρεση λογαριασμού</string>
+    <string name="account_set_as_default">Ο λογαριασμός ορίστηκε ως προεπιλεγμένος</string>
+    <string name="archive_account">Αρχειοθέτηση λογαριασμού;</string>
+    <string name="account_archived">Ο λογαριασμός αρχειοθετήθηκε</string>
+    <string name="delete_account_message">Ο λογαριασμός και όλα τα πορτοφόλια και οι συναλλαγές του θα αφαιρεθούν οριστικά. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</string>
+    <string name="delete_account">Διαγραφή λογαριασμού</string>
+    <string name="account_deleted">Ο λογαριασμός διαγράφηκε</string>
+    <string name="error_delete_account">Σφάλμα κατά τη διαγραφή του λογαριασμού</string>
+    <string name="opening_balance_editing_account">Το αρχικό υπόλοιπο δεν μπορεί να αλλάξει κατά την επεξεργασία ενός λογαριασμού.</string>
+    <string name="cannot_change_initial_amount">Δεν είναι δυνατή η αλλαγή του αρχικού ποσού λόγω υπαρχουσών συναλλαγών.</string>
+    <string name="archive_account_message">Αυτός ο λογαριασμός θα αποκρυφτεί από τους ενεργούς λογαριασμούς. Το υπόλοιπο και οι συναλλαγές σας θα διατηρηθούν.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Διαγραφή πορτοφολιών &amp; συναλλαγών λογαριασμού;]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Όλα τα πορτοφόλια &amp; οι συναλλαγές αυτού του λογαριασμού θα διαγραφούν. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.]]></string>
+    <string name="error_delete_account_trans">Σφάλμα κατά τη διαγραφή της συναλλαγής του λογαριασμού</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Τα πορτοφόλια &amp; οι συναλλαγές του λογαριασμού διαγράφηκαν]]></string>
+    <string name="transactions">Συναλλαγές</string>
+    <string name="view_all_transactions">Προβολή όλων των συναλλαγών</string>
+    <string name="view_all_recurring_transactions">Προβολή όλων των επαναλαμβανόμενων συναλλαγών</string>
+    <string name="recurring_transactions">Επαναλαμβανόμενες συναλλαγές</string>
+    <string name="account_details">Στοιχεία λογαριασμού</string>
+    <string name="archived_account_desc">Αυτοί οι λογαριασμοί είναι αρχειοθετημένοι και κρυμμένοι από τη λίστα ενεργών λογαριασμών σας. Όλα τα δεδομένα των πορτοφολιών και των συναλλαγών διατηρούνται και μπορούν να αποκατασταθούν ανά πάσα στιγμή.</string>
+    <string name="restore_account">Επαναφορά λογαριασμού;</string>
+    <string name="account_restore">Ο λογαριασμός αποκαταστάθηκε</string>
+    <string name="restore_account_message">Αυτός ο λογαριασμός θα επιστρέψει στους ενεργούς λογαριασμούς σας. Το υπόλοιπο και οι συναλλαγές σας θα παραμείνουν αμετάβλητα.</string>
+    <string name="restore_your_account">Επαναφορά του λογαριασμού σας</string>
+    <string name="account_transactions">Συναλλαγές λογαριασμού</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d λογαριασμός</item>
+        <item quantity="other">%d λογαριασμοί</item>
+    </plurals>
+</resources>

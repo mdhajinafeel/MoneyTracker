@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">Обліковий запис із цією адресою електронної пошти вже існує.</string>
+    <string name="error_check_details">Перевірте введені дані та спробуйте ще раз.</string>
+    <string name="error_too_many_attempts">Забагато спроб. Спробуйте пізніше.</string>
+    <string name="error_account_creation_failed">Не вдалося створити обліковий запис. Спробуйте ще раз.</string>
+    <string name="error_network_connection">Не вдалося підключитися. Перевірте підключення до Інтернету та спробуйте ще раз.</string>
+    <string name="check_internet_connection">Не вдалося підключитися. Перевірте підключення до Інтернету та спробуйте ще раз.</string>
+</resources>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="track_recurring_transactions">Отслеживайте регулярные транзакции</string>
+    <string name="select_recurring">Выберите регулярность</string>
+    <string name="repeat_on">Повторять в</string>
+    <string name="select_repeat_on">Выберите дни повтора</string>
+    <string name="create_transaction">Создать транзакцию</string>
+    <string name="never_miss_recurring_transaction">Не пропускайте регулярные транзакции</string>
+    <string name="income_recurring">Регулярный доход</string>
+    <string name="expense_recurring">Регулярный расход</string>
+    <string name="transfer_recurring">Регулярный перевод</string>
+    <string name="no_repeat">Без повтора</string>
+    <string name="repeat_option">Параметры повтора</string>
+    <string name="select_days">Выберите дни</string>
+    <string name="please_select_at_least_one_day">Выберите хотя бы один день</string>
+    <string name="times">раз</string>
+    <string name="every">Каждые</string>
+    <string name="forever">Бессрочно</string>
+    <string name="until">До</string>
+    <string name="text_for">В течение</string>
+    <string name="text_every_value">"Каждые %1$s • %2$s"</string>
+    <string name="text_every_value1">"Каждые %1$s"</string>
+    <string name="same_day_each_month">В тот же день каждого месяца (%1$d)</string>
+    <string name="end_of_month">Последний день месяца</string>
+    <string name="recurring_transaction_saved">Регулярная транзакция сохранена</string>
+    <string name="failed_to_save_recurring_transaction">Не удалось сохранить регулярную транзакцию</string>
+    <string name="no_recurring_yet">Пока нет регулярных транзакций</string>
+    <string name="empty_recurring_hint">Нажмите кнопку +, чтобы добавить регулярную транзакцию.</string>
+    <string name="repeat_interval_atleast">Интервал повтора должен быть не менее 1</string>
+    <string name="please_select_until_date">Выберите дату окончания</string>
+    <string name="please_enter_times">Укажите количество повторений</string>
+    <string name="please_enter_an_amount">Введите сумму</string>
+    <string name="please_select_a_wallet">Выберите кошелёк</string>
+    <string name="please_select_a_repeat_frequency">Выберите частоту повтора</string>
+    <string name="until_date_start_date">Дата окончания должна быть позже даты начала</string>
+    <string name="select_recurring_transaction_end">Укажите, когда должна завершиться регулярная транзакция</string>
+    <string name="every_week_period">Каждые %1$s</string>
+    <string name="next_recurring">Следующая: %1$s</string>
+    <string name="next_recurring_text">Следующий повтор</string>
+    <string name="recurring_transaction_added">Регулярная транзакция добавлена</string>
+    <string name="recurring_transactions_added">Регулярные транзакции добавлены</string>
+    <string name="a_recurring_expense_was_added">Добавлен регулярный расход</string>
+    <string name="a_recurring_income_was_added">Добавлен регулярный доход</string>
+    <string name="a_recurring_transaction_was_added">Добавлена регулярная транзакция</string>
+    <string name="recurring_transactions_were_added">" регулярных транзакций добавлено"</string>
+    <string name="activate">Активировать</string>
+    <string name="text_deactivated">Отключено</string>
+    <string name="deactivate">Отключить</string>
+    <string name="change_recurring_detail">Изменить параметры повтора</string>
+    <string name="resume_this_recurring_transaction">Возобновить эту транзакцию</string>
+    <string name="pause_this_recurring_transaction">Приостановить эту транзакцию</string>
+    <string name="permanently_remove_this_recurring_transaction">Удалить эту транзакцию навсегда</string>
+    <string name="view_recurring_details">Просмотреть сведения о повторе</string>
+    <string name="delete_recurring">Удалить регулярную транзакцию</string>
+    <string name="delete_recurring_message">Вы уверены, что хотите удалить эту регулярную транзакцию?</string>
+    <string name="recurring_deleted_successfully">Регулярная транзакция удалена</string>
+    <string name="error_delete_recurring">Не удалось удалить регулярную транзакцию</string>
+    <string name="activate_recurring">Активировать повтор</string>
+    <string name="deactivate_recurring">Отключить повтор</string>
+    <string name="delete_activate_message">Вы уверены, что хотите активировать этот повтор?</string>
+    <string name="delete_deactivate_message">Вы уверены, что хотите отключить этот повтор?</string>
+    <string name="delete_activate_sub_message">Вы сможете отключить его в любое время в разделе активных повторов.</string>
+    <string name="delete_deactivate_sub_message">Вы сможете активировать его в любое время в разделе приостановленных повторов.</string>
+    <string name="deactivated_successfully">Повтор отключён</string>
+    <string name="error_deactivate">Не удалось отключить повтор</string>
+    <string name="activated_successfully">Повтор активирован</string>
+    <string name="error_activate">Не удалось активировать повтор</string>
+    <string name="repeat_time">Частота повтора</string>
+    <string name="recurring_detail">Сведения о повторе</string>
+    <string name="until_date">До %1$s</string>
+    <string name="recurring_transaction_reminder">Напоминание о регулярной транзакции</string>
+    <string name="recurring_expense_due">Наступил срок регулярного расхода.</string>
+    <string name="recurring_income_due">Наступил срок регулярного дохода.</string>
+    <string name="recurring_transfer_due">Наступил срок регулярного перевода.</string>
+
+    <plurals name="day_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">день</item>
+        <item quantity="few">дня</item>
+        <item quantity="many">дней</item>
+        <item quantity="other">дня</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Каждый %d день</item>
+        <item quantity="few">Каждые %d дня</item>
+        <item quantity="many">Каждые %d дней</item>
+        <item quantity="other">Каждые %d дня</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d день</item>
+        <item quantity="few">%d дня</item>
+        <item quantity="many">%d дней</item>
+        <item quantity="other">%d дня</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">неделя</item>
+        <item quantity="few">недели</item>
+        <item quantity="many">недель</item>
+        <item quantity="other">недели</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d неделя</item>
+        <item quantity="few">%d недели</item>
+        <item quantity="many">%d недель</item>
+        <item quantity="other">%d недели</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Каждый %d месяц</item>
+        <item quantity="few">Каждые %d месяца</item>
+        <item quantity="many">Каждые %d месяцев</item>
+        <item quantity="other">Каждые %d месяца</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">месяц</item>
+        <item quantity="few">месяца</item>
+        <item quantity="many">месяцев</item>
+        <item quantity="other">месяца</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">год</item>
+        <item quantity="few">года</item>
+        <item quantity="many">лет</item>
+        <item quantity="other">года</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Каждый %d год</item>
+        <item quantity="few">Каждые %d года</item>
+        <item quantity="many">Каждые %d лет</item>
+        <item quantity="other">Каждые %d года</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">раз</item>
+        <item quantity="few">раза</item>
+        <item quantity="many">раз</item>
+        <item quantity="other">раза</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">На %d раз</item>
+        <item quantity="few">На %d раза</item>
+        <item quantity="many">На %d раз</item>
+        <item quantity="other">На %d раза</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Каждый %d месяц • Последний день</item>
+        <item quantity="few">Каждые %d месяца • Последний день</item>
+        <item quantity="many">Каждые %d месяцев • Последний день</item>
+        <item quantity="other">Каждые %d месяца • Последний день</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Каждый %d месяц • День %d</item>
+        <item quantity="few">Каждые %d месяца • День %d</item>
+        <item quantity="many">Каждые %d месяцев • День %d</item>
+        <item quantity="other">Каждые %d месяца • День %d</item>
+    </plurals>
+</resources>

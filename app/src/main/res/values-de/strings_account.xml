@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Konten</string>
+    <string name="add_account">Konto hinzufügen</string>
+    <string name="edit_account">Konto bearbeiten</string>
+    <string name="account_heading">Wie soll dieses Konto heißen?</string>
+    <string name="choose_name">Wähle einen Namen, mit dem du dieses Konto leicht wiedererkennen kannst.</string>
+    <string name="account_name">Kontoname</string>
+    <string name="create_account">Konto erstellen</string>
+    <string name="select_account">Konto auswählen</string>
+    <string name="initial_balance">Anfangssaldo eingeben</string>
+    <string name="opening_balance_subtext">Füge den Eröffnungssaldo für dieses Konto hinzu.</string>
+    <string name="initial_amount">Anfangssaldo</string>
+    <string name="initial">Anfang</string>
+    <string name="account_balance_format">Saldo: %1$s</string>
+    <string name="manage_account_desc">Verwalte alle deine Bankkonten, Karten und mehr an einem Ort.</string>
+    <string name="your_accounts">Deine Konten</string>
+    <string name="all_accounts">Alle Konten</string>
+    <string name="add_new_account">Neues Konto hinzufügen</string>
+    <string name="add_account_desc">Füge ein Bankkonto, eine Kreditkarte oder ein anderes Konto hinzu.</string>
+    <string name="archived_accounts">Archivierte Konten</string>
+    <string name="archived_accounts_desc">Zeige deine archivierten Konten an und stelle sie wieder her.</string>
+    <string name="account_created">Konto erstellt</string>
+    <string name="account_updated">Konto aktualisiert</string>
+    <string name="currency_edit_account">Die Währung kann beim Bearbeiten eines Kontos nicht geändert werden.</string>
+    <string name="account_action">Kontoaktionen</string>
+    <string name="update_account_detail">Kontodetails aktualisieren</string>
+    <string name="use_as_your_default_account">Als Standardkonto verwenden</string>
+    <string name="see_account_detail">Kontodetails anzeigen</string>
+    <string name="hide_from_active_accounts">Aus aktiven Konten ausblenden</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Alle Wallets und Transaktionen entfernen]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Wallets und Transaktionen löschen]]></string>
+    <string name="remove_account">Konto entfernen</string>
+    <string name="account_set_as_default">Konto als Standardkonto festgelegt</string>
+    <string name="archive_account">Konto archivieren?</string>
+    <string name="account_archived">Konto archiviert</string>
+    <string name="delete_account_message">Dadurch werden das Konto sowie alle zugehörigen Wallets und Transaktionen dauerhaft entfernt. Diese Aktion kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_account">Konto löschen</string>
+    <string name="account_deleted">Konto gelöscht</string>
+    <string name="error_delete_account">Fehler beim Löschen des Kontos</string>
+    <string name="opening_balance_editing_account">Der Eröffnungssaldo kann beim Bearbeiten eines Kontos nicht geändert werden.</string>
+    <string name="cannot_change_initial_amount">Der Anfangsbetrag kann aufgrund vorhandener Transaktionen nicht geändert werden.</string>
+    <string name="archive_account_message">Dieses Konto wird aus deinen aktiven Konten ausgeblendet. Dein Saldo und deine Transaktionen bleiben erhalten.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Wallets und Transaktionen des Kontos löschen?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Alle Wallets und Transaktionen in diesem Konto werden gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.]]></string>
+    <string name="error_delete_account_trans">Fehler beim Löschen der Kontotransaktion</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Wallets und Transaktionen des Kontos gelöscht]]></string>
+    <string name="transactions">Transaktionen</string>
+    <string name="view_all_transactions">Alle Transaktionen anzeigen</string>
+    <string name="view_all_recurring_transactions">Alle wiederkehrenden Transaktionen anzeigen</string>
+    <string name="recurring_transactions">Wiederkehrende Transaktionen</string>
+    <string name="account_details">Kontodetails</string>
+    <string name="archived_account_desc">Diese Konten sind archiviert und werden in deiner Liste aktiver Konten ausgeblendet. Alle Wallets und Transaktionsdaten bleiben erhalten und können jederzeit wiederhergestellt werden.</string>
+    <string name="restore_account">Konto wiederherstellen?</string>
+    <string name="account_restore">Konto wiederhergestellt</string>
+    <string name="restore_account_message">Dieses Konto wird wieder zu deinen aktiven Konten hinzugefügt. Dein Saldo und deine Transaktionen bleiben unverändert.</string>
+    <string name="restore_your_account">Dein Konto wiederherstellen</string>
+    <string name="account_transactions">Kontotransaktionen</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d Konto</item>
+        <item quantity="other">%d Konten</item>
+    </plurals>
+</resources>

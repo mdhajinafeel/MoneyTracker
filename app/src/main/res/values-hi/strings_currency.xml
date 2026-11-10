@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">मुद्रा</string>
+    <string name="choose_currency">अपनी मुद्रा चुनें</string>
+    <string name="select_currency_subtext">इस खाते के लिए मुद्रा चुनें।</string>
+    <string name="select_the_currency">मुद्रा चुनें</string>
+    <string name="search_currency">मुद्रा खोजें</string>
+    <string name="select_currency">मुद्रा चुनें</string>
+    <string name="add_currency">मुद्रा जोड़ें</string>
+    <string name="edit_currency">मुद्रा संपादित करें</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">दर</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">कोई अतिरिक्त मुद्रा नहीं</string>
+    <string name="empty_currency_hint">मुद्रा जोड़ने के लिए + बटन पर टैप करें।</string>
+    <string name="delete_currency">मुद्रा हटाएँ</string>
+    <string name="delete_message_currency">क्या आप वाकई इस मुद्रा को हटाना चाहते हैं?</string>
+    <string name="message_currency">इस मुद्रा का उपयोग करने वाले वॉलेट की मुद्रा बदलकर आधार मुद्रा कर दी जाएगी।</string>
+    <string name="currency_has_been_removed_successfully">मुद्रा हटा दी गई</string>
+    <string name="base_currency">आधार मुद्रा</string>
+    <string name="additional_currency">अतिरिक्त मुद्राएँ</string>
+    <string name="currency_subtext">वह मुद्रा चुनें जिसका आप उपयोग करना चाहते हैं</string>
+    <string name="enter_the_rate">विनिमय दर दर्ज करें</string>
+    <string name="default_base_currency">यह आपकी डिफ़ॉल्ट/आधार मुद्रा है</string>
+    <string name="exchange_currency_hint">विनिमय दरें आपकी आधार मुद्रा (%1$s) के सापेक्ष हैं।\nआप प्रत्येक मुद्रा की दर अपडेट कर सकते हैं।</string>
+</resources>

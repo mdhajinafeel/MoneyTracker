@@ -1,5 +1,6 @@
 package com.nprotech.moneytracker.helper;
 
+import com.nprotech.moneytracker.BuildConfig;
 import com.nprotech.moneytracker.constants.Constants;
 
 import devliving.online.securedpreferencestore.SecuredPreferenceStore;
@@ -34,6 +35,28 @@ public enum PreferenceManager {
     private static final String KEY_AUTO_LOCK_SECONDS = "autoLockSeconds";
     private static final String KEY_PRIMARY_UNLOCK_METHOD = "primary_unlock_method";
     private static final String KEY_APP_LOCK_ENABLED = "appLockEnabled";
+    private static final String KEY_DEBUG_PRO_ENABLED = "debugProEnabled";
+    private static final String KEY_VERIFIED_PRO_ACTIVE = "verifiedProActive";
+    private static final String KEY_PRO_PLAN = "proPlan";
+    private static final String KEY_PRO_PRICE = "proPrice";
+    private static final String KEY_PRO_PERIOD = "proPeriod";
+
+    // ===== AUTHENTICATION =====
+    private static final String KEY_AUTH_USER_ID = "authUserId";
+    private static final String KEY_AUTH_FULL_NAME = "authFullName";
+    private static final String KEY_AUTH_EMAIL = "authEmail";
+    private static final String KEY_AUTH_CREATED_AT = "authCreatedAt";
+    private static final String KEY_AUTH_ACCOUNT_STATUS = "authAccountStatus";
+    private static final String KEY_AUTH_PROFILE_PHOTO = "authProfilePhoto";
+    private static final String KEY_AUTH_SESSION_ID = "authSessionId";
+    private static final String KEY_AUTH_ACCESS_TOKEN = "authAccessToken";
+    private static final String KEY_AUTH_ACCESS_TOKEN_EXPIRY = "authAccessTokenExpiry";
+    private static final String KEY_AUTH_REFRESH_TOKEN = "authRefreshToken";
+    private static final String KEY_AUTH_REFRESH_TOKEN_EXPIRY = "authRefreshTokenExpiry";
+    private static final String KEY_REMEMBER_EMAIL = "rememberEmail";
+    private static final String KEY_SAVED_EMAIL = "savedEmail";
+    private static final String KEY_AUTH_GOOGLE = "authGoogle";
+    private static final String KEY_AUTH_HAS_PASSWORD = "authHasPassword";
 
     private final SecuredPreferenceStore prefStore = SecuredPreferenceStore.getSharedInstance();
 
@@ -287,5 +310,190 @@ public enum PreferenceManager {
 
     public boolean isAppLockEnabled() {
         return prefStore.getBoolean(KEY_APP_LOCK_ENABLED, false);
+    }
+
+    // ===== Expenixo PRO =====
+    public boolean isProEnabled() {
+        if (BuildConfig.DEBUG) {
+            return prefStore.getBoolean(KEY_DEBUG_PRO_ENABLED, false);
+        }
+        return prefStore.getBoolean(KEY_VERIFIED_PRO_ACTIVE, false);
+    }
+
+    public void setDebugProEnabled(boolean enabled) {
+        if (!BuildConfig.DEBUG) {
+            return;
+        }
+        prefStore.edit().putBoolean(KEY_DEBUG_PRO_ENABLED, enabled).apply();
+    }
+
+    public void setVerifiedProActive(boolean active) {
+        prefStore.edit().putBoolean(KEY_VERIFIED_PRO_ACTIVE, active).apply();
+    }
+
+    public void setProPlan(String plan) {
+        prefStore.edit().putString(KEY_PRO_PLAN, plan).apply();
+    }
+
+    public String getProPlan() {
+        return prefStore.getString(KEY_PRO_PLAN, "monthly");
+    }
+
+    public void setProPlanDetails(String plan, String localizedPrice, String period) {
+        prefStore.edit()
+                .putString(KEY_PRO_PLAN, plan)
+                .putString(KEY_PRO_PRICE, localizedPrice)
+                .putString(KEY_PRO_PERIOD, period)
+                .apply();
+    }
+
+    public String getProPrice() {
+        return prefStore.getString(KEY_PRO_PRICE, "");
+    }
+
+    public String getProPeriod() {
+        return prefStore.getString(KEY_PRO_PERIOD, "/month");
+    }
+
+    // ===== AUTHENTICATION =====
+    public void saveAuthSession(String userId, String fullName, String email, String profilePhoto, String sessionId,
+                                String accessToken, String accessTokenExpiry, String refreshToken, String refreshTokenExpiry,
+                                String accountStatus, Long createdAt, boolean isGoogle, boolean hasPassword) {
+        prefStore.edit()
+                .putString(KEY_AUTH_USER_ID, userId)
+                .putString(KEY_AUTH_FULL_NAME, fullName)
+                .putString(KEY_AUTH_EMAIL, email)
+                .putString(KEY_AUTH_PROFILE_PHOTO, profilePhoto)
+                .putString(KEY_AUTH_SESSION_ID, sessionId)
+                .putString(KEY_AUTH_ACCESS_TOKEN, accessToken)
+                .putString(KEY_AUTH_ACCESS_TOKEN_EXPIRY, accessTokenExpiry)
+                .putString(KEY_AUTH_REFRESH_TOKEN, refreshToken)
+                .putString(KEY_AUTH_REFRESH_TOKEN_EXPIRY, refreshTokenExpiry)
+                .putString(KEY_AUTH_ACCOUNT_STATUS, accountStatus)
+                .putLong(KEY_AUTH_CREATED_AT, createdAt)
+                .putBoolean(KEY_AUTH_GOOGLE, isGoogle)
+                .putBoolean(KEY_AUTH_HAS_PASSWORD, hasPassword)
+                .apply();
+    }
+
+    public String getAuthUserId() {
+        return prefStore.getString(KEY_AUTH_USER_ID, "");
+    }
+
+    public void setAuthFullName(String fullName) {
+        prefStore.edit().putString(KEY_AUTH_FULL_NAME, fullName).apply();
+    }
+
+    public String getAuthFullName() {
+        return prefStore.getString(KEY_AUTH_FULL_NAME, "");
+    }
+
+    public String getAuthEmail() {
+        return prefStore.getString(KEY_AUTH_EMAIL, "");
+    }
+
+    public String getAuthProfilePhoto() {
+        return prefStore.getString(KEY_AUTH_PROFILE_PHOTO, null);
+    }
+
+    public void setAuthProfilePhoto(String photoUrl) {
+        prefStore.edit().putString(KEY_AUTH_PROFILE_PHOTO, photoUrl).apply();
+    }
+
+    public String getAuthSessionId() {
+        return prefStore.getString(KEY_AUTH_SESSION_ID, "");
+    }
+
+    public void setAuthAccessToken(String accessToken) {
+        prefStore.edit().putString(KEY_AUTH_ACCESS_TOKEN, accessToken).apply();
+    }
+
+    public String getAuthAccessToken() {
+        return prefStore.getString(KEY_AUTH_ACCESS_TOKEN, "");
+    }
+
+    public String getAuthAccessTokenExpiry() {
+        return prefStore.getString(KEY_AUTH_ACCESS_TOKEN_EXPIRY, "");
+    }
+
+    public void setAuthRefreshToken(String refreshToken) {
+        prefStore.edit().putString(KEY_AUTH_REFRESH_TOKEN, refreshToken).apply();
+    }
+
+    public String getAuthRefreshToken() {
+        return prefStore.getString(KEY_AUTH_REFRESH_TOKEN, "");
+    }
+
+    public String getAuthRefreshTokenExpiry() {
+        return prefStore.getString(KEY_AUTH_REFRESH_TOKEN_EXPIRY, "");
+    }
+
+    public Long getAuthCreatedAt() {
+        return prefStore.getLong(KEY_AUTH_CREATED_AT, 0L);
+    }
+
+    public String getAuthAccountStatus() {
+        return prefStore.getString(KEY_AUTH_ACCOUNT_STATUS, "");
+    }
+
+    public boolean getAuthGoogle() {
+        return prefStore.getBoolean(KEY_AUTH_GOOGLE, false);
+    }
+
+    public boolean getAuthHasPassword() {
+        return prefStore.getBoolean(KEY_AUTH_HAS_PASSWORD, false);
+    }
+
+    public boolean isAuthenticated() {
+        return !getAuthAccessToken().isEmpty() && !getAuthRefreshToken().isEmpty();
+    }
+
+    public void clearAuthSession() {
+        prefStore.edit()
+                .remove(KEY_AUTH_USER_ID)
+                .remove(KEY_AUTH_FULL_NAME)
+                .remove(KEY_AUTH_EMAIL)
+                .remove(KEY_AUTH_SESSION_ID)
+                .remove(KEY_AUTH_ACCESS_TOKEN)
+                .remove(KEY_AUTH_ACCESS_TOKEN_EXPIRY)
+                .remove(KEY_AUTH_REFRESH_TOKEN)
+                .remove(KEY_AUTH_REFRESH_TOKEN_EXPIRY)
+                .remove(KEY_AUTH_CREATED_AT)
+                .remove(KEY_AUTH_ACCOUNT_STATUS)
+                .remove(KEY_AUTH_GOOGLE)
+                .remove(KEY_AUTH_HAS_PASSWORD)
+                .apply();
+    }
+
+    // ===== REMEMBER EMAIL =====
+    public void saveRememberedEmail(String email) {
+        prefStore.edit()
+                .putBoolean(KEY_REMEMBER_EMAIL, true)
+                .putString(KEY_SAVED_EMAIL, email)
+                .apply();
+    }
+
+    public boolean isRememberEmailEnabled() {
+        return prefStore.getBoolean(KEY_REMEMBER_EMAIL, false);
+    }
+
+    public String getSavedEmail() {
+        return prefStore.getString(KEY_SAVED_EMAIL, "");
+    }
+
+    public void clearRememberedEmail() {
+        prefStore.edit()
+                .putBoolean(KEY_REMEMBER_EMAIL, false)
+                .remove(KEY_SAVED_EMAIL)
+                .apply();
+    }
+
+    public synchronized void updateAuthTokens(String accessToken, String accessTokenExpiry, String refreshToken, String refreshTokenExpiry) {
+        prefStore.edit()
+                .putString(KEY_AUTH_ACCESS_TOKEN, accessToken)
+                .putString(KEY_AUTH_ACCESS_TOKEN_EXPIRY, accessTokenExpiry)
+                .putString(KEY_AUTH_REFRESH_TOKEN, refreshToken)
+                .putString(KEY_AUTH_REFRESH_TOKEN_EXPIRY, refreshTokenExpiry)
+                .apply();
     }
 }

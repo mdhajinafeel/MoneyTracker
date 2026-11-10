@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Kategori Ekle</string>
+    <string name="edit_category">Kategoriyi Düzenle</string>
+    <string name="category_created">Kategori oluşturuldu</string>
+    <string name="category_updated">Kategori güncellendi</string>
+    <string name="category_deleted">Kategori silindi</string>
+    <string name="category_moved">Kategori taşındı</string>
+    <string name="error_delete_category">Kategori silinirken hata oluştu</string>
+    <string name="error_moved_category">Kategori taşınırken hata oluştu</string>
+    <string name="category_bills">Faturalar ve Faturaya Bağlı Hizmetler</string>
+    <string name="category_bonus">Bonus</string>
+    <string name="category_clothing">Giyim</string>
+    <string name="category_dividend">Temettü</string>
+    <string name="category_education">Eğitim</string>
+    <string name="category_entertainment">Eğlence</string>
+    <string name="category_fitness">Fitness</string>
+    <string name="category_food">Yiyecek</string>
+    <string name="category_grocery">Market Alışverişi</string>
+    <string name="category_furniture">Ev ve Mobilya</string>
+    <string name="category_gifts">Hediyeler</string>
+    <string name="category_health_and_beauty">Sağlık</string>
+    <string name="category_investment">Yatırım</string>
+    <string name="category_lottery">Piyango</string>
+    <string name="category_others">Diğer</string>
+    <string name="category_pet">Evcil Hayvan</string>
+    <string name="category_salary">Maaş</string>
+    <string name="category_shopping">Alışveriş</string>
+    <string name="category_tips">Bahşiş</string>
+    <string name="category_cashback">Ödüller</string>
+    <string name="category_transportation">Ulaşım</string>
+    <string name="category_travel">Seyahat</string>
+    <string name="adjustment">Düzeltme</string>
+    <string name="loan">Kredi</string>
+    <string name="repay">Geri Ödeme</string>
+    <string name="debt">Borç</string>
+    <string name="collect">Borç Tahsilatı</string>
+    <string name="category_allowance">Harçlık</string>
+    <string name="category_award">Ödül</string>
+    <string name="manage_category">Kategoriler</string>
+    <string name="empty_category">Kategori Yok</string>
+    <string name="empty_category_hint">Kategori eklemek için + düğmesine dokunun.</string>
+    <string name="select_category">Kategori Seçin</string>
+    <string name="category">Kategori</string>
+    <string name="category_name">Kategori Adı</string>
+    <string name="include_category_hint">Bu kategoriyi raporlarda ve grafiklerde göster</string>
+    <string name="status_active_hint">Kategori kullanıma hazır</string>
+    <string name="status_inactive_hint">Kategori gizlidir ve işlem eklerken görünmez.</string>
+    <string name="include_reports">Raporlara Dahil Et</string>
+    <string name="delete_category_message">\'%1$s\' kategorisini silmek istediğinizden emin misiniz?</string>
+    <string name="delete_category">Kategori Silinsin mi?</string>
+    <string name="no_transactions_found">İşlem bulunamadı</string>
+    <string name="category_permanently_delete">Bu kategori kalıcı olarak silinebilir.</string>
+    <string name="category_in_use">Kategori Kullanımda</string>
+    <string name="move_delete">Taşı ve Sil</string>
+    <string name="move_transaction_to">İşlemi Şuraya Taşı</string>
+    <string name="status">Durum</string>
+    <string name="all_categories">Tüm Kategoriler</string>
+    <string name="categories">Kategoriler</string>
+    <string name="category_transactions">Kategori İşlemleri</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">%1$d işlemi &quot;%2$s&quot; kategorisinden başka bir kategoriye taşıyın.</item>
+        <item quantity="other">%1$d işlemi &quot;%2$s&quot; kategorisinden başka bir kategoriye taşıyın.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">&quot;%1$s&quot; kategorisi 1 işlemde kullanılıyor ve silinemez.\n\nBu kategoriyi Kategoriyi Düzenle bölümünden devre dışı bırakabilirsiniz.</item>
+        <item quantity="other">&quot;%1$s&quot; kategorisi %2$d işlemde kullanılıyor ve silinemez.\n\nBu kategoriyi Kategoriyi Düzenle bölümünden devre dışı bırakabilirsiniz.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">&quot;%2$s&quot; kategorisindeki işlem &quot;%3$s&quot; kategorisine taşınacaktır.\n\n&quot;%4$s&quot; kalıcı olarak silinecektir.</item>
+        <item quantity="other">&quot;%2$s&quot; kategorisindeki %1$d işlemin tamamı &quot;%3$s&quot; kategorisine taşınacaktır.\n\n&quot;%4$s&quot; kalıcı olarak silinecektir.</item>
+    </plurals>
+</resources>

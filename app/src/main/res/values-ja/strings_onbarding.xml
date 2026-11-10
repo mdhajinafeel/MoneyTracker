@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">お金を賢く管理</string>
+    <string name="walkthrough_1_desc">すべての支出を記録し、予算を管理して、お金の使い道を把握しましょう。</string>
+    <string name="walkthrough_2_title">すべてのウォレットを管理</string>
+    <string name="walkthrough_2_desc">現金、銀行口座、カード、デジタルウォレットを1か所で安全に管理できます。</string>
+    <string name="walkthrough_3_title">支出をすばやく記録</string>
+    <string name="walkthrough_3_desc">数回タップするだけで、カテゴリー、メモ、添付ファイルを追加して取引を記録できます。</string>
+    <string name="walkthrough_4_title"><![CDATA[スマートレポートと分析]]></string>
+    <string name="walkthrough_4_desc">高機能なグラフとパーソナライズされた財務分析で、支出を視覚的に把握できます。</string>
+    <string name="walkthrough_5_title">リマインダーで支払いを忘れない</string>
+    <string name="walkthrough_5_desc">スマートリマインダーで、請求書、サブスクリプション、定期的な支払いを忘れずに管理できます。</string>
+    <string name="walkthrough_6_title">経済的な目標を達成</string>
+    <string name="walkthrough_6_desc">より良いお金の習慣を身につけ、貯蓄を増やし、毎日お金に対する自信を高めましょう。</string>
+</resources>

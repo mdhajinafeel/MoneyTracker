@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">إضافة فئة</string>
+    <string name="edit_category">تعديل الفئة</string>
+    <string name="category_created">تم إنشاء الفئة</string>
+    <string name="category_updated">تم تحديث الفئة</string>
+    <string name="category_deleted">تم حذف الفئة</string>
+    <string name="category_moved">تم نقل الفئة</string>
+    <string name="error_delete_category">حدث خطأ أثناء حذف الفئة</string>
+    <string name="error_moved_category">حدث خطأ أثناء نقل الفئة</string>
+    <string name="category_bills">الفواتير والمرافق</string>
+    <string name="category_bonus">المكافأة</string>
+    <string name="category_clothing">الملابس</string>
+    <string name="category_dividend">أرباح الأسهم</string>
+    <string name="category_education">التعليم</string>
+    <string name="category_entertainment">الترفيه</string>
+    <string name="category_fitness">اللياقة البدنية</string>
+    <string name="category_food">الطعام</string>
+    <string name="category_grocery">البقالة</string>
+    <string name="category_furniture">المنزل والأثاث</string>
+    <string name="category_gifts">الهدايا</string>
+    <string name="category_health_and_beauty">الصحة</string>
+    <string name="category_investment">الاستثمار</string>
+    <string name="category_lottery">اليانصيب</string>
+    <string name="category_others">أخرى</string>
+    <string name="category_pet">الحيوانات الأليفة</string>
+    <string name="category_salary">الراتب</string>
+    <string name="category_shopping">التسوق</string>
+    <string name="category_tips">الإكراميات</string>
+    <string name="category_cashback">المكافآت</string>
+    <string name="category_transportation">المواصلات</string>
+    <string name="category_travel">السفر</string>
+    <string name="adjustment">تسوية</string>
+    <string name="loan">قرض</string>
+    <string name="repay">سداد</string>
+    <string name="debt">دين</string>
+    <string name="collect">تحصيل الديون</string>
+    <string name="category_allowance">المصروف</string>
+    <string name="category_award">جائزة</string>
+    <string name="manage_category">الفئات</string>
+    <string name="empty_category">لا توجد فئات</string>
+    <string name="empty_category_hint">اضغط على زر + لإضافة فئات.</string>
+    <string name="select_category">اختيار الفئة</string>
+    <string name="category">الفئة</string>
+    <string name="category_name">اسم الفئة</string>
+    <string name="include_category_hint">إظهار هذه الفئة في التقارير والرسوم البيانية</string>
+    <string name="status_active_hint">الفئة متاحة للاستخدام</string>
+    <string name="status_inactive_hint">الفئة مخفية ولن تظهر عند إضافة المعاملات.</string>
+    <string name="include_reports">تضمين في التقارير</string>
+    <string name="delete_category_message">هل أنت متأكد من أنك تريد حذف الفئة "%1$s"؟</string>
+    <string name="delete_category">هل تريد حذف الفئة؟</string>
+    <string name="no_transactions_found">لم يتم العثور على معاملات</string>
+    <string name="category_permanently_delete">يمكن حذف هذه الفئة نهائيًا.</string>
+    <string name="category_in_use">الفئة قيد الاستخدام</string>
+    <string name="move_delete">نقل وحذف</string>
+    <string name="move_transaction_to">نقل المعاملة إلى</string>
+    <string name="status">الحالة</string>
+    <string name="all_categories">جميع الفئات</string>
+    <string name="categories">الفئات</string>
+    <string name="category_transactions">معاملات الفئة</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="zero">لا توجد معاملات لنقلها من "%2$s" إلى فئة أخرى.</item>
+        <item quantity="one">نقل معاملة واحدة من "%2$s" إلى فئة أخرى.</item>
+        <item quantity="two">نقل معاملتين من "%2$s" إلى فئة أخرى.</item>
+        <item quantity="few">نقل %1$d معاملات من "%2$s" إلى فئة أخرى.</item>
+        <item quantity="many">نقل %1$d معاملة من "%2$s" إلى فئة أخرى.</item>
+        <item quantity="other">نقل %1$d معاملة من "%2$s" إلى فئة أخرى.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="zero">الفئة "%1$s" غير مستخدمة ولا يمكن حذفها بهذه الطريقة.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+        <item quantity="one">الفئة "%1$s" مستخدمة في معاملة واحدة ولا يمكن حذفها.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+        <item quantity="two">الفئة "%1$s" مستخدمة في معاملتين ولا يمكن حذفها.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+        <item quantity="few">الفئة "%1$s" مستخدمة في %2$d معاملات ولا يمكن حذفها.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+        <item quantity="many">الفئة "%1$s" مستخدمة في %2$d معاملة ولا يمكن حذفها.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+        <item quantity="other">الفئة "%1$s" مستخدمة في %2$d معاملة ولا يمكن حذفها.\n\nيمكنك جعل هذه الفئة غير نشطة من خلال خيار تعديل الفئة.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="zero">سيتم نقل المعاملات من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+        <item quantity="one">سيتم نقل المعاملة من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+        <item quantity="two">سيتم نقل معاملتين من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+        <item quantity="few">سيتم نقل جميع المعاملات البالغ عددها %1$d من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+        <item quantity="many">سيتم نقل جميع المعاملات البالغ عددها %1$d من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+        <item quantity="other">سيتم نقل جميع المعاملات البالغ عددها %1$d من "%2$s" إلى "%3$s".\n\nسيتم حذف "%4$s" نهائيًا.</item>
+    </plurals>
+</resources>

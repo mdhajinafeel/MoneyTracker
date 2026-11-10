@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">ปฏิเสธการอนุญาตใช้กล้อง</string>
+    <string name="camera_permission_required">ต้องได้รับอนุญาตให้ใช้กล้อง</string>
+    <string name="camera_access_required">จำเป็นต้องได้รับอนุญาตให้เข้าถึงกล้องเพื่อถ่ายภาพสำหรับไฟล์แนบค่าใช้จ่าย</string>
+    <string name="allow">อนุญาต</string>
+    <string name="permission_required">ต้องได้รับอนุญาต</string>
+    <string name="camera_permission_disabled">การอนุญาตใช้กล้องถูกปิดใช้งาน โปรดเปิดใช้งานจากการตั้งค่าแอป</string>
+    <string name="open_settings">เปิดการตั้งค่า</string>
+    <string name="cancel_subscription_desc">คุณสามารถยกเลิกการสมัครใช้บริการได้ทุกเมื่อผ่าน Google Play</string>
+</resources>

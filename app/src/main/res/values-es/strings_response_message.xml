@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">Ya existe una cuenta con esta dirección de correo electrónico.</string>
+    <string name="error_check_details">Comprueba tus datos e inténtalo de nuevo.</string>
+    <string name="error_too_many_attempts">Demasiados intentos. Inténtalo de nuevo más tarde.</string>
+    <string name="error_account_creation_failed">No se pudo crear la cuenta. Inténtalo de nuevo.</string>
+    <string name="error_network_connection">No se pudo establecer la conexión. Comprueba tu conexión a Internet e inténtalo de nuevo.</string>
+    <string name="check_internet_connection">No se pudo establecer la conexión. Comprueba tu conexión a Internet e inténtalo de nuevo.</string>
+</resources>

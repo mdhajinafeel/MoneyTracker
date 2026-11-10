@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Revenu</string>
+    <string name="total_income">Revenus totaux</string>
+    <string name="expense">Dépense</string>
+    <string name="total_expense">Dépenses totales</string>
+    <string name="transfer">Virement</string>
+    <string name="recurring">Récurrent</string>
+    <string name="trans_delete_failed">Échec de la suppression de la transaction</string>
+    <string name="fee">Frais</string>
+    <string name="memo">Note</string>
+    <string name="notes">Notes</string>
+    <string name="add_note">Ajouter une note…</string>
+    <string name="description">Description</string>
+    <string name="short_description">Description courte</string>
+    <string name="enter_amount">Saisir le montant</string>
+    <string name="cash_wallet">Portefeuille espèces</string>
+    <string name="cash">Espèces</string>
+    <string name="enter_the_amount">Saisissez le montant</string>
+    <string name="date">Date</string>
+    <string name="select_date">Sélectionner une date</string>
+    <string name="amount">Montant</string>
+    <string name="add_record">Appuyez sur le bouton + pour ajouter votre première transaction.</string>
+    <string name="type">Type</string>
+    <string name="view_all">Tout afficher</string>
+    <string name="delete_transaction">Supprimer la transaction</string>
+    <string name="total">Total</string>
+    <string name="all_transaction">Toutes les transactions</string>
+    <string name="no_transaction">Aucune transaction pour le moment</string>
+    <string name="start_date">Date de début</string>
+    <string name="end_date">Date de fin</string>
+    <string name="date_amp_time"><![CDATA[Date et heure]]></string>
+    <string name="future">À venir</string>
+    <string name="add_files">Ajouter des photos ou des fichiers (5 fichiers maximum)</string>
+    <string name="attachment_title">Pièces jointes (%1$d/5)</string>
+    <string name="tap_add_attach">Appuyez pour ajouter une pièce jointe</string>
+    <string name="attachment_extension">Images, PDF, documents, fichiers Excel, ZIP, etc.</string>
+    <string name="add_more">Ajouter plus</string>
+    <string name="unable_to_open_attachment">Impossible d\'ouvrir la pièce jointe</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Montant (du portefeuille)</string>
+    <string name="fee_from_wallet">Frais (du portefeuille)</string>
+    <string name="received_from_wallet">Montant reçu (vers le portefeuille)</string>
+    <string name="transaction_action">Action sur la transaction</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Voir les détails de la transaction</string>
+    <string name="change_detail">Modifier les détails de la transaction</string>
+    <string name="duplicate_copy">Créer une copie</string>
+    <string name="remove_transaction">Supprimer la transaction</string>
+    <string name="duplicate">Dupliquer</string>
+    <string name="duplicate_transaction">Dupliquer la transaction</string>
+    <string name="duplicate_transaction_desc">Voulez-vous créer une copie de cette transaction ?</string>
+    <string name="transaction_duplicated">Transaction dupliquée</string>
+    <string name="transaction_deleted">Transaction supprimée</string>
+    <string name="unable_to_save">Impossible d\'enregistrer</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d transaction</item>
+        <item quantity="many">%d transactions</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Pièce jointe (%d)</item>
+        <item quantity="many">Pièces jointes (%d)</item>
+    </plurals>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">इस ईमेल से एक खाता पहले से मौजूद है।</string>
+    <string name="error_check_details">कृपया अपना विवरण जाँचें और पुनः प्रयास करें।</string>
+    <string name="error_too_many_attempts">बहुत अधिक प्रयास किए गए। कृपया बाद में पुनः प्रयास करें।</string>
+    <string name="error_account_creation_failed">खाता बनाने में विफलता हुई। कृपया पुनः प्रयास करें।</string>
+    <string name="error_network_connection">कनेक्ट नहीं हो सका। अपना इंटरनेट कनेक्शन जाँचें और पुनः प्रयास करें।</string>
+    <string name="check_internet_connection">कनेक्ट नहीं हो सका। अपना इंटरनेट कनेक्शन जाँचें और पुनः प्रयास करें।</string>
+
+</resources>

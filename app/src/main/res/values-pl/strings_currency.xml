@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Waluta</string>
+    <string name="choose_currency">Wybierz swoją walutę</string>
+    <string name="select_currency_subtext">Wybierz walutę dla tego konta.</string>
+    <string name="select_the_currency">Wybierz walutę</string>
+    <string name="search_currency">Wyszukaj walutę</string>
+    <string name="select_currency">Wybierz walutę</string>
+    <string name="add_currency">Dodaj walutę</string>
+    <string name="edit_currency">Edytuj walutę</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Kurs</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Brak dodatkowych walut</string>
+    <string name="empty_currency_hint">Dotknij przycisku +, aby dodać walutę.</string>
+    <string name="delete_currency">Usuń walutę</string>
+    <string name="delete_message_currency">Czy na pewno chcesz usunąć tę walutę?</string>
+    <string name="message_currency">Portfele korzystające z tej waluty zostaną przełączone na walutę bazową.</string>
+    <string name="currency_has_been_removed_successfully">Waluta została usunięta</string>
+    <string name="base_currency">Waluta bazowa</string>
+    <string name="additional_currency">Dodatkowe waluty</string>
+    <string name="currency_subtext">Wybierz walutę, której chcesz używać</string>
+    <string name="enter_the_rate">Wprowadź kurs</string>
+    <string name="default_base_currency">To Twoja domyślna waluta bazowa</string>
+    <string name="exchange_currency_hint">Kursy wymiany są podawane względem waluty bazowej (%1$s).\nMożesz aktualizować kursy dla każdej waluty.</string>
+</resources>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">収入</string>
+    <string name="total_income">収入合計</string>
+    <string name="expense">支出</string>
+    <string name="total_expense">支出合計</string>
+    <string name="transfer">振替</string>
+    <string name="recurring">定期取引</string>
+    <string name="trans_delete_failed">取引の削除に失敗しました</string>
+    <string name="fee">手数料</string>
+    <string name="memo">メモ</string>
+    <string name="notes">メモ</string>
+    <string name="add_note">メモを追加…</string>
+    <string name="description">説明</string>
+    <string name="short_description">簡単な説明</string>
+    <string name="enter_amount">金額を入力</string>
+    <string name="cash_wallet">現金ウォレット</string>
+    <string name="cash">現金</string>
+    <string name="enter_the_amount">金額を入力してください</string>
+    <string name="date">日付</string>
+    <string name="select_date">日付を選択</string>
+    <string name="amount">金額</string>
+    <string name="add_record">＋ボタンをタップして最初の取引を追加してください。</string>
+    <string name="type">種類</string>
+    <string name="view_all">すべて表示</string>
+    <string name="delete_transaction">取引を削除</string>
+    <string name="total">合計</string>
+    <string name="all_transaction">すべての取引</string>
+    <string name="no_transaction">取引はまだありません</string>
+    <string name="start_date">開始日</string>
+    <string name="end_date">終了日</string>
+    <string name="date_amp_time"><![CDATA[日付と時刻]]></string>
+    <string name="future">将来</string>
+    <string name="add_files">写真またはファイルを追加（最大5件）</string>
+    <string name="attachment_title">添付ファイル（%1$d/5）</string>
+    <string name="tap_add_attach">タップして添付ファイルを追加</string>
+    <string name="attachment_extension">画像、PDF、ドキュメント、Excel、ZIPなど</string>
+    <string name="add_more">さらに追加</string>
+    <string name="unable_to_open_attachment">添付ファイルを開けません</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">金額（振替元ウォレット）</string>
+    <string name="fee_from_wallet">手数料（振替元ウォレット）</string>
+    <string name="received_from_wallet">受取額（振替先ウォレット）</string>
+    <string name="transaction_action">取引の操作</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">取引の詳細を表示</string>
+    <string name="change_detail">取引の詳細を変更</string>
+    <string name="duplicate_copy">コピーを作成</string>
+    <string name="remove_transaction">取引を削除</string>
+    <string name="duplicate">複製</string>
+    <string name="duplicate_transaction">取引を複製</string>
+    <string name="duplicate_transaction_desc">この取引のコピーを作成しますか？</string>
+    <string name="transaction_duplicated">取引を複製しました</string>
+    <string name="transaction_deleted">取引を削除しました</string>
+    <string name="unable_to_save">保存できません</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">%d件の取引</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">添付ファイル（%d件）</item>
+    </plurals>
+</resources>

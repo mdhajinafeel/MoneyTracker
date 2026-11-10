@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Tambah Kategori</string>
+    <string name="edit_category">Edit Kategori</string>
+    <string name="category_created">Kategori berhasil dibuat</string>
+    <string name="category_updated">Kategori berhasil diperbarui</string>
+    <string name="category_deleted">Kategori berhasil dihapus</string>
+    <string name="category_moved">Kategori berhasil dipindahkan</string>
+    <string name="error_delete_category">Gagal menghapus kategori</string>
+    <string name="error_moved_category">Gagal memindahkan kategori</string>
+    <string name="category_bills">Tagihan &amp; Utilitas</string>
+    <string name="category_bonus">Bonus</string>
+    <string name="category_clothing">Pakaian</string>
+    <string name="category_dividend">Dividen</string>
+    <string name="category_education">Pendidikan</string>
+    <string name="category_entertainment">Hiburan</string>
+    <string name="category_fitness">Kebugaran</string>
+    <string name="category_food">Makanan</string>
+    <string name="category_grocery">Belanja Kebutuhan</string>
+    <string name="category_furniture">Rumah &amp; Perabotan</string>
+    <string name="category_gifts">Hadiah</string>
+    <string name="category_health_and_beauty">Kesehatan</string>
+    <string name="category_investment">Investasi</string>
+    <string name="category_lottery">Lotere</string>
+    <string name="category_others">Lainnya</string>
+    <string name="category_pet">Hewan Peliharaan</string>
+    <string name="category_salary">Gaji</string>
+    <string name="category_shopping">Belanja</string>
+    <string name="category_tips">Tip</string>
+    <string name="category_cashback">Hadiah</string>
+    <string name="category_transportation">Transportasi</string>
+    <string name="category_travel">Perjalanan</string>
+    <string name="adjustment">Penyesuaian</string>
+    <string name="loan">Pinjaman</string>
+    <string name="repay">Pembayaran Kembali</string>
+    <string name="debt">Utang</string>
+    <string name="collect">Penagihan Utang</string>
+    <string name="category_allowance">Tunjangan</string>
+    <string name="category_award">Penghargaan</string>
+    <string name="manage_category">Kategori</string>
+    <string name="empty_category">Belum Ada Kategori</string>
+    <string name="empty_category_hint">Ketuk tombol + untuk menambahkan kategori.</string>
+    <string name="select_category">Pilih Kategori</string>
+    <string name="category">Kategori</string>
+    <string name="category_name">Nama Kategori</string>
+    <string name="include_category_hint">Tampilkan kategori ini dalam laporan dan grafik</string>
+    <string name="status_active_hint">Kategori tersedia untuk digunakan</string>
+    <string name="status_inactive_hint">Kategori disembunyikan dan tidak akan muncul saat menambahkan transaksi.</string>
+    <string name="include_reports">Sertakan dalam Laporan</string>
+    <string name="delete_category_message">Apakah Anda yakin ingin menghapus kategori \'%1$s\'?</string>
+    <string name="delete_category">Hapus Kategori?</string>
+    <string name="no_transactions_found">Tidak ada transaksi ditemukan</string>
+    <string name="category_permanently_delete">Kategori ini dapat dihapus secara permanen.</string>
+    <string name="category_in_use">Kategori Sedang Digunakan</string>
+    <string name="move_delete">Pindahkan &amp; Hapus</string>
+    <string name="move_transaction_to">Pindahkan Transaksi Ke</string>
+    <string name="status">Status</string>
+    <string name="all_categories">Semua Kategori</string>
+    <string name="categories">Kategori</string>
+    <string name="category_transactions">Transaksi Kategori</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="other">Pindahkan %1$d transaksi dari &quot;%2$s&quot; ke kategori lain.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="other">&quot;%1$s&quot; digunakan oleh %2$d transaksi dan tidak dapat dihapus.\n\nAnda dapat menonaktifkan kategori ini melalui Edit Kategori.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="other">Semua %1$d transaksi dari &quot;%2$s&quot; akan dipindahkan ke &quot;%3$s&quot;.\n\n&quot;%4$s&quot; akan dihapus secara permanen.</item>
+    </plurals>
+</resources>

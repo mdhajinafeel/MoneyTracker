@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">గ్యాలరీ</string>
+    <string name="camera">కెమెరా</string>
+    <string name="select_source">మూలాన్ని ఎంచుకోండి</string>
+    <string name="file">ఫైల్</string>
+</resources>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_category">Přidat kategorii</string>
+    <string name="edit_category">Upravit kategorii</string>
+    <string name="category_created">Kategorie byla vytvořena</string>
+    <string name="category_updated">Kategorie byla aktualizována</string>
+    <string name="category_deleted">Kategorie byla odstraněna</string>
+    <string name="category_moved">Kategorie byla přesunuta</string>
+    <string name="error_delete_category">Při odstraňování kategorie došlo k chybě</string>
+    <string name="error_moved_category">Při přesouvání kategorie došlo k chybě</string>
+    <string name="category_bills">Účty a služby</string>
+    <string name="category_bonus">Bonus</string>
+    <string name="category_clothing">Oblečení</string>
+    <string name="category_dividend">Dividendy</string>
+    <string name="category_education">Vzdělávání</string>
+    <string name="category_entertainment">Zábava</string>
+    <string name="category_fitness">Fitness</string>
+    <string name="category_food">Jídlo</string>
+    <string name="category_grocery">Potraviny</string>
+    <string name="category_furniture">Domácnost a nábytek</string>
+    <string name="category_gifts">Dárky</string>
+    <string name="category_health_and_beauty">Zdraví</string>
+    <string name="category_investment">Investice</string>
+    <string name="category_lottery">Loterie</string>
+    <string name="category_others">Ostatní</string>
+    <string name="category_pet">Domácí mazlíčci</string>
+    <string name="category_salary">Plat</string>
+    <string name="category_shopping">Nakupování</string>
+    <string name="category_tips">Spropitné</string>
+    <string name="category_cashback">Odměny</string>
+    <string name="category_transportation">Doprava</string>
+    <string name="category_travel">Cestování</string>
+    <string name="adjustment">Úprava</string>
+    <string name="loan">Půjčka</string>
+    <string name="repay">Splátka</string>
+    <string name="debt">Dluh</string>
+    <string name="collect">Vymáhání dluhu</string>
+    <string name="category_allowance">Kapesné</string>
+    <string name="category_award">Ocenění</string>
+    <string name="manage_category">Kategorie</string>
+    <string name="empty_category">Žádné kategorie</string>
+    <string name="empty_category_hint">Klepnutím na tlačítko + přidejte kategorie.</string>
+    <string name="select_category">Vybrat kategorii</string>
+    <string name="category">Kategorie</string>
+    <string name="category_name">Název kategorie</string>
+    <string name="include_category_hint">Zobrazit tuto kategorii v přehledech a grafech</string>
+    <string name="status_active_hint">Kategorie je k dispozici k použití</string>
+    <string name="status_inactive_hint">Kategorie je skrytá a při přidávání transakcí se nebude zobrazovat.</string>
+    <string name="include_reports">Zahrnout do přehledů</string>
+    <string name="delete_category_message">Opravdu chcete odstranit kategorii „%1$s“?</string>
+    <string name="delete_category">Odstranit kategorii?</string>
+    <string name="no_transactions_found">Nebyly nalezeny žádné transakce</string>
+    <string name="category_permanently_delete">Tuto kategorii lze trvale odstranit.</string>
+    <string name="category_in_use">Kategorie se používá</string>
+    <string name="move_delete">Přesunout a odstranit</string>
+    <string name="move_transaction_to">Přesunout transakci do</string>
+    <string name="status">Stav</string>
+    <string name="all_categories">Všechny kategorie</string>
+    <string name="categories">Kategorie</string>
+    <string name="category_transactions">Transakce kategorie</string>
+
+    <plurals name="selected_category_desc">
+        <item quantity="one">Přesunout %1$d transakci z kategorie „%2$s“ do jiné kategorie.</item>
+        <item quantity="few">Přesunout %1$d transakce z kategorie „%2$s“ do jiné kategorie.</item>
+        <item quantity="many">Přesunout %1$d transakcí z kategorie „%2$s“ do jiné kategorie.</item>
+        <item quantity="other">Přesunout %1$d transakce z kategorie „%2$s“ do jiné kategorie.</item>
+    </plurals>
+
+    <plurals name="category_in_use_message">
+        <item quantity="one">Kategorie „%1$s“ se používá v 1 transakci a nelze ji odstranit.\n\nTuto kategorii můžete deaktivovat v části Upravit kategorii.</item>
+        <item quantity="few">Kategorie „%1$s“ se používá v %2$d transakcích a nelze ji odstranit.\n\nTuto kategorii můžete deaktivovat v části Upravit kategorii.</item>
+        <item quantity="many">Kategorie „%1$s“ se používá v %2$d transakcích a nelze ji odstranit.\n\nTuto kategorii můžete deaktivovat v části Upravit kategorii.</item>
+        <item quantity="other">Kategorie „%1$s“ se používá v %2$d transakcích a nelze ji odstranit.\n\nTuto kategorii můžete deaktivovat v části Upravit kategorii.</item>
+    </plurals>
+
+    <plurals name="move_category_desc">
+        <item quantity="one">Transakce z kategorie „%2$s“ bude přesunuta do kategorie „%3$s“.\n\nKategorie „%4$s“ bude trvale odstraněna.</item>
+        <item quantity="few">Všechny %1$d transakce z kategorie „%2$s“ budou přesunuty do kategorie „%3$s“.\n\nKategorie „%4$s“ bude trvale odstraněna.</item>
+        <item quantity="many">Všech %1$d transakcí z kategorie „%2$s“ bude přesunuto do kategorie „%3$s“.\n\nKategorie „%4$s“ bude trvale odstraněna.</item>
+        <item quantity="other">Všech %1$d transakcí z kategorie „%2$s“ bude přesunuto do kategorie „%3$s“.\n\nKategorie „%4$s“ bude trvale odstraněna.</item>
+    </plurals>
+</resources>

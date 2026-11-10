@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Τα χρήματά σας, υπό τον έλεγχό σας</string>
+    <string name="walkthrough_1_desc">Παρακολουθήστε κάθε έξοδο, ελέγξτε τον προϋπολογισμό σας και κατανοήστε πού πηγαίνουν τα χρήματά σας.</string>
+    <string name="walkthrough_2_title">Διαχειριστείτε κάθε πορτοφόλι</string>
+    <string name="walkthrough_2_desc">Συγκεντρώστε μετρητά, τραπεζικούς λογαριασμούς, κάρτες και ψηφιακά πορτοφόλια σε ένα ασφαλές μέρος.</string>
+    <string name="walkthrough_3_title">Καταγράψτε έξοδα άμεσα</string>
+    <string name="walkthrough_3_desc">Προσθέστε συναλλαγές με κατηγορίες, σημειώσεις και συνημμένα με λίγα μόνο αγγίγματα.</string>
+    <string name="walkthrough_4_title"><![CDATA[Έξυπνες αναφορές & Αναλύσεις]]></string>
+    <string name="walkthrough_4_desc">Απεικονίστε τις δαπάνες σας με ισχυρά γραφήματα και εξατομικευμένες οικονομικές πληροφορίες.</string>
+    <string name="walkthrough_5_title">Μείνετε μπροστά με υπενθυμίσεις</string>
+    <string name="walkthrough_5_desc">Παρακολουθήστε τους λογαριασμούς, τις συνδρομές και τις επαναλαμβανόμενες πληρωμές σας με έξυπνες υπενθυμίσεις.</string>
+    <string name="walkthrough_6_title">Πετύχετε τους οικονομικούς σας στόχους</string>
+    <string name="walkthrough_6_desc">Αποκτήστε καλύτερες οικονομικές συνήθειες, αποταμιεύστε περισσότερα και ενισχύστε καθημερινά την οικονομική σας αυτοπεποίθηση.</string>
+</resources>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="track_recurring_transactions">Acompanhe transações recorrentes</string>
+    <string name="select_recurring">Selecionar recorrência</string>
+    <string name="repeat_on">Repetir em</string>
+    <string name="select_repeat_on">Selecionar dias de repetição</string>
+    <string name="create_transaction">Criar transação</string>
+    <string name="never_miss_recurring_transaction">Nunca perca uma transação recorrente</string>
+    <string name="income_recurring">Receita recorrente</string>
+    <string name="expense_recurring">Despesa recorrente</string>
+    <string name="transfer_recurring">Transferência recorrente</string>
+    <string name="no_repeat">Sem repetição</string>
+    <string name="repeat_option">Opção de repetição</string>
+    <string name="select_days">Selecionar dias</string>
+    <string name="please_select_at_least_one_day">Selecione pelo menos um dia</string>
+    <string name="times">vezes</string>
+    <string name="every">A cada</string>
+    <string name="forever">Para sempre</string>
+    <string name="until">Até</string>
+    <string name="text_for">Por</string>
+    <string name="text_every_value">"A cada %1$s • %2$s"</string>
+    <string name="text_every_value1">"A cada %1$s"</string>
+    <string name="same_day_each_month">Mesmo dia de cada mês (%1$d)</string>
+    <string name="end_of_month">Último dia do mês</string>
+    <string name="recurring_transaction_saved">Transação recorrente salva</string>
+    <string name="failed_to_save_recurring_transaction">Falha ao salvar a transação recorrente</string>
+    <string name="no_recurring_yet">Nenhuma transação recorrente cadastrada</string>
+    <string name="empty_recurring_hint">Toque no botão + para adicionar uma recorrência.</string>
+    <string name="repeat_interval_atleast">O intervalo de repetição deve ser de pelo menos 1</string>
+    <string name="please_select_until_date">Selecione uma data de término</string>
+    <string name="please_enter_times">Informe o número de repetições</string>
+    <string name="please_enter_an_amount">Informe um valor</string>
+    <string name="please_select_a_wallet">Selecione uma carteira</string>
+    <string name="please_select_a_repeat_frequency">Selecione uma frequência de repetição</string>
+    <string name="until_date_start_date">A data de término deve ser posterior à data de início</string>
+    <string name="select_recurring_transaction_end">Selecione quando a transação recorrente deverá terminar</string>
+    <string name="every_week_period">A cada %1$s</string>
+    <string name="next_recurring">Próxima: %1$s</string>
+    <string name="next_recurring_text">Próxima recorrência</string>
+    <string name="recurring_transaction_added">Transação recorrente adicionada</string>
+    <string name="recurring_transactions_added">Transações recorrentes adicionadas</string>
+    <string name="a_recurring_expense_was_added">Uma despesa recorrente foi adicionada</string>
+    <string name="a_recurring_income_was_added">Uma receita recorrente foi adicionada</string>
+    <string name="a_recurring_transaction_was_added">Uma transação recorrente foi adicionada</string>
+    <string name="recurring_transactions_were_added">" transações recorrentes foram adicionadas"</string>
+    <string name="activate">Ativar</string>
+    <string name="text_deactivated">Desativada</string>
+    <string name="deactivate">Desativar</string>
+    <string name="change_recurring_detail">Alterar detalhes da recorrência</string>
+    <string name="resume_this_recurring_transaction">Retomar esta transação</string>
+    <string name="pause_this_recurring_transaction">Pausar esta transação</string>
+    <string name="permanently_remove_this_recurring_transaction">Remover esta transação permanentemente</string>
+    <string name="view_recurring_details">Ver detalhes da recorrência</string>
+    <string name="delete_recurring">Excluir recorrência</string>
+    <string name="delete_recurring_message">Tem certeza de que deseja excluir esta recorrência?</string>
+    <string name="recurring_deleted_successfully">Recorrência excluída</string>
+    <string name="error_delete_recurring">Erro ao excluir a recorrência</string>
+    <string name="activate_recurring">Ativar recorrência</string>
+    <string name="deactivate_recurring">Desativar recorrência</string>
+    <string name="delete_activate_message">Tem certeza de que deseja ativar esta recorrência?</string>
+    <string name="delete_deactivate_message">Tem certeza de que deseja desativar esta recorrência?</string>
+    <string name="delete_activate_sub_message">Você pode desativá-la a qualquer momento na seção de recorrências ativas.</string>
+    <string name="delete_deactivate_sub_message">Você pode ativá-la a qualquer momento na seção de recorrências pausadas.</string>
+    <string name="deactivated_successfully">Recorrência desativada</string>
+    <string name="error_deactivate">Erro ao desativar a recorrência</string>
+    <string name="activated_successfully">Recorrência ativada</string>
+    <string name="error_activate">Erro ao ativar a recorrência</string>
+    <string name="repeat_time">Horário da repetição</string>
+    <string name="recurring_detail">Detalhes da recorrência</string>
+    <string name="until_date">Até %1$s</string>
+    <string name="recurring_transaction_reminder">Lembrete de transação recorrente</string>
+    <string name="recurring_expense_due">Sua despesa recorrente está próxima do vencimento.</string>
+    <string name="recurring_income_due">Sua receita recorrente está prevista para hoje.</string>
+    <string name="recurring_transfer_due">Sua transferência recorrente está prevista para hoje.</string>
+
+    <plurals name="day_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">dia</item>
+        <item quantity="many">dias</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">A cada %d dia</item>
+        <item quantity="many">A cada %d dias</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d dia</item>
+        <item quantity="many">%d dias</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">semana</item>
+        <item quantity="many">semanas</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d semana</item>
+        <item quantity="many">%d semanas</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">A cada %d mês</item>
+        <item quantity="many">A cada %d meses</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">mês</item>
+        <item quantity="many">meses</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">ano</item>
+        <item quantity="many">anos</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">A cada %d ano</item>
+        <item quantity="many">A cada %d anos</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one" tools:ignore="ImpliedQuantity">vez</item>
+        <item quantity="many">vezes</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Por %d vez</item>
+        <item quantity="many">Por %d vezes</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">A cada %d mês • Último dia</item>
+        <item quantity="many">A cada %d meses • Último dia</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">A cada %d mês • Dia %d</item>
+        <item quantity="many">A cada %d meses • Dia %d</item>
+    </plurals>
+</resources>

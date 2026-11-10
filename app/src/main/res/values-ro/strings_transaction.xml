@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Venit</string>
+    <string name="total_income">Venit total</string>
+    <string name="expense">Cheltuială</string>
+    <string name="total_expense">Cheltuieli totale</string>
+    <string name="transfer">Transfer</string>
+    <string name="recurring">Recurent</string>
+    <string name="trans_delete_failed">Ștergerea tranzacției a eșuat</string>
+    <string name="fee">Comision</string>
+    <string name="memo">Notă</string>
+    <string name="notes">Note</string>
+    <string name="add_note">Adaugă o notă…</string>
+    <string name="description">Descriere</string>
+    <string name="short_description">Descriere scurtă</string>
+    <string name="enter_amount">Introdu suma</string>
+    <string name="cash_wallet">Portofel numerar</string>
+    <string name="cash">Numerar</string>
+    <string name="enter_the_amount">Introdu suma</string>
+    <string name="date">Dată</string>
+    <string name="select_date">Selectează data</string>
+    <string name="amount">Sumă</string>
+    <string name="add_record">Apasă butonul + pentru a adăuga prima ta tranzacție.</string>
+    <string name="type">Tip</string>
+    <string name="view_all">Vezi toate</string>
+    <string name="delete_transaction">Șterge tranzacția</string>
+    <string name="total">Total</string>
+    <string name="all_transaction">Toate tranzacțiile</string>
+    <string name="no_transaction">Nu există încă tranzacții</string>
+    <string name="start_date">Data de început</string>
+    <string name="end_date">Data de încheiere</string>
+    <string name="date_amp_time"><![CDATA[Dată și oră]]></string>
+    <string name="future">Viitor</string>
+    <string name="add_files">Adaugă fotografii sau fișiere (maximum 5 fișiere)</string>
+    <string name="attachment_title">Atașamente (%1$d/5)</string>
+    <string name="tap_add_attach">Atinge pentru a adăuga un atașament</string>
+    <string name="attachment_extension">Imagini, PDF, documente, Excel, ZIP etc.</string>
+    <string name="add_more">Adaugă mai multe</string>
+    <string name="unable_to_open_attachment">Atașamentul nu poate fi deschis</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Sumă (din portofel)</string>
+    <string name="fee_from_wallet">Comision (din portofel)</string>
+    <string name="received_from_wallet">Primit (în portofel)</string>
+    <string name="transaction_action">Acțiuni pentru tranzacție</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Vezi detaliile tranzacției</string>
+    <string name="change_detail">Modifică detaliile tranzacției</string>
+    <string name="duplicate_copy">Creează o copie</string>
+    <string name="remove_transaction">Elimină tranzacția</string>
+    <string name="duplicate">Duplică</string>
+    <string name="duplicate_transaction">Duplică tranzacția</string>
+    <string name="duplicate_transaction_desc">Dorești să creezi o copie a acestei tranzacții?</string>
+    <string name="transaction_duplicated">Tranzacție duplicată</string>
+    <string name="transaction_deleted">Tranzacție ștearsă</string>
+    <string name="unable_to_save">Salvarea nu a reușit</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d tranzacție</item>
+        <item quantity="few">%d tranzacții</item>
+        <item quantity="other">%d de tranzacții</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Atașament (%d)</item>
+        <item quantity="few">Atașamente (%d)</item>
+        <item quantity="other">Atașamente (%d)</item>
+    </plurals>
+</resources>

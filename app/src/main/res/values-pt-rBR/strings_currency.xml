@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Moeda</string>
+    <string name="choose_currency">Escolha sua moeda</string>
+    <string name="select_currency_subtext">Selecione a moeda desta conta.</string>
+    <string name="select_the_currency">Selecione a moeda</string>
+    <string name="search_currency">Pesquisar moeda</string>
+    <string name="select_currency">Selecionar moeda</string>
+    <string name="add_currency">Adicionar moeda</string>
+    <string name="edit_currency">Editar moeda</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Taxa</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Nenhuma moeda adicional</string>
+    <string name="empty_currency_hint">Toque no botão + para adicionar uma moeda.</string>
+    <string name="delete_currency">Remover moeda</string>
+    <string name="delete_message_currency">Tem certeza de que deseja remover esta moeda?</string>
+    <string name="message_currency">As carteiras que usam esta moeda serão alteradas para a moeda base.</string>
+    <string name="currency_has_been_removed_successfully">Moeda removida</string>
+    <string name="base_currency">Moeda base</string>
+    <string name="additional_currency">Moedas adicionais</string>
+    <string name="currency_subtext">Escolha a moeda que deseja usar</string>
+    <string name="enter_the_rate">Informe a taxa</string>
+    <string name="default_base_currency">Esta é sua moeda padrão/base</string>
+    <string name="exchange_currency_hint">As taxas de câmbio são calculadas com base na sua moeda base (%1$s).\nVocê pode atualizar as taxas de cada moeda.</string>
+</resources>

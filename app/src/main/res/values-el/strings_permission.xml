@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Δεν επιτρέπεται η πρόσβαση στην κάμερα</string>
+    <string name="camera_permission_required">Απαιτείται άδεια κάμερας</string>
+    <string name="camera_access_required">Απαιτείται πρόσβαση στην κάμερα για τη λήψη φωτογραφιών ως συνημμένων εξόδων.</string>
+    <string name="allow">Να επιτρέπεται</string>
+    <string name="permission_required">Απαιτείται άδεια</string>
+    <string name="camera_permission_disabled">Η άδεια πρόσβασης στην κάμερα είναι απενεργοποιημένη. Ενεργοποιήστε την από τις Ρυθμίσεις εφαρμογής.</string>
+    <string name="open_settings">Άνοιγμα ρυθμίσεων</string>
+    <string name="cancel_subscription_desc">Ακυρώστε τη συνδρομή σας οποιαδήποτε στιγμή μέσω του Google Play</string>
+</resources>

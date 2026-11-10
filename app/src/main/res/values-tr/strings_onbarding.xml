@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Paranızı Kontrol Altına Alın</string>
+    <string name="walkthrough_1_desc">Her harcamanızı takip edin, bütçenizi yönetin ve paranızın nereye gittiğini anlayın.</string>
+    <string name="walkthrough_2_title">Tüm Cüzdanlarınızı Yönetin</string>
+    <string name="walkthrough_2_desc">Nakit paranızı, banka hesaplarınızı, kartlarınızı ve dijital cüzdanlarınızı tek bir güvenli yerde toplayın.</string>
+    <string name="walkthrough_3_title">Harcamalarınızı Anında Kaydedin</string>
+    <string name="walkthrough_3_desc">Birkaç dokunuşla kategoriler, notlar ve ekler içeren işlemler ekleyin.</string>
+    <string name="walkthrough_4_title"><![CDATA[Akıllı Raporlar ve Analizler]]></string>
+    <string name="walkthrough_4_desc">Güçlü grafikler ve kişiselleştirilmiş finansal analizlerle harcamalarınızı görselleştirin.</string>
+    <string name="walkthrough_5_title">Hatırlatmalarla Her Zaman Hazırlıklı Olun</string>
+    <string name="walkthrough_5_desc">Akıllı hatırlatmalarla faturalarınızı, aboneliklerinizi ve düzenli ödemelerinizi takip edin.</string>
+    <string name="walkthrough_6_title">Finansal Hedeflerinize Ulaşın</string>
+    <string name="walkthrough_6_desc">Her gün daha iyi para yönetimi alışkanlıkları edinin, daha fazla biriktirin ve finansal özgüveninizi artırın.</string>
+</resources>

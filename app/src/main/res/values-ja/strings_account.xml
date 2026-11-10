@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">口座</string>
+    <string name="add_account">口座を追加</string>
+    <string name="edit_account">口座を編集</string>
+    <string name="account_heading">この口座の名前を入力してください</string>
+    <string name="choose_name">この口座を簡単に識別できる名前を付けてください。</string>
+    <string name="account_name">口座名</string>
+    <string name="create_account">口座を作成</string>
+    <string name="select_account">口座を選択</string>
+    <string name="initial_balance">初期残高を入力</string>
+    <string name="opening_balance_subtext">この口座の開始残高を入力してください。</string>
+    <string name="initial_amount">初期残高</string>
+    <string name="initial">初期</string>
+    <string name="account_balance_format">残高：%1$s</string>
+    <string name="manage_account_desc">銀行口座、カードなどを一か所で管理できます。</string>
+    <string name="your_accounts">あなたの口座</string>
+    <string name="all_accounts">すべての口座</string>
+    <string name="add_new_account">新しい口座を追加</string>
+    <string name="add_account_desc">銀行口座、クレジットカード、その他の口座を追加します</string>
+    <string name="archived_accounts">アーカイブ済みの口座</string>
+    <string name="archived_accounts_desc">アーカイブ済みの口座を表示して復元します</string>
+    <string name="account_created">口座を作成しました</string>
+    <string name="account_updated">口座を更新しました</string>
+    <string name="currency_edit_account">口座の編集中は通貨を変更できません。</string>
+    <string name="account_action">口座の操作</string>
+    <string name="update_account_detail">口座情報を更新</string>
+    <string name="use_as_your_default_account">デフォルトの口座として使用</string>
+    <string name="see_account_detail">口座の詳細を表示</string>
+    <string name="hide_from_active_accounts">有効な口座から非表示にする</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[すべてのウォレットと取引を削除]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[ウォレットと取引を削除]]></string>
+    <string name="remove_account">口座を削除</string>
+    <string name="account_set_as_default">デフォルトの口座に設定しました</string>
+    <string name="archive_account">口座をアーカイブしますか？</string>
+    <string name="account_archived">口座をアーカイブしました</string>
+    <string name="delete_account_message">この操作により、口座とそのすべてのウォレットおよび取引が完全に削除されます。この操作は取り消せません。</string>
+    <string name="delete_account">口座を削除</string>
+    <string name="account_deleted">口座を削除しました</string>
+    <string name="error_delete_account">口座の削除中にエラーが発生しました</string>
+    <string name="opening_balance_editing_account">口座の編集中は開始残高を変更できません。</string>
+    <string name="cannot_change_initial_amount">既存の取引があるため、初期金額を変更できません。</string>
+    <string name="archive_account_message">この口座は有効な口座の一覧から非表示になります。残高と取引データは保持されます。</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[口座のウォレットと取引を削除しますか？]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[この口座のすべてのウォレットと取引が削除されます。この操作は取り消せません。]]></string>
+    <string name="error_delete_account_trans">口座の取引の削除中にエラーが発生しました</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[口座のウォレットと取引を削除しました]]></string>
+    <string name="transactions">取引</string>
+    <string name="view_all_transactions">すべての取引を表示</string>
+    <string name="view_all_recurring_transactions">すべての定期取引を表示</string>
+    <string name="recurring_transactions">定期取引</string>
+    <string name="account_details">口座の詳細</string>
+    <string name="archived_account_desc">これらの口座はアーカイブされ、有効な口座の一覧から非表示になっています。すべてのウォレットと取引データは保持され、いつでも復元できます。</string>
+    <string name="restore_account">口座を復元しますか？</string>
+    <string name="account_restore">口座を復元しました</string>
+    <string name="restore_account_message">この口座は有効な口座の一覧に戻ります。残高と取引データは変更されません。</string>
+    <string name="restore_your_account">口座を復元</string>
+    <string name="account_transactions">口座の取引</string>
+
+    <plurals name="account_count">
+        <item quantity="other">%d 件の口座</item>
+    </plurals>
+</resources>

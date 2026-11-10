@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">货币</string>
+    <string name="choose_currency">选择你的货币</string>
+    <string name="select_currency_subtext">为此账户选择货币。</string>
+    <string name="select_the_currency">选择货币</string>
+    <string name="search_currency">搜索货币</string>
+    <string name="select_currency">选择货币</string>
+    <string name="add_currency">添加货币</string>
+    <string name="edit_currency">编辑货币</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">汇率</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">没有其他货币</string>
+    <string name="empty_currency_hint">点击 + 按钮添加货币。</string>
+    <string name="delete_currency">移除货币</string>
+    <string name="delete_message_currency">确定要移除此货币吗？</string>
+    <string name="message_currency">使用此货币的钱包将被更改为基础货币。</string>
+    <string name="currency_has_been_removed_successfully">货币已移除</string>
+    <string name="base_currency">基础货币</string>
+    <string name="additional_currency">其他货币</string>
+    <string name="currency_subtext">选择你要使用的货币</string>
+    <string name="enter_the_rate">输入汇率</string>
+    <string name="default_base_currency">这是你的默认基础货币</string>
+    <string name="exchange_currency_hint">汇率以你的基础货币 (%1$s) 为基准。\n你可以分别更新每种货币的汇率。</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">毎日</string>
+    <string name="calendar_weekly">毎週</string>
+    <string name="calendar_monthly">毎月</string>
+    <string name="calendar_quarterly">四半期ごと</string>
+    <string name="calendar_yearly">毎年</string>
+    <string name="calendar_all">すべて</string>
+    <string name="calendar_custom">カスタム</string>
+
+    <string name="total_balance">合計残高</string>
+    <string name="balance">残高</string>
+    <string name="opening_balance">開始残高</string>
+    <string name="ending_balance">終了残高</string>
+    <string name="overview">概要</string>
+    <string name="breakdown">内訳</string>
+    <string name="transaction_overview">取引の概要</string>
+    <string name="select_range">期間を選択</string>
+    <string name="all_time">全期間</string>
+    <string name="period_spending">期間中の支出</string>
+</resources>

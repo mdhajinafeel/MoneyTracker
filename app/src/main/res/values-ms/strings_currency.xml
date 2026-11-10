@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Mata Wang</string>
+    <string name="choose_currency">Pilih mata wang anda</string>
+    <string name="select_currency_subtext">Pilih mata wang untuk akaun ini.</string>
+    <string name="select_the_currency">Pilih mata wang</string>
+    <string name="search_currency">Cari Mata Wang</string>
+    <string name="select_currency">Pilih Mata Wang</string>
+    <string name="add_currency">Tambah Mata Wang</string>
+    <string name="edit_currency">Edit Mata Wang</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Kadar</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Tiada mata wang tambahan</string>
+    <string name="empty_currency_hint">Ketik butang + untuk menambah mata wang.</string>
+    <string name="delete_currency">Buang Mata Wang</string>
+    <string name="delete_message_currency">Adakah anda pasti mahu membuang mata wang ini?</string>
+    <string name="message_currency">Dompet yang menggunakan mata wang ini akan ditukar kepada mata wang asas.</string>
+    <string name="currency_has_been_removed_successfully">Mata wang telah dibuang</string>
+    <string name="base_currency">Mata Wang Asas</string>
+    <string name="additional_currency">Mata Wang Tambahan</string>
+    <string name="currency_subtext">Pilih mata wang yang ingin anda gunakan</string>
+    <string name="enter_the_rate">Masukkan kadar</string>
+    <string name="default_base_currency">Ini ialah mata wang lalai/asas anda</string>
+    <string name="exchange_currency_hint">Kadar pertukaran adalah berdasarkan mata wang asas anda (%1$s).\nAnda boleh mengemas kini kadar bagi setiap mata wang.</string>
+</resources>

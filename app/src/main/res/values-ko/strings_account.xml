@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">계정</string>
+    <string name="add_account">계정 추가</string>
+    <string name="edit_account">계정 수정</string>
+    <string name="account_heading">이 계정의 이름을 무엇으로 지정할까요?</string>
+    <string name="choose_name">계정을 쉽게 식별할 수 있는 이름을 선택하세요.</string>
+    <string name="account_name">계정 이름</string>
+    <string name="create_account">계정 만들기</string>
+    <string name="select_account">계정 선택</string>
+    <string name="initial_balance">초기 잔액 입력</string>
+    <string name="opening_balance_subtext">이 계정의 시작 잔액을 입력하세요.</string>
+    <string name="initial_amount">초기 잔액</string>
+    <string name="initial">초기</string>
+    <string name="account_balance_format">잔액 : %1$s</string>
+    <string name="manage_account_desc">모든 은행 계좌, 카드 등을 한곳에서 관리하세요.</string>
+    <string name="your_accounts">내 계정</string>
+    <string name="all_accounts">모든 계정</string>
+    <string name="add_new_account">새 계정 추가</string>
+    <string name="add_account_desc">은행 계좌, 신용카드 또는 기타 계정을 추가하세요.</string>
+    <string name="archived_accounts">보관된 계정</string>
+    <string name="archived_accounts_desc">보관된 계정을 확인하고 복원하세요.</string>
+    <string name="account_created">계정이 생성되었습니다</string>
+    <string name="account_updated">계정이 업데이트되었습니다</string>
+    <string name="currency_edit_account">계정을 수정하는 동안에는 통화를 변경할 수 없습니다.</string>
+    <string name="account_action">계정 작업</string>
+    <string name="update_account_detail">계정 정보 업데이트</string>
+    <string name="use_as_your_default_account">기본 계정으로 사용</string>
+    <string name="see_account_detail">계정 정보 보기</string>
+    <string name="hide_from_active_accounts">활성 계정에서 숨기기</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[모든 지갑 및 거래 삭제]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[지갑 및 거래 삭제]]></string>
+    <string name="remove_account">계정 삭제</string>
+    <string name="account_set_as_default">계정이 기본 계정으로 설정되었습니다</string>
+    <string name="archive_account">계정을 보관하시겠습니까?</string>
+    <string name="account_archived">계정이 보관되었습니다</string>
+    <string name="delete_account_message">계정과 해당 계정의 모든 지갑 및 거래가 영구적으로 삭제됩니다. 이 작업은 취소할 수 없습니다.</string>
+    <string name="delete_account">계정 삭제</string>
+    <string name="account_deleted">계정이 삭제되었습니다</string>
+    <string name="error_delete_account">계정을 삭제하는 중 오류가 발생했습니다</string>
+    <string name="opening_balance_editing_account">계정을 수정하는 동안에는 시작 잔액을 변경할 수 없습니다.</string>
+    <string name="cannot_change_initial_amount">기존 거래가 있어 초기 금액을 변경할 수 없습니다.</string>
+    <string name="archive_account_message">이 계정은 활성 계정 목록에서 숨겨집니다. 잔액과 거래 내역은 보존됩니다.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[계정의 지갑 및 거래를 삭제하시겠습니까?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[이 계정의 모든 지갑 및 거래가 삭제됩니다. 이 작업은 취소할 수 없습니다.]]></string>
+    <string name="error_delete_account_trans">계정 거래를 삭제하는 중 오류가 발생했습니다</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[계정의 지갑 및 거래가 삭제되었습니다]]></string>
+    <string name="transactions">거래</string>
+    <string name="view_all_transactions">모든 거래 보기</string>
+    <string name="view_all_recurring_transactions">모든 정기 거래 보기</string>
+    <string name="recurring_transactions">정기 거래</string>
+    <string name="account_details">계정 세부정보</string>
+    <string name="archived_account_desc">이 계정은 보관되어 활성 계정 목록에서 숨겨져 있습니다. 모든 지갑과 거래 데이터는 보존되며 언제든지 복원할 수 있습니다.</string>
+    <string name="restore_account">계정을 복원하시겠습니까?</string>
+    <string name="account_restore">계정이 복원되었습니다</string>
+    <string name="restore_account_message">이 계정이 활성 계정 목록으로 이동됩니다. 잔액과 거래 내역은 변경되지 않습니다.</string>
+    <string name="restore_your_account">계정 복원</string>
+    <string name="account_transactions">계정 거래</string>
+
+    <plurals name="account_count">
+        <item quantity="other">계정 %d개</item>
+    </plurals>
+</resources>

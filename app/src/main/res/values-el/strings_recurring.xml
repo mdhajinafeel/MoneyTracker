@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Παρακολούθηση επαναλαμβανόμενων συναλλαγών</string>
+    <string name="select_recurring">Επιλογή επανάληψης</string>
+    <string name="repeat_on">Επανάληψη στις</string>
+    <string name="select_repeat_on">Επιλέξτε ημέρες επανάληψης</string>
+    <string name="create_transaction">Δημιουργία συναλλαγής</string>
+    <string name="never_miss_recurring_transaction">Μην παραλείπετε ποτέ μια επαναλαμβανόμενη συναλλαγή</string>
+    <string name="income_recurring">Επαναλαμβανόμενα έσοδα</string>
+    <string name="expense_recurring">Επαναλαμβανόμενα έξοδα</string>
+    <string name="transfer_recurring">Επαναλαμβανόμενες μεταφορές</string>
+    <string name="no_repeat">Χωρίς επανάληψη</string>
+    <string name="repeat_option">Επιλογή επανάληψης</string>
+    <string name="select_days">Επιλογή ημερών</string>
+    <string name="please_select_at_least_one_day">Επιλέξτε τουλάχιστον μία ημέρα</string>
+    <string name="times">φορές</string>
+    <string name="every">Κάθε</string>
+    <string name="forever">Για πάντα</string>
+    <string name="until">Έως</string>
+    <string name="text_for">Για</string>
+    <string name="text_every_value">"Κάθε %1$s • %2$s"</string>
+    <string name="text_every_value1">"Κάθε %1$s"</string>
+    <string name="same_day_each_month">Την ίδια ημέρα κάθε μήνα (%1$d)</string>
+    <string name="end_of_month">Τέλος του μήνα</string>
+    <string name="recurring_transaction_saved">Η επαναλαμβανόμενη συναλλαγή αποθηκεύτηκε</string>
+    <string name="failed_to_save_recurring_transaction">Αποτυχία αποθήκευσης επαναλαμβανόμενης συναλλαγής</string>
+    <string name="no_recurring_yet">Δεν υπάρχουν ακόμη επαναλαμβανόμενες συναλλαγές</string>
+    <string name="empty_recurring_hint">Πατήστε το κουμπί + για να προσθέσετε επαναλαμβανόμενη συναλλαγή.</string>
+    <string name="repeat_interval_atleast">Το διάστημα επανάληψης πρέπει να είναι τουλάχιστον 1</string>
+    <string name="please_select_until_date">Επιλέξτε ημερομηνία λήξης</string>
+    <string name="please_enter_times">Εισαγάγετε τον αριθμό των επαναλήψεων</string>
+    <string name="please_enter_an_amount">Εισαγάγετε ένα ποσό</string>
+    <string name="please_select_a_wallet">Επιλέξτε ένα πορτοφόλι</string>
+    <string name="please_select_a_repeat_frequency">Επιλέξτε συχνότητα επανάληψης</string>
+    <string name="until_date_start_date">Η ημερομηνία λήξης πρέπει να είναι μεταγενέστερη της ημερομηνίας έναρξης</string>
+    <string name="select_recurring_transaction_end">Επιλέξτε πότε θα λήξει η επαναλαμβανόμενη συναλλαγή</string>
+    <string name="every_week_period">Κάθε %1$s</string>
+    <string name="next_recurring">Επόμενη: %1$s</string>
+    <string name="next_recurring_text">Επόμενη επανάληψη</string>
+    <string name="recurring_transaction_added">Η επαναλαμβανόμενη συναλλαγή προστέθηκε</string>
+    <string name="recurring_transactions_added">Οι επαναλαμβανόμενες συναλλαγές προστέθηκαν</string>
+    <string name="a_recurring_expense_was_added">Προστέθηκε ένα επαναλαμβανόμενο έξοδο</string>
+    <string name="a_recurring_income_was_added">Προστέθηκε ένα επαναλαμβανόμενο έσοδο</string>
+    <string name="a_recurring_transaction_was_added">Προστέθηκε μια επαναλαμβανόμενη συναλλαγή</string>
+    <string name="recurring_transactions_were_added">" επαναλαμβανόμενες συναλλαγές προστέθηκαν"</string>
+    <string name="activate">Ενεργοποίηση</string>
+    <string name="text_deactivated">Απενεργοποιημένο</string>
+    <string name="deactivate">Απενεργοποίηση</string>
+    <string name="change_recurring_detail">Αλλαγή στοιχείων επανάληψης</string>
+    <string name="resume_this_recurring_transaction">Συνέχιση αυτής της συναλλαγής</string>
+    <string name="pause_this_recurring_transaction">Παύση αυτής της συναλλαγής</string>
+    <string name="permanently_remove_this_recurring_transaction">Οριστική αφαίρεση αυτής της συναλλαγής</string>
+    <string name="view_recurring_details">Προβολή στοιχείων επανάληψης</string>
+    <string name="delete_recurring">Διαγραφή επανάληψης</string>
+    <string name="delete_recurring_message">Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την επαναλαμβανόμενη συναλλαγή;</string>
+    <string name="recurring_deleted_successfully">Η επαναλαμβανόμενη συναλλαγή διαγράφηκε</string>
+    <string name="error_delete_recurring">Σφάλμα κατά τη διαγραφή της επαναλαμβανόμενης συναλλαγής</string>
+    <string name="activate_recurring">Ενεργοποίηση επανάληψης</string>
+    <string name="deactivate_recurring">Απενεργοποίηση επανάληψης</string>
+    <string name="delete_activate_message">Είστε βέβαιοι ότι θέλετε να ενεργοποιήσετε αυτήν την επαναλαμβανόμενη συναλλαγή;</string>
+    <string name="delete_deactivate_message">Είστε βέβαιοι ότι θέλετε να απενεργοποιήσετε αυτήν την επαναλαμβανόμενη συναλλαγή;</string>
+    <string name="delete_activate_sub_message">Μπορείτε να την απενεργοποιήσετε οποιαδήποτε στιγμή από τις ενεργές επαναλαμβανόμενες συναλλαγές.</string>
+    <string name="delete_deactivate_sub_message">Μπορείτε να την ενεργοποιήσετε οποιαδήποτε στιγμή από τις παυμένες επαναλαμβανόμενες συναλλαγές.</string>
+    <string name="deactivated_successfully">Η επαναλαμβανόμενη συναλλαγή απενεργοποιήθηκε</string>
+    <string name="error_deactivate">Σφάλμα κατά την απενεργοποίηση της επαναλαμβανόμενης συναλλαγής</string>
+    <string name="activated_successfully">Η επαναλαμβανόμενη συναλλαγή ενεργοποιήθηκε</string>
+    <string name="error_activate">Σφάλμα κατά την ενεργοποίηση της επαναλαμβανόμενης συναλλαγής</string>
+    <string name="repeat_time">Χρόνος επανάληψης</string>
+    <string name="recurring_detail">Στοιχεία επανάληψης</string>
+    <string name="until_date">Έως %1$s</string>
+    <string name="recurring_transaction_reminder">Υπενθύμιση επαναλαμβανόμενης συναλλαγής</string>
+    <string name="recurring_expense_due">Το επαναλαμβανόμενο έξοδό σας είναι πληρωτέο.</string>
+    <string name="recurring_income_due">Το επαναλαμβανόμενο έσοδό σας είναι προγραμματισμένο.</string>
+    <string name="recurring_transfer_due">Η επαναλαμβανόμενη μεταφορά σας είναι προγραμματισμένη.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">ημέρα</item>
+        <item quantity="other">ημέρες</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Κάθε %d ημέρα</item>
+        <item quantity="other">Κάθε %d ημέρες</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d ημέρα</item>
+        <item quantity="other">%d ημέρες</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">εβδομάδα</item>
+        <item quantity="other">εβδομάδες</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d εβδομάδα</item>
+        <item quantity="other">%d εβδομάδες</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Κάθε %d μήνα</item>
+        <item quantity="other">Κάθε %d μήνες</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">μήνας</item>
+        <item quantity="other">μήνες</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">έτος</item>
+        <item quantity="other">έτη</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Κάθε %d έτος</item>
+        <item quantity="other">Κάθε %d έτη</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">φορά</item>
+        <item quantity="other">φορές</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Για %d φορά</item>
+        <item quantity="other">Για %d φορές</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Κάθε %d μήνα • Τελευταία ημέρα</item>
+        <item quantity="other">Κάθε %d μήνες • Τελευταία ημέρα</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Κάθε %d μήνα • Ημέρα %d</item>
+        <item quantity="other">Κάθε %d μήνες • Ημέρα %d</item>
+    </plurals>
+</resources>

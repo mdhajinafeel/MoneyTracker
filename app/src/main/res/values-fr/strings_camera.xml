@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">Galerie</string>
+    <string name="camera">Appareil photo</string>
+    <string name="select_source">Sélectionner une source</string>
+    <string name="file">Fichier</string>
+</resources>

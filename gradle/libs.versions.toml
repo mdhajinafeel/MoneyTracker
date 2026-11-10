@@ -1,5 +1,5 @@
 [versions]
-agp = "9.4.1"
+agp = "9.5.1"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
@@ -11,16 +11,16 @@ lifecycleViewmodel = "2.11.0"
 sqlite = "2.7.1"
 androidsvg = "1.4"
 securedpreferencestore = "0.7.4"
-okhttp = "5.5.0"
+okhttp = "5.5.1"
 retrofit = "3.0.0"
 stetho = "1.6.0"
-firebaseBom = "35.0.0"
+firebaseBom = "35.1.0"
 firebaseAnalytics = "24.0.0"
-firebaseMessaging = "26.0.0"
+firebaseMessaging = "26.0.1"
 glide = "5.0.9"
 workRunTime = "2.12.0"
 evalex = "2.7"
-gson = "2.14.0"
+gson = "2.15.0"
 firebaseCrashlyticsPlugin = "3.0.8"
 googleServices = "4.5.0"
 commons-lang3 = "3.21.0"
@@ -36,6 +36,8 @@ biometric = "1.1.0"
 hiltWorker = "1.4.0"
 browser = "1.10.0"
 playServicesAds = "25.5.0"
+credentials = "1.6.0"
+googleid = "1.2.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -82,6 +84,9 @@ tasks = { module = "com.google.android.gms:play-services-tasks", version.ref = "
 biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,6 +1,14 @@
 package com.nprotech.moneytracker.di;
 
+import android.util.Log;
+
 import com.nprotech.moneytracker.BuildConfig;
+import com.nprotech.moneytracker.helper.AppSessionManager;
+import com.nprotech.moneytracker.network.IApiService;
+import com.nprotech.moneytracker.network.RefreshHttpClient;
+import com.nprotech.moneytracker.network.authenticator.TokenAuthenticator;
+import com.nprotech.moneytracker.network.interceptors.AuthInterceptor;
+import com.nprotech.moneytracker.network.interceptors.SessionRevocationInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,21 +29,48 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    public OkHttpClient provideOkHttpClient() {
+    @RefreshHttpClient
+    public OkHttpClient provideRefreshOkHttpClient() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(60, TimeUnit.SECONDS)
+                .build();
+    }
 
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+    @Provides
+    @Singleton
+    public TokenAuthenticator provideTokenAuthenticator(@RefreshHttpClient OkHttpClient refreshOkHttpClient) {
+        return new TokenAuthenticator(refreshOkHttpClient);
+    }
 
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                .connectTimeout(300, TimeUnit.SECONDS)
-                .readTimeout(300, TimeUnit.SECONDS);
+    @Provides
+    @Singleton
+    public OkHttpClient provideOkHttpClient(TokenAuthenticator tokenAuthenticator) {
 
-        // ✅ Add DB logging (only debug OR customize inside interceptor)
+        HttpLoggingInterceptor loggingInterceptor =
+                new HttpLoggingInterceptor(message ->
+                        Log.d("API_LOG", message)
+                );
+
+        // Show actual Bearer token only in DEBUG builds.
         if (BuildConfig.DEBUG) {
-            httpClient.addInterceptor(logging);
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+        } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
 
-        return httpClient.build();
+        return new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .callTimeout(60, TimeUnit.SECONDS)
+                .addInterceptor(new AuthInterceptor())
+                .addInterceptor(loggingInterceptor)
+                .authenticator(tokenAuthenticator)
+                .addInterceptor(new SessionRevocationInterceptor(AppSessionManager::notifySessionRevoked))
+                .build();
     }
 
     @Provides
@@ -44,7 +79,15 @@ public class ApiModule {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(
+                        GsonConverterFactory.create()
+                )
                 .build();
+    }
+
+    @Provides
+    @Singleton
+    public static IApiService provideApiService(Retrofit retrofit) {
+        return retrofit.create(IApiService.class);
     }
 }

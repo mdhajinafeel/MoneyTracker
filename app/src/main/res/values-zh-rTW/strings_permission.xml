@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">相機權限已遭拒絕</string>
+    <string name="camera_permission_required">需要相機權限</string>
+    <string name="camera_access_required">需要相機存取權限，才能拍攝照片並將其附加至支出紀錄。</string>
+    <string name="allow">允許</string>
+    <string name="permission_required">需要權限</string>
+    <string name="camera_permission_disabled">相機權限已停用。請前往應用程式設定啟用。</string>
+    <string name="open_settings">開啟設定</string>
+    <string name="cancel_subscription_desc">您可以隨時透過 Google Play 取消訂閱</string>
+</resources>

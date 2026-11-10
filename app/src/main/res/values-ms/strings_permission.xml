@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Kebenaran kamera ditolak</string>
+    <string name="camera_permission_required">Kebenaran Kamera Diperlukan</string>
+    <string name="camera_access_required">Akses kamera diperlukan untuk mengambil gambar bagi lampiran perbelanjaan.</string>
+    <string name="allow">Benarkan</string>
+    <string name="permission_required">Kebenaran Diperlukan</string>
+    <string name="camera_permission_disabled">Kebenaran kamera dinyahaktifkan. Sila aktifkannya melalui Tetapan Aplikasi.</string>
+    <string name="open_settings">Buka Tetapan</string>
+    <string name="cancel_subscription_desc">Batalkan langganan anda pada bila-bila masa melalui Google Play</string>
+</resources>

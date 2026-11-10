@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">ক্যামেরা ব্যবহারের অনুমতি দেওয়া হয়নি</string>
+    <string name="camera_permission_required">ক্যামেরার অনুমতি প্রয়োজন</string>
+    <string name="camera_access_required">খরচের সংযুক্তির জন্য ছবি তুলতে ক্যামেরা ব্যবহারের অনুমতি প্রয়োজন।</string>
+    <string name="allow">অনুমতি দিন</string>
+    <string name="permission_required">অনুমতি প্রয়োজন</string>
+    <string name="camera_permission_disabled">ক্যামেরার অনুমতি বন্ধ রয়েছে। অনুগ্রহ করে অ্যাপ সেটিংস থেকে এটি চালু করুন।</string>
+    <string name="open_settings">সেটিংস খুলুন</string>
+    <string name="cancel_subscription_desc">আপনি যেকোনো সময় Google Play থেকে আপনার সাবস্ক্রিপশন বাতিল করতে পারেন</string>
+</resources>

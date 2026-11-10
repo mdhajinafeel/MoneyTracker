@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Permisiunea pentru cameră a fost refuzată</string>
+    <string name="camera_permission_required">Este necesară permisiunea pentru cameră</string>
+    <string name="camera_access_required">Accesul la cameră este necesar pentru a face fotografii pentru atașamentele cheltuielilor.</string>
+    <string name="allow">Permite</string>
+    <string name="permission_required">Permisiune necesară</string>
+    <string name="camera_permission_disabled">Permisiunea pentru cameră este dezactivată. Activeaz-o din Setările aplicației.</string>
+    <string name="open_settings">Deschide setările</string>
+    <string name="cancel_subscription_desc">Anulează abonamentul oricând din Google Play</string>
+</resources>

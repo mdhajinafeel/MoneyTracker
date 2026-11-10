@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Přístup k fotoaparátu byl zamítnut</string>
+    <string name="camera_permission_required">Je vyžadován přístup k fotoaparátu</string>
+    <string name="camera_access_required">Pro pořizování fotografií jako příloh k výdajům je nutný přístup k fotoaparátu.</string>
+    <string name="allow">Povolit</string>
+    <string name="permission_required">Je vyžadováno oprávnění</string>
+    <string name="camera_permission_disabled">Přístup k fotoaparátu je zakázán. Povolte jej prosím v nastavení aplikace.</string>
+    <string name="open_settings">Otevřít nastavení</string>
+    <string name="cancel_subscription_desc">Předplatné můžete kdykoli zrušit prostřednictvím Google Play</string>
+</resources>

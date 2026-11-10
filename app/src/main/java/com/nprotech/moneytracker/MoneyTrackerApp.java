@@ -1,6 +1,7 @@
 package com.nprotech.moneytracker;
 
 import android.app.Application;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
@@ -12,10 +13,13 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.nprotech.moneytracker.crashlytics.CrashlyticsExceptionHandler;
 import com.nprotech.moneytracker.helper.AppLogger;
+import com.nprotech.moneytracker.helper.AppSessionManager;
 import com.nprotech.moneytracker.helper.PreferenceManager;
 import com.nprotech.moneytracker.initializer.CategoryInitializer;
 import com.nprotech.moneytracker.initializer.CommonInitializer;
 import com.nprotech.moneytracker.initializer.CurrencyInitializer;
+import com.nprotech.moneytracker.ui.activities.ProfileLoginActivity;
+import com.nprotech.moneytracker.ui.activities.SettingsActivity;
 import com.nprotech.moneytracker.worker.BudgetRepeatScheduler;
 import com.nprotech.moneytracker.worker.RecurringTransactionScheduler;
 
@@ -41,6 +45,26 @@ public class MoneyTrackerApp extends Application implements Configuration.Provid
 
         // Initialize preferences
         initSecureSharedPref();
+
+        AppSessionManager.setRevocationAction(() -> {
+
+            boolean wasLoggedIn = PreferenceManager.INSTANCE.isAuthenticated();
+            // Clear saved authentication information.
+            PreferenceManager.INSTANCE.clearAuthSession();
+            Intent intent;
+            if (wasLoggedIn) {
+                // User was logged in: redirect to LoginActivity.
+                intent = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                intent.putExtra("session_revoked", true);
+            } else {
+
+                // No active login: redirect to SettingsActivity.
+                intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            }
+
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+        });
 
         // Apply theme
         boolean darkMode = PreferenceManager.INSTANCE.getDarkMode();

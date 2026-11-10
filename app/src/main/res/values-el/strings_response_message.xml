@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">Υπάρχει ήδη λογαριασμός με αυτήν τη διεύθυνση email.</string>
+    <string name="error_check_details">Ελέγξτε τα στοιχεία σας και δοκιμάστε ξανά.</string>
+    <string name="error_too_many_attempts">Έγιναν πάρα πολλές προσπάθειες. Δοκιμάστε ξανά αργότερα.</string>
+    <string name="error_account_creation_failed">Η δημιουργία λογαριασμού απέτυχε. Δοκιμάστε ξανά.</string>
+    <string name="error_network_connection">Δεν είναι δυνατή η σύνδεση. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά.</string>
+    <string name="check_internet_connection">Δεν είναι δυνατή η σύνδεση. Ελέγξτε τη σύνδεσή σας στο διαδίκτυο και δοκιμάστε ξανά.</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Akun dengan email ini sudah terdaftar.</string>
+    <string name="error_check_details">Periksa detail Anda dan coba lagi.</string>
+    <string name="error_too_many_attempts">Terlalu banyak percobaan. Silakan coba lagi nanti.</string>
+    <string name="error_account_creation_failed">Gagal membuat akun. Silakan coba lagi.</string>
+    <string name="error_network_connection">Tidak dapat terhubung. Periksa koneksi internet Anda dan coba lagi.</string>
+    <string name="check_internet_connection">Tidak dapat terhubung. Periksa koneksi internet Anda dan coba lagi.</string>
+</resources>

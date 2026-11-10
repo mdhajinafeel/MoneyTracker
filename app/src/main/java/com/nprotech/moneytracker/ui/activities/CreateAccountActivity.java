@@ -358,7 +358,7 @@ public class CreateAccountActivity extends BaseActivity {
             boolean updated = walletViewModel.updateDefaultWalletOpeningAmount(accountId, initialAmount);
 
             if (!updated) {
-                Toast.makeText(this, R.string.cannot_change_initial_amount, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.cannot_change_initial_amount, Toast.LENGTH_SHORT).show();
                 return;
             }
         }

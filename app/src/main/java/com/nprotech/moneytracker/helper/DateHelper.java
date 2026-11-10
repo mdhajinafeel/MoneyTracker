@@ -10,6 +10,7 @@ import com.nprotech.moneytracker.db.entites.GoalEntity;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -374,5 +375,22 @@ public class DateHelper {
         }
 
         return TextUtils.join(", ", days);
+    }
+
+    public static String formatLastActive(String dateString) {
+
+        if (dateString == null || dateString.trim().isEmpty()) {
+            return "-";
+        }
+
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy, hh:mm a", Locale.getDefault());
+            inputFormat.setLenient(false);
+            Date date = inputFormat.parse(dateString);
+            return date != null ? outputFormat.format(date) : dateString;
+        } catch (ParseException e) {
+            return dateString;
+        }
     }
 }

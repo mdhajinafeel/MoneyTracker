@@ -4,6 +4,9 @@
     <string name="app_tag_text1">Expense</string>
     <string name="app_tag_text2">Insight</string>
 
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
     <!-- MENU -->
     <string name="transaction">Transaction</string>
     <string name="calendar">Calendar</string>
@@ -125,6 +128,8 @@
     <string name="russian">Русский</string>
     <string name="tamil">தமிழ்</string>
     <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
     <string name="thai">ไทย</string>
     <string name="turkish">Türkçe</string>
     <string name="ukrainian">Українська</string>
@@ -219,4 +224,6 @@
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
     <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="please_wait">Please wait…</string>
 </resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Autorisation d\'accès à la caméra refusée</string>
+    <string name="camera_permission_required">Autorisation d\'accès à la caméra requise</string>
+    <string name="camera_access_required">L\'accès à la caméra est nécessaire pour prendre des photos à joindre aux dépenses.</string>
+    <string name="allow">Autoriser</string>
+    <string name="permission_required">Autorisation requise</string>
+    <string name="camera_permission_disabled">L\'autorisation d\'accès à la caméra est désactivée. Veuillez l\'activer dans les paramètres de l\'application.</string>
+    <string name="open_settings">Ouvrir les paramètres</string>
+    <string name="cancel_subscription_desc">Vous pouvez annuler votre abonnement à tout moment depuis Google Play.</string>
+</resources>

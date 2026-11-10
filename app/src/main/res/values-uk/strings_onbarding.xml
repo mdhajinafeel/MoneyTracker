@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Повний контроль над вашими грошима</string>
+    <string name="walkthrough_1_desc">Відстежуйте кожну витрату, контролюйте бюджет і розумійте, куди йдуть ваші гроші.</string>
+    <string name="walkthrough_2_title">Керуйте всіма гаманцями</string>
+    <string name="walkthrough_2_desc">Зберігайте готівку, банківські рахунки, картки та цифрові гаманці в одному захищеному місці.</string>
+    <string name="walkthrough_3_title">Швидко записуйте витрати</string>
+    <string name="walkthrough_3_desc">Додавайте транзакції з категоріями, нотатками та вкладеннями лише за кілька натискань.</string>
+    <string name="walkthrough_4_title"><![CDATA[Розумні звіти та аналітика]]></string>
+    <string name="walkthrough_4_desc">Візуалізуйте свої витрати за допомогою потужних діаграм і персоналізованої фінансової аналітики.</string>
+    <string name="walkthrough_5_title">Не пропускайте важливі платежі</string>
+    <string name="walkthrough_5_desc">Контролюйте рахунки, підписки та регулярні платежі за допомогою розумних нагадувань.</string>
+    <string name="walkthrough_6_title">Досягайте фінансових цілей</string>
+    <string name="walkthrough_6_desc">Формуйте корисні фінансові звички, заощаджуйте більше та щодня зміцнюйте свою фінансову впевненість.</string>
+</resources>

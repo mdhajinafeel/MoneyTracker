@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">ทุกค่าใช้จ่าย ทุกข้อมูลเชิงลึก</string>
+    <string name="app_tag_text1">ค่าใช้จ่าย</string>
+    <string name="app_tag_text2">ข้อมูลเชิงลึก</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">ธุรกรรม</string>
+    <string name="calendar">ปฏิทิน</string>
+    <string name="statistic">ข้อมูลเชิงลึก</string>
+    <string name="more">เพิ่มเติม</string>
+    <string name="wallet">กระเป๋าเงิน</string>
+
+    <!-- DAYS -->
+    <string name="sunday">วันอาทิตย์</string>
+    <string name="monday">วันจันทร์</string>
+    <string name="tuesday">วันอังคาร</string>
+    <string name="wednesday">วันพุธ</string>
+    <string name="thursday">วันพฤหัสบดี</string>
+    <string name="friday">วันศุกร์</string>
+    <string name="saturday">วันเสาร์</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">อา.</string>
+    <string name="monday_short">จ.</string>
+    <string name="tuesday_short">อ.</string>
+    <string name="wednesday_short">พ.</string>
+    <string name="thursday_short">พฤ.</string>
+    <string name="friday_short">ศ.</string>
+    <string name="saturday_short">ส.</string>
+
+    <string-array name="week_days">
+        <item>วันอาทิตย์</item>
+        <item>วันจันทร์</item>
+        <item>วันอังคาร</item>
+        <item>วันพุธ</item>
+        <item>วันพฤหัสบดี</item>
+        <item>วันศุกร์</item>
+        <item>วันเสาร์</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>อา.</item>
+        <item>จ.</item>
+        <item>อ.</item>
+        <item>พ.</item>
+        <item>พฤ.</item>
+        <item>ศ.</item>
+        <item>ส.</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">มกราคม</string>
+    <string name="february">กุมภาพันธ์</string>
+    <string name="march">มีนาคม</string>
+    <string name="april">เมษายน</string>
+    <string name="may">พฤษภาคม</string>
+    <string name="june">มิถุนายน</string>
+    <string name="july">กรกฎาคม</string>
+    <string name="august">สิงหาคม</string>
+    <string name="september">กันยายน</string>
+    <string name="october">ตุลาคม</string>
+    <string name="november">พฤศจิกายน</string>
+    <string name="december">ธันวาคม</string>
+
+    <string-array name="month_full">
+        <item>มกราคม</item>
+        <item>กุมภาพันธ์</item>
+        <item>มีนาคม</item>
+        <item>เมษายน</item>
+        <item>พฤษภาคม</item>
+        <item>มิถุนายน</item>
+        <item>กรกฎาคม</item>
+        <item>สิงหาคม</item>
+        <item>กันยายน</item>
+        <item>ตุลาคม</item>
+        <item>พฤศจิกายน</item>
+        <item>ธันวาคม</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>ม.ค.</item>
+        <item>ก.พ.</item>
+        <item>มี.ค.</item>
+        <item>เม.ย.</item>
+        <item>พ.ค.</item>
+        <item>มิ.ย.</item>
+        <item>ก.ค.</item>
+        <item>ส.ค.</item>
+        <item>ก.ย.</item>
+        <item>ต.ค.</item>
+        <item>พ.ย.</item>
+        <item>ธ.ค.</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>Q1</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">ค่าเริ่มต้นของระบบ</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">ล้าง</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">ถัดไป</string>
+    <string name="skip">ข้าม</string>
+    <string name="get_started">เริ่มต้นใช้งาน</string>
+    <string name="press_again_to_exit">กดอีกครั้งเพื่อออก</string>
+    <string name="settings">การตั้งค่า</string>
+    <string name="save">บันทึก</string>
+    <string name="done">เสร็จสิ้น</string>
+    <string name="delete">ลบ</string>
+    <string name="ok">ตกลง</string>
+    <string name="cancel">ยกเลิก</string>
+    <string name="no_record">ไม่มีรายการ</string>
+    <string name="no_data">ไม่มีข้อมูล</string>
+    <string name="detail">รายละเอียดธุรกรรม</string>
+    <string name="parsing_error">เกิดข้อผิดพลาดในการแยกวิเคราะห์ข้อมูล</string>
+    <string name="update">อัปเดต</string>
+    <string name="color">สี</string>
+    <string name="icon">ไอคอน</string>
+    <string name="select_icon">เลือกไอคอน</string>
+    <string name="delete_message">คุณแน่ใจหรือไม่ว่าต้องการลบ?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">ก่อนหน้า</string>
+    <string name="dash">-</string>
+    <string name="add_text">เพิ่ม</string>
+    <string name="remaining">คงเหลือ</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">ดูรายละเอียด</string>
+    <string name="view_breakdown">ดูรายละเอียดทั้งหมด</string>
+    <string name="error_update">เกิดข้อผิดพลาดขณะอัปเดต</string>
+    <string name="text_edit">แก้ไข</string>
+    <string name="text_delete">ลบ</string>
+    <string name="text_close">ปิด</string>
+    <string name="text_remove">นำออก</string>
+    <string name="apply">นำไปใช้</string>
+    <string name="reset">รีเซ็ต</string>
+    <string name="select_option">เลือกตัวเลือก</string>
+    <string name="text_default">ค่าเริ่มต้น</string>
+    <string name="active">ใช้งานอยู่</string>
+    <string name="inactive">ไม่ได้ใช้งาน</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">เกิดข้อผิดพลาดบางอย่าง</string>
+    <string name="please_wait">โปรดรอสักครู่…</string>
+</resources>

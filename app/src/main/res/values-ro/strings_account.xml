@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Conturi</string>
+    <string name="add_account">Adaugă cont</string>
+    <string name="edit_account">Editează contul</string>
+    <string name="account_heading">Cum dorești să numești acest cont?</string>
+    <string name="choose_name">Alege un nume care te ajută să identifici ușor acest cont.</string>
+    <string name="account_name">Numele contului</string>
+    <string name="create_account">Creează cont</string>
+    <string name="select_account">Selectează contul</string>
+    <string name="initial_balance">Introdu soldul inițial</string>
+    <string name="opening_balance_subtext">Adaugă soldul inițial pentru acest cont.</string>
+    <string name="initial_amount">Sold inițial</string>
+    <string name="initial">Inițial</string>
+    <string name="account_balance_format">Sold: %1$s</string>
+    <string name="manage_account_desc">Gestionează toate conturile bancare, cardurile și multe altele într-un singur loc.</string>
+    <string name="your_accounts">Conturile tale</string>
+    <string name="all_accounts">Toate conturile</string>
+    <string name="add_new_account">Adaugă un cont nou</string>
+    <string name="add_account_desc">Adaugă un cont bancar, un card de credit sau un alt tip de cont</string>
+    <string name="archived_accounts">Conturi arhivate</string>
+    <string name="archived_accounts_desc">Vizualizează și restaurează conturile arhivate</string>
+    <string name="account_created">Cont creat</string>
+    <string name="account_updated">Cont actualizat</string>
+    <string name="currency_edit_account">Moneda nu poate fi schimbată în timpul editării unui cont.</string>
+    <string name="account_action">Acțiuni asupra contului</string>
+    <string name="update_account_detail">Actualizează detaliile contului</string>
+    <string name="use_as_your_default_account">Folosește ca cont implicit</string>
+    <string name="see_account_detail">Vezi detaliile contului</string>
+    <string name="hide_from_active_accounts">Ascunde din conturile active</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Elimină toate portofelele și tranzacțiile]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Șterge portofelele și tranzacțiile]]></string>
+    <string name="remove_account">Elimină contul</string>
+    <string name="account_set_as_default">Contul a fost setat ca implicit</string>
+    <string name="archive_account">Arhivezi contul?</string>
+    <string name="account_archived">Cont arhivat</string>
+    <string name="delete_account_message">Contul și toate portofelele și tranzacțiile sale vor fi eliminate definitiv. Această acțiune nu poate fi anulată.</string>
+    <string name="delete_account">Șterge contul</string>
+    <string name="account_deleted">Cont șters</string>
+    <string name="error_delete_account">Eroare la ștergerea contului</string>
+    <string name="opening_balance_editing_account">Soldul inițial nu poate fi schimbat în timpul editării unui cont.</string>
+    <string name="cannot_change_initial_amount">Soldul inițial nu poate fi schimbat deoarece există tranzacții.</string>
+    <string name="archive_account_message">Acest cont va fi ascuns din lista conturilor active. Soldul și tranzacțiile vor fi păstrate.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Ștergi portofelele și tranzacțiile contului?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Toate portofelele și tranzacțiile din acest cont vor fi șterse. Această acțiune nu poate fi anulată.]]></string>
+    <string name="error_delete_account_trans">Eroare la ștergerea tranzacției contului</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Portofelele și tranzacțiile contului au fost șterse]]></string>
+    <string name="transactions">Tranzacții</string>
+    <string name="view_all_transactions">Vezi toate tranzacțiile</string>
+    <string name="view_all_recurring_transactions">Vezi toate tranzacțiile recurente</string>
+    <string name="recurring_transactions">Tranzacții recurente</string>
+    <string name="account_details">Detaliile contului</string>
+    <string name="archived_account_desc">Aceste conturi sunt arhivate și ascunse din lista conturilor active. Toate portofelele, tranzacțiile și datele sunt păstrate și pot fi restaurate oricând.</string>
+    <string name="restore_account">Restaurezi contul?</string>
+    <string name="account_restore">Cont restaurat</string>
+    <string name="restore_account_message">Acest cont va fi mutat înapoi în lista conturilor active. Soldul și tranzacțiile vor rămâne neschimbate.</string>
+    <string name="restore_your_account">Restaurează-ți contul</string>
+    <string name="account_transactions">Tranzacțiile contului</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d cont</item>
+        <item quantity="few">%d conturi</item>
+        <item quantity="other">%d de conturi</item>
+    </plurals>
+</resources>

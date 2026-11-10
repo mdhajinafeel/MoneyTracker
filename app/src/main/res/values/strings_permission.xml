@@ -7,4 +7,5 @@
     <string name="permission_required">Permission Required</string>
     <string name="camera_permission_disabled">Camera permission is disabled. Please enable it from App Settings.</string>
     <string name="open_settings">Open Settings</string>
+    <string name="cancel_subscription_desc">Cancel your subscription anytime from Google Play</string>
 </resources>

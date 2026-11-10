@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">ആവർത്തിച്ചുള്ള ഇടപാടുകൾ പിന്തുടരുക</string>
+    <string name="select_recurring">ആവർത്തന രീതി തിരഞ്ഞെടുക്കുക</string>
+    <string name="repeat_on">ആവർത്തിക്കേണ്ടത്</string>
+    <string name="select_repeat_on">ആവർത്തിക്കേണ്ടത് തിരഞ്ഞെടുക്കുക</string>
+    <string name="create_transaction">ഇടപാട് സൃഷ്ടിക്കുക</string>
+    <string name="never_miss_recurring_transaction">ആവർത്തിച്ചുള്ള ഇടപാടുകൾ ഒരിക്കലും മറക്കരുത്</string>
+    <string name="income_recurring">ആവർത്തിച്ചുള്ള വരുമാനം</string>
+    <string name="expense_recurring">ആവർത്തിച്ചുള്ള ചെലവ്</string>
+    <string name="transfer_recurring">ആവർത്തിച്ചുള്ള കൈമാറ്റം</string>
+    <string name="no_repeat">ആവർത്തിക്കേണ്ടതില്ല</string>
+    <string name="repeat_option">ആവർത്തന ഓപ്ഷൻ</string>
+    <string name="select_days">ദിവസങ്ങൾ തിരഞ്ഞെടുക്കുക</string>
+    <string name="please_select_at_least_one_day">കുറഞ്ഞത് ഒരു ദിവസമെങ്കിലും തിരഞ്ഞെടുക്കുക</string>
+    <string name="times">തവണകൾ</string>
+    <string name="every">ഓരോ</string>
+    <string name="forever">എന്നേക്കും</string>
+    <string name="until">വരെ</string>
+    <string name="text_for">ഇത്രയും</string>
+    <string name="text_every_value">"ഓരോ %1$s • %2$s"</string>
+    <string name="text_every_value1">"ഓരോ %1$s"</string>
+    <string name="same_day_each_month">എല്ലാ മാസവും ഇതേ ദിവസം (%1$d)</string>
+    <string name="end_of_month">മാസാവസാനം</string>
+    <string name="recurring_transaction_saved">ആവർത്തന ഇടപാട് സംരക്ഷിച്ചു</string>
+    <string name="failed_to_save_recurring_transaction">ആവർത്തന ഇടപാട് സംരക്ഷിക്കാനായില്ല</string>
+    <string name="no_recurring_yet">ഇതുവരെ ആവർത്തന ഇടപാടുകളൊന്നുമില്ല</string>
+    <string name="empty_recurring_hint">ആവർത്തന ഇടപാട് ചേർക്കാൻ + ബട്ടൺ ടാപ്പ് ചെയ്യുക.</string>
+    <string name="repeat_interval_atleast">ആവർത്തന ഇടവേള കുറഞ്ഞത് 1 ആയിരിക്കണം</string>
+    <string name="please_select_until_date">അവസാന തീയതി തിരഞ്ഞെടുക്കുക</string>
+    <string name="please_enter_times">എത്ര തവണ ആവർത്തിക്കണമെന്ന് നൽകുക</string>
+    <string name="please_enter_an_amount">ഒരു തുക നൽകുക</string>
+    <string name="please_select_a_wallet">ഒരു വാലറ്റ് തിരഞ്ഞെടുക്കുക</string>
+    <string name="please_select_a_repeat_frequency">ആവർത്തന ആവൃത്തി തിരഞ്ഞെടുക്കുക</string>
+    <string name="until_date_start_date">അവസാന തീയതി ആരംഭ തീയതിക്ക് ശേഷമായിരിക്കണം</string>
+    <string name="select_recurring_transaction_end">ആവർത്തന ഇടപാട് എപ്പോൾ അവസാനിക്കണമെന്ന് തിരഞ്ഞെടുക്കുക</string>
+    <string name="every_week_period">ഓരോ %1$s</string>
+    <string name="next_recurring">അടുത്തത്: %1$s</string>
+    <string name="next_recurring_text">അടുത്ത ആവർത്തനം</string>
+    <string name="recurring_transaction_added">ആവർത്തന ഇടപാട് ചേർത്തു</string>
+    <string name="recurring_transactions_added">ആവർത്തന ഇടപാടുകൾ ചേർത്തു</string>
+    <string name="a_recurring_expense_was_added">ഒരു ആവർത്തന ചെലവ് ചേർത്തു</string>
+    <string name="a_recurring_income_was_added">ഒരു ആവർത്തന വരുമാനം ചേർത്തു</string>
+    <string name="a_recurring_transaction_was_added">ഒരു ആവർത്തന ഇടപാട് ചേർത്തു</string>
+    <string name="recurring_transactions_were_added">" ആവർത്തന ഇടപാടുകൾ ചേർത്തു"</string>
+    <string name="activate">സജീവമാക്കുക</string>
+    <string name="text_deactivated">നിർജ്ജീവമാക്കി</string>
+    <string name="deactivate">നിർജ്ജീവമാക്കുക</string>
+    <string name="change_recurring_detail">ആവർത്തന വിവരങ്ങൾ മാറ്റുക</string>
+    <string name="resume_this_recurring_transaction">ഈ ഇടപാട് വീണ്ടും ആരംഭിക്കുക</string>
+    <string name="pause_this_recurring_transaction">ഈ ഇടപാട് താൽക്കാലികമായി നിർത്തുക</string>
+    <string name="permanently_remove_this_recurring_transaction">ഈ ഇടപാട് ശാശ്വതമായി നീക്കം ചെയ്യുക</string>
+    <string name="view_recurring_details">ആവർത്തന വിവരങ്ങൾ കാണുക</string>
+    <string name="delete_recurring">ആവർത്തനം ഇല്ലാതാക്കുക</string>
+    <string name="delete_recurring_message">ഈ ആവർത്തനം ഇല്ലാതാക്കണമെന്ന് ഉറപ്പാണോ?</string>
+    <string name="recurring_deleted_successfully">ആവർത്തനം ഇല്ലാതാക്കി</string>
+    <string name="error_delete_recurring">ആവർത്തനം ഇല്ലാതാക്കുമ്പോൾ പിശക് സംഭവിച്ചു</string>
+    <string name="activate_recurring">ആവർത്തനം സജീവമാക്കുക</string>
+    <string name="deactivate_recurring">ആവർത്തനം നിർജ്ജീവമാക്കുക</string>
+    <string name="delete_activate_message">ഈ ആവർത്തനം സജീവമാക്കണമെന്ന് ഉറപ്പാണോ?</string>
+    <string name="delete_deactivate_message">ഈ ആവർത്തനം നിർജ്ജീവമാക്കണമെന്ന് ഉറപ്പാണോ?</string>
+    <string name="delete_activate_sub_message">പുരോഗമിക്കുന്ന ആവർത്തനങ്ങളിൽ നിന്ന് എപ്പോൾ വേണമെങ്കിലും ഇത് നിർജ്ജീവമാക്കാം.</string>
+    <string name="delete_deactivate_sub_message">താൽക്കാലികമായി നിർത്തിയ ആവർത്തനങ്ങളിൽ നിന്ന് എപ്പോൾ വേണമെങ്കിലും ഇത് സജീവമാക്കാം.</string>
+    <string name="deactivated_successfully">ആവർത്തനം നിർജ്ജീവമാക്കി</string>
+    <string name="error_deactivate">ആവർത്തനം നിർജ്ജീവമാക്കുമ്പോൾ പിശക് സംഭവിച്ചു</string>
+    <string name="activated_successfully">ആവർത്തനം സജീവമാക്കി</string>
+    <string name="error_activate">ആവർത്തനം സജീവമാക്കുമ്പോൾ പിശക് സംഭവിച്ചു</string>
+    <string name="repeat_time">ആവർത്തന സമയം</string>
+    <string name="recurring_detail">ആവർത്തന വിശദാംശങ്ങൾ</string>
+    <string name="until_date">%1$s വരെ</string>
+    <string name="recurring_transaction_reminder">ആവർത്തന ഇടപാട് ഓർമ്മപ്പെടുത്തൽ</string>
+    <string name="recurring_expense_due">നിങ്ങളുടെ ആവർത്തന ചെലവ് അടയ്ക്കേണ്ട സമയമായി.</string>
+    <string name="recurring_income_due">നിങ്ങളുടെ ആവർത്തന വരുമാനം ലഭിക്കേണ്ട സമയമായി.</string>
+    <string name="recurring_transfer_due">നിങ്ങളുടെ ആവർത്തന കൈമാറ്റത്തിനുള്ള സമയമായി.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">ദിവസം</item>
+        <item quantity="other">ദിവസങ്ങൾ</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">ഓരോ %d ദിവസവും</item>
+        <item quantity="other">ഓരോ %d ദിവസവും</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d ദിവസം</item>
+        <item quantity="other">%d ദിവസം</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">ആഴ്ച</item>
+        <item quantity="other">ആഴ്ചകൾ</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d ആഴ്ച</item>
+        <item quantity="other">%d ആഴ്ചകൾ</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">ഓരോ %d മാസവും</item>
+        <item quantity="other">ഓരോ %d മാസവും</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">മാസം</item>
+        <item quantity="other">മാസങ്ങൾ</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">വർഷം</item>
+        <item quantity="other">വർഷം</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">ഓരോ %d വർഷവും</item>
+        <item quantity="other">ഓരോ %d വർഷവും</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">തവണ</item>
+        <item quantity="other">തവണകൾ</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d തവണത്തേക്ക്</item>
+        <item quantity="other">%d തവണത്തേക്ക്</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">ഓരോ %d മാസവും • അവസാന ദിവസം</item>
+        <item quantity="other">ഓരോ %d മാസവും • അവസാന ദിവസം</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">ഓരോ %d മാസവും • ദിവസം %d</item>
+        <item quantity="other">ഓരോ %d മാസവും • ദിവസം %d</item>
+    </plurals>
+</resources>

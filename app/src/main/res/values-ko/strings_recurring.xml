@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">정기 거래 추적</string>
+    <string name="select_recurring">정기 거래 선택</string>
+    <string name="repeat_on">반복 요일</string>
+    <string name="select_repeat_on">반복 요일 선택</string>
+    <string name="create_transaction">거래 생성</string>
+    <string name="never_miss_recurring_transaction">정기 거래를 놓치지 마세요</string>
+    <string name="income_recurring">정기 수입</string>
+    <string name="expense_recurring">정기 지출</string>
+    <string name="transfer_recurring">정기 이체</string>
+    <string name="no_repeat">반복 안 함</string>
+    <string name="repeat_option">반복 옵션</string>
+    <string name="select_days">요일 선택</string>
+    <string name="please_select_at_least_one_day">하루 이상 선택해 주세요</string>
+    <string name="times">회</string>
+    <string name="every">매</string>
+    <string name="forever">계속</string>
+    <string name="until">종료일</string>
+    <string name="text_for">횟수</string>
+    <string name="text_every_value">"%1$s마다 • %2$s"</string>
+    <string name="text_every_value1">"%1$s마다"</string>
+    <string name="same_day_each_month">매월 같은 날짜 (%1$d일)</string>
+    <string name="end_of_month">월말</string>
+    <string name="recurring_transaction_saved">정기 거래가 저장되었습니다</string>
+    <string name="failed_to_save_recurring_transaction">정기 거래를 저장하지 못했습니다</string>
+    <string name="no_recurring_yet">아직 정기 거래가 없습니다</string>
+    <string name="empty_recurring_hint">+ 버튼을 눌러 정기 거래를 추가하세요.</string>
+    <string name="repeat_interval_atleast">반복 간격은 최소 1이어야 합니다</string>
+    <string name="please_select_until_date">종료일을 선택해 주세요</string>
+    <string name="please_enter_times">반복 횟수를 입력해 주세요</string>
+    <string name="please_enter_an_amount">금액을 입력해 주세요</string>
+    <string name="please_select_a_wallet">지갑을 선택해 주세요</string>
+    <string name="please_select_a_repeat_frequency">반복 주기를 선택해 주세요</string>
+    <string name="until_date_start_date">종료일은 시작일 이후여야 합니다</string>
+    <string name="select_recurring_transaction_end">정기 거래 종료 시점을 선택해 주세요</string>
+    <string name="every_week_period">%1$s마다</string>
+    <string name="next_recurring">다음: %1$s</string>
+    <string name="next_recurring_text">다음 정기 거래</string>
+    <string name="recurring_transaction_added">정기 거래가 추가되었습니다</string>
+    <string name="recurring_transactions_added">정기 거래들이 추가되었습니다</string>
+    <string name="a_recurring_expense_was_added">정기 지출이 추가되었습니다</string>
+    <string name="a_recurring_income_was_added">정기 수입이 추가되었습니다</string>
+    <string name="a_recurring_transaction_was_added">정기 거래가 추가되었습니다</string>
+    <string name="recurring_transactions_were_added">개의 정기 거래가 추가되었습니다</string>
+    <string name="activate">활성화</string>
+    <string name="text_deactivated">비활성화됨</string>
+    <string name="deactivate">비활성화</string>
+    <string name="change_recurring_detail">정기 거래 정보 변경</string>
+    <string name="resume_this_recurring_transaction">이 거래 다시 시작</string>
+    <string name="pause_this_recurring_transaction">이 거래 일시중지</string>
+    <string name="permanently_remove_this_recurring_transaction">이 거래 영구 삭제</string>
+    <string name="view_recurring_details">정기 거래 상세 정보 보기</string>
+    <string name="delete_recurring">정기 거래 삭제</string>
+    <string name="delete_recurring_message">이 정기 거래를 삭제하시겠습니까?</string>
+    <string name="recurring_deleted_successfully">정기 거래가 삭제되었습니다</string>
+    <string name="error_delete_recurring">정기 거래 삭제 중 오류가 발생했습니다</string>
+    <string name="activate_recurring">정기 거래 활성화</string>
+    <string name="deactivate_recurring">정기 거래 비활성화</string>
+    <string name="delete_activate_message">이 정기 거래를 활성화하시겠습니까?</string>
+    <string name="delete_deactivate_message">이 정기 거래를 비활성화하시겠습니까?</string>
+    <string name="delete_activate_sub_message">진행 중인 정기 거래에서 언제든지 비활성화할 수 있습니다.</string>
+    <string name="delete_deactivate_sub_message">일시중지된 정기 거래에서 언제든지 활성화할 수 있습니다.</string>
+    <string name="deactivated_successfully">정기 거래가 비활성화되었습니다</string>
+    <string name="error_deactivate">정기 거래 비활성화 중 오류가 발생했습니다</string>
+    <string name="activated_successfully">정기 거래가 활성화되었습니다</string>
+    <string name="error_activate">정기 거래 활성화 중 오류가 발생했습니다</string>
+    <string name="repeat_time">반복 횟수</string>
+    <string name="recurring_detail">정기 거래 상세 정보</string>
+    <string name="until_date">%1$s까지</string>
+    <string name="recurring_transaction_reminder">정기 거래 알림</string>
+    <string name="recurring_expense_due">정기 지출 예정일입니다.</string>
+    <string name="recurring_income_due">정기 수입 예정일입니다.</string>
+    <string name="recurring_transfer_due">정기 이체 예정일입니다.</string>
+
+    <plurals name="day_period">
+        <item quantity="other">일</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="other">%d일마다</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="other">%d일</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="other">주</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="other">%d주</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="other">%d개월마다</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="other">개월</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="other">년</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="other">%d년마다</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="other">회</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="other">%d회 동안</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="other">%d개월마다 • 마지막 날</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="other">%d개월마다 • %d일</item>
+    </plurals>
+</resources>

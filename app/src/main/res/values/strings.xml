@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-
+    <string name="text_49">₹49</string>
+    <string name="text_399">₹399</string>
+    <string name="text_189">₹189</string>
 </resources>

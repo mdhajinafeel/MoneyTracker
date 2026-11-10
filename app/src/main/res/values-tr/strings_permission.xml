@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Kamera izni reddedildi</string>
+    <string name="camera_permission_required">Kamera İzni Gerekli</string>
+    <string name="camera_access_required">Gider ekleri için fotoğraf çekebilmeniz amacıyla kamera erişimi gereklidir.</string>
+    <string name="allow">İzin Ver</string>
+    <string name="permission_required">İzin Gerekli</string>
+    <string name="camera_permission_disabled">Kamera izni devre dışı. Lütfen Uygulama Ayarları bölümünden etkinleştirin.</string>
+    <string name="open_settings">Ayarları Aç</string>
+    <string name="cancel_subscription_desc">Aboneliğinizi istediğiniz zaman Google Play üzerinden iptal edebilirsiniz.</string>
+</resources>

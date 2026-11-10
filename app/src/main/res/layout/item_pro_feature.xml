@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/edit_text_height_42"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/white">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFeatureName"
+        android:layout_width="180dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/padding_18"
+        android:fontFamily="@font/exo2_semibold"
+        android:paddingEnd="@dimen/padding_0"
+        android:textColor="@color/color_iris_eyes"
+        android:textSize="@dimen/text_14"
+        android:maxLines="1" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvFreeValue"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/color_white_wash"
+        android:textColor="@color/color_iris_eyes"
+        android:textSize="@dimen/text_12"
+        android:maxLines="2" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvProValue"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/white"
+        android:text="@string/icon_pro"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_14"
+        android:textStyle="bold" />
+</LinearLayout>

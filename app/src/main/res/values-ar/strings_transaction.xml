@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">الدخل</string>
+    <string name="total_income">إجمالي الدخل</string>
+    <string name="expense">المصروف</string>
+    <string name="total_expense">إجمالي المصروفات</string>
+    <string name="transfer">تحويل</string>
+    <string name="recurring">متكرر</string>
+    <string name="trans_delete_failed">فشل حذف المعاملة</string>
+    <string name="fee">الرسوم</string>
+    <string name="memo">ملاحظة</string>
+    <string name="notes">ملاحظات</string>
+    <string name="add_note">إضافة ملاحظة…</string>
+    <string name="description">الوصف</string>
+    <string name="short_description">وصف مختصر</string>
+    <string name="enter_amount">أدخل المبلغ</string>
+    <string name="cash_wallet">المحفظة النقدية</string>
+    <string name="cash">نقدًا</string>
+    <string name="enter_the_amount">أدخل المبلغ</string>
+    <string name="date">التاريخ</string>
+    <string name="select_date">اختر التاريخ</string>
+    <string name="amount">المبلغ</string>
+    <string name="add_record">اضغط على زر + لإضافة معاملتك الأولى.</string>
+    <string name="type">النوع</string>
+    <string name="view_all">عرض الكل</string>
+    <string name="delete_transaction">حذف المعاملة</string>
+    <string name="total">الإجمالي</string>
+    <string name="all_transaction">جميع المعاملات</string>
+    <string name="no_transaction">لا توجد معاملات حتى الآن</string>
+    <string name="start_date">تاريخ البدء</string>
+    <string name="end_date">تاريخ الانتهاء</string>
+    <string name="date_amp_time"><![CDATA[التاريخ والوقت]]></string>
+    <string name="future">المستقبل</string>
+    <string name="add_files">إضافة صور أو ملفات (بحد أقصى 5 ملفات)</string>
+    <string name="attachment_title">المرفقات (%1$d/5)</string>
+    <string name="tap_add_attach">اضغط لإضافة مرفق</string>
+    <string name="attachment_extension">صور، PDF، مستندات، Excel، ZIP وغيرها.</string>
+    <string name="add_more">إضافة المزيد</string>
+    <string name="unable_to_open_attachment">تعذّر فتح المرفق</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">المبلغ (من المحفظة)</string>
+    <string name="fee_from_wallet">الرسوم (من المحفظة)</string>
+    <string name="received_from_wallet">المبلغ المستلم (إلى المحفظة)</string>
+    <string name="transaction_action">إجراءات المعاملة</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">عرض تفاصيل المعاملة</string>
+    <string name="change_detail">تعديل تفاصيل المعاملة</string>
+    <string name="duplicate_copy">إنشاء نسخة</string>
+    <string name="remove_transaction">إزالة المعاملة</string>
+    <string name="duplicate">تكرار</string>
+    <string name="duplicate_transaction">نسخ المعاملة</string>
+    <string name="duplicate_transaction_desc">هل تريد إنشاء نسخة من هذه المعاملة؟</string>
+    <string name="transaction_duplicated">تم نسخ المعاملة</string>
+    <string name="transaction_deleted">تم حذف المعاملة</string>
+    <string name="unable_to_save">تعذّر الحفظ</string>
+
+    <plurals name="transaction_count">
+        <item quantity="zero">لا توجد معاملات (%d)</item>
+        <item quantity="one">معاملة واحدة (%d)</item>
+        <item quantity="two">معاملتان (%d)</item>
+        <item quantity="few">%d معاملات</item>
+        <item quantity="many">%d معاملة</item>
+        <item quantity="other">%d معاملة</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="zero">لا توجد مرفقات (%d)</item>
+        <item quantity="one">مرفق واحد (%d)</item>
+        <item quantity="two">مرفقان (%d)</item>
+        <item quantity="few">%d مرفقات</item>
+        <item quantity="many">%d مرفقًا</item>
+        <item quantity="other">%d مرفق</item>
+    </plurals>
+</resources>

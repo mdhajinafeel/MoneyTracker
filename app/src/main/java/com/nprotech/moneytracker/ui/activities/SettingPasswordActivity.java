@@ -248,7 +248,7 @@ public class SettingPasswordActivity extends BaseActivity {
 
                 if (error != null) {
                     AppLogger.e(getClass(), "createPassword", error);
-                    Toast.makeText(this, isChangeMode ? R.string.unable_change_password : R.string.unable_save_password, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, isChangeMode ? R.string.unable_change_password : R.string.unable_save_password, Toast.LENGTH_SHORT).show();
                     restorePasswordButton();
                     return;
                 }

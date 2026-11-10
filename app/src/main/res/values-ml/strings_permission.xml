@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">ക്യാമറ അനുമതി നിരസിച്ചു</string>
+    <string name="camera_permission_required">ക്യാമറ അനുമതി ആവശ്യമാണ്</string>
+    <string name="camera_access_required">ചെലവുകളുടെ അറ്റാച്ച്മെന്റുകൾക്കായി ഫോട്ടോകൾ എടുക്കാൻ ക്യാമറ ആക്സസ് ആവശ്യമാണ്.</string>
+    <string name="allow">അനുവദിക്കുക</string>
+    <string name="permission_required">അനുമതി ആവശ്യമാണ്</string>
+    <string name="camera_permission_disabled">ക്യാമറ അനുമതി പ്രവർത്തനരഹിതമാണ്. ആപ്പ് ക്രമീകരണങ്ങളിൽ നിന്ന് ഇത് പ്രവർത്തനക്ഷമമാക്കുക.</string>
+    <string name="open_settings">ക്രമീകരണങ്ങൾ തുറക്കുക</string>
+    <string name="cancel_subscription_desc">Google Play-യിൽ നിന്ന് എപ്പോൾ വേണമെങ്കിലും നിങ്ങളുടെ സബ്സ്ക്രിപ്ഷൻ റദ്ദാക്കാം</string>
+</resources>

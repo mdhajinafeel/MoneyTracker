@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">통화</string>
+    <string name="choose_currency">통화를 선택하세요</string>
+    <string name="select_currency_subtext">이 계정에 사용할 통화를 선택하세요.</string>
+    <string name="select_the_currency">통화를 선택하세요</string>
+    <string name="search_currency">통화 검색</string>
+    <string name="select_currency">통화 선택</string>
+    <string name="add_currency">통화 추가</string>
+    <string name="edit_currency">통화 수정</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">환율</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">추가 통화가 없습니다</string>
+    <string name="empty_currency_hint">+ 버튼을 눌러 통화를 추가하세요.</string>
+    <string name="delete_currency">통화 제거</string>
+    <string name="delete_message_currency">이 통화를 제거하시겠습니까?</string>
+    <string name="message_currency">이 통화를 사용하는 지갑은 기본 통화로 변경됩니다.</string>
+    <string name="currency_has_been_removed_successfully">통화가 제거되었습니다</string>
+    <string name="base_currency">기본 통화</string>
+    <string name="additional_currency">추가 통화</string>
+    <string name="currency_subtext">사용할 통화를 선택하세요</string>
+    <string name="enter_the_rate">환율을 입력하세요</string>
+    <string name="default_base_currency">기본 통화로 설정된 통화입니다</string>
+    <string name="exchange_currency_hint">환율은 기본 통화(%1$s)를 기준으로 표시됩니다.\n각 통화의 환율을 업데이트할 수 있습니다.</string>
+</resources>

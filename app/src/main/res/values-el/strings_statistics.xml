@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Ημερήσια</string>
+    <string name="calendar_weekly">Εβδομαδιαία</string>
+    <string name="calendar_monthly">Μηνιαία</string>
+    <string name="calendar_quarterly">Τριμηνιαία</string>
+    <string name="calendar_yearly">Ετήσια</string>
+    <string name="calendar_all">Όλα</string>
+    <string name="calendar_custom">Προσαρμοσμένο</string>
+
+    <string name="total_balance">Συνολικό υπόλοιπο</string>
+    <string name="balance">Υπόλοιπο</string>
+    <string name="opening_balance">Αρχικό υπόλοιπο</string>
+    <string name="ending_balance">Τελικό υπόλοιπο</string>
+    <string name="overview">Επισκόπηση</string>
+    <string name="breakdown">Ανάλυση</string>
+    <string name="transaction_overview">Επισκόπηση συναλλαγών</string>
+    <string name="select_range">Επιλογή χρονικού διαστήματος</string>
+    <string name="all_time">Όλο το διάστημα</string>
+    <string name="period_spending">Δαπάνες περιόδου</string>
+</resources>

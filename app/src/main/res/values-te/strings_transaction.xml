@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">ఆదాయం</string>
+    <string name="total_income">మొత్తం ఆదాయం</string>
+    <string name="expense">ఖర్చు</string>
+    <string name="total_expense">మొత్తం ఖర్చు</string>
+    <string name="transfer">బదిలీ</string>
+    <string name="recurring">పునరావృతం</string>
+    <string name="trans_delete_failed">లావాదేవీని తొలగించడం విఫలమైంది</string>
+    <string name="fee">రుసుము</string>
+    <string name="memo">గమనిక</string>
+    <string name="notes">గమనికలు</string>
+    <string name="add_note">గమనికను జోడించండి…</string>
+    <string name="description">వివరణ</string>
+    <string name="short_description">సంక్షిప్త వివరణ</string>
+    <string name="enter_amount">మొత్తాన్ని నమోదు చేయండి</string>
+    <string name="cash_wallet">నగదు వాలెట్</string>
+    <string name="cash">నగదు</string>
+    <string name="enter_the_amount">మొత్తాన్ని నమోదు చేయండి</string>
+    <string name="date">తేదీ</string>
+    <string name="select_date">తేదీని ఎంచుకోండి</string>
+    <string name="amount">మొత్తం</string>
+    <string name="add_record">మీ మొదటి లావాదేవీని జోడించడానికి + బటన్‌ను నొక్కండి.</string>
+    <string name="type">రకం</string>
+    <string name="view_all">అన్నీ చూడండి</string>
+    <string name="delete_transaction">లావాదేవీని తొలగించండి</string>
+    <string name="total">మొత్తం</string>
+    <string name="all_transaction">అన్ని లావాదేవీలు</string>
+    <string name="no_transaction">ఇంకా లావాదేవీలు లేవు</string>
+    <string name="start_date">ప్రారంభ తేదీ</string>
+    <string name="end_date">ముగింపు తేదీ</string>
+    <string name="date_amp_time"><![CDATA[తేదీ & సమయం]]></string>
+    <string name="future">భవిష్యత్తు</string>
+    <string name="add_files">ఫోటోలు లేదా ఫైళ్లను జోడించండి (గరిష్ఠంగా 5 ఫైళ్లు)</string>
+    <string name="attachment_title">జోడింపులు (%1$d/5)</string>
+    <string name="tap_add_attach">జోడింపును జోడించడానికి నొక్కండి</string>
+    <string name="attachment_extension">చిత్రాలు, PDF, డాక్యుమెంట్లు, Excel, Zip మొదలైనవి.</string>
+    <string name="add_more">మరిన్ని జోడించండి</string>
+    <string name="unable_to_open_attachment">జోడింపును తెరవడం సాధ్యం కాలేదు</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">మొత్తం (వాలెట్ నుండి)</string>
+    <string name="fee_from_wallet">రుసుము (వాలెట్ నుండి)</string>
+    <string name="received_from_wallet">అందుకున్న మొత్తం (వాలెట్‌కు)</string>
+    <string name="transaction_action">లావాదేవీ చర్య</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">లావాదేవీ వివరాలను చూడండి</string>
+    <string name="change_detail">లావాదేవీ వివరాలను మార్చండి</string>
+    <string name="duplicate_copy">ప్రతిని సృష్టించండి</string>
+    <string name="remove_transaction">లావాదేవీని తొలగించండి</string>
+    <string name="duplicate">నకలు చేయండి</string>
+    <string name="duplicate_transaction">లావాదేవీని నకలు చేయండి</string>
+    <string name="duplicate_transaction_desc">ఈ లావాదేవీకి ప్రతిని సృష్టించాలనుకుంటున్నారా?</string>
+    <string name="transaction_duplicated">లావాదేవీ నకలు చేయబడింది</string>
+    <string name="transaction_deleted">లావాదేవీ తొలగించబడింది</string>
+    <string name="unable_to_save">సేవ్ చేయడం సాధ్యం కాలేదు</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d లావాదేవీ</item>
+        <item quantity="other">%d లావాదేవీలు</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">జోడింపు (%d)</item>
+        <item quantity="other">జోడింపులు (%d)</item>
+    </plurals>
+</resources>

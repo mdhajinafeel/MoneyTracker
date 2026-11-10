@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Odmówiono dostępu do aparatu</string>
+    <string name="camera_permission_required">Wymagany dostęp do aparatu</string>
+    <string name="camera_access_required">Dostęp do aparatu jest wymagany, aby robić zdjęcia i dodawać je jako załączniki do wydatków.</string>
+    <string name="allow">Zezwól</string>
+    <string name="permission_required">Wymagane uprawnienie</string>
+    <string name="camera_permission_disabled">Uprawnienie do korzystania z aparatu jest wyłączone. Włącz je w ustawieniach aplikacji.</string>
+    <string name="open_settings">Otwórz ustawienia</string>
+    <string name="cancel_subscription_desc">Możesz anulować subskrypcję w dowolnym momencie w Google Play</string>
+</resources>

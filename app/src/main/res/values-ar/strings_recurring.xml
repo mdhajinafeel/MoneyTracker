@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">متابعة المعاملات المتكررة</string>
+    <string name="select_recurring">اختيار التكرار</string>
+    <string name="repeat_on">التكرار في</string>
+    <string name="select_repeat_on">اختر أيام التكرار</string>
+    <string name="create_transaction">إنشاء معاملة</string>
+    <string name="never_miss_recurring_transaction">لا تفوّت أي معاملة متكررة</string>
+    <string name="income_recurring">الدخل المتكرر</string>
+    <string name="expense_recurring">المصروفات المتكررة</string>
+    <string name="transfer_recurring">التحويلات المتكررة</string>
+    <string name="no_repeat">بدون تكرار</string>
+    <string name="repeat_option">خيارات التكرار</string>
+    <string name="select_days">اختر الأيام</string>
+    <string name="please_select_at_least_one_day">يرجى اختيار يوم واحد على الأقل</string>
+    <string name="times">مرات</string>
+    <string name="every">كل</string>
+    <string name="forever">إلى الأبد</string>
+    <string name="until">حتى</string>
+    <string name="text_for">لمدة</string>
+    <string name="text_every_value">"كل %1$s • %2$s"</string>
+    <string name="text_every_value1">"كل %1$s"</string>
+    <string name="same_day_each_month">نفس اليوم من كل شهر (%1$d)</string>
+    <string name="end_of_month">نهاية الشهر</string>
+    <string name="recurring_transaction_saved">تم حفظ المعاملة المتكررة</string>
+    <string name="failed_to_save_recurring_transaction">فشل حفظ المعاملة المتكررة</string>
+    <string name="no_recurring_yet">لا توجد معاملات متكررة حتى الآن</string>
+    <string name="empty_recurring_hint">اضغط على زر + لإضافة معاملة متكررة.</string>
+    <string name="repeat_interval_atleast">يجب ألا يقل الفاصل الزمني للتكرار عن 1</string>
+    <string name="please_select_until_date">يرجى تحديد تاريخ الانتهاء</string>
+    <string name="please_enter_times">يرجى إدخال عدد مرات التكرار</string>
+    <string name="please_enter_an_amount">يرجى إدخال مبلغ</string>
+    <string name="please_select_a_wallet">يرجى اختيار محفظة</string>
+    <string name="please_select_a_repeat_frequency">يرجى اختيار وتيرة التكرار</string>
+    <string name="until_date_start_date">يجب أن يكون تاريخ الانتهاء بعد تاريخ البدء</string>
+    <string name="select_recurring_transaction_end">يرجى تحديد موعد انتهاء المعاملة المتكررة</string>
+    <string name="every_week_period">كل %1$s</string>
+    <string name="next_recurring">التالي: %1$s</string>
+    <string name="next_recurring_text">التكرار التالي</string>
+    <string name="recurring_transaction_added">تمت إضافة المعاملة المتكررة</string>
+    <string name="recurring_transactions_added">تمت إضافة المعاملات المتكررة</string>
+    <string name="a_recurring_expense_was_added">تمت إضافة مصروف متكرر</string>
+    <string name="a_recurring_income_was_added">تمت إضافة دخل متكرر</string>
+    <string name="a_recurring_transaction_was_added">تمت إضافة معاملة متكررة</string>
+    <string name="recurring_transactions_were_added">" تمت إضافة معاملات متكررة"</string>
+    <string name="activate">تفعيل</string>
+    <string name="text_deactivated">غير مفعّل</string>
+    <string name="deactivate">إلغاء التفعيل</string>
+    <string name="change_recurring_detail">تعديل تفاصيل التكرار</string>
+    <string name="resume_this_recurring_transaction">استئناف هذه المعاملة</string>
+    <string name="pause_this_recurring_transaction">إيقاف هذه المعاملة مؤقتًا</string>
+    <string name="permanently_remove_this_recurring_transaction">إزالة هذه المعاملة نهائيًا</string>
+    <string name="view_recurring_details">عرض تفاصيل التكرار</string>
+    <string name="delete_recurring">حذف المعاملة المتكررة</string>
+    <string name="delete_recurring_message">هل أنت متأكد أنك تريد حذف هذه المعاملة المتكررة؟</string>
+    <string name="recurring_deleted_successfully">تم حذف المعاملة المتكررة</string>
+    <string name="error_delete_recurring">حدث خطأ أثناء حذف المعاملة المتكررة</string>
+    <string name="activate_recurring">تفعيل المعاملة المتكررة</string>
+    <string name="deactivate_recurring">إلغاء تفعيل المعاملة المتكررة</string>
+    <string name="delete_activate_message">هل أنت متأكد أنك تريد تفعيل هذه المعاملة المتكررة؟</string>
+    <string name="delete_deactivate_message">هل أنت متأكد أنك تريد إلغاء تفعيل هذه المعاملة المتكررة؟</string>
+    <string name="delete_activate_sub_message">يمكنك إلغاء تفعيلها في أي وقت من قائمة المعاملات المتكررة النشطة.</string>
+    <string name="delete_deactivate_sub_message">يمكنك تفعيلها في أي وقت من قائمة المعاملات المتكررة المتوقفة مؤقتًا.</string>
+    <string name="deactivated_successfully">تم إلغاء تفعيل المعاملة المتكررة</string>
+    <string name="error_deactivate">حدث خطأ أثناء إلغاء تفعيل المعاملة المتكررة</string>
+    <string name="activated_successfully">تم تفعيل المعاملة المتكررة</string>
+    <string name="error_activate">حدث خطأ أثناء تفعيل المعاملة المتكررة</string>
+    <string name="repeat_time">وقت التكرار</string>
+    <string name="recurring_detail">تفاصيل المعاملة المتكررة</string>
+    <string name="until_date">حتى %1$s</string>
+    <string name="recurring_transaction_reminder">تذكير بمعاملة متكررة</string>
+    <string name="recurring_expense_due">موعد المصروف المتكرر مستحق.</string>
+    <string name="recurring_income_due">موعد الدخل المتكرر مستحق.</string>
+    <string name="recurring_transfer_due">موعد التحويل المتكرر مستحق.</string>
+
+    <plurals name="day_period">
+        <item quantity="zero">أيام</item>
+        <item quantity="one">يوم</item>
+        <item quantity="two">يومان</item>
+        <item quantity="few">أيام</item>
+        <item quantity="many">يومًا</item>
+        <item quantity="other">يوم</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="zero">كل %d يوم</item>
+        <item quantity="one">كل يوم</item>
+        <item quantity="two">كل يومين</item>
+        <item quantity="few">كل %d أيام</item>
+        <item quantity="many">كل %d يومًا</item>
+        <item quantity="other">كل %d يوم</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="zero">%d أيام</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومان</item>
+        <item quantity="few">%d أيام</item>
+        <item quantity="many">%d يومًا</item>
+        <item quantity="other">%d يوم</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="zero">أسابيع</item>
+        <item quantity="one">أسبوع</item>
+        <item quantity="two">أسبوعان</item>
+        <item quantity="few">أسابيع</item>
+        <item quantity="many">أسبوعًا</item>
+        <item quantity="other">أسبوع</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="zero">%d أسابيع</item>
+        <item quantity="one">أسبوع واحد</item>
+        <item quantity="two">أسبوعان</item>
+        <item quantity="few">%d أسابيع</item>
+        <item quantity="many">%d أسبوعًا</item>
+        <item quantity="other">%d أسبوع</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="zero">كل %d شهر</item>
+        <item quantity="one">كل شهر</item>
+        <item quantity="two">كل شهرين</item>
+        <item quantity="few">كل %d أشهر</item>
+        <item quantity="many">كل %d شهرًا</item>
+        <item quantity="other">كل %d شهر</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="zero">أشهر</item>
+        <item quantity="one">شهر</item>
+        <item quantity="two">شهران</item>
+        <item quantity="few">أشهر</item>
+        <item quantity="many">شهرًا</item>
+        <item quantity="other">شهر</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="zero">سنوات</item>
+        <item quantity="one">سنة</item>
+        <item quantity="two">سنتان</item>
+        <item quantity="few">سنوات</item>
+        <item quantity="many">سنة</item>
+        <item quantity="other">سنة</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="zero">كل %d سنة</item>
+        <item quantity="one">كل سنة</item>
+        <item quantity="two">كل سنتين</item>
+        <item quantity="few">كل %d سنوات</item>
+        <item quantity="many">كل %d سنة</item>
+        <item quantity="other">كل %d سنة</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="zero">مرات</item>
+        <item quantity="one">مرة</item>
+        <item quantity="two">مرتان</item>
+        <item quantity="few">مرات</item>
+        <item quantity="many">مرة</item>
+        <item quantity="other">مرة</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="zero">لمدة %d مرة</item>
+        <item quantity="one">لمرة واحدة</item>
+        <item quantity="two">لمرتين</item>
+        <item quantity="few">لمدة %d مرات</item>
+        <item quantity="many">لمدة %d مرة</item>
+        <item quantity="other">لمدة %d مرة</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="zero">كل %d شهر • اليوم الأخير</item>
+        <item quantity="one">كل شهر • اليوم الأخير</item>
+        <item quantity="two">كل شهرين • اليوم الأخير</item>
+        <item quantity="few">كل %d أشهر • اليوم الأخير</item>
+        <item quantity="many">كل %d شهرًا • اليوم الأخير</item>
+        <item quantity="other">كل %d شهر • اليوم الأخير</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="zero">كل %d شهر • اليوم %d</item>
+        <item quantity="one">كل شهر • اليوم %d</item>
+        <item quantity="two">كل شهرين • اليوم %d</item>
+        <item quantity="few">كل %d أشهر • اليوم %d</item>
+        <item quantity="many">كل %d شهرًا • اليوم %d</item>
+        <item quantity="other">كل %d شهر • اليوم %d</item>
+    </plurals>
+</resources>

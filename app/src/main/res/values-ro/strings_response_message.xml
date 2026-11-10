@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">Există deja un cont cu această adresă de e-mail.</string>
+    <string name="error_check_details">Verifică datele introduse și încearcă din nou.</string>
+    <string name="error_too_many_attempts">Prea multe încercări. Încearcă din nou mai târziu.</string>
+    <string name="error_account_creation_failed">Crearea contului a eșuat. Încearcă din nou.</string>
+    <string name="error_network_connection">Conectarea nu a reușit. Verifică conexiunea la internet și încearcă din nou.</string>
+    <string name="check_internet_connection">Conectarea nu a reușit. Verifică conexiunea la internet și încearcă din nou.</string>
+</resources>

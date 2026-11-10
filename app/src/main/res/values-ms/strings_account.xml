@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Akaun</string>
+    <string name="add_account">Tambah Akaun</string>
+    <string name="edit_account">Edit Akaun</string>
+    <string name="account_heading">Apakah nama yang ingin anda berikan kepada akaun ini?</string>
+    <string name="choose_name">Pilih nama yang memudahkan anda mengenal pasti akaun ini.</string>
+    <string name="account_name">Nama Akaun</string>
+    <string name="create_account">Cipta Akaun</string>
+    <string name="select_account">Pilih akaun</string>
+    <string name="initial_balance">Masukkan baki permulaan</string>
+    <string name="opening_balance_subtext">Tambah baki permulaan untuk akaun ini.</string>
+    <string name="initial_amount">Baki Permulaan</string>
+    <string name="initial">Permulaan</string>
+    <string name="account_balance_format">Baki: %1$s</string>
+    <string name="manage_account_desc">Urus semua akaun bank, kad dan banyak lagi di satu tempat.</string>
+    <string name="your_accounts">Akaun Anda</string>
+    <string name="all_accounts">Semua Akaun</string>
+    <string name="add_new_account">Tambah Akaun Baharu</string>
+    <string name="add_account_desc">Tambah akaun bank, kad kredit atau akaun lain</string>
+    <string name="archived_accounts">Akaun Diarkibkan</string>
+    <string name="archived_accounts_desc">Lihat dan pulihkan akaun yang telah diarkibkan</string>
+    <string name="account_created">Akaun berjaya dicipta</string>
+    <string name="account_updated">Akaun berjaya dikemas kini</string>
+    <string name="currency_edit_account">Mata wang tidak boleh ditukar semasa mengedit akaun.</string>
+    <string name="account_action">Tindakan Akaun</string>
+    <string name="update_account_detail">Kemas kini maklumat akaun</string>
+    <string name="use_as_your_default_account">Gunakan sebagai akaun lalai</string>
+    <string name="see_account_detail">Lihat maklumat akaun</string>
+    <string name="hide_from_active_accounts">Sembunyikan daripada akaun aktif</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Buang semua dompet & transaksi]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Padam Dompet & Transaksi]]></string>
+    <string name="remove_account">Buang akaun</string>
+    <string name="account_set_as_default">Akaun ditetapkan sebagai lalai</string>
+    <string name="archive_account">Arkibkan akaun?</string>
+    <string name="account_archived">Akaun berjaya diarkibkan</string>
+    <string name="delete_account_message">Akaun ini serta semua dompet dan transaksinya akan dipadam secara kekal. Tindakan ini tidak boleh dibatalkan.</string>
+    <string name="delete_account">Padam akaun</string>
+    <string name="account_deleted">Akaun berjaya dipadam</string>
+    <string name="error_delete_account">Ralat semasa memadam akaun</string>
+    <string name="opening_balance_editing_account">Baki permulaan tidak boleh ditukar semasa mengedit akaun.</string>
+    <string name="cannot_change_initial_amount">Baki permulaan tidak boleh ditukar kerana terdapat transaksi sedia ada.</string>
+    <string name="archive_account_message">Akaun ini akan disembunyikan daripada senarai akaun aktif. Baki dan transaksi anda akan dikekalkan.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Padam dompet &amp; transaksi akaun?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Semua dompet &amp; transaksi dalam akaun ini akan dipadam. Tindakan ini tidak boleh dibatalkan.]]></string>
+    <string name="error_delete_account_trans">Ralat semasa memadam transaksi akaun</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Dompet &amp; transaksi akaun berjaya dipadam]]></string>
+    <string name="transactions">Transaksi</string>
+    <string name="view_all_transactions">Lihat semua transaksi</string>
+    <string name="view_all_recurring_transactions">Lihat semua transaksi berulang</string>
+    <string name="recurring_transactions">Transaksi Berulang</string>
+    <string name="account_details">Butiran Akaun</string>
+    <string name="archived_account_desc">Akaun ini telah diarkibkan dan disembunyikan daripada senarai akaun aktif anda. Semua dompet dan data transaksi disimpan dan boleh dipulihkan pada bila-bila masa.</string>
+    <string name="restore_account">Pulihkan akaun?</string>
+    <string name="account_restore">Akaun berjaya dipulihkan</string>
+    <string name="restore_account_message">Akaun ini akan dikembalikan ke senarai akaun aktif anda. Baki dan transaksi anda tidak akan berubah.</string>
+    <string name="restore_your_account">Pulihkan akaun anda</string>
+    <string name="account_transactions">Transaksi Akaun</string>
+
+    <plurals name="account_count">
+        <item quantity="other">%d akaun</item>
+    </plurals>
+</resources>

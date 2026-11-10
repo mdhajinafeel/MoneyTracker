@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">แกลเลอรี</string>
+    <string name="camera">กล้อง</string>
+    <string name="select_source">เลือกแหล่งที่มา</string>
+    <string name="file">ไฟล์</string>
+</resources>

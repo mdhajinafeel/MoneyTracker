@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">Akaun dengan e-mel ini sudah wujud.</string>
+    <string name="error_check_details">Sila semak maklumat anda dan cuba lagi.</string>
+    <string name="error_too_many_attempts">Terlalu banyak percubaan. Sila cuba lagi kemudian.</string>
+    <string name="error_account_creation_failed">Gagal mencipta akaun. Sila cuba lagi.</string>
+    <string name="error_network_connection">Tidak dapat disambungkan. Semak sambungan Internet anda dan cuba lagi.</string>
+    <string name="check_internet_connection">Tidak dapat disambungkan. Semak sambungan Internet anda dan cuba lagi.</string>
+</resources>

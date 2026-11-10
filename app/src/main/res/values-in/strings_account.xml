@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Akun</string>
+    <string name="add_account">Tambah Akun</string>
+    <string name="edit_account">Edit Akun</string>
+    <string name="account_heading">Apa nama yang ingin Anda berikan untuk akun ini?</string>
+    <string name="choose_name">Pilih nama yang memudahkan Anda mengenali akun ini.</string>
+    <string name="account_name">Nama Akun</string>
+    <string name="create_account">Buat Akun</string>
+    <string name="select_account">Pilih akun</string>
+    <string name="initial_balance">Masukkan saldo awal</string>
+    <string name="opening_balance_subtext">Tambahkan saldo awal untuk akun ini.</string>
+    <string name="initial_amount">Saldo Awal</string>
+    <string name="initial">Awal</string>
+    <string name="account_balance_format">Saldo: %1$s</string>
+    <string name="manage_account_desc">Kelola semua rekening bank, kartu, dan lainnya di satu tempat.</string>
+    <string name="your_accounts">Akun Anda</string>
+    <string name="all_accounts">Semua Akun</string>
+    <string name="add_new_account">Tambah Akun Baru</string>
+    <string name="add_account_desc">Tambahkan rekening bank, kartu kredit, atau akun lainnya</string>
+    <string name="archived_accounts">Akun yang Diarsipkan</string>
+    <string name="archived_accounts_desc">Lihat dan pulihkan akun yang telah diarsipkan</string>
+    <string name="account_created">Akun berhasil dibuat</string>
+    <string name="account_updated">Akun berhasil diperbarui</string>
+    <string name="currency_edit_account">Mata uang tidak dapat diubah saat mengedit akun.</string>
+    <string name="account_action">Tindakan Akun</string>
+    <string name="update_account_detail">Perbarui detail akun</string>
+    <string name="use_as_your_default_account">Gunakan sebagai akun default</string>
+    <string name="see_account_detail">Lihat detail akun</string>
+    <string name="hide_from_active_accounts">Sembunyikan dari akun aktif</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Hapus semua dompet & transaksi]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Hapus Dompet & Transaksi]]></string>
+    <string name="remove_account">Hapus akun</string>
+    <string name="account_set_as_default">Akun ditetapkan sebagai default</string>
+    <string name="archive_account">Arsipkan akun?</string>
+    <string name="account_archived">Akun berhasil diarsipkan</string>
+    <string name="delete_account_message">Akun beserta semua dompet dan transaksinya akan dihapus secara permanen. Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="delete_account">Hapus akun</string>
+    <string name="account_deleted">Akun berhasil dihapus</string>
+    <string name="error_delete_account">Terjadi kesalahan saat menghapus akun</string>
+    <string name="opening_balance_editing_account">Saldo awal tidak dapat diubah saat mengedit akun.</string>
+    <string name="cannot_change_initial_amount">Saldo awal tidak dapat diubah karena sudah terdapat transaksi.</string>
+    <string name="archive_account_message">Akun ini akan disembunyikan dari daftar akun aktif. Saldo dan transaksi Anda akan tetap tersimpan.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Hapus dompet & transaksi akun?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Semua dompet & transaksi dalam akun ini akan dihapus. Tindakan ini tidak dapat dibatalkan.]]></string>
+    <string name="error_delete_account_trans">Terjadi kesalahan saat menghapus transaksi akun</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Dompet & transaksi akun berhasil dihapus]]></string>
+    <string name="transactions">Transaksi</string>
+    <string name="view_all_transactions">Lihat semua transaksi</string>
+    <string name="view_all_recurring_transactions">Lihat semua transaksi berulang</string>
+    <string name="recurring_transactions">Transaksi Berulang</string>
+    <string name="account_details">Detail Akun</string>
+    <string name="archived_account_desc">Akun-akun ini telah diarsipkan dan disembunyikan dari daftar akun aktif Anda. Semua dompet dan data transaksi tetap tersimpan dan dapat dipulihkan kapan saja.</string>
+    <string name="restore_account">Pulihkan akun?</string>
+    <string name="account_restore">Akun berhasil dipulihkan</string>
+    <string name="restore_account_message">Akun ini akan dikembalikan ke daftar akun aktif Anda. Saldo dan transaksi akan tetap sama.</string>
+    <string name="restore_your_account">Pulihkan akun Anda</string>
+    <string name="account_transactions">Transaksi Akun</string>
+
+    <plurals name="account_count">
+        <item quantity="other">%d akun</item>
+    </plurals>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">Làm chủ tài chính của bạn</string>
+    <string name="walkthrough_1_desc">Theo dõi mọi khoản chi tiêu, quản lý ngân sách và hiểu rõ tiền của bạn được sử dụng vào đâu.</string>
+    <string name="walkthrough_2_title">Quản lý mọi ví tiền</string>
+    <string name="walkthrough_2_desc">Quản lý tiền mặt, tài khoản ngân hàng, thẻ và ví điện tử tại một nơi an toàn.</string>
+    <string name="walkthrough_3_title">Ghi lại chi tiêu ngay lập tức</string>
+    <string name="walkthrough_3_desc">Thêm giao dịch cùng danh mục, ghi chú và tệp đính kèm chỉ với vài thao tác.</string>
+    <string name="walkthrough_4_title"><![CDATA[Báo cáo & Phân tích thông minh]]></string>
+    <string name="walkthrough_4_desc">Trực quan hóa chi tiêu bằng các biểu đồ mạnh mẽ và thông tin tài chính được cá nhân hóa.</string>
+    <string name="walkthrough_5_title">Luôn chủ động với lời nhắc</string>
+    <string name="walkthrough_5_desc">Theo dõi hóa đơn, đăng ký dịch vụ và các khoản thanh toán định kỳ bằng lời nhắc thông minh.</string>
+    <string name="walkthrough_6_title">Đạt được mục tiêu tài chính</string>
+    <string name="walkthrough_6_desc">Xây dựng thói quen quản lý tiền tốt hơn, tiết kiệm nhiều hơn và tự tin hơn về tài chính mỗi ngày.</string>
+</resources>

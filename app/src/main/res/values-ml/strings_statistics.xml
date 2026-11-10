@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">ദിവസേന</string>
+    <string name="calendar_weekly">പ്രതിവാരം</string>
+    <string name="calendar_monthly">പ്രതിമാസം</string>
+    <string name="calendar_quarterly">പാദവാർഷികം</string>
+    <string name="calendar_yearly">പ്രതിവർഷം</string>
+    <string name="calendar_all">എല്ലാം</string>
+    <string name="calendar_custom">ഇഷ്ടാനുസൃതം</string>
+
+    <string name="total_balance">ആകെ ബാലൻസ്</string>
+    <string name="balance">ബാലൻസ്</string>
+    <string name="opening_balance">ആരംഭ ബാലൻസ്</string>
+    <string name="ending_balance">അവസാന ബാലൻസ്</string>
+    <string name="overview">അവലോകനം</string>
+    <string name="breakdown">വിശദമായ വിഭജനം</string>
+    <string name="transaction_overview">ഇടപാടുകളുടെ അവലോകനം</string>
+    <string name="select_range">കാലയളവ് തിരഞ്ഞെടുക്കുക</string>
+    <string name="all_time">എല്ലാ കാലയളവും</string>
+    <string name="period_spending">കാലയളവിലെ ചെലവ്</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">روزانه</string>
+    <string name="calendar_weekly">هفتگی</string>
+    <string name="calendar_monthly">ماهانه</string>
+    <string name="calendar_quarterly">سه‌ماهه</string>
+    <string name="calendar_yearly">سالانه</string>
+    <string name="calendar_all">همه</string>
+    <string name="calendar_custom">سفارشی</string>
+
+    <string name="total_balance">موجودی کل</string>
+    <string name="balance">موجودی</string>
+    <string name="opening_balance">موجودی اولیه</string>
+    <string name="ending_balance">موجودی پایانی</string>
+    <string name="overview">نمای کلی</string>
+    <string name="breakdown">جزئیات</string>
+    <string name="transaction_overview">نمای کلی تراکنش‌ها</string>
+    <string name="select_range">انتخاب بازه</string>
+    <string name="all_time">تمام مدت</string>
+    <string name="period_spending">هزینه‌های دوره</string>
+</resources>

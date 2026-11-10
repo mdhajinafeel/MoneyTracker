@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Pendapatan</string>
+    <string name="total_income">Jumlah Pendapatan</string>
+    <string name="expense">Perbelanjaan</string>
+    <string name="total_expense">Jumlah Perbelanjaan</string>
+    <string name="transfer">Pindahan</string>
+    <string name="recurring">Berulang</string>
+    <string name="trans_delete_failed">Gagal memadam transaksi</string>
+    <string name="fee">Yuran</string>
+    <string name="memo">Nota</string>
+    <string name="notes">Nota</string>
+    <string name="add_note">Tambah nota…</string>
+    <string name="description">Penerangan</string>
+    <string name="short_description">Penerangan Ringkas</string>
+    <string name="enter_amount">Masukkan Jumlah</string>
+    <string name="cash_wallet">Dompet Tunai</string>
+    <string name="cash">Tunai</string>
+    <string name="enter_the_amount">Masukkan jumlah</string>
+    <string name="date">Tarikh</string>
+    <string name="select_date">Pilih Tarikh</string>
+    <string name="amount">Jumlah</string>
+    <string name="add_record">Ketik butang + untuk menambah transaksi pertama anda.</string>
+    <string name="type">Jenis</string>
+    <string name="view_all">Lihat Semua</string>
+    <string name="delete_transaction">Padam Transaksi</string>
+    <string name="total">Jumlah</string>
+    <string name="all_transaction">Semua Transaksi</string>
+    <string name="no_transaction">Belum ada transaksi</string>
+    <string name="start_date">Tarikh Mula</string>
+    <string name="end_date">Tarikh Tamat</string>
+    <string name="date_amp_time"><![CDATA[Tarikh & Masa]]></string>
+    <string name="future">Akan Datang</string>
+    <string name="add_files">Tambah foto atau fail (Maksimum 5 fail)</string>
+    <string name="attachment_title">Lampiran (%1$d/5)</string>
+    <string name="tap_add_attach">Ketik untuk menambah lampiran</string>
+    <string name="attachment_extension">Imej, PDF, Dokumen, Excel, ZIP dan sebagainya.</string>
+    <string name="add_more">Tambah Lagi</string>
+    <string name="unable_to_open_attachment">Tidak dapat membuka lampiran</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Jumlah (Daripada Dompet)</string>
+    <string name="fee_from_wallet">Yuran (Daripada Dompet)</string>
+    <string name="received_from_wallet">Diterima (Ke Dompet)</string>
+    <string name="transaction_action">Tindakan Transaksi</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Lihat Butiran Transaksi</string>
+    <string name="change_detail">Ubah Butiran Transaksi</string>
+    <string name="duplicate_copy">Cipta Salinan</string>
+    <string name="remove_transaction">Buang Transaksi</string>
+    <string name="duplicate">Duplikasi</string>
+    <string name="duplicate_transaction">Duplikasi Transaksi</string>
+    <string name="duplicate_transaction_desc">Adakah anda mahu mencipta salinan transaksi ini?</string>
+    <string name="transaction_duplicated">Transaksi berjaya diduplikasi</string>
+    <string name="transaction_deleted">Transaksi dipadam</string>
+    <string name="unable_to_save">Tidak dapat menyimpan</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">%d transaksi</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">Lampiran (%d)</item>
+    </plurals>
+</resources>

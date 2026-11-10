@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="income">Доход</string>
+    <string name="total_income">Общий доход</string>
+    <string name="expense">Расход</string>
+    <string name="total_expense">Общие расходы</string>
+    <string name="transfer">Перевод</string>
+    <string name="recurring">Регулярные операции</string>
+    <string name="trans_delete_failed">Не удалось удалить транзакцию</string>
+    <string name="fee">Комиссия</string>
+    <string name="memo">Заметка</string>
+    <string name="notes">Заметки</string>
+    <string name="add_note">Добавить заметку…</string>
+    <string name="description">Описание</string>
+    <string name="short_description">Краткое описание</string>
+    <string name="enter_amount">Введите сумму</string>
+    <string name="cash_wallet">Наличный кошелёк</string>
+    <string name="cash">Наличные</string>
+    <string name="enter_the_amount">Введите сумму</string>
+    <string name="date">Дата</string>
+    <string name="select_date">Выбрать дату</string>
+    <string name="amount">Сумма</string>
+    <string name="add_record">Нажмите кнопку +, чтобы добавить первую транзакцию.</string>
+    <string name="type">Тип</string>
+    <string name="view_all">Посмотреть все</string>
+    <string name="delete_transaction">Удалить транзакцию</string>
+    <string name="total">Итого</string>
+    <string name="all_transaction">Все транзакции</string>
+    <string name="no_transaction">Пока нет транзакций</string>
+    <string name="start_date">Дата начала</string>
+    <string name="end_date">Дата окончания</string>
+    <string name="date_amp_time"><![CDATA[Дата и время]]></string>
+    <string name="future">Будущие</string>
+    <string name="add_files">Добавить фото или файлы (максимум 5 файлов)</string>
+    <string name="attachment_title">Вложения (%1$d/5)</string>
+    <string name="tap_add_attach">Нажмите, чтобы добавить вложение</string>
+    <string name="attachment_extension">Изображения, PDF, документы, Excel, ZIP и т. д.</string>
+    <string name="add_more">Добавить ещё</string>
+    <string name="unable_to_open_attachment">Не удалось открыть вложение</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Сумма (из кошелька)</string>
+    <string name="fee_from_wallet">Комиссия (из кошелька)</string>
+    <string name="received_from_wallet">Получено (в кошелёк)</string>
+    <string name="transaction_action">Действия с транзакцией</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Просмотреть сведения о транзакции</string>
+    <string name="change_detail">Изменить сведения о транзакции</string>
+    <string name="duplicate_copy">Создать копию</string>
+    <string name="remove_transaction">Удалить транзакцию</string>
+    <string name="duplicate">Дублировать</string>
+    <string name="duplicate_transaction">Дублировать транзакцию</string>
+    <string name="duplicate_transaction_desc">Создать копию этой транзакции?</string>
+    <string name="transaction_duplicated">Транзакция скопирована</string>
+    <string name="transaction_deleted">Транзакция удалена</string>
+    <string name="unable_to_save">Не удалось сохранить</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d транзакция</item>
+        <item quantity="few">%d транзакции</item>
+        <item quantity="many">%d транзакций</item>
+        <item quantity="other">%d транзакции</item>
+    </plurals>
+
+    <plurals name="attachments_count" tools:ignore="MissingQuantity">
+        <item quantity="one">Вложение (%d)</item>
+        <item quantity="few">Вложения (%d)</item>
+        <item quantity="many">Вложений (%d)</item>
+        <item quantity="other">Вложения (%d)</item>
+    </plurals>
+</resources>

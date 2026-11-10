@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">수입</string>
+    <string name="total_income">총수입</string>
+    <string name="expense">지출</string>
+    <string name="total_expense">총지출</string>
+    <string name="transfer">이체</string>
+    <string name="recurring">정기 거래</string>
+    <string name="trans_delete_failed">거래를 삭제하지 못했습니다</string>
+    <string name="fee">수수료</string>
+    <string name="memo">메모</string>
+    <string name="notes">메모</string>
+    <string name="add_note">메모 추가…</string>
+    <string name="description">설명</string>
+    <string name="short_description">간단한 설명</string>
+    <string name="enter_amount">금액 입력</string>
+    <string name="cash_wallet">현금 지갑</string>
+    <string name="cash">현금</string>
+    <string name="enter_the_amount">금액을 입력하세요</string>
+    <string name="date">날짜</string>
+    <string name="select_date">날짜 선택</string>
+    <string name="amount">금액</string>
+    <string name="add_record">+ 버튼을 눌러 첫 거래를 추가하세요.</string>
+    <string name="type">유형</string>
+    <string name="view_all">모두 보기</string>
+    <string name="delete_transaction">거래 삭제</string>
+    <string name="total">합계</string>
+    <string name="all_transaction">모든 거래</string>
+    <string name="no_transaction">아직 거래가 없습니다</string>
+    <string name="start_date">시작일</string>
+    <string name="end_date">종료일</string>
+    <string name="date_amp_time"><![CDATA[날짜 및 시간]]></string>
+    <string name="future">미래</string>
+    <string name="add_files">사진 또는 파일 추가 (최대 5개)</string>
+    <string name="attachment_title">첨부 파일 (%1$d/5)</string>
+    <string name="tap_add_attach">눌러서 첨부 파일 추가</string>
+    <string name="attachment_extension">이미지, PDF, 문서, Excel, ZIP 등</string>
+    <string name="add_more">더 추가하기</string>
+    <string name="unable_to_open_attachment">첨부 파일을 열 수 없습니다</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">금액 (출금 지갑)</string>
+    <string name="fee_from_wallet">수수료 (출금 지갑)</string>
+    <string name="received_from_wallet">받은 금액 (입금 지갑)</string>
+    <string name="transaction_action">거래 작업</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">거래 상세 정보 보기</string>
+    <string name="change_detail">거래 정보 수정</string>
+    <string name="duplicate_copy">복사본 만들기</string>
+    <string name="remove_transaction">거래 삭제</string>
+    <string name="duplicate">복제</string>
+    <string name="duplicate_transaction">거래 복제</string>
+    <string name="duplicate_transaction_desc">이 거래의 복사본을 만드시겠습니까?</string>
+    <string name="transaction_duplicated">거래가 복제되었습니다</string>
+    <string name="transaction_deleted">거래가 삭제되었습니다</string>
+    <string name="unable_to_save">저장할 수 없습니다</string>
+
+    <plurals name="transaction_count">
+        <item quantity="other">거래 %d건</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="other">첨부 파일 (%d개)</item>
+    </plurals>
+</resources>

@@ -250,7 +250,7 @@ public class SettingPinActivity extends BaseActivity {
                     currentStage = STAGE_NEW_PIN;
                     updatePinScreen();
                     updatePinDots();
-                    Toast.makeText(this, R.string.pins_do_not_match, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.pins_do_not_match, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 savePin(pin);
@@ -291,14 +291,14 @@ public class SettingPinActivity extends BaseActivity {
                     enteredPin = "";
                     updatePinScreen();
                     updatePinDots();
-                    Toast.makeText(this, R.string.unable_verify_pin, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.unable_verify_pin, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!verified) {
                     enteredPin = "";
                     updatePinDots();
-                    Toast.makeText(this, R.string.incorrect_current_pin, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.incorrect_current_pin, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -341,7 +341,7 @@ public class SettingPinActivity extends BaseActivity {
                     AppLogger.e(getClass(), "savePin", finalError);
                     btnCreatePin.setText(currentStage == STAGE_CONFIRM_PIN ? getString(R.string.confirm_pin) : getString(R.string.create_pin));
                     updatePinDots();
-                    Toast.makeText(this, R.string.unable_save_pin, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.unable_save_pin, Toast.LENGTH_SHORT).show();
                     return;
                 }
 

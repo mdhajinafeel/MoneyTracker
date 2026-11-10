@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_12">
+
+    <!-- Pastel icon background -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBenefitIcon"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="@drawable/bg_circle_white"
+        android:padding="@dimen/padding_8"
+        android:tint="@color/primary" />
+
+    <!-- Benefit text -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_10"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBenefitTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/exo2_semibold"
+            android:maxLines="1"
+            android:textColor="@color/feature_wallets"
+            android:textSize="@dimen/text_14" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBenefitDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_4"
+            android:lineSpacingExtra="0.6dp"
+            android:maxLines="2"
+            app:fontFamily="@font/exo2_medium"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_12" />
+    </LinearLayout>
+</LinearLayout>

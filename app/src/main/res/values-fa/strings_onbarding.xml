@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">مدیریت هوشمند پول شما</string>
+    <string name="walkthrough_1_desc">تمام هزینه‌ها را ثبت کنید، بودجه خود را زیر نظر داشته باشید و بدانید پولتان کجا خرج می‌شود.</string>
+    <string name="walkthrough_2_title">مدیریت تمام کیف پول‌ها</string>
+    <string name="walkthrough_2_desc">پول نقد، حساب‌های بانکی، کارت‌ها و کیف پول‌های دیجیتال را در یک مکان امن نگهداری کنید.</string>
+    <string name="walkthrough_3_title">ثبت فوری هزینه‌ها</string>
+    <string name="walkthrough_3_desc">تراکنش‌ها را تنها با چند لمس، همراه با دسته‌بندی، یادداشت و پیوست ثبت کنید.</string>
+    <string name="walkthrough_4_title"><![CDATA[گزارش‌ها و تحلیل‌های هوشمند]]></string>
+    <string name="walkthrough_4_desc">هزینه‌های خود را با نمودارهای قدرتمند و بینش‌های مالی شخصی‌سازی‌شده بررسی کنید.</string>
+    <string name="walkthrough_5_title">با یادآورها همیشه آماده باشید</string>
+    <string name="walkthrough_5_desc">با یادآورهای هوشمند، قبوض، اشتراک‌ها و پرداخت‌های دوره‌ای خود را به‌موقع مدیریت کنید.</string>
+    <string name="walkthrough_6_title">به اهداف مالی خود برسید</string>
+    <string name="walkthrough_6_desc">عادت‌های مالی بهتری ایجاد کنید، بیشتر پس‌انداز کنید و هر روز اعتمادبه‌نفس مالی خود را افزایش دهید.</string>
+</resources>

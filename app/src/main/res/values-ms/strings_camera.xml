@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">Galeri</string>
+    <string name="camera">Kamera</string>
+    <string name="select_source">Pilih Sumber</string>
+    <string name="file">Fail</string>
+</resources>

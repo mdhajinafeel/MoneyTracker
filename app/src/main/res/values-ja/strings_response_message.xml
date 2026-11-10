@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="error_account_already_exists">このメールアドレスのアカウントはすでに存在します。</string>
+    <string name="error_check_details">入力内容を確認して、もう一度お試しください。</string>
+    <string name="error_too_many_attempts">試行回数が多すぎます。しばらくしてからもう一度お試しください。</string>
+    <string name="error_account_creation_failed">アカウントの作成に失敗しました。もう一度お試しください。</string>
+    <string name="error_network_connection">接続できません。インターネット接続を確認して、もう一度お試しください。</string>
+    <string name="check_internet_connection">接続できません。インターネット接続を確認して、もう一度お試しください。</string>
+</resources>

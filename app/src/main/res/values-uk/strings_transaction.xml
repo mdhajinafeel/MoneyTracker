@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Дохід</string>
+    <string name="total_income">Загальний дохід</string>
+    <string name="expense">Витрата</string>
+    <string name="total_expense">Загальні витрати</string>
+    <string name="transfer">Переказ</string>
+    <string name="recurring">Регулярні транзакції</string>
+    <string name="trans_delete_failed">Не вдалося видалити транзакцію</string>
+    <string name="fee">Комісія</string>
+    <string name="memo">Примітка</string>
+    <string name="notes">Нотатки</string>
+    <string name="add_note">Додати нотатку…</string>
+    <string name="description">Опис</string>
+    <string name="short_description">Короткий опис</string>
+    <string name="enter_amount">Введіть суму</string>
+    <string name="cash_wallet">Гаманець готівки</string>
+    <string name="cash">Готівка</string>
+    <string name="enter_the_amount">Введіть суму</string>
+    <string name="date">Дата</string>
+    <string name="select_date">Виберіть дату</string>
+    <string name="amount">Сума</string>
+    <string name="add_record">Натисніть кнопку +, щоб додати свою першу транзакцію.</string>
+    <string name="type">Тип</string>
+    <string name="view_all">Переглянути все</string>
+    <string name="delete_transaction">Видалити транзакцію</string>
+    <string name="total">Усього</string>
+    <string name="all_transaction">Усі транзакції</string>
+    <string name="no_transaction">Поки що немає транзакцій</string>
+    <string name="start_date">Дата початку</string>
+    <string name="end_date">Дата завершення</string>
+    <string name="date_amp_time"><![CDATA[Дата та час]]></string>
+    <string name="future">Майбутні</string>
+    <string name="add_files">Додайте фото або файли (максимум 5 файлів)</string>
+    <string name="attachment_title">Вкладення (%1$d/5)</string>
+    <string name="tap_add_attach">Натисніть, щоб додати вкладення</string>
+    <string name="attachment_extension">Зображення, PDF, документи, Excel, ZIP тощо.</string>
+    <string name="add_more">Додати ще</string>
+    <string name="unable_to_open_attachment">Не вдалося відкрити вкладення</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Сума (з гаманця)</string>
+    <string name="fee_from_wallet">Комісія (з гаманця)</string>
+    <string name="received_from_wallet">Отримано (на гаманець)</string>
+    <string name="transaction_action">Дії з транзакцією</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Переглянути деталі транзакції</string>
+    <string name="change_detail">Змінити деталі транзакції</string>
+    <string name="duplicate_copy">Створити копію</string>
+    <string name="remove_transaction">Видалити транзакцію</string>
+    <string name="duplicate">Дублювати</string>
+    <string name="duplicate_transaction">Дублювати транзакцію</string>
+    <string name="duplicate_transaction_desc">Створити копію цієї транзакції?</string>
+    <string name="transaction_duplicated">Транзакцію дубльовано</string>
+    <string name="transaction_deleted">Транзакцію видалено</string>
+    <string name="unable_to_save">Не вдалося зберегти</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d транзакція</item>
+        <item quantity="few">%d транзакції</item>
+        <item quantity="many">%d транзакцій</item>
+        <item quantity="other">%d транзакції</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Вкладення (%d)</item>
+        <item quantity="few">Вкладення (%d)</item>
+        <item quantity="many">Вкладень (%d)</item>
+        <item quantity="other">Вкладення (%d)</item>
+    </plurals>
+</resources>

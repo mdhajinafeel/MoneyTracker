@@ -1,0 +1,229 @@
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">هر هزینه، یک بینش</string>
+    <string name="app_tag_text1">هزینه</string>
+    <string name="app_tag_text2">بینش</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">تراکنش</string>
+    <string name="calendar">تقویم</string>
+    <string name="statistic">بینش‌ها</string>
+    <string name="more">بیشتر</string>
+    <string name="wallet">کیف پول</string>
+
+    <!-- DAYS -->
+    <string name="sunday">یکشنبه</string>
+    <string name="monday">دوشنبه</string>
+    <string name="tuesday">سه‌شنبه</string>
+    <string name="wednesday">چهارشنبه</string>
+    <string name="thursday">پنجشنبه</string>
+    <string name="friday">جمعه</string>
+    <string name="saturday">شنبه</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">یکشنبه</string>
+    <string name="monday_short">دوشنبه</string>
+    <string name="tuesday_short">سه‌شنبه</string>
+    <string name="wednesday_short">چهارشنبه</string>
+    <string name="thursday_short">پنجشنبه</string>
+    <string name="friday_short">جمعه</string>
+    <string name="saturday_short">شنبه</string>
+
+    <string-array name="week_days">
+        <item>یکشنبه</item>
+        <item>دوشنبه</item>
+        <item>سه‌شنبه</item>
+        <item>چهارشنبه</item>
+        <item>پنجشنبه</item>
+        <item>جمعه</item>
+        <item>شنبه</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>ی</item>
+        <item>د</item>
+        <item>س</item>
+        <item>چ</item>
+        <item>پ</item>
+        <item>ج</item>
+        <item>ش</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">ژانویه</string>
+    <string name="february">فوریه</string>
+    <string name="march">مارس</string>
+    <string name="april">آوریل</string>
+    <string name="may">مه</string>
+    <string name="june">ژوئن</string>
+    <string name="july">ژوئیه</string>
+    <string name="august">اوت</string>
+    <string name="september">سپتامبر</string>
+    <string name="october">اکتبر</string>
+    <string name="november">نوامبر</string>
+    <string name="december">دسامبر</string>
+
+    <string-array name="month_full">
+        <item>ژانویه</item>
+        <item>فوریه</item>
+        <item>مارس</item>
+        <item>آوریل</item>
+        <item>مه</item>
+        <item>ژوئن</item>
+        <item>ژوئیه</item>
+        <item>اوت</item>
+        <item>سپتامبر</item>
+        <item>اکتبر</item>
+        <item>نوامبر</item>
+        <item>دسامبر</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>ژان</item>
+        <item>فور</item>
+        <item>مار</item>
+        <item>آور</item>
+        <item>مه</item>
+        <item>ژوئن</item>
+        <item>ژوئیه</item>
+        <item>اوت</item>
+        <item>سپت</item>
+        <item>اکت</item>
+        <item>نوا</item>
+        <item>دسا</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>سه‌ماهه ۱</item>
+        <item>سه‌ماهه ۲</item>
+        <item>سه‌ماهه ۳</item>
+        <item>سه‌ماهه ۴</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">پیش‌فرض سیستم</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">خروج</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">بعدی</string>
+    <string name="skip">رد کردن</string>
+    <string name="get_started">شروع کنید</string>
+    <string name="press_again_to_exit">برای خروج دوباره فشار دهید</string>
+    <string name="settings">تنظیمات</string>
+    <string name="save">ذخیره</string>
+    <string name="done">انجام شد</string>
+    <string name="delete">حذف</string>
+    <string name="ok">تأیید</string>
+    <string name="cancel">لغو</string>
+    <string name="no_record">رکوردی وجود ندارد</string>
+    <string name="no_data">داده‌ای وجود ندارد</string>
+    <string name="detail">جزئیات تراکنش</string>
+    <string name="parsing_error">خطایی هنگام پردازش داده‌ها رخ داد</string>
+    <string name="update">به‌روزرسانی</string>
+    <string name="color">رنگ</string>
+    <string name="icon">نماد</string>
+    <string name="select_icon">انتخاب نماد</string>
+    <string name="delete_message">آیا مطمئن هستید که می‌خواهید حذف کنید؟</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">قبلی</string>
+    <string name="dash">-</string>
+    <string name="add_text">افزودن</string>
+    <string name="remaining">باقی‌مانده</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">مشاهده جزئیات</string>
+    <string name="view_breakdown">مشاهده جزئیات کامل</string>
+    <string name="error_update">خطا هنگام به‌روزرسانی</string>
+    <string name="text_edit">ویرایش</string>
+    <string name="text_delete">حذف</string>
+    <string name="text_close">بستن</string>
+    <string name="text_remove">برداشتن</string>
+    <string name="apply">اعمال</string>
+    <string name="reset">بازنشانی</string>
+    <string name="select_option">انتخاب گزینه</string>
+    <string name="text_default">پیش‌فرض</string>
+    <string name="active">فعال</string>
+    <string name="inactive">غیرفعال</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">مشکلی پیش آمد</string>
+    <string name="please_wait">لطفاً صبر کنید…</string>
+</resources>

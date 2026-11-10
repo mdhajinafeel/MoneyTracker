@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">মুদ্রা</string>
+    <string name="choose_currency">আপনার মুদ্রা নির্বাচন করুন</string>
+    <string name="select_currency_subtext">এই অ্যাকাউন্টের জন্য মুদ্রা নির্বাচন করুন।</string>
+    <string name="select_the_currency">মুদ্রা নির্বাচন করুন</string>
+    <string name="search_currency">মুদ্রা খুঁজুন</string>
+    <string name="select_currency">মুদ্রা নির্বাচন করুন</string>
+    <string name="add_currency">মুদ্রা যোগ করুন</string>
+    <string name="edit_currency">মুদ্রা সম্পাদনা করুন</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">বিনিময় হার</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">কোনো অতিরিক্ত মুদ্রা নেই</string>
+    <string name="empty_currency_hint">মুদ্রা যোগ করতে + বোতামে ট্যাপ করুন।</string>
+    <string name="delete_currency">মুদ্রা সরান</string>
+    <string name="delete_message_currency">আপনি কি নিশ্চিত যে এই মুদ্রাটি সরাতে চান?</string>
+    <string name="message_currency">এই মুদ্রা ব্যবহার করা ওয়ালেটগুলো মূল মুদ্রায় পরিবর্তন করা হবে।</string>
+    <string name="currency_has_been_removed_successfully">মুদ্রা সরানো হয়েছে</string>
+    <string name="base_currency">মূল মুদ্রা</string>
+    <string name="additional_currency">অতিরিক্ত মুদ্রাসমূহ</string>
+    <string name="currency_subtext">আপনি যে মুদ্রা ব্যবহার করতে চান তা নির্বাচন করুন</string>
+    <string name="enter_the_rate">বিনিময় হার লিখুন</string>
+    <string name="default_base_currency">এটি আপনার ডিফল্ট/মূল মুদ্রা</string>
+    <string name="exchange_currency_hint">বিনিময় হার আপনার মূল মুদ্রা (%1$s) অনুযায়ী নির্ধারিত।\nআপনি প্রতিটি মুদ্রার বিনিময় হার আপডেট করতে পারেন।</string>
+</resources>

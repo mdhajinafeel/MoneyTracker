@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">สกุลเงิน</string>
+    <string name="choose_currency">เลือกสกุลเงินของคุณ</string>
+    <string name="select_currency_subtext">เลือกสกุลเงินสำหรับบัญชีนี้</string>
+    <string name="select_the_currency">เลือกสกุลเงิน</string>
+    <string name="search_currency">ค้นหาสกุลเงิน</string>
+    <string name="select_currency">เลือกสกุลเงิน</string>
+    <string name="add_currency">เพิ่มสกุลเงิน</string>
+    <string name="edit_currency">แก้ไขสกุลเงิน</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">อัตรา</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">ไม่มีสกุลเงินเพิ่มเติม</string>
+    <string name="empty_currency_hint">แตะปุ่ม + เพื่อเพิ่มสกุลเงิน</string>
+    <string name="delete_currency">ลบสกุลเงิน</string>
+    <string name="delete_message_currency">คุณแน่ใจหรือไม่ว่าต้องการลบสกุลเงินนี้?</string>
+    <string name="message_currency">กระเป๋าเงินที่ใช้สกุลเงินนี้จะเปลี่ยนไปใช้สกุลเงินหลัก</string>
+    <string name="currency_has_been_removed_successfully">ลบสกุลเงินแล้ว</string>
+    <string name="base_currency">สกุลเงินหลัก</string>
+    <string name="additional_currency">สกุลเงินเพิ่มเติม</string>
+    <string name="currency_subtext">เลือกสกุลเงินที่คุณต้องการใช้</string>
+    <string name="enter_the_rate">ป้อนอัตราแลกเปลี่ยน</string>
+    <string name="default_base_currency">นี่คือสกุลเงินเริ่มต้น/สกุลเงินหลักของคุณ</string>
+    <string name="exchange_currency_hint">อัตราแลกเปลี่ยนจะอ้างอิงจากสกุลเงินหลักของคุณ (%1$s)\nคุณสามารถอัปเดตอัตราแลกเปลี่ยนของแต่ละสกุลเงินได้</string>
+</resources>

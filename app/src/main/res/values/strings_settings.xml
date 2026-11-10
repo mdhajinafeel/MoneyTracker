@@ -34,11 +34,13 @@
     <string name="read_privacy_policy">Read our privacy policy</string>
     <string name="read_our_terms_and_conditions">Read our terms and conditions</string>
     <string name="learn_more">"Learn more about "</string>
-    <string name="upgrade_subtext">Unlock all premium features and take control of your finances.</string>
+    <string name="upgrade_subtext">Unlock all pro features and take control of your finances.</string>
     <string name="month">/month</string>
-    <string name="premium">Premium</string>
+    <string name="premium">Pro</string>
+    <string name="app_premium">%1$s Pro</string>
+    <string name="premium_desc">Unlock all pro features and make every financial decision count.</string>
     <string name="upgrade">Upgrade</string>
-    <string name="upgrade_to_premium">Upgrade to Premium</string>
+    <string name="upgrade_to_premium">Upgrade Pro</string>
     <string name="about_app">%1$s %2$s</string>
     <string name="about_desc">Track every expense, manage budgets and gain meaningful insights to make smarter financial decisions.</string>
     <string name="about_tag1">for better financial management, worldwide.</string>
@@ -58,9 +60,11 @@
     <string name="copyright_desc">© %1$s %2$s. All rights reserved.\nThank you for trusting %3$s.</string>
     <string name="unlimited_wallets">Unlimited\nWallets</string>
     <string name="cloud_backup">Cloud\nBackup</string>
-    <string name="more_features">+12\nfeatures</string>
+    <string name="more_features">+8\nfeatures</string>
     <string name="smart_reminder_notification_title">Don\'t forget your transactions</string>
     <string name="smart_reminder_notification_text">Take a moment to record today\'s transactions.</string>
     <string name="smart_reminder_notification_big_text">Keep your finances up to date by recording your latest income and expenses.</string>
     <string name="app_google_play_yet">%1$s is not available on Google Play yet.</string>
+    <string name="account_security">Account &amp; Security</string>
+    <string name="sign_create_account">Sign in or create your %1$s account</string>
 </resources>

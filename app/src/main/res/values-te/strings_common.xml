@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expenixo</string>
+    <string name="app_tagline">ప్రతి ఖర్చు. ప్రతి విశ్లేషణ.</string>
+    <string name="app_tag_text1">ఖర్చు</string>
+    <string name="app_tag_text2">విశ్లేషణ</string>
+
+    <!--- GOOGLE CLIENT ID -->
+    <string name="google_web_client_id">430019303750-aeg54n8fintan7etk4csqthqo2fg69b6.apps.googleusercontent.com</string>
+
+    <!-- MENU -->
+    <string name="transaction">లావాదేవీ</string>
+    <string name="calendar">క్యాలెండర్</string>
+    <string name="statistic">విశ్లేషణలు</string>
+    <string name="more">మరిన్ని</string>
+    <string name="wallet">వాలెట్</string>
+
+    <!-- DAYS -->
+    <string name="sunday">ఆదివారం</string>
+    <string name="monday">సోమవారం</string>
+    <string name="tuesday">మంగళవారం</string>
+    <string name="wednesday">బుధవారం</string>
+    <string name="thursday">గురువారం</string>
+    <string name="friday">శుక్రవారం</string>
+    <string name="saturday">శనివారం</string>
+
+    <!-- DAYS SHORT -->
+    <string name="sunday_short">ఆది</string>
+    <string name="monday_short">సోమ</string>
+    <string name="tuesday_short">మంగళ</string>
+    <string name="wednesday_short">బుధ</string>
+    <string name="thursday_short">గురు</string>
+    <string name="friday_short">శుక్ర</string>
+    <string name="saturday_short">శని</string>
+
+    <string-array name="week_days">
+        <item>ఆదివారం</item>
+        <item>సోమవారం</item>
+        <item>మంగళవారం</item>
+        <item>బుధవారం</item>
+        <item>గురువారం</item>
+        <item>శుక్రవారం</item>
+        <item>శనివారం</item>
+    </string-array>
+
+    <string-array name="week_days_short">
+        <item>ఆది</item>
+        <item>సోమ</item>
+        <item>మంగళ</item>
+        <item>బుధ</item>
+        <item>గురు</item>
+        <item>శుక్ర</item>
+        <item>శని</item>
+    </string-array>
+
+    <!-- MONTHS -->
+    <string name="january">జనవరి</string>
+    <string name="february">ఫిబ్రవరి</string>
+    <string name="march">మార్చి</string>
+    <string name="april">ఏప్రిల్</string>
+    <string name="may">మే</string>
+    <string name="june">జూన్</string>
+    <string name="july">జూలై</string>
+    <string name="august">ఆగస్టు</string>
+    <string name="september">సెప్టెంబర్</string>
+    <string name="october">అక్టోబర్</string>
+    <string name="november">నవంబర్</string>
+    <string name="december">డిసెంబర్</string>
+
+    <string-array name="month_full">
+        <item>జనవరి</item>
+        <item>ఫిబ్రవరి</item>
+        <item>మార్చి</item>
+        <item>ఏప్రిల్</item>
+        <item>మే</item>
+        <item>జూన్</item>
+        <item>జూలై</item>
+        <item>ఆగస్టు</item>
+        <item>సెప్టెంబర్</item>
+        <item>అక్టోబర్</item>
+        <item>నవంబర్</item>
+        <item>డిసెంబర్</item>
+    </string-array>
+
+    <string-array name="month_short">
+        <item>జన</item>
+        <item>ఫిబ్ర</item>
+        <item>మార్చి</item>
+        <item>ఏప్రి</item>
+        <item>మే</item>
+        <item>జూన్</item>
+        <item>జూలై</item>
+        <item>ఆగ</item>
+        <item>సెప్టెం</item>
+        <item>అక్టో</item>
+        <item>నవం</item>
+        <item>డిసెం</item>
+    </string-array>
+
+    <!-- QUARTER -->
+    <string-array name="quarter_short">
+        <item>Q1</item>
+        <item>Q2</item>
+        <item>Q3</item>
+        <item>Q4</item>
+    </string-array>
+
+    <!-- LANGUAGES -->
+    <string name="system_default">సిస్టమ్ డిఫాల్ట్</string>
+    <string name="english">English</string>
+    <string name="arabic">العربية</string>
+    <string name="bengali">বাংলা</string>
+    <string name="czech">Čeština</string>
+    <string name="german">Deutsch</string>
+    <string name="greek">Ελληνικά</string>
+    <string name="spanish">Español</string>
+    <string name="persian">فارسی</string>
+    <string name="french">Français</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="indonesian">Bahasa Indonesia</string>
+    <string name="italian">Italiano</string>
+    <string name="japanese">日本語</string>
+    <string name="korean">한국어</string>
+    <string name="malay">Bahasa Melayu</string>
+    <string name="dutch">Nederlands</string>
+    <string name="polish">Polski</string>
+    <string name="portuguese">Português</string>
+    <string name="romanian">Română</string>
+    <string name="russian">Русский</string>
+    <string name="tamil">தமிழ்</string>
+    <string name="telugu">తెలుగు</string>
+    <string name="malayalam">മലയാളം</string>
+    <string name="kannada">ಕನ್ನಡ</string>
+    <string name="thai">ไทย</string>
+    <string name="turkish">Türkçe</string>
+    <string name="ukrainian">Українська</string>
+    <string name="vietnamese">Tiếng Việt</string>
+    <string name="chinese_simplified">中文（简体）</string>
+    <string name="chinese_traditional">中文（繁體）</string>
+
+    <!-- SMART REMINDER -->
+    <string name="time_0">00:00</string>
+    <string name="time_1">01:00</string>
+    <string name="time_2">02:00</string>
+    <string name="time_3">03:00</string>
+    <string name="time_4">04:00</string>
+    <string name="time_5">05:00</string>
+    <string name="time_6">06:00</string>
+    <string name="time_7">07:00</string>
+    <string name="time_8">08:00</string>
+    <string name="time_9">09:00</string>
+    <string name="time_10">10:00</string>
+    <string name="time_11">11:00</string>
+    <string name="time_12">12:00</string>
+    <string name="time_13">13:00</string>
+    <string name="time_14">14:00</string>
+    <string name="time_15">15:00</string>
+    <string name="time_16">16:00</string>
+    <string name="time_17">17:00</string>
+    <string name="time_18">18:00</string>
+    <string name="time_19">19:00</string>
+    <string name="time_20">20:00</string>
+    <string name="time_21">21:00</string>
+    <string name="time_22">22:00</string>
+    <string name="time_23">23:00</string>
+
+    <!-- CALCULATOR -->
+    <string name="number_0">0</string>
+    <string name="number_1">1</string>
+    <string name="number_2">2</string>
+    <string name="number_3">3</string>
+    <string name="number_4">4</string>
+    <string name="number_5">5</string>
+    <string name="number_6">6</string>
+    <string name="number_7">7</string>
+    <string name="number_8">8</string>
+    <string name="number_9">9</string>
+    <string name="escape">తొలగించు</string>
+    <string name="multiply">×</string>
+    <string name="divide">÷</string>
+    <string name="text_c">C</string>
+    <string name="minus">–</string>
+    <string name="add">+</string>
+    <string name="equal">=</string>
+    <string name="dot">.</string>
+    <string name="number_000">000</string>
+
+    <!-- COMMON -->
+    <string name="next">తదుపరి</string>
+    <string name="skip">దాటవేయండి</string>
+    <string name="get_started">ప్రారంభించండి</string>
+    <string name="press_again_to_exit">నిష్క్రమించడానికి మళ్లీ నొక్కండి</string>
+    <string name="settings">సెట్టింగ్‌లు</string>
+    <string name="save">సేవ్ చేయండి</string>
+    <string name="done">పూర్తయింది</string>
+    <string name="delete">తొలగించండి</string>
+    <string name="ok">సరే</string>
+    <string name="cancel">రద్దు చేయండి</string>
+    <string name="no_record">రికార్డు లేదు</string>
+    <string name="no_data">డేటా లేదు</string>
+    <string name="detail">లావాదేవీ వివరాలు</string>
+    <string name="parsing_error">డేటాను చదివేటప్పుడు లోపం సంభవించింది</string>
+    <string name="update">నవీకరించండి</string>
+    <string name="color">రంగు</string>
+    <string name="icon">చిహ్నం</string>
+    <string name="select_icon">చిహ్నాన్ని ఎంచుకోండి</string>
+    <string name="delete_message">తొలగించాలనుకుంటున్నారా?</string>
+    <string name="text_arrow"> \u2192 </string>
+    <string name="previous">మునుపటి</string>
+    <string name="dash">-</string>
+    <string name="add_text">జోడించండి</string>
+    <string name="remaining">మిగిలినది</string>
+    <string name="percent_value_0">(0.0%)</string>
+    <string name="view_details">వివరాలను చూడండి</string>
+    <string name="view_breakdown">అన్ని వివరాలను చూడండి</string>
+    <string name="error_update">నవీకరించడంలో లోపం</string>
+    <string name="text_edit">సవరించండి</string>
+    <string name="text_delete">తొలగించండి</string>
+    <string name="text_close">మూసివేయండి</string>
+    <string name="text_remove">తీసివేయండి</string>
+    <string name="apply">వర్తింపజేయండి</string>
+    <string name="reset">రీసెట్ చేయండి</string>
+    <string name="select_option">ఎంపికను ఎంచుకోండి</string>
+    <string name="text_default">డిఫాల్ట్</string>
+    <string name="active">క్రియాశీలం</string>
+    <string name="inactive">నిష్క్రియం</string>
+    <string name="tab_layout">TabLayout</string>
+    <string name="something_went_wrong">ఏదో తప్పు జరిగింది</string>
+    <string name="please_wait">దయచేసి వేచి ఉండండి…</string>
+</resources>

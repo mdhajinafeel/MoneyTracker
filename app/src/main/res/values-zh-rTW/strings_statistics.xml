@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">每日</string>
+    <string name="calendar_weekly">每週</string>
+    <string name="calendar_monthly">每月</string>
+    <string name="calendar_quarterly">每季</string>
+    <string name="calendar_yearly">每年</string>
+    <string name="calendar_all">全部</string>
+    <string name="calendar_custom">自訂</string>
+
+    <string name="total_balance">總餘額</string>
+    <string name="balance">餘額</string>
+    <string name="opening_balance">期初餘額</string>
+    <string name="ending_balance">期末餘額</string>
+    <string name="overview">總覽</string>
+    <string name="breakdown">明細</string>
+    <string name="transaction_overview">交易總覽</string>
+    <string name="select_range">選擇範圍</string>
+    <string name="all_time">所有期間</string>
+    <string name="period_spending">期間支出</string>
+</resources>

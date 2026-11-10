@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">आय</string>
+    <string name="total_income">कुल आय</string>
+    <string name="expense">खर्च</string>
+    <string name="total_expense">कुल खर्च</string>
+    <string name="transfer">स्थानांतरण</string>
+    <string name="recurring">आवर्ती</string>
+    <string name="trans_delete_failed">लेन-देन हटाने में विफल</string>
+    <string name="fee">शुल्क</string>
+    <string name="memo">नोट</string>
+    <string name="notes">नोट्स</string>
+    <string name="add_note">नोट जोड़ें…</string>
+    <string name="description">विवरण</string>
+    <string name="short_description">संक्षिप्त विवरण</string>
+    <string name="enter_amount">राशि दर्ज करें</string>
+    <string name="cash_wallet">नकद वॉलेट</string>
+    <string name="cash">नकद</string>
+    <string name="enter_the_amount">राशि दर्ज करें</string>
+    <string name="date">तारीख</string>
+    <string name="select_date">तारीख चुनें</string>
+    <string name="amount">राशि</string>
+    <string name="add_record">अपना पहला लेन-देन जोड़ने के लिए + बटन पर टैप करें।</string>
+    <string name="type">प्रकार</string>
+    <string name="view_all">सभी देखें</string>
+    <string name="delete_transaction">लेन-देन हटाएं</string>
+    <string name="total">कुल</string>
+    <string name="all_transaction">सभी लेन-देन</string>
+    <string name="no_transaction">अभी तक कोई लेन-देन नहीं है</string>
+    <string name="start_date">प्रारंभ तिथि</string>
+    <string name="end_date">अंतिम तिथि</string>
+    <string name="date_amp_time"><![CDATA[तारीख और समय]]></string>
+    <string name="future">भविष्य</string>
+    <string name="add_files">फ़ोटो या फ़ाइलें जोड़ें (अधिकतम 5 फ़ाइलें)</string>
+    <string name="attachment_title">अटैचमेंट (%1$d/5)</string>
+    <string name="tap_add_attach">अटैचमेंट जोड़ने के लिए टैप करें</string>
+    <string name="attachment_extension">इमेज, PDF, डॉक्यूमेंट, Excel, ZIP आदि।</string>
+    <string name="add_more">और जोड़ें</string>
+    <string name="unable_to_open_attachment">अटैचमेंट खोलने में असमर्थ</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">राशि (वॉलेट से)</string>
+    <string name="fee_from_wallet">शुल्क (वॉलेट से)</string>
+    <string name="received_from_wallet">प्राप्त राशि (वॉलेट में)</string>
+    <string name="transaction_action">लेन-देन की कार्रवाई</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">लेन-देन का विवरण देखें</string>
+    <string name="change_detail">लेन-देन का विवरण बदलें</string>
+    <string name="duplicate_copy">एक कॉपी बनाएं</string>
+    <string name="remove_transaction">लेन-देन हटाएं</string>
+    <string name="duplicate">डुप्लिकेट</string>
+    <string name="duplicate_transaction">लेन-देन की कॉपी बनाएं</string>
+    <string name="duplicate_transaction_desc">क्या आप इस लेन-देन की एक कॉपी बनाना चाहते हैं?</string>
+    <string name="transaction_duplicated">लेन-देन की कॉपी बनाई गई</string>
+    <string name="transaction_deleted">लेन-देन हटा दिया गया</string>
+    <string name="unable_to_save">सहेजने में असमर्थ</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d लेन-देन</item>
+        <item quantity="other">%d लेन-देन</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">अटैचमेंट (%d)</item>
+        <item quantity="other">अटैचमेंट (%d)</item>
+    </plurals>
+</resources>

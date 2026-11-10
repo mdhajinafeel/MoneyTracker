@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="walkthrough_1_title">Miej kontrolę nad swoimi pieniędzmi</string>
+    <string name="walkthrough_1_desc">Śledź każdy wydatek, kontroluj budżet i sprawdzaj, na co przeznaczasz swoje pieniądze.</string>
+    <string name="walkthrough_2_title">Zarządzaj wszystkimi portfelami</string>
+    <string name="walkthrough_2_desc">Przechowuj gotówkę, konta bankowe, karty i portfele cyfrowe w jednym bezpiecznym miejscu.</string>
+    <string name="walkthrough_3_title">Zapisuj wydatki natychmiast</string>
+    <string name="walkthrough_3_desc">Dodawaj transakcje z kategoriami, notatkami i załącznikami za pomocą kilku dotknięć.</string>
+    <string name="walkthrough_4_title"><![CDATA[Inteligentne raporty i analizy]]></string>
+    <string name="walkthrough_4_desc">Analizuj swoje wydatki za pomocą zaawansowanych wykresów i spersonalizowanych wskazówek finansowych.</string>
+    <string name="walkthrough_5_title">Nie przegap żadnego terminu</string>
+    <string name="walkthrough_5_desc">Kontroluj rachunki, subskrypcje i płatności cykliczne dzięki inteligentnym przypomnieniom.</string>
+    <string name="walkthrough_6_title">Osiągaj swoje cele finansowe</string>
+    <string name="walkthrough_6_desc">Buduj lepsze nawyki finansowe, oszczędzaj więcej i każdego dnia zwiększaj pewność w zarządzaniu pieniędzmi.</string>
+</resources>

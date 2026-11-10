@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Maîtrisez vos finances</string>
+    <string name="walkthrough_1_desc">Suivez chaque dépense, gérez votre budget et comprenez où va votre argent.</string>
+    <string name="walkthrough_2_title">Gérez tous vos portefeuilles</string>
+    <string name="walkthrough_2_desc">Regroupez vos espèces, comptes bancaires, cartes et portefeuilles numériques dans un seul endroit sécurisé.</string>
+    <string name="walkthrough_3_title">Enregistrez vos dépenses instantanément</string>
+    <string name="walkthrough_3_desc">Ajoutez des transactions avec des catégories, des notes et des pièces jointes en quelques clics.</string>
+    <string name="walkthrough_4_title"><![CDATA[Rapports et analyses intelligents]]></string>
+    <string name="walkthrough_4_desc">Visualisez vos dépenses grâce à des graphiques détaillés et des analyses financières personnalisées.</string>
+    <string name="walkthrough_5_title">Gardez une longueur d\'avance grâce aux rappels</string>
+    <string name="walkthrough_5_desc">Ne manquez aucune facture, aucun abonnement ni aucun paiement récurrent grâce aux rappels intelligents.</string>
+    <string name="walkthrough_6_title">Atteignez vos objectifs financiers</string>
+    <string name="walkthrough_6_desc">Adoptez de meilleures habitudes financières, épargnez davantage et gagnez chaque jour en confiance dans la gestion de votre argent.</string>
+
+</resources>

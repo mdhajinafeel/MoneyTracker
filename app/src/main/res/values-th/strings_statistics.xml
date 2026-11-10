@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">รายวัน</string>
+    <string name="calendar_weekly">รายสัปดาห์</string>
+    <string name="calendar_monthly">รายเดือน</string>
+    <string name="calendar_quarterly">รายไตรมาส</string>
+    <string name="calendar_yearly">รายปี</string>
+    <string name="calendar_all">ทั้งหมด</string>
+    <string name="calendar_custom">กำหนดเอง</string>
+
+    <string name="total_balance">ยอดเงินคงเหลือทั้งหมด</string>
+    <string name="balance">ยอดเงินคงเหลือ</string>
+    <string name="opening_balance">ยอดเงินคงเหลือเริ่มต้น</string>
+    <string name="ending_balance">ยอดเงินคงเหลือสุดท้าย</string>
+    <string name="overview">ภาพรวม</string>
+    <string name="breakdown">รายละเอียดแยกตามรายการ</string>
+    <string name="transaction_overview">ภาพรวมธุรกรรม</string>
+    <string name="select_range">เลือกช่วงเวลา</string>
+    <string name="all_time">ตลอดเวลา</string>
+    <string name="period_spending">ยอดใช้จ่ายในช่วงเวลา</string>
+</resources>

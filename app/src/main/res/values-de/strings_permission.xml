@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">Kameraberechtigung verweigert</string>
+    <string name="camera_permission_required">Kameraberechtigung erforderlich</string>
+    <string name="camera_access_required">Der Kamerazugriff ist erforderlich, um Fotos für Ausgabenanhänge aufzunehmen.</string>
+    <string name="allow">Erlauben</string>
+    <string name="permission_required">Berechtigung erforderlich</string>
+    <string name="camera_permission_disabled">Die Kameraberechtigung ist deaktiviert. Bitte aktiviere sie in den App-Einstellungen.</string>
+    <string name="open_settings">Einstellungen öffnen</string>
+    <string name="cancel_subscription_desc">Du kannst dein Abonnement jederzeit über Google Play kündigen.</string>
+</resources>

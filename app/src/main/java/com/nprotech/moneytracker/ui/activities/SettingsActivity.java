@@ -7,20 +7,27 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.graphics.Insets;
+import androidx.core.os.LocaleListCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.nprotech.moneytracker.BuildConfig;
 import com.nprotech.moneytracker.R;
 import com.nprotech.moneytracker.constants.Constants;
@@ -34,8 +41,10 @@ import com.nprotech.moneytracker.helper.SettingHelper;
 import com.nprotech.moneytracker.models.PremiumFeatureModel;
 import com.nprotech.moneytracker.models.SettingItemModel;
 import com.nprotech.moneytracker.notifications.SmartReminderManager;
+import com.nprotech.moneytracker.ui.adapters.RecyclerViewAdapter;
 import com.nprotech.moneytracker.ui.adapters.SettingOptionsAdapter;
 import com.nprotech.moneytracker.ui.adapters.SettingsAdapter;
+import com.nprotech.moneytracker.ui.adapters.ViewHolder;
 import com.nprotech.moneytracker.ui.common.BaseActivity;
 import com.nprotech.moneytracker.utils.ActivityUtils;
 import com.nprotech.moneytracker.utils.CommonUtils;
@@ -51,8 +60,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SettingsActivity extends BaseActivity implements SettingsAdapter.OnSettingActionListener {
 
-    private AppCompatTextView tvPrice;
-    private RecyclerView rvConfigurations, rvManagement, rvBackup, rvOthers;
+    private AppCompatImageView icBack;
+    private AppCompatTextView tvPrice, tvUpgradeTitle, tvSubtitle, tvPricePeriod, tvBadgeActive;
+    private RecyclerView rvConfigurations, rvSecurity, rvManagement, rvBackup, rvOthers;
+    private MaterialButton btnUpgrade;
+    private View featureWallet, featureCloud, featureOthers;
     private CommonDataViewModel commonDataViewModel;
     private List<SettingItemModel> configurationList;
     private SettingsAdapter configurationAdapter;
@@ -70,15 +82,22 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     private void initComponents() {
         try {
+            View root = findViewById(R.id.rootView);
             View toolbarWrapper = findViewById(R.id.toolbarWrapper);
             AppCompatTextView tvTitle = toolbarWrapper.findViewById(R.id.tvTitle);
-            AppCompatImageView icBack = toolbarWrapper.findViewById(R.id.icBack);
-            View featureWallet = findViewById(R.id.featureWallet);
-            View featureCloud = findViewById(R.id.featureCloud);
-            View featureOthers = findViewById(R.id.featureOthers);
-            View root = findViewById(R.id.rootView);
+            icBack = toolbarWrapper.findViewById(R.id.icBack);
+            featureWallet = findViewById(R.id.featureWallet);
+            featureCloud = findViewById(R.id.featureCloud);
+            featureOthers = findViewById(R.id.featureOthers);
             tvPrice = findViewById(R.id.tvPrice);
+            btnUpgrade = findViewById(R.id.btnUpgrade);
+            tvUpgradeTitle = findViewById(R.id.tvUpgradeTitle);
+            tvSubtitle = findViewById(R.id.tvSubtitle);
+            tvPrice = findViewById(R.id.tvPrice);
+            tvPricePeriod = findViewById(R.id.tvPricePeriod);
+            tvBadgeActive = findViewById(R.id.tvBadgeActive);
 
+            rvSecurity = findViewById(R.id.rvSecurity);
             rvConfigurations = findViewById(R.id.rvConfigurations);
             rvManagement = findViewById(R.id.rvManagement);
             rvBackup = findViewById(R.id.rvBackup);
@@ -97,43 +116,71 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                 return insets;
             });
 
-            icBack.setOnClickListener(view -> {
-                finish();
-                ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
-            });
-
             tvTitle.setText(getString(R.string.settings));
 
             commonDataViewModel = new ViewModelProvider(this).get(CommonDataViewModel.class);
 
-            getOnBackPressedDispatcher().addCallback(
-                    this,
-                    new OnBackPressedCallback(true) {
-                        @Override
-                        public void handleOnBackPressed() {
-                            finish();
-                            ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
-                        }
-                    });
+            bindData();
+            updateProMembershipCard();
+            setupListeners();
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "initComponents", e);
+        }
+    }
+
+    private void bindData() {
+        try {
 
             List<PremiumFeatureModel> features = Arrays.asList(
                     new PremiumFeatureModel(R.drawable.ic_wallet, getString(R.string.unlimited_wallets)),
                     new PremiumFeatureModel(R.drawable.ic_cloud, getString(R.string.cloud_backup)),
                     new PremiumFeatureModel(R.drawable.ic_settings_other, getString(R.string.more_features)));
 
-            billingHelper = new BillingHelper(this);
+            billingHelper = new BillingHelper(getApplicationContext(), new BillingHelper.BillingCallback() {
+                @Override
+                public void onPricesLoaded(String monthlyPrice, String annualPrice, long monthlyAmountMicros, long annualAmountMicros, String currencyCode) {
+                    runOnUiThread(() -> tvPrice.setText(monthlyPrice));
+                }
+
+                @Override
+                public void onPurchaseTokenReceived(String productId, String purchaseToken) {
+                    // Call your existing backend verification method here.
+                }
+
+                @Override
+                public void onPurchasePending() {
+                    // Show your existing pending purchase message.
+                }
+
+                @Override
+                public void onPurchaseCancelled() {
+                    // Handle purchase cancellation.
+                }
+
+                @Override
+                public void onError(String message) {
+                    runOnUiThread(() -> Toast.makeText(SettingsActivity.this, message, Toast.LENGTH_SHORT).show());
+                }
+            });
+
+            if (BuildConfig.DEBUG) {
+                // TODO Local development: no Play Store subscription lookup
+                tvPrice.setText(R.string.text_49);
+            } else {
+                billingHelper.connect();
+            }
 
             bindFeature(featureWallet, features.get(0));
             bindFeature(featureCloud, features.get(1));
             bindFeature(featureOthers, features.get(2));
-            fetchProductRateMonthly();
 
             rvConfigurations.post(this::fetchConfigurationSettings);
+            rvSecurity.post(this::fetchAccountSettings);
             rvManagement.post(this::fetchManagementSettings);
             rvBackup.post(this::fetchBackupSettings);
             rvOthers.post(this::fetchOtherSettings);
         } catch (Exception e) {
-            AppLogger.e(getClass(), "initComponents", e);
+            AppLogger.e(getClass(), "bindData", e);
         }
     }
 
@@ -144,6 +191,80 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
         ivIcon.setImageResource(feature.icon());
         tvFeature.setText(feature.title());
+    }
+
+    private void setupListeners() {
+        try {
+            icBack.setOnClickListener(view -> {
+                finish();
+                ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
+            });
+
+            getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+                @Override
+                public void handleOnBackPressed() {
+                    finish();
+                    ActivityUtils.overrideCloseTransition(SettingsActivity.this, R.anim.scale_in, R.anim.right_to_left);
+                }
+            });
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "setupListeners", e);
+        }
+    }
+
+    private void fetchAccountSettings() {
+        try {
+            List<SettingItemModel> accountList = new ArrayList<>();
+            if(PreferenceManager.INSTANCE.isAuthenticated()) {
+                accountList.add(new SettingItemModel(SettingType.LOGGED_IN_PROFILE, 0, 0, 0,
+                        PreferenceManager.INSTANCE.getAuthFullName(), true, true,
+                        PreferenceManager.INSTANCE.getAuthEmail(), true, false, 0));
+
+                RecyclerViewAdapter<SettingItemModel> profileAdapter = new RecyclerViewAdapter<>(this, accountList, R.layout.item_profile_detail) {
+                    @Override
+                    public void onPostBindViewHolder(ViewHolder holder, SettingItemModel settingItemModel) {
+                        ShapeableImageView profilePhoto = holder.getView(R.id.profilePhoto);
+                        AppCompatTextView tvProfileName = holder.getView(R.id.tvProfileName);
+                        AppCompatTextView tvEmailAddress = holder.getView(R.id.tvEmailAddress);
+                        AppCompatImageView ivNavigation = holder.getView(R.id.ivNavigation);
+
+                        Glide.with(SettingsActivity.this)
+                                .load(PreferenceManager.INSTANCE.getAuthProfilePhoto())
+                                .placeholder(R.drawable.ic_profile_avatar)
+                                .error(R.drawable.ic_profile_avatar)
+                                .circleCrop()
+                                .into(profilePhoto);
+
+                        tvProfileName.setText(settingItemModel.title);
+                        tvEmailAddress.setText(settingItemModel.subTitle);
+
+                        ivNavigation.setOnClickListener(v -> {
+                            startActivity(new Intent(SettingsActivity.this, ManageProfileLoggedInActivity.class));
+                            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        });
+
+                        holder.getView(R.id.itemView).setOnClickListener(v -> {
+                            startActivity(new Intent(SettingsActivity.this, ManageProfileLoggedInActivity.class));
+                            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+                        });
+                    }
+                };
+
+                rvSecurity.setLayoutManager(new LinearLayoutManager(this));
+                rvSecurity.setAdapter(profileAdapter);
+            } else {
+                accountList.add(new SettingItemModel(SettingType.PROFILE, R.drawable.ic_account, R.color.color_violet_purple, R.color.color_lavendar,
+                        getString(R.string.profile), true, true, getString(R.string.sign_create_account, getString(R.string.app_name)),
+                        true, false, 0));
+
+                SettingsAdapter adapter = new SettingsAdapter(this, accountList, R.layout.item_setting, this);
+
+                rvSecurity.setLayoutManager(new LinearLayoutManager(this));
+                rvSecurity.setAdapter(adapter);
+            }
+        } catch (Exception e) {
+            AppLogger.e(getClass(), "fetchManagementSettings", e);
+        }
     }
 
     private void fetchManagementSettings() {
@@ -171,15 +292,15 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         try {
             configurationList = new ArrayList<>();
             configurationList.add(new SettingItemModel(SettingType.WEEK_STARTS_ON, R.drawable.ic_calendar, R.color.week_dark, R.color.week_light,
-                    getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, true, 0));
+                    getString(R.string.week_starts_on), true, true, getWeekStartSubtitle(), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.STARTUP_SCREEN, R.drawable.ic_startup, R.color.startup_dark, R.color.startup_light,
-                    getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, true, 0));
+                    getString(R.string.startup_screen), true, true, getStartupScreenSubtitle(), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.LANGUAGE, R.drawable.ic_language, R.color.language_dark, R.color.language_light,
                     getString(R.string.language), true, true, getLanguageSubtitle(), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.PASSWORD, R.drawable.ic_password, R.color.password_dark, R.color.password_light,
                     getString(R.string.password), true, true, PreferenceManager.INSTANCE.isAppLockEnabled() ? getString(R.string.enabled) : getString(R.string.not_set), true, false, 0));
             configurationList.add(new SettingItemModel(SettingType.SMART_REMINDER, R.drawable.ic_reminder, R.color.reminder_dark, R.color.reminder_light,
-                    getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, true, 0));
+                    getString(R.string.smart_reminder), true, true, getSmartReminderSubtitle(), true, false, 0));
 
             configurationAdapter = new SettingsAdapter(this, configurationList, R.layout.item_setting, this);
 
@@ -263,7 +384,10 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     @Override
     public void onSettingClick(SettingItemModel item) {
-        if (Objects.requireNonNull(item.settingType) == SettingType.ACCOUNT) {
+        if (Objects.requireNonNull(item.settingType) == SettingType.PROFILE) {
+            startActivity(new Intent(SettingsActivity.this, ManageProfileActivity.class));
+            ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
+        } else if (Objects.requireNonNull(item.settingType) == SettingType.ACCOUNT) {
             startActivity(new Intent(SettingsActivity.this, ManageAccountActivity.class));
             ActivityUtils.overrideOpenTransition(SettingsActivity.this, R.anim.top_to_bottom, R.anim.scale_out);
         } else if (Objects.requireNonNull(item.settingType) == SettingType.WALLET) {
@@ -350,6 +474,8 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
                     updateConfigurationSubtitle(SettingType.STARTUP_SCREEN, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.LANGUAGE) {
                     PreferenceManager.INSTANCE.setLanguage(selectedItem.value);
+                    String languageTag = getLanguageTag(selectedItem.languageCode);
+                    applyAppLanguage(languageTag);
                     updateConfigurationSubtitle(SettingType.LANGUAGE, getString(DataHelper.getNameResId(selectedItem.type, selectedItem.value)));
                 } else if (type == Constants.SMART_REMINDER) {
                     PreferenceManager.INSTANCE.setSmartReminder(selectedItem.value);
@@ -431,6 +557,24 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         return getString(R.string.not_set);
     }
 
+    private void applyAppLanguage(String languageTag) {
+        LocaleListCompat appLocales;
+        if (languageTag == null || languageTag.isEmpty() || "system".equalsIgnoreCase(languageTag)) {
+            appLocales = LocaleListCompat.getEmptyLocaleList();
+        } else {
+            appLocales = LocaleListCompat.forLanguageTags(languageTag);
+        }
+        AppCompatDelegate.setApplicationLocales(appLocales);
+    }
+
+    private String getLanguageTag(String languageCode) {
+        if (languageCode == null || languageCode.isEmpty() || "system".equalsIgnoreCase(languageCode)) {
+            return "";
+        }
+
+        return languageCode;
+    }
+
     @SuppressWarnings("deprecation")
     private String getAppVersion() {
         try {
@@ -462,30 +606,50 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
         }
     }
 
-    private void fetchProductRateMonthly() {
-        try {
-            billingHelper.loadSubscriptionPrice(Constants.SUBSCRIPTION_MONTHLY, new BillingHelper.PriceListener() {
+    // TODO prices
+    private void updateProMembershipCard() {
+        boolean isProActive = PreferenceManager.INSTANCE.isProEnabled();
 
-                @Override
-                public void onPriceLoaded(String price) {
-                    runOnUiThread(() -> tvPrice.setText(price));
-                }
+        if (isProActive) {
+            tvBadgeActive.setVisibility(View.VISIBLE);
+            CommonUtils.setDrawable(SettingsActivity.this, tvBadgeActive, R.drawable.ic_complete, R.dimen.icon_12, R.color.dark_income, Gravity.START);
+            tvUpgradeTitle.setText(getString(R.string.app_premium, getString(R.string.app_name)));
+            tvSubtitle.setText(R.string.enjoy_premium_features);
+            btnUpgrade.setText(R.string.text_manage);
+            tvPrice.setText(PreferenceManager.INSTANCE.getProPrice());
+            tvPricePeriod.setText(PreferenceManager.INSTANCE.getProPeriod());
 
-                @Override
-                public void onError() {
-                    // TODO: Change for subscription
-                    runOnUiThread(() -> tvPrice.setText(CommonUtils.getBeautifyAmount("$", 49)));
-                }
+            btnUpgrade.setOnClickListener(v -> {
+                startActivity(new Intent(this, ManageSubscriptionActivity.class));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
             });
-        } catch (Exception e) {
-            AppLogger.e(getClass(), "fetchProductRateMonthly", e);
+        } else {
+            tvBadgeActive.setVisibility(View.GONE);
+            tvUpgradeTitle.setText(R.string.upgrade_to_premium);
+            tvSubtitle.setText(R.string.upgrade_subtext);
+            btnUpgrade.setText(R.string.upgrade);
+
+            if (BuildConfig.DEBUG) {
+                tvPrice.setText(getString(R.string.text_49));
+                tvPricePeriod.setText(getString(R.string.month));
+            } else {
+                // Release: price will be filled by Google Play.
+                tvPrice.setText("—");
+                tvPricePeriod.setText(getString(R.string.month));
+            }
+
+            btnUpgrade.setOnClickListener(v -> {
+                startActivity(new Intent(this, UpgradePremiumActivity.class));
+                ActivityUtils.overrideOpenTransition(this, R.anim.top_to_bottom, R.anim.scale_out);
+            });
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        updateProMembershipCard();
+        fetchAccountSettings();
         if (configurationList != null && configurationAdapter != null) {
             updateConfigurationSubtitle(SettingType.PASSWORD,
                     PreferenceManager.INSTANCE.isAppLockEnabled() ? getString(R.string.enabled) : getString(R.string.not_set));
@@ -494,8 +658,11 @@ public class SettingsActivity extends BaseActivity implements SettingsAdapter.On
 
     @Override
     protected void onDestroy() {
+        if (billingHelper != null) {
+            billingHelper.disconnect();
+            billingHelper = null;
+        }
         super.onDestroy();
-        billingHelper.destroy();
     }
 
     private void requestNotificationPermission() {

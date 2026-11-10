@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">కెమెరా అనుమతి నిరాకరించబడింది</string>
+    <string name="camera_permission_required">కెమెరా అనుమతి అవసరం</string>
+    <string name="camera_access_required">ఖర్చులకు సంబంధించిన అటాచ్‌మెంట్‌ల కోసం ఫోటోలు తీయడానికి కెమెరా యాక్సెస్ అవసరం.</string>
+    <string name="allow">అనుమతించండి</string>
+    <string name="permission_required">అనుమతి అవసరం</string>
+    <string name="camera_permission_disabled">కెమెరా అనుమతి నిలిపివేయబడింది. దయచేసి యాప్ సెట్టింగ్‌లలో దాన్ని ప్రారంభించండి.</string>
+    <string name="open_settings">సెట్టింగ్‌లను తెరవండి</string>
+    <string name="cancel_subscription_desc">Google Play నుండి ఎప్పుడైనా మీ సబ్‌స్క్రిప్షన్‌ను రద్దు చేయవచ్చు</string>
+</resources>

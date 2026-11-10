@@ -44,13 +44,10 @@ android {
 
             buildConfigField "String", "APPLICATION_NAME", "\"EXPENIXO\""
             buildConfigField "String", "APP_INSTANCE_PREFIX", "\"EXPENIXO-Prod\""
-            buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
-            buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
-            buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
+            buildConfigField "String", "BASE_URL", "\"https://expenixo.codringreen.com/api/v1/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "String", "FIREBASE_URL", "\"https://expenixo-money-tracker-2f0ce.web.app/\""
-            // TODO CHANGE
-            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"NEED TO CHANGE\""
+            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"ca-app-pub-8483476381850373/5973236117\""
         }
 
         debug {
@@ -63,12 +60,10 @@ android {
 
             buildConfigField "String", "APPLICATION_NAME", "\"EXPENIXO\""
             buildConfigField "String", "APP_INSTANCE_PREFIX", "\"EXPENIXO-Debug\""
-            buildConfigField "String", "CLIENT_USERNAME", "\"codrindigitalterraerp\""
-            buildConfigField "String", "CLIENT_PASSWORD", "\"CgRTeRR@eRpDigit@l@dm1n#123\""
-            buildConfigField "String", "BASE_URL", "\"https://portal.codringroup.com/api/terraerp/\""
+            buildConfigField "String", "BASE_URL", "\"https://expenixo.codringreen.com/api/v1/\""
             buildConfigField "String", "CONTENT_TYPE", "\"application/json\""
             buildConfigField "String", "FIREBASE_URL", "\"https://expenixo-money-tracker-2f0ce.web.app/\""
-            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"ca-app-pub-3940256099942544/9214589741\""
+            buildConfigField "String", "BANNER_AD_UNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\""
         }
     }
 
@@ -205,6 +200,13 @@ dependencies {
     // Google Ads
     // --------------------------
     implementation libs.play.services.ads
+
+    // --------------------------
+    // Google Ads
+    // --------------------------
+    implementation libs.androidx.credentials
+    implementation libs.androidx.credentials.play.services.auth
+    implementation libs.googleid
 
     // ---------------------------
     // Testing

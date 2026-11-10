@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">Έσοδα</string>
+    <string name="total_income">Συνολικά έσοδα</string>
+    <string name="expense">Έξοδο</string>
+    <string name="total_expense">Συνολικά έξοδα</string>
+    <string name="transfer">Μεταφορά</string>
+    <string name="recurring">Επαναλαμβανόμενο</string>
+    <string name="trans_delete_failed">Η διαγραφή της συναλλαγής απέτυχε</string>
+    <string name="fee">Χρέωση</string>
+    <string name="memo">Σημείωση</string>
+    <string name="notes">Σημειώσεις</string>
+    <string name="add_note">Προσθήκη σημείωσης…</string>
+    <string name="description">Περιγραφή</string>
+    <string name="short_description">Σύντομη περιγραφή</string>
+    <string name="enter_amount">Εισαγωγή ποσού</string>
+    <string name="cash_wallet">Πορτοφόλι μετρητών</string>
+    <string name="cash">Μετρητά</string>
+    <string name="enter_the_amount">Εισαγάγετε το ποσό</string>
+    <string name="date">Ημερομηνία</string>
+    <string name="select_date">Επιλογή ημερομηνίας</string>
+    <string name="amount">Ποσό</string>
+    <string name="add_record">Πατήστε το κουμπί + για να προσθέσετε την πρώτη σας συναλλαγή.</string>
+    <string name="type">Τύπος</string>
+    <string name="view_all">Προβολή όλων</string>
+    <string name="delete_transaction">Διαγραφή συναλλαγής</string>
+    <string name="total">Σύνολο</string>
+    <string name="all_transaction">Όλες οι συναλλαγές</string>
+    <string name="no_transaction">Δεν υπάρχουν ακόμη συναλλαγές</string>
+    <string name="start_date">Ημερομηνία έναρξης</string>
+    <string name="end_date">Ημερομηνία λήξης</string>
+    <string name="date_amp_time"><![CDATA[Ημερομηνία και ώρα]]></string>
+    <string name="future">Μελλοντικό</string>
+    <string name="add_files">Προσθήκη φωτογραφιών ή αρχείων (Μέγ. 5 αρχεία)</string>
+    <string name="attachment_title">Συνημμένα (%1$d/5)</string>
+    <string name="tap_add_attach">Πατήστε για προσθήκη συνημμένου</string>
+    <string name="attachment_extension">Εικόνες, PDF, έγγραφα, Excel, Zip κ.λπ.</string>
+    <string name="add_more">Προσθήκη περισσότερων</string>
+    <string name="unable_to_open_attachment">Δεν είναι δυνατό το άνοιγμα του συνημμένου</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">Ποσό (Από πορτοφόλι)</string>
+    <string name="fee_from_wallet">Χρέωση (Από πορτοφόλι)</string>
+    <string name="received_from_wallet">Ληφθέν ποσό (Στο πορτοφόλι)</string>
+    <string name="transaction_action">Ενέργεια συναλλαγής</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">Προβολή λεπτομερειών συναλλαγής</string>
+    <string name="change_detail">Αλλαγή λεπτομερειών συναλλαγής</string>
+    <string name="duplicate_copy">Δημιουργία αντιγράφου</string>
+    <string name="remove_transaction">Αφαίρεση συναλλαγής</string>
+    <string name="duplicate">Δημιουργία αντιγράφου</string>
+    <string name="duplicate_transaction">Αντιγραφή συναλλαγής</string>
+    <string name="duplicate_transaction_desc">Θέλετε να δημιουργήσετε ένα αντίγραφο αυτής της συναλλαγής;</string>
+    <string name="transaction_duplicated">Η συναλλαγή αντιγράφηκε</string>
+    <string name="transaction_deleted">Η συναλλαγή διαγράφηκε</string>
+    <string name="unable_to_save">Δεν είναι δυνατή η αποθήκευση</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d συναλλαγή</item>
+        <item quantity="other">%d συναλλαγές</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">Συνημμένο (%d)</item>
+        <item quantity="other">Συνημμένα (%d)</item>
+    </plurals>
+</resources>

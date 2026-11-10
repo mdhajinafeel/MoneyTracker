@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Wiederkehrende Transaktionen verfolgen</string>
+    <string name="select_recurring">Wiederholung auswählen</string>
+    <string name="repeat_on">Wiederholen am</string>
+    <string name="select_repeat_on">Wiederholungstag auswählen</string>
+    <string name="create_transaction">Transaktion erstellen</string>
+    <string name="never_miss_recurring_transaction">Keine wiederkehrende Transaktion mehr verpassen</string>
+    <string name="income_recurring">Wiederkehrende Einnahmen</string>
+    <string name="expense_recurring">Wiederkehrende Ausgaben</string>
+    <string name="transfer_recurring">Wiederkehrende Überweisungen</string>
+    <string name="no_repeat">Keine Wiederholung</string>
+    <string name="repeat_option">Wiederholungsoption</string>
+    <string name="select_days">Tage auswählen</string>
+    <string name="please_select_at_least_one_day">Bitte wähle mindestens einen Tag aus.</string>
+    <string name="times">Mal</string>
+    <string name="every">Alle</string>
+    <string name="forever">Für immer</string>
+    <string name="until">Bis</string>
+    <string name="text_for">Für</string>
+    <string name="text_every_value">"Alle %1$s • %2$s"</string>
+    <string name="text_every_value1">"Alle %1$s"</string>
+    <string name="same_day_each_month">Jeden Monat am selben Tag (%1$d)</string>
+    <string name="end_of_month">Monatsende</string>
+    <string name="recurring_transaction_saved">Wiederkehrende Transaktion gespeichert</string>
+    <string name="failed_to_save_recurring_transaction">Wiederkehrende Transaktion konnte nicht gespeichert werden</string>
+    <string name="no_recurring_yet">Noch keine wiederkehrenden Transaktionen</string>
+    <string name="empty_recurring_hint">Tippe auf die Schaltfläche +, um eine wiederkehrende Transaktion hinzuzufügen.</string>
+    <string name="repeat_interval_atleast">Das Wiederholungsintervall muss mindestens 1 betragen.</string>
+    <string name="please_select_until_date">Bitte wähle ein Enddatum aus.</string>
+    <string name="please_enter_times">Bitte gib die Anzahl der Wiederholungen ein.</string>
+    <string name="please_enter_an_amount">Bitte gib einen Betrag ein.</string>
+    <string name="please_select_a_wallet">Bitte wähle ein Wallet aus.</string>
+    <string name="please_select_a_repeat_frequency">Bitte wähle eine Wiederholungshäufigkeit aus.</string>
+    <string name="until_date_start_date">Das Enddatum muss nach dem Startdatum liegen.</string>
+    <string name="select_recurring_transaction_end">Bitte lege fest, wann die wiederkehrende Transaktion enden soll.</string>
+    <string name="every_week_period">Alle %1$s</string>
+    <string name="next_recurring">Nächste: %1$s</string>
+    <string name="next_recurring_text">Nächste Wiederholung</string>
+    <string name="recurring_transaction_added">Wiederkehrende Transaktion hinzugefügt</string>
+    <string name="recurring_transactions_added">Wiederkehrende Transaktionen hinzugefügt</string>
+    <string name="a_recurring_expense_was_added">Eine wiederkehrende Ausgabe wurde hinzugefügt</string>
+    <string name="a_recurring_income_was_added">Eine wiederkehrende Einnahme wurde hinzugefügt</string>
+    <string name="a_recurring_transaction_was_added">Eine wiederkehrende Transaktion wurde hinzugefügt</string>
+    <string name="recurring_transactions_were_added">" wiederkehrende Transaktionen wurden hinzugefügt"</string>
+    <string name="activate">Aktivieren</string>
+    <string name="text_deactivated">Deaktiviert</string>
+    <string name="deactivate">Deaktivieren</string>
+    <string name="change_recurring_detail">Details der Wiederholung ändern</string>
+    <string name="resume_this_recurring_transaction">Diese Transaktion fortsetzen</string>
+    <string name="pause_this_recurring_transaction">Diese Transaktion pausieren</string>
+    <string name="permanently_remove_this_recurring_transaction">Diese Transaktion dauerhaft entfernen</string>
+    <string name="view_recurring_details">Wiederholungsdetails anzeigen</string>
+    <string name="delete_recurring">Wiederholung löschen</string>
+    <string name="delete_recurring_message">Möchtest du diese wiederkehrende Transaktion wirklich löschen?</string>
+    <string name="recurring_deleted_successfully">Wiederkehrende Transaktion gelöscht</string>
+    <string name="error_delete_recurring">Fehler beim Löschen der wiederkehrenden Transaktion</string>
+    <string name="activate_recurring">Wiederholung aktivieren</string>
+    <string name="deactivate_recurring">Wiederholung deaktivieren</string>
+    <string name="delete_activate_message">Möchtest du diese Wiederholung wirklich aktivieren?</string>
+    <string name="delete_deactivate_message">Möchtest du diese Wiederholung wirklich deaktivieren?</string>
+    <string name="delete_activate_sub_message">Du kannst sie jederzeit in der Liste der laufenden Wiederholungen deaktivieren.</string>
+    <string name="delete_deactivate_sub_message">Du kannst sie jederzeit in der Liste der pausierten Wiederholungen aktivieren.</string>
+    <string name="deactivated_successfully">Wiederholung deaktiviert</string>
+    <string name="error_deactivate">Fehler beim Deaktivieren der Wiederholung</string>
+    <string name="activated_successfully">Wiederholung aktiviert</string>
+    <string name="error_activate">Fehler beim Aktivieren der Wiederholung</string>
+    <string name="repeat_time">Wiederholungszeitpunkt</string>
+    <string name="recurring_detail">Details zur Wiederholung</string>
+    <string name="until_date">Bis %1$s</string>
+    <string name="recurring_transaction_reminder">Erinnerung an wiederkehrende Transaktion</string>
+    <string name="recurring_expense_due">Deine wiederkehrende Ausgabe ist fällig.</string>
+    <string name="recurring_income_due">Deine wiederkehrende Einnahme ist fällig.</string>
+    <string name="recurring_transfer_due">Deine wiederkehrende Überweisung ist fällig.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">Tag</item>
+        <item quantity="other">Tage</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Alle %d Tage</item>
+        <item quantity="other">Alle %d Tage</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d Tag</item>
+        <item quantity="other">%d Tage</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">Woche</item>
+        <item quantity="other">Wochen</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d Woche</item>
+        <item quantity="other">%d Wochen</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Alle %d Monate</item>
+        <item quantity="other">Alle %d Monate</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">Monat</item>
+        <item quantity="other">Monate</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">Jahr</item>
+        <item quantity="other">Jahre</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Jedes Jahr</item>
+        <item quantity="other">Alle %d Jahre</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">Mal</item>
+        <item quantity="other">Mal</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Für %d Mal</item>
+        <item quantity="other">Für %d Mal</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Alle %d Monate • Letzter Tag</item>
+        <item quantity="other">Alle %d Monate • Letzter Tag</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Alle %d Monate • Tag %d</item>
+        <item quantity="other">Alle %d Monate • Tag %d</item>
+    </plurals>
+</resources>

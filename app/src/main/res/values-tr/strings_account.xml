@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="accounts">Hesaplar</string>
+    <string name="add_account">Hesap Ekle</string>
+    <string name="edit_account">Hesabı Düzenle</string>
+    <string name="account_heading">Bu hesaba ne ad vermek istersiniz?</string>
+    <string name="choose_name">Bu hesabı kolayca tanımanıza yardımcı olacak bir ad seçin.</string>
+    <string name="account_name">Hesap Adı</string>
+    <string name="create_account">Hesap Oluştur</string>
+    <string name="select_account">Hesap seçin</string>
+    <string name="initial_balance">Başlangıç bakiyesini girin</string>
+    <string name="opening_balance_subtext">Bu hesap için açılış bakiyesini ekleyin.</string>
+    <string name="initial_amount">Başlangıç Bakiyesi</string>
+    <string name="initial">Başlangıç</string>
+    <string name="account_balance_format">Bakiye : %1$s</string>
+    <string name="manage_account_desc">Tüm banka hesaplarınızı, kartlarınızı ve diğer hesaplarınızı tek bir yerden yönetin.</string>
+    <string name="your_accounts">Hesaplarınız</string>
+    <string name="all_accounts">Tüm Hesaplar</string>
+    <string name="add_new_account">Yeni Hesap Ekle</string>
+    <string name="add_account_desc">Banka hesabı, kredi kartı veya başka bir hesap ekleyin</string>
+    <string name="archived_accounts">Arşivlenen Hesaplar</string>
+    <string name="archived_accounts_desc">Arşivlenen hesaplarınızı görüntüleyin ve geri yükleyin</string>
+    <string name="account_created">Hesap oluşturuldu</string>
+    <string name="account_updated">Hesap güncellendi</string>
+    <string name="currency_edit_account">Bir hesabı düzenlerken para birimi değiştirilemez.</string>
+    <string name="account_action">Hesap İşlemleri</string>
+    <string name="update_account_detail">Hesap bilgilerini güncelle</string>
+    <string name="use_as_your_default_account">Varsayılan hesabınız olarak kullanın</string>
+    <string name="see_account_detail">Hesap ayrıntılarını görüntüle</string>
+    <string name="hide_from_active_accounts">Etkin hesaplardan gizle</string>
+    <string name="remove_all_wallets_transactions"><![CDATA[Tüm cüzdanları ve işlemleri kaldır]]></string>
+    <string name="delete_wallets_transactions"><![CDATA[Cüzdanları ve İşlemleri Sil]]></string>
+    <string name="remove_account">Hesabı kaldır</string>
+    <string name="account_set_as_default">Hesap varsayılan olarak ayarlandı</string>
+    <string name="archive_account">Hesap arşivlensin mi?</string>
+    <string name="account_archived">Hesap arşivlendi</string>
+    <string name="delete_account_message">Bu işlem hesabı ve tüm cüzdanlarını ve işlemlerini kalıcı olarak silecektir. Bu işlem geri alınamaz.</string>
+    <string name="delete_account">Hesabı Sil</string>
+    <string name="account_deleted">Hesap silindi</string>
+    <string name="error_delete_account">Hesap silinirken hata oluştu</string>
+    <string name="opening_balance_editing_account">Bir hesabı düzenlerken açılış bakiyesi değiştirilemez.</string>
+    <string name="cannot_change_initial_amount">Mevcut işlemler nedeniyle başlangıç tutarı değiştirilemez.</string>
+    <string name="archive_account_message">Bu hesap etkin hesaplarınızdan gizlenecektir. Bakiyeniz ve işlemleriniz korunacaktır.</string>
+    <string name="delete_account_wallets_transactions"><![CDATA[Hesabın cüzdanları ve işlemleri silinsin mi?]]></string>
+    <string name="delete_wallet_account_desc"><![CDATA[Bu hesaptaki tüm cüzdanlar ve işlemler silinecektir. Bu işlem geri alınamaz.]]></string>
+    <string name="error_delete_account_trans">Hesap işlemi silinirken hata oluştu</string>
+    <string name="account_wallets_transactions_deleted"><![CDATA[Hesabın cüzdanları ve işlemleri silindi]]></string>
+    <string name="transactions">İşlemler</string>
+    <string name="view_all_transactions">Tüm işlemleri görüntüle</string>
+    <string name="view_all_recurring_transactions">Tüm düzenli işlemleri görüntüle</string>
+    <string name="recurring_transactions">Düzenli İşlemler</string>
+    <string name="account_details">Hesap Ayrıntıları</string>
+    <string name="archived_account_desc">Bu hesaplar arşivlenmiştir ve etkin hesap listenizde gizlidir. Tüm cüzdan ve işlem verileri korunur ve istediğiniz zaman geri yüklenebilir.</string>
+    <string name="restore_account">Hesap geri yüklensin mi?</string>
+    <string name="account_restore">Hesap geri yüklendi</string>
+    <string name="restore_account_message">Bu hesap etkin hesaplarınıza geri taşınacaktır. Bakiyeniz ve işlemleriniz değişmeden kalacaktır.</string>
+    <string name="restore_your_account">Hesabınızı geri yükleyin</string>
+    <string name="account_transactions">Hesap İşlemleri</string>
+
+    <plurals name="account_count">
+        <item quantity="one">%d hesap</item>
+        <item quantity="other">%d hesap</item>
+    </plurals>
+</resources>

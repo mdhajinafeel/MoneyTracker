@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Sledovat opakované transakce</string>
+    <string name="select_recurring">Vybrat opakování</string>
+    <string name="repeat_on">Opakovat v</string>
+    <string name="select_repeat_on">Vyberte dny opakování</string>
+    <string name="create_transaction">Vytvořit transakci</string>
+    <string name="never_miss_recurring_transaction">Už nikdy nezmeškejte opakovanou transakci</string>
+    <string name="income_recurring">Opakovaný příjem</string>
+    <string name="expense_recurring">Opakovaný výdaj</string>
+    <string name="transfer_recurring">Opakovaný převod</string>
+    <string name="no_repeat">Bez opakování</string>
+    <string name="repeat_option">Možnost opakování</string>
+    <string name="select_days">Vybrat dny</string>
+    <string name="please_select_at_least_one_day">Vyberte prosím alespoň jeden den</string>
+    <string name="times">krát</string>
+    <string name="every">Každý</string>
+    <string name="forever">Navždy</string>
+    <string name="until">Do</string>
+    <string name="text_for">Po dobu</string>
+    <string name="text_every_value">"Každých %1$s • %2$s"</string>
+    <string name="text_every_value1">"Každých %1$s"</string>
+    <string name="same_day_each_month">Stejný den v každém měsíci (%1$d)</string>
+    <string name="end_of_month">Poslední den v měsíci</string>
+    <string name="recurring_transaction_saved">Opakovaná transakce byla uložena</string>
+    <string name="failed_to_save_recurring_transaction">Opakovanou transakci se nepodařilo uložit</string>
+    <string name="no_recurring_yet">Zatím žádné opakované transakce</string>
+    <string name="empty_recurring_hint">Klepnutím na tlačítko + přidáte opakování.</string>
+    <string name="repeat_interval_atleast">Interval opakování musí být alespoň 1</string>
+    <string name="please_select_until_date">Vyberte prosím datum ukončení</string>
+    <string name="please_enter_times">Zadejte prosím počet opakování</string>
+    <string name="please_enter_an_amount">Zadejte prosím částku</string>
+    <string name="please_select_a_wallet">Vyberte prosím peněženku</string>
+    <string name="please_select_a_repeat_frequency">Vyberte prosím frekvenci opakování</string>
+    <string name="until_date_start_date">Datum ukončení musí být pozdější než datum začátku</string>
+    <string name="select_recurring_transaction_end">Vyberte prosím, kdy má opakovaná transakce skončit</string>
+    <string name="every_week_period">Každý %1$s</string>
+    <string name="next_recurring">Další: %1$s</string>
+    <string name="next_recurring_text">Další opakování</string>
+    <string name="recurring_transaction_added">Opakovaná transakce byla přidána</string>
+    <string name="recurring_transactions_added">Opakované transakce byly přidány</string>
+    <string name="a_recurring_expense_was_added">Byl přidán opakovaný výdaj</string>
+    <string name="a_recurring_income_was_added">Byl přidán opakovaný příjem</string>
+    <string name="a_recurring_transaction_was_added">Byla přidána opakovaná transakce</string>
+    <string name="recurring_transactions_were_added">" opakovaných transakcí bylo přidáno"</string>
+    <string name="activate">Aktivovat</string>
+    <string name="text_deactivated">Deaktivováno</string>
+    <string name="deactivate">Deaktivovat</string>
+    <string name="change_recurring_detail">Změnit podrobnosti opakování</string>
+    <string name="resume_this_recurring_transaction">Obnovit tuto transakci</string>
+    <string name="pause_this_recurring_transaction">Pozastavit tuto transakci</string>
+    <string name="permanently_remove_this_recurring_transaction">Trvale odstranit tuto transakci</string>
+    <string name="view_recurring_details">Zobrazit podrobnosti opakování</string>
+    <string name="delete_recurring">Odstranit opakování</string>
+    <string name="delete_recurring_message">Opravdu chcete toto opakování odstranit?</string>
+    <string name="recurring_deleted_successfully">Opakování bylo odstraněno</string>
+    <string name="error_delete_recurring">Při odstraňování opakování došlo k chybě</string>
+    <string name="activate_recurring">Aktivovat opakování</string>
+    <string name="deactivate_recurring">Deaktivovat opakování</string>
+    <string name="delete_activate_message">Opravdu chcete toto opakování aktivovat?</string>
+    <string name="delete_deactivate_message">Opravdu chcete toto opakování deaktivovat?</string>
+    <string name="delete_activate_sub_message">Opakování můžete kdykoli deaktivovat v seznamu aktivních opakování.</string>
+    <string name="delete_deactivate_sub_message">Opakování můžete kdykoli aktivovat v seznamu pozastavených opakování.</string>
+    <string name="deactivated_successfully">Opakování bylo deaktivováno</string>
+    <string name="error_deactivate">Při deaktivaci opakování došlo k chybě</string>
+    <string name="activated_successfully">Opakování bylo aktivováno</string>
+    <string name="error_activate">Při aktivaci opakování došlo k chybě</string>
+    <string name="repeat_time">Čas opakování</string>
+    <string name="recurring_detail">Podrobnosti opakování</string>
+    <string name="until_date">Do %1$s</string>
+    <string name="recurring_transaction_reminder">Připomenutí opakované transakce</string>
+    <string name="recurring_expense_due">Nastal termín vašeho opakovaného výdaje.</string>
+    <string name="recurring_income_due">Nastal termín vašeho opakovaného příjmu.</string>
+    <string name="recurring_transfer_due">Nastal termín vašeho opakovaného převodu.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">den</item>
+        <item quantity="few">dny</item>
+        <item quantity="many">dne</item>
+        <item quantity="other">dne</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Každý %d den</item>
+        <item quantity="few">Každé %d dny</item>
+        <item quantity="many">Každých %d dní</item>
+        <item quantity="other">Každých %d dne</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d den</item>
+        <item quantity="few">%d dny</item>
+        <item quantity="many">%d dní</item>
+        <item quantity="other">%d dne</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">týden</item>
+        <item quantity="few">týdny</item>
+        <item quantity="many">týdnů</item>
+        <item quantity="other">týdne</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d týden</item>
+        <item quantity="few">%d týdny</item>
+        <item quantity="many">%d týdnů</item>
+        <item quantity="other">%d týdne</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Každý %d měsíc</item>
+        <item quantity="few">Každé %d měsíce</item>
+        <item quantity="many">Každých %d měsíců</item>
+        <item quantity="other">Každých %d měsíce</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">měsíc</item>
+        <item quantity="few">měsíce</item>
+        <item quantity="many">měsíců</item>
+        <item quantity="other">měsíce</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">rok</item>
+        <item quantity="few">roky</item>
+        <item quantity="many">let</item>
+        <item quantity="other">roku</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Každý %d rok</item>
+        <item quantity="few">Každé %d roky</item>
+        <item quantity="many">Každých %d let</item>
+        <item quantity="other">Každých %d roku</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">krát</item>
+        <item quantity="few">krát</item>
+        <item quantity="many">krát</item>
+        <item quantity="other">krát</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">Po dobu %d opakování</item>
+        <item quantity="few">Po dobu %d opakování</item>
+        <item quantity="many">Po dobu %d opakování</item>
+        <item quantity="other">Po dobu %d opakování</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Každý %d měsíc • Poslední den</item>
+        <item quantity="few">Každé %d měsíce • Poslední den</item>
+        <item quantity="many">Každých %d měsíců • Poslední den</item>
+        <item quantity="other">Každých %d měsíce • Poslední den</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Každý %d měsíc • Den %d</item>
+        <item quantity="few">Každé %d měsíce • Den %d</item>
+        <item quantity="many">Každých %d měsíců • Den %d</item>
+        <item quantity="other">Každých %d měsíce • Den %d</item>
+    </plurals>
+</resources>

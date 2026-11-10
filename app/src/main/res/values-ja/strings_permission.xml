@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_denied">カメラの権限が拒否されました</string>
+    <string name="camera_permission_required">カメラの権限が必要です</string>
+    <string name="camera_access_required">支出の添付ファイル用に写真を撮影するには、カメラへのアクセスが必要です。</string>
+    <string name="allow">許可</string>
+    <string name="permission_required">権限が必要です</string>
+    <string name="camera_permission_disabled">カメラの権限が無効になっています。アプリの設定から有効にしてください。</string>
+    <string name="open_settings">設定を開く</string>
+    <string name="cancel_subscription_desc">Google Playからいつでもサブスクリプションを解約できます</string>
+</resources>

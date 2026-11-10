@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="income">درآمد</string>
+    <string name="total_income">کل درآمد</string>
+    <string name="expense">هزینه</string>
+    <string name="total_expense">کل هزینه‌ها</string>
+    <string name="transfer">انتقال</string>
+    <string name="recurring">تکرارشونده</string>
+    <string name="trans_delete_failed">حذف تراکنش ناموفق بود</string>
+    <string name="fee">کارمزد</string>
+    <string name="memo">یادداشت</string>
+    <string name="notes">یادداشت‌ها</string>
+    <string name="add_note">افزودن یادداشت…</string>
+    <string name="description">توضیحات</string>
+    <string name="short_description">توضیحات کوتاه</string>
+    <string name="enter_amount">مبلغ را وارد کنید</string>
+    <string name="cash_wallet">کیف پول نقدی</string>
+    <string name="cash">نقد</string>
+    <string name="enter_the_amount">مبلغ را وارد کنید</string>
+    <string name="date">تاریخ</string>
+    <string name="select_date">انتخاب تاریخ</string>
+    <string name="amount">مبلغ</string>
+    <string name="add_record">برای افزودن اولین تراکنش خود، روی دکمه + بزنید.</string>
+    <string name="type">نوع</string>
+    <string name="view_all">مشاهده همه</string>
+    <string name="delete_transaction">حذف تراکنش</string>
+    <string name="total">مجموع</string>
+    <string name="all_transaction">همه تراکنش‌ها</string>
+    <string name="no_transaction">هنوز تراکنشی ثبت نشده است</string>
+    <string name="start_date">تاریخ شروع</string>
+    <string name="end_date">تاریخ پایان</string>
+    <string name="date_amp_time"><![CDATA[تاریخ و زمان]]></string>
+    <string name="future">آینده</string>
+    <string name="add_files">افزودن عکس یا فایل (حداکثر ۵ فایل)</string>
+    <string name="attachment_title">پیوست‌ها (%1$d/5)</string>
+    <string name="tap_add_attach">برای افزودن پیوست لمس کنید</string>
+    <string name="attachment_extension">تصاویر، PDF، اسناد، Excel، Zip و غیره</string>
+    <string name="add_more">افزودن موارد بیشتر</string>
+    <string name="unable_to_open_attachment">باز کردن پیوست امکان‌پذیر نیست</string>
+    <string name="wallet_currency">%1$s (%2$s)</string>
+    <string name="amount_from_wallet">مبلغ (از کیف پول)</string>
+    <string name="fee_from_wallet">کارمزد (از کیف پول)</string>
+    <string name="received_from_wallet">مبلغ دریافتی (به کیف پول)</string>
+    <string name="transaction_action">عملیات تراکنش</string>
+    <string name="from_to_wallet_name">%1$s \u2192 %2$s</string>
+    <string name="see_detail">مشاهده جزئیات تراکنش</string>
+    <string name="change_detail">تغییر جزئیات تراکنش</string>
+    <string name="duplicate_copy">ایجاد یک نسخه کپی</string>
+    <string name="remove_transaction">حذف تراکنش</string>
+    <string name="duplicate">تکثیر</string>
+    <string name="duplicate_transaction">تکثیر تراکنش</string>
+    <string name="duplicate_transaction_desc">آیا می‌خواهید یک نسخه از این تراکنش ایجاد کنید؟</string>
+    <string name="transaction_duplicated">تراکنش تکثیر شد</string>
+    <string name="transaction_deleted">تراکنش حذف شد</string>
+    <string name="unable_to_save">ذخیره‌سازی امکان‌پذیر نیست</string>
+
+    <plurals name="transaction_count">
+        <item quantity="one">%d تراکنش</item>
+        <item quantity="other">%d تراکنش</item>
+    </plurals>
+
+    <plurals name="attachments_count">
+        <item quantity="one">پیوست (%d)</item>
+        <item quantity="other">پیوست‌ها (%d)</item>
+    </plurals>
+</resources>

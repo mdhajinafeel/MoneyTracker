@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Deine Finanzen im Griff</string>
+    <string name="walkthrough_1_desc">Erfasse jede Ausgabe, behalte dein Budget im Blick und verstehe, wofür du dein Geld ausgibst.</string>
+    <string name="walkthrough_2_title">Alle Wallets verwalten</string>
+    <string name="walkthrough_2_desc">Verwalte Bargeld, Bankkonten, Karten und digitale Wallets gemeinsam an einem sicheren Ort.</string>
+    <string name="walkthrough_3_title">Ausgaben sofort erfassen</string>
+    <string name="walkthrough_3_desc">Füge Transaktionen mit Kategorien, Notizen und Anhängen mit nur wenigen Fingertipps hinzu.</string>
+    <string name="walkthrough_4_title"><![CDATA[Intelligente Berichte & Analysen]]></string>
+    <string name="walkthrough_4_desc">Visualisiere deine Ausgaben mit aussagekräftigen Diagrammen und persönlichen Finanzanalysen.</string>
+    <string name="walkthrough_5_title">Mit Erinnerungen alles im Blick</string>
+    <string name="walkthrough_5_desc">Behalte Rechnungen, Abonnements und wiederkehrende Zahlungen mit intelligenten Erinnerungen im Blick.</string>
+    <string name="walkthrough_6_title">Erreiche deine finanziellen Ziele</string>
+    <string name="walkthrough_6_desc">Entwickle bessere Finanzgewohnheiten, spare mehr und gewinne jeden Tag mehr Sicherheit im Umgang mit deinem Geld.</string>
+</resources>

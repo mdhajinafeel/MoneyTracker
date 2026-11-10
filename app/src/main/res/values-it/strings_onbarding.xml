@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">Padroneggia le tue finanze</string>
+    <string name="walkthrough_1_desc">Monitora ogni spesa, tieni sotto controllo il budget e scopri dove finiscono i tuoi soldi.</string>
+    <string name="walkthrough_2_title">Gestisci tutti i tuoi portafogli</string>
+    <string name="walkthrough_2_desc">Gestisci contanti, conti bancari, carte e portafogli digitali in un unico luogo sicuro.</string>
+    <string name="walkthrough_3_title">Registra subito le spese</string>
+    <string name="walkthrough_3_desc">Aggiungi transazioni con categorie, note e allegati in pochi tocchi.</string>
+    <string name="walkthrough_4_title"><![CDATA[Report e analisi intelligenti]]></string>
+    <string name="walkthrough_4_desc">Visualizza le tue spese con grafici dettagliati e approfondimenti finanziari personalizzati.</string>
+    <string name="walkthrough_5_title">Non perdere mai una scadenza</string>
+    <string name="walkthrough_5_desc">Tieni sotto controllo bollette, abbonamenti e pagamenti ricorrenti con promemoria intelligenti.</string>
+    <string name="walkthrough_6_title">Raggiungi i tuoi obiettivi finanziari</string>
+    <string name="walkthrough_6_desc">Sviluppa abitudini finanziarie migliori, risparmia di più e rafforza ogni giorno la tua sicurezza nella gestione del denaro.</string>
+</resources>

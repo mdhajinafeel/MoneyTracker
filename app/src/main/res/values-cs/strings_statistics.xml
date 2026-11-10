@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Filter -->
+    <string name="calendar_daily">Denně</string>
+    <string name="calendar_weekly">Týdně</string>
+    <string name="calendar_monthly">Měsíčně</string>
+    <string name="calendar_quarterly">Čtvrtletně</string>
+    <string name="calendar_yearly">Ročně</string>
+    <string name="calendar_all">Vše</string>
+    <string name="calendar_custom">Vlastní</string>
+
+    <string name="total_balance">Celkový zůstatek</string>
+    <string name="balance">Zůstatek</string>
+    <string name="opening_balance">Počáteční zůstatek</string>
+    <string name="ending_balance">Konečný zůstatek</string>
+    <string name="overview">Přehled</string>
+    <string name="breakdown">Rozpis</string>
+    <string name="transaction_overview">Přehled transakcí</string>
+    <string name="select_range">Vybrat období</string>
+    <string name="all_time">Celé období</string>
+    <string name="period_spending">Výdaje za období</string>
+</resources>

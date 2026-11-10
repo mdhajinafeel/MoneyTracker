@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">حسابی با این آدرس ایمیل از قبل وجود دارد.</string>
+    <string name="error_check_details">لطفاً اطلاعات خود را بررسی و دوباره تلاش کنید.</string>
+    <string name="error_too_many_attempts">تعداد تلاش‌ها بیش از حد مجاز است. لطفاً بعداً دوباره تلاش کنید.</string>
+    <string name="error_account_creation_failed">ایجاد حساب ناموفق بود. لطفاً دوباره تلاش کنید.</string>
+    <string name="error_network_connection">اتصال برقرار نشد. اتصال اینترنت خود را بررسی و دوباره تلاش کنید.</string>
+    <string name="check_internet_connection">اتصال برقرار نشد. اتصال اینترنت خود را بررسی و دوباره تلاش کنید.</string>
+</resources>

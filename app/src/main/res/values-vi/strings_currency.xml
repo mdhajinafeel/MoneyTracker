@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="currency">Tiền tệ</string>
+    <string name="choose_currency">Chọn đơn vị tiền tệ</string>
+    <string name="select_currency_subtext">Chọn đơn vị tiền tệ cho tài khoản này.</string>
+    <string name="select_the_currency">Chọn đơn vị tiền tệ</string>
+    <string name="search_currency">Tìm kiếm tiền tệ</string>
+    <string name="select_currency">Chọn tiền tệ</string>
+    <string name="add_currency">Thêm tiền tệ</string>
+    <string name="edit_currency">Chỉnh sửa tiền tệ</string>
+    <string name="currency_display">%1$s (%2$s)</string>
+    <string name="rate">Tỷ giá</string>
+    <string name="exchange_rate_format">%1$s %2$s = %3$s %4$s</string>
+    <string name="no_currency">Không có loại tiền tệ bổ sung</string>
+    <string name="empty_currency_hint">Nhấn nút + để thêm tiền tệ.</string>
+    <string name="delete_currency">Xóa tiền tệ</string>
+    <string name="delete_message_currency">Bạn có chắc chắn muốn xóa loại tiền tệ này không?</string>
+    <string name="message_currency">Các ví đang sử dụng loại tiền tệ này sẽ được chuyển sang tiền tệ cơ sở.</string>
+    <string name="currency_has_been_removed_successfully">Đã xóa tiền tệ</string>
+    <string name="base_currency">Tiền tệ cơ sở</string>
+    <string name="additional_currency">Các loại tiền tệ bổ sung</string>
+    <string name="currency_subtext">Chọn loại tiền tệ bạn muốn sử dụng</string>
+    <string name="enter_the_rate">Nhập tỷ giá</string>
+    <string name="default_base_currency">Đây là loại tiền tệ mặc định/tiền tệ cơ sở của bạn</string>
+    <string name="exchange_currency_hint">Tỷ giá được tính dựa trên tiền tệ cơ sở (%1$s) của bạn.\nBạn có thể cập nhật tỷ giá cho từng loại tiền tệ.</string>
+</resources>

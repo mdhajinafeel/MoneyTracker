@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Düzenli işlemlerinizi takip edin</string>
+    <string name="select_recurring">Düzenli işlemi seçin</string>
+    <string name="repeat_on">Tekrarlama Günü</string>
+    <string name="select_repeat_on">Tekrarlama gününü seçin</string>
+    <string name="create_transaction">İşlem oluştur</string>
+    <string name="never_miss_recurring_transaction">Düzenli işlemlerinizi asla kaçırmayın</string>
+    <string name="income_recurring">Düzenli Gelir</string>
+    <string name="expense_recurring">Düzenli Gider</string>
+    <string name="transfer_recurring">Düzenli Transfer</string>
+    <string name="no_repeat">Tekrarlama yok</string>
+    <string name="repeat_option">Tekrarlama seçeneği</string>
+    <string name="select_days">Günleri seçin</string>
+    <string name="please_select_at_least_one_day">Lütfen en az bir gün seçin</string>
+    <string name="times">kez</string>
+    <string name="every">Her</string>
+    <string name="forever">Süresiz</string>
+    <string name="until">Şu tarihe kadar</string>
+    <string name="text_for">Boyunca</string>
+    <string name="text_every_value">"Her %1$s • %2$s"</string>
+    <string name="text_every_value1">"Her %1$s"</string>
+    <string name="same_day_each_month">Her ayın aynı günü (%1$d)</string>
+    <string name="end_of_month">Ayın son günü</string>
+    <string name="recurring_transaction_saved">Düzenli işlem kaydedildi</string>
+    <string name="failed_to_save_recurring_transaction">Düzenli işlem kaydedilemedi</string>
+    <string name="no_recurring_yet">Henüz düzenli işlem yok</string>
+    <string name="empty_recurring_hint">Düzenli işlem eklemek için + düğmesine dokunun.</string>
+    <string name="repeat_interval_atleast">Tekrarlama aralığı en az 1 olmalıdır</string>
+    <string name="please_select_until_date">Lütfen bitiş tarihini seçin</string>
+    <string name="please_enter_times">Lütfen tekrar sayısını girin</string>
+    <string name="please_enter_an_amount">Lütfen bir tutar girin</string>
+    <string name="please_select_a_wallet">Lütfen bir cüzdan seçin</string>
+    <string name="please_select_a_repeat_frequency">Lütfen tekrarlama sıklığını seçin</string>
+    <string name="until_date_start_date">Bitiş tarihi, başlangıç tarihinden sonra olmalıdır</string>
+    <string name="select_recurring_transaction_end">Lütfen düzenli işlemin ne zaman sona ereceğini seçin</string>
+    <string name="every_week_period">Her %1$s</string>
+    <string name="next_recurring">Sonraki: %1$s</string>
+    <string name="next_recurring_text">Sonraki Düzenli İşlem</string>
+    <string name="recurring_transaction_added">Düzenli işlem eklendi</string>
+    <string name="recurring_transactions_added">Düzenli işlemler eklendi</string>
+    <string name="a_recurring_expense_was_added">Düzenli bir gider eklendi</string>
+    <string name="a_recurring_income_was_added">Düzenli bir gelir eklendi</string>
+    <string name="a_recurring_transaction_was_added">Düzenli bir işlem eklendi</string>
+    <string name="recurring_transactions_were_added">" düzenli işlem eklendi"</string>
+    <string name="activate">Etkinleştir</string>
+    <string name="text_deactivated">Devre Dışı</string>
+    <string name="deactivate">Devre Dışı Bırak</string>
+    <string name="change_recurring_detail">Düzenli işlem ayrıntısını değiştir</string>
+    <string name="resume_this_recurring_transaction">Bu işlemi sürdür</string>
+    <string name="pause_this_recurring_transaction">Bu işlemi duraklat</string>
+    <string name="permanently_remove_this_recurring_transaction">Bu işlemi kalıcı olarak kaldır</string>
+    <string name="view_recurring_details">Düzenli işlem ayrıntılarını görüntüle</string>
+    <string name="delete_recurring">Düzenli İşlemi Sil</string>
+    <string name="delete_recurring_message">Bu düzenli işlemi silmek istediğinizden emin misiniz?</string>
+    <string name="recurring_deleted_successfully">Düzenli işlem silindi</string>
+    <string name="error_delete_recurring">Düzenli işlem silinirken hata oluştu</string>
+    <string name="activate_recurring">Düzenli İşlemi Etkinleştir</string>
+    <string name="deactivate_recurring">Düzenli İşlemi Devre Dışı Bırak</string>
+    <string name="delete_activate_message">Bu düzenli işlemi etkinleştirmek istediğinizden emin misiniz?</string>
+    <string name="delete_deactivate_message">Bu düzenli işlemi devre dışı bırakmak istediğinizden emin misiniz?</string>
+    <string name="delete_activate_sub_message">İstediğiniz zaman devam eden düzenli işlemler bölümünden devre dışı bırakabilirsiniz.</string>
+    <string name="delete_deactivate_sub_message">İstediğiniz zaman duraklatılmış düzenli işlemler bölümünden etkinleştirebilirsiniz.</string>
+    <string name="deactivated_successfully">Düzenli işlem devre dışı bırakıldı</string>
+    <string name="error_deactivate">Düzenli işlem devre dışı bırakılırken hata oluştu</string>
+    <string name="activated_successfully">Düzenli işlem etkinleştirildi</string>
+    <string name="error_activate">Düzenli işlem etkinleştirilirken hata oluştu</string>
+    <string name="repeat_time">Tekrarlama Zamanı</string>
+    <string name="recurring_detail">Düzenli İşlem Ayrıntısı</string>
+    <string name="until_date">%1$s tarihine kadar</string>
+    <string name="recurring_transaction_reminder">Düzenli İşlem Hatırlatıcısı</string>
+    <string name="recurring_expense_due">Düzenli giderinizin zamanı geldi.</string>
+    <string name="recurring_income_due">Düzenli gelirinizin zamanı geldi.</string>
+    <string name="recurring_transfer_due">Düzenli transferinizin zamanı geldi.</string>
+
+    <plurals name="day_period">
+        <item quantity="one">gün</item>
+        <item quantity="other">gün</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="one">Her %d günde</item>
+        <item quantity="other">Her %d günde</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="one">%d gün</item>
+        <item quantity="other">%d gün</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="one">hafta</item>
+        <item quantity="other">hafta</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="one">%d hafta</item>
+        <item quantity="other">%d hafta</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="one">Her %d ayda</item>
+        <item quantity="other">Her %d ayda</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="one">ay</item>
+        <item quantity="other">ay</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="one">yıl</item>
+        <item quantity="other">yıl</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="one">Her %d yılda</item>
+        <item quantity="other">Her %d yılda</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="one">kez</item>
+        <item quantity="other">kez</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="one">%d kez boyunca</item>
+        <item quantity="other">%d kez boyunca</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="one">Her %d ayda • Son gün</item>
+        <item quantity="other">Her %d ayda • Son gün</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="one">Her %d ayda • %d. gün</item>
+        <item quantity="other">Her %d ayda • %d. gün</item>
+    </plurals>
+</resources>

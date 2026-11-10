@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_account_already_exists">此電子郵件地址已經有帳戶。</string>
+    <string name="error_check_details">請檢查您的資料後再試一次。</string>
+    <string name="error_too_many_attempts">嘗試次數過多。請稍後再試。</string>
+    <string name="error_account_creation_failed">建立帳戶失敗。請再試一次。</string>
+    <string name="error_network_connection">無法連線。請檢查網路連線後再試一次。</string>
+    <string name="check_internet_connection">無法連線。請檢查網路連線後再試一次。</string>
+</resources>

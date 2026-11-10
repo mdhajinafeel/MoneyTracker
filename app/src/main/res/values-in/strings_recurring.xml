@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">Lacak transaksi berulang</string>
+    <string name="select_recurring">Pilih transaksi berulang</string>
+    <string name="repeat_on">Ulangi Pada</string>
+    <string name="select_repeat_on">Pilih hari pengulangan</string>
+    <string name="create_transaction">Buat transaksi</string>
+    <string name="never_miss_recurring_transaction">Jangan pernah melewatkan transaksi berulang</string>
+    <string name="income_recurring">Pemasukan Berulang</string>
+    <string name="expense_recurring">Pengeluaran Berulang</string>
+    <string name="transfer_recurring">Transfer Berulang</string>
+    <string name="no_repeat">Tidak berulang</string>
+    <string name="repeat_option">Opsi pengulangan</string>
+    <string name="select_days">Pilih hari</string>
+    <string name="please_select_at_least_one_day">Pilih setidaknya satu hari</string>
+    <string name="times">kali</string>
+    <string name="every">Setiap</string>
+    <string name="forever">Selamanya</string>
+    <string name="until">Sampai</string>
+    <string name="text_for">Selama</string>
+    <string name="text_every_value">"Setiap %1$s • %2$s"</string>
+    <string name="text_every_value1">"Setiap %1$s"</string>
+    <string name="same_day_each_month">Hari yang sama setiap bulan (%1$d)</string>
+    <string name="end_of_month">Akhir bulan</string>
+    <string name="recurring_transaction_saved">Transaksi berulang berhasil disimpan</string>
+    <string name="failed_to_save_recurring_transaction">Gagal menyimpan transaksi berulang</string>
+    <string name="no_recurring_yet">Belum ada transaksi berulang</string>
+    <string name="empty_recurring_hint">Ketuk tombol + untuk menambahkan transaksi berulang.</string>
+    <string name="repeat_interval_atleast">Interval pengulangan minimal harus 1</string>
+    <string name="please_select_until_date">Pilih tanggal akhir</string>
+    <string name="please_enter_times">Masukkan jumlah pengulangan</string>
+    <string name="please_enter_an_amount">Masukkan jumlah</string>
+    <string name="please_select_a_wallet">Pilih dompet</string>
+    <string name="please_select_a_repeat_frequency">Pilih frekuensi pengulangan</string>
+    <string name="until_date_start_date">Tanggal akhir harus setelah tanggal mulai</string>
+    <string name="select_recurring_transaction_end">Pilih kapan transaksi berulang harus berakhir</string>
+    <string name="every_week_period">Setiap %1$s</string>
+    <string name="next_recurring">Berikutnya: %1$s</string>
+    <string name="next_recurring_text">Pengulangan Berikutnya</string>
+    <string name="recurring_transaction_added">Transaksi berulang berhasil ditambahkan</string>
+    <string name="recurring_transactions_added">Transaksi berulang berhasil ditambahkan</string>
+    <string name="a_recurring_expense_was_added">Pengeluaran berulang telah ditambahkan</string>
+    <string name="a_recurring_income_was_added">Pemasukan berulang telah ditambahkan</string>
+    <string name="a_recurring_transaction_was_added">Transaksi berulang telah ditambahkan</string>
+    <string name="recurring_transactions_were_added">" transaksi berulang telah ditambahkan"</string>
+    <string name="activate">Aktifkan</string>
+    <string name="text_deactivated">Dinonaktifkan</string>
+    <string name="deactivate">Nonaktifkan</string>
+    <string name="change_recurring_detail">Ubah detail transaksi berulang</string>
+    <string name="resume_this_recurring_transaction">Lanjutkan transaksi ini</string>
+    <string name="pause_this_recurring_transaction">Jeda transaksi ini</string>
+    <string name="permanently_remove_this_recurring_transaction">Hapus transaksi ini secara permanen</string>
+    <string name="view_recurring_details">Lihat detail transaksi berulang</string>
+    <string name="delete_recurring">Hapus transaksi berulang</string>
+    <string name="delete_recurring_message">Apakah Anda yakin ingin menghapus transaksi berulang ini?</string>
+    <string name="recurring_deleted_successfully">Transaksi berulang berhasil dihapus</string>
+    <string name="error_delete_recurring">Terjadi kesalahan saat menghapus transaksi berulang</string>
+    <string name="activate_recurring">Aktifkan Transaksi Berulang</string>
+    <string name="deactivate_recurring">Nonaktifkan Transaksi Berulang</string>
+    <string name="delete_activate_message">Apakah Anda yakin ingin mengaktifkan transaksi berulang ini?</string>
+    <string name="delete_deactivate_message">Apakah Anda yakin ingin menonaktifkan transaksi berulang ini?</string>
+    <string name="delete_activate_sub_message">Anda dapat menonaktifkannya kapan saja dari daftar transaksi berulang yang aktif.</string>
+    <string name="delete_deactivate_sub_message">Anda dapat mengaktifkannya kapan saja dari daftar transaksi berulang yang dijeda.</string>
+    <string name="deactivated_successfully">Transaksi berulang berhasil dinonaktifkan</string>
+    <string name="error_deactivate">Terjadi kesalahan saat menonaktifkan transaksi berulang</string>
+    <string name="activated_successfully">Transaksi berulang berhasil diaktifkan</string>
+    <string name="error_activate">Terjadi kesalahan saat mengaktifkan transaksi berulang</string>
+    <string name="repeat_time">Waktu Pengulangan</string>
+    <string name="recurring_detail">Detail Transaksi Berulang</string>
+    <string name="until_date">Sampai %1$s</string>
+    <string name="recurring_transaction_reminder">Pengingat Transaksi Berulang</string>
+    <string name="recurring_expense_due">Pengeluaran berulang Anda sudah jatuh tempo.</string>
+    <string name="recurring_income_due">Pemasukan berulang Anda sudah jatuh tempo.</string>
+    <string name="recurring_transfer_due">Transfer berulang Anda sudah jatuh tempo.</string>
+
+    <plurals name="day_period">
+        <item quantity="other">hari</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="other">Setiap %d hari</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="other">%d hari</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="other">minggu</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="other">%d minggu</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="other">Setiap %d bulan</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="other">bulan</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="other">tahun</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="other">Setiap %d tahun</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="other">kali</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="other">Selama %d kali</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="other">Setiap %d bulan • Hari terakhir</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="other">Setiap %d bulan • Hari ke-%d</item>
+    </plurals>
+</resources>

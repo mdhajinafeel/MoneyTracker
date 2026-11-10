@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="walkthrough_1_title">നിങ്ങളുടെ പണം, നിങ്ങളുടെ നിയന്ത്രണത്തിൽ</string>
+    <string name="walkthrough_1_desc">ഓരോ ചെലവും രേഖപ്പെടുത്തുക, നിങ്ങളുടെ ബജറ്റ് നിരീക്ഷിക്കുക, പണം എവിടെയാണ് ചെലവാകുന്നതെന്ന് മനസ്സിലാക്കുക.</string>
+    <string name="walkthrough_2_title">എല്ലാ വാലറ്റുകളും നിയന്ത്രിക്കുക</string>
+    <string name="walkthrough_2_desc">പണം, ബാങ്ക് അക്കൗണ്ടുകൾ, കാർഡുകൾ, ഡിജിറ്റൽ വാലറ്റുകൾ എന്നിവയെല്ലാം ഒരിടത്ത് സുരക്ഷിതമായി സൂക്ഷിക്കുക.</string>
+    <string name="walkthrough_3_title">ചെലവുകൾ ഉടൻ രേഖപ്പെടുത്തുക</string>
+    <string name="walkthrough_3_desc">ഏതാനും ടാപ്പുകളിലൂടെ വിഭാഗങ്ങൾ, കുറിപ്പുകൾ, അറ്റാച്ച്മെന്റുകൾ എന്നിവയോടെ ഇടപാടുകൾ ചേർക്കുക.</string>
+    <string name="walkthrough_4_title"><![CDATA[സ്മാർട്ട് റിപ്പോർട്ടുകളും അനലിറ്റിക്സും]]></string>
+    <string name="walkthrough_4_desc">ശക്തമായ ചാർട്ടുകളും വ്യക്തിഗത സാമ്പത്തിക ഉൾക്കാഴ്ചകളും ഉപയോഗിച്ച് നിങ്ങളുടെ ചെലവുകൾ മനസ്സിലാക്കുക.</string>
+    <string name="walkthrough_5_title">ഓർമ്മപ്പെടുത്തലുകളിലൂടെ മുന്നിൽ നിൽക്കുക</string>
+    <string name="walkthrough_5_desc">സ്മാർട്ട് ഓർമ്മപ്പെടുത്തലുകളിലൂടെ ബില്ലുകൾ, സബ്സ്ക്രിപ്ഷനുകൾ, ആവർത്തിച്ചുള്ള പണമടയ്ക്കലുകൾ എന്നിവ കൃത്യസമയത്ത് കൈകാര്യം ചെയ്യുക.</string>
+    <string name="walkthrough_6_title">നിങ്ങളുടെ സാമ്പത്തിക ലക്ഷ്യങ്ങൾ നേടുക</string>
+    <string name="walkthrough_6_desc">മികച്ച സാമ്പത്തിക ശീലങ്ങൾ വളർത്തുക, കൂടുതൽ സമ്പാദിക്കുക, എല്ലാ ദിവസവും നിങ്ങളുടെ സാമ്പത്തിക ആത്മവിശ്വാസം വർധിപ്പിക്കുക.</string>
+</resources>

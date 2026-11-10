@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_recurring_transactions">定期取引を管理</string>
+    <string name="select_recurring">定期設定を選択</string>
+    <string name="repeat_on">繰り返す曜日</string>
+    <string name="select_repeat_on">繰り返す曜日を選択</string>
+    <string name="create_transaction">取引を作成</string>
+    <string name="never_miss_recurring_transaction">定期取引を忘れずに管理</string>
+    <string name="income_recurring">定期収入</string>
+    <string name="expense_recurring">定期支出</string>
+    <string name="transfer_recurring">定期振替</string>
+    <string name="no_repeat">繰り返しなし</string>
+    <string name="repeat_option">繰り返し設定</string>
+    <string name="select_days">曜日を選択</string>
+    <string name="please_select_at_least_one_day">少なくとも1つの曜日を選択してください</string>
+    <string name="times">回</string>
+    <string name="every">毎</string>
+    <string name="forever">無期限</string>
+    <string name="until">終了日</string>
+    <string name="text_for">期間</string>
+    <string name="text_every_value">"%1$sごと • %2$s"</string>
+    <string name="text_every_value1">"%1$sごと"</string>
+    <string name="same_day_each_month">毎月同じ日（%1$d日）</string>
+    <string name="end_of_month">月末</string>
+    <string name="recurring_transaction_saved">定期取引を保存しました</string>
+    <string name="failed_to_save_recurring_transaction">定期取引の保存に失敗しました</string>
+    <string name="no_recurring_yet">定期取引はまだありません</string>
+    <string name="empty_recurring_hint">＋ボタンをタップして定期取引を追加してください。</string>
+    <string name="repeat_interval_atleast">繰り返し間隔は1以上にしてください</string>
+    <string name="please_select_until_date">終了日を選択してください</string>
+    <string name="please_enter_times">繰り返し回数を入力してください</string>
+    <string name="please_enter_an_amount">金額を入力してください</string>
+    <string name="please_select_a_wallet">ウォレットを選択してください</string>
+    <string name="please_select_a_repeat_frequency">繰り返し頻度を選択してください</string>
+    <string name="until_date_start_date">終了日は開始日より後の日付にしてください</string>
+    <string name="select_recurring_transaction_end">定期取引の終了条件を選択してください</string>
+    <string name="every_week_period">%1$sごと</string>
+    <string name="next_recurring">次回: %1$s</string>
+    <string name="next_recurring_text">次回の定期取引</string>
+    <string name="recurring_transaction_added">定期取引を追加しました</string>
+    <string name="recurring_transactions_added">定期取引を追加しました</string>
+    <string name="a_recurring_expense_was_added">定期支出を追加しました</string>
+    <string name="a_recurring_income_was_added">定期収入を追加しました</string>
+    <string name="a_recurring_transaction_was_added">定期取引を追加しました</string>
+    <string name="recurring_transactions_were_added">"件の定期取引を追加しました"</string>
+    <string name="activate">有効にする</string>
+    <string name="text_deactivated">無効</string>
+    <string name="deactivate">無効にする</string>
+    <string name="change_recurring_detail">定期設定を変更</string>
+    <string name="resume_this_recurring_transaction">この取引を再開</string>
+    <string name="pause_this_recurring_transaction">この取引を一時停止</string>
+    <string name="permanently_remove_this_recurring_transaction">この取引を完全に削除</string>
+    <string name="view_recurring_details">定期取引の詳細を表示</string>
+    <string name="delete_recurring">定期取引を削除</string>
+    <string name="delete_recurring_message">この定期取引を削除してもよろしいですか？</string>
+    <string name="recurring_deleted_successfully">定期取引を削除しました</string>
+    <string name="error_delete_recurring">定期取引の削除中にエラーが発生しました</string>
+    <string name="activate_recurring">定期取引を有効化</string>
+    <string name="deactivate_recurring">定期取引を無効化</string>
+    <string name="delete_activate_message">この定期取引を有効にしてもよろしいですか？</string>
+    <string name="delete_deactivate_message">この定期取引を無効にしてもよろしいですか？</string>
+    <string name="delete_activate_sub_message">進行中の定期取引から、いつでも無効にできます。</string>
+    <string name="delete_deactivate_sub_message">一時停止中の定期取引から、いつでも有効にできます。</string>
+    <string name="deactivated_successfully">定期取引を無効にしました</string>
+    <string name="error_deactivate">定期取引の無効化中にエラーが発生しました</string>
+    <string name="activated_successfully">定期取引を有効にしました</string>
+    <string name="error_activate">定期取引の有効化中にエラーが発生しました</string>
+    <string name="repeat_time">繰り返し回数</string>
+    <string name="recurring_detail">定期取引の詳細</string>
+    <string name="until_date">%1$sまで</string>
+    <string name="recurring_transaction_reminder">定期取引のリマインダー</string>
+    <string name="recurring_expense_due">定期支出の支払日です。</string>
+    <string name="recurring_income_due">定期収入の予定日です。</string>
+    <string name="recurring_transfer_due">定期振替の予定日です。</string>
+
+    <plurals name="day_period">
+        <item quantity="other">日</item>
+    </plurals>
+
+    <plurals name="every_day_period">
+        <item quantity="other">%d日ごと</item>
+    </plurals>
+
+    <plurals name="day_period_value">
+        <item quantity="other">%d日</item>
+    </plurals>
+
+    <plurals name="weeks_period">
+        <item quantity="other">週間</item>
+    </plurals>
+
+    <plurals name="weeks_period_value">
+        <item quantity="other">%d週間</item>
+    </plurals>
+
+    <plurals name="every_month_period">
+        <item quantity="other">%dか月ごと</item>
+    </plurals>
+
+    <plurals name="months_period">
+        <item quantity="other">か月</item>
+    </plurals>
+
+    <plurals name="years_period">
+        <item quantity="other">年</item>
+    </plurals>
+
+    <plurals name="every_year_period">
+        <item quantity="other">%d年ごと</item>
+    </plurals>
+
+    <plurals name="times_period">
+        <item quantity="other">回</item>
+    </plurals>
+
+    <plurals name="for_times_period">
+        <item quantity="other">%d回</item>
+    </plurals>
+
+    <plurals name="every_months_last_day">
+        <item quantity="other">%dか月ごと • 月末</item>
+    </plurals>
+
+    <plurals name="every_months_day">
+        <item quantity="other">%dか月ごと • %d日</item>
+    </plurals>
+</resources>
